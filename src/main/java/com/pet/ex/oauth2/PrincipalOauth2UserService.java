@@ -40,13 +40,19 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
 			if (provider.equals("google")) {
 				member.getLogintypeVO().setLogintype_id(4);
 			}
-
+			
+			System.out.println("구글 로그인 이 최초입니다.");
+			
 			member.setMember_id(member_id);
 			member.setUsername(member_id);
 			member.setPassword(password);
 			member.getRoleVO().setRole_id(1);
 			loginMapper.insertMember(member);
+			
 		} else {
+			System.out.println("구글 아이디가 있습니다.");
+			member.setAttributes(oauth2User.getAttributes());
+			
 		}
 
 		return member;
