@@ -39,6 +39,14 @@
 <style>
 .tab-item {
    width: 1000;
+   
+	a{
+
+cursor:pointer;
+
+}
+   
+   
 }
 
 
@@ -52,10 +60,31 @@
     <script src="/resources/sidemenu/bootstrap/js/bootstrap.min.js"></script>
     <script src="/resources/sidemenu/js/custom.js"></script>
 
+   <!--                 <script>
+
+	function callContent(){
+	  //호출할 url
+    var url = "/category/bigcategory/${category[0].category_id}";
+      
+    $.ajax({
+        type:"POST",
+        url:url,
+        dataType : "html",
+           success: function(html){
+            $(".ajax_inform").html(html);
+              
+        },
+        error: function(xhr, status, error) {
+            alert(error);
+        }  
+    });
+}
+		</script> -->
+
 
 </head>
 <body>
-
+   <div class="ajax_inform">
 
 
 
@@ -68,21 +97,30 @@
    <!-- Product Shop Section Begin -->
 
    <section class="product-shop spad page-details">
+
    <div class="container">
+
+   
+   
       <div class="row">
          <div class="col-lg-3">
             <div class="filter-widget">
                      </div>
- 
+  <h3>카테고리</h3> 
  <br><br>
  <!-- 카테고리 부트스트랩 start -->
-  
+
            <div class="sidebar" style="display: block;" >
                 <ul class="nav">
-                   <li class="submenu">
-                      
+                   <li class="submenu" >
+                   
+                   
+
+                     
                       <!-- 고양이 -->
-                       <a href="#">
+                   <!--     <a href="javascript:void(0);" onclick="callContent();" > -->
+                 <a  onclick ="location.href='/category/bigcategory/${category[0].category_id}'">
+                       
                           <i class="fas fa-cat"></i>${category[0].categoryname}<span class="caret pull-right"></span>
                        </a>
                        <!-- Sub menu -->
@@ -102,7 +140,7 @@
                   <!-- 강아지 -->
                    <ul class="nav">
                    <li class="submenu">
-                  <a href="#">
+                  <a  onclick ="location.href='/category/bigcategory/${category[1].category_id}'">
                      <i class="fas fa-dog"></i>${category[1].categoryname}<span class="caret pull-right"></span>
                         </a>
                         <!-- Sub menu -->
@@ -121,7 +159,7 @@
                   <!-- 조류 -->
                       <ul class="nav">
                    <li class="submenu">
-                  <a href="#">
+                  <a onclick ="location.href='/category/bigcategory/${category[2].category_id}'">
                      <i class="fas fa-frog"></i>${category[2].categoryname}<span class="caret pull-right"></span>
                   </a>
                   <!-- Sub menu -->
@@ -140,7 +178,7 @@
                         <!-- 어류 -->
                             <ul class="nav">
                    <li class="submenu">
-                         <a href="#">
+                         <a onclick ="location.href='/category/bigcategory/${category[3].category_id}'">
                             <i class="fas fa-fish"></i>${category[3].categoryname}<span class="caret pull-right"></span>
                          </a>
                          <!-- Sub menu -->
@@ -159,7 +197,7 @@
                         <!-- 파충류 -->
                          <ul class="nav">
                    <li class="submenu">
-                        <a href="#">
+                        <a onclick ="location.href='/category/bigcategory/${category[4].category_id}'">
                             <i class="fas fa-crow"></i>${category[4].categoryname}<span class="caret pull-right"></span>
                          </a>
                          <!-- Sub menu -->
@@ -178,7 +216,7 @@
                        <!-- 기타 -->
                         <ul class="nav">
                    <li class="submenu">
-                        <a href="#">
+                        <a onclick ="location.href='/category/bigcategory/${category[5].category_id}'">
                             <i class="fas fa-paw"></i>${category[5].categoryname}<span class="caret pull-right"></span>
                          </a>
                          <!-- Sub menu -->
@@ -239,6 +277,8 @@
       </div>
    </div>
    </div>
+   </div>
+
    </section>
    <!-- Product Shop Section End -->
    
@@ -251,6 +291,6 @@
 
    <!-- Footer -->
    <%@ include file="/WEB-INF/views/include/footer.jsp"%>
-
+   </div>
 </body>
 </html>

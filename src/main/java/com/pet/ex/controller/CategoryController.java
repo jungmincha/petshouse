@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Controller; 
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -35,36 +36,47 @@ public class CategoryController {
 	
 		//카테고리 메인페이지
 	  @GetMapping("/categoryhome") 
-	  public String categoryhome(GoodsVO goodsVO, Model model , CategoryVO categoryVO) throws Exception { 
+	  public ModelAndView categoryhome(GoodsVO goodsVO, ModelAndView mav , CategoryVO categoryVO) throws Exception { 
 	
-		  model.addAttribute("goods", service.getGoods());
+		  mav.addObject("goods", service.getGoods());
 	
 
 		
 		  
-		  model.addAttribute("category", service.getCategory());
-		  model.addAttribute("smallcategory", service.getScategory(categoryVO));
+		  mav.addObject("category", service.getCategory());
+		  mav.addObject("smallcategory", service.getScategory(categoryVO));
 	
+		  mav.setViewName("category/categoryHome");
 		  
 		  
 		  
 		  
 		  
 		  	  
-	  return "category/categoryHome"; 
+	  return mav; 
 	  }
 	  
 	  
-	  @GetMapping("/categoryhome/{category_id}") 
-	  public String bigcategory(GoodsVO goodsVO, Model model , CategoryVO categoryVO) throws Exception { 
+	  @GetMapping("/bigcategory/{category_id}") 
+	  public ModelAndView cat(ModelAndView mav , GoodsVO goodsVO, Model model , CategoryVO categoryVO) throws Exception { 
 		  
 		
-		  model.addAttribute("goods", service.getGoods());
-		  model.addAttribute("smallcategory", service.getScategory(categoryVO));
-		 model.addAttribute("category", service.getbigcategory(categoryVO.getCategory_id()));
+		  mav.addObject("goods", service.getGoods());		  
+		  mav.addObject("category", service.getCategory());
+		  mav.addObject("smallcategory", service.getScategory(categoryVO));
+		  
+		  
+		  
+		  mav.addObject("bigcategory", service.getbigcategory(categoryVO.getCategory_id()));
 	  
+	  mav.setViewName("category/bigcategory");
 	  
-	  return "category/categoryHome";
+	  return mav;
 }
- 
+	  
+	    
+	  
+	  
+	  
+
 }
