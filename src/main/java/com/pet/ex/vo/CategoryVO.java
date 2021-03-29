@@ -16,5 +16,5 @@ public class CategoryVO {
 	private int code;
 
 	private int level;
-
+	private String sortname;
 }
