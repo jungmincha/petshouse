@@ -27,7 +27,7 @@ import com.pet.ex.page.Criteria;
 import com.pet.ex.page.PageVO;
 import lombok.extern.slf4j.Slf4j;
 import net.sf.json.JSONArray;
-//수정1
+//
 @Slf4j
 @RestController
 @RequestMapping("/admin")
@@ -48,7 +48,7 @@ public class AdminController {
 		return mav;
 	}
 
-	@DeleteMapping("/goods/{gId}")
+	@DeleteMapping("/goods/{goods_id}")
 	public ResponseEntity<String> delete(GoodsVO goodsVO, Model model) {
 		
 		ResponseEntity<String> entity = null;
@@ -161,7 +161,7 @@ public class AdminController {
 		System.out.println(g_id);
 		
 		mav.addObject("one", service.getRateone(goodsVO.getGoods_id()));
-		mav.addObject("goods", service.getGoods(goodsVO.getGoods_id()));
+		mav.addObject("goods", service.getGoods(boardVO.getBoard_id()));
 		
 		return mav;
 		

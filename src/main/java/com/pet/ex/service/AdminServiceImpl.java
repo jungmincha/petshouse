@@ -31,9 +31,9 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public GoodsVO getGoods(int goods_id) {
+	public BoardVO getGoods(int board_id) {
 		log.info("getGoods");
-		return mapper.getGoods(goods_id);
+		return mapper.getGoods(board_id);
 	}
 
 	@Override
@@ -45,7 +45,7 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public List<GoodsVO> getList(Criteria cri) {		// 상품 목록 + 페이징처리
 		log.info("List" + cri);
-		cri.setAmount(10);
+		cri.setAmount(20);
 		return mapper.getList(cri);
 	}
 

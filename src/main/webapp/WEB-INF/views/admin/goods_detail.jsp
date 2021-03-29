@@ -195,11 +195,10 @@ span.star-prototype>* {
 							<div class="product-details">
 								<div class="pd-title">
 									<input type="hidden" name="board_id" value="${goods.board_id}">
+									<input type="hidden" name="goods_id" value="${goods.goodsVO.goods_id}">
 									
-								${goods.board_id}//${goods.content}//${goods.goodsVO.goodsname}
-									${goods.content}${goods.title}
-									<span>${board_g.goodsVO.goods_id}</span>
-									<h3></h3>
+									<span>${goods.goodsVO.goods_id}</span>
+									<h3>${goods.goodsVO.goodsname}</h3>
 									 
 				
 									<a href="#" class="heart-icon"><i class="icon_heart_alt"></i></a>
@@ -207,18 +206,21 @@ span.star-prototype>* {
 								<div class="pd-rating">
 								 
 									 
-						              <span class="star-prototype"> ${rate.avgscore}</span>          
-						 
+						             
+                           <c:if test="${one.goodsVO.goods_id eq goods.goodsVO.goods_id}">
+                                별점 <span class="star-prototype"> ${one.avgscore}</span> <span> &nbsp;  ${goods.count}</span>         
+                               </c:if>
+                       
 				  
 					
 								</div>
 								<div class="pd-desc">
-									<a>${board_g.goodsVO.description}</a>
-									<h4>${board_g.goodsVO.price}원</h4> 
+									<a>${goods.goodsVO.description}</a>
+									<h4>${goods.goodsVO.price}원</h4> 
 									
 								</div>
 								<div class="pd-color">
-									<h6>Color ${board_g.goodsVO.pcolor} 뿌릴예정</h6>
+									<h6>Color ${goods.goodsVO.pcolor} 뿌릴예정</h6>
 									<div class="pd-color-choose">
 										<div class="cc-item">
 											<input type="radio" id="cc-black"> <label
@@ -235,7 +237,7 @@ span.star-prototype>* {
 									</div>
 								</div>
 								<div class="pd-size-choose">
-									<div class="sc-item">${goods.psize} 뿌릴예정
+									<div class="sc-item">${goods.goodsVO.psize} 뿌릴예정
 										<input type="radio" id="sm-size"> <label for="sm-size">s</label>
 									</div>
 									<div class="sc-item">
@@ -255,11 +257,12 @@ span.star-prototype>* {
 									<a href="#" class="primary-btn pd-cart">Add To Cart</a>
 								</div>
 								<ul class="pd-tags">
-									<li><span>CATEGORIES</span>: ${board_g.categoryVO.category_id} </li>
-									<li><span>TAGS</span>: #${board_g.hashtag}</li>
+									<li><span>CATEGORIES</span>:
+									 ${goods.categoryVO.categoryname}/${goods.categoryVO.sortname} </li>
+									<li><span>TAGS</span>: #${goods.hashtag}</li>
 								</ul>
 								<div class="pd-share">
-									<div class="p-code">Sku : ${stocks.stockname}</div>
+									<div class="p-code">재고 : ${goods.goodsVO.stockVO.stockname}</div>
 									<div class="pd-social">
 										<a href="#"><i class="ti-facebook"></i></a> <a href="#"><i
 											class="ti-twitter-alt"></i></a> <a href="#"><i

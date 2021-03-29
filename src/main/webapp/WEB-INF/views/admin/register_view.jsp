@@ -159,7 +159,7 @@ select {
 								<div class="form-group row center">
 									<div class="col-sm-offset-2 col-sm-12">
 										<input type="submit" class="btn btn-block"
-											style="background-color: #e7ab3c" value="상품등록">
+											style="background-color: #e7ab3c" onclick="location.href='${pageContext.request.contextPath}/admin/goods' "value="상품등록">
 									</div>
 								</div>
 						</td>
