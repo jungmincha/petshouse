@@ -20,7 +20,7 @@ import com.pet.ex.service.SecurityService;
 import com.pet.ex.vo.MemberVO;
 
 import lombok.extern.slf4j.Slf4j;
-//#1
+//#2
 @Slf4j
 @RestController
 @RequestMapping("/login")
