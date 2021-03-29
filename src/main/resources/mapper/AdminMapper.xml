@@ -43,7 +43,7 @@
 		<result column="category_id" property="category_id" />
 		<result column="categoryname" property="categoryname" />
 		<result column="code" property="code" />
-		<result column="sortnumber" property="sortnumber" />
+		<result column="sortname" property="sortname" />
 	</resultMap>
 
 	<resultMap type="FollowVO" id="followvo">
@@ -180,7 +180,7 @@
 	   ]]>
 	</select>
 
-	<delete id="remove">
+	<delete id="remove" parameterType="int">
 	   <![CDATA[
 	     	delete from goods where goods_id = #{goods_id}
 	   ]]>
@@ -221,16 +221,18 @@
 	</select>
  
 
-	<select id="getGoods" resultType="boardvo"> 
+	<select id="getGoods" resultMap="boardvo"> 
 	<![CDATA[ 
-      select * from goods g, board b where g.goods_id = b.goods_id and b.board_id = #{board_id}  and b.boardtype_id=3 
+      select * from goods g, board b, stock s
+      where g.goods_id = b.goods_id and g.stock_id=s.stock_id and b.board_id = #{board_id}  and b.boardtype_id=3 
 	]]>
 	</select>
  
 
-	<select id="getRateone" parameterType="int" resultType="BoardVO">
+	<select id="getRateone" parameterType="int" resultMap="boardvo">
 	   <![CDATA[
-	      select goods_id, round(avg(ratescore),1) as avgscore from board  where goods_id=#{goodsVO.goods_id} group by goods_id 
+	      select goods_id, round(avg(ratescore),1) as avgscore from board 
+	      where boardtype_id=8 and goods_id=#{goodsVO.goods_id} group by goods_id
 	   ]]>
 	</select>
 
@@ -243,7 +245,7 @@
 	</select>
 	
 	
-	<update id="modifyGoods">
+	<update id="modifyGoods" parameterType="goodsvo">
 		<![CDATA[
 	    	update goods set 
 	    	     price= #{price}, description = #{description}, 

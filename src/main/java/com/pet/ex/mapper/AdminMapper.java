@@ -16,7 +16,7 @@ public interface AdminMapper {
 
 	 
 
-	public GoodsVO getGoods(int goods_id);
+	public BoardVO getGoods(int board_id);
 
 	public BoardVO getRateone(int goods_id);
 
