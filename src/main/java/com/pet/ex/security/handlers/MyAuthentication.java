@@ -23,7 +23,7 @@ public class MyAuthentication extends UsernamePasswordAuthenticationToken {
 
 	public MyAuthentication(String id, String password, List<GrantedAuthority> grantedAuthorityList, MemberVO member) {
 		super(id, password, grantedAuthorityList);
-
+			
 		this.member = member;
 	}
 

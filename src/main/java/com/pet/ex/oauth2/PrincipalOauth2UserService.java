@@ -37,17 +37,18 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
 		member = loginMapper.getMember(member_id);
 
 		if (member == null) {
-			if(provider.equals("google")) {
+			if (provider.equals("google")) {
 				member.getLogintypeVO().setLogintype_id(4);
 			}
-			
+
 			member.setMember_id(member_id);
 			member.setUsername(member_id);
 			member.setPassword(password);
 			member.getRoleVO().setRole_id(1);
 			loginMapper.insertMember(member);
-			member.setAttributes(oauth2User.getAttributes());	
-		} 
+		} else {
+		}
+
 		return member;
 	}
 }
