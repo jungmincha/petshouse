@@ -1,6 +1,9 @@
 package com.pet.ex.controller;
 
+import java.security.Principal;
+
 import javax.mail.MessagingException;
+import javax.mail.Session;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -132,4 +135,19 @@ public class LoginController {
 		return mav;
 	}
 
+	@RequestMapping("/oauth2/register")
+	public ModelAndView oauht2(ModelAndView mav, Principal principal) throws Exception {
+
+		MemberVO member = securityService.getMember(principal.getName());
+		
+		if(member==null) {
+			mav.addObject("category", loginService.listCategory());
+			mav.setViewName("/login/oauth2Register");
+		}
+		else {
+			mav.setViewName("home/home");
+		}
+		return mav;
+
+	}
 }

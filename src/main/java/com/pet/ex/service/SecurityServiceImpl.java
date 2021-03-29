@@ -13,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.pet.ex.mapper.LoginMapper;
+import com.pet.ex.security.handlers.MyAuthentication;
 import com.pet.ex.vo.MemberVO;
 
 import lombok.extern.slf4j.Slf4j;
@@ -39,7 +40,8 @@ public class SecurityServiceImpl implements SecurityService {
 			authorities.add(new SimpleGrantedAuthority(member.getRoleVO().getRolename()));
 
 		}
-		return member;
+
+		return new MyAuthentication(id, member.getPassword(), authorities, member);
 	}
 
 	// 회원가입
@@ -52,7 +54,9 @@ public class SecurityServiceImpl implements SecurityService {
 		member.setPassword(encodedPassword);
 
 		// 이메일 인증 키 삽입
-		member.setCertify(certified_key());
+		if (member.getCertify() == null) {
+			member.setCertify(certified_key());
+		}
 		return loginMapper.insertMember(member);
 	}
 

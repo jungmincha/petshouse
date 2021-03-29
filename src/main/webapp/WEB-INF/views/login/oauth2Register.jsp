@@ -86,37 +86,19 @@
 			<div class="row">
 				<div class="col-lg-6 offset-lg-3">
 					<div class="register-form">
-						<h2>회원가입</h2>
-
+						<h2>소셜 회원가입</h2>
+						<h2 style="font-size: 13pt">추가 정보를 입력해주세요</h2>
 						<form action="/login/register/insert" method="post" id="myForm">
 
-							<div class="group-input">
-								<label class="control-label" for="member_id">이메일</label> <input
-									class="form-control" type="text" name="member_id"
-									id="member_id" style="font-size: 13pt" /> <span id="emailErr"
-									class="help-block" style="font-size: 10pt">올바른 이메일 형식이
-									아닙니다. 다시 입력해 주세요.</span> <span id="overlapErr" class="help-block"
-									style="font-size: 10pt">중복된 이메일 입니다.</span>
-							</div>
+							<input type="hidden" name="member_id"
+								value="<sec:authentication property='principal.member.member_id'/>">
 
-							<div class="group-input ">
-								<label class="control-label" for="pwd">비밀번호</label> <input
-									class="form-control" type="password" name="password"
-									id="password" style="font-size: 13pt" /> <span id="pwdRegErr"
-									class="help-block" style="font-size: 10pt">8글자 이상 입력하세요.</span>
-							</div>
-							<div class="group-input">
-								<label class="control-label" for="rePwd">비밀번호 재확인</label> <input
-									class="form-control" type="password" name="rePwd" id="rePwd"
-									style="font-size: 13pt" /> <span id="rePwdErr"
-									class="help-block" style="font-size: 10pt">비밀번호가 일치하지
-									않습니다. 다시 입력해 주세요.</span>
-							</div>
-							<div class="group-input">
-								<label class="control-label" for="name">이름</label> <input
-									class="form-control" type="text" name="name" id="name"
-									style="font-size: 13pt" />
-							</div>
+							<input type="hidden" name="password"
+								value="<sec:authentication property='principal.member.password' />">
+
+							<input type="hidden" name="name"
+								value="<sec:authentication property='principal.member.name' />">
+
 							<div class="group-input">
 								<label class="control-label" for="nickname">닉네임</label> <input
 									class="form-control" type="text" name="nickname" id="nickname"
@@ -132,8 +114,8 @@
 								<div class="input-group mb-3">
 									<div class="input-group-prepend">
 										<input type="button" class="form-control" onClick="goPopup();"
-											value="주소검색" style="font-size: 10pt; background-color:#000000;color:#ffffff
-											; font-weight: bold" />
+											value="주소검색"
+											style="font-size: 10pt; background-color: #000000; color: #ffffff; font-weight: bold" />
 									</div>
 									<input class="form-control" type="text"
 										style="font-size: 13pt;" id="address" name="address" />
@@ -142,7 +124,8 @@
 
 							<div class="group-input">
 								<label class="control-label" for="category">관심사</label> <select
-									class="form-control" id="category" name="categoryVO.category_id">
+									class="form-control" id="category"
+									name="categoryVO.category_id">
 									<c:forEach items="${category}" var="category">
 
 										<option value="${category.category_id}">${category.categoryname }</option>
@@ -151,8 +134,10 @@
 								</select>
 							</div>
 
-							<input type="hidden" name="logintypeVO.logintype_id" value="1">
+							<input type="hidden" name="logintypeVO.logintype_id"
+								value="<sec:authentication property='principal.member.logintypeVO.logintype_id'/>">
 							<input type="hidden" name="roleVO.role_id" value="1">
+							<input type="hidden" name="certify" value="Y">
 							<button type="submit" class="site-btn register-btn"
 								style="font-size: 15pt">가입완료</button>
 						</form>
