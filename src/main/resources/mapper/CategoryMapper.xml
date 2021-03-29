@@ -24,14 +24,13 @@
 
 <select id="getScategory" resultType="CategoryVO"> 
      <![CDATA[ 
-        select categoryname , code from category WHERE code =#{code}
+        select categoryname , code from category WHERE code = code
     ]]> 
    </select> 
 	
 	<select id="getbigcategory" resultType="GoodsVO"> 
      <![CDATA[ 
-       select g.goodsname ,g.price , g.description from category c ,category d , goods g 
-       where g.category_id = c.category_id and c.category_id = d.code and c.category_id=#{c.category_id}
+      select * from goods where category_id =#{category_id}
     ]]> 
    </select> 
 	 
