@@ -3,24 +3,24 @@
 
 <mapper namespace="com.pet.ex.mapper.LoginMapper">
 
-	<resultMap type="RoleVO" id="roleVO">
+	<resultMap type="RoleVO" id="rolevo">
 		<result column="role_id" property="role_id" />
 		<result column="rolename" property="rolename" />
 	</resultMap>
 
-	<resultMap type="LoginTypeVO" id="logintypeVO">
+	<resultMap type="LoginTypeVO" id="logintypevo">
 		<result column="logintype_id" property="logintype_id" />
 		<result column="logintypename" property="logintypename" />
 
 	</resultMap>
 
-	<resultMap type="CategoryVO" id="categoryVO">
+	<resultMap type="CategoryVO" id="categoryvo">
 		<result column="category_id" property="category_id" />
 		<result column="categoryname" property="categoryname" />
 
 	</resultMap>
 
-	<resultMap type="MemberVO" id="memberVO">
+	<resultMap type="MemberVO" id="membervo">
 
 		<result column="member_id" property="member_id" />
 		<result column="password" property="password" />
@@ -33,14 +33,14 @@
 		<result column="username" property="username" />
 		<result column="certify" property="certify" />
 
-		<collection property="roleVO" resultMap="roleVO"></collection>
-		<collection property="logintypeVO" resultMap="logintypeVO"></collection>
-		<collection property="categoryVO" resultMap="categoryVO"></collection>
+		<collection property="roleVO" resultMap="rolevo"></collection>
+		<collection property="logintypeVO" resultMap="logintypevo"></collection>
+		<collection property="categoryVO" resultMap="categoryvo"></collection>
 	</resultMap>
 
 	<!-- 회원정보조회 -->
 	<select id="getMember" parameterType="String"
-		resultMap="memberVO">
+		resultMap="membervo">
 		<![CDATA[
 		SELECT
 		member_id

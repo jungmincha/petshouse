@@ -42,7 +42,7 @@ public class CategoryServicelmpl implements CategoryService {
 		/*int[]arrys = new int[5];
 		for(int i = 0 ; i <= arrys.length ; i++) {*/
 		
-			categoryVO.setCode(2);
+
 	
 
 		

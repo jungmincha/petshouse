@@ -2,9 +2,11 @@ package com.pet.ex.vo;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Map;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,7 +17,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class MemberVO implements UserDetails {
+public class MemberVO implements UserDetails, OAuth2User {
 
 	private static final long serialVersionUID = 3871975852210711044L;
 
@@ -46,6 +48,14 @@ public class MemberVO implements UserDetails {
 
 	// 시큐리티 용
 	private String username;
+	
+	private String provider;
+
+	private Map<String, Object> attributes;
+
+	public MemberVO(Map<String, Object> attributes) {
+		this.attributes = attributes;
+	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -85,6 +95,12 @@ public class MemberVO implements UserDetails {
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub
 		return true;
+	}
+
+	@Override
+	public Map<String, Object> getAttributes() {
+		// TODO Auto-generated method stub
+		return attributes;
 	}
 
 }
