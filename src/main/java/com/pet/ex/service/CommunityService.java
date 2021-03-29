@@ -25,6 +25,10 @@ public interface CommunityService {
 	public int getTotal(Criteria criteria);
 
 	//post로 글 쓰는거 맞니.. 로그인 때메 그런가 물어보기
-	//public void writeQnt(BoardVO boardVO);
+	public void writeQnt(BoardVO boardVO);
+	
+	public void modify(BoardVO boardVO);
+
+	public void delete(int bId);
 		
 }

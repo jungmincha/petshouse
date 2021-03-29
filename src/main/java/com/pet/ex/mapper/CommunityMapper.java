@@ -27,6 +27,10 @@ public interface CommunityMapper {
 	public int getTotalCount(Criteria cri);
 
 	//진짜 글쓰기
-	//public void writeQnt(BoardVO boardVO);
+	public void writeQnt(BoardVO boardVO);
+	
+	public void modify(BoardVO boardVO);
+
+	public void delete(int board_id);
 	
 }
