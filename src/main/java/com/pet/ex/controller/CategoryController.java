@@ -25,7 +25,7 @@ import net.sf.json.JSONArray;
 @Controller
 @RequestMapping("/category")
 public class CategoryController {
-//test3
+//차정민
 	
 	
 	
