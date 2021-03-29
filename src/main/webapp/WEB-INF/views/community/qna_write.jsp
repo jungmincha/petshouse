@@ -28,40 +28,37 @@
 	<!-- Header -->
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
 
-	<div class="container" style="width:800px;">
+	<div class="container" style="width: 800px;">
 		<form action="${pageContext.request.contextPath}/commu/qna"
 			method="post">
-			
-			
-				<p>닉네임 넣어야함</p>
- <input type="text" class="form-control" name="title" placeholder="제목">
-  <input type="text" class="form-control" name="content" placeholder="내용">
-   <input type="text" class="form-control" name="hashtag" placeholder="해시태그">
 
-				
-		
-				<textarea id="editor4" name="editor4"></textarea>
 
-				<script>
+			<p>닉네임 넣어야함</p>
+			<input type="text" class="form-control" name="title" placeholder="제목">
+			<textarea id="editor4"  name="content" placeholder="내용"></textarea>
+			<input type="text" class="form-control" name="hashtag" placeholder="해시태그">
+
+			<script>
 					CKEDITOR.replace('editor4');
 				</script>
 
-				<button type="submit" class="btn btn-warning float-right"
-					style="float: right; margin-top:30px; "
-					onclick="location.href='${pageContext.request.contextPath}/commu/qna'">질문 등록</button>
-					
+			<button type="submit" class="btn btn-warning float-right"
+				style="float: right; margin-top: 30px;"
+				onclick="location.href='${pageContext.request.contextPath}/commu/qna'">질문
+				등록</button>
 
-			
+
+
 		</form>
 
 	</div>
 
 
-<div style="margin-top:100px">
+	<div style="margin-top: 100px">
 
-	<!-- Footer -->
-	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
-	
+		<!-- Footer -->
+		<%@ include file="/WEB-INF/views/include/footer.jsp"%>
+
 	</div>
 </body>
 </html>

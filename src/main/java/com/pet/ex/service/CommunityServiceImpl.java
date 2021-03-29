@@ -54,8 +54,7 @@ public class CommunityServiceImpl implements CommunityService {
 		return mapper.getListWithPaging(cri);
 	}
 
-	// 글 진짜로 작성하는건데 물어봐야함....
-
+	// 글 진짜로 작성
 	@Override
 	public void writeQnt(BoardVO boardVO) {
 		log.info("mapper.writeQnt()호출");
@@ -63,6 +62,7 @@ public class CommunityServiceImpl implements CommunityService {
 
 	}
 
+	// 글 수정하기
 	@Override
 	public void modify(BoardVO boardVO) {
 		log.info("mapper.modify()호출");
@@ -70,6 +70,7 @@ public class CommunityServiceImpl implements CommunityService {
 
 	}
 
+	// 글 삭제하기
 	@Override
 	public void delete(int bId) {
 		log.info("mapper.delete()호출");

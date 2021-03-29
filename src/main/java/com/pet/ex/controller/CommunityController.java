@@ -53,32 +53,42 @@ public class CommunityController {
 		return mav;
 	}
 
-	// 글 작성하기 질문과답변, 노하우...
+	// 글 작성하기 질문과답변
 	@PostMapping("/qna")
-	public ModelAndView write(BoardVO boardVO,ModelAndView mav) throws Exception {
+	public ModelAndView write(BoardVO boardVO, ModelAndView mav) throws Exception {
 		log.info("write()실행");
 		communityService.writeQnt(boardVO);
-		mav.setView(new RedirectView("/commu/qna",true));
-		return mav;
-	}
-	
-	//글 수정하기
-	@PostMapping("/modify")
-	public ModelAndView modify(Criteria cri, BoardVO boardVO, ModelAndView mav) throws Exception {
-		log.info("modify()실행");
-		mav.addObject("qna", communityService.getQnaList(cri));
-		communityService.modify(boardVO);
-		mav.setViewName("community/qna");       
+		mav.setView(new RedirectView("/commu/qna", true));
 		return mav;
 	}
 
-	//글 삭제하기
+	// 질문과 답변 글 수정 페이지
+	@GetMapping("/modify_page")
+	public ModelAndView modify_page(@RequestParam("board_id") int board_id, BoardVO boardVO, ModelAndView mav)
+			throws Exception {
+		log.info("modify_page()실행");
+		mav.addObject("qna_view", communityService.getQnaview(boardVO.getBoard_id()));
+		mav.setViewName("community/qna_modify");
+		return mav;
+	}
+
+	// 질문고 답변 찐 글 수정하기
+	@PostMapping("/modify")
+	public ModelAndView modify(BoardVO boardVO, ModelAndView mav) throws Exception {
+		log.info("modify()실행");
+		communityService.modify(boardVO);
+		mav.setView(new RedirectView("/commu/qna", true));
+		return mav;
+	}
+
+	// 질문과 답변 글 삭제하기
 	@GetMapping("/delete")
-	public ModelAndView delete(@RequestParam("board_id") int board_id,Criteria cri, ModelAndView mav) throws Exception {
+	public ModelAndView delete(@RequestParam("board_id") int board_id, Criteria cri, ModelAndView mav)
+			throws Exception {
 		log.info("delete()실행");
 		mav.addObject("qna", communityService.getQnaList(cri));
 		communityService.delete(board_id);
-		mav.setView(new RedirectView("/commu/qna",true));
+		mav.setView(new RedirectView("/commu/qna", true));
 		return mav;
 	}
 
