@@ -27,7 +27,7 @@ import com.pet.ex.page.Criteria;
 import com.pet.ex.page.PageVO;
 import lombok.extern.slf4j.Slf4j;
 import net.sf.json.JSONArray;
-
+//수정1
 @Slf4j
 @RestController
 @RequestMapping("/admin")

@@ -25,7 +25,7 @@ import net.sf.json.JSONArray;
 @Controller
 @RequestMapping("/category")
 public class CategoryController {
-//test3
+//차정민
 	
 	
 	
@@ -56,15 +56,15 @@ public class CategoryController {
 	  
 	  
 	  @GetMapping("/categoryhome/{category_id}") 
-	  public ModelAndView bigcategory(GoodsVO goodsVO, ModelAndView mv , CategoryVO categoryVO) throws Exception { 
+	  public String bigcategory(GoodsVO goodsVO, Model model , CategoryVO categoryVO) throws Exception { 
 		  
 		
-		 
-		 mv.addObject("bigcategory", service.getbigcategory(categoryVO.getCategory_id()));
+		  model.addAttribute("goods", service.getGoods());
+		  model.addAttribute("smallcategory", service.getScategory(categoryVO));
+		 model.addAttribute("category", service.getbigcategory(categoryVO.getCategory_id()));
 	  
-	mv.setViewName("category/bigcategory");
 	  
-	  return mv;
+	  return "category/categoryHome";
 }
  
 }

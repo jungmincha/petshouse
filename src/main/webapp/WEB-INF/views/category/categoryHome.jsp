@@ -56,9 +56,8 @@
 </head>
 <body>
 
-<c:forEach items = "${smallcategory}" var = "vo2">
-${vo2.categoryname}
-</c:forEach>
+
+
 
 
 
@@ -74,38 +73,133 @@ ${vo2.categoryname}
          <div class="col-lg-3">
             <div class="filter-widget">
                      </div>
-        <h3>카테고리</h3>
+ 
  <br><br>
  <!-- 카테고리 부트스트랩 start -->
   
-           <div class="sidebar" style="display: block;">
-           <c:forEach items = "${category}" var = "vo">
+           <div class="sidebar" style="display: block;" >
                 <ul class="nav">
                    <li class="submenu">
                       
                       <!-- 고양이 -->
-                      
                        <a href="#">
-                          <i class="fas fa-cat"></i>${vo.categoryname}<span class="caret pull-right"></span>
+                          <i class="fas fa-cat"></i>${category[0].categoryname}<span class="caret pull-right"></span>
                        </a>
                        <!-- Sub menu -->
                        <ul>
-                       <c:forEach items = "${smallcategory}" var = "vo2">
-                          <li><a href="/resources/sidemenu/login.html">${vo2.categoryname}</a></li>
-                         </c:forEach>
+                       <c:forEach items = "${smallcategory}" var="vo" begin="0" end="6">
+
+                       
+                          <li><a href="">${vo.categoryname}</a></li>
+                        
+                          
+                          </c:forEach>
                        </ul>    
                        </li>
                        </ul>
                        
                         
-                 
-                      </c:forEach>
+                  <!-- 강아지 -->
+                   <ul class="nav">
+                   <li class="submenu">
+                  <a href="#">
+                     <i class="fas fa-dog"></i>${category[1].categoryname}<span class="caret pull-right"></span>
+                        </a>
+                        <!-- Sub menu -->
+                        <ul>
+                           <c:forEach items = "${smallcategory}" var="vo2" begin="7" end="13">
+
+                       
+                          <li><a href="">${vo2.categoryname}</a></li>
+                        
+                          
+                          </c:forEach>
+                        </ul>
+                        </li>
+                       </ul>
+                    
+                  <!-- 조류 -->
+                      <ul class="nav">
+                   <li class="submenu">
+                  <a href="#">
+                     <i class="fas fa-frog"></i>${category[2].categoryname}<span class="caret pull-right"></span>
+                  </a>
+                  <!-- Sub menu -->
+                         <ul>
+                           <c:forEach items = "${smallcategory}" var="vo3" begin="14" end="17">
+
+                       
+                          <li><a href="">${vo3.categoryname}</a></li>
+                        
+                          
+                          </c:forEach>
+                         </ul>
+                         </li>
+                        </ul>
+                    
+                        <!-- 어류 -->
+                            <ul class="nav">
+                   <li class="submenu">
+                         <a href="#">
+                            <i class="fas fa-fish"></i>${category[3].categoryname}<span class="caret pull-right"></span>
+                         </a>
+                         <!-- Sub menu -->
+                         <ul>
+                            <c:forEach items = "${smallcategory}" var="vo" begin="18" end="24">
+
+                       
+                          <li><a href="">${vo.categoryname}</a></li>
+                        
+                          
+                          </c:forEach>
+                        </ul>
+                        </li>
+                       </ul>
+                    
+                        <!-- 파충류 -->
+                         <ul class="nav">
+                   <li class="submenu">
+                        <a href="#">
+                            <i class="fas fa-crow"></i>${category[4].categoryname}<span class="caret pull-right"></span>
+                         </a>
+                         <!-- Sub menu -->
+                         <ul>
+                           <c:forEach items = "${smallcategory}" var="vo" begin="25" end="29">
+
+                       
+                          <li><a href="">${vo.categoryname}</a></li>
+                        
+                          
+                          </c:forEach>
+                        </ul>
+                        </li>
+                       </ul>
+                    
+                       <!-- 기타 -->
+                        <ul class="nav">
+                   <li class="submenu">
+                        <a href="#">
+                            <i class="fas fa-paw"></i>${category[5].categoryname}<span class="caret pull-right"></span>
+                         </a>
+                         <!-- Sub menu -->
+                         <ul>
+                            <c:forEach items = "${smallcategory}" var="vo" begin="30" end="36">
+
+                       
+                          <li><a href="">${vo.categoryname}</a></li>
+                        
+                          
+                          </c:forEach>
+                        </ul>
+                        </li>
+                      </ul>
+                      
                         </div>
       
 
                   <!--  카테고리 부트스트랩 end -->
 
-            </div>
+            
          </div>
          
          
@@ -118,52 +212,35 @@ ${vo2.categoryname}
 
                
 <div class="row text-center">
-
+  <c:forEach items="${goods}" var="dto">
       <div class="col-lg-4 col-md-6 mb-4">
         <div class="card h-100">
           <img class="card-img-top" src="http://placehold.it/500x325" alt="">
           <div class="card-body">
 
-            <h4 class="card-title">캣냥이</h4>
-            <p class="card-text">50000원</p>
-            <p class="card-text">상세설명</p>
+            <h4 class="card-title">${dto.goodsname}</h4>
+            <p class="card-text">${dto.price}원</p>
+            <p class="card-text">${dto.description}</p>
+          
        
           </div>
           
         </div>
       </div>
+      </c:forEach>
       
-      
-      
-       <div class="col-lg-4 col-md-6 mb-4">
-        <div class="card h-100">
-          <img class="card-img-top" src="http://placehold.it/500x325" alt="">
-          <div class="card-body">
-
-            <h4 class="card-title">강아지</h4>
-            <p class="card-text">12000원</p>
-            <p class="card-text">의류</p>
-       
-          </div>
-          
-        </div>
-      
-      
-      
-     
       
       </div>
 
-                        
-            
-         </div>
+         
+         
+         
+         
       </div>
    </div>
    </div>
    </section>
    <!-- Product Shop Section End -->
-   
-   
    
    
    
