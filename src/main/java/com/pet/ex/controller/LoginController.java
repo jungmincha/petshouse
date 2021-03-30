@@ -3,7 +3,6 @@ package com.pet.ex.controller;
 import java.security.Principal;
 
 import javax.mail.MessagingException;
-import javax.mail.Session;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -65,6 +64,16 @@ public class LoginController {
 
 		String canUse = member != null ? "" : "Y";
 		return canUse;
+	}
+
+	// 비밀번호 찾기
+	@RequestMapping("/findpw")
+	public ModelAndView findpw(@RequestParam(value = "msg", required = false) String msg, ModelAndView mav) {
+		log.info("login/login");
+		mav.addObject("msg", msg);
+		mav.setViewName("/login/login");
+		return mav;
+
 	}
 
 	// 회원가입 작성 후 INSERT
@@ -139,15 +148,35 @@ public class LoginController {
 	public ModelAndView oauht2(ModelAndView mav, Principal principal) throws Exception {
 
 		MemberVO member = securityService.getMember(principal.getName());
-		
-		if(member==null) {
+
+		if (member == null) {
 			mav.addObject("category", loginService.listCategory());
 			mav.setViewName("/login/oauth2Register");
-		}
-		else {
+		} else {
 			mav.setViewName("home/home");
 		}
 		return mav;
 
 	}
+
+	// 네이버로 로그인
+	@RequestMapping("/oauth2/code/naver")
+	public ModelAndView oauth2Naver(ModelAndView mav, Principal principal) throws Exception {
+
+		mav.setViewName("home/home");
+
+		return mav;
+
+	}
+
+	// 카카오로 로그인
+	@RequestMapping("/oauth2/code/kakao")
+	public ModelAndView oauth2Kakao(ModelAndView mav, Principal principal) throws Exception {
+
+		mav.setViewName("home/home");
+
+		return mav;
+
+	}
+
 }
