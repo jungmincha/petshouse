@@ -264,7 +264,8 @@ span.star-prototype>* {
 								<div class="pd-share">
 									<div class="p-code">재고 : ${goods.goodsVO.stockVO.stockname}</div>
 									<div class="pd-social">
-										<a href="#"><i class="ti-facebook"></i></a> <a href="#"><i
+										<a href="#"><i class="ti-facebook"></i></a> 
+										<a href="#"><i
 											class="ti-twitter-alt"></i></a> <a href="#"><i
 											class="ti-linkedin"></i></a>
 									</div>
@@ -291,7 +292,7 @@ span.star-prototype>* {
 										<div class="col-lg-7">
 											<h5>제품설명</h5>
 											<p>제품에대해설명해보자</p>
-											<h5>${board_g.content}</h5>
+											<h5>${goods.content}</h5>
  
 										</div>
 										<div class="col-lg-5">

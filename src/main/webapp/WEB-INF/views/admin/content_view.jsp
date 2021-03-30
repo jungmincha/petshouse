@@ -9,8 +9,53 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
-<title>register</title>
-
+<title>상품조회</title>
+<script type="text/javascript">
+   $(document).ready(function(){
+       
+   
+      $("#updateForm").submit(function(event){
+         
+         event.preventDefault();
+         
+           var price = $("#price").val();
+           var pcolor = $("#pcolor").val();
+           var psize = $("#psize").val();           
+           var descrition = $("#descrition").val();
+           
+           console.log(descrition);
+           console.log($(this).attr("action"));
+           
+           
+           var form = {
+                 price : price,
+                 pcolor: pcolor,
+                 psize : psize,
+                 descrition: descrition
+           };
+         
+           $.ajax({
+             type : "PUT",
+             url : $(this).attr("action"),
+             cache : false,
+             contentType:'application/json; charset=utf-8',
+              data: JSON.stringify(form), 
+             success: function (result) {       
+               if(result == "SUCCESS"){
+                  //list로 
+                  
+                  $(location).attr('href', '${pageContext.request.contextPath}/admin/goods/')                            
+               }                       
+             },
+             error: function (e) {
+                 console.log(e);
+             }
+         })          
+   
+       }); // end submit()
+       
+   }); // end ready()
+</script>
 <style>
 .table_center {
 	display: table;
@@ -55,9 +100,9 @@ select {
 	<!-- Page Content -->
 
 	<div class="col-lg-30">
-		<form 
-			action="${pageContext.request.contextPath}/admin/goods/${content_view.goods_id}" method="post">
-			<input type="hidden" name="goods_id" value="${content_view.goods_id}">
+		<form  id="updateForm" 
+			action="${pageContext.request.contextPath}/admin/goods/" method="post">
+			<input type="hidden" name="goods_id" value="${goods.goods_id}">
 
 			<div class="col-lg-30">
 
@@ -92,10 +137,8 @@ select {
 								</div>
 								<div class="form-group row">
 									<label class="col-sm-3">상품명</label>
-									<div class="col-sm-9">
-										<input type="text" id="goodsname" class="form-control"
-											value="${goods.goodsname}">
-									</div>
+									<div class="col-sm-9">${goods.goodsname}</div>
+
 								</div>
 								<div class="form-group row">
 									<label class="col-sm-3">가격</label>
@@ -118,7 +161,7 @@ select {
 									<label class="col-sm-3">색상</label>
 									<div class="col-sm-9">
 										<input type="text" name="pcolor" class="form-control"
-											id="color" placeholder="색상을 입력하세요"
+											id="pcolor" placeholder="색상을 입력하세요"
 											aria-describedby="colorHelp" value="${goods.pcolor}">
 										<small id="colorHelp" class="form-text text-muted">예)
 											빨간색, 노란색</small>
@@ -129,11 +172,11 @@ select {
 									<label class="col-sm-3">카테고리</label>
 									<div class="col-sm-9">
 										<label>1차 분류</label> 
-										<select class="category1" class="form-control" data-category1=" " style="vertical-align: middle; text-align-last: center">
+										<select class="category1" class="form-control"  style="vertical-align: middle; text-align-last: center">
 											<option value="">동물</option>
 										</select> 
 										<label>2차 분류</label> 
-										<select class="category2" name="categoryVO.category_id" class="form-control"
+										<select class="category2" name="" class="form-control"
 											style="vertical-align: middle; text-align-last: center">
 											<option value="">상품</option>
 										</select>
@@ -160,7 +203,7 @@ select {
 								<div class="form-group row">
 									<label class="col-sm-3">상품소개</label>
 									<div class="col-sm-9">
-										<textarea name="description" cols="30" rows="5"
+										<textarea name="description" id="description" cols="30" rows="5"
 											class="form-control" >${goods.description}</textarea>
 									</div>
 								</div>
