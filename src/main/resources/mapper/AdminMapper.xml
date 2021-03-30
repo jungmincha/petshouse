@@ -180,7 +180,14 @@
 	   ]]>
 	</select>
 
-	<delete id="remove" parameterType="int">
+
+	<delete id="remove_goodsBoard" parameterType="boardvo">
+	   <![CDATA[
+	     	delete from board where goods_id = #{goods_id}
+	   ]]>
+	</delete>
+	
+	<delete id="remove_goods" parameterType="goodsvo">
 	   <![CDATA[
 	     	delete from goods where goods_id = #{goods_id}
 	   ]]>
@@ -208,23 +215,23 @@
 	</insert>
 
 
-	<select id="getgoodsInfo" resultType="BoardVO"> 
+	<select id="getgoodsInfo" resultMap="boardvo"> 
 		<![CDATA[ 
-		select * from Board where board_id = #{g_id} 
+		select * from Board where board_id = #{board_id} 
 		]]>
 	</select>
 	
-	<select id="getInfo" resultType="GoodsVO"> 
+	<select id="getInfo" resultMap="goodsvo"> 
 		<![CDATA[ 
-		select * from Goods where goods_id = #{gId} 
+		select * from Goods where goods_id = #{goods_id} 
 		]]>
 	</select>
  
 
 	<select id="getGoods" resultMap="boardvo"> 
 	<![CDATA[ 
-      select * from goods g, board b, stock s
-      where g.goods_id = b.goods_id and g.stock_id=s.stock_id and b.board_id = #{board_id}  and b.boardtype_id=3 
+      select b.board_id, g.goods_id, g.goodsname, g.description, s.stockname, g.price, g.psize, g.pcolor, b.hashtag, c.categoryname, cc.categoryname as sortname from goods g, board b, stock s, category c, category cc
+      where g.goods_id = b.goods_id and g.stock_id=s.stock_id and g.category_id=c.category_id and c.category_id=cc.code and b.board_id = #{board_id}  and b.boardtype_id=3 
 	]]>
 	</select>
  
@@ -250,8 +257,7 @@
 	    	update goods set 
 	    	     price= #{price}, description = #{description}, 
 	    	     psize=#{psize}, pcolor=#{pcolor}, thumbnail = #{thumbnail}, 
-	    	     stock_id = #{stockVO.stock_id}, category_id = #{categoryVO.category_id} 
-	    	where goods_id = #{goods_id}
+	    	     where goods_id = #{goods_id} and goodsname=#{goodsname}
 		]]>
 	</update>
 

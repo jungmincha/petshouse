@@ -59,10 +59,13 @@ public class AdminServiceImpl implements AdminService {
 
 	
 	@Override
-	public void remove(int goods_id) {
+	public void remove_goods(int goods_id) {
 		log.info("Board deleted");
-		mapper.remove(goods_id);
+		mapper.remove_goodsBoard(goods_id);
+		mapper.remove_goods(goods_id);
 	}
+	
+	 
 
 	@Override
 	public List<CategoryVO> getCategory() {
@@ -89,15 +92,15 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public BoardVO getgoodsInfo(int g_id) {
+	public BoardVO getgoodsInfo(int board_id) {
 
-		return mapper.getgoodsInfo(g_id);
+		return mapper.getgoodsInfo(board_id);
 	}
 
 	@Override
-	public GoodsVO getInfo(int gId) {
-		// TODO Auto-generated method stub
-		return mapper.getInfo(gId);
+	public GoodsVO getInfo(int goods_id) {
+	
+		return mapper.getInfo(goods_id);
 	}
 
 }
