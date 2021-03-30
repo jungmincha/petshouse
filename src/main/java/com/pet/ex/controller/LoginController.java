@@ -67,11 +67,10 @@ public class LoginController {
 	}
 
 	// 비밀번호 찾기
-	@RequestMapping("/findpw")
-	public ModelAndView findpw(@RequestParam(value = "msg", required = false) String msg, ModelAndView mav) {
-		log.info("login/login");
-		mav.addObject("msg", msg);
-		mav.setViewName("/login/login");
+	@RequestMapping("/findPw")
+	public ModelAndView findpw(ModelAndView mav) {
+		
+		
 		return mav;
 
 	}

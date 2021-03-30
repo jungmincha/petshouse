@@ -15,7 +15,6 @@
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 	<sec:authorize access="isAuthenticated()">
-		<sec:authentication property="member" var="member" />
 		<sec:authentication property="principal" var="member" />
 		<form id="email_form">
 			<input type="text" name="certify" value="${member.certify}">
