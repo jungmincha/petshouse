@@ -1,6 +1,7 @@
 package com.pet.ex.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,10 +41,12 @@ public class CommunityController {
 	public ModelAndView qna_view(BoardVO boardVO, ModelAndView mav) throws Exception {
 		log.info("qna_view()실행");
 		mav.addObject("qna_view", communityService.getQnaview(boardVO.getBoard_id())); // 특정 글 출력
+		mav.addObject("comment", communityService.getComment(boardVO.getBoard_id()));
 		// communityService.hit(boardVO.getBoard_id()); 조회수어쩔거임
 		mav.setViewName("community/qna_view");
 		return mav;
 	}
+	
 
 	// 질문과 답변 글쓰기 페이지
 	@GetMapping("/qna_write")

@@ -25,6 +25,17 @@
 
 <body>
 	<div class="container">
+	
+	<div>
+	<table>
+	<c:forEach items="${comment}" var="cm">
+	<div>${cm.content}</div> 
+	<div>${cm.memberVO.nickname}</div> 
+	<div>${cm.pdate}</div> 
+	
+	</c:forEach>
+	</table>
+	</div>
 		<form id="commentForm" name="commentForm" method="post">
 			<br>
 			<br>

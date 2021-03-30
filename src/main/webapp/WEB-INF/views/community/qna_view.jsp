@@ -33,7 +33,7 @@
 	<div class="container" style="margin-bottom: 40px">
 		<div class="head">
 			<div style="margin-top: 45px; margin-bottom: 10px;">
-				<a class="qna-subtitle" href="qna">질문과 답변22</a>
+				<a class="qna-subtitle" href="qna">질문과 답변</a>
 			</div>
 			<h3 class="qnatitle" style="font-weight: bold; margin-bottom: 10px;">${qna_view.title}</h3>
 		</div>
@@ -70,19 +70,27 @@
 			<td>
 				<div style="font-size: 20px;">${qna_view.memberVO.nickname}</div> <section
 					style="margin-top:40px; margin-bottom:20px;">${qna_view.content}</section>
-					<section
-					style="margin-top:40px; margin-bottom:20px;">${qna_view.hashtag}</section>
+				<section style="margin-top:40px; margin-bottom:20px;">${qna_view.hashtag}</section>
 
 
 				<span style="color: gray">${qna_view.pdate}</span> <span
 				style="color: gray">조회수 ${qna_view.hit}</span>
+
+
 			</td>
 		</table>
 	</div>
+	<div class="container">
+		<table>
+			<c:forEach items="${comment}" var="cm">
+				<div>${cm.content}</div>
+				<div>${cm.memberVO.nickname}</div>
+				<div>${cm.pdate}</div>
 
+			</c:forEach>
 
-	<!-- comment인데 아직 멀었음요 -->
-	<%@ include file="/WEB-INF/views/include/comment.jsp"%>
+		</table>
+	</div>
 
 	<div style="margin-top: 20px;">
 		<!-- Footer -->

@@ -178,6 +178,13 @@
 	and b.board_id=#{board_id}
    ]]>
 	</select>
+	
+	<!-- 특정글에 대한 댓글 출력-->
+	<select id="getComment" resultMap="boardvo">
+   <![CDATA[
+	  select * from board b, member m where b.member_id=m.member_id and boardtype_id= 9 and pgroup = (select pgroup from board where board_id=#{board_id})
+   ]]>
+	</select>
 
 	<!-- 질답, 노하우 글쓰기  (이미지 추가해야함) / 멤버아이디 물어봅시다.-->
 	<insert id="writeQnt">

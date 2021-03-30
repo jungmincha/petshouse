@@ -32,6 +32,13 @@ public class CommunityServiceImpl implements CommunityService {
 		// TODO Auto-generated method stub
 		return mapper.getQnaview(board_id);
 	}
+	
+	// 질문과 답변 특정 페이지 가져오기
+		@Override
+		public List<BoardVO> getComment(int Board_id) {
+			// TODO Auto-generated method stub
+			return mapper.getComment(Board_id);
+		}
 
 	// 조회수 어쩔거임
 	// @Override
