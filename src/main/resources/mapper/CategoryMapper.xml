@@ -28,6 +28,8 @@
     ]]> 
    </select> 
 	
+	
+	
 	<select id="getbigcategory" resultType="GoodsVO"> 
      <![CDATA[ 
       select * from goods where category_id =#{category_id}

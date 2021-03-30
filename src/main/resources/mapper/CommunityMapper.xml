@@ -183,9 +183,23 @@
 	<insert id="writeQnt">
 	<![CDATA[
 	insert into board(board_id, title, content, pdate,hit, pgroup, pstep, pindent,hashtag, member_id, boardtype_id)
-	values (board_seq.nextval, #{title}, #{content}, sysdate, 0, board_seq.currval, 0, 0, #{hashtag}, 'kjs1234@naver.com', 4 );
+	values (board_seq.nextval, #{title}, #{content}, sysdate, 0, board_seq.currval, 0, 0, #{hashtag}, 'kjs1234@naver.com', 4 )
  ]]>
 	</insert>
+	
+	<!-- 글 수정 -->
+	<select id="modify">
+		<![CDATA[
+			update board set title=#{title},content=#{content} where board_id = #{board_id}
+		]]>
+	</select>
+
+	<!--글 삭제  -->
+	<select id="delete">
+		<![CDATA[
+			delete from board where board_id = #{board_id}
+		]]>
+	</select>
 	
 	<!-- 조회수 어쩔거임 -->
 	<!-- <select id="hit" resultType="int">

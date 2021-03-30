@@ -25,8 +25,8 @@ public class CommunityServiceImpl implements CommunityService {
 		return mapper.getQnaList();
 
 	}
-	
-	//질문과 답변 특정 페이지 가져오기
+
+	// 질문과 답변 특정 페이지 가져오기
 	@Override
 	public BoardVO getQnaview(int board_id) {
 		// TODO Auto-generated method stub
@@ -53,15 +53,29 @@ public class CommunityServiceImpl implements CommunityService {
 
 		return mapper.getListWithPaging(cri);
 	}
-	
-	
-	  //글 진짜로 작성하는건데 물어봐야함....
-	/*
-	 * @Override public void writeQnt(BoardVO boardVO) {
-	 * log.info("mapper.writeQnt()호출"); mapper.writeQnt(boardVO);
-	 * 
-	 * }
-	 */
-	 
-	 
+
+	// 글 진짜로 작성
+	@Override
+	public void writeQnt(BoardVO boardVO) {
+		log.info("mapper.writeQnt()호출");
+		mapper.writeQnt(boardVO);
+
+	}
+
+	// 글 수정하기
+	@Override
+	public void modify(BoardVO boardVO) {
+		log.info("mapper.modify()호출");
+		mapper.modify(boardVO);
+
+	}
+
+	// 글 삭제하기
+	@Override
+	public void delete(int bId) {
+		log.info("mapper.delete()호출");
+		mapper.delete(bId);
+
+	}
+
 }

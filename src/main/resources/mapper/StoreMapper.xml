@@ -60,6 +60,7 @@
 		<result column="thumbnail" property="thumbnail" />
 		<result column="image3d" property="image3d" />
 		<result column="count" property="count" />
+		<result column="rnum" property="rnum" />
 		<collection property="stockVO" resultMap="stockvo" />
 		<collection property="categoryVO" resultMap="categoryvo" />
 	</resultMap>
@@ -167,8 +168,8 @@
 	]]>
 	</select>
 
-	<!-- StoreHome 전체 정보 -->
-	<select id="getStoreinfo" resultType="GoodsVO">
+<!--	 StoreHome 전체 정보
+	<select id="getStoreinfo" resultType="boardvo">
    <![CDATA[
      select * from(
         select rownum as rnum, A.*from (
@@ -178,14 +179,14 @@
    ]]>
 	</select>
 	
-	<!-- 상품에 대한 별점 평균 -->
+	 상품에 대한 별점 평균 
 	<select id="getRatescore" resultMap="boardvo">
       <![CDATA[
          select goods_id, round(avg(ratescore),1) as avgscore from board where boardtype_id=8 group by goods_id
       ]]>
 	</select>
 	
-	<!-- Best 상품 전체 조회 -->
+	 Best 상품 전체 조회 
 	<select id="getBestinfo" resultType="GoodsVO">
    <![CDATA[
      select * from(
@@ -196,7 +197,7 @@
    ]]>
 	</select>
 	
-	<!-- 카테고리별 베스트 상품 조회 -->
+	카테고리별 베스트 상품 조회 
 	<select id="getBestlist" resultType="GoodsVO">
 	   <![CDATA[
 	     select * from(
@@ -206,4 +207,34 @@
 	      )where rnum >= 1
 	   ]]>
 	</select>
+	-->
+	
+	<select id="getRatescore" resultMap="boardvo">
+   <![CDATA[
+        select * from(
+        select rownum as rnum, A.*from (
+           select round(avg(ratescore),1) as avgscore, count(*) as count, goods_id from board where boardtype_id=8 group by goods_id order by count(*) desc
+       ) A where rownum <=20
+      )where rnum >= 1
+   ]]>
+	</select>
+	
+	<select id="getStoreinfo" resultMap="boardvo">
+   <![CDATA[
+      select * from board b, goods g where b.goods_id=g.goods_id and b.boardtype_id=3
+   ]]>
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 </mapper>

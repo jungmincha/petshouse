@@ -45,6 +45,7 @@ public class AuthSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 		}
 		super.setDefaultTargetUrl("/home");
 		super.onAuthenticationSuccess(request, response, authentication);
+
 	}
 
 }
