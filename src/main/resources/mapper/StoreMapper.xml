@@ -22,6 +22,7 @@
 		<result column="ratescore" property="ratescore" />
 		<result column="avgscore" property="avgscore" />
 		<result column="count" property="count" />
+		<result column="rnum" property="rnum" />
 		<collection property="memberVO" resultMap="membervo" />
 		<collection property="boardtypeVO" resultMap="boardtypevo" />
 		<collection property="goodsVO" resultMap="goodsvo" />
@@ -60,7 +61,6 @@
 		<result column="thumbnail" property="thumbnail" />
 		<result column="image3d" property="image3d" />
 		<result column="count" property="count" />
-		<result column="rnum" property="rnum" />
 		<collection property="stockVO" resultMap="stockvo" />
 		<collection property="categoryVO" resultMap="categoryvo" />
 	</resultMap>
@@ -168,16 +168,7 @@
 	]]>
 	</select>
 
-<!--	 StoreHome 전체 정보
-	<select id="getStoreinfo" resultType="boardvo">
-   <![CDATA[
-     select * from(
-        select rownum as rnum, A.*from (
-          select count(*) as count, g.goods_id, g.goodsname, TO_CHAR(g.price,'99,999') as price from goods g, board b where g.goods_id=b.goods_id and b.boardtype_id=8 group by g.goods_id, g.goodsname, TO_CHAR(g.price,'99,999') order by count(*) desc
-       ) A where rownum <=6
-      )where rnum >= 1
-   ]]>
-	</select>
+<!--	
 	
 	 상품에 대한 별점 평균 
 	<select id="getRatescore" resultMap="boardvo">
@@ -209,7 +200,8 @@
 	</select>
 	-->
 	
-	<select id="getRatescore" resultMap="boardvo">
+	<!-- storehome 상품에 대한 별점 평균 -->
+	<select id="getStorerate" resultMap="boardvo">
    <![CDATA[
         select * from(
         select rownum as rnum, A.*from (
@@ -219,19 +211,23 @@
    ]]>
 	</select>
 	
-	<select id="getStoreinfo" resultMap="boardvo">
+	<!-- Goods 전체 정보 -->
+	<select id="getGoodsinfo" resultMap="boardvo">
    <![CDATA[
-      select * from board b, goods g where b.goods_id=g.goods_id and b.boardtype_id=3
+      select g.goods_id, g.goodsname, TO_CHAR(g.price,'99,999') as price, b.board_id from board b, goods g where b.goods_id=g.goods_id and b.boardtype_id=3
    ]]>
 	</select>
 	
-	
-	
-	
-	
-	
-	
-	
+	<!-- best 상품에 대한 별점 평균 -->
+	<select id="getBestrate" resultMap="boardvo">
+   <![CDATA[
+        select * from(
+        select rownum as rnum, A.*from (
+           select round(avg(ratescore),1) as avgscore, count(*) as count, goods_id from board where boardtype_id=8 and category_id=#{category_id} group by goods_id order by count(*) desc
+       ) A where rownum <=20
+      )where rnum >= 1
+   ]]>
+	</select>
 	
 	
 	

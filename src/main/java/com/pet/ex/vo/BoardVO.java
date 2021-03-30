@@ -35,5 +35,6 @@ public class BoardVO {
 	private double avgscore;
 	//카운트 세기
 	private int count;
-	
+	//순서대로 정렬
+	private int rnum;
 }
