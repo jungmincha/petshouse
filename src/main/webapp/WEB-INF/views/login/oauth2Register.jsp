@@ -86,7 +86,7 @@
 			<div class="row">
 				<div class="col-lg-6 offset-lg-3">
 					<div class="register-form">
-						<h2>소셜 회원가입</h2>
+						<h2>SNS 간편회원가입</h2>
 						<h2 style="font-size: 13pt">추가 정보를 입력해주세요</h2>
 						<form action="/login/register/insert" method="post" id="myForm">
 

@@ -81,7 +81,7 @@
 									<label for="save-id"> 아이디 기억하기 <input type="checkbox"
 										id="save-id" name="remember-me"> <span
 										class="checkmark"></span>
-									</label> <a href="#" class="forget-pass">Forget your Password</a>
+									</label> <a  href="" class="forget-pass" onClick="goPopup();">비밀번호 재발급</a>
 								</div>
 							</div>
 							<button type="submit" class="site-btn login-btn">로그인</button>
@@ -102,10 +102,10 @@
 									<li class="col-sm"><a href="/oauth2/authorization/google"><img
 											src="/resources/logo/google.png" width="48px" height="48px"></a></li>
 
-									<li class="col-sm"><a href="#"><img
-											src="/resources/logo/kakao.png" width="48px" height="48px"></a></li>
-									<li class="col-sm"><a href="#"><img
+									<li class="col-sm"><a href="/oauth2/authorization/naver"><img
 											src="/resources/logo/naver.png" width="48px" height="48px"></a></li>
+									<li class="col-sm"><a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=1d0c7970b0388434a0312ff3fba25d52&scope=account_email&state=Lf_Z7buQNi87ryfmqOMtJ497_9hziNqpqRR5M3QxZjA%3D&redirect_uri=http://localhost:8383/login/oauth2/code/kakao"><img
+											src="/resources/logo/kakao.png" width="48px" height="48px"></a></li>
 								</ul>
 							</div>
 
@@ -132,6 +132,17 @@
 		alert("${msg}");
 		</c:if>
 	});
+	function goPopup() {
+		event.preventDefault();
+		// 주소검색을 수행할 팝업 페이지를 호출합니다.
+		// 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrLinkUrl.do)를 호출하게 됩니다.
+		var pop = window.open("/popup/pwfindPopup.jsp", "pop",
+				"width=570,height=420, scrollbars=yes, resizable=yes");
+
+		// 모바일 웹인 경우, 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrMobileLinkUrl.do)를 호출하게 됩니다.
+		//var pop = window.open("/popup/jusoPopup.jsp","pop","scrollbars=yes, resizable=yes"); 
+	}
+
 </script>
 <!-- Js Plugins -->
 <script src="/resources/js/jquery-3.3.1.min.js"></script>
