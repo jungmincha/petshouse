@@ -59,15 +59,15 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
 		}
 		member = loginMapper.getMember(member_id);
 		if (member == null) {
+			System.out.println("소셜 로그인 이 최초입니다.");
 			member = new MemberVO();
-			System.out.println("구글 로그인 이 최초입니다.");
 			member.setName(name);
 			member.setMember_id(member_id);
 			member.setUsername(member_id);
 			member.setPassword("펫츠하우스");
 			member.getLogintypeVO().setLogintype_id(loginType);
 		} else {
-			System.out.println("구글 아이디가 있습니다.");
+			System.out.println("소셜 아이디가 있습니다.");
 			authorities.add(new SimpleGrantedAuthority(member.getRoleVO().getRolename()));
 		}
 

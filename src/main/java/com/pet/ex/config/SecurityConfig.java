@@ -80,7 +80,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 																						// 하고 세션 초기화
 				.logoutSuccessUrl("/login/login") // /로 리다이렉트 하고
 				.invalidateHttpSession(true); // 세션 초기화
-
 	}
 
 	// JSP의 리소스 파일이나 자바스크립트 파일이 저장된 경로는 무시를 한다
