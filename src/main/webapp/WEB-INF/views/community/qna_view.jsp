@@ -33,7 +33,7 @@
 	<div class="container" style="margin-bottom: 40px">
 		<div class="head">
 			<div style="margin-top: 45px; margin-bottom: 10px;">
-				<a class="qna-subtitle" href="qna">질문과 답변</a>
+				<a class="qna-subtitle" href="qna">질문과 답변22</a>
 			</div>
 			<h3 class="qnatitle" style="font-weight: bold; margin-bottom: 10px;">${qna_view.title}</h3>
 		</div>
@@ -43,9 +43,9 @@
 
 
 			<button type="button" class="btn btn-warning"
-				onclick="modify_event();">modify</button>
+				onclick="modify_event();">수정</button>
 
-			<button type="button" onclick="button_event();">delete</button>
+			<button type="button" onclick="button_event();">삭제</button>
 		</div>
 
 		<script type="text/javascript">
@@ -70,71 +70,9 @@
 			<td>
 				<div style="font-size: 20px;">${qna_view.memberVO.nickname}</div> <section
 					style="margin-top:40px; margin-bottom:20px;">${qna_view.content}</section>
-<script>
-/* add Tag by click or press enter, comma, space */
-var elements = document.getElementById('element');
-var taskSubmit = document.getElementById('btn_add_task');
-var taskBox = document.querySelector('#text_task');
-var taskList = document.getElementById('list_tasks');
+					<section
+					style="margin-top:40px; margin-bottom:20px;">${qna_view.hashtag}</section>
 
-/* Prevent input other than Korean, English and numbers */
-taskBox.addEventListener('keyup',  removeSpecial);
-function removeSpecial (e) {
-   e.target.value = e.target.value.replace(/[^ㄱ-힣a-zA-Z0-9+#]/gi,"");
-}
-
-/* Prevent duplicate tags */
-
-/* click */
-document.addEventListener('click', clickFunction, false);
-function clickFunction(e) {
-    var task = taskBox.value.trim();
-    var newLI = document.createElement('li');
-    var removeBtn = document.createElement('button');
-    var element = newLI.appendChild(document.createTextNode(task));
-    if (taskBox.value != "") {
-        e.preventDefault();
-        taskList.appendChild(newLI);
-        taskList.appendChild(removeBtn);
-        taskBox.value = '';
-    }
-}
-
-/* keyup */
-document.addEventListener('keyup', keyupFunction, false);
-function keyupFunction(e) {
-    var keyCode = e.keyCode;
-    var task = taskBox.value.trim();
-    var newLI = document.createElement('li');
-    var removeBtn = document.createElement('button');
-    var element = newLI.appendChild(document.createTextNode(task));
-    if ((taskBox.value != "") && (keyCode === 188 || keyCode === 13 || keyCode === 32))  {
-        e.preventDefault();
-        taskList.appendChild(newLI);
-        newLI.appendChild(removeBtn);
-        taskBox.value = '';
-        removeBtn.addEventListener('click', function() {
-            removeBtn.parentNode.removeChild(removeBtn);
-            newLI.parentNode.removeChild(newLI);
-        });
-    }
-}
-
-/* Autocomplete using jQuery*/
-$(function() {
-	var languages = [
-		"ActionScript", "AppleScript", "Asp","BASIC", "C",
-		"C++", "Clojure", "COBOL", "ColdFusion", "Erlang",
-		"Fortran", "Groovy", "Haskell", "Java", "JavaScript",
-		"Lisp", "Perl", "PHP", "Python", "Ruby",
-		"Scala", "Scheme"
-	];
-
-	$( "#text_task" ).autocomplete({
-        source: languages
-	});
-});
-</script>
 
 				<span style="color: gray">${qna_view.pdate}</span> <span
 				style="color: gray">조회수 ${qna_view.hit}</span>
