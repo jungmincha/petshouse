@@ -44,17 +44,11 @@ select {
 <script>
     function inputCart(){ 
         var board_id = '${board.board_id}';
-<<<<<<< HEAD
-		var cartList = sessionStorage.getItem("cartList");
-		cartList.
-		
-=======
+
 		var cartList = new Array();
 			cartList = sessionStorage.getItem("cartList");
 		cartList.push(board_id);
->>>>>>> junsung
-		
-       		
+			
     }   
 </script>
 </head>
