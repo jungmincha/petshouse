@@ -64,4 +64,15 @@ public class StoreController {
 		mav.setViewName("store/home");
 		return mav;
 	}
+	
+	@GetMapping("/best/{categoryVO.category_id}")
+	public ModelAndView best(BoardVO boardVO, ModelAndView mav) {
+		log.info("storehome");
+		mav.addObject("rate", service.getBestrate(boardVO.getCategoryVO().getCategory_id()));
+		mav.addObject("goods", service.getGoodsinfo());
+		mav.addObject("image", fileservice.getImgtest());
+		
+		mav.setViewName("store/best");
+		return mav;
+	}
 }

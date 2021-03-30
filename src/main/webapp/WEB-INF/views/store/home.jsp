@@ -211,7 +211,7 @@ span.star-prototype>* {
 			
 			<!-- Category Section Begin -->		
 			
-		<!-- Hot Item section Begin -->	
+	<!-- Hot Item section Begin -->	
 		<section class="hotitem">
 			<div class="row">
 				<div class="col-lg-3">
@@ -232,12 +232,8 @@ span.star-prototype>* {
 						<c:if test="${rate.rnum le 6}">
 							<div class="product-item">
 								<div class="pi-pic">
-							
-								<c:forEach items="${image}" var="image">
-									
-									<img src="/resources/img/file/${image.imgname}" alt="">
-								
-								</c:forEach>
+								  <img src="/resources/img/goods/goods_01.jpg" alt="">
+
 									<div class="sale">BEST ${rate.rnum}</div>
 									<ul>
 										<li class="w-icon active"><a href="#"><i
@@ -251,8 +247,7 @@ span.star-prototype>* {
 									<div class="catagory-name"></div>
 								 <c:forEach items="${goods}" var="goods"> 
                              		<c:if test="${rate.goodsVO.goods_id eq goods.goodsVO.goods_id}">
-						            
-                            <a href="#">
+						             <a href="/admin/goods_detail/${goods.board_id}">
                                 <h5>${goods.goodsVO.goodsname}</h5>               
                             </a>
                             <div class="product-price">
@@ -260,7 +255,7 @@ span.star-prototype>* {
                             </div>
                             </c:if> 
                             </c:forEach> 	
-                               별점 <span class="star-prototype">  ${rate.avgscore}</span>
+                               별점 <span class="star-prototype">  ${rate.avgscore}</span> &nbsp; <span>리뷰 ${rate.count}</span>     
 								</div>
 							</div>						
 							</c:if>
@@ -317,11 +312,18 @@ span.star-prototype>* {
 				</div>
 			</div>
          <div class="row">
-           <c:forEach items="${rate}" var="rate">        
+           <c:forEach items="${rate}" var="rate">       
                 <div class="col-lg-3 col-sm-6">
                     <div class="product-item">
                         <div class="pi-pic">
-                            <img src="/resources/img/goods/goods_01.jpg" alt="">
+                        		 <c:forEach items="${goods}" var="goods">
+								  <c:forEach items="${image}" var="image">
+									<c:if test="${goods.board_id eq image.boardVO.board_id}">
+									
+									<img src="/resources/img/file/${image.imgname}" alt="">
+									</c:if>
+								  </c:forEach>
+								 </c:forEach>                          
                             <div class="sale">Best ${rate.rnum}</div>     
                             <div class="icon">
                                 <i class="icon_heart_alt"></i>
@@ -336,16 +338,15 @@ span.star-prototype>* {
                             <div class="catagory-name"> </div>
                             <c:forEach items="${goods}" var="goods"> 
                              		<c:if test="${rate.goodsVO.goods_id eq goods.goodsVO.goods_id}">
-						            
-                            <a href="#">
-                                <h5>${goods.goodsVO.goodsname}</h5>               
-                            </a>
-                            <div class="product-price">
-                                 ${goods.goodsVO.price}원                           
-                            </div>
-                            </c:if> 
+						            	  <a href="/admin/goods_detail/${goods.board_id}">
+                                			<h5>${goods.goodsVO.goodsname}</h5>               
+                           				 </a>                       
+		                            	<div class="product-price">
+		                             	    ${goods.goodsVO.price}원                           
+		                           		 </div>
+		                            </c:if> 
                             </c:forEach> 
-						              별점 <span class="star-prototype"> ${rate.avgscore}</span> <span> &nbsp; 리뷰 ${rate.count}</span>         
+						  별점 <span class="star-prototype"> ${rate.avgscore}</span> <span> &nbsp; 리뷰 ${rate.count}</span>         
                         </div>
                     </div>          
               	  </div>
@@ -353,8 +354,6 @@ span.star-prototype>* {
             </div>
             </section>
 		<!-- Best Item End -->
-		
-		
 	</div>
 	<!-- /.container -->
 </section>

@@ -72,7 +72,7 @@
 	</resultMap>
 
 	<resultMap type="ImgtestVO" id="imgtestvo">
-		<result column="imgtest_id" property="imgtest_id" />
+		<result column="imgname" property="imgname" />
 		<collection property="boardVO" resultMap="boardvo" />
 	</resultMap>
 
@@ -153,14 +153,14 @@
 	<insert id="uploadFile">
 	 <![CDATA[
     INSERT INTO
-       IMGTEST2 VALUES (#{imgname}, 16)
+       IMGTEST2 VALUES (#{imgname}, 9)
 	 ]]>
 	</insert>
 
 	<!-- 이미지 조회 -->
 	<select id="getImgtest" resultMap="imgtestvo">
 	   <![CDATA[
-	      select * from imgtest2 where board_id=16
+	      select * from imgtest2 where board_id=9
 	   ]]>
 	</select>
 </mapper>

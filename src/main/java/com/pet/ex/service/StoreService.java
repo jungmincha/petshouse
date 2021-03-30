@@ -15,9 +15,7 @@ public interface StoreService {
 	public List<BoardVO> getStorerate();
 
 	public List<BoardVO> getGoodsinfo();
+
+	public List<BoardVO> getBestrate(int category_id);
 	
-	//public List<BoardVO> getBestrate();
-
-	//public List<BoardVO> getBestrate(int category_id);
-
 }

@@ -2,6 +2,7 @@ package com.pet.ex.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pet.ex.mapper.StoreMapper;
@@ -17,6 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 @AllArgsConstructor
 public class StoreServiceImpl implements StoreService {
 
+	@Autowired
 	public StoreMapper mapper;
 
 	@Override
@@ -43,10 +45,9 @@ public class StoreServiceImpl implements StoreService {
 		return mapper.getGoodsinfo();
 	}
 	
-//	@Override
-//	public List<BoardVO> getBestrate(int category_id) {
-//		log.info("getBestrate");
-//		return mapper.getBestrate(category_id);
-//	}
-
+	@Override
+	public List<BoardVO> getBestrate(int category_id) {
+		log.info("getBestrate");
+		return mapper.getBestrate(category_id);
+	}
 }

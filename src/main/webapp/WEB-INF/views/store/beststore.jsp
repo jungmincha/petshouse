@@ -101,19 +101,19 @@
              <div class="row">           
                 <div class="col-lg-2">
                     <div class="single-banner">                                      
-                        <a class="category" href="${pageContext.request.contextPath}/store/beststore" value="1" name="categoryVO.category_id"><img src="/resources/img/category/cat.jpg"></a>
+                        <a class="category" href="${pageContext.request.contextPath}/store/best" value="1" name="categoryVO.category_id"><img src="/resources/img/category/cat.jpg"></a>
                      </div>
                 </div>
                 
                 <div class="col-lg-2">
                     <div class="single-banner">
-                       <a class="category" href="${pageContext.request.contextPath}/store/beststore" value="2"><img src="/resources/img/category/dog.jpg"></a>
+                       <a class="category" href="${pageContext.request.contextPath}/store/best" value="2"><img src="/resources/img/category/dog.jpg"></a>
                     </div>
                 </div>
                 
                 <div class="col-lg-2">
                     <div class="single-banner">
-                        <a href="${pageContext.request.contextPath}/store/beststore/3" target="_self"><img src="/resources/img/category/reptile.jpg"></a>
+                        <a href="${pageContext.request.contextPath}/store/best/3" target="_self"><img src="/resources/img/category/reptile.jpg"></a>
                     </div>
                 </div>
                 
@@ -138,31 +138,31 @@
   		  <!-- Category End -->   
   		  
   		  <div class="product-slider owl-carousel">
-                    <c:forEach items="${store}" var="dto">
+                    <c:forEach items="${rate}" var="rate">
                         <div class="product-item">
                             <div class="pi-pic">
                                 <img src="/resources/img/goods/goods_01.jpg" alt=""> 
-                                 <div class="sale">BEST ${dto.rnum}</div>                                
+                                 <div class="sale">BEST ${rate.rnum}</div>                                
                                 <ul>
                                     <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
                                     <li class="quick-view"><a href="#">+ Quick View</a></li>
                                     <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
                                 </ul>
                             </div>
-                            <div class="pi-text">
-                                <div class="catagory-name"> </div>
-                                <a href="#">
-                                    <h5>${dto.goodsname}</h5>
-                                </a>
-                                <div class="product-price">
-                                    ${dto.price}원
-                                </div>
-					             <c:forEach items="${rate}" var="rate">
-									<c:if test="${dto.goods_id eq rate.goodsVO.goods_id}">
-						              별점 <span class="star-prototype"> ${rate.avgscore}</span> <span> &nbsp; 리뷰 ${dto.count}</span>         
-						       		</c:if>
-					            </c:forEach>                                                              
-                            </div>
+		                        <div class="pi-text">
+		                            <div class="catagory-name"> </div>
+		                            <c:forEach items="${goods}" var="goods"> 
+		                             		<c:if test="${rate.goodsVO.goods_id eq goods.goodsVO.goods_id}">
+								            	  <a href="/admin/goods_detail/${goods.board_id}">
+		                                			<h5>${goods.goodsVO.goodsname}</h5>               
+		                           				 </a>                       
+				                            	<div class="product-price">
+				                             	    ${goods.goodsVO.price}원                           
+				                           		 </div>
+				                            </c:if> 
+		                            </c:forEach> 
+								  별점 <span class="star-prototype"> ${rate.avgscore}</span> <span> &nbsp; 리뷰 ${rate.count}</span>         
+		                        </div>
                         </div>
                   </c:forEach>
               </div>
