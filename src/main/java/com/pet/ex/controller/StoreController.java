@@ -36,38 +36,41 @@ public class StoreController {
 	@GetMapping("/product")
 	public ModelAndView product(GoodsVO goodsVO, StockVO stockVO, ModelAndView mav) throws Exception {
 		mav.addObject("stock", service.getStock2(stockVO.getStock_id()));
-		mav.addObject("goods", service.getGoods2(goodsVO.getGoods_id()));
+		mav.addObject("goods1", service.getGoods2(goodsVO.getGoods_id()));
 		mav.setViewName("store/product");
 		return mav;
 	}
 
-	@GetMapping("/storehome")
+//	@GetMapping("/home")
+//	public ModelAndView storehome(BoardVO boardVO, ModelAndView mav) {
+//		log.info("storehome");
+//		mav.addObject("store", service.getStoreinfo());
+//	//	boardVO = service.getStoreinfo();
+//		mav.addObject("best", service.getBestinfo());
+//		mav.addObject("rate", service.getRatescore());	
+//		mav.setViewName("store/home");
+//		return mav;
+//	}
+//	
+//	@GetMapping("/best/{categoryVO.category_id}")
+////	@ResponseBody
+////	public List<GoodsVO> beststore(GoodsVO goodsVO) {
+//	public ModelAndView catebest(GoodsVO goodsVO, ModelAndView mav) {
+//		log.info("catebest");
+//		//List<GoodsVO> bestlist = service.getBestlist(goodsVO.getCategoryVO().getCategory_id());
+//		mav.addObject("best", service.getBestlist(goodsVO.getCategoryVO().getCategory_id()));
+//		mav.addObject("rate", service.getRatescore());
+//		mav.addObject("image", fileservice.getImgtest());
+//		mav.setViewName("store/best");
+//		return mav;
+//	}
+	
+	@GetMapping("/home")
 	public ModelAndView storehome(ModelAndView mav) {
-		mav.addObject("store", service.getStoreinfo());
-		mav.addObject("rate", service.getRatescore());
-		mav.setViewName("store/storehome");
-		log.info("rate");
-		return mav;
-	}
-	
-	@GetMapping("/beststore")
-	public ModelAndView beststore(ModelAndView mav) {
-		mav.addObject("best", service.getBestinfo());
-		mav.addObject("rate1", service.getRatescore());
-		mav.setViewName("store/beststore2");
-		return mav;
-	}
-	
-	@GetMapping("/beststore/{categoryVO.category_id}")
-//	@ResponseBody
-//	public List<GoodsVO> beststore(GoodsVO goodsVO) {
-	public ModelAndView catebest(GoodsVO goodsVO, ModelAndView mav) {
-		log.info("catebest");
-		//List<GoodsVO> bestlist = service.getBestlist(goodsVO.getCategoryVO().getCategory_id());
-		mav.addObject("catebest", service.getBestlist(goodsVO.getCategoryVO().getCategory_id()));
-		mav.addObject("rate2", service.getRatescore());
-		mav.addObject("image", fileservice.getImgtest());
-		mav.setViewName("store/beststore2");
+		log.info("storehome");
+		mav.addObject("rate", service.getRatescore());	
+		mav.addObject("goods", service.getStoreinfo());
+		mav.setViewName("store/home1");
 		return mav;
 	}
 }

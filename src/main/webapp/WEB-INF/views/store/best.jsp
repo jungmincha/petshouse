@@ -21,7 +21,8 @@
   <script type="text/javascript">
     $(document).ready(function(){	    	
     	$.fn.generateStars = function() {
-    	    return this.each(function(i,e){$(e).html($('<span/>').width($(e).text()*16));});
+    	    return this.each(function(i,e){
+    	    	$(e).html($('<span/>').width($(e).text()*16));});
     	};
 
     	// 숫자 평점을 별로 변환하도록 호출하는 함수
@@ -71,92 +72,50 @@
              <div class="row">           
                 <div class="col-lg-2">
                     <div class="single-banner">                                      
-                        <a href="${pageContext.request.contextPath}/store/beststore/1"><img src="/resources/img/category/cat.jpg"></a>
+                        <a href="${pageContext.request.contextPath}/store/best/1"><img src="/resources/img/category/cat.jpg"></a>
                      </div>
                 </div>
                 
                 <div class="col-lg-2">
                     <div class="single-banner">
-                       <a href="${pageContext.request.contextPath}/store/beststore/2"><img src="/resources/img/category/dog.jpg"></a>
+                       <a href="${pageContext.request.contextPath}/store/best/2"><img src="/resources/img/category/dog.jpg"></a>
                     </div>
                 </div>
                 
                 <div class="col-lg-2">
                     <div class="single-banner">
-                        <a href="${pageContext.request.contextPath}/store/beststore/3"><img src="/resources/img/category/reptile.jpg"></a>
+                        <a href="${pageContext.request.contextPath}/store/best/3"><img src="/resources/img/category/reptile.jpg"></a>
                     </div>
                 </div>
                 
                 <div class="col-lg-2">
                     <div class="single-banner">
-                        <a href="${pageContext.request.contextPath}/store/beststore/4"><img src="/resources/img/category/bird.jpg"></a>
+                        <a href="${pageContext.request.contextPath}/store/best/4"><img src="/resources/img/category/bird.jpg"></a>
                     </div>
                 </div>
                 
                 <div class="col-lg-2">
                     <div class="single-banner">
-                        <a href="${pageContext.request.contextPath}/store/beststore/5"><img src="/resources/img/category/fish.jpg"></a>
+                        <a href="${pageContext.request.contextPath}/store/best/5"><img src="/resources/img/category/fish.jpg"></a>
                     </div>
                 </div>
                 
                 <div class="col-lg-2">
                     <div class="single-banner">
-                        <a href="${pageContext.request.contextPath}/store/beststore/6"><img src="/resources/img/category/other.jpg"></a>
+                        <a href="${pageContext.request.contextPath}/store/best/6"><img src="/resources/img/category/other.jpg"></a>
                     </div>
                 </div>
             </div>
   		  <!-- Category End -->   
-  		  
-         <div class="row">
-           <c:forEach items="${best}" var="dto">
-          
-                <div class="col-lg-3 col-sm-6">
-                    <div class="product-item">
-                        <div class="pi-pic">
-                            <img src="/resources/img/goods/goods_01.jpg" alt="">
-                            <div class="sale">Best ${dto.rnum}</div>     
-                            <div class="icon">
-                                <i class="icon_heart_alt"></i>
-                            </div>
-                            <ul>
-                                <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="pi-text">
-                            <div class="catagory-name"> </div>
-                            <a href="#">
-                                <h5>${dto.goodsname}</h5>
-                            </a>
-                            <div class="product-price">
-                                 ${dto.price}원                           
-                            </div>
-                              <c:forEach items="${rate1}" var="rate1">
-									<c:if test="${dto.goods_id eq rate1.goodsVO.goods_id}">
-						              별점 <span class="star-prototype"> ${rate1.avgscore}</span> <span> &nbsp; 리뷰 ${dto.count}</span>         
-						       		</c:if>
-					              </c:forEach>
-                        </div>
-                    </div>
-          
-                </div>
-                 </c:forEach>  
-          
-            </div>
+  
             
              <div class="row">
-           <c:forEach items="${catebest}" var="catebest">
-             <c:forEach items="${rate2}" var="rate2">
+           <c:forEach items="${best}" var="best">
                 <div class="col-lg-3 col-sm-6">
                     <div class="product-item">
                         <div class="pi-pic">
-                       
-                        <c:if test="${rate2.board_id eq image.board_id}">
-                            <img src="/resources/img/file/${image.imgname}">
-                          </c:if>
-                          
-                            <div class="sale">Best ${catebest.rnum}</div>     
+             
+                            <div class="sale">Best ${best.rnum}</div>     
                             <div class="icon">
                                 <i class="icon_heart_alt"></i>
                             </div>
@@ -169,23 +128,23 @@
                         <div class="pi-text">
                             <div class="catagory-name"> </div>
                             <a href="#">
-                                <h5>${catebest.goodsname}</h5>
+                                <h5>${best.goodsname}</h5>
                             </a>
                             <div class="product-price">
-                                 ${catebest.price}원                           
+                                 ${best.price}원                           
                             </div>
-                            
-									<c:if test="${catebest.goods_id eq rate2.goodsVO.goods_id}">
-						              별점 <span class="star-prototype"> ${rate2.avgscore}</span> <span> &nbsp; 리뷰 ${dto.count}</span>         
+                             <c:forEach items="${rate}" var="rate">
+									<c:if test="${best.goods_id eq rate.goodsVO.goods_id}">
+						              별점 <span class="star-prototype"> ${rate.avgscore}</span> <span> &nbsp; 리뷰 ${dto.count}</span>         
 						       		</c:if>
-							
+							</c:forEach>
                         </div>
                         
                     </div>
           
                 </div>
                 </c:forEach>
-                </c:forEach>
+   
             </div>
          </div>
     </section>
