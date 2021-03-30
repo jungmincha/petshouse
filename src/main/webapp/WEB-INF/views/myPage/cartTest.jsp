@@ -43,9 +43,10 @@ select {
 </style>
 <script>
     function inputCart(){ 
-         var board_id = '${board.board_id}';
-		var cartList = sessionStorage.getItem("cartList");
-		
+        var board_id = '${board.board_id}';
+		var cartList = new Array();
+			cartList = sessionStorage.getItem("cartList");
+		cartList.push(board_id);
 		
        		
     }   

@@ -13,12 +13,13 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/myPage")
 public class MyPageController {
 
-	
+	@au
 
 	// 장바구니 목록 페이지 이동
 	@GetMapping("/cart")
 	public ModelAndView cart(ModelAndView mav) {
 		log.info("myPage/cart");	
+		
 		mav.setViewName("/myPage/cart");
 		return mav;
 	}
