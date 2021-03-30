@@ -15,12 +15,10 @@ public interface StoreMapper {
 
 	public GoodsVO getGoods2(int goods_id);
 	
-	public List<BoardVO> getStoreinfo();
+	public List<BoardVO> getStorerate();
 
-	public List<BoardVO> getRatescore();
-
-	public List<GoodsVO> getBestinfo();
+	public List<BoardVO> getGoodsinfo();
 	
-	public List<GoodsVO> getBestlist(int category_id);
+	public List<BoardVO> getBestrate(int category_id);
 
 }

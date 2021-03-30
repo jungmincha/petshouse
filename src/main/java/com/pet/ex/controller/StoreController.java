@@ -41,17 +41,6 @@ public class StoreController {
 		return mav;
 	}
 
-//	@GetMapping("/home")
-//	public ModelAndView storehome(BoardVO boardVO, ModelAndView mav) {
-//		log.info("storehome");
-//		mav.addObject("store", service.getStoreinfo());
-//	//	boardVO = service.getStoreinfo();
-//		mav.addObject("best", service.getBestinfo());
-//		mav.addObject("rate", service.getRatescore());	
-//		mav.setViewName("store/home");
-//		return mav;
-//	}
-//	
 //	@GetMapping("/best/{categoryVO.category_id}")
 ////	@ResponseBody
 ////	public List<GoodsVO> beststore(GoodsVO goodsVO) {
@@ -68,9 +57,11 @@ public class StoreController {
 	@GetMapping("/home")
 	public ModelAndView storehome(ModelAndView mav) {
 		log.info("storehome");
-		mav.addObject("rate", service.getRatescore());	
-		mav.addObject("goods", service.getStoreinfo());
-		mav.setViewName("store/home1");
+		mav.addObject("rate", service.getStorerate());	
+		mav.addObject("goods", service.getGoodsinfo());
+		mav.addObject("image", fileservice.getImgtest());
+
+		mav.setViewName("store/home");
 		return mav;
 	}
 }

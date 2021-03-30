@@ -32,27 +32,21 @@ public class StoreServiceImpl implements StoreService {
 	}
 
 	@Override
-	public List<BoardVO> getStoreinfo() {
-		log.info("getStoreinfo");
-		return mapper.getStoreinfo();
+	public List<BoardVO> getStorerate() {
+		log.info("getStorerate");
+		return mapper.getStorerate();
 	}
 
 	@Override
-	public List<BoardVO> getRatescore() {
-		log.info("getRatescore");
-		return mapper.getRatescore();
-	}
-
-	@Override
-	public List<GoodsVO> getBestinfo() {
-		log.info("getBestlist");
-		return mapper.getBestinfo();
+	public List<BoardVO> getGoodsinfo() {
+		log.info("getGoodsinfo");
+		return mapper.getGoodsinfo();
 	}
 	
-	@Override
-	public List<GoodsVO> getBestlist(int category_id) {
-		log.info("getBestlist");
-		return mapper.getBestlist(category_id);
-	}
+//	@Override
+//	public List<BoardVO> getBestrate(int category_id) {
+//		log.info("getBestrate");
+//		return mapper.getBestrate(category_id);
+//	}
 
 }

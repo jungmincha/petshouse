@@ -227,11 +227,18 @@ span.star-prototype>* {
 						</ul>
 					</div>
 					<div class="product-slider owl-carousel">
-						<c:forEach items="${store}" var="store">
+
+						<c:forEach items="${rate}" var="rate">
+						<c:if test="${rate.rnum le 6}">
 							<div class="product-item">
 								<div class="pi-pic">
-									<img src="/resources/img/goods/goods_01.jpg" alt="">
-									<div class="sale">BEST ${store.rnum}</div>
+							
+								<c:forEach items="${image}" var="image">
+									
+									<img src="/resources/img/file/${image.imgname}" alt="">
+								
+								</c:forEach>
+									<div class="sale">BEST ${rate.rnum}</div>
 									<ul>
 										<li class="w-icon active"><a href="#"><i
 												class="icon_bag_alt"></i></a></li>
@@ -242,19 +249,21 @@ span.star-prototype>* {
 								</div>
 								<div class="pi-text">
 									<div class="catagory-name"></div>
-									<a href="#">
-										<h5>${store.goodsname}</h5>
-									</a>
-									<div class="product-price">${store.price}원</div>
-									<c:forEach items="${rate}" var="rate">
-										<c:if test="${store.goods_id eq rate.goodsVO.goods_id}">
-                                별점 <span class="star-prototype">
-												${rate.avgscore}</span>
-											<span> &nbsp; 리뷰 ${store.count}</span>
-										</c:if>
-									</c:forEach>
+								 <c:forEach items="${goods}" var="goods"> 
+                             		<c:if test="${rate.goodsVO.goods_id eq goods.goodsVO.goods_id}">
+						            
+                            <a href="#">
+                                <h5>${goods.goodsVO.goodsname}</h5>               
+                            </a>
+                            <div class="product-price">
+                                 ${goods.goodsVO.price}원                           
+                            </div>
+                            </c:if> 
+                            </c:forEach> 	
+                               별점 <span class="star-prototype">  ${rate.avgscore}</span>
 								</div>
-							</div>
+							</div>						
+							</c:if>
 						</c:forEach>
 					</div>
 				</div>
@@ -308,12 +317,12 @@ span.star-prototype>* {
 				</div>
 			</div>
          <div class="row">
-           <c:forEach items="${best}" var="best">        
+           <c:forEach items="${rate}" var="rate">        
                 <div class="col-lg-3 col-sm-6">
                     <div class="product-item">
                         <div class="pi-pic">
                             <img src="/resources/img/goods/goods_01.jpg" alt="">
-                            <div class="sale">Best ${best.rnum}</div>     
+                            <div class="sale">Best ${rate.rnum}</div>     
                             <div class="icon">
                                 <i class="icon_heart_alt"></i>
                             </div>
@@ -325,17 +334,18 @@ span.star-prototype>* {
                         </div>
                         <div class="pi-text">
                             <div class="catagory-name"> </div>
+                            <c:forEach items="${goods}" var="goods"> 
+                             		<c:if test="${rate.goodsVO.goods_id eq goods.goodsVO.goods_id}">
+						            
                             <a href="#">
-                                <h5>${best.goodsname}</h5>
+                                <h5>${goods.goodsVO.goodsname}</h5>               
                             </a>
                             <div class="product-price">
-                                 ${best.price}원                           
+                                 ${goods.goodsVO.price}원                           
                             </div>
-                              <c:forEach items="${rate}" var="rate">
-									<c:if test="${best.goods_id eq rate.goodsVO.goods_id}">
-						              별점 <span class="star-prototype"> ${rate.avgscore}</span> <span> &nbsp; 리뷰 ${best.count}</span>         
-						       		</c:if>
-					          </c:forEach>
+                            </c:if> 
+                            </c:forEach> 
+						              별점 <span class="star-prototype"> ${rate.avgscore}</span> <span> &nbsp; 리뷰 ${rate.count}</span>         
                         </div>
                     </div>          
               	  </div>

@@ -73,10 +73,6 @@
 
 	<resultMap type="ImgtestVO" id="imgtestvo">
 		<result column="imgtest_id" property="imgtest_id" />
-		<result column="oimgname" property="oimgname" />
-		<result column="simgname" property="simgname" />
-		<result column="filesize" property="filesize" />
-		<result column="savepath" property="savepath" />
 		<collection property="boardVO" resultMap="boardvo" />
 	</resultMap>
 
@@ -162,7 +158,7 @@
 	</insert>
 
 	<!-- 이미지 조회 -->
-	<select id="getImgtest" resultType="ImgtestVO">
+	<select id="getImgtest" resultMap="imgtestvo">
 	   <![CDATA[
 	      select * from imgtest2 where board_id=16
 	   ]]>
