@@ -49,13 +49,14 @@ public class AdminController {
 	}
 
 	@DeleteMapping("/goods/{goods_id}")
-	public ResponseEntity<String> delete(GoodsVO goodsVO, Model model) {
+	public ResponseEntity<String> delete(GoodsVO goodsVO,  Model model) {
 		
 		ResponseEntity<String> entity = null;
 		log.info("delete");
 		
 		try {
-			service.remove(goodsVO.getGoods_id());
+			
+			service.remove_goods(goodsVO.getGoods_id());
 		
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 		} catch (Exception e) {
@@ -104,16 +105,16 @@ public class AdminController {
 
 	 
 
-	@GetMapping("/goods/{gId}")
-	public ModelAndView rest_content_view(@PathVariable("gId") int gId ,GoodsVO goodsVO, ModelAndView mav) {
+	@RequestMapping("/goods/{goods_id}")
+	public ModelAndView rest_content_view(@PathVariable("goods_id") int goods_id ,GoodsVO goodsVO, ModelAndView mav) {
 
 	 
 		
 		log.info("content_view");
 		mav.setViewName("admin/content_view");
 		
-		goodsVO = service.getInfo(gId);
-		System.out.println(gId);
+		goodsVO = service.getInfo(goods_id);
+		
 		List<CategoryVO> category = null;
 		category = service.getCategory();
 		mav.addObject("category", JSONArray.fromObject(category));
@@ -125,12 +126,12 @@ public class AdminController {
 		return mav;
 	}
 
-	@PostMapping("/goods/modify")
-	public ResponseEntity<String> rest_update(GoodsVO goodsVO, ModelAndView modelAndView) {
+	@PutMapping("/goods/{goods_id}")
+	public ResponseEntity<String> rest_update(@RequestBody GoodsVO goodsVO, ModelAndView modelAndView) {
 
 		ResponseEntity<String> entity = null;
 
-		log.info("상품수정");
+		log.info("상품수222정");
 		try {
 
 			service.modifyGoods(goodsVO);
@@ -149,18 +150,18 @@ public class AdminController {
 	 * return "store_register"; }
 	 */
 
-	@GetMapping("/goods_view/{g_id}") // 상품상세조회
-	public ModelAndView goods_view(@PathVariable("g_id") int g_id, BoardVO boardVO, GoodsVO goodsVO, StockVO stockVO,
+	@GetMapping("/goods_detail/{board_id}") // 상품상세조회
+	public ModelAndView goods_view(@PathVariable("board_id") int board_id, BoardVO boardVO, GoodsVO goodsVO, StockVO stockVO,
 			ModelAndView mav) throws Exception {
 
-		boardVO = service.getgoodsInfo(g_id);
+		boardVO = service.getgoodsInfo(board_id);
 
 		log.info("goods_view");
 		mav.setViewName("admin/goods_detail");
 		
-		System.out.println(g_id);
+		System.out.println("board_id");
 		
-		mav.addObject("one", service.getRateone(goodsVO.getGoods_id()));
+		mav.addObject("one", service.getRateone(boardVO.getGoodsVO().getGoods_id()));
 		mav.addObject("goods", service.getGoods(boardVO.getBoard_id()));
 		
 		return mav;

@@ -21,7 +21,7 @@ public interface AdminService {
 	public List<GoodsVO> getList(Criteria cri);	// 상품 목록 조회
 	public int getTotal(Criteria cri);			// 상품 갯수
 	
-	public void remove(int goods_id);
+	public void remove_goods(int goods_id);
 
 	public List<CategoryVO> getCategory();
 
@@ -33,7 +33,9 @@ public interface AdminService {
 
 	public void modifyGoods(GoodsVO goodsVO);
 
-	public BoardVO getgoodsInfo(int g_id);
+	public BoardVO getgoodsInfo(int board_id);
 
-	public GoodsVO getInfo(int gId);
+	public GoodsVO getInfo(int goods_id);
+
+	 
 }
