@@ -131,7 +131,7 @@ public class AdminController {
 
 		ResponseEntity<String> entity = null;
 
-		log.info("상품수222정");
+		log.info("상품수정");
 		try {
 
 			service.modifyGoods(goodsVO);

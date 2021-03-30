@@ -230,7 +230,7 @@
 
 	<select id="getGoods" resultMap="boardvo"> 
 	<![CDATA[ 
-      select b.board_id, g.goods_id, g.goodsname, g.description, s.stockname, g.price, g.psize, g.pcolor, b.hashtag, c.categoryname, cc.categoryname as sortname from goods g, board b, stock s, category c, category cc
+      select b.board_id, g.goods_id, g.goodsname, g.description, b.content, b.pdate, s.stockname, g.price, g.psize, g.pcolor, b.hashtag, c.categoryname, cc.categoryname as sortname from goods g, board b, stock s, category c, category cc
       where g.goods_id = b.goods_id and g.stock_id=s.stock_id and g.category_id=c.category_id and c.category_id=cc.code and b.board_id = #{board_id}  and b.boardtype_id=3 
 	]]>
 	</select>
@@ -238,7 +238,7 @@
 
 	<select id="getRateone" parameterType="int" resultMap="boardvo">
 	   <![CDATA[
-	      select goods_id, round(avg(ratescore),1) as avgscore from board 
+	      select goods_id, round(avg(ratescore),1) as avgscore , count(*) as count from board 
 	      where boardtype_id=8 and goods_id=#{goodsVO.goods_id} group by goods_id
 	   ]]>
 	</select>

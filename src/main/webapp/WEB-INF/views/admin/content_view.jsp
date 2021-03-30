@@ -44,7 +44,7 @@
                if(result == "SUCCESS"){
                   //list로 
                   
-                  $(location).attr('href', '${pageContext.request.contextPath}/admin/goods/')                            
+                  $(location).attr('href', '${pageContext.request.contextPath}/admin/goods/'')                            
                }                       
              },
              error: function (e) {
@@ -101,7 +101,7 @@ select {
 
 	<div class="col-lg-30">
 		<form  id="updateForm" 
-			action="${pageContext.request.contextPath}/admin/goods/" method="post">
+			action="${pageContext.request.contextPath}/admin/goods/${goods.goods_id}" method="post">
 			<input type="hidden" name="goods_id" value="${goods.goods_id}">
 
 			<div class="col-lg-30">
