@@ -12,7 +12,7 @@ public interface StoreService {
 
 	public GoodsVO getGoods2(int getGoods_id);
 	
-	public List<GoodsVO> getStoreinfo();
+	public List<BoardVO> getStoreinfo();
 
 	public List<BoardVO> getRatescore();
 

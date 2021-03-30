@@ -56,13 +56,26 @@ body {
 	padding-top: 15px;
 }
 
-#product {
-	padding-top: 40px;
-}
-
 .single-hero-items {
 	max-height: 580px;
 }
+
+.category, .hotitem {
+	padding-top: 40px;
+}
+
+.product-item {
+	padding-top: 20px;
+}
+
+.recommended{
+	padding-top: 60px;
+}
+
+.best{
+	padding: 80px;
+}
+
 
 span.star-prototype, span.star-prototype>* {
 	height: 16px;
@@ -140,16 +153,15 @@ span.star-prototype>* {
 				</div>
 			</div>
 		</div>
-	</section>
+	
 	<!-- Hero Section End -->
 
-	<!-- Banner Section Begin -->
-	<section class="latest-blog spad">
+	<!-- Category Section Begin -->
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="section-title">
-						<h2>Category</h2>
+						<h2 class="category">Category</h2>
 					</div>
 				</div>
 			</div>
@@ -195,18 +207,15 @@ span.star-prototype>* {
 							src="/resources/img/category/other.jpg"></a>
 					</div>
 				</div>
-			</div>
-		</div>
-	</section>
-	<!-- Banner Section End -->
-
-	<!-- Hot Item1 Banner Section Begin -->
-	<section class="Hot Item1 banner spad">
-		<div class="container">
+			</div>	
+			
+			<!-- Category Section Begin -->		
+			
+		<!-- Hot Item section Begin -->	
+		<section class="hotitem">
 			<div class="row">
 				<div class="col-lg-3">
-					<div class="product-large set-bg"
-						data-setbg="/resources/img/goods/hot_banner_01.jpg">
+					<div class="product-large set-bg" data-setbg="/resources/img/goods/hot_banner_01.jpg">
 						<h2>Hot Item</h2>
 						<a href="카테고리홈으로">More</a>
 					</div>
@@ -218,11 +227,11 @@ span.star-prototype>* {
 						</ul>
 					</div>
 					<div class="product-slider owl-carousel">
-						<c:forEach items="${store}" var="dto">
+						<c:forEach items="${store}" var="store">
 							<div class="product-item">
 								<div class="pi-pic">
 									<img src="/resources/img/goods/goods_01.jpg" alt="">
-									<div class="sale">BEST ${dto.rnum}</div>
+									<div class="sale">BEST ${store.rnum}</div>
 									<ul>
 										<li class="w-icon active"><a href="#"><i
 												class="icon_bag_alt"></i></a></li>
@@ -234,14 +243,14 @@ span.star-prototype>* {
 								<div class="pi-text">
 									<div class="catagory-name"></div>
 									<a href="#">
-										<h5>${dto.goodsname}</h5>
+										<h5>${store.goodsname}</h5>
 									</a>
-									<div class="product-price">${dto.price}원</div>
+									<div class="product-price">${store.price}원</div>
 									<c:forEach items="${rate}" var="rate">
-										<c:if test="${dto.goods_id eq rate.goodsVO.goods_id}">
+										<c:if test="${store.goods_id eq rate.goodsVO.goods_id}">
                                 별점 <span class="star-prototype">
 												${rate.avgscore}</span>
-											<span> &nbsp; 리뷰 ${dto.count}</span>
+											<span> &nbsp; 리뷰 ${store.count}</span>
 										</c:if>
 									</c:forEach>
 								</div>
@@ -250,73 +259,14 @@ span.star-prototype>* {
 					</div>
 				</div>
 			</div>
-		</div>
-	</section>
-	<!-- Hot Item1 Banner Section End -->
+		</section>
+		<!-- Hot Item section End -->
 
-	<!-- Hot Item2 Banner Section Begin -->
-	<section class="Hot Item2 banner spad">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-8">
-					<div class="filter-control">
-						<ul>
-							<li class="active">Products</li>
-						</ul>
-					</div>
-					<div class="product-slider owl-carousel">
-						<c:forEach items="${store}" var="dto">
-							<div class="product-item">
-								<div class="pi-pic">
-							<!-- <c:forEach items="${image}" var="image">
-								<c:if test="${dto.board_id eq image.board_id}">  -->	
-									<img src="/resources/img/file/${image.imgname}" alt="">
-								<!-- </c:if>
-									</c:forEach>  -->	
-									<div class="sale">BEST ${dto.rnum}</div>
-									<ul>
-										<li class="w-icon active"><a href="#"><i
-												class="icon_bag_alt"></i></a></li>
-										<li class="quick-view"><a href="#">+ Quick View</a></li>
-										<li class="w-icon"><a href="#"><i
-												class="fa fa-random"></i></a></li>
-									</ul>
-								</div>
-								<div class="pi-text">
-									<div class="catagory-name"></div>
-									<a href="#">
-										<h5>${dto.goodsname}</h5>
-									</a>
-									<div class="product-price">${dto.price}원</div>
-									<c:forEach items="${rate}" var="rate">
-										<c:if test="${dto.goods_id eq rate.goodsVO.goods_id}">
-                                별점 <span class="star-prototype">
-												${rate.avgscore}</span>
-											<span>&nbsp; 리뷰 ${dto.count}</span>
-										</c:if>
-									</c:forEach>
-								</div>
-							</div>
-						</c:forEach>
-					</div>
-				</div>
-				<div class="col-lg-3 offset-lg-1">
-					<div class="product-large set-bg m-large"
-						data-setbg="/resources/img/goods/hot_banner_02.jpg">
-						<h2>Hot Item</h2>
-						<a href="#">More</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-	<!-- Hot Item2 Banner Section End -->
-
-	<!-- Recommended Section Begin-->
-	<section class="deal-of-week set-bg spad"
-		data-setbg="/resources/img/goods/re_banner.jpg">
-		<div class="container">
-			<div class="col-lg-6 text-center">
+		<!-- Recommended Item Begin -->	
+		<section class="recommended">
+		<div class="deal-of-week set-bg spad" data-setbg="/resources/img/goods/re_banner.jpg">
+		
+			<div class="col-lg-6 text-center">			
 				<div class="section-title">
 					<h2>Recommended Product</h2>
 					<p>펫츠하우스의 추천 상품!!을 만나보세요</p>
@@ -345,11 +295,59 @@ span.star-prototype>* {
 				<a href="#" class="primary-btn">Shop Now</a>
 			</div>
 		</div>
-	</section>
+		</section>
+		<!-- Recommended Item End -->
 
-	<!-- Recommended Section End -->
-
+		<!-- Best Item Begin -->
+		<section class="best">
+		<div class="row">
+				<div class="col-lg-12">
+					<div class="section-title">
+						<h2>Best Products</h2>
+					</div>
+				</div>
+			</div>
+         <div class="row">
+           <c:forEach items="${best}" var="best">        
+                <div class="col-lg-3 col-sm-6">
+                    <div class="product-item">
+                        <div class="pi-pic">
+                            <img src="/resources/img/goods/goods_01.jpg" alt="">
+                            <div class="sale">Best ${best.rnum}</div>     
+                            <div class="icon">
+                                <i class="icon_heart_alt"></i>
+                            </div>
+                            <ul>
+                                <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
+                                <li class="quick-view"><a href="#">+ Quick View</a></li>
+                                <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
+                            </ul>
+                        </div>
+                        <div class="pi-text">
+                            <div class="catagory-name"> </div>
+                            <a href="#">
+                                <h5>${best.goodsname}</h5>
+                            </a>
+                            <div class="product-price">
+                                 ${best.price}원                           
+                            </div>
+                              <c:forEach items="${rate}" var="rate">
+									<c:if test="${best.goods_id eq rate.goodsVO.goods_id}">
+						              별점 <span class="star-prototype"> ${rate.avgscore}</span> <span> &nbsp; 리뷰 ${best.count}</span>         
+						       		</c:if>
+					          </c:forEach>
+                        </div>
+                    </div>          
+              	  </div>
+                 </c:forEach>       
+            </div>
+            </section>
+		<!-- Best Item End -->
+		
+		
+	</div>
 	<!-- /.container -->
+</section>
 
 	<!-- Footer -->
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>

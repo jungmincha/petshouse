@@ -166,10 +166,10 @@
 								<li><a href="#">질문과답변</a></li>
 								<li><a href="#">펫츠하우스</a></li>
 							</ul></li>
-						<li><a href="/store/storehome">STORE</a>
+						<li><a href="/store/home">STORE</a>
 							<ul class="dropdown">
 								<li><a href="#">카테고리</a></li>
-								<li><a href="/store/beststore">베스트상품</a></li>
+								<li><a href="/store/best/1">베스트상품</a></li>
 								<li><a href="#">이벤트</a></li>
 							</ul></li>
 						<li><a href="./shop.html">마이페이지</a>

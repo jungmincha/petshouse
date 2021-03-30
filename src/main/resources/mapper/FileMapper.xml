@@ -162,9 +162,9 @@
 	</insert>
 
 	<!-- 이미지 조회 -->
-	<select id="getImgtest" resultMap="imgtestvo">
+	<select id="getImgtest" resultType="ImgtestVO">
 	   <![CDATA[
-	      select * from imgtest2
+	      select * from imgtest2 where board_id=16
 	   ]]>
 	</select>
 </mapper>

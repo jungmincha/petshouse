@@ -32,7 +32,7 @@ public class StoreServiceImpl implements StoreService {
 	}
 
 	@Override
-	public List<GoodsVO> getStoreinfo() {
+	public List<BoardVO> getStoreinfo() {
 		log.info("getStoreinfo");
 		return mapper.getStoreinfo();
 	}
