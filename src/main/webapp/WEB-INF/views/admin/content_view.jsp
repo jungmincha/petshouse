@@ -10,52 +10,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <title>상품조회</title>
-<script type="text/javascript">
-   $(document).ready(function(){
-       
-   
-      $("#updateForm").submit(function(event){
-         
-         event.preventDefault();
-         
-           var price = $("#price").val();
-           var pcolor = $("#pcolor").val();
-           var psize = $("#psize").val();           
-           var descrition = $("#descrition").val();
-           
-           console.log(descrition);
-           console.log($(this).attr("action"));
-           
-           
-           var form = {
-                 price : price,
-                 pcolor: pcolor,
-                 psize : psize,
-                 descrition: descrition
-           };
-         
-           $.ajax({
-             type : "PUT",
-             url : $(this).attr("action"),
-             cache : false,
-             contentType:'application/json; charset=utf-8',
-              data: JSON.stringify(form), 
-             success: function (result) {       
-               if(result == "SUCCESS"){
-                  //list로 
-                  
-                  $(location).attr('href', '${pageContext.request.contextPath}/admin/goods/'')                            
-               }                       
-             },
-             error: function (e) {
-                 console.log(e);
-             }
-         })          
-   
-       }); // end submit()
-       
-   }); // end ready()
-</script>
+
 <style>
 .table_center {
 	display: table;
@@ -100,15 +55,15 @@ select {
 	<!-- Page Content -->
 
 	<div class="col-lg-30">
-		<form  id="updateForm" 
-			action="${pageContext.request.contextPath}/admin/goods/${goods.goods_id}" method="post">
+		<form action="${pageContext.request.contextPath}/admin/goods/update"
+			method="post">
 			<input type="hidden" name="goods_id" value="${goods.goods_id}">
 
 			<div class="col-lg-30">
 
 				<fieldset>
 					<table class="table_center" cellpadding="20">
-						 
+
 						<td colspan="20">
 							<h2>상품 조회</h2>
 						</td>
@@ -144,7 +99,7 @@ select {
 									<label class="col-sm-3">가격</label>
 									<div class="col-sm-9">
 										<input type="text" id="price" class="form-control"
-											value="${goods.price}">
+											name="price" value="${goods.price}">
 									</div>
 								</div>
 
@@ -152,7 +107,7 @@ select {
 									<label class="col-sm-3">사이즈</label>
 									<div class="col-sm-9">
 										<input type="text" id="psize" class="form-control"
-											aria-describedby="sizeHelp" value="${goods.psize}"> <small
+											name="psize" aria-describedby="sizeHelp" value="${goods.psize}"> <small
 											id="sizeHelp" class="form-text text-muted">예) S,M,L</small>
 									</div>
 								</div>
@@ -170,13 +125,14 @@ select {
 
 								<div class="form-group row">
 									<label class="col-sm-3">카테고리</label>
-									<div class="col-sm-9">
+									<div class="col-sm-9"> 
 										<label>1차 분류</label> 
-										<select class="category1" class="form-control"  style="vertical-align: middle; text-align-last: center">
+										<select class="category1" class="form-control" 
+											style="vertical-align: middle; text-align-last: center">
 											<option value="">동물</option>
-										</select> 
-										<label>2차 분류</label> 
-										<select class="category2" name="" class="form-control"
+										</select> <label>2차 분류</label>
+										 <select class="category2" name="category_id"
+											class="form-control"
 											style="vertical-align: middle; text-align-last: center">
 											<option value="">상품</option>
 										</select>
@@ -185,38 +141,41 @@ select {
 
 
 								<div class="form-group row">
-									<label class="col-sm-3">재고상태</label>
+									<label class="col-sm-3">재고상태${goods.stockVO.stockname}</label>
 									<div class="col-sm-9">
-										<select name="stock_id" 
+										<select name="stock_id"
 											style="vertical-align: middle; text-align-last: center">
-										<c:forEach items="${stock}" var="stock">
-											<option value="${stock.stock_id}">${stock.stockname}
-											</option>
-										</c:forEach>
+											<c:forEach items="${stock}" var="stock">
+												<option value="${stock.stock_id}">${stock.stockname}
+												</option>
+											</c:forEach>
 
 										</select>
 									</div>
-								</div> 
-								 
-				
-					
+								</div>
+
+
+
 								<div class="form-group row">
 									<label class="col-sm-3">상품소개</label>
 									<div class="col-sm-9">
-										<textarea name="description" id="description" cols="30" rows="5"
-											class="form-control" >${goods.description}</textarea>
+										<textarea name="description" id="description" cols="30"
+											name="description" rows="5" class="form-control">${goods.description}</textarea>
 									</div>
 								</div>
 
 								<div class="form-group row">
 									<div class="col-sm-offset-2 col-sm-6">
 										<input type="submit" class="btn btn-block"
-											style="background-color: #e7ab3c" value="상품정보수정">
+											style="background-color: #e7ab3c"
+											
+											value="상품정보수정">
 									</div>
 									<div class="col-sm-offset-2 col-sm-6">
 										<input type="button" class="btn btn-block"
-											style="background-color: #e7ab3c" value="상품목록" onClick="location.href='${pageContext.request.contextPath}/admin/goods'">
-										
+											style="background-color: #e7ab3c" value="상품목록"
+											onClick="location.href='${pageContext.request.contextPath}/admin/goods'">
+
 									</div>
 								</div>
 							</td>
@@ -225,7 +184,7 @@ select {
 
 					</table>
 				</fieldset>
-				</div>
+			</div>
 		</form>
 	</div>
 
@@ -260,79 +219,22 @@ select {
 			}
 			}); 
 
-			// 컨트롤러에서 데이터 받기
-			var jsonData = JSON.parse('${category}');
-			console.log(jsonData);
+			var select_category_id = '${goods.category_id}';
+			var select_code = '${goods.code}';
+			var select_categoryname = '${goods.categoryname}';
 
-			var cate1Arr = new Array();
-			var cate1Obj = new Object();
-
-			// 1차 분류 셀렉트 박스에 삽입할 데이터 준비
-			for (var i = 0; i < jsonData.length; i++) {
-
-				if (jsonData[i].level == "1") {
-					cate1Obj = new Object(); //초기화
-					cate1Obj.category_id = jsonData[i].category_id;
-					cate1Obj.categoryname = jsonData[i].categoryname;
-					cate1Arr.push(cate1Obj);
-				}
+			if(select_code != null && select_code != '') {
+			 $(".category1").val(select_code);
+			 $(".category2").val(select_category_id);
+			 $(".category2").children().remove();
+			 $(".category2").append("<option value='"
+			       + select_category_id + "'>" + select_categoryname + "</option>");
+			} else {
+			 $(".category1").val(select_category_id);
+			 //$(".category2").val(select_cateCode);
+			 // select_cateCod가 부여되지 않는 현상이 있어서 아래 코드로 대체
+			 $(".category2").append("<option value="' + select_category_id + '" selected='selected'>전체</option>");
 			}
-
-			// 1차 분류 셀렉트 박스에 데이터 삽입
-			var cate1Select = $("select.category1")
-
-			for (var i = 0; i < cate1Arr.length; i++) {
-				cate1Select.append("<option value='" + cate1Arr[i].category_id + "'>"
-								+ cate1Arr[i].categoryname + "</option>");
-			}
-
-			$(document).on("change","select.category1",
-							function() {
-
-								var cate2Arr = new Array();
-								var cate2Obj = new Object();
-
-								// 2차 분류 셀렉트 박스에 삽입할 데이터 준비
-								for (var i = 0; i < jsonData.length; i++) {
-
-									if (jsonData[i].level == "2") {
-										cate2Obj = new Object(); //초기화
-										cate2Obj.category_id = jsonData[i].category_id;
-										cate2Obj.categoryname = jsonData[i].categoryname;
-										cate2Obj.code = jsonData[i].code;
-
-										cate2Arr.push(cate2Obj);
-									}
-								}
-
-								var cate2Select = $("select.category2");
-
-								/*
-								for(var i = 0; i < cate2Arr.length; i++) {
-								  cate2Select.append("<option value='" + cate2Arr[i].cateCode + "'>"
-								       + cate2Arr[i].cateName + "</option>");
-								}
-								 */
-
-								cate2Select.children().remove();
-
-								$("option:selected", this).each(function() {
-
-											var selectVal = $(this).val();
-													
-											
-											cate2Select.append("<option value='" + selectVal + "'>전체</option>");
-
-													for (var i = 0; i < cate2Arr.length; i++) {
-														if (selectVal == cate2Arr[i].code) {
-															cate2Select.append("<option value='" + cate2Arr[i].category_id + "'>"
-																			+ cate2Arr[i].categoryname + "</option>");
-														}
-													}
-
-												});
-
-							});
 	</script>
 	<!-- Footer -->
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>

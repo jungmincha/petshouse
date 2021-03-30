@@ -86,7 +86,7 @@ h2 {
 		
 			<td colspan="5" style="background-color: #e7ab3c">
 			<input type="button" class="btn btn-block" style="background-color: #e7ab3c" value="상품등록" 
-					onClick="location.href='${pageContext.request.contextPath}/admin/goods/register'"> 
+					onClick="location.href='${pageContext.request.contextPath}/admin/goods/register_view'"> 
 			</td>
 		</tr>
 	</table>

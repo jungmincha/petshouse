@@ -170,8 +170,8 @@
              ) A WHERE ROWNUM <= #{pageNum} * #{amount}
          ) WHERE RNUM > (#{pageNum}-1) * #{amount}  
       ]]>
-   </select>
-	
+	</select>
+
 	<select id="getTotalCount" resultType="int">
 	  <![CDATA[
 	           select count(*) from goods g , stock s
@@ -186,7 +186,7 @@
 	     	delete from board where goods_id = #{goods_id}
 	   ]]>
 	</delete>
-	
+
 	<delete id="remove_goods" parameterType="goodsvo">
 	   <![CDATA[
 	     	delete from goods where goods_id = #{goods_id}
@@ -220,21 +220,22 @@
 		select * from Board where board_id = #{board_id} 
 		]]>
 	</select>
-	
+
 	<select id="getInfo" resultMap="goodsvo"> 
 		<![CDATA[ 
 		select * from Goods where goods_id = #{goods_id} 
 		]]>
 	</select>
- 
+
 
 	<select id="getGoods" resultMap="boardvo"> 
 	<![CDATA[ 
-      select b.board_id, g.goods_id, g.goodsname, g.description, b.content, b.pdate, s.stockname, g.price, g.psize, g.pcolor, b.hashtag, c.categoryname, cc.categoryname as sortname from goods g, board b, stock s, category c, category cc
+      select b.board_id, g.goods_id, g.goodsname, g.description, b.content, b.pdate, s.stockname, g.price, g.psize, g.pcolor, b.hashtag, c.categoryname, cc.categoryname as sortname 
+      from goods g, board b, stock s, category c, category cc
       where g.goods_id = b.goods_id and g.stock_id=s.stock_id and g.category_id=c.category_id and c.category_id=cc.code and b.board_id = #{board_id}  and b.boardtype_id=3 
 	]]>
 	</select>
- 
+
 
 	<select id="getRateone" parameterType="int" resultMap="boardvo">
 	   <![CDATA[
@@ -245,19 +246,22 @@
 
 
 	<!-- 상품상세조회 -->
-	<select id="getBoard" resultType="goodsvo">		
+	<select id="getBoard" resultMap="goodsvo">		
 		<![CDATA[
-	     	   select * from stock s,goods g where  g.goods_id=#{goods_id} and s.stock_id= g.stock_id
+		
+	     	   select g.goods_id, g.goodsname, g.price, g.psize, g.pcolor, c.category_id, cc.code, cc.categoryname,s.stock_id, s.stockname, g.description 
+	     	   from stock s, goods g, category c, category cc 
+	     	   where c.category_id=cc.code and g.goods_id=#{goods_id} and s.stock_id= g.stock_id and g.category_id=c.category_id
 	   ]]>
 	</select>
-	
-	
-	<update id="modifyGoods" parameterType="goodsvo">
+
+
+	<update id="modifyGoods" parameterType="GoodsVO">
 		<![CDATA[
 	    	update goods set 
-	    	     price= #{price}, description = #{description}, 
-	    	     psize=#{psize}, pcolor=#{pcolor}, thumbnail = #{thumbnail}, 
-	    	     where goods_id = #{goods_id} and goodsname=#{goodsname}
+	    	     price= #{price} , description = #{description}, 
+	    	     psize=#{psize}, pcolor=#{pcolor}
+	    	     where goods_id = #{goods_id} 
 		]]>
 	</update>
 
