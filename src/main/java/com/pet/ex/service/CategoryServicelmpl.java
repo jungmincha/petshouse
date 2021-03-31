@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.pet.ex.mapper.CategoryMapper;
 import com.pet.ex.mapper.StoreMapper;
+import com.pet.ex.vo.BoardVO;
 import com.pet.ex.vo.CategoryVO;
 import com.pet.ex.vo.GoodsVO;
 
@@ -18,11 +19,11 @@ public class CategoryServicelmpl implements CategoryService {
 
 	CategoryMapper mapper;
 	
-	@Override
-	public List<GoodsVO> getGoods() {
-		
-		return mapper.getGoods();
-	}
+	/*
+	 * @Override public List<GoodsVO> getGoods() {
+	 * 
+	 * return mapper.getGoods(); }
+	 */
 
 	@Override
 	public List<CategoryVO> getCategory() {
@@ -38,25 +39,21 @@ public class CategoryServicelmpl implements CategoryService {
 
 	@Override
 	public List<CategoryVO> getScategory(CategoryVO categoryVO) {
-		
-		/*int[]arrys = new int[5];
-		for(int i = 0 ; i <= arrys.length ; i++) {*/
-		
 
-	
-
-		
-		 
-		
-		
 		return mapper.getScategory(categoryVO);
 	}
 
 	@Override
-	public List<GoodsVO> getSmallGoods(int getCategory_id) {
+	public List<BoardVO> getSmallGoods() {
 	
 		
-		return mapper.getSmallGoods(getCategory_id);
+		return mapper.getSmallGoods();
+	}
+
+	@Override
+	public List<BoardVO> getboard() {
+		
+		return mapper.getboard();
 	}
 
 	
