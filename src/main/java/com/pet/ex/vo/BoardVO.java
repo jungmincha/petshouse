@@ -35,6 +35,11 @@ public class BoardVO {
 	private double avgscore;
 	//카운트 세기
 	private int count;
+<<<<<<< HEAD
 	
 	
+=======
+	//순서대로 정렬
+	private int rnum;
+>>>>>>> 7b1d57cc1075ee56f7d6aea20c6d6f2a3371a039
 }

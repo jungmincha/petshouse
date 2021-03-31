@@ -170,7 +170,7 @@
 							<ul class="dropdown">
 								<li><a href="#">카테고리</a></li>
 								<li><a href="/store/best/1">베스트상품</a></li>
-								<li><a href="#">이벤트</a></li>
+								<li><a href="/store/event">이벤트</a></li>
 							</ul></li>
 						<li><a href="./shop.html">마이페이지</a>
 							<ul class="dropdown">

@@ -108,14 +108,14 @@
             </div>
   		  <!-- Category End -->   
   
-            
+           <!-- Goods -->
              <div class="row">
-           <c:forEach items="${best}" var="best">
+           <c:forEach items="${rate}" var="rate">
                 <div class="col-lg-3 col-sm-6">
                     <div class="product-item">
                         <div class="pi-pic">
              
-                            <div class="sale">Best ${best.rnum}</div>     
+                            <div class="sale">Best ${rate.rnum}</div>     
                             <div class="icon">
                                 <i class="icon_heart_alt"></i>
                             </div>
@@ -127,17 +127,17 @@
                         </div>
                         <div class="pi-text">
                             <div class="catagory-name"> </div>
-                            <a href="#">
-                                <h5>${best.goodsname}</h5>
-                            </a>
-                            <div class="product-price">
-                                 ${best.price}원                           
-                            </div>
-                             <c:forEach items="${rate}" var="rate">
-									<c:if test="${best.goods_id eq rate.goodsVO.goods_id}">
-						              별점 <span class="star-prototype"> ${rate.avgscore}</span> <span> &nbsp; 리뷰 ${dto.count}</span>         
-						       		</c:if>
-							</c:forEach>
+                            <c:forEach items="${goods}" var="goods"> 
+                             		<c:if test="${rate.goodsVO.goods_id eq goods.goodsVO.goods_id}">
+						            	  <a href="/admin/goods_detail/${goods.board_id}">
+                                			<h5>${goods.goodsVO.goodsname}</h5>               
+                           				 </a>                       
+		                            	<div class="product-price">
+		                             	    ${goods.goodsVO.price}원                           
+		                           		 </div>
+		                            </c:if> 
+                            </c:forEach> 
+						  별점 <span class="star-prototype"> ${rate.avgscore}</span> <span> &nbsp; 리뷰 ${rate.count}</span>         
                         </div>
                         
                     </div>
@@ -148,7 +148,7 @@
             </div>
          </div>
     </section>
-    <!-- Related Products Section End -->
+     <!-- Goods End -->
    
    <!-- Footer -->
  <%@ include file="/WEB-INF/views/include/footer.jsp" %>
