@@ -246,6 +246,7 @@ cursor:pointer;
             <h4 class="card-title">${dto.goodsVO.goodsname}</h4>
             <p class="card-text">${dto.goodsVO.price}원</p>
             <p class="card-text">${dto.goodsVO.description}</p>
+              <p class="card-text">${dto.pdate}</p>
           
        
           </div>

@@ -300,7 +300,6 @@ font-size:20px;
 
             <h4 class="card-title">${dto.goodsVO.goodsname}</h4>
             <p class="card-text">${dto.goodsVO.price}</p>
-       
             <p class="card-text">${dto.pdate}</p>
         
        
