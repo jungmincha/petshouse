@@ -39,7 +39,7 @@ public class AdminController {
 	@Autowired
 	private AdminService service;
 
-	@RequestMapping("/goods")
+	@RequestMapping("/goods") // 상품리스트조회
 	public ModelAndView list(Criteria cri, ModelAndView mav) {
 
 		mav.setViewName("admin/goods_list");
@@ -51,7 +51,7 @@ public class AdminController {
 		return mav;
 	}
 
-	@DeleteMapping("/goods/{goods_id}")
+	@DeleteMapping("/goods/{goods_id}") // 상품삭제/상품게시글삭제/리뷰삭제
 	public ResponseEntity<String> delete(GoodsVO goodsVO, Model model) {
 
 		ResponseEntity<String> entity = null;
@@ -72,7 +72,7 @@ public class AdminController {
 
 	}
 
-	@GetMapping("/goods/register_view")
+	@GetMapping("/goods/register_view") // 상품등록창
 	public ModelAndView goods_register_view(ModelAndView mav) throws Exception {
 
 		log.info("goods_register_view");
@@ -87,7 +87,7 @@ public class AdminController {
 		return mav;
 	}
 
-	@PostMapping("/goods/register")
+	@PostMapping("/goods/register") // 상품등록
 	public ModelAndView goods_register(GoodsVO goodsVO, ModelAndView mav) throws Exception {
 
 		log.info("goods_register");
@@ -98,29 +98,27 @@ public class AdminController {
 
 	}
 
-	@RequestMapping("/goods/{goods_id}")
+	@RequestMapping("/goods/{goods_id}") // 상품조회
 	public ModelAndView rest_content_view(@PathVariable("goods_id") int goods_id, GoodsVO goodsVO, ModelAndView mav) {
 
 		log.info("content_view");
 		mav.setViewName("admin/content_view");
 
-		goodsVO = service.getInfo(goods_id);
-
 		List<CategoryVO> category = null;
 		category = service.getCategory();
-		mav.addObject("category", JSONArray.fromObject(category));			//카테고리 목록 조회
-		mav.addObject("stock", service.getStock());							//재고상태 목록 조회
-		mav.addObject("goods", service.getBoard(goodsVO.getGoods_id()));	//상품정보 조회
+		mav.addObject("category", JSONArray.fromObject(category)); // 카테고리 목록 조회
+		mav.addObject("stock", service.getStock()); // 재고상태 목록 조회
+		mav.addObject("goods", service.getBoard(goods_id)); // 상품정보 조회
 		return mav;
 	}
 
-	@PostMapping("/goods/update")
-	public ModelAndView goods_updete(GoodsVO goodsVO, ModelAndView mav) throws Exception {
+	@PostMapping("/goods/update") // 상품수정
+	public RedirectView goods_updete(GoodsVO goodsVO, ModelAndView mav) throws Exception {
 		System.out.println(goodsVO.getPsize());
 		log.info("상품수정");
 		service.modifyGoods(goodsVO);
-		mav.setView(new RedirectView("/admin/goods", true));
-		return mav;
+		//mav.setView(new RedirectView("/admin/goods/{goods_id}", true));
+		return new RedirectView("/admin/goods");
 
 	}
 
@@ -134,7 +132,7 @@ public class AdminController {
 			StockVO stockVO, ModelAndView mav) throws Exception {
 
 		boardVO = service.getgoodsInfo(board_id);
-		
+
 		log.info("goods_view");
 		mav.setViewName("admin/goods_detail");
 

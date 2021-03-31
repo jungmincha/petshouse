@@ -41,9 +41,7 @@ public interface AdminMapper {
 	public void modifyGoods(GoodsVO goodsVO);
 
 	public BoardVO getgoodsInfo(int board_id);
-
-	public GoodsVO getInfo(int goods_id);
-	
+ 
 	
 
 }

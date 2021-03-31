@@ -55,10 +55,6 @@ select {
 	<!-- Page Content -->
 
 
-
-
-
-
 	<div class="col-lg-30">
 		<form id="goods" action="${pageContext.request.contextPath}/admin/goods/register" method="post">
 			<fieldset>
@@ -116,7 +112,7 @@ select {
 								<label class="col-sm-3">색상</label>
 								<div class="col-sm-9">
 									<input type="text" name="pcolor" class="form-control"
-										id="color" placeholder="색상을 입력하세요"
+										id="pcolor" placeholder="색상을 입력하세요"
 										aria-describedby="colorHelp"> <small id="colorHelp"
 										class="form-text text-muted">예) 빨간색, 노란색</small>
 								</div>
@@ -148,6 +144,9 @@ select {
 											</option>
 										</c:forEach>
 									</select>
+								
+										
+									
 								</div>
 							</div>
 
