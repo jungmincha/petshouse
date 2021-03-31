@@ -38,4 +38,6 @@ public interface AdminService {
 	public GoodsVO getInfo(int goods_id);
 
 	 
+
+	 
 }

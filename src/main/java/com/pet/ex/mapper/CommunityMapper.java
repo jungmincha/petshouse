@@ -21,6 +21,9 @@ public interface CommunityMapper {
 
 	// 페이징 처리 리스트 출력
 	public List<BoardVO> getListWithPaging(Criteria cri);
+	
+	//댓글 출력
+	public List<BoardVO> getComment(int Board_id);
 
 	// 페이징 처리용 토탈카운트,,,,
 	public int getTotalCount(Criteria cri);
@@ -33,5 +36,7 @@ public interface CommunityMapper {
 
 	// 질문과 답변 글 삭제하기
 	public void delete(int board_id);
+	
+	
 
 }

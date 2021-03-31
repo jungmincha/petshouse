@@ -2,6 +2,7 @@ package com.pet.ex.oauth2;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -36,31 +37,38 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
 
 		OAuth2User oauth2User = super.loadUser(userRequest);
 
-		String provider = userRequest.getClientRegistration().getClientName(); // google
-		String member_id = oauth2User.getAttribute("email");
-		String name = oauth2User.getAttribute("name");
-		System.out.println(name);
-		member = loginMapper.getMember(member_id);
+		Map<String, Object> map = (Map<String, Object>) oauth2User.getAttributes().get("response");
+
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 
+		String provider = userRequest.getClientRegistration().getClientName(); // google
+		String member_id = null;
+		String name = null;
+		int loginType =0;
+		if (provider.equals("Google")) {
+
+			member_id = oauth2User.getAttribute("email");
+			name = oauth2User.getAttribute("name");
+			loginType = 4;
+
+		} else if (provider.equals("Naver")) {
+			member_id = (String) map.get("email");
+			name = (String) map.get("name");
+			loginType = 3;
+
+		}
+		member = loginMapper.getMember(member_id);
 		if (member == null) {
+			System.out.println("소셜 로그인 이 최초입니다.");
 			member = new MemberVO();
-
-			if (provider.equals("Google")) {
-				System.out.println("실행");
-				member.getLogintypeVO().setLogintype_id(4);
-			}
-
-			System.out.println("구글 로그인 이 최초입니다.");
 			member.setName(name);
 			member.setMember_id(member_id);
 			member.setUsername(member_id);
 			member.setPassword("펫츠하우스");
-
+			member.getLogintypeVO().setLogintype_id(loginType);
 		} else {
-			System.out.println("구글 아이디가 있습니다.");
+			System.out.println("소셜 아이디가 있습니다.");
 			authorities.add(new SimpleGrantedAuthority(member.getRoleVO().getRolename()));
-
 		}
 
 		return new MyAuthentication(member_id, member.getPassword(), authorities, member);

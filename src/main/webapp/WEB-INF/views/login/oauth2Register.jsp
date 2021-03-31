@@ -13,7 +13,7 @@
 <meta name="keywords" content="Fashi, unica, creative, html">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>Fashi | Template</title>
+<title>소셜로그인</title>
 <script src="https://code.jquery.com/jquery-3.3.1.js"
 	integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
 	crossorigin="anonymous">
@@ -86,7 +86,7 @@
 			<div class="row">
 				<div class="col-lg-6 offset-lg-3">
 					<div class="register-form">
-						<h2>소셜 회원가입</h2>
+						<h2>SNS 간편회원가입</h2>
 						<h2 style="font-size: 13pt">추가 정보를 입력해주세요</h2>
 						<form action="/login/register/insert" method="post" id="myForm">
 

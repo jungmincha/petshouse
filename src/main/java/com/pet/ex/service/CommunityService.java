@@ -13,6 +13,9 @@ public interface CommunityService {
 	// 질문과 답변 특정 글 페이지
 	public BoardVO getQnaview(int board_id);
 
+	//댓글 출력
+	public List<BoardVO> getComment(int Board_id);
+		
 	// 조회수 어쩔거임
 	// public void hit(int board_id);
 

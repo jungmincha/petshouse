@@ -15,11 +15,10 @@
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 	<sec:authorize access="isAuthenticated()">
-		<sec:authentication property="member" var="member" />
-		<sec:authentication property="principal" var="id" />
+		<sec:authentication property="principal" var="member" />
 		<form id="email_form">
 			<input type="text" name="certify" value="${member.certify}">
-			<input type="hidden" name="member_id" value="${id}"> <input
+			<input type="hidden" name="member_id" value="${member.member_id}"> <input
 				type="hidden" name="name" value="${member.name}">
 		</form>
 
@@ -30,7 +29,7 @@
 	<script type="text/javascript">
 		$('#email_send_buttton').on('click', function() {
 			$.ajax({
-				url : "/member/email/send",
+				url : "/login/email/send",
 				type : "GET",
 				data : $("#email_form").serialize(),
 				success : function(data) {

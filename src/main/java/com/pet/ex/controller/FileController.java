@@ -33,14 +33,11 @@ public class FileController {
 	}
 
 	@PostMapping("/fileUpload")
-	public ModelAndView fileUpload(MultipartHttpServletRequest multi, ModelAndView mav)
-			throws IllegalStateException, IOException {
+	public ModelAndView fileUpload(MultipartHttpServletRequest multi, ModelAndView mav) throws IllegalStateException, IOException {
 		log.info("fileUpload");
-
-		//String path = "C:\\Users\\안\\git\\petshouse\\src\\main\\resources\\static\\img\\file";
-	      String path = multi.getSession().getServletContext().getRealPath("/static/img/file"); 
-	      
-	      path = path.replace("webapp", "resources");
+		//파일 경로 설정
+		String path = multi.getSession().getServletContext().getRealPath("/static/img/file");       
+		path = path.replace("webapp", "resources");
 	      
 		File dir = new File(path);
 		if (!dir.isDirectory()) {
@@ -48,6 +45,7 @@ public class FileController {
 		}
 
 		List<MultipartFile> mf = multi.getFiles("file");
+		
 		if (mf.size() == 1 && mf.get(0).getOriginalFilename().equals("")) {
 
 		} else {
@@ -55,9 +53,6 @@ public class FileController {
 				UUID uuid = UUID.randomUUID();
 				// 본래 파일명
 				String imgname = mf.get(i).getOriginalFilename();
-			//	String ext = FilenameUtils.getExtension(originalfileName);
-				// 저장 될 파일명
-			//	String savefileName = uuid + "." + ext;
 
 				String savePath = path + "\\" + imgname; // 저장 될 파일 경로
 
@@ -73,7 +68,6 @@ public class FileController {
 	@GetMapping("/filelist")
 	public ModelAndView filelist(ImgtestVO imgtestVO, ModelAndView mav) {
 		log.info("filelist");
-		//List<ImgtestVO> uploadFileList = fileservice.getImgtest(imgtestVO.getBoardVO().getBoard_id());
 		mav.addObject("filelist", fileservice.getImgtest());
 		mav.setViewName("file/filelist");
 		return mav;

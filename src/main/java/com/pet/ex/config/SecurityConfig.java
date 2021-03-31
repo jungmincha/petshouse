@@ -63,7 +63,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				// //누구나 접속할 수 있는 페이지이기 때문에 누구나 접근이 가능하다 (.permitAll())
 				.antMatchers("/home", "/content/**", "/login/login", "/login/register", "/login/register/idCheck",
 						"/login/find", "/login/register/insert", "/login/email/certify", "/popup/jusoPopup.jsp")
-				.permitAll().antMatchers("/**").authenticated(); // 기타 /** 의 경로는 인증을 필요로 한다
+				.permitAll().antMatchers("/**").permitAll();//.authenticated(); // 기타 /** 의 경로는 인증을 필요로 한다
 
 		http.formLogin().loginPage("/login/login") // 로그인 페이지
 				.loginProcessingUrl("/login/login-processing") // 로그인 버튼을 누를시 /login-processing 경로로
@@ -80,7 +80,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 																						// 하고 세션 초기화
 				.logoutSuccessUrl("/login/login") // /로 리다이렉트 하고
 				.invalidateHttpSession(true); // 세션 초기화
-
 	}
 
 	// JSP의 리소스 파일이나 자바스크립트 파일이 저장된 경로는 무시를 한다

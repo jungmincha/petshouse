@@ -60,8 +60,7 @@ select {
 
 
 	<div class="col-lg-30">
-		<form id="goods"
-			action="${pageContext.request.contextPath}/admin/goods" method="Post">
+		<form id="goods" action="${pageContext.request.contextPath}/admin/goods/register" method="post">
 			<fieldset>
 				<table class="table_center" cellpadding="20">
 					<td colspan="20">

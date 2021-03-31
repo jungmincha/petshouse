@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.pet.ex.service.AdminService;
 import com.pet.ex.vo.BoardVO;
@@ -27,6 +29,7 @@ import com.pet.ex.page.Criteria;
 import com.pet.ex.page.PageVO;
 import lombok.extern.slf4j.Slf4j;
 import net.sf.json.JSONArray;
+
 //
 @Slf4j
 @RestController
@@ -36,12 +39,12 @@ public class AdminController {
 	@Autowired
 	private AdminService service;
 
-	@GetMapping("/goods")
+	@RequestMapping("/goods")
 	public ModelAndView list(Criteria cri, ModelAndView mav) {
-		
+
 		mav.setViewName("admin/goods_list");
 		mav.addObject("list", service.getList(cri));
-		
+
 		int total = service.getTotal(cri);
 		log.info("total" + total);
 		mav.addObject("pageMaker", new PageVO(cri, total));
@@ -49,28 +52,28 @@ public class AdminController {
 	}
 
 	@DeleteMapping("/goods/{goods_id}")
-	public ResponseEntity<String> delete(GoodsVO goodsVO,  Model model) {
-		
+	public ResponseEntity<String> delete(GoodsVO goodsVO, Model model) {
+
 		ResponseEntity<String> entity = null;
 		log.info("delete");
-		
+
 		try {
-			
+
 			service.remove_goods(goodsVO.getGoods_id());
-		
+
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
-		
+
 			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
-		
+
 		return entity;
 
 	}
 
-	@GetMapping("/goods/register")
-	public ModelAndView goods_register_view(ModelAndView mav) {
+	@GetMapping("/goods/register_view")
+	public ModelAndView goods_register_view(ModelAndView mav) throws Exception {
 
 		log.info("goods_register_view");
 
@@ -79,70 +82,46 @@ public class AdminController {
 
 		mav.setViewName("admin/goods_register");
 		mav.addObject("category", JSONArray.fromObject(category));
-
 		mav.addObject("stock", service.getStock());
 
 		return mav;
 	}
 
-	@PostMapping("/goods")
-	public ResponseEntity<String> goods_register(GoodsVO goodsVO, ModelAndView mav) throws Exception {
-		
-		log.info("goods_register");
-		
-		ResponseEntity<String> entity = null;
+	@PostMapping("/goods/register")
+	public ModelAndView goods_register(GoodsVO goodsVO, ModelAndView mav) throws Exception {
 
-		try {
-			service.input(goodsVO);
-			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
-		
-		} catch (Exception e) {
-			e.printStackTrace();
-			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
-		}
-		return entity;
+		log.info("goods_register");
+		service.input(goodsVO);
+		mav.setView(new RedirectView("/admin/goods", true));
+
+		return mav;
+
 	}
 
-	 
-
 	@RequestMapping("/goods/{goods_id}")
-	public ModelAndView rest_content_view(@PathVariable("goods_id") int goods_id ,GoodsVO goodsVO, ModelAndView mav) {
+	public ModelAndView rest_content_view(@PathVariable("goods_id") int goods_id, GoodsVO goodsVO, ModelAndView mav) {
 
-	 
-		
 		log.info("content_view");
 		mav.setViewName("admin/content_view");
-		
+
 		goodsVO = service.getInfo(goods_id);
-		
+
 		List<CategoryVO> category = null;
 		category = service.getCategory();
-		mav.addObject("category", JSONArray.fromObject(category));
-		
-		
-	
-		mav.addObject("stock", service.getStock()); 
-		mav.addObject("goods", service.getBoard(goodsVO.getGoods_id()));
+		mav.addObject("category", JSONArray.fromObject(category));			//카테고리 목록 조회
+		mav.addObject("stock", service.getStock());							//재고상태 목록 조회
+		mav.addObject("goods", service.getBoard(goodsVO.getGoods_id()));	//상품정보 조회
 		return mav;
 	}
 
-	@PutMapping("/goods/{goods_id}")
-	public ResponseEntity<String> rest_update(@RequestBody GoodsVO goodsVO, ModelAndView modelAndView) {
+	@PostMapping("/goods/update")
+	public ModelAndView goods_updete(GoodsVO goodsVO, ModelAndView mav) throws Exception {
+		System.out.println(goodsVO.getPsize());
+		log.info("상품수정");
+		service.modifyGoods(goodsVO);
+		mav.setView(new RedirectView("/admin/goods", true));
+		return mav;
 
-		ResponseEntity<String> entity = null;
-
-		log.info("상품수222정");
-		try {
-
-			service.modifyGoods(goodsVO);
-			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
-		}
-
-		return entity;
 	}
 
 	/*
@@ -151,23 +130,21 @@ public class AdminController {
 	 */
 
 	@GetMapping("/goods_detail/{board_id}") // 상품상세조회
-	public ModelAndView goods_view(@PathVariable("board_id") int board_id, BoardVO boardVO, GoodsVO goodsVO, StockVO stockVO,
-			ModelAndView mav) throws Exception {
+	public ModelAndView goods_view(@PathVariable("board_id") int board_id, BoardVO boardVO, GoodsVO goodsVO,
+			StockVO stockVO, ModelAndView mav) throws Exception {
 
 		boardVO = service.getgoodsInfo(board_id);
-
+		
 		log.info("goods_view");
 		mav.setViewName("admin/goods_detail");
-		
+
 		System.out.println("board_id");
-		
+
 		mav.addObject("one", service.getRateone(boardVO.getGoodsVO().getGoods_id()));
 		mav.addObject("goods", service.getGoods(boardVO.getBoard_id()));
-		
+
 		return mav;
-		
-		  
- 
+
 	}
 
 }
