@@ -76,7 +76,7 @@ $(document).ready(function () {
    
 
     	
-    	var url = "/category/bigcategory/${category[0].category_id}";
+    	var url = "/category/smallcategory.do";
     	
     
 
@@ -90,10 +90,10 @@ $(document).ready(function () {
      	data : category,
         cache : false,
     
-        success: function (data) { 
-          console.log("SUCCESS : ", data);
+        success: function (html) { 
+          console.log("SUCCESS : ", html);
           
-        $('#input').html(data); 
+        $('#input').html(html); 
 	
     
  /*          $('.container').html(data); */
@@ -104,6 +104,8 @@ $(document).ready(function () {
         },
         error: function (e) {
       console.log("ERROR : ", e);
+      
+      
          
 
         }
@@ -154,7 +156,7 @@ $(document).ready(function () {
                    
    
                       <!-- 고양이 -->
-                     <a href="#" onclick="fire_ajax_submit();"> 
+                     <a href="#"> 
                  <%-- <a  onclick ="location.href='/category/bigcategory/${category[0].category_id}'"> --%>
                        
                           <i class="fas fa-cat"></i>${category[0].categoryname}<span class="caret pull-right"></span>
@@ -167,7 +169,7 @@ $(document).ready(function () {
                        <c:forEach items = "${smallcategory}" var="vo" begin="0" end="6">
 
                        
-                          <li><a href="">${vo.categoryname}</a></li>
+                          <li><a href="#" onclick="fire_ajax_submit();">${vo.categoryname}</a></li>
                         
                           
                           </c:forEach>
@@ -179,7 +181,7 @@ $(document).ready(function () {
                   <!-- 강아지 -->
                    <ul class="nav">
                    <li class="submenu">
-                     <a href="javascript:void(0);" onclick="fire_ajax_submit();"> 
+                     <a href="#"> 
                <%--    <a  onclick ="location.href='/category/bigcategory/${category[1].category_id}'"> --%>
                      <i class="fas fa-dog"></i>${category[1].categoryname}<span class="caret pull-right"></span>
                         </a>
@@ -188,7 +190,7 @@ $(document).ready(function () {
                            <c:forEach items = "${smallcategory}" var="vo2" begin="7" end="13">
 
                        
-                          <li><a href="">${vo2.categoryname}</a></li>
+                          <li><a href="#" onclick="fire_ajax_submit();">${vo2.categoryname}</a></li>
                         
                           
                           </c:forEach>
@@ -199,7 +201,7 @@ $(document).ready(function () {
                   <!-- 조류 -->
                       <ul class="nav">
                    <li class="submenu">
-                  <a onclick ="location.href='/category/bigcategory/${category[2].category_id}'">
+                  <a href="#">
                      <i class="fas fa-frog"></i>${category[2].categoryname}<span class="caret pull-right"></span>
                   </a>
                   <!-- Sub menu -->
@@ -207,7 +209,7 @@ $(document).ready(function () {
                            <c:forEach items = "${smallcategory}" var="vo3" begin="14" end="17">
 
                        
-                          <li><a href="">${vo3.categoryname}</a></li>
+                          <li><a href="#" onclick="fire_ajax_submit();">${vo3.categoryname}</a></li>
                         
                           
                           </c:forEach>
@@ -218,7 +220,7 @@ $(document).ready(function () {
                         <!-- 어류 -->
                             <ul class="nav">
                    <li class="submenu">
-                         <a onclick ="location.href='/category/bigcategory/${category[3].category_id}'">
+                        <a href="#">
                             <i class="fas fa-fish"></i>${category[3].categoryname}<span class="caret pull-right"></span>
                          </a>
                          <!-- Sub menu -->
@@ -226,7 +228,7 @@ $(document).ready(function () {
                             <c:forEach items = "${smallcategory}" var="vo" begin="18" end="24">
 
                        
-                          <li><a href="">${vo.categoryname}</a></li>
+                          <li><a href="#" onclick="fire_ajax_submit();">${vo.categoryname}</a></li>
                         
                           
                           </c:forEach>
@@ -237,7 +239,7 @@ $(document).ready(function () {
                         <!-- 파충류 -->
                          <ul class="nav">
                    <li class="submenu">
-                        <a onclick ="location.href='/category/bigcategory/${category[4].category_id}'">
+                          <a href="#">
                             <i class="fas fa-crow"></i>${category[4].categoryname}<span class="caret pull-right"></span>
                          </a>
                          <!-- Sub menu -->
@@ -245,7 +247,7 @@ $(document).ready(function () {
                            <c:forEach items = "${smallcategory}" var="vo" begin="25" end="29">
 
                        
-                          <li><a href="">${vo.categoryname}</a></li>
+                          <li><a href="#" onclick="fire_ajax_submit();">${vo.categoryname}</a></li>
                         
                           
                           </c:forEach>
@@ -256,7 +258,7 @@ $(document).ready(function () {
                        <!-- 기타 -->
                         <ul class="nav">
                    <li class="submenu">
-                        <a onclick ="location.href='/category/bigcategory/${category[5].category_id}'">
+                          <a href="#">
                             <i class="fas fa-paw"></i>${category[5].categoryname}<span class="caret pull-right"></span>
                          </a>
                          <!-- Sub menu -->
@@ -264,7 +266,7 @@ $(document).ready(function () {
                             <c:forEach items = "${smallcategory}" var="vo" begin="30" end="36">
 
                        
-                          <li><a href="">${vo.categoryname}</a></li>
+                          <li><a href="#" onclick="fire_ajax_submit();">${vo.categoryname}</a></li>
                         
                           
                           </c:forEach>
