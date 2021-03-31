@@ -1,26 +1,15 @@
 package com.pet.ex.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.pet.ex.service.FileService;
 import com.pet.ex.service.StoreService;
-import com.pet.ex.vo.GoodsVO;
-import com.pet.ex.vo.StockVO;
 
 import com.pet.ex.vo.BoardVO;
-import com.pet.ex.vo.CategoryVO;
-
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -32,14 +21,6 @@ public class StoreController {
 	
 	@Autowired
 	FileService fileservice;
-
-	@GetMapping("/product")
-	public ModelAndView product(GoodsVO goodsVO, StockVO stockVO, ModelAndView mav) throws Exception {
-		mav.addObject("stock", service.getStock2(stockVO.getStock_id()));
-		mav.addObject("goods1", service.getGoods2(goodsVO.getGoods_id()));
-		mav.setViewName("store/product");
-		return mav;
-	}
 
 //	@GetMapping("/best/{categoryVO.category_id}")
 ////	@ResponseBody
