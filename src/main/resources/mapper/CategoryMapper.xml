@@ -35,9 +35,16 @@
       select * from goods where category_id =#{category_id}
     ]]> 
    </select> 
-	 
-
- 
+   
+   	<select id=" getSmallGoods" resultType="GoodsVO"> 
+     <![CDATA[ 
+	select * from goods where category_id = 6
+    ]]> 
+   </select> 
+   
+   
+  
+<!--  	select * from goods g , category c where g.category_id = c.category_id and code is not null and g.category_id = 203 -->
 
 
 

@@ -19,7 +19,11 @@ public interface CategoryService {
 
 
 
-	public List<CategoryVO> getScategory(CategoryVO categoryVO);  
+	public List<CategoryVO> getScategory(CategoryVO categoryVO);
+
+
+
+	public List <GoodsVO> getSmallGoods(int getCategory_id);  
 
 	
 

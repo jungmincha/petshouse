@@ -58,6 +58,26 @@ public class CategoryController {
 	  return mav; 
 	  }
 	  
+	  @RequestMapping("/smallcategory.do") 
+	  public ModelAndView smallcategory(GoodsVO goodsVO, ModelAndView mav , CategoryVO categoryVO) throws Exception { 
+	
+	  
+			/*
+			 * mav.addObject("goods", service.getSmallGoods(categoryVO.getCategory_id()));
+			 */
+		  
+		  mav.addObject("goods", service.getGoods());
+		  
+		  mav.addObject("category", service.getCategory());
+		  mav.addObject("smallcategory", service.getScategory(categoryVO));
+		  
+		  
+		  mav.setViewName("category/categoryHome");
+	  
+	  return mav;
+	  }
+	  
+	  
 	  //동물 카테고리 페이지 맵핑
 	  @GetMapping("/bigcategory")
 	  public String bigcategory() {
