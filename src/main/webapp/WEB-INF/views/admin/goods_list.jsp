@@ -73,12 +73,12 @@ h2 {
 			<th>삭제</th>
 		</tr>
 		<c:forEach items="${list}" var="goods">
-			<tr>
+			<tr onClick="location.href='/admin/goods/${goods.goods_id}'" style="cursor:pointer;" >
 				<td>${goods.goods_id}</td>
-				<td> <a href="/admin/goods/${goods.goods_id}">${goods.goodsname}</a></td>
+				<td>  ${goods.goodsname}</td>
 				<td><fmt:formatNumber value="${goods.price}" pattern="###,###,###"/>원</td>
 				<td>${goods.stockVO.stockname}</td>
-				<td><a class="a-delete" data-bid='${goods.goods_id}'                      
+				<td onclick="event.cancelBubble=true;" ><a class="a-delete" data-bid='${goods.goods_id}'                      
 					href="/admin/goods/${goods.goods_id}">삭제</a></td>
 			</tr>
 		</c:forEach>

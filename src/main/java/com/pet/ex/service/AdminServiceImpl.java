@@ -97,10 +97,5 @@ public class AdminServiceImpl implements AdminService {
 		return mapper.getgoodsInfo(board_id);
 	}
 
-	@Override
-	public GoodsVO getInfo(int goods_id) {
-	
-		return mapper.getInfo(goods_id);
-	}
-
+ 
 }

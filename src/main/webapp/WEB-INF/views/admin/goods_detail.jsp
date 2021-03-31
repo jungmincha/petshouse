@@ -231,9 +231,8 @@ h2 {
 								<div class="product-details">
 									<div class="pd-title">
 										<input type="hidden" name="board_id" value="${goods.board_id}">
-										<input type="hidden" name="goods_id"
-											value="${goods.goodsVO.goods_id}"> <input
-											type="hidden" name="goods_id" value="${goods.pdate}">
+										<input type="hidden" name="goods_id" value="${goods.goodsVO.goods_id}">
+										<input type="hidden" name="goods_id" value="${goods.pdate}">
 
 										<span>${goods.goodsVO.goods_id}</span>
 										<h3>${goods.goodsVO.goodsname}</h3>
