@@ -34,59 +34,95 @@
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
  <!--CDN 링크 -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-
-<style>
+    <script src="/resources/sidemenu/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/resources/sidemenu/js/custom.js"></script>
+ <script src="/resources/sidemenu/https://code.jquery.com/jquery.js"></script>
+  
+  
+  <style>
 .tab-item {
    width: 1000;
    
-	a{
+}
+
+a{
 
 cursor:pointer;
 
 }
-   
-   
-}
-
-
-
-
 </style>
+  
+  
+  
+<script type="text/javascript">
+/*
+$(document).ready(function () {
 
- <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="/resources/sidemenu/https://code.jquery.com/jquery.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="/resources/sidemenu/bootstrap/js/bootstrap.min.js"></script>
-    <script src="/resources/sidemenu/js/custom.js"></script>
+    $("#search-form").submit(function (event) {
 
-   <!--                 <script>
+        event.preventDefault();
 
-	function callContent(){
-	  //호출할 url
-    var url = "/category/bigcategory/${category[0].category_id}";
-      
+        fire_ajax_submit();
+
+    }); */
+
+  	function fire_ajax_submit() {
+
+    	var category = {}
+    category["category"] = $("#category").val();
+
+   
+
+    	
+    	var url = "/category/bigcategory/${category[0].category_id}";
+    	
+    
+
     $.ajax({
-        type:"POST",
-        url:url,
-        dataType : "html",
-           success: function(html){
-            $(".ajax_inform").html(html);
-              
+        type: "POST",
+        contentType: "application/json",
+  		url: url,
+      
+      
+        async : true,
+     	data : category,
+        cache : false,
+    
+        success: function (data) { 
+          console.log("SUCCESS : ", data);
+          
+        $('#input').html(data); 
+	
+    
+ /*          $('.container').html(data); */
+    /*         $(location).attr('/category/bigcategory') ; */
+   
+ 
+            
         },
-        error: function(xhr, status, error) {
-            alert(error);
-        }  
+        error: function (e) {
+      console.log("ERROR : ", e);
+         
+
+        }
     });
+
 }
-		</script> -->
+    
+    
+ 
+
+</script>
+
+
+
+
 
 
 </head>
 <body>
-   <div class="ajax_inform">
-
-
 
 
 
@@ -98,8 +134,9 @@ cursor:pointer;
 
    <section class="product-shop spad page-details">
 
-   <div class="container">
-
+   <div class ="container">
+   <!--가져올 부분-->
+	<div id = "input">
    
    
       <div class="row">
@@ -115,14 +152,16 @@ cursor:pointer;
                    <li class="submenu" >
                    
                    
-
-                     
+   
                       <!-- 고양이 -->
-                   <!--     <a href="javascript:void(0);" onclick="callContent();" > -->
-                 <a  onclick ="location.href='/category/bigcategory/${category[0].category_id}'">
+                     <a href="#" onclick="fire_ajax_submit();"> 
+                 <%-- <a  onclick ="location.href='/category/bigcategory/${category[0].category_id}'"> --%>
                        
                           <i class="fas fa-cat"></i>${category[0].categoryname}<span class="caret pull-right"></span>
                        </a>
+                       
+                       
+                       
                        <!-- Sub menu -->
                        <ul>
                        <c:forEach items = "${smallcategory}" var="vo" begin="0" end="6">
@@ -140,7 +179,8 @@ cursor:pointer;
                   <!-- 강아지 -->
                    <ul class="nav">
                    <li class="submenu">
-                  <a  onclick ="location.href='/category/bigcategory/${category[1].category_id}'">
+                     <a href="javascript:void(0);" onclick="fire_ajax_submit();"> 
+               <%--    <a  onclick ="location.href='/category/bigcategory/${category[1].category_id}'"> --%>
                      <i class="fas fa-dog"></i>${category[1].categoryname}<span class="caret pull-right"></span>
                         </a>
                         <!-- Sub menu -->
@@ -233,7 +273,7 @@ cursor:pointer;
                       </ul>
                       
                         </div>
-      
+
 
                   <!--  카테고리 부트스트랩 end -->
 
@@ -274,11 +314,11 @@ cursor:pointer;
          
          
          
-      </div>
+</div>
    </div>
    </div>
    </div>
-
+</div>
    </section>
    <!-- Product Shop Section End -->
    
@@ -291,6 +331,7 @@ cursor:pointer;
 
    <!-- Footer -->
    <%@ include file="/WEB-INF/views/include/footer.jsp"%>
-   </div>
+
+
 </body>
 </html>

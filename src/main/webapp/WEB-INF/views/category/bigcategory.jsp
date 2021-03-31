@@ -1,8 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html lang>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html>
+<html>
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,21 +11,8 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
-
-<!-- 다운드롭 부트스트랩 -->
- <!-- <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
-  
-  <!-- 추가코드 -->
-<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script> -->
-<!-- 부트스트랩 끝 -->
-<title>category</title>
+<meta charset="UTF-8">
+<title>Insert title here</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
     <link href="/resources/sidemenu/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -33,9 +20,6 @@
     <link href="/resources/sidemenu/css/styles.css" rel="stylesheet">
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
- <!--CDN 링크 -->
-
-
 <style>
 .tab-item {
    width: 1000;
@@ -57,29 +41,14 @@ cursor:pointer;
     <script src="/resources/sidemenu/bootstrap/js/bootstrap.min.js"></script>
     <script src="/resources/sidemenu/js/custom.js"></script>
 
-
-
-
-
-
 </head>
+
+
 <body>
-   <div class="ajax_content">
 
 
 
-
-
-   <!-- header -->
-   <%@ include file="/WEB-INF/views/include/header.jsp"%>
-   
-   <!-- Page Content -->
-   <!-- Product Shop Section Begin -->
-
-   <section class="product-shop spad page-details">
-
-   <div class="container">
-      <div class="row">
+  <div class="row">
          <div class="col-lg-3">
             <div class="filter-widget">
                      </div>
@@ -250,20 +219,6 @@ cursor:pointer;
       </div>
    </div>
    </div>
-   </div>
-
-   </section>
-   <!-- Product Shop Section End -->
-   
-   
-   
-   
-   
-
-
-
-   <!-- Footer -->
-   <%@ include file="/WEB-INF/views/include/footer.jsp"%>
    </div>
 </body>
 </html>
