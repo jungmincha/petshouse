@@ -76,24 +76,24 @@ $(document).ready(function () {
    
 
     	
-    	var url = "/category/smallcategory.do";
+    	var url = "/category/smallcategory.do/6";
     	
     
 
     $.ajax({
         type: "POST",
-        contentType: "application/json",
+        contentType: 'application/json; charset=utf-8',
   		url: url,
       
       
-        async : true,
-     	data : category,
+       // async : true,
+     	   data: JSON.stringify(category), 
         cache : false,
     
-        success: function (html) { 
-          console.log("SUCCESS : ", html);
-          
-        $('#input').html(html); 
+        success: function (data) { 
+          console.log("SUCCESS : ", data);
+       
+          $('#input').html(data);
 	
     
  /*          $('.container').html(data); */
@@ -169,7 +169,7 @@ $(document).ready(function () {
                        <c:forEach items = "${smallcategory}" var="vo" begin="0" end="6">
 
                        
-                          <li><a href="#" onclick="fire_ajax_submit();">${vo.categoryname}</a></li>
+                          <li><a href="#" onclick="fire_ajax_submit();">${vo.categoryname}${vo.code}</a></li>
                         
                           
                           </c:forEach>
@@ -190,7 +190,7 @@ $(document).ready(function () {
                            <c:forEach items = "${smallcategory}" var="vo2" begin="7" end="13">
 
                        
-                          <li><a href="#" onclick="fire_ajax_submit();">${vo2.categoryname}</a></li>
+                          <li><a href="#" onclick="fire_ajax_submit();">${vo2.categoryname}${vo2.code}</a></li>
                         
                           
                           </c:forEach>

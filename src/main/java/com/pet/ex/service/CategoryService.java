@@ -5,6 +5,8 @@ import java.util.List;
 import com.pet.ex.vo.CategoryVO;
 import com.pet.ex.vo.GoodsVO;
 
+
+
 public interface CategoryService {
 
 	public List <GoodsVO>getGoods();
@@ -19,11 +21,19 @@ public interface CategoryService {
 
 
 
-	public List<CategoryVO> getScategory(CategoryVO categoryVO);
+	public List<CategoryVO> getScategory(CategoryVO categoryvo);
 
 
 
-	public List <GoodsVO> getSmallGoods(int getCategory_id);  
+	/* public List <GoodsVO> getSmallGoods(); */
+
+	public List<GoodsVO> getSmallGoods(int getCategory_id);
+
+
+
+
+
+
 
 	
 
