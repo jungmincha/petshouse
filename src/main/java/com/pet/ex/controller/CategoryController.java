@@ -76,13 +76,14 @@ public class CategoryController {
 	 */
 
 	@PostMapping("/smallcategory.do/{category_id}")
-	public ModelAndView smallcategory(@RequestBody BoardVO boardvo, GoodsVO goodsvo, ModelAndView mav, CategoryVO categoryvo ) {
+	public ModelAndView smallcategory(@RequestBody GoodsVO goodsvo, BoardVO boardvo, ModelAndView mav, CategoryVO categoryvo) {
 
 			
 
-			mav.addObject("smallgoods", service.getSmallGoods()) ;
+			mav.addObject("smallgoods", service.getSmallGoods(categoryvo.getCategory_id()));
 			
 			mav.addObject("category", service.getCategory());
+			
 			mav.addObject("smallcategory", service.getScategory(categoryvo));
 
 		

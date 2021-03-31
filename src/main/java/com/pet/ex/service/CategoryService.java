@@ -28,7 +28,7 @@ public interface CategoryService {
 
 	/* public List <GoodsVO> getSmallGoods(); */
 
-	public List<BoardVO> getSmallGoods();
+	public List<CategoryVO> getSmallGoods(int getCategory_id);
 
 
 

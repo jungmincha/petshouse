@@ -44,10 +44,10 @@ public class CategoryServicelmpl implements CategoryService {
 	}
 
 	@Override
-	public List<BoardVO> getSmallGoods() {
+	public List<CategoryVO> getSmallGoods(int getCategory_id) {
 	
 		
-		return mapper.getSmallGoods();
+		return mapper.getSmallGoods(getCategory_id);
 	}
 
 	@Override
