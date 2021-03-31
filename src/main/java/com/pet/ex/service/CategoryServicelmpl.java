@@ -52,6 +52,14 @@ public class CategoryServicelmpl implements CategoryService {
 		return mapper.getScategory(categoryVO);
 	}
 
+	@Override
+	public List<GoodsVO> getSmallGoods(int getCategory_id) {
+	
+		
+		return mapper.getSmallGoods(getCategory_id);
+	}
+
+	
 	
 	
 	
