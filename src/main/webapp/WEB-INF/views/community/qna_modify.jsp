@@ -18,8 +18,7 @@
 	type="text/css" />
 
 <!-- jquery cdn -->
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="/resources/ckeditor/ckeditor.js"></script>
 
 </head>
@@ -40,11 +39,11 @@
 
 
 
-			<textarea id="editor4" name="editor4"></textarea>
+			<!--  <textarea id="editor4" name="editor4"></textarea>
 
 			<script>
 					CKEDITOR.replace('editor4');
-				</script>
+				</script>  -->
 
 			<button type="submit" class="btn btn-warning float-right"
 				style="float: right; margin-top: 30px;"

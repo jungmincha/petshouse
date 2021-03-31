@@ -21,24 +21,38 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-<style>
 
+<style>
 .jumbotron {
 	text-align: center;
 }
 
-.qcontent{
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  width: 1000px;
-  height: 20px;
+.qcontent {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	width: 1000px;
+	height: 20px;
 }
 
-a:link {text-decoration: none; color: #333333;}
-a:visited {text-decoration: none; color: #333333;}
-a:active {text-decoration: none; color: #333333;}
-a:hover {text-decoration:none;}
+a:link {
+	text-decoration: none;
+	color: #333333;
+}
+
+a:visited {
+	text-decoration: none;
+	color: #333333;
+}
+
+a:active {
+	text-decoration: none;
+	color: #333333;
+}
+
+a:hover {
+	text-decoration: none;
+}
 </style>
 
 
@@ -53,81 +67,73 @@ a:hover {text-decoration:none;}
 		<div class="jumbotron">
 			<h3 class="display-5">무엇이든 물어보세요!</h3>
 			<hr class="my-4">
-
-
-			<div class="questions-header__form__search col">
-				<span class="icon icon-etc-find-sm-gray-dark search"
-					aria-hidden="true"></span> <span
-					class="icon icon-pointer-x-bold-gray clear clear-inactive hide"
-					aria-hidden="false" role="button"></span> <span
-					class="icon icon-pointer-x-bold-dark clear clear-active hide"
-					aria-hidden="false" role="button"></span> <input type="text"
-					name="query" id="questions-header__form__search" value=""
-					class="form-control" style="text-align: center; height: 60px;"
-					placeholder="내 반려동물에 대한 모든 궁금증!" autocomplete="off">
-			</div>
-
+			<form
+				action="${pageContext.request.contextPath}/commu/qnasearch"
+				method="post">
+				<div class="questions-header__form__search col">
+					<span aria-hidden="true"></span> 
+					<input class="form-control mr-sm-8" type="text" name="keyword" style="text-align: center; height: 60px; " placeholder="내 반려동물에 대한 모든 궁금증!"> 
+					
+				</div>
+			</form>
 		</div>
 	</div>
 
 	<!-- 동물 카테고리, 정렬, 글쓰기 버튼 -->
 	<div class="container" style="padding-bottom: 30px;">
-	
-		<!-- 정렬 카테고리 -->
+
 		<div class="btn-group" role="group"
 			aria-label="Button group with nested dropdown">
-			<button type="button" class="btn btn-primary">최신순</button>
+			<button type="button" class="btn btn-primary">고양이</button>
 			<div class="btn-group" role="group">
 				<button id="btnGroupDrop1" type="button"
 					class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
 					aria-haspopup="true" aria-expanded="false"></button>
 				<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-					<a class="dropdown-item" href="#">Dropdown link</a> <a
-						class="dropdown-item" href="#">Dropdown link</a>
+					<a class="dropdown-item" href="#">강아지</a> <a class="dropdown-item"
+						href="#">파충류</a> <a class="dropdown-item" href="#">조류</a> <a
+						class="dropdown-item" href="#">어류</a> <a class="dropdown-item"
+						href="#">기타</a>
+
 				</div>
 			</div>
 		</div>
-		
-		<!-- 동물 카테고리 -->
-		<div class="btn-group" role="group"
-			aria-label="Button group with nested dropdown">
-			<button type="button" class="btn btn-primary">강아지</button>
-			<div class="btn-group" role="group">
-				<button id="btnGroupDrop1" type="button"
-					class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
-					aria-haspopup="true" aria-expanded="false"></button>
-				<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-					<a class="dropdown-item" href="#">Dropdown link</a> <a
-						class="dropdown-item" href="#">Dropdown link</a>
-				</div>
-			</div>
-		</div>
-		
+
+		<script>
+        function dp_menu(){
+            let click = document.getElementById("drop-content");
+            if(click.style.display === "none"){
+                click.style.display = "block";
+ 
+            }else{
+                click.style.display = "none";
+ 
+            }
+        }
+    </script>
+
+
 		<a class="btn btn-warning float-right" href="qna_write">질문하기</a>
-	
+
 	</div>
 
 	<!-- 게시글 끌고와야함 글 제목, 사진?, 작성자, 날짜, 댓글수, 해시태그? 그리고 테이블은 td만 쓰면 될듯..? -->
 
 	<div class="container">
-	
-	
-	<c:forEach items="${qna}" var="qna">
-		<table class="table table-hover">
-		
-			<thead>
-			</thead>
-			<tbody>
-
-				<td> <a href="${pageContext.request.contextPath}/commu/qna_view?board_id=${qna.board_id}">
-					<div style="font-weight:bold; font-size:18px;">${qna.title}</div>
-					<div>${qna.content}</div> 
-					<span>${qna.memberVO.nickname}</span> 
-					<span style="font-size:13px; color:gray;">${qna.pdate}</span> <span style="font-size:13px; color:gray;"> 조회수 ${qna.hit}</span> <a scope="row">키워드 버튼 나열</a>
-					</a></td>
-
-			</tbody>
-		</table>
+		<c:forEach items="${qna}" var="qna">
+			<table class="table table-hover">		
+				<tbody>
+					<td>
+					<a href="${pageContext.request.contextPath}/commu/qna_view?board_id=${qna.board_id}">
+							<div style="font-weight: bold; font-size: 18px;">${qna.title}</div>
+							<div>${qna.content}</div> <span>${qna.memberVO.nickname}</span> 
+							<span style="font-size: 13px; color: gray;">${qna.pdate}</span> 
+							<span style="font-size: 13px; color: gray;"> 조회수 ${qna.hit}</span> 
+							<a>키워드 버튼 나열</a>
+					</a>
+					</td>
+				</tbody>
+			</table>
 		</c:forEach>
 	</div>
 

@@ -186,11 +186,19 @@
    ]]>
 	</select>
 
-	<!-- 질답, 노하우 글쓰기  (이미지 추가해야함) / 멤버아이디 물어봅시다.-->
-	<insert id="writeQnt">
+	<!-- 질답, 노하우 글쓰기  (이미지 추가해야함)-->
+	<insert id="writeQnt" parameterType="boardvo">
 	<![CDATA[
 	insert into board(board_id, title, content, pdate,hit, pgroup, pstep, pindent,hashtag, member_id, boardtype_id)
-	values (board_seq.nextval, #{title}, #{content}, sysdate, 0, board_seq.currval, 0, 0, #{hashtag}, 'kjs1234@naver.com', 4 )
+	values (board_seq.nextval, #{title}, #{content}, sysdate, 0, board_seq.currval, 0, 0, #{hashtag}, #{memberVO.member_id}, 4 )
+ ]]>
+	</insert>
+	
+	<!-- 댓글쓰기 -->
+	<insert id="writeComment">
+	<![CDATA[
+	insert into board(board_id, content, pdate, pgroup, pstep, pindent, member_id, boardtype_id)
+	values (board_seq.nextval, #{content}, sysdate, board_seq.currval, #{pstep}+1, #{pindent}+1, 'kjs1234@naver.com', 4 )
  ]]>
 	</insert>
 	
@@ -208,6 +216,13 @@
 		]]>
 	</select>
 	
+		<!-- 질문과답변 검색 -->
+	<select id="getQsearch" resultMap="boardvo">
+   <![CDATA[
+   		select * from board where content like '%'||#{keyword}||'%' and boardtype_id='4' or title like '%'||#{keyword}||'%' and boardtype_id='4'
+   ]]>
+	</select>
+	
 	<!-- 조회수 어쩔거임 -->
 	<!-- <select id="hit" resultType="int">
 	<![CDATA[
@@ -215,7 +230,7 @@
 		]]>
 	</select> -->
 	
-	<!-- 게시판 종류 지정해놨음 페이징처리용 -->
+	<!-- 게시판 종류 질문과답변으로 지정해놨음 페이징처리용 -->
 	<select id="getListWithPaging" resultMap="boardvo">
 		<![CDATA[		
 		SELECT * FROM (

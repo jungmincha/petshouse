@@ -36,4 +36,5 @@ public class BoardVO {
 	//카운트 세기
 	private int count;
 	
+	
 }

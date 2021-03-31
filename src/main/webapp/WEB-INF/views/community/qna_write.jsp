@@ -29,37 +29,31 @@
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
 
 	<div class="container" style="width: 800px;">
-		<form action="${pageContext.request.contextPath}/commu/qna"
-			method="post">
+	
+	<!--  
+	<sec:authentication property="principal.username" /> 
+	-->
+	
+		<form action="${pageContext.request.contextPath}/commu/qna" method="post">
+		<input type="hidden" class="form-control" name="memberVO.member_id" value="<sec:authentication property='principal.username'/>">
+					<h2 style="margin-top:30px;">질문하기</h2>
+			<input type="text" class="form-control" name="title" placeholder="제목" style="margin-top:30px; margin-bottom:20px;">
+			<textarea id="editor4" name="content" placeholder="내용" style="width: 770px; height:400px; margin-bottom:20px;"></textarea>
+			<!-- 		<input type="text" class="form-control" name="hashtag" placeholder="해시태그"> -->
 
-
-			<p>닉네임 넣어야함</p>
-			<input type="text" class="form-control" name="title" placeholder="제목">
-			<textarea id="editor4"  name="content" placeholder="내용"></textarea>
-	<!-- 		<input type="text" class="form-control" name="hashtag" placeholder="해시태그"> -->
-
-			<script>
-					CKEDITOR.replace('editor4');
-				</script>
+			<div id='ui-widget'>
+				<input type="text" class="form-control" name="hashtag"
+					maxlength="15" placeholder="태그 목록" id="text_task" />
+				<button type="submit" id="btn_add_task" class="btn btn-primary">추가</button>
+			</div>
+			<ul id="list_tasks"></ul>
 
 			<button type="submit" class="btn btn-warning float-right"
 				style="float: right; margin-top: 30px;"
 				onclick="location.href='${pageContext.request.contextPath}/commu/qna'">질문
 				등록</button>
 
-<div id='ui-widget'>
-    <input type="text"
-    class="form-control"
-    name="hashtag"
-    maxlength = "15"
-    placeholder="태그 목록"
-    id="text_task"
-    />
-    <button type="submit" id="btn_add_task" class="btn btn-primary">추가</button>
-   </div>
-   <ul id = "list_tasks"></ul>
-
-<script>
+			<script>
 /* add Tag by click or press enter, comma, space */
 var elements = document.getElementById('element');
 var taskSubmit = document.getElementById('btn_add_task');

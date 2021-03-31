@@ -34,4 +34,7 @@ public interface CommunityService {
 	//글 삭제하기
 	public void delete(int bId);
 
+
+	public List<BoardVO> getQsearch(String keyword);
+
 }
