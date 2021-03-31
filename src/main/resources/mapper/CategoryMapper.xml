@@ -173,7 +173,7 @@
 
 <select id="getScategory" resultType="CategoryVO"> 
      <![CDATA[ 
-        select categoryname , code from category WHERE code = code
+        select categoryname , code , category_id from category WHERE code = code
     ]]> 
    </select> 
 	
@@ -187,7 +187,7 @@
    
    	<select id="getSmallGoods" resultType="GoodsVO"> 
      <![CDATA[ 
-	select * from goods where category_id =#{category_id}
+		select * from goods g, category c where g.category_id = c.category_id and g.category_id =#{category_id}
     ]]> 
    </select> 
    

@@ -88,11 +88,11 @@ public class CategoryController {
 
 	}
 
-	// 동물 카테고리 페이지 맵핑
-	@GetMapping("/bigcategory")
-	public String bigcategory() {
+	// 상품 카테고리 페이지 맵핑
+	@GetMapping("/smallcategory")
+	public String smallcategoryPage() {
 
-		return "category/bigcategory";
+		return "category/smallcategory";
 	}
 
 	// 동물 카테고리 ajax

@@ -68,15 +68,18 @@ $(document).ready(function () {
 
     }); */
 
-  	function fire_ajax_submit() {
+  	function fire_ajax_submit(id) {
 
+    	console.log(id);
+    	
     	var category = {}
+    	
     category["category"] = $("#category").val();
 
-   
-
+    	/*  var id= $("id").val(); */
+    	/* ${smallcategory[0].category_id} */
     	
-    	var url = "/category/smallcategory.do/6";
+    	var url = "/category/smallcategory.do/"+id;
     	
     
 
@@ -94,8 +97,10 @@ $(document).ready(function () {
           console.log("SUCCESS : ", data);
        
           $('#input').html(data);
-	
-    
+	console.log(id);
+
+
+
  /*          $('.container').html(data); */
     /*         $(location).attr('/category/bigcategory') ; */
    
@@ -151,10 +156,8 @@ $(document).ready(function () {
 
            <div class="sidebar" style="display: block;" >
                 <ul class="nav">
-                   <li class="submenu" >
-                   
-                   
-   
+                   <li class="submenu">
+                 
                       <!-- 고양이 -->
                      <a href="#"> 
                  <%-- <a  onclick ="location.href='/category/bigcategory/${category[0].category_id}'"> --%>
@@ -167,10 +170,10 @@ $(document).ready(function () {
                        <!-- Sub menu -->
                        <ul>
                        <c:forEach items = "${smallcategory}" var="vo" begin="0" end="6">
-
+ 					
                        
-                          <li><a href="#" onclick="fire_ajax_submit();">${vo.categoryname}${vo.code}</a></li>
-                        
+                          <li><a href="#" onclick="fire_ajax_submit(${vo.category_id});">${vo.categoryname}${vo.category_id}</a></li>
+                       
                           
                           </c:forEach>
                        </ul>    
@@ -190,7 +193,8 @@ $(document).ready(function () {
                            <c:forEach items = "${smallcategory}" var="vo2" begin="7" end="13">
 
                        
-                          <li><a href="#" onclick="fire_ajax_submit();">${vo2.categoryname}${vo2.code}</a></li>
+                          <li><a href="#" onclick="fire_ajax_submit(${vo2.category_id});">${vo2.categoryname}</a></li>
+                        
                         
                           
                           </c:forEach>
@@ -209,7 +213,7 @@ $(document).ready(function () {
                            <c:forEach items = "${smallcategory}" var="vo3" begin="14" end="17">
 
                        
-                          <li><a href="#" onclick="fire_ajax_submit();">${vo3.categoryname}</a></li>
+                          <li><a href="#" onclick="fire_ajax_submit(${vo3.category_id});">${vo3.categoryname}</a></li>
                         
                           
                           </c:forEach>
@@ -225,10 +229,10 @@ $(document).ready(function () {
                          </a>
                          <!-- Sub menu -->
                          <ul>
-                            <c:forEach items = "${smallcategory}" var="vo" begin="18" end="24">
+                            <c:forEach items = "${smallcategory}" var="vo4" begin="18" end="24">
 
                        
-                          <li><a href="#" onclick="fire_ajax_submit();">${vo.categoryname}</a></li>
+                          <li><a href="#" onclick="fire_ajax_submit(${vo4.category_id});">${vo4.categoryname}</a></li>
                         
                           
                           </c:forEach>
@@ -244,10 +248,10 @@ $(document).ready(function () {
                          </a>
                          <!-- Sub menu -->
                          <ul>
-                           <c:forEach items = "${smallcategory}" var="vo" begin="25" end="29">
+                           <c:forEach items = "${smallcategory}" var="vo5" begin="25" end="29">
 
                        
-                          <li><a href="#" onclick="fire_ajax_submit();">${vo.categoryname}</a></li>
+                          <li><a href="#" onclick="fire_ajax_submit(${vo5.category_id});">${vo5.categoryname}</a></li>
                         
                           
                           </c:forEach>
@@ -263,10 +267,10 @@ $(document).ready(function () {
                          </a>
                          <!-- Sub menu -->
                          <ul>
-                            <c:forEach items = "${smallcategory}" var="vo" begin="30" end="36">
+                            <c:forEach items = "${smallcategory}" var="vo6" begin="30" end="36">
 
                        
-                          <li><a href="#" onclick="fire_ajax_submit();">${vo.categoryname}</a></li>
+                          <li><a href="#" onclick="fire_ajax_submit(${vo6.category_id});">${vo6.categoryname}</a></li>
                         
                           
                           </c:forEach>
