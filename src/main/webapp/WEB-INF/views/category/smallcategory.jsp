@@ -32,6 +32,18 @@ cursor:pointer;
 
 }
 
+select{
+
+width:120px;
+
+height:30px;
+
+font-size:18px;
+
+}
+
+
+
 
 </style>
 
@@ -75,6 +87,15 @@ cursor:pointer;
     });
 
 }
+  	
+	function formChange(obj){
+  		
+	  	
+	    	obj.submit();
+	  	
+	
+	}
+	
    
 </script>
 </head>
@@ -232,6 +253,17 @@ cursor:pointer;
          <div class="col-lg-9">
             <div class="row">
                
+<form action="/category/price" method="get">
+               
+	<select name="categoryArray" id = "categoryArray"style="font-size: 18px; border:none;" onchange="formChange(this.form)">
+ 
+    <option value="newgoods" selected="selected">최신순</option>
+    <option value="highend">가격 높은순</a></option>
+    <option value="cheep">가격 낮은순</option>
+    <option value="manyreview">많은 리뷰순</option>
+    
+</select>
+</form>
 
                
 

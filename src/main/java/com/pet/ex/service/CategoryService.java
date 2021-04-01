@@ -30,6 +30,12 @@ public interface CategoryService {
 
 	public List<CategoryVO> getSmallGoods(int getCategory_id);
 
+	public List <BoardVO> gethighprice();
+
+
+
+	/* public List<BoardVO> getStorerate(); */
+
 
 
 

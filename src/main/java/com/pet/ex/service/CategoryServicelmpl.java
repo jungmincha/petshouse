@@ -56,7 +56,18 @@ public class CategoryServicelmpl implements CategoryService {
 		return mapper.getboard();
 	}
 
+	@Override
+	public List<BoardVO> gethighprice() {
+		return mapper.gethighprice();
 	
+	}
+
+	/*
+	 * @Override public List<BoardVO> getStorerate() {
+	 * 
+	 * return mapper.getStorerate(); }
+	 * 
+	 */
 	
 	
 	
