@@ -128,4 +128,5 @@ public class AdminServiceImpl implements AdminService {
 		log.info("memberDelete");
 		mapper.memberDelete(member_id);
 	}
+
 }

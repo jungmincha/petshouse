@@ -206,7 +206,7 @@
 												successState("#member_id");
 											} else {//정규표현식을 통과하지 못하면
 												$("#emailErr").show();
-
+											
 												errorState("#member_id");
 											}
 

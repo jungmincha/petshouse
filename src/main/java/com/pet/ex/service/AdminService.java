@@ -36,6 +36,7 @@ public interface AdminService {
 
 	public BoardVO getgoodsInfo(int board_id);
 
+
 	public GoodsVO getInfo(int goods_id);
 
 	public List<MemberVO> getMemberlist(Criteria cri);

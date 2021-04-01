@@ -30,9 +30,10 @@ public class BoardVO {
 	private BoardtypeVO boardtypeVO;
 	private GoodsVO goodsVO;
 	private CategoryVO categoryVO;
-
+	
 	// 별점 평균
 	private double avgscore;
+	
 	// 카운트 세기
 	private int count;
 
