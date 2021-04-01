@@ -48,12 +48,22 @@ public class StoreController {
 	
 	@GetMapping("/best/{categoryVO.category_id}")
 	public ModelAndView best(BoardVO boardVO, ModelAndView mav) {
-		log.info("storehome");
+		log.info("beststore");
 		mav.addObject("rate", service.getBestrate(boardVO.getCategoryVO().getCategory_id()));
 		mav.addObject("goods", service.getGoodsinfo());
 		mav.addObject("image", fileservice.getImgtest());
 		
-		mav.setViewName("store/best");
+		mav.setViewName("store/beststore");
 		return mav;
 	}
+	
+	@GetMapping("/event")
+	public ModelAndView event(ModelAndView mav) {
+		log.info("event");
+	
+		mav.setViewName("store/event");
+		return mav;
+	}
+	
+	
 }

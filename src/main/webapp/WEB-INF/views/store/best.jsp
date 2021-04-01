@@ -1,22 +1,44 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html lang>
+<html>
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
-  <title>beststore</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+   content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+<meta name="viewport"
+   content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+<title>beststore</title>
 
 <!-- bootstrap css cdn -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" type="text/css" />
-
+<link rel="stylesheet"
+   href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+   type="text/css" />
+<!-- Css Styles -->
+<link rel="stylesheet" href="/resources/css/bootstrap.min.css"
+   type="text/css">
+<link rel="stylesheet" href="/resources/css/font-awesome.min.css"
+   type="text/css">
+<link rel="stylesheet" href="/resources/css/themify-icons.css"
+   type="text/css">
+<link rel="stylesheet" href="/resources/css/elegant-icons.css"
+   type="text/css">
+<link rel="stylesheet" href="/resources/css/owl.carousel.min.css"
+   type="text/css">
+<link rel="stylesheet" href="/resources/css/nice-select.css"
+   type="text/css">
+<link rel="stylesheet" href="/resources/css/jquery-ui.min.css"
+   type="text/css">
+<link rel="stylesheet" href="/resources/css/slicknav.min.css"
+   type="text/css">
+<link rel="stylesheet" href="/resources/css/style.css" type="text/css">
 <!-- jquery cdn -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+   src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
   <script type="text/javascript">
     $(document).ready(function(){	    	

@@ -6,6 +6,7 @@ import com.pet.ex.mapper.AdminMapper;
 import com.pet.ex.vo.BoardVO;
 import com.pet.ex.vo.CategoryVO;
 import com.pet.ex.vo.GoodsVO;
+import com.pet.ex.vo.MemberVO;
 import com.pet.ex.vo.StockVO;
 
 import com.pet.ex.page.Criteria;
@@ -97,5 +98,36 @@ public class AdminServiceImpl implements AdminService {
 		return mapper.getgoodsInfo(board_id);
 	}
 
- 
+
+	@Override
+	public GoodsVO getInfo(int goods_id) {
+	
+		return mapper.getInfo(goods_id);
+	}
+
+	@Override
+	public List<MemberVO> getMemberlist(Criteria cri) {
+		log.info("Memberlist");
+		cri.setAmount(20);
+		return mapper.getMemberlist(cri);
+	}
+
+	@Override
+	public int getMembertotal() {
+		log.info("getMembertotal");
+		return mapper.getMembertotal();
+	}
+
+	@Override
+	public MemberVO getMemberdetail(String member_id) {
+		log.info("getMemberdetail");
+		return mapper.getMemberdetail(member_id);
+	}
+
+	@Override
+	public void memberDelete(String member_id) {
+		log.info("memberDelete");
+		mapper.memberDelete(member_id);
+	}
+
 }

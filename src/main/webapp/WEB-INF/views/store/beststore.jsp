@@ -1,33 +1,51 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html lang>
+<html>
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
-  <title>beststore</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+   content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+<meta name="viewport"
+   content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+<title>beststore</title>
 
 <!-- bootstrap css cdn -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" type="text/css" />
-
+<link rel="stylesheet"
+   href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+   type="text/css" />
+<!-- Css Styles -->
+<link rel="stylesheet" href="/resources/css/bootstrap.min.css"
+   type="text/css">
+<link rel="stylesheet" href="/resources/css/font-awesome.min.css"
+   type="text/css">
+<link rel="stylesheet" href="/resources/css/themify-icons.css"
+   type="text/css">
+<link rel="stylesheet" href="/resources/css/elegant-icons.css"
+   type="text/css">
+<link rel="stylesheet" href="/resources/css/owl.carousel.min.css"
+   type="text/css">
+<link rel="stylesheet" href="/resources/css/nice-select.css"
+   type="text/css">
+<link rel="stylesheet" href="/resources/css/jquery-ui.min.css"
+   type="text/css">
+<link rel="stylesheet" href="/resources/css/slicknav.min.css"
+   type="text/css">
+<link rel="stylesheet" href="/resources/css/style.css" type="text/css">
 <!-- jquery cdn -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+   src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
   <script type="text/javascript">
     $(document).ready(function(){	
-    	$('#form').click(function(event){
+    	$('.category').click(function(event){
     		event.preventDefault();
     		
     		var category_id = $(this).attr('value');
-    		
-    		var url = "store/best/" + category_id;
-    		var keyWord = encodeURI(url);
-    		console.log(keyWord);
     		
     		var form = {
     				category_id: category_id
@@ -35,7 +53,7 @@
     		
     		$.ajax({        
     			type: "GET",
-    			url: url,
+    			url: $(this).attr('href'),
     			contentType: 'application/json; charset=utf-8',
 			    data: JSON.stringify(form),
     			success: function(data){
@@ -100,11 +118,8 @@
          	<!-- category -->
              <div class="row">           
                 <div class="col-lg-2">
-                    <div class="single-banner">
-                   		 <form id="form" action="${pageContext.request.contextPath}/best/1" method="post">
-	  					  <input type="hidden" name="categoryVO.category_id" value="1">                                                        
-	                        <a class="category" href="${pageContext.request.contextPath}/store/best"><img src="/resources/img/category/cat.jpg"></a>
-                        </form>
+                    <div class="single-banner">                                                      
+	                        <a class="category" href="${pageContext.request.contextPath}/store/best/1" value="1"><img src="/resources/img/category/cat.jpg"></a>                      
                      </div>
                 </div>
                 
