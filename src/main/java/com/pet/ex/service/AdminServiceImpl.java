@@ -97,5 +97,17 @@ public class AdminServiceImpl implements AdminService {
 		return mapper.getgoodsInfo(board_id);
 	}
 
+	@Override
+	public List<CategoryVO> getSidebar() {
+
+		return mapper.getSidebar();
+	}
+
+	@Override
+	public List<CategoryVO> getSort(CategoryVO categoryVO) {
+		
+		return mapper.getSort(categoryVO);
+	}
+
  
 }

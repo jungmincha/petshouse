@@ -54,17 +54,13 @@ select {
 
 	<!-- Page Content -->
 
-
-
-
-
 						<div class="col-lg-30">
-							<form id="register" action="/admin/register" method="Post">
+							<form id="board" action="${pageContext.request.contextPath}/admin/board/register" method="Post">
 								<input type="hidden" name="boardtype_id" value="3">
 								<fieldset>
 									<table class="table_center" cellpadding="20">
 										<td colspan="20">
-											<h2>상품 등록</h2>
+											<h2>상품 게시글 등록</h2>
 										</td>
 										<tr>
 											<td><img style="width: 400px;" id="preview-image"
@@ -92,25 +88,7 @@ select {
 															placeholder="상품명을 등록하세요">
 													</div>
 												</div>
-												<div class="form-group row">
-													<label class="col-sm-3">가격</label>
-													<div class="col-sm-9">
-														<input type="text" name="price" class="form-control"
-															placeholder="상품가격을 등록하세요" aria-describedby="priceHelp">
-														<small id="priceHelp" class="form-text text-muted">예)
-															15000 </small>
-													</div>
-												</div>
-
-												<div class="form-group row">
-													<label class="col-sm-3">사이즈</label>
-													<div class="col-sm-9">
-														<input type="text" name="psize" class="form-control"
-															placeholder="사이즈를 입력하세요" aria-describedby="sizeHelp">
-														<small id="sizeHelp" class="form-text text-muted">예)
-															S,M,L</small>
-													</div>
-												</div>
+										
 
 												<div class="form-group row">
 													<label class="col-sm-3">색상</label>
@@ -166,7 +144,7 @@ select {
 														<input type="submit" class="btn btn-block"
 															style="background-color: #e7ab3c"
 															onclick="location.href='${pageContext.request.contextPath}/admin/goods' "
-															value="상품등록">
+															value="상품게시글등록">
 													</div>
 												</div>
 											</td>
@@ -179,108 +157,7 @@ select {
 
 
 						<script>
-		  	function readImage(input) {
-			    // 인풋 태그에 파일이 있는 경우
-			    if(input.files && input.files[0]) {
-			        // 이미지 파일인지 검사 (생략)
-			        // FileReader 인스턴스 생성
-			        const reader = new FileReader()
-			        // 이미지가 로드가 된 경우
-			        reader.onload = e => {
-			            const previewImage = document.getElementById("preview-image")
-			            previewImage.src = e.target.result
-			        }
-			        // reader가 이미지 읽도록 하기
-			        reader.readAsDataURL(input.files[0])
-			    }
-			}
-			// input file에 change 이벤트 부여
-			const thumbnail = document.getElementById("thumbnail")
-			thumbnail.addEventListener("change", e => {
-			    readImage(e.target)
-			})
-			
-			 $("#thumbnail").change(function(){
-			 if(this.files && this.files[0]) {
-			  var reader = new FileReader;
-			
-			 reader.readAsDataURL(this.files[0]);
-			}
-			}); 
-
-			// 컨트롤러에서 데이터 받기
-			var jsonData = JSON.parse('${category}');
-			console.log(jsonData);
-
-			var cate1Arr = new Array();
-			var cate1Obj = new Object();
-
-			// 1차 분류 셀렉트 박스에 삽입할 데이터 준비
-			for (var i = 0; i < jsonData.length; i++) {
-
-				if (jsonData[i].level == "1") {
-					cate1Obj = new Object(); //초기화
-					cate1Obj.category_id = jsonData[i].category_id;
-					cate1Obj.categoryname = jsonData[i].categoryname;
-					cate1Arr.push(cate1Obj);
-				}
-			}
-
-			// 1차 분류 셀렉트 박스에 데이터 삽입
-			var cate1Select = $("select.category1")
-
-			for (var i = 0; i < cate1Arr.length; i++) {
-				cate1Select.append("<option value='" + cate1Arr[i].category_id + "'>"
-								+ cate1Arr[i].categoryname + "</option>");
-			}
-
-			$(document).on("change","select.category1",
-							function() {
-
-								var cate2Arr = new Array();
-								var cate2Obj = new Object();
-
-								// 2차 분류 셀렉트 박스에 삽입할 데이터 준비
-								for (var i = 0; i < jsonData.length; i++) {
-
-									if (jsonData[i].level == "2") {
-										cate2Obj = new Object(); //초기화
-										cate2Obj.category_id = jsonData[i].category_id;
-										cate2Obj.categoryname = jsonData[i].categoryname;
-										cate2Obj.code = jsonData[i].code;
-
-										cate2Arr.push(cate2Obj);
-									}
-								}
-
-								var cate2Select = $("select.category2");
-
-								/*
-								for(var i = 0; i < cate2Arr.length; i++) {
-								  cate2Select.append("<option value='" + cate2Arr[i].cateCode + "'>"
-								       + cate2Arr[i].cateName + "</option>");
-								}
-								 */
-
-								cate2Select.children().remove();
-
-								$("option:selected", this).each(function() {
-
-											var selectVal = $(this).val();
-													
-											
-											cate2Select.append("<option value='" + selectVal + "'>전체</option>");
-
-													for (var i = 0; i < cate2Arr.length; i++) {
-														if (selectVal == cate2Arr[i].code) {
-															cate2Select.append("<option value='" + cate2Arr[i].category_id + "'>"
-																			+ cate2Arr[i].categoryname + "</option>");
-														}
-													}
-
-												});
-
-							});
+		   
 	</script>
 						<!-- Footer -->
 						<%@ include file="/WEB-INF/views/include/footer.jsp"%>

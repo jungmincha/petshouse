@@ -40,11 +40,15 @@ public class AdminController {
 	private AdminService service;
 
 	@RequestMapping("/goods") // 상품리스트조회
-	public ModelAndView list(Criteria cri, ModelAndView mav) {
+	public ModelAndView list(Criteria cri, CategoryVO categoryVO, ModelAndView mav) {
 
 		mav.setViewName("admin/goods_list");
 		mav.addObject("list", service.getList(cri));
 
+		mav.addObject("bar", service.getSidebar());
+		mav.addObject("sort", service.getSort(categoryVO));
+		
+		
 		int total = service.getTotal(cri);
 		log.info("total" + total);
 		mav.addObject("pageMaker", new PageVO(cri, total));

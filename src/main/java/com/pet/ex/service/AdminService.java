@@ -34,6 +34,10 @@ public interface AdminService {
 	public void modifyGoods(GoodsVO goodsVO);
 
 	public BoardVO getgoodsInfo(int board_id);
+
+	public List<CategoryVO> getSidebar();
+
+	public List<CategoryVO> getSort(CategoryVO categoryVO);
  
 	 
 
