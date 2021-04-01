@@ -50,6 +50,14 @@
 
       // 숫자 평점을 별로 변환하도록 호출하는 함수
       $('.star-prototype').generateStars();
+      
+  	var chkBtm = parseInt($(document).height()) - parseInt($(window).height()); 
+
+	if(chkBtm == $(window).scrollTop()){ 
+		console.log('바닥입니다!'); 
+	}else if($(window).scrollTop() == 0){ 
+		console.log('꼭대기입니다!'); 
+	} 
 
    })
 </script>
@@ -184,47 +192,46 @@ span.star-prototype>* {
          <div class="row">
             <div class="col-lg-2">
                <div class="single-banner">
-                  <a href="고양이카테고리" target="_self"><img
+                  <a href="/category/bigcategory/0"><img
                      src="/resources/img/category/cat.jpg"></a>
                </div>
             </div>
 
             <div class="col-lg-2">
                <div class="single-banner">
-                  <a href="강아지카테고리" target="_self"><img
+                  <a href="/category/bigcategory/1"><img
                      src="/resources/img/category/dog.jpg"></a>
                </div>
             </div>
 
             <div class="col-lg-2">
                <div class="single-banner">
-                  <a href="파충류카테고리" target="_self"><img
+                  <a href="/category/bigcategory/2"><img
                      src="/resources/img/category/reptile.jpg"></a>
                </div>
             </div>
 
             <div class="col-lg-2">
                <div class="single-banner">
-                  <a href="조류카테고리" target="_self"><img
+                  <a href="/category/bigcategory/3"><img
                      src="/resources/img/category/bird.jpg"></a>
                </div>
             </div>
 
             <div class="col-lg-2">
                <div class="single-banner">
-                  <a href="어류카테고리" target="_self"><img
+                  <a href="/category/bigcategory/4"><img
                      src="/resources/img/category/fish.jpg"></a>
                </div>
             </div>
 
             <div class="col-lg-2">
                <div class="single-banner">
-                  <a href="기타카테고리" target="_self"><img
+                  <a href="/category/bigcategory/5" ><img
                      src="/resources/img/category/other.jpg"></a>
                </div>
             </div>
          </div>
-
          <!-- Category Section Begin -->
 
          <!-- Hot Item section Begin -->
@@ -330,7 +337,7 @@ span.star-prototype>* {
                </div>
             </div>
             <div class="row">
-               <c:forEach items="${rate}" var="rate">
+               <c:forEach items="${bestrate}" var="bestrate">
                   <div class="col-lg-3 col-sm-6">
                      <div class="product-item">
                         <div class="pi-pic">
@@ -342,7 +349,7 @@ span.star-prototype>* {
                                  </c:if>
                               </c:forEach>
                            </c:forEach>
-                           <div class="sale">Best ${rate.rnum}</div>
+                           <div class="sale">Best ${bestrate.rnum}</div>
                            <div class="icon">
                               <i class="icon_heart_alt"></i>
                            </div>
@@ -358,22 +365,69 @@ span.star-prototype>* {
                            <div class="catagory-name"></div>
                            <c:forEach items="${goods}" var="goods">
                               <c:if
-                                 test="${rate.goodsVO.goods_id eq goods.goodsVO.goods_id}">
+                                 test="${bestrate.goodsVO.goods_id eq goods.goodsVO.goods_id}">
                                  <a href="/admin/goods_detail/${goods.board_id}">
                                     <h5>${goods.goodsVO.goodsname}</h5>
                                  </a>
                                  <div class="product-price">${goods.goodsVO.price}원</div>
                               </c:if>
                            </c:forEach>
-                           별점 <span class="star-prototype"> ${rate.avgscore}</span> <span>
-                              &nbsp; 리뷰 ${rate.count}</span>
+                           별점 <span class="star-prototype"> ${bestrate.avgscore}</span> <span>
+                              &nbsp; 리뷰 ${bestrate.count}</span>
                         </div>
                      </div>
                   </div>
-               </c:forEach>
+               </c:forEach>                      
             </div>
-         </section>
+           </section>
          <!-- Best Item End -->
+            
+            	<!-- 페이징 -->
+<script> 
+var total_page = "<?=$total_page?>"; 
+var now_page = "<?=$page?>"; 
+var roll_page = now_page;
+
+$(window).scroll(function() { 
+	var chkBtm = parseInt($(document).height()) - parseInt($(window).height()); 
+
+	if (chkBtm == $(window).scrollTop()) { 
+		roll_page++; 
+
+		if (roll_page <= total_page) { 
+			callContent(roll_page, 'append'); 
+		} 
+	} else if ($(window).scrollTop() == 0) { 
+		now_page--; 
+		if (now_page > 0) { 
+			callContent(now_page, 'prepend'); 
+		} 
+	} 
+}); 
+
+function callContent(a, b) { 
+	var url = "<?=G5_BBS_URL?>/board.php?bo_table=<?=$bo_table?>&page=" + a; 
+	var tbody = ""; 
+	var thtml = ""; 
+	$.ajax({ 
+		type: "POST", 
+		url: url, 
+		dataType: "html", 
+		success: function(html) { 
+			tbody = html.split('<article>'); 
+			thtml = tbody[1].split('</article>'); 
+			setTimeout(function() { 
+				if (b == 'append') { 
+					 $("#fboardlist").append(thtml[0]); 
+				} 
+			}, 1000); 
+		}, 
+		error: function(xhr, status, error) { 
+			alert(error); 
+		} 
+	}); 
+}
+</script>
       </div>
       <!-- /.container -->
    </section>

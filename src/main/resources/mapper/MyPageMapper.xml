@@ -154,6 +154,10 @@
 		<collection property="boardVO" resultMap="boardvo" />
 	</resultMap>
 
+	<select id="getBoard" parameterType="int" resultMap="boardvo">
+<![CDATA[
+      select * from board b, goods g where board_id=#{board_id} and b.goods_id=g.goods_id
+   ]]>
+	</select>
 
-	
 </mapper>

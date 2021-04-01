@@ -37,17 +37,17 @@ public class CategoryController {
 	CategoryService service;
 
 	// 카테고리 메인페이지
-	@GetMapping("/categoryhome")
+	@GetMapping("/home")
 	public ModelAndView categoryhome(GoodsVO goodsvo, ModelAndView mav, CategoryVO categoryvo , BoardVO boardvo) throws Exception {
 
 		/* mav.addObject("goods", service.getGoods()); */
 		
 		mav.addObject("board", service.getboard());
-
+		//mav.addObject("rate", service.getStorerate());
 		mav.addObject("category", service.getCategory());
 		mav.addObject("smallcategory", service.getScategory(categoryvo));
 
-		mav.setViewName("category/categoryHome");
+		mav.setViewName("category/home");
 
 		return mav;
 	}
@@ -76,15 +76,16 @@ public class CategoryController {
 	 */
 
 	@PostMapping("/smallcategory.do/{category_id}")
-	public ModelAndView smallcategory(@RequestBody BoardVO boardvo, GoodsVO goodsvo, ModelAndView mav, CategoryVO categoryvo ) {
+	public ModelAndView smallcategory(@RequestBody GoodsVO goodsvo, BoardVO boardvo, ModelAndView mav, CategoryVO categoryvo) {
 
 			
 
-			mav.addObject("smallgoods", service.getSmallGoods()) ;
+			mav.addObject("smallgoods", service.getSmallGoods(categoryvo.getCategory_id()));
 			
 			mav.addObject("category", service.getCategory());
+			
 			mav.addObject("smallcategory", service.getScategory(categoryvo));
-
+			/* mav.addObject("rate", service.getStorerate()); */
 		
 		mav.setViewName("category/smallcategory");
 		return mav;
@@ -98,6 +99,26 @@ public class CategoryController {
 		return "category/smallcategory";
 	}
 
+	
+	
+	@GetMapping("/price")
+	public ModelAndView pricecategory(GoodsVO goodsvo, ModelAndView mav, CategoryVO categoryvo , BoardVO boardvo) throws Exception{
+		
+		mav.addObject("board", service.gethighprice());
+		//mav.addObject("rate", service.getStorerate());
+		mav.addObject("category", service.getCategory());
+		mav.addObject("smallcategory", service.getScategory(categoryvo));
+
+		mav.setViewName("category/price");
+		
+		
+
+		return mav;
+	}
+
+	
+	
+	
 	// 동물 카테고리 ajax
 	/*
 	 * @PostMapping("/bigcategory/{category_id}") public ModelAndView cat(CategoryVO
@@ -122,4 +143,8 @@ public class CategoryController {
 	 * return mav; }
 	 */
 
+	
+	
+	
+	
 }

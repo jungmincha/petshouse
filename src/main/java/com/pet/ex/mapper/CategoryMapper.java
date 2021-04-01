@@ -19,9 +19,13 @@ public interface CategoryMapper {
 
 	public List<CategoryVO> getScategory(CategoryVO categoryVO);
 
-	public List<BoardVO> getSmallGoods();
+	public List<CategoryVO> getSmallGoods(int getCategory_id);
 
 	public List<BoardVO> getboard();
+
+	public List<BoardVO> gethighprice();
+
+	/* public List<BoardVO> getStorerate(); */
 
 
 

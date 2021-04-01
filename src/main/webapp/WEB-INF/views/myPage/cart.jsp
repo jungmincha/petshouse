@@ -40,15 +40,19 @@
 <link rel="stylesheet" href="/resources/css/style.css" type="text/css">
 
 <title>Insert title here</title>
+
 </head>
 <body>
+
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
+
 	<!-- Shopping Cart Section Begin -->
 	<section class="shopping-cart spad">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="cart-table">
+
 						<table>
 							<thead>
 								<tr>
@@ -60,26 +64,8 @@
 									<th><i class="ti-close"></i></th>
 								</tr>
 							</thead>
-							<tbody>
-								<c:forEach var="dto" items="">
-									<tr>
-										<td class="cart-pic first-row"><img
-											src="/resources/img/cart-page/product-1.jpg" alt=""></td>
-										<td class="cart-title first-row">
-											<h5>Pure Pineapple</h5>
-										</td>
-										<td class="p-price first-row">$60.00</td>
-										<td class="qua-col first-row">
-											<div class="quantity">
-												<div class="pro-qty">
-													<input type="text" value="1">
-												</div>
-											</div>
-										</td>
-										<td class="total-price first-row">$60.00</td>
-										<td class="close-td first-row"><i class="ti-close"></i></td>
-									</tr>
-								</c:forEach>
+							<tbody id="goods">
+
 							</tbody>
 						</table>
 					</div>
@@ -102,7 +88,7 @@
 							<div class="proceed-checkout">
 								<ul>
 									<li class="subtotal">Subtotal <span>$240.00</span></li>
-									<li class="cart-total">Total <span>$240.00</span></li>
+									<li class="cart-total">Total <span ></span></li>
 								</ul>
 								<a href="#" class="proceed-btn">PROCEED TO CHECK OUT</a>
 							</div>
@@ -112,8 +98,135 @@
 			</div>
 		</div>
 	</section>
+
+	<form oninput="x.value=parseInt(a.value)+parseInt(b.value)">
+		<input type="range" id="a" value="50">100 + <input
+			type="number" id="b" value="200"> =
+		<output name="x" for="a b"></output>
+	</form>
+
 	<!-- Shopping Cart Section End -->
 
+	<script>
+		$(document)
+				.ready(
+						function() {
+							console.log("실행")
+							//배열 선언
+							var cartList = new Array();
+							cartList = JSON.parse(sessionStorage
+									.getItem("cartList"));
+							console.log(cartList)
+							//ajax 호출
+							$
+									.ajax({
+										url : "/myPage/cartList",
+										type : "post",
+										dataType : 'json',
+										data : {
+											"cartList" : cartList
+										},
+										success : function(data) {
+											console.log(data[1].board_id);
+											var html = "";
+											for (var i = 1; i <= data.length; i++) {
+												console.log(i + "번 실행")
+												html += "<tr>"
+														+ "<td class='cart-pic first-row'><img src='/resources/img/cart-page/product-1.jpg' alt=''></td>"
+														+ "<td class='cart-title first-row'>"
+														+ "<h5>"
+														+ "<a href='/admin/goods_detail/"+data[i-1].board_id+"' style='color:#000000'>"+data[i - 1].goodsVO.goodsname+"</a>"
+														+ "</h5>"
+														+ "</td>"
+														+ "<td class='p-price first-row' style='color:#000000'>"
+														+ "<input style='border:none; text-align:right;' type='text' id='a"+i+"' value='"+data[i-1].goodsVO.price+"' readonly size='7px'>"
+														+ "원</td>"
+														+ "<td class='qua-col first-row'>"
+														+ "	<div class='quantity'> <div class='pro-qty'> <span class='dec qtybtn' onclick='total"
+														+ i
+														+ "(-1)'>-</span> <input type='text' id='b"
+														+ i
+														+ "' value='1' readonly> <span class='inc qtybtn' onclick='total"
+														+ i
+														+ "(1)'>+</span> </div> </div>"
+														+ "</td> <td class='total-price first-row' style='color:#000000'>"
+														+ "<input style='border:none; text-align:right;' type='text' id='x"+i+"' value='' readonly size='7px'>"
+														+ "원</td> <td class='close-td first-row'><i class='ti-close'></i></td>  </tr>"
+												html += "<script DEFER> $(document).ready(function total"
+														+ i
+														+ "()"
+
+														+ "{ var num1 = document.getElementById('a"
+														+ i
+														+ "');"
+														+ "var num1s = num1.value; "
+
+														+ "var num1b = parseInt(num1s); var num2 = document.getElementById('b"
+														+ i
+														+ "'); "
+
+														+ "var num2s = num2.value; var num2b = parseInt(num2s);"
+
+														+ "var num3t; var ops = 'mul'; "
+														+ " switch (ops) { "
+														+ " case 'plus': num3t = num1b + num2b; document.getElementById('x"
+														+ i
+														+ "').value = num3t; break;"
+														+ "case 'mul': num3t = num1b * num2b; document.getElementById('x"
+														+ i
+														+ "').value = num3t; break; } }); "
+														+ "</script"+">"
+												html += "<script DEFER> function total"
+														+ i
+														+ "(v)"
+
+														+ "{ var num1 = document.getElementById('a"
+														+ i
+														+ "');"
+														+ "var num1s = num1.value; "
+														+ "var num1b = parseInt(num1s); var num2 = document.getElementById('b"
+														+ i
+														
+														+ "'); "
+													
+														+ "var num2s = num2.value; var num2b = parseInt(num2s) + v;"
+														+ "var num3t; var ops = 'mul'; "
+														+" console.log(num2b);"
+														+ " switch (ops) { "
+														+ " case 'plus': num3t = num1b + num2b; document.getElementById('x"
+														+ i
+														+ "').value = num3t; break;"
+														+ "case 'mul': num3t = num1b * num2b; document.getElementById('x"
+														+ i
+														+ "').value = num3t; console.log(num3t); break; } }; "
+														+ "</script"+">"
+											}
+
+											html += "<script defer src='/resources/js/jquery-3.3.1.min.js'> </script"+">"
+													+ "<script DEFER src='/resources/js/bootstrap.min.js'> </script"+">"
+													+ "<script defer src='/resources/js/jquery-ui.min.js'> </script"+">"
+													+ "<script defer src='/resources/js/jquery.countdown.min.js'> </script"+">"
+													+ "<script defer src='/resources/js/jquery.nice-select.min.js'> </script"+">"
+													+ "<script defer src='/resources/js/jquery.zoom.min.js'> </script"+">"
+													+ "<script defer src='/resources/js/jquery.dd.min.js'> </script"+">"
+													+ "<script defer src='/resources/js/jquery.slicknav.js'> </script"+">"
+													+ "<script defer src='/resources/js/owl.carousel.min.js'> </script"+">"
+													+ "<script DEFER src='/resources/js/main.js'> </script"+">"
+
+											$("#goods").append(html);
+
+										},
+										error : function(request, status, error) {
+											alert("code:" + request.status
+													+ "\n" + "message:"
+													+ request.responseText
+													+ "\n" + "error:" + error);
+										}
+
+									});
+						});
+	
+	</script>
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 
 </body>
