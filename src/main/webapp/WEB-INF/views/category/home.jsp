@@ -10,6 +10,7 @@
    content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
+
 <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
 
 <!-- 다운드롭 부트스트랩 -->
@@ -56,11 +57,11 @@ cursor:pointer;
 
 select{
 
-width:90px;
+width:120px;
 
 height:30px;
 
-font-size:20px;
+font-size:18px;
 
 }
 
@@ -105,7 +106,16 @@ font-size:20px;
     });
 
 }
-    
+  	
+  	function formChange(obj){
+  		
+  
+  			obj.submit();
+  			console.log(obj);  
+  		
+  	}
+  	
+  	
 
 </script>
 </head>
@@ -134,7 +144,7 @@ font-size:20px;
                 <ul class="nav">
                    <li class="submenu">
                  
-
+   
                  
                 
                       <!-- 고양이 -->
@@ -277,22 +287,28 @@ font-size:20px;
 
          <div class="col-lg-9">
             <div class="row">
+            
+            
+         
                
-
+<form action="/category/price" method="get">
                
-<select name="categoryArray" id = "categoryArray" style="font-size: 20px; border:none;">
+	<select name="categoryArrays" id = "categoryArray"style="font-size: 18px; border:none;" onchange="formChange(this.form)">
  
-    <option value="최신순" selected="selected">최신순</option>
-    <option value="가격순">가격순</option>
-   
-    <option value="별점순">별점순</option>
+    <option value="newgoods" selected="selected">최신순</option>
+    <option value="highend">가격 높은순</option>
+    <option value="cheep">가격 낮은순</option>
+    <option value="manyreview">많은 리뷰순</option>
+    
 </select>
+</form>
+ 
 
 
                
 <div class="row text-center">
 
-  <c:forEach items="${board}" var="dto">
+ <c:forEach items="${board}" var="dto" varStatus="status">
       <div class="col-lg-4 col-md-6 mb-4">
         <div class="card h-100">
           <img class="card-img-top" src="http://image.kmib.co.kr/online_image/2020/0927/611718110015050456_2.jpg" alt="">
@@ -300,21 +316,18 @@ font-size:20px;
 
             <h4 class="card-title">${dto.goodsVO.goodsname}</h4>
             <p class="card-text">${dto.goodsVO.price}</p>
+             
             <p class="card-text">${dto.pdate}</p>
-        
-       
+          
+     
           </div>
           
         </div>
       </div>
       </c:forEach>
-      
-      
+   
       </div>
 
-         
-         
-         
          
 </div>
    </div>

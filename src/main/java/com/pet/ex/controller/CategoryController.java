@@ -43,7 +43,7 @@ public class CategoryController {
 		/* mav.addObject("goods", service.getGoods()); */
 		
 		mav.addObject("board", service.getboard());
-
+		//mav.addObject("rate", service.getStorerate());
 		mav.addObject("category", service.getCategory());
 		mav.addObject("smallcategory", service.getScategory(categoryvo));
 
@@ -85,7 +85,7 @@ public class CategoryController {
 			mav.addObject("category", service.getCategory());
 			
 			mav.addObject("smallcategory", service.getScategory(categoryvo));
-
+			/* mav.addObject("rate", service.getStorerate()); */
 		
 		mav.setViewName("category/smallcategory");
 		return mav;
@@ -99,6 +99,26 @@ public class CategoryController {
 		return "category/smallcategory";
 	}
 
+	
+	
+	@GetMapping("/price")
+	public ModelAndView pricecategory(GoodsVO goodsvo, ModelAndView mav, CategoryVO categoryvo , BoardVO boardvo) throws Exception{
+		
+		mav.addObject("board", service.gethighprice());
+		//mav.addObject("rate", service.getStorerate());
+		mav.addObject("category", service.getCategory());
+		mav.addObject("smallcategory", service.getScategory(categoryvo));
+
+		mav.setViewName("category/price");
+		
+		
+
+		return mav;
+	}
+
+	
+	
+	
 	// 동물 카테고리 ajax
 	/*
 	 * @PostMapping("/bigcategory/{category_id}") public ModelAndView cat(CategoryVO
@@ -123,4 +143,8 @@ public class CategoryController {
 	 * return mav; }
 	 */
 
+	
+	
+	
+	
 }
