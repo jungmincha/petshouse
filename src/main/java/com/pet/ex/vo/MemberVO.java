@@ -1,5 +1,7 @@
 package com.pet.ex.vo;
 
+import java.sql.Timestamp;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -33,6 +35,9 @@ public class MemberVO {
 	private int trycount;
 
 	private int enable;
+	
+	private Timestamp pdate;
+	
 
 	// 외래키
 	private RoleVO roleVO;
@@ -45,5 +50,11 @@ public class MemberVO {
 	private String username;
 
 	private String provider;
-
+	
+	//번호 순으로 정렬
+	private int rnum;
+	
+	//관심사
+	private String concern;
+	
 }

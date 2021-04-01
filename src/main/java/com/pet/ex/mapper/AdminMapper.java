@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.pet.ex.vo.BoardVO;
 import com.pet.ex.vo.CategoryVO;
 import com.pet.ex.vo.GoodsVO;
+import com.pet.ex.vo.MemberVO;
 import com.pet.ex.vo.StockVO;
 
 import com.pet.ex.page.Criteria;
@@ -43,7 +44,12 @@ public interface AdminMapper {
 	public BoardVO getgoodsInfo(int board_id);
 
 	public GoodsVO getInfo(int goods_id);
-	
-	
 
+	public List<MemberVO> getMemberlist(Criteria cri);
+
+	public int getMembertotal();
+
+	public MemberVO getMemberdetail(String member_id);
+
+	public void memberDelete(String member_id);
 }
