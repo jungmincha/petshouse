@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pet.ex.mapper.StoreMapper;
+import com.pet.ex.page.Criteria;
 import com.pet.ex.vo.BoardVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,11 +18,24 @@ public class StoreServiceImpl implements StoreService {
 
 	@Autowired
 	public StoreMapper mapper;
-
+	
 	@Override
 	public List<BoardVO> getStorerate() {
 		log.info("getStorerate");
-		return mapper.getStorerate();
+		return mapper.getStore();
+	}
+
+	@Override
+	public List<BoardVO> getStorerate(Criteria cri) {
+		log.info("getStorerate/cri");
+		cri.setAmount(15);
+		return mapper.getStorerate(cri);
+	}
+
+	@Override
+	public int getStoretotal() {
+		log.info("getStoretotal");
+		return mapper.getStoretotal();
 	}
 
 	@Override

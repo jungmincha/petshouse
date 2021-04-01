@@ -37,6 +37,6 @@ public interface CommunityMapper {
 	// 질문과 답변 글 삭제하기
 	public void delete(int board_id);
 	
-	
+	public List<BoardVO> getQsearch(String keyword);
 
 }

@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
@@ -47,6 +48,16 @@ public class CommunityController {
 		return mav;
 	}
 	
+	// 질문과 답변 글 검색
+	@PostMapping("/qnasearch")
+	public ModelAndView qsearch(@RequestParam("keyword") String keyword,Criteria cri, ModelAndView mav,BoardVO boardVO) throws Exception {
+		log.info("qsearch()실행");
+		mav.addObject("qsearch", communityService.getQsearch(keyword));
+		int total = communityService.getTotal(cri);
+		mav.addObject("pageMaker", new PageVO(cri, total));
+		mav.setViewName("/community/qnasearch");
+		return mav;
+	}
 
 	// 질문과 답변 글쓰기 페이지
 	@GetMapping("/qna_write")

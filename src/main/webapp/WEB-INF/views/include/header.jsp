@@ -168,7 +168,7 @@
 							</ul></li>
 						<li><a href="/store/home">STORE</a>
 							<ul class="dropdown">
-								<li><a href="#">카테고리</a></li>
+								<li><a href="/category/home">카테고리</a></li>
 								<li><a href="/store/best/1">베스트상품</a></li>
 								<li><a href="/store/event">이벤트</a></li>
 							</ul></li>

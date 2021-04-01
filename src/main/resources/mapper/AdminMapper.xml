@@ -209,7 +209,7 @@
 
 	<insert id="input" parameterType="goodsvo"> 
 	<![CDATA[ 
-	   insert into goods (goods_id, goodsname, price, description, psize, pcolor, thumbnail, stock_id, category_id)
+	   insert into goods (goods_id, goodsname, price, description, psize, pcolor, thumbnail, stock_id, category_id)   
        values (goods_seq.nextval, #{goodsname}, #{price}, #{description}, #{psize}, #{pcolor},#{thumbnail},#{stockVO.stock_id},#{categoryVO.category_id})
 
 	]]>
@@ -221,19 +221,14 @@
 		select * from Board where board_id = #{board_id} 
 		]]>
 	</select>
+ 
 
-	<select id="getInfo" resultMap="goodsvo"> 
-		<![CDATA[ 
-		select * from Goods where goods_id = #{goods_id} 
-		]]>
-	</select>
-
-
+	<!-- 상품게시글조회 -->
 	<select id="getGoods" resultMap="boardvo"> 
 	<![CDATA[ 
-      select b.board_id, g.goods_id, g.goodsname, g.description, b.content, b.pdate, s.stockname, g.price, g.psize, g.pcolor, b.hashtag, c.categoryname, cc.categoryname as sortname 
+      select b.board_id, g.goods_id, g.goodsname, g.description, b.content, b.pdate, s.stockname, g.price, g.psize, g.pcolor, b.hashtag, c.categoryname as sortname, cc.categoryname  
       from goods g, board b, stock s, category c, category cc
-      where g.goods_id = b.goods_id and g.stock_id=s.stock_id and g.category_id=c.category_id and c.category_id=cc.code and b.board_id = #{board_id}  and b.boardtype_id=3 
+      where g.goods_id = b.goods_id and g.stock_id=s.stock_id and g.category_id=c.category_id and c.code=cc.category_id and b.board_id = #{board_id}  and b.boardtype_id=3 
 	]]>
 	</select>
 
@@ -246,22 +241,23 @@
 	</select>
 
 
-	<!-- 상품상세조회 -->
-	<select id="getBoard" resultMap="goodsvo">		
-		<![CDATA[
-		
-	     	   select g.goods_id, g.goodsname, g.price, g.psize, g.pcolor, c.category_id, cc.code, cc.categoryname,s.stock_id, s.stockname, g.description 
-	     	   from stock s, goods g, category c, category cc 
-	     	   where c.category_id=cc.code and g.goods_id=#{goods_id} and s.stock_id= g.stock_id and g.category_id=c.category_id
-	   ]]>
+	<!-- 상품조회 -->
+	 
+	
+	<select id="getBoard" resultMap="goodsvo">
+        <![CDATA[
+     	select  g.goods_id, g.goodsname, g.description, s.stockname, g.price, g.psize, g.pcolor, c.categoryname as sortname, cc.categoryname  
+      	from goods g, stock s, category c, category cc
+      	where g.stock_id=s.stock_id and g.category_id=c.category_id and c.code=cc.category_id and g.goods_id = #{goods_id} 
+         ]]>
 	</select>
 
 
-	<update id="modifyGoods" parameterType="GoodsVO">
+	<update id="modifyGoods" parameterType="goodsvo">
 		<![CDATA[
 	    	update goods set 
-	    	     price= #{price} , description = #{description}, 
-	    	     psize=#{psize}, pcolor=#{pcolor}
+	    	     price= #{price} , description = #{description},  
+	    	     psize=#{psize}, pcolor=#{pcolor} , stock_id = #{stockVO.stock_id} , category_id = #{categoryVO.category_id}
 	    	     where goods_id = #{goods_id} 
 		]]>
 	</update>

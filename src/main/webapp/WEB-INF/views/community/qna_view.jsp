@@ -45,7 +45,7 @@
 			<button type="button" class="btn btn-warning"
 				onclick="modify_event();">수정</button>
 
-			<button type="button" onclick="button_event();">삭제</button>
+			<button type="button" class="btn btn-warning" onclick="button_event();">삭제</button>
 		</div>
 
 		<script type="text/javascript">
@@ -79,12 +79,16 @@
 
 			</td>
 		</table>
+		<hr>
 	</div>
-	<div class="container">
+	
+	
+	
+	<div class="container" style="margin-bottom:10px;">
 		<table>
 			<c:forEach items="${comment}" var="cm">
-				<div>${cm.content}</div>
 				<div>${cm.memberVO.nickname}</div>
+				<div>${cm.content}</div>
 				<div>${cm.pdate}</div>
 
 			</c:forEach>

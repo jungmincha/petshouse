@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.pet.ex.page.Criteria;
+import com.pet.ex.page.PageVO;
 import com.pet.ex.service.FileService;
 import com.pet.ex.service.StoreService;
 
@@ -22,38 +24,41 @@ public class StoreController {
 	@Autowired
 	FileService fileservice;
 
-//	@GetMapping("/best/{categoryVO.category_id}")
-////	@ResponseBody
-////	public List<GoodsVO> beststore(GoodsVO goodsVO) {
-//	public ModelAndView catebest(GoodsVO goodsVO, ModelAndView mav) {
-//		log.info("catebest");
-//		//List<GoodsVO> bestlist = service.getBestlist(goodsVO.getCategoryVO().getCategory_id());
-//		mav.addObject("best", service.getBestlist(goodsVO.getCategoryVO().getCategory_id()));
-//		mav.addObject("rate", service.getRatescore());
-//		mav.addObject("image", fileservice.getImgtest());
-//		mav.setViewName("store/best");
-//		return mav;
-//	}
-	
 	@GetMapping("/home")
-	public ModelAndView storehome(ModelAndView mav) {
+	public ModelAndView storehome(Criteria cri, ModelAndView mav) {
 		log.info("storehome");
-		mav.addObject("rate", service.getStorerate());	
+		mav.addObject("rate", service.getStorerate());
+		mav.addObject("bestrate", service.getStorerate(cri));
+		int total = service.getStoretotal();
+		mav.addObject("pageMaker", new PageVO(cri, total));
+		
 		mav.addObject("goods", service.getGoodsinfo());
 		mav.addObject("image", fileservice.getImgtest());
 
 		mav.setViewName("store/home");
 		return mav;
 	}
+
+	@GetMapping("/best")
+	public ModelAndView best(BoardVO boardVO, ModelAndView mav) {
+		log.info("best");
+			
+		mav.addObject("rate", service.getBestrate(boardVO.getCategoryVO().getCategory_id()));
+		mav.addObject("goods", service.getGoodsinfo());
+		mav.addObject("image", fileservice.getImgtest());
+		
+		mav.setViewName("store/beststore2");
+		return mav;
+	}
 	
 	@GetMapping("/best/{categoryVO.category_id}")
-	public ModelAndView best(BoardVO boardVO, ModelAndView mav) {
+	public ModelAndView catebest(BoardVO boardVO, ModelAndView mav) {
 		log.info("beststore");
 		mav.addObject("rate", service.getBestrate(boardVO.getCategoryVO().getCategory_id()));
 		mav.addObject("goods", service.getGoodsinfo());
 		mav.addObject("image", fileservice.getImgtest());
 		
-		mav.setViewName("store/beststore");
+		mav.setViewName("store/beststore2");
 		return mav;
 	}
 	

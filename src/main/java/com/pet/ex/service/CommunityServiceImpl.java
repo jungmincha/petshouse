@@ -85,4 +85,10 @@ public class CommunityServiceImpl implements CommunityService {
 
 	}
 
+	@Override
+	public List<BoardVO> getQsearch(String keyword) {
+		// TODO Auto-generated method stub
+		return mapper.getQsearch(keyword);
+	}
+
 }

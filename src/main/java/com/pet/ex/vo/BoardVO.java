@@ -24,17 +24,19 @@ public class BoardVO {
 	private int pstep;
 	private int pindent;
 	private int ratescore;
-	
-	//외래키
+
+	// 외래키
 	private MemberVO memberVO;
 	private BoardtypeVO boardtypeVO;
 	private GoodsVO goodsVO;
 	private CategoryVO categoryVO;
-	
-	//별점 평균
+
+	// 별점 평균
 	private double avgscore;
-	//카운트 세기
+	// 카운트 세기
 	private int count;
-	//순서대로 정렬
+
+	// 순서대로 정렬
 	private int rnum;
+
 }
