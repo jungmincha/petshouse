@@ -82,10 +82,7 @@
 	}
 }
 </style>
-<%
-ArrayList cartList = new ArrayList();
-session.setAttribute("cartList", cartList);
-%>
+
 </head>
 <body>
 	<p>
