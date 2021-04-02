@@ -43,35 +43,43 @@ public class AdminController {
 	@Autowired
 	private AdminService service;
 
-	@RequestMapping("/goods") // 상품리스트조회
-	public ModelAndView list(Criteria cri, CategoryVO categoryVO, ModelAndView mav) {
+	@GetMapping("/goods") // 상품리스트조회
+	public ModelAndView list(String categoryArrays,   GoodsVO goodsVO, CategoryVO categoryVO, ModelAndView mav) throws Exception {
 
-		mav.setViewName("admin/goods_list");
-		mav.addObject("list", service.getList(cri));
+		
+		mav.addObject("list", service.getList( ));
 
 		mav.addObject("category", service.getCategory_goods());
 		mav.addObject("sort", service.getSort(categoryVO));
-
-		int total = service.getTotal(cri);
-		log.info("total" + total);
-		mav.addObject("pageMaker", new PageVO(cri, total));
+		/*
+		 * int total = service.getTotal(cri); log.info("total" + total);
+		 * mav.addObject("pageMaker", new PageVO(cri, total));
+		 */
+		mav.setViewName("admin/goods_list");
 		return mav;
 	}
 	
-	@RequestMapping("/goods/category/{category_id}") // 상품리스트 카테고리별 조회
-	public ModelAndView list_category(Criteria cri, CategoryVO categoryVO, ModelAndView mav) {
+	@PostMapping("/goods/category/{category_id}") // 상품리스트 카테고리별 조회
+	public ModelAndView goodsNcategory(@RequestBody GoodsVO goodsvo,  CategoryVO categoryVO, ModelAndView mav) {
 
 		mav.setViewName("admin/goods_list_category");
-		mav.addObject("list2", service.getList2(cri));
-
-		mav.addObject("bar", service.getSidebar());
+		mav.addObject("list2", service.getList2(categoryVO.getCategory_id()));
+		                      
+		mav.addObject("category", service.getCategory_goods());
 		mav.addObject("sort", service.getSort(categoryVO));
 		
 		
-		int total = service.getTotal(cri);
-		log.info("total" + total);
-		mav.addObject("pageMaker", new PageVO(cri, total));
+		/*
+		 * int total = service.getTotal(cri); log.info("total" + total);
+		 * mav.addObject("pageMaker", new PageVO(cri, total));
+		 */
 		return mav;
+	}
+	
+	@GetMapping("/goods/category")
+	public String goodsNcategory() {
+
+		return "admin/goods_list_category";
 	}
 
 	@DeleteMapping("/goods/{goods_id}") // 상품삭제/상품게시글삭제/리뷰삭제

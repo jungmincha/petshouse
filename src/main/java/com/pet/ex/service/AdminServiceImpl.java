@@ -44,19 +44,19 @@ public class AdminServiceImpl implements AdminService {
 	} 
 
 	@Override
-	public List<GoodsVO> getList(Criteria cri) {		// 상품 목록 + 페이징처리
-		log.info("List" + cri);
-		cri.setAmount(20);
-		return mapper.getList(cri);
+	public List<GoodsVO> getList() {		// 상품 목록 + 페이징처리
+		log.info("List"  );
+	
+		return mapper.getList();
 	}
 
 	
-	@Override
-	public int getTotal(Criteria cri) {					// 상품 갯수
-		log.info("get total count");
-		
-		return mapper.getTotalCount(cri);
-	}
+	/*
+	 * @Override public int getTotal(Criteria cri) { // 상품 갯수
+	 * log.info("get total count");
+	 * 
+	 * return mapper.getTotalCount(cri); }
+	 */
 
 	
 	@Override
@@ -141,11 +141,11 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public List<GoodsVO> getList2(Criteria cri) {
-		log.info("List" + cri);
-		cri.setAmount(20);
-		
-		return mapper.getList2(cri);
+	public List<GoodsVO> getList2(int category_id) {
+		/*
+		 * log.info("List" + cri); cri.setAmount(20);
+		 */
+		return mapper.getList2(category_id);
 	}
 
  

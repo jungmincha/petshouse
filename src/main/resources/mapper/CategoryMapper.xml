@@ -172,7 +172,13 @@
    </select> 
 	
 
-
+   <!-- 소분류 별로 분류해 카테고리 홈에 뿌려주는 mapper-->
+   	<select id="getSmallGoods" resultMap="boardvo"> 
+     <![CDATA[ 
+		 select g.goods_id, g.goodsname, TO_CHAR(g.price,'99,999') as price, b.board_id , pdate , g.category_id from board b, goods g 
+		 where b.goods_id=g.goods_id and b.boardtype_id=3 and g.category_id=#{g.category_id} ORDER BY pdate desc
+    ]]> 
+   </select> 
    
    
   
@@ -180,8 +186,10 @@
 <!-- 전체 상품을 최신순으로 조회해서 뿌려주는  mapper-->
 	 <select id="getboard" resultMap="boardvo"> 
      <![CDATA[ 
-	 select g.goods_id, g.goodsname, TO_CHAR(g.price,'99,999') as price, b.board_id from board b, goods g 
-	 where b.goods_id=g.goods_id and b.boardtype_id=3 order by pdate desc
+ 
+	 select g.goods_id, g.goodsname, TO_CHAR(g.price,'99,999') as price, b.board_id ,pdate 
+	 from board b, goods g where b.goods_id=g.goods_id and b.boardtype_id=3 ORDER BY pdate DESC 
+ 
 	]]> 
 	</select> 
 	
@@ -191,6 +199,7 @@
 		            select * from(
 		           select round(avg(ratescore),1) as avgscore, count(*) as count, goods_id
                    from board where boardtype_id=8 group by goods_id)
+ 
 	]]> 
 	</select> 
 	
@@ -223,8 +232,6 @@
  where b.goods_id=g.goods_id and b.boardtype_id=3 ORDER BY price DESC
 	]]> 
 	</select> 
-	
-	
 	
 	
 	

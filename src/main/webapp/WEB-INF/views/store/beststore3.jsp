@@ -49,38 +49,47 @@
     	// 숫자 평점을 별로 변환하도록 호출하는 함수
     	$('.star-prototype').generateStars();
     })
-    
-    function fire_ajax_submit(id) {
-    	console.log(id);
-    	var category_id = id;
-		
-		var form = {
-				category_id: category_id
-		};    
-		
-    	var url = "/store/best/"+id;
-    		
-    $.ajax({
-        type: "POST",
-        contentType: 'application/json; charset=utf-8',
-  		url: url,
-        data: JSON.stringify(form), 
-        cache : false,
-        
-        success: function (data) {         	
-          console.log("SUCCESS : ", data);       
-  
-        },
-        
-        error: function (e) {
-     	   console.log("ERROR : ", e);
-        }
-    });
+    </script>
 
-}
-  
-    
-  </script>
+  <script type="text/javascript">
+   $(document).ready(function(){
+      $(".category").on('click',function(){
+         
+         getList();
+         
+         function getList() {
+            $.ajax({
+               type: 'GET',
+               url: $(this).attr('href'),
+               cache : false,
+               dataType: 'json',
+
+               success: function(result) {
+               //console.log(result);
+                  $('.category').children().remove();
+                 
+                  var htmls="";
+               
+                    $(".category").html("");   
+
+                    $(result).each(function(){   
+                    
+                       //다이어리
+                    	   htmls +='<tr class="table-light"><td>'+ this.category_id +'</td></tr>';
+     	                  
+                  
+                    });//result end
+                    
+                    console.log(htmls);
+                 
+                    $(".category").append(htmls); 
+                 
+                 }//sucess end
+            });//ajax end
+         }//getList end
+      });//change
+   });//document function
+</script>
   
 <style>
     .single-banner{
@@ -109,7 +118,6 @@
     <!-- Best Products  -->
     <section class="latest-blog spad">
         <div class="container">
-
             <div class="row">
                 <div class="col-lg-12">
                     <div class="section-title">
@@ -119,34 +127,19 @@
              </div>
           
          	<!-- category -->
-             <div class="row">           
+         	<section class="category">
+             <div class="row"> 
+             <c:forEach items="${category}" var="category">          
                 <div class="col-lg-2">                                                                  
-	               <a href="#" onclick ="fire_ajax_submit(1);"><img src="/resources/img/category/cat.jpg"></a>                                     
+	               <a onclick="" href="/store/best/${category.category_id}" value="${category.category_id}"><img src="/resources/img/category/fish.jpg"></a>                                     
                 </div>
-                
-                <div class="col-lg-2">
-                    <a href="#" onclick ="fire_ajax_submit(2);"><img src="/resources/img/category/dog.jpg"></a>
-                </div>
-                
-                <div class="col-lg-2">
-                    <a href="#" onclick ="fire_ajax_submit(3);"><img src="/resources/img/category/reptile.jpg"></a>
-                </div>
-                
-                <div class="col-lg-2">
-                    <a href="#" onclick ="fire_ajax_submit(4);"><img src="/resources/img/category/bird.jpg"></a>
-                </div>
-                
-                <div class="col-lg-2">
-                    <a href="#" onclick ="fire_ajax_submit(5);"><img src="/resources/img/category/fish.jpg"></a>
-                </div>
-                
-                <div class="col-lg-2">
-                    <a href="#" onclick ="fire_ajax_submit(6);"><img src="/resources/img/category/other.jpg"></a>
-                </div>
-            </div>
+             </c:forEach>
+             </div>   
+          
   		  <!-- Category End -->   
   		  
             <!-- Goods -->
+            <div class="goods">
              <div class="row">
            <c:forEach items="${rate}" var="rate">
                 <div class="col-lg-3 col-sm-6">
@@ -182,7 +175,8 @@
                 </c:forEach>
             </div>
          </div>
- 
+         </section>
+         </div>
     </section>
      <!-- Goods End -->
     
@@ -205,3 +199,6 @@
    <script src="/resources/js/main.js"></script>
 </body>
 </html>
+  
+
+  

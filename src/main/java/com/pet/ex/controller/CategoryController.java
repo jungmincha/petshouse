@@ -32,8 +32,12 @@ public class CategoryController {
 	CategoryService service;
 
 	// 카테고리 메인페이지
+
 	@RequestMapping("/home")
+
+
 	public ModelAndView categoryhome(GoodsVO goodsvo, ModelAndView mav, CategoryVO categoryvo , BoardVO boardVO) throws Exception {
+ 
 
 		/* mav.addObject("goods", service.getGoods()); */
 		

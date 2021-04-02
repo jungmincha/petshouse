@@ -33,7 +33,32 @@
 		// 숫자 평점을 별로 변환하도록 호출하는 함수
 		$('.star-prototype').generateStars();
 
-	})
+	});
+	function inputCart() {
+
+		var cart = JSON.parse(sessionStorage.getItem("cartList"));
+
+		if (!cart) {
+			console.log("카트생성");
+			cart = new Array();
+		}
+		var goods = new Object();
+		goods.board_id = '${goods.board_id}';
+		goods.count = parseInt($("#count").val());
+		console.log(goods);
+		cart.push(goods);
+
+		console.log(cart);
+		sessionStorage.setItem("cartList", JSON.stringify(cart));
+		if (confirm("상품이 장바구니에 담겼습니다. 장바구니로 이동하시겠습니까?") == true) { //확인
+			window.location.assign("/myPage/cart");
+		} else { //취소
+
+			return false;
+
+		}
+
+	}
 </script>
 <style>
 .tab-item {
@@ -69,16 +94,15 @@ tbody {
 
 table {
 	width: 100%;
-	boder-collapse:collapse;
+	boder-collapse: collapse;
 }
-
 
 td, th {
 	border-bottom: 1px solid #000000;
 }
 
-th{
-	background : #FFFFF0;
+th {
+	background: #FFFFF0;
 	text-align: -internal-center;
 	font-size: 20px;
 }
@@ -90,7 +114,6 @@ h2 {
 
 </head>
 <body>
-
 
 
 	<!-- header -->
@@ -231,8 +254,9 @@ h2 {
 								<div class="product-details">
 									<div class="pd-title">
 										<input type="hidden" name="board_id" value="${goods.board_id}">
-										<input type="hidden" name="goods_id" value="${goods.goodsVO.goods_id}">
-										<input type="hidden" name="goods_id" value="${goods.pdate}">
+										<input type="hidden" name="goods_id"
+											value="${goods.goodsVO.goods_id}"> <input
+											type="hidden" name="goods_id" value="${goods.pdate}">
 
 										<span>${goods.goodsVO.goods_id}</span>
 										<h3>${goods.goodsVO.goodsname}</h3>
@@ -257,7 +281,8 @@ h2 {
 										<small>${goods.goodsVO.description}</small>
 										<h4>
 											<fmt:formatNumber value="${goods.goodsVO.price}"
-												pattern="###,###,###" />원
+												pattern="###,###,###" />
+											원
 										</h4>
 
 									</div>
@@ -298,9 +323,11 @@ h2 {
 									</div>
 									<div class="quantity">
 										<div class="pro-qty">
-											<input type="text" value="1">
+											<span class="dec qtybtn">-</span> <input id="count" type="text"
+												value="1"> <span class="inc qtybtn">+</span>
 										</div>
-										<a href="#" class="primary-btn pd-cart">Add To Cart</a>
+										<div onclick="inputCart()" class="primary-btn pd-cart"
+											style="cursor: pointer;">Add To Cart</div>
 									</div>
 									<ul class="pd-tags">
 										<li><span>CATEGORIES</span>:
@@ -417,10 +444,10 @@ h2 {
 									<h2>주문가이드</h2>
 									<div class="shoppingguide">
 
-										<table >
+										<table>
 
 											<colgroup>
-												<col style="width: 20%; ">
+												<col style="width: 20%;">
 												<col style="width: 80%;">
 											</colgroup>
 											<tbody>
@@ -491,11 +518,21 @@ h2 {
 
 	</section>
 	<!-- Product Shop Section End -->
-
+	<script src="/resources/js/jquery-3.3.1.min.js"></script>
+	<script src="/resources/js/bootstrap.min.js"></script>
+	<script src="/resources/js/jquery-ui.min.js"></script>
+	<script src="/resources/js/jquery.countdown.min.js"></script>
+	<script src="/resources/js/jquery.nice-select.min.js"></script>
+	<script src="/resources/js/jquery.zoom.min.js"></script>
+	<script src="/resources/js/jquery.dd.min.js"></script>
+	<script src="/resources/js/jquery.slicknav.js"></script>
+	<script src="/resources/js/owl.carousel.min.js"></script>
+	<script src="/resources/js/main.js"></script>
 
 
 	<!-- Footer -->
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 
 </body>
+
 </html>

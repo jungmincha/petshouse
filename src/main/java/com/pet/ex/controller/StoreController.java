@@ -1,7 +1,12 @@
 package com.pet.ex.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
@@ -40,26 +45,28 @@ public class StoreController {
 	}
 
 	@GetMapping("/best")
-	public ModelAndView best(BoardVO boardVO, ModelAndView mav) {
-		log.info("best");
-			
-		mav.addObject("rate", service.getBestrate(boardVO.getCategoryVO().getCategory_id()));
+	public ModelAndView best(ModelAndView mav) {
+		log.info("best");			
+		mav.addObject("category", service.getCategory());	
+		mav.addObject("rate", service.getStorerate());
 		mav.addObject("goods", service.getGoodsinfo());
 		mav.addObject("image", fileservice.getImgtest());
 		
-		mav.setViewName("store/beststore2");
+		mav.setViewName("store/beststore");
 		return mav;
 	}
 	
-	@GetMapping("/best/{categoryVO.category_id}")
-	public ModelAndView catebest(BoardVO boardVO, ModelAndView mav) {
+	@PostMapping("/best/{categoryVO.category_id}")
+	public ModelAndView best(@PathVariable("categoryVO.category_id") int category_id, BoardVO boardVO, ModelAndView mav) {
 		log.info("beststore");
 		mav.addObject("rate", service.getBestrate(boardVO.getCategoryVO().getCategory_id()));
 		mav.addObject("goods", service.getGoodsinfo());
 		mav.addObject("image", fileservice.getImgtest());
 		
 		mav.setViewName("store/beststore2");
+		
 		return mav;
+		
 	}
 	
 	@GetMapping("/event")
@@ -68,7 +75,5 @@ public class StoreController {
 	
 		mav.setViewName("store/event");
 		return mav;
-	}
-	
-	
+	}	
 }

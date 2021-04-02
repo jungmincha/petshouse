@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.pet.ex.page.Criteria;
 import com.pet.ex.vo.BoardVO;
+import com.pet.ex.vo.CategoryVO;
 
 @Mapper
 public interface StoreMapper {
@@ -18,4 +19,6 @@ public interface StoreMapper {
 	public List<BoardVO> getGoodsinfo();
 	
 	public List<BoardVO> getBestrate(int category_id);
+	
+	public List<CategoryVO> getCategory();
 }
