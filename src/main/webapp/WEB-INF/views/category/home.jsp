@@ -5,78 +5,48 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang>
 <head>
-<meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport"
-   content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
-
 <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
 
-<!-- 다운드롭 부트스트랩 -->
- <!-- <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
-  
-  <!-- 추가코드 -->
-<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script> -->
-<!-- 부트스트랩 끝 -->
-<title>category</title>
-
- <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-
+<title>Insert title here</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Bootstrap -->
-    <link href="/resources/sidemenu/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <!-- styles -->
-    <link href="/resources/sidemenu/css/styles.css" rel="stylesheet">
 
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
- <!--CDN 링크 -->
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!-- Bootstrap -->
+<link href="/resources/sidemenu/bootstrap/css/bootstrap.min.css"
+	rel="stylesheet">
+<!-- styles -->
+<link href="/resources/sidemenu/css/styles.css" rel="stylesheet">
+<script
+	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
+	rel="stylesheet">
 
-    <script src="/resources/sidemenu/bootstrap/js/bootstrap.min.js"></script>
-    <script src="/resources/sidemenu/js/custom.js"></script>
- <script src="/resources/sidemenu/https://code.jquery.com/jquery.js"></script>
-  
-  
-  <style>
+<style>
 .tab-item {
-   width: 1000;
-   
+	width: 1000;
 }
 
-a{
-
-cursor:pointer;
-
+a {
+	cursor: pointer;
 }
 
-span.star-prototype, span.star-prototype>* {
-   height: 16px;
-   background: url(http://i.imgur.com/YsyS5y8.png) 0 -16px repeat-x;
-   display: inline-block;
+select {
+	width: 120px;
+	height: 30px;
+	font-size: 18px;
 }
-
-span.star-prototype>* {
-   background-position: 0 0;
-   max-width: 80px;
-}
-
-
-
 </style>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="/resources/sidemenu/https://code.jquery.com/jquery.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="/resources/sidemenu/bootstrap/js/bootstrap.min.js"></script>
+<script src="/resources/sidemenu/js/custom.js"></script>
   
 
   
@@ -115,6 +85,43 @@ span.star-prototype>* {
 
 }
   	
+  	
+  	
+	function select_submit(arr) {
+    	console.log(arr);
+    	var category = {}
+    	category["category"] = $("#category").val();
+    	
+    	var url = "/category/"+arr;
+    	
+    	
+    $.ajax({
+        type: "POST",
+        contentType: 'application/json; charset=utf-8',
+  		url: url,
+        data: JSON.stringify(category), 
+        cache : false,
+        
+        success: function (data) { 
+        	
+          console.log("SUCCESS : ", data);
+       
+          $('#input').html(data);
+		  console.log(id);
+
+        },
+        error: function (e) {
+      console.log("ERROR : ", e);
+  
+        }
+    });
+
+}
+  	
+  	
+  	
+  	
+  	
   
   	$.fn.generateStars = function() {
   	    return this.each(function(i,e){$(e).html($('<span/>').width($(e).text()*16));});
@@ -141,13 +148,14 @@ span.star-prototype>* {
    <!-- Page Content -->
    <!-- Product Shop Section Begin -->
 
-   <section class="product-shop spad page-details">
+  <section class="product-shop spad page-details">
       
 
    <div class ="container">
    
    <!--가져올 부분-->
 	<div id = "input">
+	
       <div class="row">
          <div class="col-lg-3">
             <div class="filter-widget">
@@ -298,33 +306,25 @@ span.star-prototype>* {
          </div>
          
          
-
          <div class="col-lg-9">
-         
-         
-           
-         
-            <div class="row">
-            
-                                      
+              <div class="row">
+                                         
   <div class="dropdown">
-    <button type="button" style="font-size:20px; color:black;background-color:white; border:none; " class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+     <button type="button" style="font-size:20px; color:black;background-color:white; border:none; " class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
      전체
     </button>
     <div class="dropdown-menu">
     <a class="dropdown-item" style="font-size:20px;" href="/category/home">최신순</a>
-      <a class="dropdown-item" style="font-size:20px;" href="/category/highprice">가격 높은순</a>
-      <a class="dropdown-item" style="font-size:20px;" href="/category/rowprice">가격 낮은순</a>
-      <a class="dropdown-item" style="font-size:20px;" href="/category/highstar">별점 높은순</a>
+  <!--   <a class="dropdown-item" style="font-size:20px;" href="/category/highprice">가격 높은순</a> -->
+     <a class="dropdown-item" style="font-size:20px;" href="#" onclick="select_submit('highprice')">가격 높은순</a> 
+      <a class="dropdown-item" style="font-size:20px;" href="#" onclick="select_submit('rowprice')">가격 낮은순</a>
+      <a class="dropdown-item" style="font-size:20px;" href="#" onclick="select_submit('highstar')">별점 높은순</a>
       
     
     </div>
   </div>
     
-            
-            
-           
-               
+                 
 <div class="row text-center">
 
 
@@ -378,8 +378,10 @@ span.star-prototype>* {
    </div>
    </div>
    </div>
+   
+   
 </div>
-   </section>
+   </section> 
    <!-- Product Shop Section End -->
    
    

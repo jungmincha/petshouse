@@ -105,7 +105,36 @@ font-size:18px;
 }
   	
 	
-  	
+  	function select_submit(arr) {
+    	console.log(arr);
+    	var category = {}
+    	category["category"] = $("#category").val();
+    	
+    	var url = "/category/"+arr;
+    	
+    	
+    $.ajax({
+        type: "POST",
+        contentType: 'application/json; charset=utf-8',
+  		url: url,
+        data: JSON.stringify(category), 
+        cache : false,
+        
+        success: function (data) { 
+        	
+          console.log("SUCCESS : ", data);
+       
+          $('#input').html(data);
+		  console.log(id);
+
+        },
+        error: function (e) {
+      console.log("ERROR : ", e);
+  
+        }
+    });
+
+}  	
   	
 
 </script>
@@ -113,12 +142,7 @@ font-size:18px;
 
 
 <body>
-   <!-- header -->
-   <%@ include file="/WEB-INF/views/include/header.jsp"%>
-   
-   <!-- Page Content -->
-   <!-- Product Shop Section Begin -->
-
+  
    <section class="product-shop spad page-details">
       
 
@@ -284,9 +308,10 @@ font-size:18px;
     </button>
     <div class="dropdown-menu">
     <a class="dropdown-item" style="font-size:20px;" href="/category/home">최신순</a>
-      <a class="dropdown-item" style="font-size:20px;" href="/category/highprice">가격 높은순</a>
-      <a class="dropdown-item" style="font-size:20px;" href="/category/rowprice">가격 낮은순</a>
-        <a class="dropdown-item" style="font-size:20px;" href="/category/highstar">별점 높은순</a>
+     <!--   <a class="dropdown-item" style="font-size:20px;" href="/category/highprice">가격 높은순</a> -->
+     <a class="dropdown-item" style="font-size:20px;" href="#" onclick="select_submit('highprice')">가격 높은순</a> 
+      <a class="dropdown-item" style="font-size:20px;" href="#" onclick="select_submit('rowprice')">가격 낮은순</a>
+      <a class="dropdown-item" style="font-size:20px;" href="#" onclick="select_submit('highstar')">별점 높은순</a>
       
     
     </div>
@@ -300,7 +325,7 @@ font-size:18px;
                
 <div class="row text-center">
 
- <<c:forEach items="${goods}" var="goods" varStatus="status">
+ <c:forEach items="${goods}" var="goods" varStatus="status">
                        
                            <div class="product-item">
                               <div class="pi-pic">
@@ -332,16 +357,7 @@ font-size:18px;
 </div>
    </section>
    <!-- Product Shop Section End -->
-   
-   
-   
-   
-   
-
-
-
-   <!-- Footer -->
-   <%@ include file="/WEB-INF/views/include/footer.jsp"%>
+ 
 
 
 </body>

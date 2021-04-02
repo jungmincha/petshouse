@@ -4,17 +4,19 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+
 import com.pet.ex.mapper.CategoryMapper;
-import com.pet.ex.mapper.StoreMapper;
+
 import com.pet.ex.vo.BoardVO;
 import com.pet.ex.vo.CategoryVO;
 import com.pet.ex.vo.GoodsVO;
 
 import lombok.AllArgsConstructor;
-import lombok.extern.java.Log;
-import lombok.extern.log4j.Log4j;
 
-@Log
+import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 @AllArgsConstructor
 public class CategoryServicelmpl implements CategoryService {
@@ -35,56 +37,57 @@ public class CategoryServicelmpl implements CategoryService {
 
 	@Override
 	public List<GoodsVO> getbigcategory(int getCategory_id) {
-
+		log.info("getbigcategory...");
 		return mapper.getbigcategory(getCategory_id);
 	}
 
 	@Override
 	public List<CategoryVO> getScategory(CategoryVO categoryVO) {
-
+		log.info("getScategory...");
 		return mapper.getScategory(categoryVO);
 	}
 
 	@Override
 	public List<CategoryVO> getSmallGoods(int getCategory_id) {
 	
-		
+		log.info("getSmallGoods...");
 		return mapper.getSmallGoods(getCategory_id);
 	}
 
 	@Override
 	public List<BoardVO> getboard() {
-		
+		log.info("getboard...");
 		return mapper.getboard();
 	}
 
 	@Override
 	public List<BoardVO> gethighprice() {
+		log.info("gethighprice...");
 		return mapper.gethighprice();
 	
 	}
 
 	@Override
 	public List<BoardVO> getrowprice() {
-		
+		log.info("getrowprice...");
 		return mapper.getrowprice();
 	}
 
 	@Override
 	public List<BoardVO> getshighprice(int category_id) {
-		// TODO Auto-generated method stub
+		log.info("getshighprice(...");
 		return mapper.getshighprice(category_id);
 	}
 
 	@Override
 	public List<BoardVO> getStorerate() {
-	
+		log.info("getStorerate(...");
 		return mapper.getStorerate();
 	}
 
 	@Override
 	public List<BoardVO> gethighStar() {
-		// TODO Auto-generated method stub
+		log.info("gethighStar(...");
 		return mapper.gethighStar();
 	}
 
