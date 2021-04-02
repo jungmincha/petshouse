@@ -10,7 +10,39 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <title>register</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 
+<!-- <script language="javascript">
+
+/* $(document).ready(function(){
+	//상품 등록 유효성검사
+	$("#check").click(function(){
+		var name = $("#goodsname").val();	
+		
+		if(name == ""){
+			alert("상품명을 입력해주세요.");
+			name.focus();
+		}
+		
+		
+	});
+});	
+ */
+//Example starter JavaScript for disabling form submissions if there are invalid fields
+  $(function() {
+    $(".sub").click(function() {
+      var valid = true;
+ 
+      $("input[type=text]").each(function() {
+        if ($.trim($(this).val()) == '') {
+          valid = false;
+          $(this).css("background": "red");
+        }
+      })
+    })
+  })
+	</script> -->
 <style>
 .table_center {
 	display: table;
@@ -56,7 +88,9 @@ select {
 
 
 	<div class="col-lg-30">
-		<form id="goods" action="${pageContext.request.contextPath}/admin/goods/register" method="post">
+		<form id="goods" name="goods" class="needs-validation" novalidate
+			action="${pageContext.request.contextPath}/admin/goods/register"
+			method="post">
 			<fieldset>
 				<table class="table_center" cellpadding="20">
 					<td colspan="20">
@@ -65,7 +99,7 @@ select {
 					<tr>
 						<td><img style="width: 400px;" id="preview-image"
 							src="https://dummyimage.com/600x500/ffffff&text=+privew"></td>
-						<%-- <%=request.getRealPath("/")%> 저장경로 --%>
+						<%-- 	<%=request.getRealPath("/")%> 저장경로 --%>
 						<td>
 							<div class="form-group row">
 								<label class="col-sm-3" for="thumbnail">썸네일</label>
@@ -85,14 +119,18 @@ select {
 								<label class="col-sm-3">상품명</label>
 								<div class="col-sm-9">
 									<input type="text" class="form-control" name="goodsname"
-										placeholder="상품명을 등록하세요">
+										id="goodsname" placeholder="상품명을 등록하세요" required>
+								 
 								</div>
 							</div>
+
 							<div class="form-group row">
 								<label class="col-sm-3">가격</label>
 								<div class="col-sm-9">
 									<input type="text" name="price" class="form-control"
-										placeholder="상품가격을 등록하세요" aria-describedby="priceHelp">
+										placeholder="상품가격을 등록하세요" aria-describedby="priceHelp"
+										required>
+									 
 									<small id="priceHelp" class="form-text text-muted">예)
 										15000 </small>
 								</div>
@@ -102,7 +140,8 @@ select {
 								<label class="col-sm-3">사이즈</label>
 								<div class="col-sm-9">
 									<input type="text" name="psize" class="form-control"
-										placeholder="사이즈를 입력하세요" aria-describedby="sizeHelp">
+										placeholder="사이즈를 입력하세요" aria-describedby="sizeHelp" required>
+									<div class="invalid-feedback">없으면 공백 추가!</div>
 									<small id="sizeHelp" class="form-text text-muted">예)
 										S,M,L</small>
 								</div>
@@ -113,8 +152,10 @@ select {
 								<div class="col-sm-9">
 									<input type="text" name="pcolor" class="form-control"
 										id="pcolor" placeholder="색상을 입력하세요"
-										aria-describedby="colorHelp"> <small id="colorHelp"
-										class="form-text text-muted">예) 빨간색, 노란색</small>
+										aria-describedby="colorHelp" required>
+									<div class="invalid-feedback">없으면 공백 추가!</div>
+									<small id="colorHelp" class="form-text text-muted">예)
+										빨간색, 노란색 </small>
 								</div>
 							</div>
 
@@ -127,9 +168,11 @@ select {
 										<option value="">동물</option>
 									</select> <label>2차 분류</label> <select class="category2"
 										name="categoryVO.category_id" class="form-control"
-										style="vertical-align: middle; text-align-last: center">
+										style="vertical-align: middle; text-align-last: center"
+										required>
 										<option value="">상품</option>
 									</select>
+									<div class="invalid-feedback"> 카테고리를 선택하세요! </div>
 								</div>
 							</div>
 
@@ -138,15 +181,14 @@ select {
 								<label class="col-sm-3">재고상태</label>
 								<div class="col-sm-9">
 									<select name="stockVO.stock_id"
-										style="vertical-align: middle; text-align-last: center">
+										style="vertical-align: middle; text-align-last: center"
+										required>
 										<c:forEach items="${stock}" var="stock">
 											<option value="${stock.stock_id}">${stock.stockname}
 											</option>
 										</c:forEach>
 									</select>
-								
-										
-									
+									<div class="invalid-feedback">재고상태를 선택하세요!</div> 
 								</div>
 							</div>
 
@@ -155,16 +197,43 @@ select {
 								<label class="col-sm-3">상품소개</label>
 								<div class="col-sm-9">
 									<textarea name="description" cols="30" rows="5"
-										class="form-control"></textarea>
+										class="form-control" required></textarea>
 								</div>
 							</div>
 
 
 							<div class="form-group row">
 								<div class="col-sm-offset-2 col-sm-6">
-									<input type="submit" class="btn btn-block"
-										style="background-color: #e7ab3c" value="상품등록">
+									<button type="submit" class="btn btn-block" id="check"
+										style="background-color: #e7ab3c">상품등록</button>
+									<%-- 	data-toggle="modal"
+										data-target="#Modal"  --%>
 								</div>
+
+
+
+								<!-- Modal -->
+								<!-- <div class="modal fade" id="Modal" tabindex="-1" role="dialog"
+									aria-labelledby="ModalLabel" aria-hidden="true">
+									<div class="modal-dialog" role="document">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title" id="ModalLabel">확인창</h5>
+												<button type="button" class="close" data-dismiss="modal"
+													aria-label="Close">
+													<span aria-hidden="true">&times;</span>
+												</button>
+											</div>
+											<div class="modal-body">상품등록하시겠습니까?</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-secondary"
+													data-dismiss="modal">닫기</button>
+												<button type="submit" class="btn btn-warning"
+													style="background-color: #e7ab3c">등록하기</button>
+											</div>
+										</div>
+									</div> -->
+
 								<div class="col-sm-offset-2 col-sm-6">
 									<input type="button" class="btn btn-block"
 										style="background-color: #e7ab3c" value="상품목록"
@@ -182,6 +251,29 @@ select {
 
 
 	<script>
+	
+	(function () {
+		  'use strict'
+
+		  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+		  var forms = document.querySelectorAll('.needs-validation')
+
+		  // Loop over them and prevent submission
+		  Array.prototype.slice.call(forms)
+		    .forEach(function (form) {
+		      form.addEventListener('submit', function (event) {
+		        if (!form.checkValidity()) {
+		          event.preventDefault()
+		          event.stopPropagation()
+		        }
+
+		        form.classList.add('was-validated')
+		      }, false)
+		    })
+		})();
+		
+		
+		//
 		  	function readImage(input) {
 			    // 인풋 태그에 파일이 있는 경우
 			    if(input.files && input.files[0]) {
@@ -284,7 +376,9 @@ select {
 												});
 
 							});
-	</script>
+			
+			</script>
+
 	<!-- Footer -->
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 

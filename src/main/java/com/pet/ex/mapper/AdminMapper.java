@@ -42,7 +42,7 @@ public interface AdminMapper {
 	public void modifyGoods(GoodsVO goodsVO);
 
 	public BoardVO getgoodsInfo(int board_id);
-
+ 
 	public GoodsVO getInfo(int goods_id);
 
 	public List<MemberVO> getMemberlist(Criteria cri);
@@ -52,4 +52,10 @@ public interface AdminMapper {
 	public MemberVO getMemberdetail(String member_id);
 
 	public void memberDelete(String member_id);
+	
+	public List<CategoryVO> getSidebar();
+
+	public List<CategoryVO> getSort(CategoryVO categoryVO);
+ 
+	
 }

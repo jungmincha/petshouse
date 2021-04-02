@@ -181,6 +181,19 @@
 	   ]]>
 	</select>
 
+	<select id="getSidebar" resultType="CategoryVO"> 
+     <![CDATA[ 
+        select level, CATEGORY_ID, CATEGORYNAME, CODE from category
+        start with CODE is null connect by prior CATEGORY_ID = CODE and CATEGORY_ID<7
+    ]]>
+	</select>
+
+	<select id="getSort" resultType="CategoryVO"> 
+     <![CDATA[ 
+        select categoryname , code , category_id from category WHERE code = code
+    ]]>
+	</select>
+
 
 	<delete id="remove_goodsBoard" parameterType="boardvo">
 	   <![CDATA[
@@ -221,7 +234,7 @@
 		select * from Board where board_id = #{board_id} 
 		]]>
 	</select>
- 
+
 
 	<!-- 상품게시글조회 -->
 	<select id="getGoods" resultMap="boardvo"> 
@@ -242,11 +255,11 @@
 
 
 	<!-- 상품조회 -->
-	 
-	
+
+
 	<select id="getBoard" resultMap="goodsvo">
         <![CDATA[
-     	select  g.goods_id, g.goodsname, g.description, s.stockname, g.price, g.psize, g.pcolor, c.categoryname as sortname, cc.categoryname  
+     	select  g.goods_id, g.goodsname, g.description, s.stock_id, s.stockname, g.price, g.psize, g.pcolor, c.categoryname as sortname, cc.categoryname, c.category_id 
       	from goods g, stock s, category c, category cc
       	where g.stock_id=s.stock_id and g.category_id=c.category_id and c.code=cc.category_id and g.goods_id = #{goods_id} 
          ]]>

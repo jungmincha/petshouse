@@ -98,7 +98,7 @@ public class AdminServiceImpl implements AdminService {
 		return mapper.getgoodsInfo(board_id);
 	}
 
-	@Override
+ 
 	public GoodsVO getInfo(int goods_id) {
 	
 		return mapper.getInfo(goods_id);
@@ -128,5 +128,17 @@ public class AdminServiceImpl implements AdminService {
 		log.info("memberDelete");
 		mapper.memberDelete(member_id);
 	}
+	@Override
+	public List<CategoryVO> getSidebar() {
 
+		return mapper.getSidebar();
+	}
+
+	@Override
+	public List<CategoryVO> getSort(CategoryVO categoryVO) {
+		
+		return mapper.getSort(categoryVO);
+	}
+
+ 
 }

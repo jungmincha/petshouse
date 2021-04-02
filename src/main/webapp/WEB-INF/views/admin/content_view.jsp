@@ -10,7 +10,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <title>상품조회</title>
-
+ 
 <style>
 .table_center {
 	display: table;
@@ -148,8 +148,9 @@ select {
 
 										<select name="stockVO.stock_id"
 											style="vertical-align: middle; text-align-last: center">
+											<option value="${goods.stockVO.stock_id}" > ${goods.stockVO.stockname}
 											<c:forEach items="${stock}" var="stock">
-												<option value="${stock.stock_id}">${stock.stockname}
+												<option value="${stock.stock_id}" > ${stock.stockname}
 												</option>
 											</c:forEach>
 
@@ -169,9 +170,33 @@ select {
 
 								<div class="form-group row">
 									<div class="col-sm-offset-2 col-sm-6">
-										<input type="submit" class="btn btn-block"
-											style="background-color: #e7ab3c" value="상품정보수정">
+										<input type="button" class="btn btn-block" data-toggle="modal"
+										data-target="#Modal" onclick = ex() style="background-color: #e7ab3c"
+										value="상품정보수정"> 
 									</div>
+										<!-- Modal -->
+								<div class="modal fade" id="Modal" tabindex="-1"
+									role="dialog" aria-labelledby="ModalLabel"
+									aria-hidden="true">
+									<div class="modal-dialog" role="document">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title" id="ModalLabel">확인창</h5>
+												<button type="button" class="close" data-dismiss="modal"
+													aria-label="Close">
+													<span aria-hidden="true">&times;</span>
+												</button>
+											</div>
+											<div class="modal-body">상품을 수정하시겠습니까?</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-secondary"
+													data-dismiss="modal">닫기</button>
+												<button type="submit" class="btn btn-warning" 
+												style="background-color: #e7ab3c" >수정하기</button>
+											</div>
+										</div>
+									</div>
+								</div>
 									<div class="col-sm-offset-2 col-sm-6">
 										<input type="button" class="btn btn-block"
 											style="background-color: #e7ab3c" value="상품목록"

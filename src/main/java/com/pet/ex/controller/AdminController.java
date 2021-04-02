@@ -22,7 +22,7 @@ import com.pet.ex.service.AdminService;
 import com.pet.ex.vo.BoardVO;
 import com.pet.ex.vo.CategoryVO;
 import com.pet.ex.vo.GoodsVO;
-import com.pet.ex.vo.MemberVO;
+
 import com.pet.ex.vo.StockVO;
 
 import com.pet.ex.page.Criteria;
@@ -40,11 +40,15 @@ public class AdminController {
 	private AdminService service;
 
 	@RequestMapping("/goods") // 상품리스트조회
-	public ModelAndView list(Criteria cri, ModelAndView mav) {
+	public ModelAndView list(Criteria cri, CategoryVO categoryVO, ModelAndView mav) {
 
 		mav.setViewName("admin/goods_list");
 		mav.addObject("list", service.getList(cri));
 
+		mav.addObject("bar", service.getSidebar());
+		mav.addObject("sort", service.getSort(categoryVO));
+		
+		
 		int total = service.getTotal(cri);
 		log.info("total" + total);
 		mav.addObject("pageMaker", new PageVO(cri, total));
@@ -144,43 +148,5 @@ public class AdminController {
 		return mav;
 
 	}
-	
-	//회원 목록 조회
-	@GetMapping("/member_list")
-	public ModelAndView memberlist(Criteria cri, ModelAndView mav) {
-		log.info("member list");
-		mav.addObject("list", service.getMemberlist(cri));
-		int total = service.getMembertotal();
-		log.info("total" + total);	
-		mav.addObject("pageMaker", new PageVO(cri, total));
-		
-		mav.setViewName("admin/member_list");
-		
-		return mav;
-	}	
-	
-	//회원 상세 조회
-	@GetMapping("/member_detail/{member_id}") 
-	public ModelAndView memberdetail(MemberVO memberVO, ModelAndView mav) throws Exception {
-		log.info("member_detail");
-		mav.addObject("info", service.getMemberdetail(memberVO.getMember_id()));	
-		mav.setViewName("admin/member_detail");
 
-		return mav;
-	}
-	
-	@DeleteMapping("/member_list/{member_id}")
-	public ResponseEntity<String> memberdelete(MemberVO memberVO) {
-		ResponseEntity<String> entity = null;
-		log.info("member delete");
-
-		try {
-			service.memberDelete(memberVO.getMember_id());
-			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
-		} catch (Exception e) {
-			e.printStackTrace();
-			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
-		}
-		return entity;
-	}
 }
