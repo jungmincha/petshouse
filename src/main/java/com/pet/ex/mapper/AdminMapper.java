@@ -53,9 +53,11 @@ public interface AdminMapper {
 
 	public void memberDelete(String member_id);
 	
-	public List<CategoryVO> getSidebar();
+	public List<CategoryVO> getCategory_goods();
 
 	public List<CategoryVO> getSort(CategoryVO categoryVO);
+
+	public List<GoodsVO>  getList2(Criteria cri);
  
 	
 }

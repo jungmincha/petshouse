@@ -1476,7 +1476,7 @@ ol {
 
 .footer-section {
 	background: #191919;
-	padding-top: 75px;
+	padding-top: 30px;
 }
 
 .footer-left {
@@ -1619,8 +1619,8 @@ ol {
 
 .copyright-reserved {
 	border-top: 1px solid #303030;
-	padding: 15px 0;
-	margin-top: 45px;
+	padding: 5px 0;
+ 
 }
 
 .copyright-reserved .copyright-text {
