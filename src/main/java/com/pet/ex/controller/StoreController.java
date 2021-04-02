@@ -47,7 +47,6 @@ public class StoreController {
 	@GetMapping("/best")
 	public ModelAndView best(ModelAndView mav) {
 		log.info("best");			
-		mav.addObject("category", service.getCategory());	
 		mav.addObject("rate", service.getStorerate());
 		mav.addObject("goods", service.getGoodsinfo());
 		mav.addObject("image", fileservice.getImgtest());
@@ -63,8 +62,7 @@ public class StoreController {
 		mav.addObject("goods", service.getGoodsinfo());
 		mav.addObject("image", fileservice.getImgtest());
 		
-		mav.setViewName("store/beststore2");
-		
+		mav.setViewName("store/bestcate");	
 		return mav;
 		
 	}
