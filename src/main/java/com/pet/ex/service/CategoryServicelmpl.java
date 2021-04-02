@@ -76,6 +76,21 @@ public class CategoryServicelmpl implements CategoryService {
 		return mapper.getshighprice(category_id);
 	}
 
+	@Override
+	public List<BoardVO> getStorerate() {
+	
+		return mapper.getStorerate();
+	}
+
+	@Override
+	public List<BoardVO> gethighStar() {
+		// TODO Auto-generated method stub
+		return mapper.gethighStar();
+	}
+
+	
+
+
 	
 
 	/*
