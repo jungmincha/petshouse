@@ -176,7 +176,7 @@
    	<select id="getSmallGoods" resultMap="boardvo"> 
      <![CDATA[ 
 		 select g.goods_id, g.goodsname, TO_CHAR(g.price,'99,999') as price, b.board_id , pdate , g.category_id from board b, goods g 
-		 where b.goods_id=g.goods_id and b.boardtype_id=3 and g.category_id=#{g.category_id} ORDER BY pdate desc
+		 where b.goods_id=g.goods_id and b.boardtype_id=3 and g.category_id=#{getCategory_id} ORDER BY pdate desc
     ]]> 
    </select> 
    
