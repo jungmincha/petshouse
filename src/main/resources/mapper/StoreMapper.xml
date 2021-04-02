@@ -172,7 +172,7 @@
 	       )where rnum > (#{pageNum}-1) * #{amount} 
 	   ]]>
 	</select>
-	
+
 	<!-- 회원 수 조회 -->
 	<select id="getStoretotal" resultType="int">
 	  <![CDATA[
@@ -197,5 +197,11 @@
 	      )where rnum >= 1
 	   ]]>
 	</select>
-
+	
+	<!-- category 조회-->
+	<select id="getCategory" resultType="CategoryVO">
+		<![CDATA[
+	            select * from category where category_id between 1 and 6 order by category_id asc
+	   ]]>
+	</select>
 </mapper>

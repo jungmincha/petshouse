@@ -35,7 +35,7 @@
 		</tr>
 		<tr>
 			<td>value 4</td>
-			<td><input type="text" name="" class="value" value="32"></td>
+			<td><input id="a1" type="text" name="" class="value" value="32" onclick="cartDelete(1)"></td>
 		</tr>
 		<tr>
 			<td><button type="button" class="button_sum">summary</button></td>
@@ -71,5 +71,11 @@
 
 		$(".summary").html(sum);
 	});
+	function cartDelete(a){
+		var i = 'c'+a
+	
+		console.log(i)
+	}
+	
 </script>
 </html>

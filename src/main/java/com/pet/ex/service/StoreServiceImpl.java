@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import com.pet.ex.mapper.StoreMapper;
 import com.pet.ex.page.Criteria;
 import com.pet.ex.vo.BoardVO;
+import com.pet.ex.vo.CategoryVO;
+
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -48,5 +50,11 @@ public class StoreServiceImpl implements StoreService {
 	public List<BoardVO> getBestrate(int category_id) {
 		log.info("getBestrate");
 		return mapper.getBestrate(category_id);
+	}
+
+	@Override
+	public List<CategoryVO> getCategory() {
+		log.info("getCategory");
+		return mapper.getCategory();
 	}
 }

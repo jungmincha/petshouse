@@ -39,15 +39,20 @@ public class CategoryController {
 
 	// 카테고리 메인페이지
 	@GetMapping("/home")
-	public ModelAndView categoryhome(GoodsVO goodsvo, ModelAndView mav, CategoryVO categoryvo , BoardVO boardvo) throws Exception {
+ 
+	public ModelAndView categoryhome(GoodsVO goodsvo, ModelAndView mav, CategoryVO categoryvo , BoardVO boardVO) throws Exception {
+ 
 
 		/* mav.addObject("goods", service.getGoods()); */
 		
-		mav.addObject("board", service.getboard());
-		//mav.addObject("rate", service.getStorerate());
+		mav.addObject("goods", service.getboard());//전체상품 조회
+		
+		mav.addObject("rate", service.getStorerate());
+		
+		
 		mav.addObject("category", service.getCategory());
 		mav.addObject("smallcategory", service.getScategory(categoryvo));
-	
+		
 		mav.setViewName("category/home");
 
 		return mav;
@@ -68,24 +73,18 @@ public class CategoryController {
 			/* mav.addObject("rate", service.getStorerate()); */
 		
 		mav.setViewName("category/smallcategory");
+		
 		return mav;
 
 	}
 
-	// 상품 카테고리 페이지 맵핑
-	@GetMapping("/smallcategory")
-	public String smallcategoryPage() {
-
-		return "category/smallcategory";
-	}
-
-	
 	
 	@GetMapping("/highprice")
 	public ModelAndView pricecategory(GoodsVO goodsvo, ModelAndView mav, CategoryVO categoryvo , BoardVO boardvo) throws Exception{
 		
-		mav.addObject("board", service.gethighprice());
-		//mav.addObject("rate", service.getStorerate());
+		mav.addObject("goods", service.gethighprice());
+
+		mav.addObject("rate", service.getStorerate());
 		mav.addObject("category", service.getCategory());
 		mav.addObject("smallcategory", service.getScategory(categoryvo));
 
@@ -100,14 +99,32 @@ public class CategoryController {
 	@GetMapping("/rowprice")
 	public ModelAndView rowcategory(GoodsVO goodsvo, ModelAndView mav, CategoryVO categoryvo , BoardVO boardvo) throws Exception{
 		
-		mav.addObject("board", service.getrowprice());
-		//mav.addObject("rate", service.getStorerate());
+		mav.addObject("goods", service.getrowprice());
+		mav.addObject("rate", service.getStorerate());
 		mav.addObject("category", service.getCategory());
 		mav.addObject("smallcategory", service.getScategory(categoryvo));
 
 		mav.setViewName("category/rowprice");
 		
 		
+
+		return mav;
+	}
+	
+	
+	@GetMapping("/highstar")
+	public ModelAndView highstar(GoodsVO goodsvo, ModelAndView mav, CategoryVO categoryvo , BoardVO boardVO) throws Exception {
+
+
+		
+		mav.addObject("goods", service.getboard());//별점순 조회
+		
+		mav.addObject("rate", service.gethighStar());//별점 리뷰 조회
+		
+		mav.addObject("category", service.getCategory());
+		mav.addObject("smallcategory", service.getScategory(categoryvo));
+		
+		mav.setViewName("category/highprice");
 
 		return mav;
 	}

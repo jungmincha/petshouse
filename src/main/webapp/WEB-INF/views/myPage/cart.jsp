@@ -91,33 +91,39 @@
 	<!-- 쇼핑카트 섹션 end -->
 
 	<script>
-		
 		$(document)
 				.ready(
 						//장바구니 목록 불러오기
 						function() {
 
 							//배열 선언
-							var cartList = new Array();
-							cartList = JSON.parse(sessionStorage
-									.getItem("cartList"));
-							console.log(cartList)
+
+							var cartList = sessionStorage.getItem("cartList");
+							console.log(cartList);
 							//ajax 호출
 							$
 									.ajax({
 										url : "/myPage/cartList",
 										type : "post",
 										dataType : 'json',
-										data : {
-											"cartList" : cartList
-										},
+										contentType : 'application/json; charset=UTF-8',
+										data : cartList,
 										success : function(data) {
+											var cartList = JSON
+													.parse(sessionStorage
+															.getItem("cartList"));
 
 											var html = "";
 											for (var i = 1; i <= data.length; i++) {
+												var count;
+												for (var j = 0; j < cartList.length; j++) {
+													if (cartList[j].board_id == data[i - 1].board_id) {
+														count = cartList[j].count;
+													}
+												}
 
-												html += "<tr>"
-														+ "<td><input id='ck"+i+"' type='checkbox'></input></td>"
+												html += "<tr id='tr"+i+"'>"
+														+ "<td><input id='ck"+i+"' type='checkbox' value='"+data[i-1].board_id+"'></input></td>"
 														+ "<td class='cart-pic first-row'><img src='/resources/img/cart-page/product-1.jpg' alt=''></td>"
 														+ "<td class='cart-title first-row'>"
 														+ "<h5>"
@@ -134,16 +140,20 @@
 														+ i
 														+ "(-1)'>-</span> <input type='text' id='b"
 														+ i
-														+ "' value='1' readonly> <span class='inc qtybtn' onclick='total"
+														+ "' value='"+count+"' readonly> <span class='inc qtybtn' onclick='total"
 														+ i
 														+ "(1)'>+</span> </div> </div>"
 														+ "</td> <td class='total-price first-row' style='color:#000000'>"
 														+ "<input style='border:none; text-align:right;' type='text' id='x"
 														+ i
-														+ "' value='' readonly size='7px' class='value' >"
-														+ "원</td> <td class='close-td first-row'><i class='ti-close' onclick='cartDelete("+i+")'></i></td>  </tr>"
-												// 상품 별 합 계산()
-												html += "<script DEFER> $(document).ready(function total"
+														+ "' value='' readonly size='7px' class='value' >원</td>"
+														+ "<td class='close-td first-row'><i class='ti-close' onclick='cartDelete("
+														+ i
+														+ ")' > <input id='c"+i+"' type='hidden' value='"+data[i-1].board_id+"'>'</i></td>"
+														+ "</tr>"
+												// 상품 별 합 계산() ready
+												html += "<script DEFER>"
+														+ "$(document).ready(function total"
 														+ i
 														+ "()"
 														+ "{ var num1 = document.getElementById('a"
@@ -184,26 +194,27 @@
 														+ i
 														+ "').value = num3t;  break; } summary() }; "
 														+ "</script"+">"
-											}
 
-											html += "<script DEFER> $(document).ready(function() {var sum = 0; 	$('.value').each(function() {"
+											}
+											// 카트 합계 게산
+											html += "<script DEFER>"
+													+ "$(document).ready(function() {var sum = 0; 	$('.value').each(function() {"
 													+ "sum += Number($(this).val()); }); $('.total').html(sum+'원'); });"
-													+"function summary() {"
-													+"var sum = 0;"
-													+"$('.value').each(function() { sum += Number($(this).val()); });"
-													+"$('.total').html(sum + '원'); 	};"	
+													+ "function summary() {"
+													+ "var sum = 0;"
+													+ "$('.value').each(function() { sum += Number($(this).val()); });"
+													+ "$('.total').html(sum + '원'); 	};"
 													+ "</script"+">"
-											html += "<script defer src='/resources/js/jquery-3.3.1.min.js'> </script"+">"
-													+ "<script DEFER src='/resources/js/bootstrap.min.js'> </script"+">"
-													+ "<script defer src='/resources/js/jquery-ui.min.js'> </script"+">"
-													+ "<script defer src='/resources/js/jquery.countdown.min.js'> </script"+">"
-													+ "<script defer src='/resources/js/jquery.nice-select.min.js'> </script"+">"
-													+ "<script defer src='/resources/js/jquery.zoom.min.js'> </script"+">"
-													+ "<script defer src='/resources/js/jquery.dd.min.js'> </script"+">"
-													+ "<script defer src='/resources/js/jquery.slicknav.js'> </script"+">"
-													+ "<script defer src='/resources/js/owl.carousel.min.js'> </script"+">"
+
+													// main.js
 													+ "<script DEFER src='/resources/js/main.js'> </script"+">"
 
+													// 카트 상품 삭제
+													+ "<script DEFER> function cartDelete(i) { "
+													+ " var tr = '#tr'+i; ; var trObj = $(tr).remove(); "
+													+ " cartList = JSON.parse(sessionStorage.getItem('cartList')); cartList.splice(i-1, 1); 	sessionStorage.setItem('cartList', JSON.stringify(cartList)); summary() };"
+													+ "</script"+">"
+											// tbody에 기록
 											$("#goods").append(html);
 
 										}, //ajax 성공 시 end
@@ -228,18 +239,6 @@
 				$('input:checkbox').prop('checked', false);
 
 		});
-		function cartDelete(i) {
-			console.log(i)
-			var cartList = new Array();
-			cartList = JSON.parse(sessionStorage
-					.getItem("cartList"));
-			console.log(cartList)
-			cartList.splice(i, 1);
-			console.log(cartList)
-			sessionStorage.setItem("cartList", JSON.stringify(cartList));
-			
-		}
-		
 	</script>
 
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>

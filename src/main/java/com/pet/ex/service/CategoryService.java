@@ -38,6 +38,14 @@ public interface CategoryService {
 
 
 
+	public List <BoardVO> getStorerate();
+
+	public List <BoardVO> gethighStar();
+
+
+
+
+
 
 	/* public List<BoardVO> getStorerate(); */
 

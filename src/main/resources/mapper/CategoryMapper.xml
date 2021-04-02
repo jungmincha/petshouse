@@ -186,10 +186,42 @@
 <!-- 전체 상품을 최신순으로 조회해서 뿌려주는  mapper-->
 	 <select id="getboard" resultMap="boardvo"> 
      <![CDATA[ 
+ 
 	 select g.goods_id, g.goodsname, TO_CHAR(g.price,'99,999') as price, b.board_id ,pdate 
 	 from board b, goods g where b.goods_id=g.goods_id and b.boardtype_id=3 ORDER BY pdate DESC 
+ 
 	]]> 
 	</select> 
+	
+	<!-- 리뷰 별점  mapper-->
+	<select id="getStorerate" resultMap="boardvo">
+		<![CDATA[
+		            select * from(
+		           select round(avg(ratescore),1) as avgscore, count(*) as count, goods_id
+                   from board where boardtype_id=8 group by goods_id)
+ 
+	]]> 
+	</select> 
+	
+	
+
+	
+	
+	
+	
+	   <!-- 소분류 별로 분류해 카테고리 홈에 뿌려주는 mapper-->
+   	<select id="getSmallGoods" resultMap="boardvo"> 
+     <![CDATA[ 
+		 select g.goods_id, g.goodsname, TO_CHAR(g.price,'99,999') as price, b.board_id , pdate , g.category_id from board b, goods g 
+		 where b.goods_id=g.goods_id and b.boardtype_id=3 and g.category_id=#{g.category_id} ORDER BY pdate desc
+    ]]> 
+   </select> 
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -221,17 +253,19 @@
 	
 	]]> 
 	</select> 
+
 	
 	
-	<!-- category 상품에 대한 리뷰순-->
-<!-- <select id="getStorerate" resultMap="boardvo">
-<![CDATA[
-         select  count(*) as count, goods_id from board where boardtype_id=8 and goods_id=#{goods_id}
-group by goods_id order by count(*)
-   ]]>
-</select> -->
 	
+	<select id="gethighStar" resultMap="boardvo"> 
+     <![CDATA[ 
 	
+	  select * from(
+		           select round(avg(ratescore),1) as avgscore, count(*) as count, goods_id
+                   from board where boardtype_id=8 group by goods_id order by avgscore desc)
+	
+	]]> 
+	</select> 
 	
 
 
