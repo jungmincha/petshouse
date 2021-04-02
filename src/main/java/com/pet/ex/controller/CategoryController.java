@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -38,7 +39,7 @@ public class CategoryController {
 
 	// 카테고리 메인페이지
 	@GetMapping("/home")
-	public ModelAndView categoryhome(GoodsVO goodsvo, ModelAndView mav, CategoryVO categoryvo , BoardVO boardvo) throws Exception {
+	public ModelAndView categoryhome(String categoryArrays, GoodsVO goodsvo, ModelAndView mav, CategoryVO categoryvo , BoardVO boardvo) throws Exception {
 
 		/* mav.addObject("goods", service.getGoods()); */
 		
@@ -46,36 +47,15 @@ public class CategoryController {
 		//mav.addObject("rate", service.getStorerate());
 		mav.addObject("category", service.getCategory());
 		mav.addObject("smallcategory", service.getScategory(categoryvo));
-
+	
 		mav.setViewName("category/home");
 
 		return mav;
 	}
 
-	/*
-	 * @RequestMapping("/smallcategory.do") public ModelAndView
-	 * smallcategory(GoodsVO goodsVO, ModelAndView mav , CategoryVO categoryVO)
-	 * throws Exception {
-	 * 
-	 * 
-	 * 
-	 * mav.addObject("goods", service.getSmallGoods(categoryVO.getCategory_id()));
-	 * 
-	 * 
-	 * 
-	 * 
-	 * mav.addObject("category", service.getCategory());
-	 * mav.addObject("smallcategory", service.getScategory(categoryVO));
-	 * 
-	 * mav.addObject("goods", service.getSmallGoods());
-	 * 
-	 * 
-	 * mav.setViewName("category/categoryHome");
-	 * 
-	 * return mav; }
-	 */
+	
 
-	@PostMapping("/smallcategory.do/{category_id}")
+	@PostMapping("/smallcategory/{category_id}")
 	public ModelAndView smallcategory(@RequestBody GoodsVO goodsvo, BoardVO boardvo, ModelAndView mav, CategoryVO categoryvo) {
 
 			
@@ -101,7 +81,7 @@ public class CategoryController {
 
 	
 	
-	@GetMapping("/price")
+	@GetMapping("/highprice")
 	public ModelAndView pricecategory(GoodsVO goodsvo, ModelAndView mav, CategoryVO categoryvo , BoardVO boardvo) throws Exception{
 		
 		mav.addObject("board", service.gethighprice());
@@ -109,42 +89,55 @@ public class CategoryController {
 		mav.addObject("category", service.getCategory());
 		mav.addObject("smallcategory", service.getScategory(categoryvo));
 
-		mav.setViewName("category/price");
+		mav.setViewName("category/highprice");
 		
 		
 
 		return mav;
 	}
+	
+	
+	@GetMapping("/rowprice")
+	public ModelAndView rowcategory(GoodsVO goodsvo, ModelAndView mav, CategoryVO categoryvo , BoardVO boardvo) throws Exception{
+		
+		mav.addObject("board", service.getrowprice());
+		//mav.addObject("rate", service.getStorerate());
+		mav.addObject("category", service.getCategory());
+		mav.addObject("smallcategory", service.getScategory(categoryvo));
 
+		mav.setViewName("category/rowprice");
+		
+		
+
+		return mav;
+	}
 	
 	
 	
-	// 동물 카테고리 ajax
+	
 	/*
-	 * @PostMapping("/bigcategory/{category_id}") public ModelAndView cat(CategoryVO
-	 * categoryVO, ModelAndView mav, GoodsVO goodsVO, Model model) throws Exception
-	 * {
+	 * @GetMapping("/shighprice") public ModelAndView spricecategory(GoodsVO
+	 * goodsvo, ModelAndView mav, CategoryVO categoryvo , BoardVO boardvo) throws
+	 * Exception{
 	 * 
-	 * mav.addObject("goods", service.getGoods());
+	 * mav.addObject("smallgoods",
+	 * service.getshighprice(categoryvo.getCategory_id())); //mav.addObject("rate",
+	 * service.getStorerate()); mav.addObject("category", service.getCategory());
+	 * mav.addObject("smallcategory", service.getScategory(categoryvo));
 	 * 
-	 * mav.addObject("category", service.getCategory());
-	 * mav.addObject("smallcategory", service.getScategory(categoryVO));
-	 * 
-	 * mav.addObject("bigcategory",
-	 * service.getbigcategory(categoryVO.getCategory_id()));
-	 * 
-	 * 
-	 * mav.addObject("bigcategory",
-	 * JSONArray.fromObject(service.getbigcategory(categoryVO.getCategory_id())));
+	 * mav.setViewName("category/small/shighprice");
 	 * 
 	 * 
-	 * mav.setViewName("category/bigcategory");
 	 * 
 	 * return mav; }
 	 */
-
 	
 	
+	
+	
+	
+	
+		
 	
 	
 }

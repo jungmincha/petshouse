@@ -14,6 +14,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <!-- Bootstrap -->
 <link href="/resources/sidemenu/bootstrap/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -24,6 +25,7 @@
 <link
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
 	rel="stylesheet">
+
 <style>
 .tab-item {
 	width: 1000;
@@ -54,7 +56,7 @@ select {
     	
     	category["category"] = $("#category").val();
 
-    	var url = "/category/smallcategory.do/"+id;
+    	var url = "/category/smallcategory/"+id;
 
     $.ajax({
     	
@@ -81,14 +83,7 @@ select {
 
 }
   	
-	function formChange(obj){
-  		
-	  	
-	    	obj.submit();
-	  	
-	
-	}
-	
+
    
 </script>
 </head>
