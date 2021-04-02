@@ -129,9 +129,9 @@ public class AdminServiceImpl implements AdminService {
 		mapper.memberDelete(member_id);
 	}
 	@Override
-	public List<CategoryVO> getSidebar() {
+	public List<CategoryVO> getCategory_goods() {
 
-		return mapper.getSidebar();
+		return mapper.getCategory_goods();
 	}
 
 	@Override
@@ -139,6 +139,16 @@ public class AdminServiceImpl implements AdminService {
 		
 		return mapper.getSort(categoryVO);
 	}
+
+	@Override
+	public List<GoodsVO> getList2(Criteria cri) {
+		log.info("List" + cri);
+		cri.setAmount(20);
+		
+		return mapper.getList2(cri);
+	}
+
+ 
 
  
 }
