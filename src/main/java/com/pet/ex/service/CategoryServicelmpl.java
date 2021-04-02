@@ -13,7 +13,7 @@ import com.pet.ex.vo.GoodsVO;
 
 import lombok.AllArgsConstructor;
 
-import lombok.extern.log4j.Log4j;
+
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -48,7 +48,7 @@ public class CategoryServicelmpl implements CategoryService {
 	}
 
 	@Override
-	public List<CategoryVO> getSmallGoods(int getCategory_id) {
+	public List<BoardVO> getSmallGoods(int getCategory_id) {
 	
 		log.info("getSmallGoods...");
 		return mapper.getSmallGoods(getCategory_id);
