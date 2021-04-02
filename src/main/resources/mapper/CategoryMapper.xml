@@ -175,7 +175,8 @@
    <!-- 소분류 별로 분류해 카테고리 홈에 뿌려주는 mapper-->
    	<select id="getSmallGoods" resultMap="boardvo"> 
      <![CDATA[ 
-		 select g.goods_id, g.goodsname, TO_CHAR(g.price,'99,999') as price, b.board_id , pdate , g.category_id from board b, goods g where b.goods_id=g.goods_id and b.boardtype_id=3 and g.category_id=#{g.category_id}
+		 select g.goods_id, g.goodsname, TO_CHAR(g.price,'99,999') as price, b.board_id , pdate , g.category_id from board b, goods g 
+		 where b.goods_id=g.goods_id and b.boardtype_id=3 and g.category_id=#{g.category_id} ORDER BY pdate desc
     ]]> 
    </select> 
    
@@ -196,6 +197,27 @@
      <![CDATA[ 
 	  select g.goods_id, g.goodsname, TO_CHAR(g.price,'99,999') as price, b.board_id ,pdate from board b, goods g
  where b.goods_id=g.goods_id and b.boardtype_id=3 ORDER BY price DESC
+	]]> 
+	</select> 
+	
+	
+	
+	
+	
+	<select id="getrowprice" resultMap="boardvo"> 
+     <![CDATA[ 
+	  select g.goods_id, g.goodsname, TO_CHAR(g.price,'99,999') as price, b.board_id ,pdate from board b, goods g
+ where b.goods_id=g.goods_id and b.boardtype_id=3 ORDER BY price ASC
+	]]> 
+	</select> 
+	
+	<select id="getshighprice" resultMap="boardvo"> 
+     <![CDATA[ 
+	
+	 select g.goods_id, g.goodsname, TO_CHAR(g.price,'99,999') as price, b.board_id , pdate , g.category_id from board b, goods g 
+	 where b.goods_id=g.goods_id and b.boardtype_id=3
+  	and g.category_id=#{g.category_id} ORDER BY price desc
+	
 	]]> 
 	</select> 
 	

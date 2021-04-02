@@ -20,6 +20,9 @@
     <link href="/resources/sidemenu/css/styles.css" rel="stylesheet">
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+
+
+
 <style>
 .tab-item {
    width: 1000;
@@ -61,7 +64,7 @@ font-size:18px;
     	
     	category["category"] = $("#category").val();
 
-    	var url = "/category/smallcategory.do/"+id;
+    	var url = "/category/smallcategory/"+id;
 
     $.ajax({
     	
@@ -88,14 +91,7 @@ font-size:18px;
 
 }
   	
-	function formChange(obj){
-  		
-	  	
-	    	obj.submit();
-	  	
-	
-	}
-	
+
    
 </script>
 </head>
@@ -253,17 +249,18 @@ font-size:18px;
          <div class="col-lg-9">
             <div class="row">
                
-<form action="/category/price" method="get">
-               
-	<select name="categoryArray" id = "categoryArray"style="font-size: 18px; border:none;" onchange="formChange(this.form)">
- 
-    <option value="newgoods" selected="selected">최신순</option>
-    <option value="highend">가격 높은순</a></option>
-    <option value="cheep">가격 낮은순</option>
-    <option value="manyreview">많은 리뷰순</option>
+<div class="dropdown">
+    <button type="button" style="font-size:20px; color:black;background-color:white; border:none; " class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+     전체
+    </button>
+    <div class="dropdown-menu">
+    <a class="dropdown-item" style="font-size:20px;" href="/category/home">최신순</a>
+      <a class="dropdown-item" style="font-size:20px;" href="/category/highprice">가격 높은순</a>
+      <a class="dropdown-item" style="font-size:20px;" href="/category/rowprice">가격 낮은순</a>
+      
     
-</select>
-</form>
+    </div>
+  </div>
 
                
 

@@ -13,20 +13,17 @@
 
 <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
 
-<!-- 다운드롭 부트스트랩 -->
- <!-- <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>category</title>
+
+ <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
-  
-  <!-- 추가코드 -->
-<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script> -->
-<!-- 부트스트랩 끝 -->
-<title>category</title>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
     <link href="/resources/sidemenu/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -81,7 +78,7 @@ font-size:18px;
     	var category = {}
     	category["category"] = $("#category").val();
     	
-    	var url = "/category/smallcategory.do/"+id;
+    	var url = "/category/smallcategory/"+id;
     	
     	
     $.ajax({
@@ -107,14 +104,7 @@ font-size:18px;
 
 }
   	
-	function formChange(obj){
-  		
-	  	
-	    	obj.submit();
-	  	
 	
-	}
-		
   	
   	
 
@@ -146,7 +136,6 @@ font-size:18px;
                    <li class="submenu">
                  
    
-                 
                 
                       <!-- 고양이 -->
                      <a href="#" style ="font-size: 25px;"> 
@@ -289,20 +278,21 @@ font-size:18px;
          <div class="col-lg-9">
             <div class="row">
             
-            
+     <div class="dropdown">
+    <button type="button" style="font-size:20px; color:black;background-color:white; border:none; " class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+     전체
+    </button>
+    <div class="dropdown-menu">
+    <a class="dropdown-item" style="font-size:20px;" href="/category/home">최신순</a>
+      <a class="dropdown-item" style="font-size:20px;" href="/category/highprice">가격 높은순</a>
+      <a class="dropdown-item" style="font-size:20px;" href="/category/rowprice">가격 낮은순</a>
+      
+    
+    </div>
+  </div>       
          
                
-<form action="/category/price" method="get">
-               
-	<select name="categoryArray" id = "categoryArray"style="font-size: 18px; border:none;" onchange="formChange(this.form)">
- 
-    <option value="newgoods" selected="selected">최신순</option>
-    <option value="highend">가격 높은순</a></option>
-    <option value="cheep">가격 낮은순</option>
-    <option value="manyreview">많은 리뷰순</option>
-    
-</select>
-</form>
+
  
 
 

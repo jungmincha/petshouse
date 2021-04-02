@@ -27,6 +27,14 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script> -->
 <!-- 부트스트랩 끝 -->
 <title>category</title>
+
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
     <link href="/resources/sidemenu/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -55,16 +63,6 @@ cursor:pointer;
 }
 
 
-select{
-
-width:120px;
-
-height:30px;
-
-font-size:18px;
-
-}
-
 
 
 
@@ -81,7 +79,7 @@ font-size:18px;
     	var category = {}
     	category["category"] = $("#category").val();
     	
-    	var url = "/category/smallcategory.do/"+id;
+    	var url = "/category/smallcategory/"+id;
     	
     	
     $.ajax({
@@ -107,17 +105,17 @@ font-size:18px;
 
 }
   	
-  	function formChange(obj){
-  		
   
-  			obj.submit();
-  			console.log(obj);  
-  		
-  	}
+  	
+  	
   	
   	
 
 </script>
+
+
+
+
 </head>
 
 
@@ -286,27 +284,32 @@ font-size:18px;
          
 
          <div class="col-lg-9">
+         
+         
+           
+         
             <div class="row">
             
-            
-         
-               
-<form action="/category/price" method="get">
-               
-	<select name="categoryArrays" id = "categoryArray"style="font-size: 18px; border:none;" onchange="formChange(this.form)">
- 
-    <option value="newgoods" selected="selected">최신순</option>
-    <option value="highend">가격 높은순</option>
-    <option value="cheep">가격 낮은순</option>
-    <option value="manyreview">많은 리뷰순</option>
+                                      
+  <div class="dropdown">
+    <button type="button" style="font-size:20px; color:black;background-color:white; border:none; " class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+     전체
+    </button>
+    <div class="dropdown-menu">
+    <a class="dropdown-item" style="font-size:20px;" href="/category/home">최신순</a>
+      <a class="dropdown-item" style="font-size:20px;" href="/category/highprice">가격 높은순</a>
+      <a class="dropdown-item" style="font-size:20px;" href="/category/rowprice">가격 낮은순</a>
+      
     
-</select>
-</form>
- 
-
-
+    </div>
+  </div>
+    
+            
+            
+           
                
 <div class="row text-center">
+
 
  <c:forEach items="${board}" var="dto" varStatus="status">
       <div class="col-lg-4 col-md-6 mb-4">

@@ -11,8 +11,10 @@ import com.pet.ex.vo.CategoryVO;
 import com.pet.ex.vo.GoodsVO;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.java.Log;
+import lombok.extern.log4j.Log4j;
 
-
+@Log
 @Service
 @AllArgsConstructor
 public class CategoryServicelmpl implements CategoryService {
@@ -27,7 +29,7 @@ public class CategoryServicelmpl implements CategoryService {
 
 	@Override
 	public List<CategoryVO> getCategory() {
-		
+		log.info("getCategory...");
 		return mapper.getCategory();
 	}
 
@@ -61,6 +63,20 @@ public class CategoryServicelmpl implements CategoryService {
 		return mapper.gethighprice();
 	
 	}
+
+	@Override
+	public List<BoardVO> getrowprice() {
+		
+		return mapper.getrowprice();
+	}
+
+	@Override
+	public List<BoardVO> getshighprice(int category_id) {
+		// TODO Auto-generated method stub
+		return mapper.getshighprice(category_id);
+	}
+
+	
 
 	/*
 	 * @Override public List<BoardVO> getStorerate() {

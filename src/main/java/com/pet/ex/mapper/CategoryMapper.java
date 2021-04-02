@@ -25,6 +25,10 @@ public interface CategoryMapper {
 
 	public List<BoardVO> gethighprice();
 
+	public List<BoardVO> getrowprice();
+
+	public List<BoardVO> getshighprice(int category_id);
+
 	/* public List<BoardVO> getStorerate(); */
 
 
