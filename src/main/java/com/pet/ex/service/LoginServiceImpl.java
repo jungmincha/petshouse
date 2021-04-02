@@ -13,7 +13,7 @@ import com.pet.ex.vo.MemberVO;
 public class LoginServiceImpl implements LoginService {
 
 	@Autowired
-	LoginMapper loginMapper;
+	private LoginMapper loginMapper;
 
 	// 회원가입 시 카테고리리스트 가져옴
 	@Override

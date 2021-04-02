@@ -6,5 +6,5 @@ import com.pet.ex.vo.BoardVO;
 
 @Mapper
 public interface MyPageMapper {
-	BoardVO getBoard(int board_id);
+	BoardVO getBoard(String board_id);
 }
