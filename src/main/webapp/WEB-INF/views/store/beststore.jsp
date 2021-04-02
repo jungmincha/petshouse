@@ -121,27 +121,27 @@
           
          	<!-- category -->
              <div class="row">           
-                <div class="col-lg-2">                                                                  
+                <div class="col-sm-2">                                                                  
 	               <a href="#" onclick ="fire_ajax_submit(1);"><img src="/resources/img/category/cat.jpg"></a>                                     
                 </div>
                 
-                <div class="col-lg-2">
+                <div class="col-sm-2">
                     <a href="#" onclick ="fire_ajax_submit(2);"><img src="/resources/img/category/dog.jpg"></a>
                 </div>
                 
-                <div class="col-lg-2">
+                <div class="col-sm-2">
                     <a href="#" onclick ="fire_ajax_submit(3);"><img src="/resources/img/category/reptile.jpg"></a>
                 </div>
                 
-                <div class="col-lg-2">
+                <div class="col-sm-2">
                     <a href="#" onclick ="fire_ajax_submit(4);"><img src="/resources/img/category/bird.jpg"></a>
                 </div>
                 
-                <div class="col-lg-2">
+                <div class="col-sm-2">
                     <a href="#" onclick ="fire_ajax_submit(5);"><img src="/resources/img/category/fish.jpg"></a>
                 </div>
                 
-                <div class="col-lg-2">
+                <div class="col-sm-2">
                     <a href="#" onclick ="fire_ajax_submit(6);"><img src="/resources/img/category/other.jpg"></a>
                 </div>
             </div>
@@ -207,6 +207,3 @@
    <script src="/resources/js/main.js"></script>
 </body>
 </html>
-  
-
-  

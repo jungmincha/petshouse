@@ -189,46 +189,34 @@ span.star-prototype>* {
             </div>
          </div>
          <div class="row">
-            <div class="col-lg-2">
-               <div class="single-banner">
-                  <a href="/category/bigcategory/0"><img
-                     src="/resources/img/category/cat.jpg"></a>
-               </div>
+            <div class="col-sm-2">
+                  <form action="/category/smallcategory/101" method="post"> 
+                    <img src="/resources/img/category/cat.jpg" alt""></form>
             </div>
 
-            <div class="col-lg-2">
-               <div class="single-banner">
-                  <a href="/category/bigcategory/1"><img
-                     src="/resources/img/category/dog.jpg"></a>
-               </div>
+            <div class="col-sm-2">
+                  <a href="" onclick="location.href='/category/smallcategory/201';">
+                    <img src="/resources/img/category/dog.jpg"></a>
             </div>
 
-            <div class="col-lg-2">
-               <div class="single-banner">
-                  <a href="/category/bigcategory/2"><img
-                     src="/resources/img/category/reptile.jpg"></a>
-               </div>
+            <div class="col-sm-2">
+                  <a href="/category/smallcategory/301" method="post"> 
+                    <img src="/resources/img/category/reptile.jpg"></a>
             </div>
 
-            <div class="col-lg-2">
-               <div class="single-banner">
-                  <a href="/category/bigcategory/3"><img
-                     src="/resources/img/category/bird.jpg"></a>
-               </div>
+            <div class="col-sm-2">
+                  <a href="/category/smallcategory/401" method="post"> 
+                    <img src="/resources/img/category/bird.jpg"></a>
             </div>
 
-            <div class="col-lg-2">
-               <div class="single-banner">
-                  <a href="/category/bigcategory/4"><img
-                     src="/resources/img/category/fish.jpg"></a>
-               </div>
+            <div class="col-sm-2">
+                  <a href="/category/smallcategory/501" method="post"> 
+                     <img src="/resources/img/category/fish.jpg"></a>
             </div>
 
-            <div class="col-lg-2">
-               <div class="single-banner">
-                  <a href="/category/bigcategory/5" ><img
-                     src="/resources/img/category/other.jpg"></a>
-               </div>
+            <div class="col-sm-2">
+                  <a href="/category/smallcategory/601" method="post"> 
+                     <img src="/resources/img/category/other.jpg"></a>
             </div>
          </div>
          <!-- Category Section Begin -->
@@ -236,14 +224,14 @@ span.star-prototype>* {
          <!-- Hot Item section Begin -->
          <section class="hotitem">
             <div class="row">
-               <div class="col-lg-3">
+               <div class="col-sm-3">
                   <div class="product-large set-bg"
                      data-setbg="/resources/img/goods/hot_banner_01.jpg">
                      <h2>Hot Item</h2>
                      <a href="카테고리홈으로">More</a>
                   </div>
                </div>
-               <div class="col-lg-8 offset-lg-1">
+               <div class="col-sm-8 offset-lg-1">
                   <div class="filter-control">
                      <ul>
                         <li class="active">Products</li>
