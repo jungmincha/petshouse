@@ -66,7 +66,7 @@ public class LoginController {
 		return canUse;
 	}
 
-	// 비밀번호 찾기
+	// 비밀번호 재발급
 	@RequestMapping("/findPw")
 	public ModelAndView findpw(ModelAndView mav) {
 		
@@ -152,28 +152,8 @@ public class LoginController {
 			mav.addObject("category", loginService.listCategory());
 			mav.setViewName("/login/oauth2Register");
 		} else {
-			mav.setViewName("home/home");
+			mav.setViewName("redirect:/store/home");
 		}
-		return mav;
-
-	}
-
-	// 네이버로 로그인
-	@RequestMapping("/oauth2/code/naver")
-	public ModelAndView oauth2Naver(ModelAndView mav, Principal principal) throws Exception {
-
-		mav.setViewName("home/home");
-
-		return mav;
-
-	}
-
-	// 카카오로 로그인
-	@RequestMapping("/oauth2/code/kakao")
-	public ModelAndView oauth2Kakao(ModelAndView mav, Principal principal) throws Exception {
-
-		mav.setViewName("home/home");
-
 		return mav;
 
 	}

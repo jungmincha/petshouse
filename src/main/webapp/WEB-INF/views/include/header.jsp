@@ -59,8 +59,7 @@
 				<div class="row">
 					<div class="col-lg-2 col-md-2">
 						<div class="logo">
-							<a href="/home"> <img src="/resources/img/logo.png"
-								alt="">
+							<a href="/home"> <img src="/resources/img/logo.png" alt="">
 							</a>
 						</div>
 					</div>
@@ -81,7 +80,7 @@
 							<li class="heart-icon"><a href="#"> <i
 									class="icon_heart_alt"></i> <span>1</span>
 							</a></li>
-							<li class="cart-icon"><a href="#"> <i
+							<li class="cart-icon"><a href="/myPage/cart"> <i
 									class="icon_bag_alt"></i> <span>3</span>
 							</a>
 								<div class="cart-hover">
@@ -118,11 +117,14 @@
 										<span>total:</span>
 										<h5>$120.00</h5>
 									</div>
+
 									<div class="select-button">
-										<a href="#" class="primary-btn view-card">VIEW CARD</a> <a
-											href="#" class="primary-btn checkout-btn">CHECK OUT</a>
+										<a href="/myPage/cart" class="primary-btn view-card">VIEW
+											CARD</a> <a href="#" class="primary-btn checkout-btn">CHECK
+											OUT</a>
 
 									</div>
+
 									<sec:authorize access="isAnonymous()">
 										<li class="heart-icon"><a href="/login/login"
 											class="login-panel"><i class="fa fa-user"></i>Login</a></li>
@@ -157,7 +159,7 @@
 				</div>
 				<nav class="nav-menu mobile-menu">
 					<ul>
-						<li><a href="/home">Home</a></li>
+						<li><a href="/store/home">Home</a></li>
 						<li><a href="./shop.html">커뮤니티</a>
 							<ul class="dropdown">
 

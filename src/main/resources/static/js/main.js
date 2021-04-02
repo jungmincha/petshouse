@@ -233,7 +233,7 @@
 	proQty.on('click', '.qtybtn', function () {
 		var $button = $(this);
 		var oldValue = $button.parent().find('input').val();
-		console.log(oldValue)
+		
 		if ($button.hasClass('inc')) {
 			var newVal = parseFloat(oldValue) + 1;
 		} else {
@@ -244,7 +244,7 @@
 				newVal = 0;
 			}
 		}
-		console.log(newVal);
+		
 		$button.parent().find('input').val(newVal);
 	});
 

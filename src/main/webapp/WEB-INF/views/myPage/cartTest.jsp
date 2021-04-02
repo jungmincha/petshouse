@@ -20,17 +20,26 @@
 
 	<!-- Page Content -->
 <body>
-
 	<table>
-		<tr id="goods1">
-			<td><input type="text" class="price" size="10" value="">
-				//첫번째 수</td>
-			<td><input type="number" id="count" size="10" value=""
-				> =</td>
-			<td><input type="text" class="sum" size="10" value=""
-				readonly="readonly"></td>
-
-			<td><input type="button" value="send"></td>
+		<tr>
+			<td>value 1</td>
+			<td><input type="text" name="" class="value" value="12"></td>
+		</tr>
+		<tr>
+			<td>value 2</td>
+			<td><input type="text" name="" class="value" value="12"></td>
+		</tr>
+		<tr>
+			<td>value 3</td>
+			<td><input type="text" name="" class="value" value="12"></td>
+		</tr>
+		<tr>
+			<td>value 4</td>
+			<td><input type="text" name="" class="value" value="32"></td>
+		</tr>
+		<tr>
+			<td><button type="button" class="button_sum">summary</button></td>
+			<td><span class="summary"></span></td>
 		</tr>
 	</table>
 
@@ -44,45 +53,23 @@
 
 </body>
 <script type="text/javascript">
-	//JavaScript 부분을 HTML의 <head>사이에 삽입한다.
-	
-	$('#count').on('change keyup paste',function total(i) //total()함수 부분
+	$(document).ready(function() {
 
-	{
-		console.log("함수실행")
-		var num1 = document.getElementById('goods1').firstChild
-		console.log(num1)
-		var num1s = num1.value; // num1에서 가져온 값을 num1s에 저장해주고,
-		console.log(num1s)
-		var num1b = parseInt(num1s); // 계산을 하기위해 그 값을 int형으로 바꿔준다.
+		var sum = 0;
+		$(".value").each(function() {
+			sum += Number($(this).val());
+		});
 
-		var num2 = document.getElementById("goods1").getElementsByClassName(
-				"count") //위 방법과 같음..
+		$(".summary").html(sum);
+	});
+	$(".value").on("propertychange change keyup paste input", function() {
+		console.log("실행")
+		var sum = 0;
+		$(".value").each(function() {
+			sum += Number($(this).val());
+		});
 
-		var num2s = num2.value;
-
-		var num2b = parseInt(num2s);
-
-		var num3t;
-
-		var ops = 'mul'; //값으로 저장
-
-		switch (ops) //ops의 연산기호에 따라 case를 나눈다.
-
-		{
-
-		case "plus":
-			num3t = num1b + num2b;
-			document.getElementById("goods1").getElementsByClassName("sum").value = num3t;
-			break;
-
-		case "mul":
-			num3t = num1b * num2b;
-			document.getElementById("goods1").getElementsByClassName("sum").value = num3t;
-			break;
-
-		} //계산한 값을 num3t에 저장한 후, 값을 num3로 가져간다.
-
+		$(".summary").html(sum);
 	});
 </script>
 </html>

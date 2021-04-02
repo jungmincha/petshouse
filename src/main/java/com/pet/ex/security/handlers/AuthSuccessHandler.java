@@ -43,7 +43,7 @@ public class AuthSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		super.setDefaultTargetUrl("/home");
+		super.setDefaultTargetUrl("/store/home");
 		super.onAuthenticationSuccess(request, response, authentication);
 
 	}
