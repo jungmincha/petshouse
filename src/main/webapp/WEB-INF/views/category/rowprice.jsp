@@ -286,6 +286,7 @@ font-size:18px;
     <a class="dropdown-item" style="font-size:20px;" href="/category/home">최신순</a>
       <a class="dropdown-item" style="font-size:20px;" href="/category/highprice">가격 높은순</a>
       <a class="dropdown-item" style="font-size:20px;" href="/category/rowprice">가격 낮은순</a>
+        <a class="dropdown-item" style="font-size:20px;" href="/category/highstar">별점 높은순</a>
       
     
     </div>
@@ -299,23 +300,27 @@ font-size:18px;
                
 <div class="row text-center">
 
- <c:forEach items="${board}" var="dto" varStatus="status">
-      <div class="col-lg-4 col-md-6 mb-4">
-        <div class="card h-100">
-          <img class="card-img-top" src="http://image.kmib.co.kr/online_image/2020/0927/611718110015050456_2.jpg" alt="">
-          <div class="card-body">
-
-            <h4 class="card-title">${dto.goodsVO.goodsname}</h4>
-            <p class="card-text">${dto.goodsVO.price}</p>
-             
-            <p class="card-text">${dto.pdate}</p>
-          
-     
-          </div>
-          
-        </div>
-      </div>
-      </c:forEach>
+ <<c:forEach items="${goods}" var="goods" varStatus="status">
+                       
+                           <div class="product-item">
+                              <div class="pi-pic">
+                                 <img src="/resources/img/goods/goods_01.jpg" alt="">
+                     			 </div>
+                              <div class="pi-text">
+                                 <div class="catagory-name"></div>
+                             
+                                    
+                                       <a href="/admin/goods_detail/${goods.board_id}">
+                                          <h5>${goods.goodsVO.goodsname}</h5>
+                                       </a>
+                                       <div class="product-price">${goods.goodsVO.price}원</div>
+         						   별점 <span class="star-prototype">${rate[status.index].avgscore}</span>
+                                 &nbsp; <span>리뷰 ${rate[status.index].count}</span>      
+                              </div>
+                           </div>
+                              </c:forEach> 
+                      <br/>
+                      <br/>
    
       </div>
 

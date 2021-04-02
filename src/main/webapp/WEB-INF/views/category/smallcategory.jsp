@@ -230,19 +230,19 @@ select {
 		<div class="col-lg-9">
 			<div class="row">
 
-				<form action="/category/price" method="get">
-
-					<select name="categoryArray" id="categoryArray"
-						style="font-size: 18px; border: none;"
-						onchange="formChange(this.form)">
-
-						<option value="newgoods" selected="selected">최신순</option>
-						<option value="highend">가격 높은순</a></option>
-						<option value="cheep">가격 낮은순</option>
-						<option value="manyreview">많은 리뷰순</option>
-
-					</select>
-				</form>
+				<div class="dropdown">
+    <button type="button" style="font-size:20px; color:black;background-color:white; border:none; " class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+     카테고리별
+    </button>
+    <div class="dropdown-menu">
+    <a class="dropdown-item" style="font-size:20px;" href="/category/home">최신순</a>
+      <a class="dropdown-item" style="font-size:20px;" href="/category/highprice">가격 높은순</a>
+      <a class="dropdown-item" style="font-size:20px;" href="/category/rowprice">가격 낮은순</a>
+      <a class="dropdown-item" style="font-size:20px;" href="/category/highstar">별점 높은순</a>
+      
+    
+    </div>
+  </div>
 
 
 

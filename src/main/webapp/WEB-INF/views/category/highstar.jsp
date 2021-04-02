@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -35,7 +36,6 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
     <link href="/resources/sidemenu/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -63,17 +63,16 @@ cursor:pointer;
 
 }
 
-
-select{
-
-width:120px;
-
-height:30px;
-
-font-size:18px;
-
+span.star-prototype, span.star-prototype>* {
+   height: 16px;
+   background: url(http://i.imgur.com/YsyS5y8.png) 0 -16px repeat-x;
+   display: inline-block;
 }
 
+span.star-prototype>* {
+   background-position: 0 0;
+   max-width: 80px;
+}
 
 
 
@@ -116,11 +115,17 @@ font-size:18px;
 
 }
   	
-	
+  
+  	
+  	
   	
   	
 
 </script>
+
+
+
+
 </head>
 
 
@@ -135,6 +140,7 @@ font-size:18px;
       
 
    <div class ="container">
+   
    <!--가져올 부분-->
 	<div id = "input">
       <div class="row">
@@ -148,6 +154,7 @@ font-size:18px;
                    <li class="submenu">
                  
    
+                 
                 
                       <!-- 고양이 -->
                      <a href="#" style ="font-size: 25px;"> 
@@ -288,9 +295,14 @@ font-size:18px;
          
 
          <div class="col-lg-9">
+         
+         
+           
+         
             <div class="row">
             
-     <div class="dropdown">
+                                      
+  <div class="dropdown">
     <button type="button" style="font-size:20px; color:black;background-color:white; border:none; " class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
      전체
     </button>
@@ -298,28 +310,26 @@ font-size:18px;
     <a class="dropdown-item" style="font-size:20px;" href="/category/home">최신순</a>
       <a class="dropdown-item" style="font-size:20px;" href="/category/highprice">가격 높은순</a>
       <a class="dropdown-item" style="font-size:20px;" href="/category/rowprice">가격 낮은순</a>
-        <a class="dropdown-item" style="font-size:20px;" href="/category/highstar">별점 높은순</a>
-      
+       <a class="dropdown-item" style="font-size:20px;" href="/category/highstar">별점 높은순</a>
     
     </div>
-  </div>       
-         
-               
-
- 
-
-
+  </div>
+    
+            
+            
+           
                
 <div class="row text-center">
 
-     <c:forEach items="${rate}" var="rate">
 
+<c:forEach items="${rate}" var="rate">
+                       
                            <div class="product-item">
                               <div class="pi-pic">
                                  <img src="/resources/img/goods/goods_01.jpg" alt="">
 
-  
-                               
+                                 
+                                
                               </div>
                               <div class="pi-text">
                                  <div class="catagory-name"></div>
@@ -336,10 +346,31 @@ font-size:18px;
                                  &nbsp; <span>리뷰 ${rate.count}</span>
                               </div>
                            </div>
-                       
+                      <br/>
+                      <br/>
                      </c:forEach>
-                      <br/>
-                      <br/>
+
+
+
+
+ <%-- <c:forEach items="${goods}" var="dto" varStatus="status">
+      <div class="col-lg-4 col-md-6 mb-4">
+        <div class="card h-100">
+          <img class="card-img-top" src="http://image.kmib.co.kr/online_image/2020/0927/611718110015050456_2.jpg" alt="">
+          <div class="card-body">
+
+            <h4 class="card-title">${dto.goodsVO.goodsname}</h4>
+            <p class="card-text">${dto.goodsVO.price}</p>
+             
+            <p class="card-text">${dto.pdate}</p>
+          
+     
+          </div>
+          
+        </div>
+      </div>
+      </c:forEach> --%>
+   
       </div>
 
          
@@ -352,11 +383,6 @@ font-size:18px;
    <!-- Product Shop Section End -->
    
    
-   
-   
-   
-
-
 
    <!-- Footer -->
    <%@ include file="/WEB-INF/views/include/footer.jsp"%>
