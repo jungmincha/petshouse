@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!-- 추가함 -->
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -12,16 +12,46 @@
 <meta name="keywords" content="Fashi, unica, creative, html">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>질문과 답변 글 조회</title>
+<title>${qna_view.title}</title>
+
+<link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+
+<!-- Css Styles -->
+<link rel="stylesheet" href="/resources/css/bootstrap.min.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/font-awesome.min.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/themify-icons.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/elegant-icons.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/owl.carousel.min.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/nice-select.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/jquery-ui.min.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/slicknav.min.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/style.css" type="text/css">
 
 <!-- bootstrap css cdn -->
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-	type="text/css" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" type="text/css" />
 
 <!-- jquery cdn -->
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<!-- 수정 삭제 경고창 -->
+<script type="text/javascript">
+		function button_event() {
+			if (confirm("정말 삭제하시겠습니까?") == true) { //확인
+				location.href = '${pageContext.request.contextPath}/commu/delete?board_id=${qna_view.board_id}'
+			} else { //취소
+				return;
+			}
+		}
+
+		function modify_event() {
+			if (confirm("수정하시겠습니까?") == true) { //확인
+				location.href = '${pageContext.request.contextPath}/commu/modify_page?board_id=${qna_view.board_id}'
+			} else { //취소
+				return;
+			}
+		}
+</script>
+<!-- 수정 삭제 경고창 end-->
 
 </head>
 
@@ -45,46 +75,29 @@
 			<button type="button" class="btn btn-warning"
 				onclick="modify_event();">수정</button>
 
-			<button type="button" class="btn btn-warning" onclick="button_event();">삭제</button>
+			<button type="button" class="btn btn-warning"
+				onclick="button_event();">삭제</button>
 		</div>
 
-		<script type="text/javascript">
-			function button_event() {
-				if (confirm("정말 삭제하시겠습니까?") == true) { //확인
-					location.href = '${pageContext.request.contextPath}/commu/delete?board_id=${qna_view.board_id}'
-				} else { //취소
-					return;
-				}
-			}
 
-			function modify_event() {
-				if (confirm("수정하시겠습니까?") == true) { //확인
-					location.href = '${pageContext.request.contextPath}/commu/modify_page?board_id=${qna_view.board_id}'
-				} else { //취소
-					return;
-				}
-			}
-		</script>
+
 
 		<table>
 			<td>
-				<div style="font-size: 20px;">${qna_view.memberVO.nickname}</div> <section
-					style="margin-top:40px; margin-bottom:20px;">${qna_view.content}</section>
-				<section style="margin-top:40px; margin-bottom:20px;">${qna_view.hashtag}</section>
-
-
+				<div style="font-size: 20px;">${qna_view.memberVO.nickname}</div>
+				<hr>
+				<section style="margin-top: 40px; margin-bottom: 20px;">${qna_view.content}</section>
+				<section style="margin-top: 40px; margin-bottom: 20px;">${qna_view.hashtag}</section>
 				<span style="color: gray">${qna_view.pdate}</span> <span
 				style="color: gray">조회수 ${qna_view.hit}</span>
-
-
 			</td>
 		</table>
 		<hr>
 	</div>
-	
-	
-	
-	<div class="container" style="margin-bottom:10px;">
+
+
+
+	<div class="container" style="margin-bottom: 10px;">
 		<table>
 			<c:forEach items="${comment}" var="cm">
 				<div>${cm.memberVO.nickname}</div>
@@ -100,5 +113,18 @@
 		<!-- Footer -->
 		<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 	</div>
+
+	<!-- Js Plugins -->
+	<script src="/resources/js/jquery-3.3.1.min.js"></script>
+	<script src="/resources/js/bootstrap.min.js"></script>
+	<script src="/resources/js/jquery-ui.min.js"></script>
+	<script src="/resources/js/jquery.countdown.min.js"></script>
+	<script src="/resources/js/jquery.nice-select.min.js"></script>
+	<script src="/resources/js/jquery.zoom.min.js"></script>
+	<script src="/resources/js/jquery.dd.min.js"></script>
+	<script src="/resources/js/jquery.slicknav.js"></script>
+	<script src="/resources/js/owl.carousel.min.js"></script>
+	<script src="/resources/js/main.js"></script>
+
 </body>
 </html>

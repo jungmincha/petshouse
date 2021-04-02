@@ -6,12 +6,16 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.pet.ex.page.Criteria;
 import com.pet.ex.vo.BoardVO;
+import com.pet.ex.vo.CategoryVO;
 
 @Mapper
 public interface CommunityMapper {
 
 	// 질문과 답변 메인 페이지
 	public List<BoardVO> getQnaList();
+	
+	// 질문과 답변 메인 페이지
+	public List<BoardVO> getTipsList();
 
 	// 질문과 답변 특정 글 페이지
 	public BoardVO getQnaview(int board_id);
@@ -29,7 +33,7 @@ public interface CommunityMapper {
 	public int getTotalCount(Criteria cri);
 
 	// 질문과 답변 진짜 글쓰기
-	public void writeQnt(BoardVO boardVO);
+	public void writeQna(BoardVO boardVO);
 
 	// 질문과 답변 글 수정하기
 	public void modify(BoardVO boardVO);
@@ -37,6 +41,11 @@ public interface CommunityMapper {
 	// 질문과 답변 글 삭제하기
 	public void delete(int board_id);
 	
+	//질문과 답변 글 검색
 	public List<BoardVO> getQsearch(String keyword);
+	
+
+	
+	
 
 }

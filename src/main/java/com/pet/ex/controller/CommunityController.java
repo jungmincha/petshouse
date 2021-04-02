@@ -1,19 +1,25 @@
 package com.pet.ex.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.pet.ex.page.Criteria;
 import com.pet.ex.page.PageVO;
 import com.pet.ex.service.CommunityService;
+import com.pet.ex.service.FileService;
 import com.pet.ex.vo.BoardVO;
 
 import lombok.extern.slf4j.Slf4j;
@@ -26,13 +32,27 @@ public class CommunityController {
 	@Autowired
 	private CommunityService communityService;
 
-	// 질문과 답변 페이지 리스트 출력 (검색, 키워드, 글쓰기,사진업로드, 페이징, 댓글, 수정, 삭제, 조회 필요함)
+	@Autowired
+	private FileService fileservice;
+
+	// 질문과 답변 메인 페이지 리스트 출력 (검색, 키워드, 글쓰기,사진업로드, 페이징, 댓글, 수정, 삭제, 조회 필요함)
 	@RequestMapping("/qna")
 	public ModelAndView qna(Criteria cri, ModelAndView mav) {
 		mav.addObject("qna", communityService.getQnaList(cri));
 		int total = communityService.getTotal(cri);
 		mav.addObject("pageMaker", new PageVO(cri, total));
 		mav.setViewName("community/qna"); // 파일경로
+		return mav;
+
+	}
+
+	// 노하우 메인 페이지 리스트 출력 (검색, 글쓰기,사진업로드, 페이징, 댓글, 수정, 삭제, 조회 필요함)
+	@RequestMapping("/tips")
+	public ModelAndView tips(Criteria cri, ModelAndView mav) {
+		mav.addObject("tips", communityService.getTipsList(cri));
+		int total = communityService.getTotal(cri);
+		mav.addObject("pageMaker", new PageVO(cri, total));
+		mav.setViewName("community/tips"); // 파일경로
 		return mav;
 
 	}
@@ -47,15 +67,35 @@ public class CommunityController {
 		mav.setViewName("community/qna_view");
 		return mav;
 	}
-	
+
+	// 노하우 특정 글 페이지 출력
+	@GetMapping("/tips_view")
+	public ModelAndView tips_view(BoardVO boardVO, ModelAndView mav) throws Exception {
+		log.info("tips_view()실행");
+		mav.addObject("tips_view", communityService.getTipsview(boardVO.getBoard_id())); // 특정 글 출력
+		mav.addObject("comment", communityService.getComment(boardVO.getBoard_id()));
+		// communityService.hit(boardVO.getBoard_id()); 조회수어쩔거임
+		mav.setViewName("community/tips_view");
+		return mav;
+	}
+
 	// 질문과 답변 글 검색
 	@PostMapping("/qnasearch")
-	public ModelAndView qsearch(@RequestParam("keyword") String keyword,Criteria cri, ModelAndView mav,BoardVO boardVO) throws Exception {
+	public ModelAndView qsearch(@RequestParam("keyword") String keyword, ModelAndView mav, BoardVO boardVO)
+			throws Exception {
 		log.info("qsearch()실행");
 		mav.addObject("qsearch", communityService.getQsearch(keyword));
-		int total = communityService.getTotal(cri);
-		mav.addObject("pageMaker", new PageVO(cri, total));
 		mav.setViewName("/community/qnasearch");
+		return mav;
+	}
+
+	// 질문과 답변 글 검색
+	@PostMapping("/tipssearch")
+	public ModelAndView tsearch(@RequestParam("keyword") String keyword, ModelAndView mav, BoardVO boardVO)
+			throws Exception {
+		log.info("tsearch()실행");
+		mav.addObject("tsearch", communityService.getTsearch(keyword));
+		mav.setViewName("/community/tipssearch");
 		return mav;
 	}
 
@@ -69,10 +109,36 @@ public class CommunityController {
 
 	// 글 작성하기 질문과답변
 	@PostMapping("/qna")
-	public ModelAndView write(BoardVO boardVO, ModelAndView mav) throws Exception {
+	public ModelAndView write(MultipartHttpServletRequest multi, BoardVO boardVO, ModelAndView mav)
+			throws IllegalStateException, IOException {
 		log.info("write()실행");
-		communityService.writeQnt(boardVO);
+		communityService.writeQna(boardVO);
 		mav.setView(new RedirectView("/commu/qna", true));
+
+		String path = multi.getSession().getServletContext().getRealPath("/static/img/qna");
+		path = path.replace("webapp", "resources");
+		File dir = new File(path);
+		if (!dir.isDirectory()) {
+			dir.mkdir();
+		}
+
+		List<MultipartFile> mf = multi.getFiles("file");
+
+		if (mf.size() == 1 && mf.get(0).getOriginalFilename().equals("")) {
+
+		} else {
+			for (int i = 0; i < mf.size(); i++) { // 파일명 중복 검사
+				UUID uuid = UUID.randomUUID();
+				// 본래 파일명
+				String imgname = mf.get(i).getOriginalFilename();
+
+				String savePath = path + "\\" + imgname; // 저장 될 파일 경로
+
+				mf.get(i).transferTo(new File(savePath)); // 파일 저장
+
+				fileservice.fileUpload(imgname);
+			}
+		}
 		return mav;
 	}
 

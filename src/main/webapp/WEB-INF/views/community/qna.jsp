@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -12,15 +12,28 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>펫츠하우스</title>
 
+<link
+	href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap"
+	rel="stylesheet">
+
+<!-- Css Styles -->
+<link rel="stylesheet" href="/resources/css/bootstrap.min.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/font-awesome.min.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/themify-icons.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/elegant-icons.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/owl.carousel.min.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/nice-select.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/jquery-ui.min.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/slicknav.min.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/style.css" type="text/css">
+
 <!-- bootstrap css cdn -->
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-	type="text/css" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" type="text/css" />
 
 <!-- jquery cdn -->
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<link rel="stylesheet" href="/resources/css/select-style.css" type="text/css">
+<link rel="stylesheet" href="/resources/js/select-index.js" type="text/css">
 
 <style>
 .jumbotron {
@@ -53,12 +66,13 @@ a:active {
 a:hover {
 	text-decoration: none;
 }
-</style>
 
+</style>
 
 </head>
 
 <body>
+
 	<!-- Header -->
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
 
@@ -67,13 +81,14 @@ a:hover {
 		<div class="jumbotron">
 			<h3 class="display-5">무엇이든 물어보세요!</h3>
 			<hr class="my-4">
-			<form
-				action="${pageContext.request.contextPath}/commu/qnasearch"
+			<form action="${pageContext.request.contextPath}/commu/qnasearch"
 				method="post">
 				<div class="questions-header__form__search col">
-					<span aria-hidden="true"></span> 
-					<input class="form-control mr-sm-8" type="text" name="keyword" style="text-align: center; height: 60px; " placeholder="내 반려동물에 대한 모든 궁금증!"> 
-					
+					<span aria-hidden="true"></span> <input
+						class="form-control mr-sm-8" type="text" name="keyword"
+						style="text-align: center; height: 60px;"
+						placeholder="내 반려동물에 대한 모든 궁금증!">
+
 				</div>
 			</form>
 		</div>
@@ -81,57 +96,37 @@ a:hover {
 
 	<!-- 동물 카테고리, 정렬, 글쓰기 버튼 -->
 	<div class="container" style="padding-bottom: 30px;">
+				
+		<select id="selectPet" name="categoryVO.category_id"  style="vertical-align: middle; text-align-last: center">
 
-		<div class="btn-group" role="group"
-			aria-label="Button group with nested dropdown">
-			<button type="button" class="btn btn-primary">고양이</button>
-			<div class="btn-group" role="group">
-				<button id="btnGroupDrop1" type="button"
-					class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
-					aria-haspopup="true" aria-expanded="false"></button>
-				<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-					<a class="dropdown-item" href="#">강아지</a> <a class="dropdown-item"
-						href="#">파충류</a> <a class="dropdown-item" href="#">조류</a> <a
-						class="dropdown-item" href="#">어류</a> <a class="dropdown-item"
-						href="#">기타</a>
-
-				</div>
-			</div>
-		</div>
-
-		<script>
-        function dp_menu(){
-            let click = document.getElementById("drop-content");
-            if(click.style.display === "none"){
-                click.style.display = "block";
- 
-            }else{
-                click.style.display = "none";
- 
-            }
-        }
-    </script>
-
-
+		<option value="1">고양이</option>
+		<option value="2">강아지</option>
+		<option value="3">파충류</option>
+		<option value="4">조류</option>
+		<option value="5">어류</option>
+		<option value="6">기타</option>
+		</select> 
+		
+	
 		<a class="btn btn-warning float-right" href="qna_write">질문하기</a>
-
 	</div>
+
 
 	<!-- 게시글 끌고와야함 글 제목, 사진?, 작성자, 날짜, 댓글수, 해시태그? 그리고 테이블은 td만 쓰면 될듯..? -->
 
 	<div class="container">
 		<c:forEach items="${qna}" var="qna">
-			<table class="table table-hover">		
+			<table class="table table-hover">
 				<tbody>
-					<td>
-					<a href="${pageContext.request.contextPath}/commu/qna_view?board_id=${qna.board_id}">
+					<td><a
+						href="${pageContext.request.contextPath}/commu/qna_view?board_id=${qna.board_id}">
 							<div style="font-weight: bold; font-size: 18px;">${qna.title}</div>
-							<div>${qna.content}</div> <span>${qna.memberVO.nickname}</span> 
-							<span style="font-size: 13px; color: gray;">${qna.pdate}</span> 
-							<span style="font-size: 13px; color: gray;"> 조회수 ${qna.hit}</span> 
-							<a>키워드 버튼 나열</a>
-					</a>
-					</td>
+							<div>${qna.content}</div>
+							 <span>${qna.memberVO.nickname}</span> 
+							 <span style="font-size: 13px; color: gray;">${qna.pdate}</span> 
+							 <span style="font-size: 13px; color: gray;"> 조회수 ${qna.hit}</span> 
+							 <a>키워드 버튼 나열</a>
+					</a></td>
 				</tbody>
 			</table>
 		</c:forEach>
@@ -159,7 +154,22 @@ a:hover {
 		</c:if>
 	</ul>
 
+
+
 	<!-- Footer -->
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
+
+	<!-- Js Plugins -->
+	<script src="/resources/js/jquery-3.3.1.min.js"></script>
+	<script src="/resources/js/bootstrap.min.js"></script>
+	<script src="/resources/js/jquery-ui.min.js"></script>
+	<script src="/resources/js/jquery.countdown.min.js"></script>
+	<script src="/resources/js/jquery.nice-select.min.js"></script>
+	<script src="/resources/js/jquery.zoom.min.js"></script>
+	<script src="/resources/js/jquery.dd.min.js"></script>
+	<script src="/resources/js/jquery.slicknav.js"></script>
+	<script src="/resources/js/owl.carousel.min.js"></script>
+	<script src="/resources/js/main.js"></script>
+
 </body>
 </html>

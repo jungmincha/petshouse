@@ -94,27 +94,6 @@ a:hover {text-decoration:none;}
 		</c:forEach>
 	</div>
 
-	<!-- 페이징 -->
-	<ul class="pagination justify-content-center"
-		style="padding-bottom: 50px; padding-top: 50px;">
-		<c:if test="${pageMaker.prev}">
-			<li class="page-item"><a class="page-link"
-				href="qna${pageMaker.makeQuery(pageMaker.startPage - 1) }">
-					Previous</a></li>
-		</c:if>
-
-		<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }"
-			var="idx">
-			<c:out value="${pageMaker.cri.pageNum == idx?'':''}" />
-			<li class="page-item"><a class="page-link"
-				href="qna${pageMaker.makeQuery(idx)}">${idx}</a></li>
-		</c:forEach>
-
-		<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-			<li class="page-item"><a class="page-link"
-				href="qna${pageMaker.makeQuery(pageMaker.endPage +1) }">Next</a></li>
-		</c:if>
-	</ul>
 
 	<!-- Footer -->
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
