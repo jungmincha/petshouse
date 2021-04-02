@@ -77,7 +77,7 @@
 						<div class="col-lg-12 offset-lg-12">
 							<div class="proceed-checkout">
 								<ul>
-								
+
 									<li class="cart-total">Total <span class="total"></span></li>
 								</ul>
 								<a href="#" class="proceed-btn">PROCEED TO CHECK OUT</a>
@@ -141,7 +141,7 @@
 														+ "<input style='border:none; text-align:right;' type='text' id='x"
 														+ i
 														+ "' value='' readonly size='7px' class='value' >"
-														+ "원</td> <td class='close-td first-row'><i class='ti-close'></i></td>  </tr>"
+														+ "원</td> <td class='close-td first-row'><i class='ti-close' onclick='cartDelete("+i+")'></i></td>  </tr>"
 												// 상품 별 합 계산()
 												html += "<script DEFER> $(document).ready(function total"
 														+ i
@@ -228,7 +228,20 @@
 				$('input:checkbox').prop('checked', false);
 
 		});
+		function cartDelete(i) {
+			console.log(i)
+			var cartList = new Array();
+			cartList = JSON.parse(sessionStorage
+					.getItem("cartList"));
+			console.log(cartList)
+			cartList.splice(i, 1);
+			console.log(cartList)
+			sessionStorage.setItem("cartList", JSON.stringify(cartList));
+			
+		}
+		
 	</script>
+
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 
 </body>
