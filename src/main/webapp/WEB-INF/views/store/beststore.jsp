@@ -50,6 +50,36 @@
     	$('.star-prototype').generateStars();
     })
     
+    function fire_ajax_submit(id) {
+    	console.log(id);
+    	var category_id = id;
+		
+		var form = {
+				category_id: category_id
+		};    
+		
+    	var url = "/store/best/"+id;
+    		
+    $.ajax({
+        type: "POST",
+        contentType: 'application/json; charset=utf-8',
+  		url: url,
+        data: JSON.stringify(form), 
+        cache : false,
+        
+        success: function (data) {         	
+          console.log("SUCCESS : ", data); 
+          $('#input').html(data);
+        },
+        
+        error: function (e) {
+     	   console.log("ERROR : ", e);
+        }
+    });
+
+}
+  
+    
   </script>
   
 <style>
@@ -79,6 +109,8 @@
     <!-- Best Products  -->
     <section class="latest-blog spad">
         <div class="container">
+       <!--가져올 부분-->
+		<div id = "input">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="section-title">
@@ -90,27 +122,27 @@
          	<!-- category -->
              <div class="row">           
                 <div class="col-lg-2">                                                                  
-	               <a onclick ="location.href='/store/best/${category[0].category_id}'"><img src="/resources/img/category/cat.jpg"></a>                                     
+	               <a href="#" onclick ="fire_ajax_submit(1);"><img src="/resources/img/category/cat.jpg"></a>                                     
                 </div>
                 
                 <div class="col-lg-2">
-                    <a onclick ="location.href='/store/best/${category[1].category_id}'"><img src="/resources/img/category/dog.jpg"></a>
+                    <a href="#" onclick ="fire_ajax_submit(2);"><img src="/resources/img/category/dog.jpg"></a>
                 </div>
                 
                 <div class="col-lg-2">
-                     <a onclick ="location.href='/store/best/${category[2].category_id}'"><img src="/resources/img/category/reptile.jpg"></a>
+                    <a href="#" onclick ="fire_ajax_submit(3);"><img src="/resources/img/category/reptile.jpg"></a>
                 </div>
                 
                 <div class="col-lg-2">
-                    <a onclick ="location.href='/store/best/${category[3].category_id}'"><img src="/resources/img/category/bird.jpg"></a>
+                    <a href="#" onclick ="fire_ajax_submit(4);"><img src="/resources/img/category/bird.jpg"></a>
                 </div>
                 
                 <div class="col-lg-2">
-                    <a href="" onclick ="location.href='/store/best/${category[4].category_id}'"><img src="/resources/img/category/fish.jpg"></a>
+                    <a href="#" onclick ="fire_ajax_submit(5);"><img src="/resources/img/category/fish.jpg"></a>
                 </div>
                 
                 <div class="col-lg-2">
-                    <a href="" onclick ="location.href='/store/best/${category[5].category_id}'"><img src="/resources/img/category/other.jpg"></a>
+                    <a href="#" onclick ="fire_ajax_submit(6);"><img src="/resources/img/category/other.jpg"></a>
                 </div>
             </div>
   		  <!-- Category End -->   
@@ -151,6 +183,8 @@
                 </c:forEach>
             </div>
          </div>
+         </div>
+        
     </section>
      <!-- Goods End -->
     

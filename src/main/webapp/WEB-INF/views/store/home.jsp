@@ -58,7 +58,6 @@
 	}else if($(window).scrollTop() == 0){ 
 		console.log('꼭대기입니다!'); 
 	} 
-
    })
 </script>
 
@@ -253,7 +252,7 @@ span.star-prototype>* {
                   <div class="product-slider owl-carousel">
 
                      <c:forEach items="${rate}" var="rate">
-                        <c:if test="${rate.rnum le 6}">
+                        <c:if test="${rate.rnum le 10}">
                            <div class="product-item">
                               <div class="pi-pic">
                                  <img src="/resources/img/goods/goods_01.jpg" alt="">
