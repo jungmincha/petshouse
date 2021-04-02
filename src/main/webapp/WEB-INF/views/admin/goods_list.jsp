@@ -60,7 +60,7 @@
     	var category = {}
     	category["category"] = $("#category").val();
     	
-    	var url = "/category/smallcategory.do/"+id;
+    	var url = "/admin/goods/category/"+id;
     	
     	
     $.ajax({
@@ -122,8 +122,7 @@ h2 {
 	  <!-- Page Content -->
    <!-- Product Shop Section Begin -->
 
-   <section class="product-shop spad page-details">
-      
+     
 
    <div class ="container">
    <!--가져올 부분-->
@@ -148,7 +147,7 @@ h2 {
                      
                      <!-- Sub menu -->
                      <ul>
-                       <c:forEach items = "${smallcategory}" var="vo" begin="0" end="6">
+                       <c:forEach items = "${sort}" var="vo" begin="0" end="6">
  					
                        
                       <li>
@@ -174,7 +173,7 @@ h2 {
                      
                         <!-- Sub menu -->
                       <ul>
-                           <c:forEach items = "${smallcategory}" var="vo2" begin="7" end="13">
+                           <c:forEach items = "${sort}" var="vo2" begin="7" end="13">
     			      <li>
     			      <a href="#" style ="font-size: 18px;" onclick="fire_ajax_submit(${vo2.category_id});">
     			      ${vo2.categoryname}
@@ -195,7 +194,7 @@ h2 {
                   </a>
                   <!-- Sub menu -->
                          <ul>
-                           <c:forEach items = "${smallcategory}" var="vo3" begin="14" end="17">
+                           <c:forEach items = "${sort}" var="vo3" begin="14" end="17">
             			 <li>
                           <a href="#" style ="font-size: 18px;" onclick="fire_ajax_submit(${vo3.category_id});">
                           ${vo3.categoryname}
@@ -216,7 +215,7 @@ h2 {
                          </a>
                          <!-- Sub menu -->
                          <ul>
-                            <c:forEach items = "${smallcategory}" var="vo4" begin="18" end="24">
+                            <c:forEach items = "${sort}" var="vo4" begin="18" end="24">
 						    <li>
 						    <a href="#" style ="font-size: 18px;" onclick="fire_ajax_submit(${vo4.category_id});">
 						    ${vo4.categoryname}
@@ -237,7 +236,7 @@ h2 {
                          </a>
                          <!-- Sub menu -->
                          <ul>
-                           <c:forEach items = "${smallcategory}" var="vo5" begin="25" end="29">
+                           <c:forEach items = "${sort}" var="vo5" begin="25" end="29">
              			   <li>
              			   <a href="#" style ="font-size: 18px;" onclick="fire_ajax_submit(${vo5.category_id});">
              			   ${vo5.categoryname}
@@ -258,7 +257,7 @@ h2 {
                          </a>
                          <!-- Sub menu -->
                          <ul>
-                            <c:forEach items = "${smallcategory}" var="vo6" begin="30" end="36">
+                            <c:forEach items = "${sort}" var="vo6" begin="30" end="36">
 						    <li>
 						    <a href="#" style ="font-size: 18px;" onclick="fire_ajax_submit(${vo6.category_id});">
 						    ${vo6.categoryname}
@@ -315,8 +314,8 @@ h2 {
 						</td>
 					</tr>
 				</table>
-
-				<c:if test="${pageMaker.prev}">
+	</div>
+				<%-- <c:if test="${pageMaker.prev}">
 					<a href="goods${pageMaker.makeQuery(pageMaker.startPage - 1) }">«</a>
 				</c:if>
 
@@ -329,9 +328,9 @@ h2 {
 				<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
 					<a href="goods${pageMaker.makeQuery(pageMaker.endPage +1) }"> »
 					</a>
-				</c:if>
+				</c:if> --%>
 				<br>
-</div></div>
+</div></div></div></div>
 
  <!-- Footer -->
    <%@ include file="/WEB-INF/views/include/footer.jsp"%>

@@ -55,38 +55,39 @@
 		});
 	});
  
-  	function fire_ajax_submit(id) {
-    	console.log(id);
+	function fire_ajax_submit(id) {
+
     	var category = {}
-    	category["bar"] = $("#bar").val();
     	
-    	var url = "/goods/category"+id;
-    	
-    	
+    	category["category"] = $("#category").val();
+
+    	var url = "/goods/category/"+id;
+
     $.ajax({
+    	
         type: "POST",
         contentType: 'application/json; charset=utf-8',
   		url: url,
-        data: JSON.stringify(bar), 
+     	data: JSON.stringify(category), 
         cache : false,
         
+    
         success: function (data) { 
-        	
           console.log("SUCCESS : ", data);
        
           $('#input').html(data);
-		  console.log(id);
-
+	
+ 
         },
+        
         error: function (e) {
       console.log("ERROR : ", e);
-  
+      
         }
     });
 
 }
-    
-
+  	
 </script>
 
 <style>
@@ -109,112 +110,137 @@ h2 {
 <body>
 
 
-	<%@ include file="/WEB-INF/views/include/header.jsp"%>
 
+ 
 	<div class="container">
-		<!--가져올 부분-->
-		<div id="input">
-			<div class="row">
-				<div class="col-lg-3">
-					<div class="filter-widget"></div>
-					 
-					<!-- 카테고리 부트스트랩 start -->
-					<div class="sidebar" style="display: block;">
-						<ul class="nav">
-							<li class="submenu">
-								<!-- 고양이 --> <a href="#" style="font-size: 25px;"> <i
-									class="fas fa-cat"></i>${bar[0].categoryname}<span
-									class="caret pull-right"></span>
-							</a> <!-- Sub menu -->
-								<ul>
-									<c:forEach items="${sort}" var="vo" begin="0" end="6">
-										<li><a href="#" style="font-size: 18px;"
-											onclick="fire_ajax_submit(${vo.category_id});">
-												${vo.categoryname} </a></li>
-									</c:forEach>
-								</ul>
-							</li>
+		
+	<div class="row">
+		<div class="col-lg-3">
+			<div class="filter-widget"></div>
+
+			<br>
+			<br>
+			<!-- 카테고리 부트스트랩 start -->
+
+			<div class="sidebar" style="display: block;">
+				<ul class="nav">
+					<li class="submenu">
+						<!-- 고양이 --> <a href="#" style="font-size: 25px;"> <i
+							class="fas fa-cat"></i>${category[0].categoryname}<span
+							class="caret pull-right"></span>
+					</a> <!-- Sub menu -->
+						<ul>
+							<c:forEach items="${sort}" var="vo" begin="0" end="6">
+
+
+								<li><a href="#" style="font-size: 18px;"
+									onclick="fire_ajax_submit(${vo.category_id});">${vo.categoryname}</a></li>
+
+
+							</c:forEach>
 						</ul>
+					</li>
+				</ul>
+
+
+				<!-- 강아지 -->
+				<ul class="nav">
+					<li class="submenu"><a href="#" style="font-size: 25px;">
+
+							<i class="fas fa-dog"></i>${category[1].categoryname}<span
+							class="caret pull-right"></span>
+					</a> <!-- Sub menu -->
+						<ul>
+							<c:forEach items="${sort}" var="vo2" begin="7" end="13">
+
+
+								<li><a href="#" style="font-size: 18px;"
+									onclick="fire_ajax_submit(${vo2.category_id});">${vo2.categoryname}</a></li>
 
 
 
-						<!-- 강아지 -->
-						<ul class="nav">
-							<li class="submenu"><a href="#" style="font-size: 25px;">
-									<i class="fas fa-dog"></i>${bar[1].categoryname}<span
-									class="caret pull-right"></span>
-							</a> <!-- Sub menu -->
-								<ul>
-									<c:forEach items="${sort}" var="vo2" begin="7" end="13">
-										<li><a href="#" style="font-size: 18px;"
-											onclick="fire_ajax_submit(${vo2.category_id});">
-												${vo2.categoryname} </a></li>
-									</c:forEach>
-								</ul></li>
-						</ul>
+							</c:forEach>
+						</ul></li>
+				</ul>
 
-						<!-- 조류 -->
-						<ul class="nav">
-							<li class="submenu"><a href="#" style="font-size: 25px;">
-									<i class="fas fa-frog"></i>${bar[2].categoryname}<span
-									class="caret pull-right"></span>
-							</a> <!-- Sub menu -->
-								<ul>
-									<c:forEach items="${sort}" var="vo3" begin="14" end="17">
-										<li><a href="#" style="font-size: 18px;"
-											onclick="fire_ajax_submit(${vo3.category_id});">
-												${vo3.categoryname} </a></li>
-									</c:forEach>
-								</ul></li>
-						</ul>
+				<!-- 조류 -->
+				<ul class="nav">
+					<li class="submenu"><a href="#" style="font-size: 25px;">
+							<i class="fas fa-frog"></i>${category[2].categoryname}<span
+							class="caret pull-right"></span>
+					</a> <!-- Sub menu -->
+						<ul>
+							<c:forEach items="${sort}" var="vo3" begin="14" end="17">
 
-						<!-- 어류 -->
-						<ul class="nav">
-							<li class="submenu"><a href="#" style="font-size: 25px;">
-									<i class="fas fa-fish"></i>${bar[3].categoryname}<span
-									class="caret pull-right"></span>
-							</a> <!-- Sub menu -->
-								<ul>
-									<c:forEach items="${sort}" var="vo4" begin="18" end="24">
-										<li><a href="#" style="font-size: 18px;"
-											onclick="fire_ajax_submit(${vo4.category_id});">
-												${vo4.categoryname} </a></li>
-									</c:forEach>
-								</ul></li>
-						</ul>
 
-						<!-- 파충류 -->
-						<ul class="nav">
-							<li class="submenu"><a href="#" style="font-size: 25px;">
-									<i class="fas fa-crow"></i>${bar[4].categoryname}<span
-									class="caret pull-right"></span>
-							</a> <!-- Sub menu -->
-								<ul>
-									<c:forEach items="${sort}" var="vo5" begin="25" end="29">
-										<li><a href="#" style="font-size: 18px;"
-											onclick="fire_ajax_submit(${vo5.category_id});">
-												${vo5.categoryname} </a></li>
-									</c:forEach>
-								</ul></li>
-						</ul>
+								<li><a href="#" style="font-size: 18px;"
+									onclick="fire_ajax_submit(${vo3.category_id});">${vo3.categoryname}</a></li>
 
-						<!-- 기타 -->
-						<ul class="nav">
-							<li class="submenu"><a href="#" style="font-size: 25px;">
-									<i class="fas fa-paw"></i>${bar[5].categoryname}<span
-									class="caret pull-right"></span>
-							</a> <!-- Sub menu -->
-								<ul>
-									<c:forEach items="${sort}" var="vo6" begin="30" end="36">
-										<li><a href="#" style="font-size: 18px;"
-											onclick="fire_ajax_submit(${vo6.category_id});">
-												${vo6.categoryname} </a></li>
-									</c:forEach>
-								</ul></li>
-						</ul>
-					</div>
 
-					<!--  카테고리 부트스트랩 end -->
+							</c:forEach>
+						</ul></li>
+				</ul>
+
+				<!-- 어류 -->
+				<ul class="nav">
+					<li class="submenu"><a href="#" style="font-size: 25px;">
+							<i class="fas fa-fish"></i>${category[3].categoryname}<span
+							class="caret pull-right"></span>
+					</a> <!-- Sub menu -->
+						<ul>
+							<c:forEach items="${sort}" var="vo4" begin="18" end="24">
+
+
+								<li><a href="#" style="font-size: 18px;"
+									onclick="fire_ajax_submit(${vo4.category_id});">${vo4.categoryname}</a></li>
+
+
+							</c:forEach>
+						</ul></li>
+				</ul>
+
+				<!-- 파충류 -->
+				<ul class="nav">
+					<li class="submenu"><a href="#" style="font-size: 25px;">
+							<i class="fas fa-crow"></i>${category[4].categoryname}<span
+							class="caret pull-right"></span>
+					</a> <!-- Sub menu -->
+						<ul>
+							<c:forEach items="${sort}" var="vo5" begin="25" end="29">
+
+
+								<li><a href="#" style="font-size: 18px;"
+									onclick="fire_ajax_submit(${vo5.category_id});">${vo5.categoryname}</a></li>
+
+
+							</c:forEach>
+						</ul></li>
+				</ul>
+
+				<!-- 기타 -->
+				<ul class="nav">
+					<li class="submenu"><a href="#" style="font-size: 25px;">
+							<i class="fas fa-paw"></i>${category[5].categoryname}<span
+							class="caret pull-right"></span>
+					</a> <!-- Sub menu -->
+						<ul>
+							<c:forEach items="${sort}" var="vo6" begin="30" end="36">
+
+
+								<li><a href="#" style="font-size: 18px;"
+									onclick="fire_ajax_submit(${vo6.category_id});">${vo6.categoryname}</a></li>
+
+
+							</c:forEach>
+						</ul></li>
+				</ul>
+
+			</div>
+
+
+
+
+			<!--  카테고리 부트스트랩 end -->
 
 
 				</div>
@@ -251,7 +277,7 @@ h2 {
 					</tr>
 				</table>
 
-				<c:if test="${pageMaker.prev}">
+				<%-- <c:if test="${pageMaker.prev}">
 					<a href="goods/category/${pageMaker.makeQuery(pageMaker.startPage - 1) }">«</a>
 				</c:if>
 
@@ -264,12 +290,11 @@ h2 {
 				<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
 					<a href="goods/category/${pageMaker.makeQuery(pageMaker.endPage +1) }"> »
 					</a>
-				</c:if>
+				</c:if> --%>
 				<br>
-</div>
+</div></div></div>
 
- <!-- Footer -->
-   <%@ include file="/WEB-INF/views/include/footer.jsp"%>
+ 
 
    <!-- Bootstrap core JavaScript -->
    <script src="/resources/store/vendor/jquery/jquery.min.js"></script>

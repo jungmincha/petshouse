@@ -162,40 +162,34 @@
 	 
  
    	      <![CDATA[      
-      SELECT * FROM (
-              SELECT ROWNUM AS RNUM, A.* FROM (
+     
                  select g.goods_id, g.goodsname, g.price, s.stockname 
                  from  goods g , stock s
                where g.stock_id = s.stock_id
               order by goods_id 
-             ) A WHERE ROWNUM <= #{pageNum} * #{amount}
-         ) WHERE RNUM > (#{pageNum}-1) * #{amount}  
+         
       ]]>
 	</select>
 
-	<select id="getTotalCount" resultType="int">
+	<!-- <select id="getTotalCount" resultType="int">
 	  <![CDATA[
 	           select count(*) from goods g , stock s
       where g.stock_id = s.stock_id
     
 	   ]]>
-	</select>
+	</select> -->
 
 		<select id="getList2" resultMap="goodsvo"> 
-	 
- 
-   	      <![CDATA[      
-     	 SELECT * FROM (
-              SELECT ROWNUM AS RNUM, A.* FROM (
-                 select g.goods_id, g.goodsname, g.price, s.stockname 
+	   <![CDATA[      
+     	  
+                 select g.goods_id, g.goodsname, g.price, s.stockname
                  from  goods g , stock s 
                where g.stock_id = s.stock_id, g.category_id=#{g.category_id} 
               order by goods_id 
-             ) A WHERE ROWNUM <= #{pageNum} * #{amount}
-         ) WHERE RNUM > (#{pageNum}-1) * #{amount}  
+     
       ]]>
 	</select>
-	<select id="getSidebar" resultType="CategoryVO"> 
+	<select id="getCategory_goods" resultType="CategoryVO"> 
      <![CDATA[ 
         select level, CATEGORY_ID, CATEGORYNAME, CODE from category
         start with CODE is null connect by prior CATEGORY_ID = CODE and CATEGORY_ID<7

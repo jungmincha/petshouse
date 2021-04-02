@@ -39,7 +39,7 @@ public class CategoryController {
 
 	// 카테고리 메인페이지
 	@GetMapping("/home")
-	public ModelAndView categoryhome(String categoryArrays, GoodsVO goodsvo, ModelAndView mav, CategoryVO categoryvo , BoardVO boardvo) throws Exception {
+	public ModelAndView categoryhome(GoodsVO goodsvo, ModelAndView mav, CategoryVO categoryvo , BoardVO boardvo) throws Exception {
 
 		/* mav.addObject("goods", service.getGoods()); */
 		

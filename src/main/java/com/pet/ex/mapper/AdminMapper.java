@@ -21,9 +21,10 @@ public interface AdminMapper {
 
 	public BoardVO getRateone(int goods_id);
 
-	public List<GoodsVO> getList(Criteria cri);
-	public int getTotalCount(Criteria cri);
-
+	public List<GoodsVO> getList( );
+	/*
+	 * public int getTotalCount(Criteria cri);
+	 */
 	
 	public void remove_goodsBoard(int goods_id);
 	
@@ -57,7 +58,7 @@ public interface AdminMapper {
 
 	public List<CategoryVO> getSort(CategoryVO categoryVO);
 
-	public List<GoodsVO>  getList2(Criteria cri);
+	public List<GoodsVO>  getList2(int category_id);
  
 	
 }
