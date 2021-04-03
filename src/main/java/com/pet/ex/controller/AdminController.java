@@ -1,7 +1,3 @@
-
-
-
-
 package com.pet.ex.controller;
 
 import java.util.List;
@@ -14,10 +10,10 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
+ 
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+ 
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
@@ -44,23 +40,23 @@ public class AdminController {
 	private AdminService service;
 
 	@GetMapping("/goods") // 상품리스트조회
-	public ModelAndView list(String categoryArrays,   GoodsVO goodsVO, CategoryVO categoryVO, ModelAndView mav) throws Exception {
+	public ModelAndView list(String categoryArrays, Criteria cri,  GoodsVO goodsVO, CategoryVO categoryVO, ModelAndView mav) throws Exception {
 
 		
-		mav.addObject("list", service.getList( ));
+		mav.addObject("list", service.getList(cri));
 
 		mav.addObject("category", service.getCategory_goods());
 		mav.addObject("sort", service.getSort(categoryVO));
-		/*
-		 * int total = service.getTotal(cri); log.info("total" + total);
-		 * mav.addObject("pageMaker", new PageVO(cri, total));
-		 */
+		  
+		int total = service.getTotal(cri); log.info("total" + total);
+		mav.addObject("pageMaker", new PageVO(cri, total));
+		 
 		mav.setViewName("admin/goods_list");
 		return mav;
 	}
 	
 	@PostMapping("/goods/category/{category_id}") // 상품리스트 카테고리별 조회
-	public ModelAndView goodsNcategory(@RequestBody GoodsVO goodsvo,  CategoryVO categoryVO, ModelAndView mav) {
+	public ModelAndView goodsNcategory(@RequestBody GoodsVO goodsvo, Criteria cri, CategoryVO categoryVO, ModelAndView mav) {
 
 		mav.setViewName("admin/goods_list_category");
 		mav.addObject("list2", service.getList2(categoryVO.getCategory_id()));
@@ -69,10 +65,11 @@ public class AdminController {
 		mav.addObject("sort", service.getSort(categoryVO));
 		
 		
-		/*
-		 * int total = service.getTotal(cri); log.info("total" + total);
-		 * mav.addObject("pageMaker", new PageVO(cri, total));
-		 */
+		 
+		int total = service.getTotal(cri);
+		log.info("total" + total);
+		mav.addObject("pageMaker", new PageVO(cri, total));
+		 
 		return mav;
 	}
 	

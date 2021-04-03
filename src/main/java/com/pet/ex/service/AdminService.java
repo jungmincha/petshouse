@@ -19,10 +19,10 @@ public interface AdminService {
 
 	public BoardVO getRateone(int goods_id);
 
-	public List<GoodsVO> getList();	// 상품 목록 조회
-	/*
-	 * public int getTotal(Criteria cri); // 상품 갯수
-	 */
+	public List<GoodsVO> getList(Criteria cri);	// 상품 목록 조회
+	 
+	public int getTotal(Criteria cri); // 상품 갯수
+	 
 	public void remove_goods(int goods_id);
 
 	public List<CategoryVO> getCategory();
@@ -52,7 +52,6 @@ public interface AdminService {
 	public List<CategoryVO> getSort(CategoryVO categoryVO);
 
 	public List<GoodsVO> getList2(int category_id);
-
  
 	 
 

@@ -1,41 +1,43 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<!DOCTYPE html >
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
+<!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="">
-<meta name="author" content="">
-<script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
-<title>상품상세조회</title>
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-	type="text/css" />
 
-<!-- jquery cdn -->
-
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<!-- Bootstrap -->
-<link href="/resources/sidemenu/bootstrap/css/bootstrap.min.css"
-	rel="stylesheet">
-<!-- styles -->
-<link href="/resources/sidemenu/css/styles.css" rel="stylesheet">
-<script
-	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<meta charset="UTF-8">
+<meta name="description" content="Fashi Template">
+<meta name="keywords" content="Fashi, unica, creative, html">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Insert title here</title>
+<!-- Google Font -->
 <link
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
+	href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap"
 	rel="stylesheet">
-	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="/resources/sidemenu/https://code.jquery.com/jquery.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="/resources/sidemenu/bootstrap/js/bootstrap.min.js"></script>
-<script src="/resources/sidemenu/js/custom.js"></script>
+
+<!-- Css Styles -->
+<link rel="stylesheet" href="/resources/css/bootstrap.min.css"
+	type="text/css">
+<link rel="stylesheet" href="/resources/css/font-awesome.min.css"
+	type="text/css">
+<link rel="stylesheet" href="/resources/css/themify-icons.css"
+	type="text/css">
+<link rel="stylesheet" href="/resources/css/elegant-icons.css"
+	type="text/css">
+<link rel="stylesheet" href="/resources/css/owl.carousel.min.css"
+	type="text/css">
+<link rel="stylesheet" href="/resources/css/nice-select.css"
+	type="text/css">
+<link rel="stylesheet" href="/resources/css/jquery-ui.min.css"
+	type="text/css">
+<link rel="stylesheet" href="/resources/css/slicknav.min.css"
+	type="text/css">
+<link rel="stylesheet" href="/resources/css/style.css" type="text/css">
 <script type="text/javascript">
 
 	$(document).ready(function() {
@@ -105,12 +107,13 @@
 <style>
 
 .table2 {
-	display: table;
-	margin:  auto;
-	width: 700px;
-	font-size: 25px;
-	font-stretch: extra-condensed;
-	 
+   display: table;
+   margin:  30px 30px 30px 30px;
+   width: 700px;
+   font-size: 15px;
+   font-stretch: extra-condensed;
+   text-align: center;
+    
 }
 
 h2 {
@@ -120,18 +123,23 @@ h2 {
 </head>
 
 
-<body>
+<body >
+	<div class="container">
+	  <div class="row">
+	 <div class="col-lg-2">
+  	<%@ include file="/WEB-INF/views/include/category.jsp"%>  
+  	</div>
 
-
- 	
-	
-	<div class="row">
-		<div class="col-lg-3">
-		
+<%--  	
+	  <div class="row">
+		<div class="col-lg-2">
+	 
     <div class="sidebar" style="display: block;" >
                 <ul class="nav">
                    <li class="submenu">
                 
+                
+                	<br><br>
                       <!-- 고양이 -->
                      <a href="#" style ="font-size: 25px;"> 
                		 <i class="fas fa-cat"></i>${category[0].categoryname}<span class="caret pull-right"></span>
@@ -265,17 +273,15 @@ h2 {
             
          </div>
   
-
  
+  --%>
 
 			<!--  카테고리 부트스트랩 end -->
-
-,                                                                                              
-				
-				<div class="col-lg-20">
-					  
+ 			
+				  <div class="col-lg-20">
+					     <a class="btn btn-warning float-right" href="/admin/goods/register_view">상품등록</a>
 				<table class="table2 table-hover" border="1">
-					<h2>상품 관리</h2></div>
+					<h2>상품 관리</h2> 
 					<tr>
 						<th>상품번호</th>
 						<th>상품명</th>
@@ -296,33 +302,33 @@ h2 {
 								href="/admin/goods/${goods.goods_id}">삭제</a></td>
 						</tr>
 					</c:forEach>
-					<tr>
-
-						<td colspan="5" style="background-color: #e7ab3c"><input
-							type="button" class="btn btn-block"
-							style="background-color: #e7ab3c" value="상품등록"
-							onClick="location.href='${pageContext.request.contextPath}/admin/goods/register_view'">
-						</td>
-					</tr>
+				 
 				</table>
-
-				<%-- <c:if test="${pageMaker.prev}">
-					<a href="goods/category/${pageMaker.makeQuery(pageMaker.startPage - 1) }">«</a>
-				</c:if>
-
-				<c:forEach begin="${pageMaker.startPage }"
-					end="${pageMaker.endPage }" var="idx">
-					<c:out value="${pageMaker.cri.pageNum == idx?'':''}" />
-					<a href="goods/category/${pageMaker.makeQuery(idx)}">${idx}</a>
-				</c:forEach>
-
-				<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-					<a href="goods/category/${pageMaker.makeQuery(pageMaker.endPage +1) }"> »
-					</a>
-				</c:if> --%>
-				<br>
-</div> </div></div></div>
  
+				<br>
+</div> 
+</div> 
+</div> 
+
+
+
+
 </body>
+
+
+
+
+
+<!-- Js Plugins -->
+<script src="/resources/js/jquery-3.3.1.min.js"></script>
+<script src="/resources/js/bootstrap.min.js"></script>
+<script src="/resources/js/jquery-ui.min.js"></script>
+<script src="/resources/js/jquery.countdown.min.js"></script>
+<script src="/resources/js/jquery.nice-select.min.js"></script>
+<script src="/resources/js/jquery.zoom.min.js"></script>
+<script src="/resources/js/jquery.dd.min.js"></script>
+<script src="/resources/js/jquery.slicknav.js"></script>
+<script src="/resources/js/owl.carousel.min.js"></script>
+<script src="/resources/js/main.js"></script>
 
 </html>

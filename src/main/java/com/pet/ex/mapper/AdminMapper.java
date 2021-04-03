@@ -11,26 +11,21 @@ import com.pet.ex.vo.MemberVO;
 import com.pet.ex.vo.StockVO;
 
 import com.pet.ex.page.Criteria;
- 
+
 @Mapper
 public interface AdminMapper {
-
-	 
 
 	public BoardVO getGoods(int board_id);
 
 	public BoardVO getRateone(int goods_id);
 
-	public List<GoodsVO> getList( );
-	/*
-	 * public int getTotalCount(Criteria cri);
-	 */
-	
+	public List<GoodsVO> getList(Criteria cri);
+
+	public int getTotalCount(Criteria cri);
+
 	public void remove_goodsBoard(int goods_id);
-	
+
 	public void remove_goods(int goods_id);
-	
-	
 
 	public List<StockVO> getStock();
 
@@ -43,7 +38,7 @@ public interface AdminMapper {
 	public void modifyGoods(GoodsVO goodsVO);
 
 	public BoardVO getgoodsInfo(int board_id);
- 
+
 	public GoodsVO getInfo(int goods_id);
 
 	public List<MemberVO> getMemberlist(Criteria cri);
@@ -53,12 +48,11 @@ public interface AdminMapper {
 	public MemberVO getMemberdetail(String member_id);
 
 	public void memberDelete(String member_id);
-	
+
 	public List<CategoryVO> getCategory_goods();
 
 	public List<CategoryVO> getSort(CategoryVO categoryVO);
 
-	public List<GoodsVO>  getList2(int category_id);
- 
-	
+	public List<GoodsVO> getList2(int category_id);
+
 }

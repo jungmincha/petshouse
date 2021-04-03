@@ -22,7 +22,7 @@ public class AdminServiceImpl implements AdminService {
 	public AdminMapper mapper;
 
 	@Override
-	public void input(GoodsVO goodsVO) {
+	public void input(GoodsVO goodsVO) {		// 상품입력
 
 		log.info("inpput");
 		log.info("" + goodsVO);
@@ -32,7 +32,7 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public BoardVO getGoods(int board_id) {
+	public BoardVO getGoods(int board_id) {		//
 		log.info("getGoods");
 		return mapper.getGoods(board_id);
 	}
@@ -41,32 +41,28 @@ public class AdminServiceImpl implements AdminService {
 	public BoardVO getRateone(int goods_id) {
 
 		return mapper.getRateone(goods_id);
-	} 
-
-	@Override
-	public List<GoodsVO> getList() {		// 상품 목록 + 페이징처리
-		log.info("List"  );
-	
-		return mapper.getList();
 	}
 
-	
-	/*
-	 * @Override public int getTotal(Criteria cri) { // 상품 갯수
-	 * log.info("get total count");
-	 * 
-	 * return mapper.getTotalCount(cri); }
-	 */
+	@Override
+	public List<GoodsVO> getList(Criteria cri) { // 상품 목록 + 페이징처리
+		log.info("List");
+		cri.setAmount(15);
+		return mapper.getList(cri);
+	}
 
-	
+	@Override
+	public int getTotal(Criteria cri) { // 상품 갯수
+		log.info("get total count");
+
+		return mapper.getTotalCount(cri);
+	}
+
 	@Override
 	public void remove_goods(int goods_id) {
 		log.info("Board deleted");
 		mapper.remove_goodsBoard(goods_id);
 		mapper.remove_goods(goods_id);
 	}
-	
-	 
 
 	@Override
 	public List<CategoryVO> getCategory() {
@@ -98,11 +94,34 @@ public class AdminServiceImpl implements AdminService {
 		return mapper.getgoodsInfo(board_id);
 	}
 
- 
 	public GoodsVO getInfo(int goods_id) {
-	
+
 		return mapper.getInfo(goods_id);
 	}
+	
+	@Override
+	public List<CategoryVO> getCategory_goods() {
+
+		return mapper.getCategory_goods();
+	}
+
+	@Override
+	public List<CategoryVO> getSort(CategoryVO categoryVO) {
+
+		return mapper.getSort(categoryVO);
+	}
+
+	@Override
+	public List<GoodsVO> getList2(int category_id) {
+		/*
+		 * log.info("List" + cri); cri.setAmount(20);
+		 */
+		return mapper.getList2(category_id);
+	}
+	
+	
+	
+	/* 회원관리 */
 
 	@Override
 	public List<MemberVO> getMemberlist(Criteria cri) {
@@ -128,27 +147,7 @@ public class AdminServiceImpl implements AdminService {
 		log.info("memberDelete");
 		mapper.memberDelete(member_id);
 	}
-	@Override
-	public List<CategoryVO> getCategory_goods() {
 
-		return mapper.getCategory_goods();
-	}
 
-	@Override
-	public List<CategoryVO> getSort(CategoryVO categoryVO) {
-		
-		return mapper.getSort(categoryVO);
-	}
 
-	@Override
-	public List<GoodsVO> getList2(int category_id) {
-		/*
-		 * log.info("List" + cri); cri.setAmount(20);
-		 */
-		return mapper.getList2(category_id);
-	}
-
- 
-
- 
 }

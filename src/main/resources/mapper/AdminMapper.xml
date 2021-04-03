@@ -162,22 +162,24 @@
 	 
  
    	      <![CDATA[      
-     
-                 select g.goods_id, g.goodsname, g.price, s.stockname 
-                 from  goods g , stock s
-               where g.stock_id = s.stock_id
-              order by goods_id 
+      		select * from (
+   					 select rownum as rnum, a.* 
+       		  				from ( 	
+                 				select g.goods_id, g.goodsname, g.price, s.stockname 
+                				 from  goods g , stock s where g.stock_id = s.stock_id
+             				 order by goods_id    
+             				 )a where rownum <= #{pageNum} * #{amount}
+   						)where rnum > (#{pageNum}-1) * #{amount} 
          
       ]]>
 	</select>
 
-	<!-- <select id="getTotalCount" resultType="int">
+	  <select id="getTotalCount" resultType="int">
 	  <![CDATA[
-	           select count(*) from goods g , stock s
-      where g.stock_id = s.stock_id
+	           select count(*) from goods 
     
 	   ]]>
-	</select> -->
+	</select>  
 
 		<select id="getList2" resultMap="goodsvo"> 
 	   <![CDATA[      
