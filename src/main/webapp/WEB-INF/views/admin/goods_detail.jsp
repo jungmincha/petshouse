@@ -51,7 +51,7 @@
 		}
 		var goods = new Object();
 		goods.board_id = '${goods.board_id}';
-		goods.count = parseInt($("#count").val());
+		goods.amount = parseInt($("#amount").val());
 		console.log(goods);
 		cart.push(goods);
 
@@ -330,7 +330,7 @@ h2 {
 									</div>
 									<div class="quantity">
 										<div class="pro-qty">
-											<span class="dec qtybtn">-</span> <input id="count" type="text"
+											<span class="dec qtybtn">-</span> <input id="amount" type="text"
 												value="1"> <span class="inc qtybtn">+</span>
 										</div>
 										<div onclick="inputCart()" class="primary-btn pd-cart"
