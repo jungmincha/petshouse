@@ -22,12 +22,14 @@
 <script
 	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="/resources/sidemenu/https://code.jquery.com/jquery.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="/resources/sidemenu/bootstrap/js/bootstrap.min.js"></script>
 <script src="/resources/sidemenu/js/custom.js"></script>
-<script src="/resources/sidemenu/https://code.jquery.com/jquery.js"></script>
-
+  
 <script type="text/javascript">
-
+	//delete ajax
 	$(document).ready(function() {
 		$('.a-delete').click(function(event) {
 			
@@ -54,7 +56,7 @@
 
 		});
 	});
- 
+ 	// 카테고리 ajax
 	function fire_ajax_submit(id) {
     	console.log(id);
     	var category = {}
@@ -86,13 +88,9 @@
 
 }
   	
-  	function formChange(obj){
-  		
-  
-  			obj.submit();
-  			console.log(obj);  
-  		
-  	}
+  	
+  	
+ 
   	
 
 </script>
@@ -123,22 +121,21 @@ h2 {
    <!-- Product Shop Section Begin -->
 
      
-
-   <div class ="container">
-   <!--가져올 부분-->
+<div class="container">
+ 
+		
+		
 	<div id = "input">
-      <div class="row">
-         <div class="col-lg-3">
-            <div class="filter-widget">
-            </div>
- 		    <br><br>
- 		   <!-- 카테고리 부트스트랩 start -->
-           <div class="sidebar" style="display: block;" >
+		
+	<div class="row">
+		<div class="col-lg-3">
+		
+    <div class="sidebar" style="display: block;" >
                 <ul class="nav">
                    <li class="submenu">
                  
    
-                 
+                 	<h2>카테고리</h2>
                 
                       <!-- 고양이 -->
                      <a href="#" style ="font-size: 25px;"> 
@@ -148,15 +145,12 @@ h2 {
                      <!-- Sub menu -->
                      <ul>
                        <c:forEach items = "${sort}" var="vo" begin="0" end="6">
- 					
-                       
+   
                       <li>
                       <a href="#"  style ="font-size: 18px;" onclick="fire_ajax_submit(${vo.category_id});">
                       ${vo.categoryname}
                       </a>
-                      </li>
-                       
-                          
+                      </li>                       
                           </c:forEach>
                       </ul>    
                       </li>
@@ -275,13 +269,14 @@ h2 {
 
             
          </div>
-         
-         
+  
 
-         <div class="col-lg-9">
-            <div class="row">
-            
-            
+ 
+
+			<!--  카테고리 부트스트랩 end -->	
+				<div class="col-lg-20">
+ 	 
+ 
          
 				<table class="table2 table-hover" border="1">
 					<h2>상품 관리</h2>
@@ -330,25 +325,12 @@ h2 {
 					</a>
 				</c:if> --%>
 				<br>
-</div></div></div></div>
+</div></div> </div>
 
  <!-- Footer -->
    <%@ include file="/WEB-INF/views/include/footer.jsp"%>
 
-   <!-- Bootstrap core JavaScript -->
-   <script src="/resources/store/vendor/jquery/jquery.min.js"></script>
-   <script
-      src="/resources/store/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-   <script src="/resources/js/jquery-3.3.1.min.js"></script>
-   <script src="/resources/js/bootstrap.min.js"></script>
-   <script src="/resources/js/jquery-ui.min.js"></script>
-   <script src="/resources/js/jquery.countdown.min.js"></script>
-   <script src="/resources/js/jquery.nice-select.min.js"></script>
-   <script src="/resources/js/jquery.zoom.min.js"></script>
-   <script src="/resources/js/jquery.dd.min.js"></script>
-   <script src="/resources/js/jquery.slicknav.js"></script>
-   <script src="/resources/js/owl.carousel.min.js"></script>
-   <script src="/resources/js/main.js"></script>
+
 </body>
 </html>
 

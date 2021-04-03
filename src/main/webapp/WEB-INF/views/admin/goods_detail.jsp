@@ -12,15 +12,22 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <title>상품조회</title>
-<!-- jquery cdn -->
-<!-- bootstrap css cdn -->
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-	type="text/css" />
-
-<!-- jquery cdn -->
+<!-- Bootstrap -->
+<link href="/resources/sidemenu/bootstrap/css/bootstrap.min.css"
+	rel="stylesheet">
+<!-- styles -->
+<link href="/resources/sidemenu/css/styles.css" rel="stylesheet">
 <script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
+	rel="stylesheet">
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="/resources/sidemenu/https://code.jquery.com/jquery.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="/resources/sidemenu/bootstrap/js/bootstrap.min.js"></script>
+<script src="/resources/sidemenu/js/custom.js"></script>
+  
 
 <script>
 	$(document).ready(function() {
