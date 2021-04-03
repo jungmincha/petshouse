@@ -172,7 +172,7 @@
 								<li><a href="/store/best/1">베스트상품</a></li>
 								<li><a href="/store/event">이벤트</a></li>
 							</ul></li>
-						<sec:authorize access="hasRole('ROLE_USER')">
+						
 							<li><a href="./shop.html">마이페이지</a>
 								<ul class="dropdown">
 									<li><a href="#">프로필</a></li>
@@ -180,15 +180,14 @@
 									<li><a href="#">포인트</a></li>
 									<li><a href="#">회원정보수정</a></li>
 								</ul></li>
-						</sec:authorize>
-						<sec:authorize access="hasRole('ROLE_ADMIN')">
+						
 							<li><a href="./shop.html">관리자페이지</a>
 								<ul class="dropdown">
 									<li><a href="/admin/goods">상품조회</a></li>
 									<li><a href="/admin/member_list">회원관리</a></li>
 									<li><a href="#">통계</a></li>
 								</ul></li>
-						</sec:authorize>
+						
 					</ul>
 				</nav>
 
