@@ -316,5 +316,15 @@
 	      delete from member where member_id=#{member_id}
 	   ]]>
 	</select>
+	
+	
+		<select id="getNboard"  resultMap= "goodsvo"> 
+     <![CDATA[ 
+    select goods_id, goodsname, TO_CHAR(price,'99,999') as price, pcolor, psize, cc.categoryname , c.categoryname as sortname, s.stockname from goods g, category c, category cc,stock s where g.stock_id=s.stock_id and c.category_id=g.category_id and c.code=cc.category_id 
+      and goods_id not in 
+		(select goods_id from board where boardtype_id='3') order by goods_id
+
+    ]]>
+	</select>
 
 </mapper>

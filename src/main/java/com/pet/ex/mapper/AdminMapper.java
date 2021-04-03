@@ -55,4 +55,6 @@ public interface AdminMapper {
 
 	public List<GoodsVO> getList2(int category_id);
 
+	public List<GoodsVO> getNboard();
+
 }

@@ -278,7 +278,7 @@ h2 {
             <div class="col-lg-20">
  
         
-              	
+              	 <a class="btn btn-warning float-right" href="/admin/goods/board_register">상품게시글등록</a>
                  <a class="btn btn-warning float-right" href="/admin/goods/register_view">상품등록</a>
                  
                  <table class="table2 table-hover " border="1">

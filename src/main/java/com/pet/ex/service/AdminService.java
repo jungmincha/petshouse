@@ -52,6 +52,8 @@ public interface AdminService {
 	public List<CategoryVO> getSort(CategoryVO categoryVO);
 
 	public List<GoodsVO> getList2(int category_id);
+
+	public  List<GoodsVO> getNboard();
  
 	 
 

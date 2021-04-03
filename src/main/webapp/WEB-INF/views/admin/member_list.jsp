@@ -103,12 +103,12 @@ h2 {
 			<th>삭제</th>
 		</tr>
 		<c:forEach items="${list}" var="member">
-			<tr>
+			<tr onClick="location.href='/admin/member_detail/${member.member_id}'"style="cursor: pointer;">
 				<td>${member.rnum}</td>
-				<td><a href="/admin/member_detail/${member.member_id}">${member.name}</a></td>
+				<td>${member.name}</td>
 				<td>${member.member_id}</td>
 				<td>${member.nickname}</td>
-				<td><a class="a-delete" data-bid='${member.member_id}'                      
+				<td onclick="event.cancelBubble=true;"><a class="a-delete" data-bid='${member.member_id}'                      
 					href="/admin/member_list/${member.member_id}">삭제</a></td>
 			</tr>
 		</c:forEach>

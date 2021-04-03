@@ -181,7 +181,7 @@
 									<li><a href="#">회원정보수정</a></li>
 								</ul></li>
 						
-							<li><a href="./shop.html">관리자페이지</a>
+							<li><a href="/admin/home">관리자페이지</a>
 								<ul class="dropdown">
 									<li><a href="/admin/goods">상품조회</a></li>
 									<li><a href="/admin/member_list">회원관리</a></li>

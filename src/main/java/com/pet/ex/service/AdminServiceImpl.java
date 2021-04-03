@@ -148,6 +148,12 @@ public class AdminServiceImpl implements AdminService {
 		mapper.memberDelete(member_id);
 	}
 
+	@Override
+	public List<GoodsVO> getNboard() {
+		log.info("getNboard");
+		return mapper.getNboard();
+	}
+
 
 
 }

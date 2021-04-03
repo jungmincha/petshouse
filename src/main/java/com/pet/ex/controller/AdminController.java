@@ -39,6 +39,15 @@ public class AdminController {
 	@Autowired
 	private AdminService service;
 
+	@GetMapping("/home") // 상품 게시글 등록창
+	public ModelAndView adminHome(ModelAndView mav) throws Exception {
+
+		log.info("adminHome");
+		mav.setViewName("admin/admin_home");
+
+		return mav;
+	}
+	
 	@GetMapping("/goods") // 상품리스트조회
 	public ModelAndView list(String categoryArrays, Criteria cri,  GoodsVO goodsVO, CategoryVO categoryVO, ModelAndView mav) throws Exception {
 
@@ -114,6 +123,17 @@ public class AdminController {
 
 		return mav;
 	}
+	
+	@GetMapping("/goods/board_register") // 상품 게시글 등록창
+	public ModelAndView board_register_view(BoardVO boardVO, GoodsVO goodsVO, ModelAndView mav) throws Exception {
+
+		log.info("goods_register_view");
+		mav.addObject("goods", service.getNboard());
+		mav.setViewName("admin/board_register");
+
+		return mav;
+	}
+
 
 	@PostMapping("/goods/register") // 상품등록
 	public ModelAndView goods_register(GoodsVO goodsVO, ModelAndView mav) throws Exception {
