@@ -52,7 +52,7 @@
 	</div>
 
 	<!-- Header Section Begin -->
-	<header class="header-section">
+	<header class="header-section fixed-top bg-white">
 
 		<div class="container">
 			<div class="inner-header">
@@ -129,14 +129,12 @@
 										<li class="heart-icon"><a href="/login/login"
 											class="login-panel"><i class="fa fa-user"></i>Login</a></li>
 									</sec:authorize>
-									<sec:authorize access="hasRole('ROLE_USER')">
+									<sec:authorize access="hasAnyRole('ROLE_USER','ROLE_ADMIN')">
 										<li class="heart-icon"><a href="/login/logout"
 											class="login-panel"><i class="fa fa-user"></i>로그아웃</a></li>
 
 									</sec:authorize>
-									<sec:authorize access="hasRole('ROLE_ADMIN')">
-
-									</sec:authorize>
+								
 
 								</div></li>
 
@@ -163,10 +161,10 @@
 						<li><a href="./shop.html">커뮤니티</a>
 							<ul class="dropdown">
 
-								<li><a href="#">SNS</a></li>
-								<li><a href="#">노하우</a></li>
-								<li><a href="#">질문과답변</a></li>
-								<li><a href="#">펫츠하우스</a></li>
+								<li><a href="/commu">SNS</a></li>
+								<li><a href="/commu/tips">노하우</a></li>
+								<li><a href="/commu/qna">질문과답변</a></li>
+								<li><a href="/commu">펫츠하우스</a></li>
 							</ul></li>
 						<li><a href="/store/home">STORE</a>
 							<ul class="dropdown">
@@ -174,37 +172,36 @@
 								<li><a href="/store/best/1">베스트상품</a></li>
 								<li><a href="/store/event">이벤트</a></li>
 							</ul></li>
-						<li><a href="./shop.html">마이페이지</a>
-							<ul class="dropdown">
-
-								<li><a href="#">프로필</a></li>
-								<li><a href="#">주문배송내역</a></li>
-								<li><a href="#">포인트</a></li>
-								<li><a href="#">회원정보수정</a></li>
-
-							</ul></li>
+						<sec:authorize access="hasRole('ROLE_USER')">
+							<li><a href="./shop.html">마이페이지</a>
+								<ul class="dropdown">
+									<li><a href="#">프로필</a></li>
+									<li><a href="#">주문배송내역</a></li>
+									<li><a href="#">포인트</a></li>
+									<li><a href="#">회원정보수정</a></li>
+								</ul></li>
+						</sec:authorize>
+						<sec:authorize access="hasRole('ROLE_ADMIN')">
+							<li><a href="./shop.html">관리자페이지</a>
+								<ul class="dropdown">
+									<li><a href="/admin/goods">상품조회</a></li>
+									<li><a href="/admin/member_list">회원관리</a></li>
+									<li><a href="#">통계</a></li>
+								</ul></li>
+						</sec:authorize>
 					</ul>
 				</nav>
 
 				<div id="mobile-menu-wrap"></div>
 			</div>
 		</div>
+
 	</header>
 	<!-- Header End -->
 
 
 	<!-- Breadcrumb Section Begin -->
-	<div class="breacrumb-section">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="breadcrumb-text">
-						<a href="#"><i class="fa fa-home"></i> Home</a> <span>Shop</span>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+
 	<!-- Js Plugins -->
 	<script src="/resources/js/jquery-3.3.1.min.js"></script>
 	<script src="/resources/js/bootstrap.min.js"></script>

@@ -184,7 +184,7 @@
      	  
                  select g.goods_id, g.goodsname, g.price, s.stockname
                  from  goods g , stock s 
-               where g.stock_id = s.stock_id, g.category_id=#{g.category_id} 
+               where g.stock_id = s.stock_id and g.category_id=#{g.category_id} 
               order by goods_id 
      
       ]]>

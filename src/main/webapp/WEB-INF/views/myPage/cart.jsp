@@ -42,45 +42,47 @@
 <title>Insert title here</title>
 
 </head>
-<body>
+<body style="padding-top:128px">
 
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
 
 	<!-- 쇼핑카트 섹션 -->
-	<section class="shopping-cart spad">
-		<div class="container">
+	<section class="shopping-cart spad" >
+		<div class="container" >
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="cart-table">
+						<form id="cart" name="form" method="post" action="/myPage/payPage">
+							<table>
+								<thead>
+									<tr>
+										<th>전체선택<br> <input type="checkbox" id="allCk">
+										</th>
+										<th>상품 이미지</th>
+										<th class="p-name">상품 이름</th>
+										<th>가격</th>
+										<th>수량</th>
+										<th>금액</th>
+										<th><i class="ti-close" onclick="allCartDelete()"  style='cursor:pointer' ></i></th>
+									</tr>
+								</thead>
+								<!-- 장바구니 목록 불러오기 -->
+								<tbody id="goods" >
+									<input type='hidden' name='board_id' />
+									<input type='hidden' name="sum" />
+								</tbody>
 
-						<table>
-							<thead>
-								<tr>
-									<th>전체선택<br> <input type="checkbox" id="allCk">
-									</th>
-									<th>상품 이미지</th>
-									<th class="p-name">상품 이름</th>
-									<th>가격</th>
-									<th>수량</th>
-									<th>금액</th>
-									<th><i class="ti-close"></i></th>
-								</tr>
-							</thead>
-							<!-- 장바구니 목록 불러오기 -->
-							<tbody id="goods">
-							</tbody>
-
-						</table>
-
+							</table>
+						</form>
 					</div>
 					<div class="row">
 						<div class="col-lg-12 offset-lg-12">
 							<div class="proceed-checkout">
 								<ul>
 
-									<li class="cart-total">Total <span class="total"></span></li>
+									<li class="cart-total">Total <span class="total">0원</span></li>
 								</ul>
-								<a href="#" class="proceed-btn">PROCEED TO CHECK OUT</a>
+								<a href="javascript:form.submit();" class="proceed-btn">PROCEED TO CHECK OUT</a>
 							</div>
 						</div>
 					</div>
@@ -115,16 +117,20 @@
 
 											var html = "";
 											for (var i = 1; i <= data.length; i++) {
-												var count;
+												var amount;
 												for (var j = 0; j < cartList.length; j++) {
 													if (cartList[j].board_id == data[i - 1].board_id) {
-														count = cartList[j].count;
+														amount = cartList[j].amount;
 													}
 												}
 
 												html += "<tr id='tr"+i+"'>"
-														+ "<td><input id='ck"+i+"' type='checkbox' value='"+data[i-1].board_id+"'></input></td>"
-														+ "<td class='cart-pic first-row'><img src='/resources/img/cart-page/product-1.jpg' alt=''></td>"
+														+ "<td><input onclick='summary()' id='ck"
+														+ i
+														+ "' type='checkbox' name='board_id' value='"
+														+ data[i - 1].board_id
+														+ "'></input></td>"
+														+ "<td class='cart-pic first-row'> <a href='/admin/goods_detail/"+data[i-1].board_id+"'> <img src='/resources/img/cart-page/product-1.jpg'> </a></td> "
 														+ "<td class='cart-title first-row'>"
 														+ "<h5>"
 														+ "<a href='/admin/goods_detail/"+data[i-1].board_id+"' style='color:#000000'>"
@@ -133,30 +139,30 @@
 														+ "</h5>"
 														+ "</td>"
 														+ "<td class='p-price first-row' style='color:#000000'>"
-														+ "<input style='border:none; text-align:right;' type='text' id='a"+i+"' value='"+data[i-1].goodsVO.price+"' readonly size='7px'>"
+														+ "<input style='border:none; text-align:right; ' type='text' id='a"+i+"' value='"+data[i-1].goodsVO.price+"' readonly size='7px' >"
 														+ "원</td>"
 														+ "<td class='qua-col first-row'>"
 														+ "	<div class='quantity'> <div class='pro-qty'> <span class='dec qtybtn' onclick='total"
 														+ i
 														+ "(-1)'>-</span> <input type='text' id='b"
 														+ i
-														+ "' value='"+count+"' readonly> <span class='inc qtybtn' onclick='total"
+														+ "' value='"+amount+"' readonly name='amount'> <span class='inc qtybtn' onclick='total"
 														+ i
 														+ "(1)'>+</span> </div> </div>"
 														+ "</td> <td class='total-price first-row' style='color:#000000'>"
-														+ "<input style='border:none; text-align:right;' type='text' id='x"
+														+ "<input style='border:none; text-align:right;' type='text' id='sum"
 														+ i
-														+ "' value='' readonly size='7px' class='value' >원</td>"
+														+ "' value='' readonly size='7px' name='sum' >원</td>"
 														+ "<td class='close-td first-row'><i class='ti-close' onclick='cartDelete("
 														+ i
 														+ ")' > <input id='c"+i+"' type='hidden' value='"+data[i-1].board_id+"'>'</i></td>"
 														+ "</tr>"
-												// 상품 별 합 계산() ready
+												// 상품 별 합 계산() readyssssss
 												html += "<script DEFER>"
 														+ "$(document).ready(function total"
 														+ i
 														+ "()"
-														+ "{ var num1 = document.getElementById('a"
+														+ "{  var num1 = document.getElementById('a"
 														+ i
 														+ "');"
 														+ "var num1s = num1.value; "
@@ -166,10 +172,10 @@
 														+ "var num2s = num2.value; var num2b = parseInt(num2s);"
 														+ "var num3t; var ops = 'mul'; "
 														+ " switch (ops) { "
-														+ " case 'plus': num3t = num1b + num2b; document.getElementById('x"
+														+ " case 'plus': num3t = num1b + num2b; document.getElementById('sum"
 														+ i
 														+ "').value = num3t; break;"
-														+ "case 'mul': num3t = num1b * num2b; document.getElementById('x"
+														+ "case 'mul': num3t = num1b * num2b; document.getElementById('sum"
 														+ i
 														+ "').value = num3t; break; } }); "
 														+ "</script"+">"
@@ -187,10 +193,10 @@
 														+ "var num2s = num2.value; var num2b = parseInt(num2s) + v;"
 														+ "var num3t; var ops = 'mul'; "
 														+ " switch (ops) { "
-														+ " case 'plus': num3t = num1b + num2b; document.getElementById('x"
+														+ " case 'plus': num3t = num1b + num2b; document.getElementById('sum"
 														+ i
 														+ "').value = num3t; break;"
-														+ "case 'mul': num3t = num1b * num2b; document.getElementById('x"
+														+ "case 'mul': num3t = num1b * num2b; document.getElementById('sum"
 														+ i
 														+ "').value = num3t;  break; } summary() }; "
 														+ "</script"+">"
@@ -198,22 +204,17 @@
 											}
 											// 카트 합계 게산
 											html += "<script DEFER>"
-													+ "$(document).ready(function() {var sum = 0; 	$('.value').each(function() {"
-													+ "sum += Number($(this).val()); }); $('.total').html(sum+'원'); });"
-													+ "function summary() {"
-													+ "var sum = 0;"
-													+ "$('.value').each(function() { sum += Number($(this).val()); });"
-													+ "$('.total').html(sum + '원'); 	};"
+													+ "function summary() { "
+													+ " var sum = 0; var count = this.form.board_id.length ;"
+													+ " for(var i=1; i < count; i++ ){"
+													+ "       if( this.form.board_id[i].checked == true ){ "
+													+ "	    sum += parseInt(this.form.sum[i].value); console.log(sum) }  }"
+													+ "      $('.total').html(sum + '원'); }"
 													+ "</script"+">"
 
 													// main.js
 													+ "<script DEFER src='/resources/js/main.js'> </script"+">"
 
-													// 카트 상품 삭제
-													+ "<script DEFER> function cartDelete(i) { "
-													+ " var tr = '#tr'+i; ; var trObj = $(tr).remove(); "
-													+ " cartList = JSON.parse(sessionStorage.getItem('cartList')); cartList.splice(i-1, 1); 	sessionStorage.setItem('cartList', JSON.stringify(cartList)); summary() };"
-													+ "</script"+">"
 											// tbody에 기록
 											$("#goods").append(html);
 
@@ -237,8 +238,27 @@
 
 			if (!checked)
 				$('input:checkbox').prop('checked', false);
+			summary();
+			
 
 		});
+		// 해당 상품 삭제
+		function cartDelete(i) {
+			var tr = '#tr' + i;
+			var trObj = $(tr).remove();
+			cartList = JSON.parse(sessionStorage.getItem('cartList'));
+			cartList.splice(i - 1, 1);
+			sessionStorage.setItem('cartList', JSON.stringify(cartList));
+			summary();
+		}
+		// 전체 카트 삭제
+		function allCartDelete(){
+			$('#goods').remove();
+			var cartList = new Array();
+			sessionStorage.setItem('cartList', JSON.stringify(cartList));
+			summary();
+		}
+	
 	</script>
 
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
