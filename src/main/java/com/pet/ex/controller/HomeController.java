@@ -10,7 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 public class HomeController {
 
-	// 홈페이지 이동
+	// 홈으로 이동
 	@RequestMapping("/home")
 	public ModelAndView home(ModelAndView mav) {
 		log.info("/");

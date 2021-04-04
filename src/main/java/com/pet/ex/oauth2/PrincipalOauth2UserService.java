@@ -7,7 +7,6 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
@@ -15,17 +14,14 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
 import com.pet.ex.mapper.LoginMapper;
-import com.pet.ex.security.handlers.MyAuthentication;
 import com.pet.ex.vo.MemberVO;
 
 @Service
 public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
+	
 	@Autowired
-	PasswordEncoder passwordEncoder;
-
-	@Autowired
-	LoginMapper loginMapper;
-
+	private LoginMapper loginMapper;
+	
 	private MemberVO member;
 
 	// 구글로 부터 받은 userRequest 데이터에 대한 후처리되는 함수
@@ -37,6 +33,7 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
 
 		OAuth2User oauth2User = super.loadUser(userRequest);
 
+		@SuppressWarnings("unchecked")
 		Map<String, Object> map = (Map<String, Object>) oauth2User.getAttributes().get("response");
 
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
@@ -44,7 +41,7 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
 		String provider = userRequest.getClientRegistration().getClientName(); // google
 		String member_id = null;
 		String name = null;
-		int loginType =0;
+		int loginType = 0;
 		if (provider.equals("Google")) {
 
 			member_id = oauth2User.getAttribute("email");
@@ -70,7 +67,7 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
 			System.out.println("소셜 아이디가 있습니다.");
 			authorities.add(new SimpleGrantedAuthority(member.getRoleVO().getRolename()));
 		}
-
-		return new MyAuthentication(member_id, member.getPassword(), authorities, member);
+		PrincipalOauth2User principal = new PrincipalOauth2User(member, authorities);
+		return principal;
 	}
 }

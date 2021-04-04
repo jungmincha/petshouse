@@ -75,7 +75,7 @@
 </script>
 </head>
 
-<body style="padding-top:128px">
+<body style="padding-top: 128px">
 	<!-- header -->
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
 
@@ -91,13 +91,13 @@
 						<form action="/login/register/insert" method="post" id="myForm">
 
 							<input type="hidden" name="member_id"
-								value="<sec:authentication property='principal.member.member_id'/>">
+								value="<sec:authentication property='principal.member_id'/>">
 
 							<input type="hidden" name="password"
-								value="<sec:authentication property='principal.member.password' />">
+								value="<sec:authentication property='principal.password' />">
 
 							<input type="hidden" name="name"
-								value="<sec:authentication property='principal.member.name' />">
+								value="<sec:authentication property='principal.name' />">
 
 							<div class="group-input">
 								<label class="control-label" for="nickname">닉네임</label> <input
@@ -135,9 +135,9 @@
 							</div>
 
 							<input type="hidden" name="logintypeVO.logintype_id"
-								value="<sec:authentication property='principal.member.logintypeVO.logintype_id'/>">
-							<input type="hidden" name="roleVO.role_id" value="1">
-							<input type="hidden" name="certify" value="Y">
+								value="<sec:authentication property='principal.logintypeVO.logintype_id'/>">
+							<input type="hidden" name="roleVO.role_id" value="1"> <input
+								type="hidden" name="certify" value="Y">
 							<button type="submit" class="site-btn register-btn"
 								style="font-size: 15pt">가입완료</button>
 						</form>

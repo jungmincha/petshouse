@@ -42,13 +42,13 @@
 <title>Insert title here</title>
 
 </head>
-<body style="padding-top:128px">
+<body style="padding-top: 128px">
 
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
 
 	<!-- 쇼핑카트 섹션 -->
-	<section class="shopping-cart spad" >
-		<div class="container" >
+	<section class="shopping-cart spad">
+		<div class="container">
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="cart-table">
@@ -63,13 +63,17 @@
 										<th>가격</th>
 										<th>수량</th>
 										<th>금액</th>
-										<th><i class="ti-close" onclick="allCartDelete()"  style='cursor:pointer' ></i></th>
+										<th><i class="ti-close" onclick="allCartDelete()"
+											style='cursor: pointer'></i></th>
 									</tr>
 								</thead>
 								<!-- 장바구니 목록 불러오기 -->
-								<tbody id="goods" >
+								<tbody id="goods">
+									<!-- 총합 계산 및 결제 페이지 이동 시 필요 -->
 									<input type='hidden' name='board_id' />
 									<input type='hidden' name="sum" />
+									<input type='hidden' name='name' />
+									<input type='hidden' name='amount' />
 								</tbody>
 
 							</table>
@@ -80,9 +84,10 @@
 							<div class="proceed-checkout">
 								<ul>
 
-									<li class="cart-total">Total <span class="total">0원</span></li>
+									<li class="cart-total">총 주문금액<span class="total">0원</span></li>
 								</ul>
-								<a href="javascript:form.submit();" class="proceed-btn">PROCEED TO CHECK OUT</a>
+								<a onclick="payPage()" class="proceed-btn" style='cursor: pointer'>주문하기
+									</a>
 							</div>
 						</div>
 					</div>
@@ -133,7 +138,7 @@
 														+ "<td class='cart-pic first-row'> <a href='/admin/goods_detail/"+data[i-1].board_id+"'> <img src='/resources/img/cart-page/product-1.jpg'> </a></td> "
 														+ "<td class='cart-title first-row'>"
 														+ "<h5>"
-														+ "<a href='/admin/goods_detail/"+data[i-1].board_id+"' style='color:#000000'>"
+														+ "<a href='/admin/goods_detail/"+data[i-1].board_id+"' style='color:#000000' >"
 														+ data[i - 1].goodsVO.goodsname
 														+ "</a>"
 														+ "</h5>"
@@ -144,9 +149,9 @@
 														+ "<td class='qua-col first-row'>"
 														+ "	<div class='quantity'> <div class='pro-qty'> <span class='dec qtybtn' onclick='total"
 														+ i
-														+ "(-1)'>-</span> <input type='text' id='b"
+														+ "(-1)'>-</span> <input name='amount' type='text' id='b"
 														+ i
-														+ "' value='"+amount+"' readonly name='amount'> <span class='inc qtybtn' onclick='total"
+														+ "' value='"+amount+"' readonly > <span class='inc qtybtn' onclick='total"
 														+ i
 														+ "(1)'>+</span> </div> </div>"
 														+ "</td> <td class='total-price first-row' style='color:#000000'>"
@@ -155,9 +160,10 @@
 														+ "' value='' readonly size='7px' name='sum' >원</td>"
 														+ "<td class='close-td first-row'><i class='ti-close' onclick='cartDelete("
 														+ i
-														+ ")' > <input id='c"+i+"' type='hidden' value='"+data[i-1].board_id+"'>'</i></td>"
+														+ ")' > <input type='hidden' name='name' value='"+data[i - 1].goodsVO.goodsname+"'  > </td>"
 														+ "</tr>"
-												// 상품 별 합 계산() readyssssss
+
+												// 상품 별 합 계산() ready
 												html += "<script DEFER>"
 														+ "$(document).ready(function total"
 														+ i
@@ -169,7 +175,7 @@
 														+ "var num1b = parseInt(num1s); var num2 = document.getElementById('b"
 														+ i
 														+ "'); "
-														+ "var num2s = num2.value; var num2b = parseInt(num2s);"
+														+ "var num2s = num2.value; var num2b = parseInt(num2s) ;"
 														+ "var num3t; var ops = 'mul'; "
 														+ " switch (ops) { "
 														+ " case 'plus': num3t = num1b + num2b; document.getElementById('sum"
@@ -202,18 +208,8 @@
 														+ "</script"+">"
 
 											}
-											// 카트 합계 게산
-											html += "<script DEFER>"
-													+ "function summary() { "
-													+ " var sum = 0; var count = this.form.board_id.length ;"
-													+ " for(var i=1; i < count; i++ ){"
-													+ "       if( this.form.board_id[i].checked == true ){ "
-													+ "	    sum += parseInt(this.form.sum[i].value); console.log(sum) }  }"
-													+ "      $('.total').html(sum + '원'); }"
-													+ "</script"+">"
-
-													// main.js
-													+ "<script DEFER src='/resources/js/main.js'> </script"+">"
+											// main.js
+											html += "<script DEFER src='/resources/js/main.js'> </script"+">"
 
 											// tbody에 기록
 											$("#goods").append(html);
@@ -239,7 +235,6 @@
 			if (!checked)
 				$('input:checkbox').prop('checked', false);
 			summary();
-			
 
 		});
 		// 해당 상품 삭제
@@ -251,14 +246,46 @@
 			sessionStorage.setItem('cartList', JSON.stringify(cartList));
 			summary();
 		}
+		// 카트 총 합 계산
+		function summary() {
+			var sum = 0;
+			var count = this.form.board_id.length;
+			for (var i = 1; i < count; i++) {
+				if (this.form.board_id[i].checked == true) {
+					sum += parseInt(this.form.sum[i].value);
+					console.log(sum)
+				}
+			}
+			$('.total').html(sum + '원');
+		}
 		// 전체 카트 삭제
-		function allCartDelete(){
+		function allCartDelete() {
 			$('#goods').remove();
 			var cartList = new Array();
 			sessionStorage.setItem('cartList', JSON.stringify(cartList));
 			summary();
 		}
-	
+		// 결제 페이지 이동
+		function payPage() {
+			var payGoods = new Array();
+
+			var count = this.form.board_id.length;
+			for (var i = 1; i < count; i++) {
+				if (this.form.board_id[i].checked == true) {
+					var goods = new Object();
+					goods.board_id = parseInt(this.form.board_id[i].value);
+					goods.amount = parseInt(this.form.amount[i].value);
+
+					goods.name = this.form.name[i].value;
+
+					goods.sum = parseInt(this.form.sum[i].value);
+					payGoods.push(goods);
+				}
+			}
+			sessionStorage.setItem("payGoods", JSON.stringify(payGoods));
+			window.location.assign("/myPage/payPage");
+
+		}
 	</script>
 
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>

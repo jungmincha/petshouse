@@ -86,7 +86,7 @@
 </head>
 <body>
 	<p>
-		<sec:authentication property="name" />
+		<sec:authentication property="principal" />
 
 	</p>
 

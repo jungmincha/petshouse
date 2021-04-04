@@ -26,7 +26,7 @@ public class BoardVO {
 	private int pstep;
 	private int pindent;
 	private int ratescore;
-
+	private Timestamp pdate;
 	// 외래키
 	private MemberVO memberVO;
 	private BoardtypeVO boardtypeVO;
