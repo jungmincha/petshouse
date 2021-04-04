@@ -1,4 +1,5 @@
- <%@ page language="java" contentType="text/html; charset=UTF-8"
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -38,13 +39,14 @@
 <link rel="stylesheet" href="/resources/css/slicknav.min.css"
 	type="text/css">
 <link rel="stylesheet" href="/resources/css/style.css" type="text/css">
-<script type="text/javascript">
 
+
+<script type="text/javascript">
 	$(document).ready(function() {
 		$('.a-delete').click(function(event) {
-			
+
 			event.preventDefault();
-		
+
 			var trObj = $(this).parent().parent();
 
 			$.ajax({
@@ -66,54 +68,47 @@
 
 		});
 	});
- 
+
 	function fire_ajax_submit(id) {
 
-    	var category = {}
-    	
-    	category["category"] = $("#category").val();
+		var category = {}
 
-    	var url = "/admin/goods/category/"+id;
+		category["category"] = $("#category").val();
 
-    $.ajax({
-    	
-        type: "POST",
-        contentType: 'application/json; charset=utf-8',
-  		url: url,
-     	data: JSON.stringify(category), 
-        cache : false,
-        
-    
-        success: function (data) { 
-          console.log("SUCCESS : ", data);
-       
-          $('#input').html(data);
-	
- 
-        },
-        
-        error: function (e) {
-      console.log("ERROR : ", e);
-      
-        }
-    });
+		var url = "/admin/goods/category/" + id;
 
-}
-	
-	
-  	
+		$.ajax({
+
+			type : "POST",
+			contentType : 'application/json; charset=utf-8',
+			url : url,
+			data : JSON.stringify(category),
+			cache : false,
+
+			success : function(data) {
+				console.log("SUCCESS : ", data);
+
+				$('#input').html(data);
+
+			},
+
+			error : function(e) {
+				console.log("ERROR : ", e);
+
+			}
+		});
+
+	}
 </script>
 
 <style>
-
 .table2 {
-   display: table;
-   margin:  30px 30px 30px 30px;
-   width: 700px;
-   font-size: 15px;
-   font-stretch: extra-condensed;
-   text-align: center;
-    
+	display: table;
+	margin: 30px 30px 30px 30px;
+	width: 700px;
+	font-size: 15px;
+	font-stretch: extra-condensed;
+	text-align: center;
 }
 
 h2 {
@@ -123,14 +118,14 @@ h2 {
 </head>
 
 
-<body >
+<body>
 	<div class="container">
-	  <div class="row">
-	 <div class="col-lg-2">
-  	<%@ include file="/WEB-INF/views/include/category.jsp"%>  
-  	</div>
+		<div class="row">
+			<div class="col-lg-2">
+				<%@ include file="/WEB-INF/views/include/category.jsp"%>
+			</div>
 
-<%--  	
+			<%--  	
 	  <div class="row">
 		<div class="col-lg-2">
 	 
@@ -277,10 +272,11 @@ h2 {
   --%>
 
 			<!--  카테고리 부트스트랩 end -->
- 			
-				  <div class="col-lg-20">
-					     <a class="btn btn-warning float-right" href="/admin/goods/register_view">상품등록</a>
+
+			<div class="col-lg-20">
+		 	
 				<table class="table2 table-hover" border="1">
+
 					<h2>상품 관리</h2> 
 					<tr>
 						<th>상품번호</th>
@@ -302,13 +298,15 @@ h2 {
 								href="/admin/goods/${goods.goods_id}">삭제</a></td>
 						</tr>
 					</c:forEach>
-				 
+
 				</table>
- 
-				<br>
-</div> 
-</div> 
-</div> 
+					<a class="btn btn-warning float-right"
+						href="/admin/board/registerView">상품게시글등록</a> <a
+						class="btn btn-warning float-right"
+						href="/admin/goods/registerView">상품등록</a>
+			</div>
+		</div>
+	</div>
 
 
 

@@ -55,24 +55,24 @@ select {
 	<!-- Page Content -->
 
 	<div class="col-lg-30">
-		<form id="board"
+		<form id="board" name="board"
 			action="${pageContext.request.contextPath}/admin/board/register"
-			method="Post">
-			<input type="hidden" name="boardtype_id" value="3">
+			method="post">
+		 
 			<fieldset>
 				<table class="table_center" cellpadding="20">
-					 
-						<h2>상품 게시글 등록</h2>
-					 
-					 
-						<%-- <td><img style="width: 400px;" id="preview-image"
+
+					<h2>상품 게시글 등록</h2>
+
+
+					<%-- <td><img style="width: 400px;" id="preview-image"
 							src="https://dummyimage.com/600x500/ffffff&text=+privew"></td>
 						<%=request.getRealPath("/")%> 저장경로
 						<td> --%>
-						
-						<td>
-							<div class="form-group">
-								<label for="exampleSelect2">상품게시글이 등록안된 상품리스트</label> <select
+
+					<td>
+						<%-- 	<div class="form-group">
+								<label for="exampleSelect2">등록되지 않은 상품리스트</label> <select
 									  class="form-control" id="exampleSelect2">
 									<c:forEach items="${goods}" var="goods">
 									<option value="${goods.goods_id}">
@@ -81,52 +81,67 @@ select {
 										</option>
 								</c:forEach>
 								</select>
-							</div> 
-								<div class="form-group">
-								<label for="exampleSelect2">상품게시글이 등록안된 상품리스트</label> <select
-									multiple="" class="form-control" id="exampleSelect2">
-									<c:forEach items="${goods}" var="goods">
+							</div>  --%>
+						<div class="form-group">
+							<label for="exampleSelect2">등록되지 않은 상품리스트</label> <select
+								multiple="" class="form-control" name="goodsVO.goods_id">
+								<c:forEach items="${goods}" var="goods">
 									<option value="${goods.goods_id}">
 										${goods.goods_id}/${goods.goodsname}/${goods.price}/${goods.pcolor}/${goods.psize}/${goods.categoryVO.categoryname}/${goods.categoryVO.sortname}
-										/${goods.stockVO.stockname}
-										</option>
+										/${goods.stockVO.stockname}</option>
 								</c:forEach>
-								</select>
-							</div> 
-							<select name="goods"
+							</select>
+						</div> <%-- 	<select name="goods"
 							style="vertical-align: middle; text-align-last: center">
 								<c:forEach items="${goods}" var="goods">
 									<option value="${goods.goods_id}">
 										${goods.goods_id}/${goods.goodsname}</option>
 								</c:forEach>
-						</select>
-
-								<div class="form-group row">
-								<label class="col-sm-3" for="thumbnail">상품사진</label>
-								<div class="input-group col-sm-9">
-									<div class="custom-file">
-										<input type="file" class="custom-file-input" id="thumbnail"
-											name="thumbnail" style="display: block;"> <label
-											class="custom-file-label" for="inputGroupFile02">Choose
-											file</label>
-									</div>
-									<div class="input-group-append">
-										<span class="input-group-text">Upload</span>
-									</div>
+						</select> --%>
+						<div class="form-group row">
+							<label class="col-sm-3">상세설명</label>
+							<div class="col-sm-9">
+								<textarea name="content" cols="30" rows="5"
+									class="form-control" required></textarea>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-sm-3" for="thumbnail">상품상세사진</label>
+							<div class="input-group col-sm-9">
+								<div class="custom-file">
+									<input type="file" class="custom-file-input"
+										id="content
+										" name="content"
+										style="display: block;"> <label
+										class="custom-file-label" for="inputGroupFile02">Choose
+										file</label>
+								</div>
+								<div class="input-group-append">
+									<span class="input-group-text">Upload</span>
 								</div>
 							</div>
-							 
+						</div>
+						<div class="form-group row">
+							<label class="col-sm-3">해시태그</label>
+							<div class="col-sm-9">
 
-							<div class="form-group row center">
-								<div class="col-sm-offset-2 col-sm-12">
-									<input type="submit" class="btn btn-block"
-										style="background-color: #e7ab3c"
-										onclick="location.href='${pageContext.request.contextPath}/admin/goods' "
-										value="상품게시글등록">
-								</div>
+								<input type="text" class="form-control" name="hashtag"
+									placeholder="해시태그를 걸어주세요" id="hashtag"
+									aria-describedby="hashtagHelp" /> <small id="hashtagHelp"
+									class="form-text text-muted"> 예) #강아지 #고양이 </small>
+
+
 							</div>
-					 </td>
-				 
+						</div>
+
+						<div class="form-group row center">
+							<div class="col-sm-offset-2 col-sm-12">
+								<input type="submit" class="btn btn-block"
+									style="background-color: #e7ab3c" value="상품게시글등록">
+							</div>
+						</div>
+					</td>
+
 
 				</table>
 			</fieldset>

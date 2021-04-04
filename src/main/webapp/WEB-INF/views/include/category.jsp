@@ -26,6 +26,7 @@
 <link
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
 	rel="stylesheet">
+<script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="/resources/sidemenu/https://code.jquery.com/jquery.js"></script>

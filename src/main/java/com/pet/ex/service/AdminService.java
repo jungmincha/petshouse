@@ -15,46 +15,56 @@ public interface AdminService {
 
  
 
-	public BoardVO getGoods(int board_id);
+	// 상품 조회
+	public List<GoodsVO> getList(Criteria cri);	
+	public int getTotalGoods(Criteria cri); 
 
-	public BoardVO getRateone(int goods_id);
-
-	public List<GoodsVO> getList(Criteria cri);	// 상품 목록 조회
-	 
-	public int getTotal(Criteria cri); // 상품 갯수
-	 
-	public void remove_goods(int goods_id);
-
+	//카테고리별 상품조회
+	public List<GoodsVO> getList2(int category_id);
+	
+	//카테고리
+	public List<CategoryVO> getCatengoods();
+	public List<CategoryVO> getSort(CategoryVO categoryVO);
+	
+	//상품 상세조회
+	public GoodsVO getGoods(int goods_id);
+	public List<StockVO> getStock();
 	public List<CategoryVO> getCategory();
 
-	public List<StockVO> getStock();
+	//상품등록
+	public void goodsInput(GoodsVO goodstVO);
 
-	public void input(GoodsVO goodstVO);
+	//상품수정
+	public void goodsModify(GoodsVO goodsVO);
 
-	public GoodsVO getBoard(int goods_id);
+	//상품삭제/상품게시글삭제/리뷰삭제 
+	public void goodsDelete(int goods_id);
 
-	public void modifyGoods(GoodsVO goodsVO);
-
-	public BoardVO getgoodsInfo(int board_id);
- 
-	public GoodsVO getInfo(int goods_id);
-
+	//상품 게시글 등록
+	public  List<GoodsVO> getNboard();
+	public void boardInput(BoardVO boardVO);
+	
+	//상품 게시글 상세조회
+	public BoardVO getBoard(int board_id);
+	public BoardVO getRateone(int goods_id);
+	public BoardVO getboardInfo(int board_id);
+	public List<CategoryVO> getsortBoard(CategoryVO categoryVO);
+	public List<CategoryVO> getcateBoard();
+	
+	
+	
+	//회원 목록 조회
 	public List<MemberVO> getMemberlist(Criteria cri);
-
 	public int getMembertotal();
-
+	
+	//회원 상세 조회
 	public MemberVO getMemberdetail(String member_id);
-
+	
+	//회원 삭제
 	public void memberDelete(String member_id);
 	
-	public List<CategoryVO> getCategory_goods();
 
-	public List<CategoryVO> getSort(CategoryVO categoryVO);
-
-	public List<GoodsVO> getList2(int category_id);
-
-	public  List<GoodsVO> getNboard();
- 
-	 
+	
+	
 
 }

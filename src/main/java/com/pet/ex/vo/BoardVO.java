@@ -2,6 +2,8 @@ package com.pet.ex.vo;
 
 
 
+import java.sql.Timestamp;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,7 +18,7 @@ public class BoardVO {
 	private int board_id;
 	private String title;
 	private String content;
-
+	private Timestamp pdate;
 	private int plike;
 	private int hit;
 	private String hashtag;
