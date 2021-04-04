@@ -1,14 +1,11 @@
 package com.pet.ex.security.handlers;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.oauth2.core.user.OAuth2User;
-
 import com.pet.ex.vo.MemberVO;
 
 import lombok.Getter;
@@ -18,7 +15,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class MyAuthentication extends UsernamePasswordAuthenticationToken implements OAuth2User, UserDetails {
+public class MyAuthentication extends UsernamePasswordAuthenticationToken implements UserDetails {
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
@@ -31,18 +28,17 @@ public class MyAuthentication extends UsernamePasswordAuthenticationToken implem
 		this.grantedAuthorityList = grantedAuthorityList;
 		this.member = member;
 	}
-	
-	
-	@Override
-	public Map<String, Object> getAttributes() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public String getPassword() {
 
 		return member.getPassword();
+	}
+
+	@Override
+	public Object getPrincipal() {
+		// TODO Auto-generated method stub
+		return member;
 	}
 
 	@Override
