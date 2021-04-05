@@ -35,7 +35,112 @@ public class CommunityController {
 	@Autowired
 	private FileService fileservice;
 
-	// 질문과 답변 메인 페이지 리스트 출력 (검색, 키워드, 글쓰기,사진업로드, 페이징, 댓글, 수정, 삭제, 조회 필요함)
+	// 노하우 메인 페이지 리스트 출력 (검색, 글쓰기,사진업로드, 페이징, 댓글, 수정, 삭제, 조회 필요함)
+	@RequestMapping("/tips")
+	public ModelAndView tips(Criteria cri, ModelAndView mav) {
+		mav.addObject("tips", communityService.getTipsList(cri));
+		int total = communityService.getTiptal(cri);
+		mav.addObject("pageMaker", new PageVO(cri, total));
+		mav.setViewName("community/tips"); // 파일경로
+		return mav;
+
+	}
+
+	// 노하우 특정 글 페이지 출력
+	@GetMapping("/tips_view")
+	public ModelAndView tips_view(BoardVO boardVO, ModelAndView mav) throws Exception {
+		log.info("tips_view()실행");
+		mav.addObject("tips_view", communityService.getTipsview(boardVO.getBoard_id())); // 특정 글 출력
+		mav.addObject("comment", communityService.getComment(boardVO.getBoard_id()));
+		communityService.hit(boardVO.getBoard_id());
+		// communityService.hit(boardVO.getBoard_id()); 조회수어쩔거임
+		mav.setViewName("community/tips_view");
+		return mav;
+	}
+
+	// 노하우 글 검색
+	@PostMapping("/tipssearch")
+	public ModelAndView tsearch(@RequestParam("keyword") String keyword, ModelAndView mav, BoardVO boardVO)
+			throws Exception {
+		log.info("tsearch()실행");
+		mav.addObject("tsearch", communityService.getTsearch(keyword));
+		mav.setViewName("/community/tipssearch");
+		return mav;
+	}
+
+	// 노하우 글쓰기 페이지
+	@GetMapping("/tips_write")
+	public ModelAndView tips_write(ModelAndView mav) throws Exception {
+		log.info("tips_write()실행");
+		mav.setViewName("community/tips_write");
+		return mav;
+	}
+
+	// 노하우 글 작성
+	@PostMapping("/tips")
+	public ModelAndView twrite(MultipartHttpServletRequest multi, BoardVO boardVO, ModelAndView mav)
+			throws IllegalStateException, IOException {
+		log.info("twrite()실행");
+		communityService.writeTips(boardVO);
+		mav.setView(new RedirectView("/commu/tips", true));
+
+		String path = multi.getSession().getServletContext().getRealPath("/static/img/tips");
+		path = path.replace("webapp", "resources");
+		File dir = new File(path);
+		if (!dir.isDirectory()) {
+			dir.mkdir();
+		}
+
+		List<MultipartFile> mf = multi.getFiles("file");
+
+		if (mf.size() == 1 && mf.get(0).getOriginalFilename().equals("")) {
+
+		} else {
+			for (int i = 0; i < mf.size(); i++) { // 파일명 중복 검사
+				UUID uuid = UUID.randomUUID();
+				// 본래 파일명
+				String imgname = mf.get(i).getOriginalFilename();
+
+				String savePath = path + "\\" + imgname; // 저장 될 파일 경로
+
+				mf.get(i).transferTo(new File(savePath)); // 파일 저장
+
+				fileservice.fileUpload(imgname);
+			}
+		}
+		return mav;
+	}
+
+	// 노하우 글 수정 페이지
+	@GetMapping("/tmodify_page")
+	public ModelAndView tmodify_page(@RequestParam("board_id") int board_id, BoardVO boardVO, ModelAndView mav) throws Exception {
+		log.info("tmodify_page()실행");
+		mav.addObject("tips_view", communityService.getTipsview(boardVO.getBoard_id()));
+		mav.setViewName("community/tips_modify");
+		return mav;
+	}
+
+	// 노하우 글 수정하기
+	@PostMapping("/tmodify")
+	public ModelAndView tmodify(BoardVO boardVO, ModelAndView mav) throws Exception {
+		log.info("tmodify()실행");
+		communityService.tmodify(boardVO);
+		mav.setView(new RedirectView("/commu/tips", true));
+		return mav;
+	}
+
+	// 노하우 글 삭제하기
+	@GetMapping("/tdelete")
+	public ModelAndView tdelete(@RequestParam("board_id") int board_id, Criteria cri, ModelAndView mav)
+			throws Exception {
+		log.info("tdelete()실행");
+		mav.addObject("tips", communityService.getTipsList(cri));
+		communityService.tdelete(board_id);
+		mav.setView(new RedirectView("/commu/tips", true));
+		return mav;
+	}
+
+	// 질문과 답변 메인 페이지 리스트 출력
 	@RequestMapping("/qna")
 	public ModelAndView qna(Criteria cri, ModelAndView mav) {
 		mav.addObject("qna", communityService.getQnaList(cri));
@@ -46,36 +151,14 @@ public class CommunityController {
 
 	}
 
-	// 노하우 메인 페이지 리스트 출력 (검색, 글쓰기,사진업로드, 페이징, 댓글, 수정, 삭제, 조회 필요함)
-	@RequestMapping("/tips")
-	public ModelAndView tips(Criteria cri, ModelAndView mav) {
-		mav.addObject("tips", communityService.getTipsList(cri));
-		int total = communityService.getTotal(cri);
-		mav.addObject("pageMaker", new PageVO(cri, total));
-		mav.setViewName("community/tips"); // 파일경로
-		return mav;
-
-	}
-
 	// 질문과 답변 특정 글 페이지 출력
 	@GetMapping("/qna_view")
 	public ModelAndView qna_view(BoardVO boardVO, ModelAndView mav) throws Exception {
 		log.info("qna_view()실행");
 		mav.addObject("qna_view", communityService.getQnaview(boardVO.getBoard_id())); // 특정 글 출력
 		mav.addObject("comment", communityService.getComment(boardVO.getBoard_id()));
-		// communityService.hit(boardVO.getBoard_id()); 조회수어쩔거임
+		communityService.hit(boardVO.getBoard_id());
 		mav.setViewName("community/qna_view");
-		return mav;
-	}
-
-	// 노하우 특정 글 페이지 출력
-	@GetMapping("/tips_view")
-	public ModelAndView tips_view(BoardVO boardVO, ModelAndView mav) throws Exception {
-		log.info("tips_view()실행");
-		mav.addObject("tips_view", communityService.getTipsview(boardVO.getBoard_id())); // 특정 글 출력
-		mav.addObject("comment", communityService.getComment(boardVO.getBoard_id()));
-		// communityService.hit(boardVO.getBoard_id()); 조회수어쩔거임
-		mav.setViewName("community/tips_view");
 		return mav;
 	}
 
@@ -86,16 +169,6 @@ public class CommunityController {
 		log.info("qsearch()실행");
 		mav.addObject("qsearch", communityService.getQsearch(keyword));
 		mav.setViewName("/community/qnasearch");
-		return mav;
-	}
-
-	// 질문과 답변 글 검색
-	@PostMapping("/tipssearch")
-	public ModelAndView tsearch(@RequestParam("keyword") String keyword, ModelAndView mav, BoardVO boardVO)
-			throws Exception {
-		log.info("tsearch()실행");
-		mav.addObject("tsearch", communityService.getTsearch(keyword));
-		mav.setViewName("/community/tipssearch");
 		return mav;
 	}
 
@@ -152,7 +225,7 @@ public class CommunityController {
 		return mav;
 	}
 
-	// 질문고 답변 찐 글 수정하기
+	// 질문과 답변 찐 글 수정하기
 	@PostMapping("/modify")
 	public ModelAndView modify(BoardVO boardVO, ModelAndView mav) throws Exception {
 		log.info("modify()실행");
@@ -171,7 +244,5 @@ public class CommunityController {
 		mav.setView(new RedirectView("/commu/qna", true));
 		return mav;
 	}
-
-	// 여기서부턴 댓글기능입니다... 아직..이에요.. xml에서 resultMap도 수정해야하구요...
 
 }

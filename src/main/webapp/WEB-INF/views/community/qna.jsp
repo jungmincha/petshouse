@@ -10,7 +10,7 @@
 <meta name="keywords" content="Fashi, unica, creative, html">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>펫츠하우스</title>
+<title>질문과 답변</title>
 
 <link
 	href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap"
@@ -79,16 +79,14 @@ a:hover {
 
 	<div class="container">
 		<div class="jumbotron">
-			<h3 class="display-5">무엇이든 물어보세요!</h3>
+			<h3 class="display-5">질문과 답변</h3>
 			<hr class="my-4">
 			<form action="${pageContext.request.contextPath}/commu/qnasearch"
 				method="post">
 				<div class="questions-header__form__search col">
-					<span aria-hidden="true"></span> <input
-						class="form-control mr-sm-8" type="text" name="keyword"
-						style="text-align: center; height: 60px;"
+					<span aria-hidden="true"></span> 
+					<input class="form-control mr-sm-8" type="text" name="keyword" style="text-align: center; height: 60px;"
 						placeholder="내 반려동물에 대한 모든 궁금증!">
-
 				</div>
 			</form>
 		</div>

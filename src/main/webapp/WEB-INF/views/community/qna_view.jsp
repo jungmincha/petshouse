@@ -70,8 +70,6 @@
 
 		<div style="float: right">
 
-
-
 			<button type="button" class="btn btn-warning"
 				onclick="modify_event();">수정</button>
 
@@ -95,19 +93,7 @@
 		<hr>
 	</div>
 
-
-
-	<div class="container" style="margin-bottom: 10px;">
-		<table>
-			<c:forEach items="${comment}" var="cm">
-				<div>${cm.memberVO.nickname}</div>
-				<div>${cm.content}</div>
-				<div>${cm.pdate}</div>
-
-			</c:forEach>
-
-		</table>
-	</div>
+	<%@ include file="/WEB-INF/views/include/comment.jsp"%>
 
 	<div style="margin-top: 20px;">
 		<!-- Footer -->

@@ -155,6 +155,67 @@
 		<collection property="boardVO" resultMap="boardvo" />
 	</resultMap>
 
+	
+	<!--노하우 리스트 끌고오는거 -->
+	<select id="getTipsList" resultMap="boardvo">
+   <![CDATA[
+      select * from board b, member m 
+      where b.member_id= m.member_id
+      and boardtype_id=5 order by pdate desc
+   ]]>
+	</select>
+	
+	<!-- 노하우 글쓰기 (이미지 추가해야함) -->
+	<insert id="writeTips" parameterType="boardvo">
+	<![CDATA[
+		insert into board(board_id, title, content, pdate,hit, pgroup, pstep, pindent,hashtag, member_id, boardtype_id , category_id)
+		values (board_seq.nextval, #{title}, #{content}, sysdate, 0, board_seq.currval, 0, 0, #{hashtag}, #{memberVO.member_id}, 5 , #{categoryVO.category_id})
+ 	]]>
+	</insert>
+	
+	<!-- 노하우 특정글 출력 -->
+	<select id="getTipsview" resultMap="boardvo">
+   <![CDATA[
+		select b.board_id, b.title, b.content, b.pdate,b.hit, b.pgroup,b.pstep, b.pindent,b.hashtag, m.member_id, m.nickname, b.boardtype_id 
+		from board b, member m
+		where b.member_id= m.member_id
+		and b.board_id=#{board_id}
+   ]]>
+	</select>
+	
+	<!-- 노하우 검색 -->
+	<select id="getTsearch" resultMap="boardvo">
+   <![CDATA[
+   		select * from board where content like '%'||#{keyword}||'%' and boardtype_id='5' or title like '%'||#{keyword}||'%' and boardtype_id='5'
+   ]]>
+	</select>
+	
+	<!-- 노하우 게시판  페이징처리용 -->
+	<select id="getTipsWithPaging" resultMap="boardvo">
+		<![CDATA[		
+		SELECT * FROM (
+			     SELECT ROWNUM AS RNUM, A.* FROM (
+			     	select b.board_id, b.title, b.content, b.pdate,b.hit, b.pgroup,b.pstep, b.pindent,b.hashtag, m.member_id, m.nickname, b.boardtype_id 
+			     	from  board b , member m
+					where b.member_id = m.member_id
+    				and b.boardtype_id= 5 order by board_id desc
+			    ) A WHERE ROWNUM <= #{pageNum} * #{amount}
+			) WHERE RNUM > (#{pageNum}-1) * #{amount}  
+		]]>
+	</select>
+	
+	<!-- 노하우 토탈카운트 페이징 처리하려고 데려옴.. -->
+	<select id="getTiptalCount" resultType="int">
+		<![CDATA[	
+		select count(*) from board
+		b , member m
+		where b.member_id = m.member_id
+		and b.boardtype_id= 5
+		]]>
+	</select>
+
+
+			<!-- 질문과 답변 -->
 
 	<!--질문과 답변 리스트 끌고오는거 -->
 	<select id="getQnaList" resultMap="boardvo">
@@ -165,16 +226,7 @@
    ]]>
 	</select>
 	
-	<!--노하우 리스트 끌고오는거 -->
-	<select id="getTipsList" resultMap="boardvo">
-   <![CDATA[
-      select * from board b, member m 
-      where b.member_id= m.member_id
-      and boardtype_id=5 order by pdate desc
-   ]]>
-	</select>
-
-	<!-- 질답 특정글 출력 (이미지 추가해야함) /노하우랑 써도 되지 않을까 ? -->
+	<!-- 질답 특정글 출력 (이미지 추가해야함)-->
 	<select id="getQnaview" resultMap="boardvo">
    <![CDATA[
 	select b.board_id, b.title, b.content, b.pdate,b.hit, b.pgroup,b.pstep, b.pindent,b.hashtag, m.member_id, m.nickname, b.boardtype_id 
@@ -184,42 +236,27 @@
    ]]>
 	</select>
 
+	<!-- 질문과 답변 글쓰기 (이미지 추가해야함) -->
+	<insert id="writeQna" parameterType="boardvo">
+	<![CDATA[
+		insert into board(board_id, title, content, pdate,hit, pgroup, pstep, pindent,hashtag, member_id, boardtype_id , category_id)
+		values (board_seq.nextval, #{title}, #{content}, sysdate, 0, board_seq.currval, 0, 0, #{hashtag}, #{memberVO.member_id}, 4 , #{categoryVO.category_id})
+ 	]]>
+	</insert>	
+
+	<!-- 질문과 답변 댓글쓰기 -->
+	<insert id="writeComment" parameterType="boardvo">
+	<![CDATA[
+		insert into board(board_id, content, pdate, pgroup, pstep, pindent, member_id, boardtype_id)
+		values (board_seq.nextval, #{content}, sysdate, #{pgroup}, #{pstep}+1, #{pindent}+1, '#{memberVO.member_id}', 4 )
+ 	]]>
+	</insert>
+	
 	<!-- 특정글에 대한 댓글 출력 -->
 	<select id="getComment" resultMap="boardvo">
    <![CDATA[
 	  select * from board b, member m where b.member_id=m.member_id and boardtype_id= 9 and pgroup = (select pgroup from board where board_id=#{board_id})
    ]]>
-	</select>
-
-	<!-- 질답 글쓰기 (이미지 추가해야함) -->
-	<insert id="writeQna" parameterType="boardvo">
-	<![CDATA[
-	insert into board(board_id, title, content, pdate,hit, pgroup, pstep, pindent,hashtag, member_id, boardtype_id , category_id)
-	values (board_seq.nextval, #{title}, #{content}, sysdate, 0, board_seq.currval, 0, 0, #{hashtag}, #{memberVO.member_id}, 4 , #{categoryVO.category_id})
- ]]>
-	</insert>
-	
-
-	<!-- 댓글쓰기 -->
-	<insert id="writeComment" parameterType="boardvo">
-	<![CDATA[
-	insert into board(board_id, content, pdate, pgroup, pstep, pindent, member_id, boardtype_id)
-	values (board_seq.nextval, #{content}, sysdate, #{pgroup}, #{pstep}+1, #{pindent}+1, '#{memberVO.member_id}', 4 )
- ]]>
-	</insert>
-
-	<!-- 글 수정 -->
-	<select id="modify">
-		<![CDATA[
-			update board set title=#{title},content=#{content} where board_id = #{board_id}
-		]]>
-	</select>
-
-	<!--글 삭제 -->
-	<select id="delete">
-		<![CDATA[
-			delete from board where board_id = #{board_id}
-		]]>
 	</select>
 
 	<!-- 질문과답변 검색 -->
@@ -228,11 +265,8 @@
    		select * from board where content like '%'||#{keyword}||'%' and boardtype_id='4' or title like '%'||#{keyword}||'%' and boardtype_id='4'
    ]]>
 	</select>
-
-	<!-- 조회수 어쩔거임 -->
-	<!-- <select id="hit" resultType="int"> <![CDATA[ update board set hit = 
-		hit + 1 where board_id = #{board_id} ]]> </select> -->
-
+	
+	
 	<!-- 게시판 종류 질문과답변으로 지정해놨음 페이징처리용 -->
 	<select id="getListWithPaging" resultMap="boardvo">
 		<![CDATA[		
@@ -247,8 +281,7 @@
 		]]>
 	</select>
 
-
-	<!-- 게시판 종류 지정해놨음 토탈카운트 페이징 처리하려고 데려옴.. -->
+	<!-- 질문과답변 토탈카운트 페이징 처리하려고 데려옴.. -->
 	<select id="getTotalCount" resultType="int">
 		<![CDATA[	
 		select count(*) from board
@@ -258,6 +291,25 @@
 		]]>
 	</select>
 
+	<!-- 노하우, 질답 글 수정 -->
+	<select id="modify">
+		<![CDATA[
+			update board set title=#{title},content=#{content} where board_id = #{board_id}
+		]]>
+	</select>
+
+	<!--노하우, 질답 글 삭제 -->
+	<select id="delete">
+		<![CDATA[
+			delete from board where board_id = #{board_id}
+		]]>
+	</select>
+	
+	<!-- 노하우, 질답 조회수 -->
+ 	<select id="hit" resultType="int"> 
+ 	<![CDATA[ update board set hit = hit + 1 where board_id = #{board_id} ]]> 
+	</select>
+	
 	<!-- 검색용 카운트 -->
 	<select id="getSTotalCount" resultType="int">
 		<![CDATA[

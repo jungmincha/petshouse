@@ -46,6 +46,19 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="/resources/ckeditor/ckeditor.js"></script>
 
+<script>
+    function checkLogin() {
+        var id = '${member_id}'; // 수정 ''처리
+        alert(id);
+        // 수정 ''공백 비교
+        if (id == '') {
+            alert("로그인 후 글쓰기가 가능합니다.");
+            return false;
+        } else {
+            location.href = '/community/tips_write';
+        }
+    }
+</script>
 
 </head>
 
@@ -60,8 +73,7 @@
 		<form action="${pageContext.request.contextPath}/commu/qna"
 			enctype="multipart/form-data" method="post">
 			
-			<input type="hidden" class="form-control" name="memberVO.member_id"
-				value="<sec:authentication property='name'/>">
+			<input type="hidden" class="form-control" name="memberVO.member_id" value="<sec:authentication property='name'/>">
 			<h2 style="margin-top: 30px;">질문하기</h2>
 			
 			

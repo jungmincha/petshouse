@@ -25,20 +25,8 @@
 
 <body>
 	<div class="container">
-	
-	<div>
-	<table>
-	<c:forEach items="${comment}" var="cm">
-	<div>${cm.content}</div> 
-	<div>${cm.memberVO.nickname}</div> 
-	<div>${cm.pdate}</div> 
-	
-	</c:forEach>
-	</table>
-	</div>
-		<form id="commentForm" name="commentForm" method="post">
-			<br>
-			<br>
+
+		<form id="commentForm" name="commentForm" method="post">		
 			<div>
 				<div>
 					<span><strong>댓글 개</strong></span> <span id="cCnt"></span>
@@ -50,13 +38,26 @@
 									id="comment" name="comment" placeholder="댓글을 입력하세요"></textarea>
 								<br>
 								<div>
-									<a href='#' onClick="fn_comment('${result.code }')"
+									<a href='#' onClick="location.href='${pageContext.request.contextPath}/commu/qna')"
 										class="btn pull-right btn-success">등록</a>
 								</div></td>
 						</tr>
 					</table>
 				</div>
 			</div>
+			
+		<div class="container" style="margin-bottom: 10px;">
+		<table>
+			<c:forEach items="${comment}" var="cm">
+				<div>${cm.memberVO.nickname}</div>
+				<div>${cm.content}</div>
+				<div>${cm.pdate}</div>
+				<hr>
+
+			</c:forEach>
+
+		</table>
+	</div>
 			<input type="hidden" id="b_code" name="b_code"
 				value="${result.code }" />
 		</form>
@@ -75,7 +76,7 @@ function fn_comment(code){
     
     $.ajax({
         type:'POST',
-        url : "<c:url value='/board/addComment.do'/>",
+        url : "<c:url value='/community/qna_view'/>",
         data:$("#commentForm").serialize(),
         success : function(data){
             if(data=="success")
@@ -96,18 +97,18 @@ function fn_comment(code){
  */
 $(function(){
     
-    getCommentList();
+    getComment();
     
 });
  
 /**
  * 댓글 불러오기(Ajax)
  */
-function getCommentList(){
+function getComment(){
     
     $.ajax({
         type:'GET',
-        url : "<c:url value='/board/commentList.do'/>",
+        url : "<c:url value='/community/qna_view.'/>",
         dataType : "json",
         data:$("#commentForm").serialize(),
         contentType: "application/x-www-form-urlencoded; charset=UTF-8", 

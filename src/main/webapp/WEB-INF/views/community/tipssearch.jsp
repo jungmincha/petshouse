@@ -56,15 +56,20 @@
 
 
 	<!-- Blog Section Begin -->
+	<section class="blog-section spad">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-3 col-md-6 col-sm-8 order-2 order-lg-1">
 					<div class="blog-sidebar">
-						<a class="btn btn-warning" style="width: 265px; margin-top:40px;" href="tips_write">노하우 작성하기</a><br><br>
+
+						<a class="btn btn-warning" style="width: 265px;" href="tips_write">노하우
+							작성하기</a><br> <br>
 
 						<div class="search-form">
 							<h4>노하우 검색</h4>
-							<form action="${pageContext.request.contextPath}/commu/tipssearch" method="post">
+							<form
+								action="${pageContext.request.contextPath}/commu/tipssearch"
+								method="post">
 								<input type="text" name="keyword" placeholder="검색해보세요">
 								<button type="submit">
 									<i class="fa fa-search"></i>
@@ -137,60 +142,29 @@
 					</div>
 				</div>
 
-
 				<div class="col-lg-9 order-1 order-lg-2">
-
-
-
-					<div class="row text-center" style="margin-top:20px;">
-
-						<c:forEach items="${tips}" var="tp" varStatus="status">
-
-							<div class="product-item" style="margin: 20px; width: 390px;">
-								<div class="pi-pic">
-								<img src="/resources/img/qna/201489577_128.jpg" alt="">
-								</div>
-								<div class="pi-text">
-									<div class="catagory-name"></div>
-									<a href="${pageContext.request.contextPath}/commu/tips_view?board_id=${tp.board_id}">
-									<h4>${tp.title}</h4>
+					
+						<c:forEach items="${tsearch}" var="ts">
+							<table class="table table-hover">
+								<tbody>
+									<td>
+									<a href="${pageContext.request.contextPath}/commu/tips_view?board_id=${ts.board_id}">
+											<div style="font-weight: bold; font-size: 18px;">${ts.title}</div>
+											<div>${ts.content}</div> <span>${ts.memberVO.nickname}</span>
+											<span style="font-size: 13px; color: gray;">${ts.pdate}</span>
+											<span style="font-size: 13px; color: gray;"> 조회수
+												${ts.hit}</span>
 									</a>
-									<p>
-										${tp.memberVO.nickname} <span>${tp.pdate}</span>
-									</p>
-								</div>
-							</div>
+									</td>
+								</tbody>
+							</table>
 						</c:forEach>
-						<br /> <br />
-					</div>
-
-					<!-- 페이징 -->
-					<ul class="pagination justify-content-center"
-						style="padding-bottom: 50px; padding-top: 50px;">
-						<c:if test="${pageMaker.prev}">
-							<li class="page-item"><a class="page-link"
-								href="tips${pageMaker.makeQuery(pageMaker.startPage - 1) }">
-									Previous</a></li>
-						</c:if>
-
-						<c:forEach begin="${pageMaker.startPage }"
-							end="${pageMaker.endPage }" var="idx">
-							<c:out value="${pageMaker.cri.pageNum == idx?'':''}" />
-							<li class="page-item"><a class="page-link"
-								href="tips${pageMaker.makeQuery(idx)}">${idx}</a></li>
-						</c:forEach>
-
-						<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-							<li class="page-item"><a class="page-link"
-								href="tips${pageMaker.makeQuery(pageMaker.endPage +1) }">Next</a></li>
-						</c:if>
-					</ul>
-					<!-- 페이징 끝 -->
-
+					
 				</div>
 			</div>
-		</div>
 
+		</div>
+	</section>
 	<!-- Blog Section End -->
 
 	<!-- Footer -->

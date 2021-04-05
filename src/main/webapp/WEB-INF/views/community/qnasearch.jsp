@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -11,6 +11,29 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>펫츠하우스</title>
+
+<link
+	href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap"
+	rel="stylesheet">
+
+<!-- Css Styles -->
+<link rel="stylesheet" href="/resources/css/bootstrap.min.css"
+	type="text/css">
+<link rel="stylesheet" href="/resources/css/font-awesome.min.css"
+	type="text/css">
+<link rel="stylesheet" href="/resources/css/themify-icons.css"
+	type="text/css">
+<link rel="stylesheet" href="/resources/css/elegant-icons.css"
+	type="text/css">
+<link rel="stylesheet" href="/resources/css/owl.carousel.min.css"
+	type="text/css">
+<link rel="stylesheet" href="/resources/css/nice-select.css"
+	type="text/css">
+<link rel="stylesheet" href="/resources/css/jquery-ui.min.css"
+	type="text/css">
+<link rel="stylesheet" href="/resources/css/slicknav.min.css"
+	type="text/css">
+<link rel="stylesheet" href="/resources/css/style.css" type="text/css">
 
 <!-- bootstrap css cdn -->
 <link rel="stylesheet"

@@ -9,7 +9,8 @@
 <meta name="keywords" content="Fashi, unica, creative, html">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>${qna_view.title} 수정하기</title>
+<title>${tips_view.title} 수정하기</title>
+<script src="/resources/ckeditor/ckeditor.js"></script>
 
 <link
    href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap"
@@ -42,17 +43,21 @@
 
 	<div class="container" style="width: 800px;">
 	
-		<form action="${pageContext.request.contextPath}/commu/modify"
-			method="post">
+		<form action="${pageContext.request.contextPath}/commu/tmodify" method="post">
 
-			<input type="hidden" name="board_id" value="${qna_view.board_id}" />
-			<input size="98" type="text" name="title" value="${qna_view.title}" />
-			<textarea rows="10" cols="100" name="content">${qna_view.content}</textarea>
-			<input size="98" type="text" name="hashtag" value="${qna_view.hashtag}" />
+			<input type="hidden" name="board_id" value="${tips_view.board_id}" />
+			<input size="98" type="text" name="title" value="${tips_view.title}" />
 
+			
 
+ 			<textarea id="editor4" name="content">${tips_view.content}</textarea>
+			<script>
+					CKEDITOR.replace('editor4');			
+			</script>  
+			
+			<input size="98" type="text" name="hashtag" value="${tips_view.hashtag}" />
 			<button type="submit" class="btn btn-warning float-right" style="float: right; margin-top: 30px;"
-				onclick="location.href='${pageContext.request.contextPath}/commu/qna'">수정하기</button>
+				onclick="location.href='${pageContext.request.contextPath}/commu/tips'">수정하기</button>
 
 		</form>
 
