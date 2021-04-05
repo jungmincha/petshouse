@@ -20,7 +20,16 @@
 <script src="http://code.jquery.com/jquery-1.11.0.js"></script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b62a0e8c19705dc2950e1a83c5590311&libraries=services"></script>
 <script>
-    function location_submit() {        
+
+
+
+
+
+
+		window.onload = function(){      
+    	
+   	
+    	
         // Geolocation API에 액세스할 수 있는지를 확인
         if (navigator.geolocation) {
             //위치 정보를 얻기
@@ -107,12 +116,12 @@
             alert("이 브라우저에서는 Geolocation이 지원되지 않습니다.")
         }
         
-            
+    
         
     };
 </script>
 </head>
-<body>
+<body style="padding-top:128px">
 
  <!-- header -->
    <%@ include file="/WEB-INF/views/include/header.jsp"%>
@@ -122,30 +131,33 @@
 
 
     <!-- Map Section Begin -->
-    <div class="map spad">
+\
+    
         <div class="container">
-            <div class="map-inner">
-                <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d48158.305462977965!2d-74.13283844036356!3d41.02757295168286!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c2e440473470d7%3A0xcaf503ca2ee57958!2sSaddle%20River%2C%20NJ%2007458%2C%20USA!5e0!3m2!1sen!2sbd!4v1575917275626!5m2!1sen!2sbd"
-                    height="610" style="border:0" allowfullscreen="">
-                </iframe>
-                <div class="icon">
-                    <i class="fa fa-map-marker"></i>
-                </div>
-            </div>
-        </div>
+          <div class="map_wrap">
+    <div id="map" style="height:350px; "></div>
+     <div class="hAddr">
+    
+        <span id="centerAddr"></span>
     </div>
+    </div>
+        </div>
+ \
     <!-- Map Section Begin -->
 
     <!-- Contact Section Begin -->
-    <section class="contact-section spad">
+
         <div class="container">
             <div class="row">
                 <div class="col-lg-5">
                     <div class="contact-title">
-                        <h4>Contacts Us</h4>
-                        <p>Contrary to popular belief, Lorem Ipsum is simply random text. It has roots in a piece of
-                            classical Latin literature from 45 BC, maki years old.</p>
+                
+	 
+	  <ul>
+        <li>위도:<span id="latitude"></span></li>
+        <li>경도:<span id="longitude"></span></li>
+      
+    </ul>
                     </div>
                     <div class="contact-widget">
                         <div class="cw-item">
@@ -154,7 +166,7 @@
                             </div>
                             <div class="ci-text">
                                 <span>Address:</span>
-                                <p>60-49 Road 11378 New York</p>
+                                <p>명동</p>
                             </div>
                         </div>
                         <div class="cw-item">
@@ -192,7 +204,7 @@
                                     </div>
                                     <div class="col-lg-12">
                                         <textarea placeholder="Your message"></textarea>
-                                        <button type="submit" class="site-btn">Send message</button>
+                                        <button type="submit" class="site-btn">펫츠타운 접속</button>
                                     </div>
                                 </div>
                             </form>
@@ -201,7 +213,7 @@
                 </div>
             </div>
         </div>
-    </section>
+
     <!-- Contact Section End -->
 
     <!-- Partner Logo Section Begin -->
@@ -238,73 +250,7 @@
     </div>
     <!-- Partner Logo Section End -->
    
-   
-   
-   
-   
-   
-<!--  <section class="product-shop spad page-details">
-      
 
-   <div class ="container">
-   
-   가져올 부분
-	 <a href="#"  style ="font-size: 18px;" onclick="location_submit();">내 주변 검색</a>
-	 
-	  <ul>
-        <li>위도:<span id="latitude"></span></li>
-        <li>경도:<span id="longitude"></span></li>
-        <li>주소:<span id="centerAddr"></span></li>
-    </ul>
-    
-  
-	 
-	
-      <div class="row">
-         <div class="col-lg-3">
-            <div class="filter-widget">
-            </div>
- 		    <br><br>
- 	
-
-            
-         </div>
-         
-         
-         <div class="col-lg-9">
-              <div class="row">
-                                         
-
-    
-                 
-<div class="row text-center">
-
-
-  <div class="map_wrap">
-    <div id="map" style="width:500px;height:350px;"></div>
-     <div class="hAddr">
-    
-        <span id="centerAddr"></span>
-    </div>
-    
-    </div>
-
-
-
-
-
- 
-      </div>
-
-         
-</div>
-   </div>
-   </div>
-
-   
-   
-</div>
-   </section>  -->
    <!-- Product Shop Section End -->
 
     

@@ -139,7 +139,7 @@ function select_submit(arr) {
 </head>
 
 
-<body>
+<body style="padding-top:128px">
 <section class="product-shop spad page-details">
       
 
