@@ -11,7 +11,7 @@ import com.pet.ex.vo.MemberVO;
 public interface LoginMapper {
 
 	// 회원정보조회
-	MemberVO getMember(String id);
+	public MemberVO getMember(String id);
 
 	// 회원가입
 	public int insertMember(MemberVO member);
@@ -21,12 +21,12 @@ public interface LoginMapper {
 
 	// 로그인 성공시 비밀번호 틀린횟수 초기화
 	public int updateResetTryCount(String id);
-	
+
 	// 회원가입 시 카테고리리스트 가져옴
-	List<CategoryVO> listCategory();
+	public List<CategoryVO> listCategory();
 
 	// 이메일 인증(certify 확인)
-	MemberVO emailCheck(MemberVO member);
+	public MemberVO emailCheck(MemberVO member);
 
 	// 이메일 인증 성공시 certify 'Y'로 update
 	void updateCertify(MemberVO member);

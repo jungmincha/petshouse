@@ -97,7 +97,7 @@
 		<result column="trycount" property="trycount" />
 		<result column="enable" property="enable" />
 		<result column="certify" property="certify" />
-		<result column="pdate" property="pdate" />		
+		<result column="pdate" property="pdate" />
 		<collection property="roleVO" resultMap="rolevo" />
 		<collection property="logintypeVO" resultMap="logintypevo" />
 		<collection property="categoryVO" resultMap="categoryvo" />
@@ -157,39 +157,37 @@
 	</resultMap>
 
 
-	<!-- list -->
+	<!-- 상품관리 -->
 	<select id="getList" resultMap="goodsvo"> 
-	 
- 
-   	      <![CDATA[      
-     
-                 select g.goods_id, g.goodsname, g.price, s.stockname 
-                 from  goods g , stock s
-               where g.stock_id = s.stock_id
-              order by goods_id 
-         
-      ]]>
+		<![CDATA[      
+      		select * from (
+   					 select rownum as rnum, a.* 
+       		  				from ( 	
+                 				select g.goods_id, g.goodsname, g.price, s.stockname 
+                				 from  goods g , stock s where g.stock_id = s.stock_id
+             				 order by goods_id    
+             				 )a where rownum <= #{pageNum} * #{amount}
+   						)where rnum > (#{pageNum}-1) * #{amount}  
+    	]]>
 	</select>
 
-	<!-- <select id="getTotalCount" resultType="int">
-	  <![CDATA[
-	           select count(*) from goods g , stock s
-      where g.stock_id = s.stock_id
-    
-	   ]]>
-	</select> -->
+	<select id="getTotalGoods" resultType="int">
+		<![CDATA[
+	         select count(*) from goods 
+	  	 ]]>
+	</select>
 
-		<select id="getList2" resultMap="goodsvo"> 
-	   <![CDATA[      
-     	  
-                 select g.goods_id, g.goodsname, g.price, s.stockname
-                 from  goods g , stock s 
-               where g.stock_id = s.stock_id and g.category_id=#{g.category_id} 
+	<select id="getList2" resultMap="goodsvo"> 
+	  	 <![CDATA[      
+     	  	select g.goods_id, g.goodsname, g.price, s.stockname
+                from  goods g , stock s 
+                where g.stock_id = s.stock_id and g.category_id=#{g.category_id} 
               order by goods_id 
      
-      ]]>
+      	]]>
 	</select>
-	<select id="getCategory_goods" resultType="CategoryVO"> 
+
+	<select id="getCatengoods" resultType="CategoryVO"> 
      <![CDATA[ 
         select level, CATEGORY_ID, CATEGORYNAME, CODE from category
         start with CODE is null connect by prior CATEGORY_ID = CODE and CATEGORY_ID<7
@@ -202,24 +200,12 @@
     ]]>
 	</select>
 
-
-	<delete id="remove_goodsBoard" parameterType="boardvo">
-	   <![CDATA[
-	     	delete from board where goods_id = #{goods_id}
-	   ]]>
-	</delete>
-
-	<delete id="remove_goods" parameterType="goodsvo">
-	   <![CDATA[
-	     	delete from goods where goods_id = #{goods_id}
-	   ]]>
-	</delete>
-
-	<select id="getCategory" resultType="CategoryVO"> 
-     <![CDATA[ 
-	  	select level, CATEGORY_ID, CATEGORYNAME, CODE from category
-        start with CODE is null connect by prior CATEGORY_ID = CODE
-	 ]]>
+	<select id="getGoods" resultMap="goodsvo">
+        <![CDATA[
+     	select  g.goods_id, g.goodsname, g.description, s.stock_id, s.stockname, g.price, g.psize, g.pcolor, c.categoryname as sortname, cc.categoryname, c.category_id 
+      	from goods g, stock s, category c, category cc
+      	where g.stock_id=s.stock_id and g.category_id=c.category_id and c.code=cc.category_id and g.goods_id = #{goods_id} 
+         ]]>
 	</select>
 
 	<select id="getStock" resultType="StockVO"> 
@@ -228,7 +214,15 @@
 	 ]]>
 	</select>
 
-	<insert id="input" parameterType="goodsvo"> 
+	<select id="getCategory" resultType="CategoryVO"> 
+     <![CDATA[ 
+	  	select level, CATEGORY_ID, CATEGORYNAME, CODE from category
+        start with CODE is null connect by prior CATEGORY_ID = CODE
+	 ]]>
+	</select>
+
+	<!-- 상품등록 -->
+	<insert id="goodsInput" parameterType="goodsvo"> 
 	<![CDATA[ 
 	   insert into goods (goods_id, goodsname, price, description, psize, pcolor, thumbnail, stock_id, category_id)   
        values (goods_seq.nextval, #{goodsname}, #{price}, #{description}, #{psize}, #{pcolor},#{thumbnail},#{stockVO.stock_id},#{categoryVO.category_id})
@@ -236,44 +230,7 @@
 	]]>
 	</insert>
 
-
-	<select id="getgoodsInfo" resultMap="boardvo"> 
-		<![CDATA[ 
-		select * from Board where board_id = #{board_id} 
-		]]>
-	</select>
-
-
-	<!-- 상품게시글조회 -->
-	<select id="getGoods" resultMap="boardvo"> 
-	<![CDATA[ 
-      select b.board_id, g.goods_id, g.goodsname, g.description, b.content, b.pdate, s.stockname, g.price, g.psize, g.pcolor, b.hashtag, c.categoryname as sortname, cc.categoryname  
-      from goods g, board b, stock s, category c, category cc
-      where g.goods_id = b.goods_id and g.stock_id=s.stock_id and g.category_id=c.category_id and c.code=cc.category_id and b.board_id = #{board_id}  and b.boardtype_id=3 
-	]]>
-	</select>
-
-
-	<select id="getRateone" parameterType="int" resultMap="boardvo">
-	   <![CDATA[
-	      select goods_id, round(avg(ratescore),1) as avgscore , count(*) as count from board 
-	      where boardtype_id=8 and goods_id=#{goodsVO.goods_id} group by goods_id
-	   ]]>
-	</select>
-
-
-	<!-- 상품조회 -->
-
-
-	<select id="getBoard" resultMap="goodsvo">
-        <![CDATA[
-     	select  g.goods_id, g.goodsname, g.description, s.stock_id, s.stockname, g.price, g.psize, g.pcolor, c.categoryname as sortname, cc.categoryname, c.category_id 
-      	from goods g, stock s, category c, category cc
-      	where g.stock_id=s.stock_id and g.category_id=c.category_id and c.code=cc.category_id and g.goods_id = #{goods_id} 
-         ]]>
-	</select>
-
-
+	<!-- 상품수정 -->
 	<update id="modifyGoods" parameterType="goodsvo">
 		<![CDATA[
 	    	update goods set 
@@ -282,7 +239,82 @@
 	    	     where goods_id = #{goods_id} 
 		]]>
 	</update>
-	
+
+	<!-- 상품관련 게시글 삭제 -->
+	<!-- <delete id="reviewDelete" parameterType="boardvo"> <![CDATA[ delete 
+		from board where goods_id = #{goods_id} where boardtype_id=8 ]]> </delete> -->
+
+	<delete id="boardDelete" parameterType="boardvo">
+	   <![CDATA[
+	     	delete from board where goods_id = #{goods_id} 
+	   ]]>
+	</delete>
+
+	<delete id="goodsDelete" parameterType="goodsvo">
+	   <![CDATA[
+	     	delete from goods where goods_id = #{goods_id}
+	   ]]>
+	</delete>
+
+	<!-- 상품게시글관리 -->
+
+	<!-- 게시글등록되지않은 상품리스트 조회 -->
+	<select id="getNboard" resultMap="goodsvo"> 
+     <![CDATA[ 
+    select goods_id, goodsname, TO_CHAR(price,'99,999') as price, pcolor, psize, cc.categoryname , c.categoryname as sortname, s.stockname from goods g, category c, category cc,stock s where g.stock_id=s.stock_id and c.category_id=g.category_id and c.code=cc.category_id 
+      and goods_id not in 
+		(select goods_id from board where boardtype_id='3') order by goods_id
+
+    ]]>
+	</select>
+
+	<insert id="boardInput" parameterType="boardvo"> 
+	<![CDATA[ 
+	   insert into board (board_id,  content, plike, hit, hashtag, pgroup, pstep, pindent, member_id, boardtype_id, goods_id)   
+       values (board_seq.nextval , #{content} , 0,0,#{hashtag},board_seq.currval,0,0, 'admin@naver.com', 3, #{goodsVO.goods_id})    
+	]]>
+	</insert>
+
+	<select id="getboardInfo" resultMap="boardvo"> 
+		<![CDATA[ 
+		select * from Board where board_id = #{board_id} 
+		]]>
+	</select>
+
+	<select id="getBoard" resultMap="boardvo"> 
+	<![CDATA[ 
+      select b.board_id, g.goods_id, g.goodsname, g.description, b.content, b.pdate, s.stockname, g.price, g.psize, g.pcolor, b.hashtag, c.categoryname as sortname, cc.categoryname  
+      from goods g, board b, stock s, category c, category cc
+      where g.goods_id = b.goods_id and g.stock_id=s.stock_id and g.category_id=c.category_id and c.code=cc.category_id and b.board_id = #{board_id}  and b.boardtype_id=3 
+	]]>
+	</select>
+
+	<select id="getRateone" parameterType="int" resultMap="boardvo">
+	   <![CDATA[
+	      select goods_id, round(avg(ratescore),1) as avgscore , count(*) as count from board 
+	      where boardtype_id=8 and goods_id=#{goodsVO.goods_id} group by goods_id
+	   ]]>
+	</select>
+
+	<select id="getcateBoard" resultType="CategoryVO"> 
+     <![CDATA[ 
+        select level, CATEGORY_ID, CATEGORYNAME, CODE from category
+        start with CODE is null connect by prior CATEGORY_ID = CODE and CATEGORY_ID<7
+    ]]>
+	</select>
+
+	<!-- 사료, 장난감 등 소분류 카테고리 이름 얻는 mapper -->
+	<select id="getsortBoard" resultType="CategoryVO"> 
+     <![CDATA[ 
+        select categoryname , code , category_id from category WHERE code = code
+    ]]>
+	</select>
+
+
+
+
+
+
 	<!-- 회원 정보 조회 -->
 	<select id="getMemberlist" resultType="MemberVO">		
 		<![CDATA[
@@ -293,7 +325,7 @@
          ) WHERE RNUM > (#{pageNum}-1) * #{amount}  		
 	   ]]>
 	</select>
-	
+
 	<!-- 회원 수 조회 -->
 	<select id="getMembertotal" resultType="int">
 	  <![CDATA[
@@ -307,12 +339,15 @@
 	      select member_id, name, tel, nickname, pdate, address, decode(category_id, 1, '고양이', 2, '강아지', 3, '파충류', 4, '어류', 5, '조류', 6, '기타', '없음') as concern from member where member_id=#{member_id}
 	   ]]>
 	</select>
-	
-		<!-- 회원 정보 삭제 -->
+
+	<!-- 회원 정보 삭제 -->
 	<select id="memberDelete" resultType="MemberVO">
 	  <![CDATA[
 	      delete from member where member_id=#{member_id}
 	   ]]>
 	</select>
+
+
+
 
 </mapper>

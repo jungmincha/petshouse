@@ -23,10 +23,10 @@ import lombok.extern.slf4j.Slf4j;
 public class SecurityServiceImpl implements SecurityService {
 
 	@Autowired
-	LoginMapper loginMapper;
+	private LoginMapper loginMapper;
 
 	@Autowired
-	PasswordEncoder passwordEncoder;
+	private PasswordEncoder passwordEncoder;
 
 	// 멤버 가져오기
 	@Override
@@ -40,7 +40,7 @@ public class SecurityServiceImpl implements SecurityService {
 			authorities.add(new SimpleGrantedAuthority(member.getRoleVO().getRolename()));
 
 		}
-
+		
 		return new MyAuthentication(id, member.getPassword(), authorities, member);
 	}
 

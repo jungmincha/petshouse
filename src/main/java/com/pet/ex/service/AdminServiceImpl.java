@@ -20,54 +20,55 @@ import lombok.extern.slf4j.Slf4j;
 public class AdminServiceImpl implements AdminService {
 
 	public AdminMapper mapper;
-
-	@Override
-	public void input(GoodsVO goodsVO) {
-
-		log.info("inpput");
-		log.info("" + goodsVO);
-
-		mapper.input(goodsVO);
-
-	}
-
-	@Override
-	public BoardVO getGoods(int board_id) {
-		log.info("getGoods");
-		return mapper.getGoods(board_id);
-	}
-
-	@Override
-	public BoardVO getRateone(int goods_id) {
-
-		return mapper.getRateone(goods_id);
-	} 
-
-	@Override
-	public List<GoodsVO> getList() {		// 상품 목록 + 페이징처리
-		log.info("List"  );
 	
-		return mapper.getList();
-	}
-
-	
-	/*
-	 * @Override public int getTotal(Criteria cri) { // 상품 갯수
-	 * log.info("get total count");
-	 * 
-	 * return mapper.getTotalCount(cri); }
-	 */
-
+	/* 상품관리 */
 	
 	@Override
-	public void remove_goods(int goods_id) {
-		log.info("Board deleted");
-		mapper.remove_goodsBoard(goods_id);
-		mapper.remove_goods(goods_id);
+	public List<GoodsVO> getList(Criteria cri) { 
+	
+		cri.setAmount(15);
+		return mapper.getList(cri);
 	}
 	
-	 
+	@Override
+	public int getTotalGoods(Criteria cri) {
 
+		return mapper.getTotalGoods(cri);
+	}
+	
+	
+	@Override
+	public List<GoodsVO> getList2(int category_id) {
+		/*
+		 * log.info("List" + cri); cri.setAmount(20);
+		 */
+		return mapper.getList2(category_id);
+	}
+	
+	@Override
+	public List<CategoryVO> getCatengoods() {
+
+		return mapper.getCatengoods();
+	}
+	
+	@Override
+	public List<CategoryVO> getSort(CategoryVO categoryVO) {
+
+		return mapper.getSort(categoryVO);
+	}
+	
+	@Override
+	public GoodsVO getGoods(int goods_id) {
+
+		return mapper.getGoods(goods_id);
+	}
+	
+	@Override
+	public List<StockVO> getStock() {
+
+		return mapper.getStock();
+	}
+	
 	@Override
 	public List<CategoryVO> getCategory() {
 
@@ -75,35 +76,78 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public List<StockVO> getStock() {
+	public void goodsInput(GoodsVO goodsVO) {		
 
-		return mapper.getStock();
+		mapper.goodsInput(goodsVO);
 	}
-
-	@Override
-	public GoodsVO getBoard(int goods_id) {
-
-		return mapper.getBoard(goods_id);
-	}
-
-	@Override
-	public void modifyGoods(GoodsVO goodsVO) {
-		log.info("modified");
-		mapper.modifyGoods(goodsVO);
-	}
-
-	@Override
-	public BoardVO getgoodsInfo(int board_id) {
-
-		return mapper.getgoodsInfo(board_id);
-	}
-
- 
-	public GoodsVO getInfo(int goods_id) {
 	
-		return mapper.getInfo(goods_id);
+	@Override
+	public void goodsModify(GoodsVO goodsVO) {
+	
+		mapper.goodsModify(goodsVO);
+	}
+	
+	@Override
+	public void goodsDelete(int goods_id) {
+		
+		/* mapper.reviewDelete(goods_id); */
+		mapper.boardDelete(goods_id);
+		mapper.goodsDelete(goods_id);
+	}
+	
+	
+	
+	/* 상품게시글관리 */
+	
+	@Override
+	public List<GoodsVO> getNboard() {
+		log.info("getNboard");
+		return mapper.getNboard();
+	}
+	
+	@Override
+	public void boardInput(BoardVO boardVO) {		
+
+		mapper.boardInput(boardVO);
+	}
+	
+	@Override
+	public BoardVO getBoard(int board_id) {		
+	
+		return mapper.getBoard(board_id);
 	}
 
+	@Override
+	public BoardVO getRateone(int goods_id) {
+
+		return mapper.getRateone(goods_id);
+	}
+
+	@Override
+	public BoardVO getboardInfo(int board_id) {
+	 
+		return mapper.getboardInfo(board_id);
+	}
+
+	@Override
+	public List<CategoryVO> getsortBoard(CategoryVO categoryVO) {
+	 
+		return mapper.getsortBoard(categoryVO);
+	}
+
+	@Override
+	public List<CategoryVO> getcateBoard() {
+		 
+	    return mapper.getcateBoard();
+	}
+	
+
+	
+
+	
+	
+	
+	/* 회원관리 */
 	@Override
 	public List<MemberVO> getMemberlist(Criteria cri) {
 		log.info("Memberlist");
@@ -128,27 +172,13 @@ public class AdminServiceImpl implements AdminService {
 		log.info("memberDelete");
 		mapper.memberDelete(member_id);
 	}
-	@Override
-	public List<CategoryVO> getCategory_goods() {
 
-		return mapper.getCategory_goods();
-	}
 
-	@Override
-	public List<CategoryVO> getSort(CategoryVO categoryVO) {
-		
-		return mapper.getSort(categoryVO);
-	}
 
-	@Override
-	public List<GoodsVO> getList2(int category_id) {
-		/*
-		 * log.info("List" + cri); cri.setAmount(20);
-		 */
-		return mapper.getList2(category_id);
-	}
 
- 
 
- 
+	
+
+
+
 }

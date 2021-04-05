@@ -1,12 +1,11 @@
 package com.pet.ex.controller;
 
-import java.security.Principal;
-
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -69,8 +68,7 @@ public class LoginController {
 	// 비밀번호 재발급
 	@RequestMapping("/findPw")
 	public ModelAndView findpw(ModelAndView mav) {
-		
-		
+
 		return mav;
 
 	}
@@ -143,10 +141,12 @@ public class LoginController {
 		return mav;
 	}
 
+	// 소셜 유저 회원가입 (이미 회원가입시 홈으로)
 	@RequestMapping("/oauth2/register")
-	public ModelAndView oauht2(ModelAndView mav, Principal principal) throws Exception {
-
-		MemberVO member = securityService.getMember(principal.getName());
+	public ModelAndView oauht2(ModelAndView mav, Authentication authentication) throws Exception {
+		log.info("/login/oauth2/register");
+		String id = authentication.getPrincipal().toString();
+		MemberVO member = securityService.getMember(id);
 
 		if (member == null) {
 			mav.addObject("category", loginService.listCategory());

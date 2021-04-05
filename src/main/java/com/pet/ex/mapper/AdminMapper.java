@@ -11,41 +11,62 @@ import com.pet.ex.vo.MemberVO;
 import com.pet.ex.vo.StockVO;
 
 import com.pet.ex.page.Criteria;
- 
+
 @Mapper
 public interface AdminMapper {
+	
+	/* 상품관리 */
+	public List<GoodsVO> getList(Criteria cri);
+	
+	public int getTotalGoods(Criteria cri);
+	
+	public List<GoodsVO> getList2(int category_id);
+	
+	public List<CategoryVO> getCatengoods();
+	
+	public List<CategoryVO> getSort(CategoryVO categoryVO);
+	
+	public GoodsVO getGoods(int goods_id);
+	
+	public List<StockVO> getStock();
+	
+	public List<CategoryVO> getCategory();
+	
+	public void goodsInput(GoodsVO goodsVO);
+	
+	public void goodsModify(GoodsVO goodsVO);
 
-	 
+	/* public void reviewDelete(int goods_id); */
 
-	public BoardVO getGoods(int board_id);
+	public void boardDelete(int goods_id);
+
+	public void goodsDelete(int goods_id);
+
+	
+	/* 상품게시글관리 */
+	public List<GoodsVO> getNboard();
+	
+	public void boardInput(BoardVO boardVO);
+	
+	public BoardVO getboardInfo(int board_id);
+
+	public BoardVO getBoard(int board_id);
 
 	public BoardVO getRateone(int goods_id);
 
-	public List<GoodsVO> getList( );
-	/*
-	 * public int getTotalCount(Criteria cri);
-	 */
-	
-	public void remove_goodsBoard(int goods_id);
-	
-	public void remove_goods(int goods_id);
-	
+	public List<CategoryVO> getcateBoard();
+
+	public List<CategoryVO> getsortBoard(CategoryVO categoryVO);
 	
 
-	public List<StockVO> getStock();
 
-	public List<CategoryVO> getCategory();
 
-	public void input(GoodsVO goodsVO);
+	
 
-	public GoodsVO getBoard(int goods_id);
 
-	public void modifyGoods(GoodsVO goodsVO);
-
-	public BoardVO getgoodsInfo(int board_id);
  
-	public GoodsVO getInfo(int goods_id);
-
+	
+	/* 회원관리 */
 	public List<MemberVO> getMemberlist(Criteria cri);
 
 	public int getMembertotal();
@@ -53,12 +74,11 @@ public interface AdminMapper {
 	public MemberVO getMemberdetail(String member_id);
 
 	public void memberDelete(String member_id);
-	
-	public List<CategoryVO> getCategory_goods();
 
-	public List<CategoryVO> getSort(CategoryVO categoryVO);
-
-	public List<GoodsVO>  getList2(int category_id);
- 
 	
+
+	
+
+
+
 }

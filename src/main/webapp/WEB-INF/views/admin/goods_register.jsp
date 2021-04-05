@@ -75,7 +75,7 @@ select {
 </style>
 
 </head>
-<body>
+<body style="padding-top:180px">
 
 
 
@@ -88,7 +88,7 @@ select {
 
 
 	<div class="col-lg-30">
-		<form id="goods" name="goods" class="needs-validation" novalidate
+		<form id="goods" name="goods" class="needs-validation" novalidate enctype="multipart/form-data"
 			action="${pageContext.request.contextPath}/admin/goods/register"
 			method="post">
 			<fieldset>
