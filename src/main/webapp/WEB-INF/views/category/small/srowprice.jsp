@@ -1,19 +1,18 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html lang>
+<!DOCTYPE html>
+<html>
 <head>
+<meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
 <meta name="description" content="">
 <meta name="author" content="">
 <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
 
 <title>Insert title here</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 
 <!-- Bootstrap -->
 <link href="/resources/sidemenu/bootstrap/css/bootstrap.min.css"
@@ -25,6 +24,12 @@
 <link
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
 	rel="stylesheet">
+	
+	 <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <style>
 .tab-item {
@@ -47,8 +52,6 @@ select {
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="/resources/sidemenu/bootstrap/js/bootstrap.min.js"></script>
 <script src="/resources/sidemenu/js/custom.js"></script>
-
-  
   
 
   
@@ -87,6 +90,7 @@ select {
 
 }
   	
+	
   	function select_submit(arr) {
     	console.log(arr);
     	var category = {}
@@ -116,8 +120,7 @@ select {
         }
     });
 
-}	
-  	
+}  	
   	
 
 </script>
@@ -125,13 +128,10 @@ select {
 
 
 <body>
-    <!-- header -->
-   <%@ include file="/WEB-INF/views/include/header.jsp"%>
-   
-   <!-- Page Content -->
-   <!-- Product Shop Section Begin -->
-  
 
+  
+  
+  
    <section class="product-shop spad page-details">
       
 
@@ -288,17 +288,16 @@ select {
          
          
 
-         <div class="col-lg-9">
-            <div class="row">
-            
-     <div class="dropdown">
+        <div class="col-lg-9">
+			<div class="row">
+
+				<div class="dropdown">
     <button type="button" style="font-size:20px; color:black;background-color:white; border:none; " class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-     전체
+     카테고리별
     </button>
     <div class="dropdown-menu">
-      <a class="dropdown-item" style="font-size:20px;" href="/category/home">최신순</a>
-
-  <a class="dropdown-item" style="font-size:20px;" href="/category/rowprice">가격 낮은순</a>
+    <a class="dropdown-item" style="font-size:20px;" href="/category/home">최신순</a>
+  <a class="dropdown-item" style="font-size:20px;" href="#" onclick="select_submit('srowprice');">가격 낮은순</a>
   <a class="dropdown-item" style="font-size:20px;" href="/category/highprice">가격 높은순</a>
    <a class="dropdown-item" style="font-size:20px;" href="/category/highstar">별점 높은순</a>
      <!--   <a class="dropdown-item" style="font-size:20px;" href="/category/highprice">가격 높은순</a> -->
@@ -306,20 +305,16 @@ select {
    <!--    <a class="dropdown-item" style="font-size:20px;" href="#" onclick="select_submit('rowprice')">가격 낮은순</a> -->
    
 <!--       <a class="dropdown-item" style="font-size:20px;" href="#" onclick="select_submit('highstar')">별점 높은순</a> -->
-      
     
     </div>
-  </div>       
-         
-               
-
- 
+  </div>
 
 
-               
-<div class="row text-center">
 
-     <c:forEach items="${goods}" var="goods" varStatus="status">
+
+				<div class="row text-center">
+		
+				<c:forEach items="${smallgoods}" var="goods" varStatus="status">
                        
                            <div class="product-item">
                               <div class="pi-pic">
@@ -338,8 +333,10 @@ select {
                               </div>
                            </div>
                               </c:forEach> 
+				
                       <br/>
                       <br/>
+   
       </div>
 
          
@@ -349,11 +346,6 @@ select {
    </div>
 </div>
    </section>
-   <!-- Product Shop Section End -->
-   
-   <!-- Footer -->
-   <%@ include file="/WEB-INF/views/include/footer.jsp"%>
-
 
 
 </body>

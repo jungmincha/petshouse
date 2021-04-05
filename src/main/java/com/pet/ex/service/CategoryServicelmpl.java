@@ -31,6 +31,7 @@ public class CategoryServicelmpl implements CategoryService {
 
 	@Override
 	public List<CategoryVO> getCategory() {
+		
 		log.info("getCategory...");
 		return mapper.getCategory();
 	}
@@ -51,6 +52,7 @@ public class CategoryServicelmpl implements CategoryService {
 	public List<BoardVO> getSmallGoods(int getCategory_id) {
 	
 		log.info("getSmallGoods...");
+		
 		return mapper.getSmallGoods(getCategory_id);
 	}
 
@@ -75,6 +77,9 @@ public class CategoryServicelmpl implements CategoryService {
 
 	@Override
 	public List<BoardVO> getshighprice(int category_id) {
+		
+		
+		
 		log.info("getshighprice(...");
 		return mapper.getshighprice(category_id);
 	}
@@ -89,6 +94,15 @@ public class CategoryServicelmpl implements CategoryService {
 	public List<BoardVO> gethighStar() {
 		log.info("gethighStar(...");
 		return mapper.gethighStar();
+	}
+
+	@Override
+	public List<BoardVO> getrowSmallGoods (CategoryVO categoryvo) {
+		
+		
+		categoryvo.setCategory_id(203);
+		
+		return mapper.getrowSmallGoods(categoryvo);
 	}
 
 	

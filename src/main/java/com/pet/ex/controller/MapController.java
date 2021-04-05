@@ -15,11 +15,11 @@ import lombok.AllArgsConstructor;
 public class MapController {
 	
 	@GetMapping("/home")
-	public ModelAndView map(ModelAndView mav) {
+	public String map() {
 		
-		mav.setViewName("map/home");
+	
 		
-		return mav;
+		return "map/home";
 	}
 
 }

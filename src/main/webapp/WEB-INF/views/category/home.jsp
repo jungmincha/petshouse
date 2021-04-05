@@ -54,28 +54,44 @@ select {
 <script type="text/javascript">
 
 
-  	function fire_ajax_submit(id) {
-    	console.log(id);
-    	var category = {}
-    	category["category"] = $("#category").val();
+  	function fire_ajax_submit(id, name) {
+    		console.log(id);
+    		console.log(name);
+    		
+    		
+    		 var category = $("#category").val();
     	
-    	var url = "/category/smallcategory/"+id;
+    		
+  
+   
+    	var form={
+    			
+    			category:category,
+    			
+    	
+    			name:name,
+    			
+    			
+    	};
+    	
+    	    	var url = "/category/smallcategory/"+id;
     	
     	
     $.ajax({
         type: "POST",
         contentType: 'application/json; charset=utf-8',
   		url: url,
-        data: JSON.stringify(category), 
+        data:  JSON.stringify(form), 
         cache : false,
-        
+      
         success: function (data) { 
         	
           console.log("SUCCESS : ", data);
        
-          $('#input').html(data);
+   $('#input').html(data);
 		  console.log(id);
-
+		  console.log(name);
+		
         },
         error: function (e) {
       console.log("ERROR : ", e);
@@ -87,7 +103,7 @@ select {
   	
   	
   	
-	function select_submit(arr) {
+/* 	function select_submit(arr) {
     	console.log(arr);
     	var category = {}
     	category["category"] = $("#category").val();
@@ -118,7 +134,7 @@ select {
 
 }
   	
-  	
+  	 */
   	
   	
   	
@@ -153,6 +169,8 @@ select {
 
    <div class ="container">
    
+
+   
    <!--가져올 부분-->
 	<div id = "input">
 	
@@ -170,7 +188,7 @@ select {
                  
                 
                       <!-- 고양이 -->
-                     <a href="#" style ="font-size: 20px;"> 
+                     <a href="#" style ="font-size: 25px;"> 
                		 <i class="fas fa-cat"></i>${category[0].categoryname}<span class="caret pull-right"></span>
                      </a>
                      
@@ -180,7 +198,7 @@ select {
  					
                        
                       <li>
-                      <a href="#"  style ="font-size: 15px;" onclick="fire_ajax_submit(${vo.category_id});">
+                      <a href="#"  style ="font-size: 18px;" onclick="fire_ajax_submit('${vo.category_id}' , '${vo.categoryname}');">
                       ${vo.categoryname}
                       </a>
                       </li>
@@ -196,7 +214,7 @@ select {
                   <!-- 강아지 -->
                    <ul class="nav">
                    <li class="submenu">
-                     <a href="#" style ="font-size: 20px;"> 
+                     <a href="#" style ="font-size: 25px;"> 
                      <i class="fas fa-dog"></i>${category[1].categoryname}<span class="caret pull-right"></span>
                      </a>
                      
@@ -204,7 +222,7 @@ select {
                       <ul>
                            <c:forEach items = "${smallcategory}" var="vo2" begin="7" end="13">
     			      <li>
-    			      <a href="#" style ="font-size: 15px;" onclick="fire_ajax_submit(${vo2.category_id});">
+    			      <a href="#" style ="font-size: 18px;" onclick="fire_ajax_submit('${vo2.category_id}' , '${vo2.categoryname}');">
     			      ${vo2.categoryname}
     			      </a>
     			      </li>
@@ -218,14 +236,14 @@ select {
                   <!-- 조류 -->
                       <ul class="nav">
                    <li class="submenu">
-                  <a href="#" style ="font-size: 20px;">
+                  <a href="#" style ="font-size: 25px;">
                      <i class="fas fa-frog"></i>${category[2].categoryname}<span class="caret pull-right"></span>
                   </a>
                   <!-- Sub menu -->
                          <ul>
                            <c:forEach items = "${smallcategory}" var="vo3" begin="14" end="17">
             			 <li>
-                          <a href="#" style ="font-size: 15px;" onclick="fire_ajax_submit(${vo3.category_id});">
+                          <a href="#" style ="font-size: 18px;" onclick="fire_ajax_submit('${vo3.category_id}' , '${vo3.categoryname}');">
                           ${vo3.categoryname}
                           </a>
                           </li>
@@ -239,14 +257,14 @@ select {
                         <!-- 어류 -->
                             <ul class="nav">
                    <li class="submenu">
-                        <a href="#" style ="font-size: 20px;">
+                        <a href="#" style ="font-size: 25px;">
                             <i class="fas fa-fish"></i>${category[3].categoryname}<span class="caret pull-right"></span>
                          </a>
                          <!-- Sub menu -->
                          <ul>
                             <c:forEach items = "${smallcategory}" var="vo4" begin="18" end="24">
 						    <li>
-						    <a href="#" style ="font-size: 15px;" onclick="fire_ajax_submit(${vo4.category_id});">
+						    <a href="#" style ="font-size: 18px;" onclick="fire_ajax_submit('${vo4.category_id}' , '${vo4.categoryname}');">
 						    ${vo4.categoryname}
 						    </a>
 						    </li>
@@ -260,14 +278,14 @@ select {
                         <!-- 파충류 -->
                          <ul class="nav">
                  	     <li class="submenu">
-                          <a href="#" style ="font-size: 20px;">
+                          <a href="#" style ="font-size: 25px;">
                             <i class="fas fa-crow"></i>${category[4].categoryname}<span class="caret pull-right"></span>
                          </a>
                          <!-- Sub menu -->
                          <ul>
                            <c:forEach items = "${smallcategory}" var="vo5" begin="25" end="29">
              			   <li>
-             			   <a href="#" style ="font-size: 15px;" onclick="fire_ajax_submit(${vo5.category_id});">
+             			   <a href="#" style ="font-size: 18px;" onclick="fire_ajax_submit('${vo5.category_id}' , '${vo5.categoryname}');">
              			   ${vo5.categoryname}
              			   </a>
              			   </li>
@@ -281,14 +299,14 @@ select {
                        <!-- 기타 -->
                         <ul class="nav">
                         <li class="submenu">
-                          <a href="#" style ="font-size: 20px;">
+                          <a href="#" style ="font-size: 25px;">
                             <i class="fas fa-paw"></i>${category[5].categoryname}<span class="caret pull-right"></span>
                          </a>
                          <!-- Sub menu -->
                          <ul>
                             <c:forEach items = "${smallcategory}" var="vo6" begin="30" end="36">
 						    <li>
-						    <a href="#" style ="font-size: 15px;" onclick="fire_ajax_submit(${vo6.category_id});">
+						    <a href="#" style ="font-size: 18px;" onclick="fire_ajax_submit('${vo6.category_id}' , '${vo6.categoryname}');">
 						    ${vo6.categoryname}
 						    </a>
 						    </li>
@@ -315,10 +333,15 @@ select {
     </button>
     <div class="dropdown-menu">
     <a class="dropdown-item" style="font-size:20px;" href="/category/home">최신순</a>
-  <!--   <a class="dropdown-item" style="font-size:20px;" href="/category/highprice">가격 높은순</a> -->
-     <a class="dropdown-item" style="font-size:20px;" href="#" onclick="select_submit('highprice')">가격 높은순</a> 
-      <a class="dropdown-item" style="font-size:20px;" href="#" onclick="select_submit('rowprice')">가격 낮은순</a>
-      <a class="dropdown-item" style="font-size:20px;" href="#" onclick="select_submit('highstar')">별점 높은순</a>
+
+  <a class="dropdown-item" style="font-size:20px;" href="/category/rowprice">가격 낮은순</a>
+  <a class="dropdown-item" style="font-size:20px;" href="/category/highprice">가격 높은순</a>
+   <a class="dropdown-item" style="font-size:20px;" href="/category/highstar">별점 높은순</a>
+     <!--   <a class="dropdown-item" style="font-size:20px;" href="/category/highprice">가격 높은순</a> -->
+<!--      <a class="dropdown-item" style="font-size:20px;" href="#" onclick="select_submit('highprice')">가격 높은순</a>  -->
+   <!--    <a class="dropdown-item" style="font-size:20px;" href="#" onclick="select_submit('rowprice')">가격 낮은순</a> -->
+   
+<!--       <a class="dropdown-item" style="font-size:20px;" href="#" onclick="select_submit('highstar')">별점 높은순</a> -->
       
     
     </div>
@@ -328,25 +351,32 @@ select {
 <div class="row text-center">
 
 
- <c:forEach items="${goods}" var="goods" varStatus="status">
-                       
+    <c:forEach items="${rate}" var="rate">
+             
                            <div class="product-item">
                               <div class="pi-pic">
-                                 <img src="/resources/img/goods/goods_01.jpg" alt="">
-                     			 </div>
+                                 <img src="/resources/img/goods/goods_01.jpg" style="width:200px;" alt="">
+
+                       
+                                
+                              </div>
                               <div class="pi-text">
                                  <div class="catagory-name"></div>
-                             
-                                    
+                                 <c:forEach items="${goods}" var="goods">
+                                    <c:if
+                                       test="${rate.goodsVO.goods_id eq goods.goodsVO.goods_id}">
                                        <a href="/admin/goods_detail/${goods.board_id}">
                                           <h5>${goods.goodsVO.goodsname}</h5>
                                        </a>
                                        <div class="product-price">${goods.goodsVO.price}원</div>
-         						   별점 <span class="star-prototype">${rate[status.index].avgscore}</span>
-                                 &nbsp; <span>리뷰 ${rate[status.index].count}</span>      
+                                    </c:if>
+                                 </c:forEach>
+                                 별점 <span class="star-prototype"> ${rate.avgscore}</span>
+                                 &nbsp; <span>리뷰 ${rate.count}</span>
                               </div>
                            </div>
-                              </c:forEach> 
+           
+                     </c:forEach>
                       <br/>
                       <br/>
             

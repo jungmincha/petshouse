@@ -42,6 +42,12 @@ public interface CategoryService {
 
 	public List <BoardVO> gethighStar();
 
+	public List <BoardVO> getrowSmallGoods(CategoryVO categoryvo);
+
+
+
+
+
 
 
 
