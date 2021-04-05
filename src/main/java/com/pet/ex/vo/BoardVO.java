@@ -1,7 +1,5 @@
 package com.pet.ex.vo;
 
-
-
 import java.sql.Timestamp;
 
 import lombok.AllArgsConstructor;
@@ -26,16 +24,15 @@ public class BoardVO {
 	private int pstep;
 	private int pindent;
 	private int ratescore;
-	private Timestamp pdate;
 	// 외래키
 	private MemberVO memberVO;
 	private BoardtypeVO boardtypeVO;
 	private GoodsVO goodsVO;
 	private CategoryVO categoryVO;
-	
+
 	// 별점 평균
 	private double avgscore;
-	
+
 	// 카운트 세기
 	private int count;
 
