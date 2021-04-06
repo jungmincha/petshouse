@@ -160,7 +160,7 @@ h2 {
 </style>
 
 </head>
-<body style="padding-top: 130px">
+<body style="padding-top: 100px">
 
 
 	<!-- header -->
@@ -305,8 +305,8 @@ h2 {
 						<div class="row">
 							<div class="col-lg-6">
 								<div class="product-pic-zoom">
-									<img class="product-big-img" "
-										src="/resources/img/file/cat5.jpg" alt="">
+									<img class="product-big-img" height="550"
+										src="/resources/img/admin/${goods.goodsVO.thumbnail}" alt="">
 									<div class="zoom-icon">
 										<i class="fa fa-search-plus"></i>
 									</div>
@@ -314,9 +314,10 @@ h2 {
 								<div class="product-thumbs">
 									<div class="product-thumbs-track ps-slider owl-carousel">
 										<div class="pt active" 
-											data-imgbigurl="/resources/img/file/cat5.jpg">
-											<img src="/resources/img/file/cat5.jpg" alt="">
+											data-imgbigurl="/resources/img/admin/goods/${goods.goodsVO.thumbnail}">
+											<img src="/resources/img/admin/goods/${goods.goodsVO.thumbnail}" width="1270" alt="">
 										</div>
+										
 										<div class="pt" data-imgbigurl="/resources/img/file/냥냥이.jpg">
 											<img src="/resources/img/file/냥냥이.jpg" alt="">
 										</div>
