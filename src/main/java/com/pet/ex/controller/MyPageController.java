@@ -9,16 +9,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import com.pet.ex.service.MyPageService;
 import com.pet.ex.service.SecurityService;
 import com.pet.ex.vo.BoardVO;
+import com.pet.ex.vo.PayVO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -84,5 +87,22 @@ public class MyPageController {
 	 * goods.get("sum")); payGoods.add(cart); } System.out.println(payGoods); return
 	 * payGoods; }
 	 */
+
+	// 결제 후 결제 정보 삽입
+	@PostMapping("/payPage/insert")
+	public ModelAndView insertPay(ModelAndView mav, PayVO pay, HttpServletRequest request) {
+		String[] amounts = request.getParameterValues("amount");
+		String[] board_ids = request.getParameterValues("board_id");
+		System.out.println(amounts[1]);
+		System.out.println(board_ids[1]);
+		System.out.println("이름 : " + pay.getDeliveryname());
+		System.out.println("주소 : " + pay.getDeliveryaddress());
+		System.out.println("전화번호 : " + pay.getDeliverytel());
+		System.out.println("적립포인트 : " + pay.getEarningpoint());
+		System.out.println("결제 금액 : " + pay.getPayprice());
+		System.out.println("사용 포인트 : " + pay.getUsepoint());
+		mav.setViewName("/home/home");
+		return mav;
+	}
 
 }

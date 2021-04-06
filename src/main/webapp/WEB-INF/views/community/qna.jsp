@@ -17,23 +17,36 @@
 	rel="stylesheet">
 
 <!-- Css Styles -->
-<link rel="stylesheet" href="/resources/css/bootstrap.min.css" type="text/css">
-<link rel="stylesheet" href="/resources/css/font-awesome.min.css" type="text/css">
-<link rel="stylesheet" href="/resources/css/themify-icons.css" type="text/css">
-<link rel="stylesheet" href="/resources/css/elegant-icons.css" type="text/css">
-<link rel="stylesheet" href="/resources/css/owl.carousel.min.css" type="text/css">
-<link rel="stylesheet" href="/resources/css/nice-select.css" type="text/css">
-<link rel="stylesheet" href="/resources/css/jquery-ui.min.css" type="text/css">
-<link rel="stylesheet" href="/resources/css/slicknav.min.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/bootstrap.min.css"
+	type="text/css">
+<link rel="stylesheet" href="/resources/css/font-awesome.min.css"
+	type="text/css">
+<link rel="stylesheet" href="/resources/css/themify-icons.css"
+	type="text/css">
+<link rel="stylesheet" href="/resources/css/elegant-icons.css"
+	type="text/css">
+<link rel="stylesheet" href="/resources/css/owl.carousel.min.css"
+	type="text/css">
+<link rel="stylesheet" href="/resources/css/nice-select.css"
+	type="text/css">
+<link rel="stylesheet" href="/resources/css/jquery-ui.min.css"
+	type="text/css">
+<link rel="stylesheet" href="/resources/css/slicknav.min.css"
+	type="text/css">
 <link rel="stylesheet" href="/resources/css/style.css" type="text/css">
 
 <!-- bootstrap css cdn -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" type="text/css" />
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	type="text/css" />
 
 <!-- jquery cdn -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<link rel="stylesheet" href="/resources/css/select-style.css" type="text/css">
-<link rel="stylesheet" href="/resources/js/select-index.js" type="text/css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<link rel="stylesheet" href="/resources/css/select-style.css"
+	type="text/css">
+<link rel="stylesheet" href="/resources/js/select-index.js"
+	type="text/css">
 
 <style>
 .jumbotron {
@@ -66,7 +79,6 @@ a:active {
 a:hover {
 	text-decoration: none;
 }
-
 </style>
 
 </head>
@@ -84,8 +96,9 @@ a:hover {
 			<form action="${pageContext.request.contextPath}/commu/qnasearch"
 				method="post">
 				<div class="questions-header__form__search col">
-					<span aria-hidden="true"></span> 
-					<input class="form-control mr-sm-8" type="text" name="keyword" style="text-align: center; height: 60px;"
+					<span aria-hidden="true"></span> <input
+						class="form-control mr-sm-8" type="text" name="keyword"
+						style="text-align: center; height: 60px;"
 						placeholder="내 반려동물에 대한 모든 궁금증!">
 				</div>
 			</form>
@@ -94,21 +107,32 @@ a:hover {
 
 	<!-- 동물 카테고리, 정렬, 글쓰기 버튼 -->
 	<div class="container" style="padding-bottom: 30px;">
-				
-		<select id="selectPet" name="categoryVO.category_id"  style="vertical-align: middle; text-align-last: center">
 
-		<option value="1">고양이</option>
-		<option value="2">강아지</option>
-		<option value="3">파충류</option>
-		<option value="4">조류</option>
-		<option value="5">어류</option>
-		<option value="6">기타</option>
-		</select> 
-		
-	
-		<a class="btn btn-warning float-right" href="qna_write">질문하기</a>
+		<select id="selectPet" name="categoryVO.category_id"
+			style="vertical-align: middle; text-align-last: center">
+
+			<option value="1">고양이</option>
+			<option value="2">강아지</option>
+			<option value="3">파충류</option>
+			<option value="4">조류</option>
+			<option value="5">어류</option>
+			<option value="6">기타</option>
+		</select> <a class="btn btn-warning float-right" href="qna_write">질문하기</a>
 	</div>
-
+	<div class="form-group row">
+		<label class="col-sm-3">카테고리</label>
+		<div class="col-sm-9">
+			<label>1차 분류</label> <select class="category1" class="form-control"
+				style="vertical-align: middle; text-align-last: center">
+				<option value="">동물</option>
+			</select> <label>2차 분류</label> <select class="category2"
+				name="categoryVO.category_id" class="form-control"
+				style="vertical-align: middle; text-align-last: center" required>
+				<option value="">상품</option>
+			</select>
+			<div class="invalid-feedback">카테고리를 선택하세요!</div>
+		</div>
+	</div>
 
 	<!-- 게시글 끌고와야함 글 제목, 사진?, 작성자, 날짜, 댓글수, 해시태그? 그리고 테이블은 td만 쓰면 될듯..? -->
 
@@ -119,11 +143,10 @@ a:hover {
 					<td><a
 						href="${pageContext.request.contextPath}/commu/qna_view?board_id=${qna.board_id}">
 							<div style="font-weight: bold; font-size: 18px;">${qna.title}</div>
-							<div>${qna.content}</div>
-							 <span>${qna.memberVO.nickname}</span> 
-							 <span style="font-size: 13px; color: gray;">${qna.pdate}</span> 
-							 <span style="font-size: 13px; color: gray;"> 조회수 ${qna.hit}</span> 
-							 <a>키워드 버튼 나열</a>
+							<div>${qna.content}</div> <span>${qna.memberVO.nickname}</span> <span
+							style="font-size: 13px; color: gray;">${qna.pdate}</span> <span
+							style="font-size: 13px; color: gray;"> 조회수 ${qna.hit}</span> <a>키워드
+								버튼 나열</a>
 					</a></td>
 				</tbody>
 			</table>
@@ -152,7 +175,7 @@ a:hover {
 		</c:if>
 	</ul>
 
-
+	
 
 	<!-- Footer -->
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>

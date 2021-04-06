@@ -1,7 +1,5 @@
 package com.pet.ex.vo;
 
-
-
 import java.sql.Timestamp;
 
 import lombok.AllArgsConstructor;
@@ -23,9 +21,9 @@ public class PayVO {
 	private String deliveryaddress;
 	private String deliveryname;
 	private int deliverytel;
-	
-	//외래키
+
+	// 외래키
 	private PaymentVO paymentVO;
 	private PaystateVO paystateVO;
-	
+
 }

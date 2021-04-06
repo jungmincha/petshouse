@@ -16,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 @AllArgsConstructor
 public class CommunityServiceImpl implements CommunityService {
 
+	
 	public CommunityMapper mapper;
 
 	// 노하우 메인페이지 리스트 출력
@@ -24,7 +25,7 @@ public class CommunityServiceImpl implements CommunityService {
 		log.info("mapper.getTipsList()");
 		return mapper.getTipsWithPaging(cri);
 	}
-	
+
 	// 노하우 특정 페이지 가져오기
 	@Override
 	public BoardVO getTipsview(int board_id) {
@@ -45,22 +46,21 @@ public class CommunityServiceImpl implements CommunityService {
 		log.info("mapper.getTsearch()");
 		return mapper.getTsearch(keyword);
 	}
-	
-	
+
 	// 노하우 페이징 처리용
 	@Override
 	public int getTiptal(Criteria cri) {
 		return mapper.getTiptalCount(cri);
 	}
 
-	//노하우 글 수정
+	// 노하우 글 수정
 	@Override
 	public void tmodify(BoardVO boardVO) {
 		log.info("mapper.modify()호출");
 		mapper.modify(boardVO);
 	}
 
-	//노하우 글 삭제
+	// 노하우 글 삭제
 	@Override
 	public void tdelete(int board_id) {
 		log.info("mapper.delete()호출");
@@ -80,7 +80,7 @@ public class CommunityServiceImpl implements CommunityService {
 		log.info("mapper.getQnaview()");
 		return mapper.getQnaview(board_id);
 	}
-	
+
 	// 질문과 답변 글 검색
 	@Override
 	public List<BoardVO> getQsearch(String keyword) {
@@ -90,11 +90,17 @@ public class CommunityServiceImpl implements CommunityService {
 
 	// 질문과 답변 댓글 가져오기
 	@Override
-	public List<BoardVO> getComment(int Board_id) {
+	public List<BoardVO> listComment(int Board_id) {
+		log.info("listComment()");
+		return mapper.listComment(Board_id);
+	}
+
+	@Override
+	public BoardVO getComment(int Board_id) {
 		log.info("getComment()");
 		return mapper.getComment(Board_id);
 	}
-	
+
 	// 질문과 답변 댓글 작성
 	@Override
 	public void writeComment(BoardVO boardVO) {
@@ -135,6 +141,13 @@ public class CommunityServiceImpl implements CommunityService {
 		log.info("mapper.delete()호출");
 		mapper.delete(board_id);
 	}
+	
+	// 질문과 답변 댓글 작성
+	@Override
+	public void insertComment(BoardVO boardVO) {
+		log.info("");
+		mapper.insertComment(boardVO);
 
+	}
 
 }

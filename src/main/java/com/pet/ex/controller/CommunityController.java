@@ -8,6 +8,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,6 +22,7 @@ import com.pet.ex.page.PageVO;
 import com.pet.ex.service.CommunityService;
 import com.pet.ex.service.FileService;
 import com.pet.ex.vo.BoardVO;
+import com.pet.ex.vo.MemberVO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -113,7 +115,8 @@ public class CommunityController {
 
 	// 노하우 글 수정 페이지
 	@GetMapping("/tmodify_page")
-	public ModelAndView tmodify_page(@RequestParam("board_id") int board_id, BoardVO boardVO, ModelAndView mav) throws Exception {
+	public ModelAndView tmodify_page(@RequestParam("board_id") int board_id, BoardVO boardVO, ModelAndView mav)
+			throws Exception {
 		log.info("tmodify_page()실행");
 		mav.addObject("tips_view", communityService.getTipsview(boardVO.getBoard_id()));
 		mav.setViewName("community/tips_modify");
@@ -156,10 +159,21 @@ public class CommunityController {
 	public ModelAndView qna_view(BoardVO boardVO, ModelAndView mav) throws Exception {
 		log.info("qna_view()실행");
 		mav.addObject("qna_view", communityService.getQnaview(boardVO.getBoard_id())); // 특정 글 출력
-		mav.addObject("comment", communityService.getComment(boardVO.getBoard_id()));
+		mav.addObject("comment", communityService.listComment(boardVO.getBoard_id()));
 		communityService.hit(boardVO.getBoard_id());
 		mav.setViewName("community/qna_view");
 		return mav;
+	}
+
+	@PostMapping("/qna_view/insert")
+	public BoardVO insertComment(BoardVO boardVO, @RequestParam("member_id") String member_id) {
+		MemberVO member = new MemberVO();
+		boardVO.setMemberVO(member);
+		boardVO.getMemberVO().setMember_id(member_id);
+		communityService.insertComment(boardVO);
+		BoardVO comments = communityService.getComment(boardVO.getPgroup());
+		System.out.println(comments);
+		return comments;
 	}
 
 	// 질문과 답변 글 검색
