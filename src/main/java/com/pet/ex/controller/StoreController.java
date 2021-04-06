@@ -1,12 +1,10 @@
 package com.pet.ex.controller;
 
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
@@ -38,7 +36,7 @@ public class StoreController {
 		mav.addObject("pageMaker", new PageVO(cri, total));
 		
 		mav.addObject("goods", service.getGoodsinfo());
-		mav.addObject("image", fileservice.getImgtest());
+		//mav.addObject("image", fileservice.getImgtest());
 
 		mav.setViewName("store/home");
 		return mav;
@@ -49,7 +47,7 @@ public class StoreController {
 		log.info("best");			
 		mav.addObject("rate", service.getStorerate());
 		mav.addObject("goods", service.getGoodsinfo());
-		mav.addObject("image", fileservice.getImgtest());
+		//mav.addObject("image", fileservice.getImgtest());
 		
 		mav.setViewName("store/beststore");
 		return mav;
@@ -60,7 +58,7 @@ public class StoreController {
 		log.info("beststore");
 		mav.addObject("rate", service.getBestrate(boardVO.getCategoryVO().getCategory_id()));
 		mav.addObject("goods", service.getGoodsinfo());
-		mav.addObject("image", fileservice.getImgtest());
+		//mav.addObject("image", fileservice.getImgtest());
 		
 		mav.setViewName("store/bestcate");	
 		return mav;
@@ -80,7 +78,7 @@ public class StoreController {
 	public ModelAndView commuhome(ModelAndView mav) {
 		log.info("commuhome");
 		mav.addObject("knowhow", service.getKnowhow());
-	//	mav.addObject("sns", service.getSns());
+		mav.addObject("sns", service.getSns());
 		
 		
 		mav.setViewName("store/commuhome");

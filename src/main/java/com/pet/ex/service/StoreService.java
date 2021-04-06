@@ -21,6 +21,8 @@ public interface StoreService {
 
 	//commu
 	public List<BoardVO> getKnowhow();
+
+	public List<BoardVO> getSns();
 	
 	
 }

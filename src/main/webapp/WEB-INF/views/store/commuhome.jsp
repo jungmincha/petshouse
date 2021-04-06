@@ -124,11 +124,17 @@
     	padding-top: 15px;
     }
     
-    .blog-quote, .knowhow, .sns{
+    .blog-quote, .knowhow, .sns, .category{
     	padding-top: 60px;
     }
     
-   
+    .single-latest-blog img{
+    	width: 280px;
+    	height: 280px;
+    }
+    
+    
+
 </style>
 </head>
 
@@ -142,37 +148,37 @@
         <div class="insta-item set-bg" data-setbg="/resources/img/insta-1.jpg">
             <div class="inside-text">
                 <i class="ti-instagram"></i>
-                <h5><a href="#">colorlib_Collection</a></h5>
+                <h5><a href="#">Cat</a></h5>
             </div>
         </div>
         <div class="insta-item set-bg" data-setbg="/resources/img/insta-2.jpg">
             <div class="inside-text">
                 <i class="ti-instagram"></i>
-                <h5><a href="#">colorlib_Collection</a></h5>
+                <h5><a href="#">Dog</a></h5>
             </div>
         </div>
         <div class="insta-item set-bg" data-setbg="/resources/img/insta-3.jpg">
             <div class="inside-text">
                 <i class="ti-instagram"></i>
-                <h5><a href="#">colorlib_Collection</a></h5>
+                <h5><a href="#">Reptile</a></h5>
             </div>
         </div>
         <div class="insta-item set-bg" data-setbg="/resources/img/insta-4.jpg">
             <div class="inside-text">
                 <i class="ti-instagram"></i>
-                <h5><a href="#">colorlib_Collection</a></h5>
+                <h5><a href="#">Bird</a></h5>
             </div>
         </div>
         <div class="insta-item set-bg" data-setbg="/resources/img/insta-5.jpg">
             <div class="inside-text">
                 <i class="ti-instagram"></i>
-                <h5><a href="#">colorlib_Collection</a></h5>
+                <h5><a href="#">Fish</a></h5>
             </div>
         </div>
         <div class="insta-item set-bg" data-setbg="/resources/img/insta-6.jpg">
             <div class="inside-text">
                 <i class="ti-instagram"></i>
-                <h5><a href="#">colorlib_Collection</a></h5>
+                <h5><a href="#">Other</a></h5>
             </div>
         </div>
     </div>
@@ -180,11 +186,11 @@
     <!-- Instagram Section End -->
     
     
-    
+    <!-- SNS Section Begin -->
       <section class="blog-details spad">
         <div class="container">
             <div class="row">
-                <div class="col-lg--9">
+                <div class="col-lg-12">
                     <div class="blog-details-inner">
                         <div class="blog-detail-title">
                             <h2>Today's Popularity</h2>
@@ -202,34 +208,81 @@
 								document.write('</span></p>')
 							</script>
                         </div>
-                        <div class="blog-large-pic col-lg-9">
+                     </div>
+                     </div>
+                    </div>
+                    </div> 
+             <div class="container">
+            	<div class="row">         
+                        <div class="blog-large-pic col-12 col-md-9">
                             <img src="/resources/img/blog/blog-detail.jpg" alt="">
+                      	</div>
+                         <div class="blog-large col-12 col-md-3">
+                            <img src="/resources/img/blog/blog-detail.jpg" alt="" style="width:240px; height:368.44px;">
                         </div>
-
-                        
-        
+                    
                     </div>
                 </div>
-            </div>
- 
-    <!-- Blog Details Section End -->
+            
+    <!-- SNS Section End -->
 
-       <!-- Latest Blog Section Begin -->
-  		<section class="knowhow">
+     <!-- Category Section Begin -->
+      <div class="container">
+         <div class="row">
+            <div class="col-lg-12">
+               <div class="section-title">
+                  <h2 class="category">Category</h2>
+               </div>
+            </div>
+         </div>
+         <div class="row">
+            <div class="col-sm-2">
+             <a href="#" onclick ="fire_ajax_submit(1);">    
+                    <img src="/resources/img/category/cat.jpg"></a>
+            </div>
+
+            <div class="col-sm-2">
+                  <a href="" onclick="location.href='/category/smallcategory/201';">
+                    <img src="/resources/img/category/dog.jpg"></a>
+            </div>
+
+            <div class="col-sm-2">
+                  <a href="/category/smallcategory/301">
+                    <img src="/resources/img/category/reptile.jpg"></a>
+            </div>
+
+            <div class="col-sm-2">
+                  <a href="/category/smallcategory/401">
+                    <img src="/resources/img/category/bird.jpg"></a>
+            </div>
+
+            <div class="col-sm-2">
+                  <a href="/category/smallcategory/501">
+                     <img src="/resources/img/category/fish.jpg"></a>
+            </div>
+
+            <div class="col-sm-2">
+                  <a href="/category/smallcategory/601">
+                     <img src="/resources/img/category/other.jpg"></a>
+            </div>
+         </div>
+         <!-- Category Section End -->
+
+       <!-- Knowhow Section Begin -->
+  		<section class="knowhow">	
             <div class="row">
-                <div class="col-lg-3">
+                <div class="col-lg-12">
                     <div class="section-title">
                         <h2>오늘의 노하우</h2>
                     </div>
                 </div>
             </div>
             <div class="row">
-            
-               <div class="product-slider owl-carousel">
+                 <div class="product-slider owl-carousel">
                      <c:forEach items="${knowhow}" var="knowhow">                   
                            <div class="product-item">
                               <div class="pi-pic">
-                                <img src="/resources/img/latest-1.jpg" alt="">
+                                <img src="/resources/img/category/cat1.jpg" alt="">
                                  <div class="sale">BEST</div>
                               </div>
                                <div class="latest-text">
@@ -249,34 +302,25 @@
                   </div>
       
       
-        <div class="sns col-lg-3"> 
-			                    <div class="section-title">
-			                        <h2>오늘의 인기글</h2>
-			                    </div>
-			                    
-			                  </div>   
-			      <div class="sns col-lg-9"> </div>
+        <div class="sns col-lg-12"> 
+			<div class="section-title">
+			    <h2>오늘의 인기사진</h2>
+			</div>
+		</div>   
+
             <c:forEach items="${knowhow}" var="knowhow">
                 <div class="col-lg-3 col-md-6">
                     <div class="single-latest-blog">
                         <img src="/resources/img/latest-1.jpg" alt="">
                         <div class="latest-text">
-                            <div class="tag-list">
-                                <div class="tag-item">
-                                    <i class="fa fa-calendar-o"></i><fmt:formatDate value="${knowhow.pdate}" pattern="yyyy.MM.dd" />
-                                   &nbsp;조회수 ${knowhow.hit}                        
-                                </div>
-                            
+                            <div class="tag-list">                            
                             </div>
-                            <a href="#">
-                                <h5>${knowhow.title}</h5>
-                            </a>
-                            <p>${knowhow.content}</p>
+                            
                         </div>
                     </div>
                 </div>
  			</c:forEach>
-
+ 			
             </div>
 		</section>
         </div>
@@ -304,3 +348,8 @@
 </html>
  
  
+ 			
+ 			
+ 			
+ 			
+ 			

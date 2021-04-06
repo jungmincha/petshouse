@@ -86,6 +86,19 @@
     .single-banner{
     	padding-bottom: 40px;
     }
+    
+    .product-item{
+    	padding-top: 40px;
+    }
+    
+    .section-title{
+    	padding-top: 150px;
+    }
+    
+    .product-item img{
+    	width: 120px;
+    	height: 280px;
+    }
 
     
     span.star-prototype, span.star-prototype > * {
@@ -153,21 +166,27 @@
                 <div class="col-lg-3 col-sm-6">
                     <div class="product-item">
                         <div class="pi-pic">
-             
+             				   
+                              <c:forEach items="${goods}" var="goods">
+                               <c:if test="${rate.goodsVO.goods_id eq goods.goodsVO.goods_id}">
+                                 <img src="/resources/img/admin/${goods.goodsVO.thumbnail}" alt="">
+                               </c:if>
+							  </c:forEach>
+             				
                             <div class="sale">Best ${rate.rnum}</div>     
                             <div class="icon">
                                 <i class="icon_heart_alt"></i>
                             </div>
+                          <c:forEach items="${goods}" var="goods"> 
+                            <c:if test="${rate.goodsVO.goods_id eq goods.goodsVO.goods_id}">					 
                             <ul>
                                 <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                <li class="quick-view"><a href="">+ Quick View</a></li>
+                                <li class="quick-view"><a href="/admin/goods_detail/${goods.board_id}">+ Quick View</a></li>
                             </ul>
                         </div>
                         <div class="pi-text">
                             <div class="catagory-name"> </div>
-                            <c:forEach items="${goods}" var="goods"> 
-                             		<c:if test="${rate.goodsVO.goods_id eq goods.goodsVO.goods_id}">
-						            	  <a href="/admin/goods_detail/${goods.board_id}">
+					           	  <a href="/admin/goods_detail/${goods.board_id}">
                                 			<h5>${goods.goodsVO.goodsname}</h5>               
                            				 </a>                       
 		                            	<div class="product-price">
@@ -175,7 +194,7 @@
 		                           		 </div>
 		                            </c:if> 
                             </c:forEach> 
-						  별점 <span class="star-prototype"> ${rate.avgscore}</span> <span> &nbsp; 리뷰 ${rate.count}</span>         
+						  <span class="star-prototype"> ${rate.avgscore}</span> <span> &nbsp; 리뷰 ${rate.count}</span>         
                         </div>                    
                     </div>     
                 </div>

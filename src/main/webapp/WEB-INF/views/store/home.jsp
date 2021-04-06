@@ -6,39 +6,27 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport"
-   content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
-<meta name="viewport"
-   content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
 <title>storehome</title>
 
 <!-- bootstrap css cdn -->
-<link rel="stylesheet"
-   href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-   type="text/css" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" type="text/css" />
+
 <!-- Css Styles -->
-<link rel="stylesheet" href="/resources/css/bootstrap.min.css"
-   type="text/css">
-<link rel="stylesheet" href="/resources/css/font-awesome.min.css"
-   type="text/css">
-<link rel="stylesheet" href="/resources/css/themify-icons.css"
-   type="text/css">
-<link rel="stylesheet" href="/resources/css/elegant-icons.css"
-   type="text/css">
-<link rel="stylesheet" href="/resources/css/owl.carousel.min.css"
-   type="text/css">
-<link rel="stylesheet" href="/resources/css/nice-select.css"
-   type="text/css">
-<link rel="stylesheet" href="/resources/css/jquery-ui.min.css"
-   type="text/css">
-<link rel="stylesheet" href="/resources/css/slicknav.min.css"
-   type="text/css">
+<link rel="stylesheet" href="/resources/css/bootstrap.min.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/font-awesome.min.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/themify-icons.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/elegant-icons.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/owl.carousel.min.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/nice-select.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/jquery-ui.min.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/slicknav.min.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/style.css" type="text/css">
 <!-- jquery cdn -->
-<script
-   src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 <script>
    $(document).ready(function() {
@@ -51,6 +39,7 @@
       // 숫자 평점을 별로 변환하도록 호출하는 함수
       $('.star-prototype').generateStars();
       
+      //category home 이동 
       function fire_ajax_submit(id) {
       	console.log(id);
       	var category_id = id;
@@ -78,72 +67,60 @@
       });
       };
    });
-      
-      
-
 </script>
 
 <style>
-html, body {
-   position: relative;
-   height: 100%;
-}
-
-body {
-   background: #ffffff;
-   font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-   font-size: 14px;
-   color: #000;
-   margin: 0;
-   padding: 0;
-}
-
-.hero-section {
-   padding-top: 150px;
-}
-
-.single-hero-items {
-   max-height: 580px;
-}
-
-.category, .hotitem {
-   padding-top: 40px;
-}
-
-.product-item {
-   padding-top: 20px;
-}
-
-.recommended {
-   padding-top: 60px;
-}
-
-.best {
-   padding: 80px;
-}
-
-span.star-prototype, span.star-prototype>* {
-   height: 16px;
-   background: url(http://i.imgur.com/YsyS5y8.png) 0 -16px repeat-x;
-   display: inline-block;
-}
-
-span.star-prototype>* {
-   background-position: 0 0;
-   max-width: 80px;
-}
+	.hero-items {
+	   padding-top: 150px;
+	}
+	
+	.single-hero-items {
+	   max-height: 580px;
+	}
+	
+	.category, .hotitem {
+	   padding-top: 40px;
+	}
+	
+	.product-item {
+	   padding-top: 20px;
+	}
+	
+	.recommended {
+	   padding-top: 60px;
+	}
+	
+	.best {
+	   padding: 80px;
+	}
+	
+	.product-item img{
+    	width: 120px;
+    	height: 280px;
+    }
+    	
+	span.star-prototype, span.star-prototype>* {
+	   height: 16px;
+	   background: url(http://i.imgur.com/YsyS5y8.png) 0 -16px repeat-x;
+	   display: inline-block;
+	}
+	
+	span.star-prototype>* {
+	   background-position: 0 0;
+	   max-width: 80px;
+	}
 </style>
 </head>
 
 <body>
    <!-- header -->
    <%@ include file="/WEB-INF/views/include/header.jsp"%>
-   <!-- Hero Section Begin -->
-   <section class="hero-section">
+   `
+   <!-- Banner Section Begin -->
       <div class="hero-items owl-carousel">
          <div class="container">
             <div class="single-hero-items set-bg"
-               data-setbg="/resources/img/goods/banner_01.jpg">
+               data-setbg="/resources/img/storehome/banner_01.jpg">
                <div class="row">
                   <div class="col-lg-1"></div>
                   <div class="col-lg-9">
@@ -157,7 +134,7 @@ span.star-prototype>* {
          </div>
          <div class="container">
             <div class="single-hero-items set-bg"
-               data-setbg="/resources/img/goods/banner_02.jpg">
+               data-setbg="/resources/img/storehome/banner_02.jpg">
                <div class="row">
                   <div class="col-lg-1"></div>
                   <div class="col-lg-9">
@@ -171,7 +148,7 @@ span.star-prototype>* {
          </div>
          <div class="container">
             <div class="single-hero-items set-bg"
-               data-setbg="/resources/img/goods/banner_03.jpg">
+               data-setbg="/resources/img/storehome/banner_03.jpg">
                <div class="row">
                   <div class="col-lg-1"></div>
                   <div class="col-lg-9">
@@ -185,7 +162,7 @@ span.star-prototype>* {
          </div>
          <div class="container">
             <div class="single-hero-items set-bg"
-               data-setbg="/resources/img/goods/banner_04.jpg">
+               data-setbg="/resources/img/storehome/banner_04.jpg">
                <div class="row">
                   <div class="col-lg-1"></div>
                   <div class="col-lg-9">
@@ -198,8 +175,7 @@ span.star-prototype>* {
             </div>
          </div>
       </div>
-
-      <!-- Hero Section End -->
+      <!-- Banner Section End -->
 
       <!-- Category Section Begin -->
       <div class="container">
@@ -241,14 +217,13 @@ span.star-prototype>* {
                      <img src="/resources/img/category/other.jpg"></a>
             </div>
          </div>
-         <!-- Category Section Begin -->
+      <!-- Category Section End -->
 
-         <!-- Hot Item section Begin -->
+       <!-- Hot Item section Begin -->
          <section class="hotitem">
             <div class="row">
                <div class="col-sm-3">
-                  <div class="product-large set-bg"
-                     data-setbg="/resources/img/goods/hot_banner_01.jpg">
+                  <div class="product-large set-bg" data-setbg="/resources/img/storehome/hot_banner_01.jpg">
                      <h2>Hot Item</h2>
                      <a href="/store/best">More</a>
                   </div>
@@ -265,8 +240,13 @@ span.star-prototype>* {
                         <c:if test="${rate.rnum le 10}">
                            <div class="product-item">
                               <div class="pi-pic">
-                                 <img src="/resources/img/goods/goods_01.jpg" alt="">
-
+                              
+                              <c:forEach items="${goods}" var="goods">
+                               <c:if test="${rate.goodsVO.goods_id eq goods.goodsVO.goods_id}">
+                                 <img src="/resources/img/admin/${goods.goodsVO.thumbnail}" alt="">
+                               </c:if>
+							  </c:forEach>
+							  
                                  <div class="sale">BEST ${rate.rnum}</div>
                                  <c:forEach items="${goods}" var="goods">
                                   <c:if test="${rate.goodsVO.goods_id eq goods.goodsVO.goods_id}">
@@ -289,7 +269,7 @@ span.star-prototype>* {
                                        <div class="product-price">${goods.goodsVO.price}원</div>
                                     </c:if>
                                  </c:forEach>
-                                 별점 <span class="star-prototype"> ${rate.avgscore}</span>
+                                 <span class="star-prototype"> ${rate.avgscore}</span>
                                  &nbsp; <span>리뷰 ${rate.count}</span>
                               </div>
                            </div>
@@ -303,10 +283,8 @@ span.star-prototype>* {
 
          <!-- Recommended Item Begin -->
          <section class="recommended">
-            <div class="deal-of-week set-bg spad"
-               data-setbg="/resources/img/goods/re_banner.jpg">
-
-               <div class="col-lg-6 text-center">
+            <div class="deal-of-week set-bg spad" data-setbg="/resources/img/storehome/re_banner.jpg">
+               <div class="col-12 col-md-6 text-center">
                   <div class="section-title">
                      <h2>Recommended Product</h2>
                      <p>펫츠하우스의 추천 상품!!을 만나보세요</p>
@@ -332,7 +310,7 @@ span.star-prototype>* {
                         <p>Secs</p>
                      </div>
                   </div>
-                  <a href="#" class="primary-btn">Shop Now</a>
+                  <a href="/admin/goods_detail/361" class="primary-btn">Shop Now</a>
                </div>
             </div>
          </section>
@@ -352,38 +330,34 @@ span.star-prototype>* {
                   <div class="col-lg-3 col-sm-6">
                      <div class="product-item">
                         <div class="pi-pic">
+                        
                            <c:forEach items="${goods}" var="goods">
-                              <c:forEach items="${image}" var="image">
-                                 <c:if test="${goods.board_id eq image.boardVO.board_id}">
-
-                                    <img src="/resources/img/file/${image.imgname}" alt="">
+                                 <c:if test="${goods.goodsVO.goods_id eq bestrate.goodsVO.goods_id}">
+                                    <img src="/resources/img/admin/${goods.goodsVO.thumbnail}" alt="">
                                  </c:if>
-                              </c:forEach>
                            </c:forEach>
+                           
                            <div class="sale">Best ${bestrate.rnum}</div>
                            <div class="icon">
                               <i class="icon_heart_alt"></i>
                            </div>
-                           <ul>
-                              <li class="w-icon active"><a href="#"><i
-                                    class="icon_bag_alt"></i></a></li>
-                              <li class="quick-view"><a href="#">+ Quick View</a></li>
-                              <li class="w-icon"><a href="#"><i
-                                    class="fa fa-random"></i></a></li>
-                           </ul>
+                           <c:forEach items="${goods}" var="goods">
+                              <c:if test="${bestrate.goodsVO.goods_id eq goods.goodsVO.goods_id}">
+                            <ul>
+                                <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
+                                <li class="quick-view"><a href="/admin/goods_detail/${goods.board_id}">+ Quick View</a></li>
+                            </ul>
                         </div>
                         <div class="pi-text">
                            <div class="catagory-name"></div>
-                           <c:forEach items="${goods}" var="goods">
-                              <c:if
-                                 test="${bestrate.goodsVO.goods_id eq goods.goodsVO.goods_id}">
+                           
                                  <a href="/admin/goods_detail/${goods.board_id}">
                                     <h5>${goods.goodsVO.goodsname}</h5>
                                  </a>
                                  <div class="product-price">${goods.goodsVO.price}원</div>
                               </c:if>
                            </c:forEach>
-                           별점 <span class="star-prototype"> ${bestrate.avgscore}</span> <span>
+                           <span class="star-prototype"> ${bestrate.avgscore}</span> <span>
                               &nbsp; 리뷰 ${bestrate.count}</span>
                         </div>
                      </div>
@@ -439,9 +413,22 @@ function callContent(a, b) {
 	}); 
 }
 </script>
+<ul class="pagination justify-content-center" style="padding-bottom: 50px; padding-top: 20px;">
+					<c:if test="${pageMaker.prev}">
+						<li class="page-item"><a class="page-link" href="home${pageMaker.makeQuery(pageMaker.startPage - 1) }"> Previous</a></li>
+					</c:if>
+			
+					<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
+						<c:out value="${pageMaker.cri.pageNum == idx?'':''}" />
+						<li class="page-item"><a class="page-link" href="home${pageMaker.makeQuery(idx)}">${idx}</a></li>
+					</c:forEach>
+			
+					<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
+						<li class="page-item"><a class="page-link" href="home${pageMaker.makeQuery(pageMaker.endPage +1) }">Next</a></li>
+					</c:if>
+				</ul>
       </div>
       <!-- /.container -->
-   </section>
 
    <!-- Footer -->
    <%@ include file="/WEB-INF/views/include/footer.jsp"%>

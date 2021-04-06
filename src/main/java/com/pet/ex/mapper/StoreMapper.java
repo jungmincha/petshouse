@@ -24,4 +24,6 @@ public interface StoreMapper {
 
 	//commu
 	public List<BoardVO> getKnowhow();
+
+	public List<BoardVO> getSns();
 }

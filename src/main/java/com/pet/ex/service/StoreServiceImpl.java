@@ -64,4 +64,10 @@ public class StoreServiceImpl implements StoreService {
 		log.info("getKnowhow");
 		return mapper.getKnowhow();
 	}
+
+	@Override
+	public List<BoardVO> getSns() {
+		log.info("getSns");
+		return mapper.getSns();
+	}
 }

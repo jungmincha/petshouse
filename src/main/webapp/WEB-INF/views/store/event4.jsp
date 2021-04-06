@@ -50,9 +50,21 @@
 	    	  		name: '500p',
 	    	  		color: '#B8F3B8'
 	    	  	},
+	    	  	{
+		    		name: '꽝',
+		    		color: '#FFDDA6'
+		    	},
 	    		{
 		    		name: '1000p',
 		    		color: '#CCD1FF'
+		    	},
+		    	{
+		    		name: '3000p',
+		    		color: '#A8C8F9'
+		    	},
+		    	{
+		    		name: '100p',
+		    		color: '#FFADC5'
 		    	},
 	    		{
 		    		name: '5000p',
@@ -60,7 +72,7 @@
 		    	},
 	    		{
 		    		name: '꽝',
-		    		color: '#FFDDA6'
+		    		color: '#9197B5'
 		    	}	    	
 	   	);
 	    	    
@@ -71,7 +83,7 @@
 	   	
 		list.forEach(function(e, i){
 	  		ctx.beginPath(); 		
-	   	   	ctx.arc(0, 0, 300, 0, (360/list.length)*(Math.PI/180), false);
+	   	   	ctx.arc(0, 0, 370, 0, (360/list.length)*(Math.PI/180), false);
 	   	   	ctx.lineTo(0,0);
 	   	   	ctx.closePath();
 	   	   	ctx.fillStyle=e.color;
@@ -79,21 +91,21 @@
    	   	
 	   	   	ctx.fillStyle='white';
 	   	   	ctx.textAlign='left';
-	   	   	ctx.font='20px sanserif';
-	   	   	ctx.fillText(e.name, 177, 158);
+	   	   	ctx.font='30px sanserif';
+	   	   	ctx.fillText(e.name, 210, 105);
 	   	   	
 	   	   	ctx.rotate((360/list.length) * (Math.PI/180));
 		});
 
 		//내부 원 설정
    	   	ctx.beginPath();
-   	   	ctx.arc(0, 0, 200, 0, 2*Math.PI, false);
+   	   	ctx.arc(0, 0, 0, 0, 0*Math.PI, false);
    	   	ctx.fillStyle = 'white';
    	   	ctx.fill();
    	   	
    	   	ctx.textAlign= 'center';
    	   	ctx.textBaseline = 'middle';
-   	   	ctx.font = '30px sanserif';
+   	   	ctx.font = '50px sanserif';
    	   	
    	   	ctx.strokeStyle = '#9197B5';
    	   	ctx.strokeText('즉석 룰렛 뽑기!', 0,0);
@@ -125,6 +137,7 @@
  		height: 1000px;
  		overflow: hidden;
  		position: relative;
+ 		top: 100px;
  	}
 
 	#pin{
@@ -140,6 +153,12 @@
 		border-bottom:0;
 		z-index:1;	
 	}
+	
+	.container-fluid {
+   		 background: #000000;
+	}
+	
+
   
   </style>
 
@@ -148,10 +167,12 @@
    <!-- header -->
    <%@ include file="/WEB-INF/views/include/header.jsp"%>
    
-      <div class="container">
+      <div class="container-fluid">
          <div class="row">
             <div class="col-lg-12">
- 				<div id="board"><div id="pin"></div><canvas id="canvas" width="1000px" height="1000px"></canvas></div>
+ 				<div id="board">
+ 				<div id="pin"></div>
+ 				<canvas id="canvas" width="1000px" height="1000px"></canvas></div>
  			</div>
  		</div>
  	</div>
