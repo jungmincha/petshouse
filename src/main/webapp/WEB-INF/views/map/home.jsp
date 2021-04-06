@@ -96,12 +96,17 @@
             // 지도 좌측상단에 지도 중심좌표에 대한 주소정보를 표출하는 함수입니다
             function displayCenterInfo(result, status) {
                 if (status === kakao.maps.services.Status.OK) {
+                	
+                	
                     var infoDiv = document.getElementById('centerAddr');
                  
+                   
+                    
                     for(var i = 0; i < result.length; i++) {
                         // 행정동의 region_type 값은 'H' 이므로
                         if (result[i].region_type === 'H') {
                             infoDiv.innerHTML = result[i].address_name;
+                            $('#address').html(infoDiv.innerHTML); //body에 위치기반 주소 삽입
                           
                             break;
                         }
@@ -123,88 +128,55 @@
 </head>
 <body style="padding-top:128px">
 
- <!-- header -->
+  <!-- header -->
    <%@ include file="/WEB-INF/views/include/header.jsp"%>
    
-   
-   
-
-
     <!-- Map Section Begin -->
-\
-    
-        <div class="container">
-          <div class="map_wrap">
-    <div id="map" style="height:350px; "></div>
-     <div class="hAddr">
-    
-        <span id="centerAddr"></span>
-    </div>
-    </div>
-        </div>
- \
+
+  
+           
     <!-- Map Section Begin -->
 
     <!-- Contact Section Begin -->
-
+    <section class="contact-section spad">
         <div class="container">
             <div class="row">
                 <div class="col-lg-5">
-                    <div class="contact-title">
-                
-	 
-	  <ul>
-        <li>위도:<span id="latitude"></span></li>
+                   <div class="map_wrap">
+    <div id="map" style="width:500px;height:350px;"></div>
+     <div class="hAddr">
+    
+         <span id="centerAddr"></span> 
+        </div>
+   
+    
+    <ul>
+        <li>위도:<span id="latitude"></span>(나중에 hidden처리)</li>
         <li>경도:<span id="longitude"></span></li>
-      
+        
     </ul>
-                    </div>
-                    <div class="contact-widget">
-                        <div class="cw-item">
-                            <div class="ci-icon">
-                                <i class="ti-location-pin"></i>
-                            </div>
-                            <div class="ci-text">
-                                <span>Address:</span>
-                                <p>명동</p>
-                            </div>
-                        </div>
-                        <div class="cw-item">
-                            <div class="ci-icon">
-                                <i class="ti-mobile"></i>
-                            </div>
-                            <div class="ci-text">
-                                <span>Phone:</span>
-                                <p>+65 11.188.888</p>
-                            </div>
-                        </div>
-                        <div class="cw-item">
-                            <div class="ci-icon">
-                                <i class="ti-email"></i>
-                            </div>
-                            <div class="ci-text">
-                                <span>Email:</span>
-                                <p>hellocolorlib@gmail.com</p>
-                            </div>
-                        </div>
-                    </div>
+     </div>
                 </div>
                 <div class="col-lg-6 offset-lg-1">
                     <div class="contact-form">
                         <div class="leave-comment">
-                            <h4>Leave A Comment</h4>
-                            <p>Our staff will call back later and answer your questions.</p>
-                            <form action="#" class="comment-form">
+                            <h4>펫츠타운 위치기반 이용 약관</h4>
+                            <p>제 1 조 (목적)
+                           이 약관은 캣버그 주식회사 (이하 “회사”)가 제공하는 위치정보사업 또는 위치기반서비스사업과 
+                           관련하여 회사와 개인위치정보주체와의 권리, 의무 및 책임사항, 기타 필요한 사항을 규정함을 목적으로 합니다.
+                          </p>
+                      <p> 제 2 조 (약관 외 준칙) 
+                           이 약관에 명시되지 않은 사항은 위치정보의 보호 및 이용 등에 관한 법률, 정보통신망 이용촉진 및 정보보호 등에
+                           관한 법률, 전기통신기본법, 전기통신사업법 등 관계법령과 회사의 이용약관 및 개인정보처리방침,
+                           회사가 별도로 정한 지침 등에 의합니다.
+                            </p>
+                            <p>회원님의 위치가 <span id = "address" style="font-weight:bold; font-size:20px;"></span>이 맞으면 '계속 하기'을 눌러주세요.</p>
+                            <form action="/map/petstown" method="get">
                                 <div class="row">
-                                    <div class="col-lg-6">
-                                        <input type="text" placeholder="Your name">
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <input type="text" placeholder="Your email">
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <textarea placeholder="Your message"></textarea>
-                                        <button type="submit" class="site-btn">펫츠타운 접속</button>
+                                  <div class="col-lg-12">
+                            
+                                        <button type="submit" class="site-btn" style="font-size:20px;">계속 하기</button>
+
                                     </div>
                                 </div>
                             </form>
@@ -213,49 +185,11 @@
                 </div>
             </div>
         </div>
-
-    <!-- Contact Section End -->
-
-    <!-- Partner Logo Section Begin -->
-    <div class="partner-logo">
-        <div class="container">
-            <div class="logo-carousel owl-carousel">
-                <div class="logo-item">
-                    <div class="tablecell-inner">
-                        <img src="img/logo-carousel/logo-1.png" alt="">
-                    </div>
-                </div>
-                <div class="logo-item">
-                    <div class="tablecell-inner">
-                        <img src="img/logo-carousel/logo-2.png" alt="">
-                    </div>
-                </div>
-                <div class="logo-item">
-                    <div class="tablecell-inner">
-                        <img src="img/logo-carousel/logo-3.png" alt="">
-                    </div>
-                </div>
-                <div class="logo-item">
-                    <div class="tablecell-inner">
-                        <img src="img/logo-carousel/logo-4.png" alt="">
-                    </div>
-                </div>
-                <div class="logo-item">
-                    <div class="tablecell-inner">
-                        <img src="img/logo-carousel/logo-5.png" alt="">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Partner Logo Section End -->
-   
-
-   <!-- Product Shop Section End -->
-
-    
-      <!-- Footer -->
-   <%@ include file="/WEB-INF/views/include/footer.jsp"%>
+    </section>
+  
+   <!-- Footer -->
+   <%@ include file="/WEB-INF/views/include/footer.jsp"%>  
+ 
     
     
     
