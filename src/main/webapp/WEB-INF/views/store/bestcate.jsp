@@ -128,11 +128,11 @@
                 </div>
                 
                 <div class="col-sm-2">
-                    <a href="#" onclick ="fire_ajax_submit(4);"><img src="/resources/img/category/bird.jpg"></a>
+                    <a href="#" onclick ="fire_ajax_submit(5);"><img src="/resources/img/category/bird.jpg"></a>
                 </div>
                 
                 <div class="col-sm-2">
-                    <a href="#" onclick ="fire_ajax_submit(5);"><img src="/resources/img/category/fish.jpg"></a>
+                    <a href="#" onclick ="fire_ajax_submit(4);"><img src="/resources/img/category/fish.jpg"></a>
                 </div>
                 
                 <div class="col-sm-2">

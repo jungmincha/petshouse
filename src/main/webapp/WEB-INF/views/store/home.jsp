@@ -51,14 +51,36 @@
       // 숫자 평점을 별로 변환하도록 호출하는 함수
       $('.star-prototype').generateStars();
       
-  	var chkBtm = parseInt($(document).height()) - parseInt($(window).height()); 
+      function fire_ajax_submit(id) {
+      	console.log(id);
+      	var category_id = id;
+  		
+  		var form = {
+  				category_id: category_id
+  		};    
+  		
+      	var url = "/category/smallcategory/"+id;
+      		
+      $.ajax({
+          type: "POST",
+          contentType: 'application/json; charset=utf-8',
+    		url: url,
+          data: JSON.stringify(form), 
+          cache : false,
+          
+          success: function (data) {         	
+            console.log("SUCCESS : ", data); 
+          },
+          
+          error: function (e) {
+       	   console.log("ERROR : ", e);
+          }
+      });
+      };
+   });
+      
+      
 
-	if(chkBtm == $(window).scrollTop()){ 
-		console.log('바닥입니다!'); 
-	}else if($(window).scrollTop() == 0){ 
-		console.log('꼭대기입니다!'); 
-	} 
-   })
 </script>
 
 <style>
@@ -77,7 +99,7 @@ body {
 }
 
 .hero-section {
-   padding-top: 15px;
+   padding-top: 150px;
 }
 
 .single-hero-items {
@@ -190,8 +212,8 @@ span.star-prototype>* {
          </div>
          <div class="row">
             <div class="col-sm-2">
-                  <form action="/category/smallcategory/101" method="post"> 
-                    <img src="/resources/img/category/cat.jpg" alt""></form>
+             <a href="#" onclick ="fire_ajax_submit(1);">    
+                    <img src="/resources/img/category/cat.jpg"></a>
             </div>
 
             <div class="col-sm-2">
@@ -200,22 +222,22 @@ span.star-prototype>* {
             </div>
 
             <div class="col-sm-2">
-                  <a href="/category/smallcategory/301" method="post"> 
+                  <a href="/category/smallcategory/301">
                     <img src="/resources/img/category/reptile.jpg"></a>
             </div>
 
             <div class="col-sm-2">
-                  <a href="/category/smallcategory/401" method="post"> 
+                  <a href="/category/smallcategory/401">
                     <img src="/resources/img/category/bird.jpg"></a>
             </div>
 
             <div class="col-sm-2">
-                  <a href="/category/smallcategory/501" method="post"> 
+                  <a href="/category/smallcategory/501">
                      <img src="/resources/img/category/fish.jpg"></a>
             </div>
 
             <div class="col-sm-2">
-                  <a href="/category/smallcategory/601" method="post"> 
+                  <a href="/category/smallcategory/601">
                      <img src="/resources/img/category/other.jpg"></a>
             </div>
          </div>
@@ -228,7 +250,7 @@ span.star-prototype>* {
                   <div class="product-large set-bg"
                      data-setbg="/resources/img/goods/hot_banner_01.jpg">
                      <h2>Hot Item</h2>
-                     <a href="카테고리홈으로">More</a>
+                     <a href="/store/best">More</a>
                   </div>
                </div>
                <div class="col-sm-8 offset-lg-1">
@@ -246,13 +268,15 @@ span.star-prototype>* {
                                  <img src="/resources/img/goods/goods_01.jpg" alt="">
 
                                  <div class="sale">BEST ${rate.rnum}</div>
+                                 <c:forEach items="${goods}" var="goods">
+                                  <c:if test="${rate.goodsVO.goods_id eq goods.goodsVO.goods_id}">
                                  <ul>
                                     <li class="w-icon active"><a href="#"><i
                                           class="icon_bag_alt"></i></a></li>
-                                    <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                    <li class="w-icon"><a href="#"><i
-                                          class="fa fa-random"></i></a></li>
+                                    <li class="quick-view"><a href="/admin/goods_detail/${goods.board_id}">+ Quick View</a></li>
                                  </ul>
+                                 </c:if>
+                                 </c:forEach>
                               </div>
                               <div class="pi-text">
                                  <div class="catagory-name"></div>

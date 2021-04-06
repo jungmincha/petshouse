@@ -39,73 +39,123 @@
 <!-- jquery cdn -->
 <script
    src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+   <script>
+   $(document).ready(function(){ 
+	    var list = new Array(
+	    		{
+	    		   name: '100p',
+	    		   color: '#FFADC5'
+	    	  	},
+	    	  	{
+	    	  		name: '500p',
+	    	  		color: '#B8F3B8'
+	    	  	},
+	    		{
+		    		name: '1000p',
+		    		color: '#CCD1FF'
+		    	},
+	    		{
+		    		name: '5000p',
+		    		color: '#FFCCCC'
+		    	},
+	    		{
+		    		name: '꽝',
+		    		color: '#FFDDA6'
+		    	}	    	
+	   	);
+	    	    
+	   var canvas = document.getElementById('canvas');
+	   var ctx = canvas.getContext('2d');
+	   	
+	   ctx.translate(500, 500);
+	   	
+		list.forEach(function(e, i){
+	  		ctx.beginPath(); 		
+	   	   	ctx.arc(0, 0, 300, 0, (360/list.length)*(Math.PI/180), false);
+	   	   	ctx.lineTo(0,0);
+	   	   	ctx.closePath();
+	   	   	ctx.fillStyle=e.color;
+	   	   	ctx.fill();
+   	   	
+	   	   	ctx.fillStyle='white';
+	   	   	ctx.textAlign='left';
+	   	   	ctx.font='20px sanserif';
+	   	   	ctx.fillText(e.name, 177, 158);
+	   	   	
+	   	   	ctx.rotate((360/list.length) * (Math.PI/180));
+		});
 
-   <script type="text/javascript" src="/resources/js/jquery-1.11.3.min.js"></script> 
-   <script type="text/javascript" src="/resources/js/jQueryRotateCompressed.js"></script> 
-   <style> 
-  	 #image{ 
-  	 	margin:50px 50px;z-index:10; 
-  	 } 
-  	 #n_id{
-  	 	position:absolute;left:286px;top:75px;z-index:20;} 
-   </style> 
- 
+		//내부 원 설정
+   	   	ctx.beginPath();
+   	   	ctx.arc(0, 0, 200, 0, 2*Math.PI, false);
+   	   	ctx.fillStyle = 'white';
+   	   	ctx.fill();
+   	   	
+   	   	ctx.textAlign= 'center';
+   	   	ctx.textBaseline = 'middle';
+   	   	ctx.font = '30px sanserif';
+   	   	
+   	   	ctx.strokeStyle = '#9197B5';
+   	   	ctx.strokeText('즉석 룰렛 뽑기!', 0,0);
+   	
+   	 var random = 0;
+   	 var clicked = 0;
+    	$('#canvas').on({'click':function(){
+    		if(clicked <= 0){
+    			random += Math.random()*360 + 720;
+    			$(this).css({'transition-timing-function': 'ease-in-out', 'transition': '5s', 'transform': 'rotate('+random+'deg)'});
+ 				console.log(random);
+	    	}else if(clicked >= 1){
+	    		event.preventDefault();
+	    		alert("이벤트 참여하셨습니다.")
+	    	}  		
+    		clicked++;
+    	}
 
+    	});
+   });
+
+   </script>
+   
+   
+   
+ <style>
+	 #board{
+ 		width: 1000px; 
+ 		height: 1000px;
+ 		overflow: hidden;
+ 		position: relative;
+ 	}
+
+	#pin{
+		width:0;
+		height:0;
+		top: 170px;
+		left: calc(50% - 16px);
+		position: absolute;
+		border-radius: 32px 32px 0 0;
+		border-top:70px solid crimson;
+		border-left:16px solid transparent;
+		border-right: 16px solid transparent;
+		border-bottom:0;
+		z-index:1;	
+	}
+  
+  </style>
 
   </head> 
 <body>
    <!-- header -->
    <%@ include file="/WEB-INF/views/include/header.jsp"%>
- 
    
-   <img src="/resources/img/goods/roulette.png" id="image">
-   <img src="/resources/img/goods/niddle.png" id="n_id"> <br /> 
-   <input type='button' value='시작' id='start_btn'></input> 
-   <div id="result_id"></div> 
-   <div id="result_id2"></div>
-<div id="result_id3"></div> 
-
-	<script>
-window.onload = function(){ 
-	var pArr = ["0","1","2","3","4:꽝","5","6","7","8","9"]; 
-	$('#start_btn').click(function(){ 
-		rotation(); 
-	}); 
-	function rotation(){ 
-		$("#image").rotate({ 
-			angle:0, 
-			animateTo:360 * 5 + randomize(0, 360), 
-			center: ["50%", "50%"], 
-			easing: $.easing.easeInOutElastic, 
-			callback: function(){ 
-				var n = $(this).getRotateAngle(); 
-				endAnimate(n); 
-				}, 
-			duration:5000 
-		}); 
-	} 
-	
-	function endAnimate($n){ 
-		var n = $n; 
-		$('#result_id').html("<p>움직인각도:" + n + "</p>"); 
-		var real_angle = n%360 +18; 
-		var part = Math.floor(real_angle/36); 
-		
-		$('#result_id2').html("<p>상품범위:" + part + "</p>"); 
-		
-		if(part < 1){ 
-			$('#result_id3').html("<p>당첨내역:" + pArr[0] + "</p>"); 
-			return; 
-		} 
-		
-		if(part >= 10){ 
-			$('#result_id3').html("<p>당첨내역:" + pArr[pArr.length-1] + "</p>"); 
-			return; 
-		} $('#result_id3').html("<p>당첨내역:" + pArr[part] + "</p>"); } function randomize($min, $max){ return Math.floor(Math.random() * ($max - $min + 1)) + $min; } }; 
-		</script> 
-
- 
- 
+      <div class="container">
+         <div class="row">
+            <div class="col-lg-12">
+ 				<div id="board"><div id="pin"></div><canvas id="canvas" width="1000px" height="1000px"></canvas></div>
+ 			</div>
+ 		</div>
+ 	</div>
+ 	
    <!-- Footer -->
    <%@ include file="/WEB-INF/views/include/footer.jsp"%>
 
@@ -125,4 +175,6 @@ window.onload = function(){
    <script src="/resources/js/main.js"></script>
 </body>
 </html>
+
+
 

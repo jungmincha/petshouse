@@ -12,7 +12,7 @@
 <meta name="author" content="">
 <meta name="viewport"
    content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
-<title>event</title>
+<title>storehome</title>
 
 <!-- bootstrap css cdn -->
 <link rel="stylesheet"
@@ -40,72 +40,44 @@
 <script
    src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-   <script type="text/javascript" src="/resources/js/jquery-1.11.3.min.js"></script> 
-   <script type="text/javascript" src="/resources/js/jQueryRotateCompressed.js"></script> 
-   <style> 
-  	 #image{ 
-  	 	margin:50px 50px;z-index:10; 
-  	 } 
-  	 #n_id{
-  	 	position:absolute;left:286px;top:75px;z-index:20;} 
-   </style> 
+<script>
+
+var imgs = '<img src="https://t1.daumcdn.net/cfile/tistory/9940D03D5A584CCD0C"><br />';
+imgs += '<img src="https://t1.daumcdn.net/cfile/tistory/99F7323D5A584CCE1C"><br />';
+imgs += '<img src="https://t1.daumcdn.net/cfile/tistory/99E6DF3E5A584CD311"><br />';
  
+$(document).ready(function(){
+    //스크롤 발생 이벤트 처리
+    $('#div01').scroll(function(){
+        var scrollT = $(this).scrollTop(); //스크롤바의 상단위치
+        var scrollH = $(this).height(); //스크롤바를 갖는 div의 높이
+        var contentH = $('#divContent').height(); //문서 전체 내용을 갖는 div의 높이
+        if(scrollT + scrollH +1 >= contentH) { // 스크롤바가 아래 쪽에 위치할 때
+            $('#divContent').append(imgs);
+        }
+    });
+});
 
 
-  </head> 
+
+</script>
+
+</head>
+
 <body>
    <!-- header -->
    <%@ include file="/WEB-INF/views/include/header.jsp"%>
- 
-   
-   <img src="/resources/img/goods/roulette.png" id="image">
-   <img src="/resources/img/goods/niddle.png" id="n_id"> <br /> 
-   <input type='button' value='시작' id='start_btn'></input> 
-   <div id="result_id"></div> 
-   <div id="result_id2"></div>
-<div id="result_id3"></div> 
+ 	
+	<div id="div01" style="overflow-y:scroll;">
+    <div id="divContent">
+        <img src="https://t1.daumcdn.net/cfile/tistory/9940D03D5A584CCD0C"><br />
+        <img src="https://t1.daumcdn.net/cfile/tistory/99F7323D5A584CCE1C"><br />
+        <img src="https://t1.daumcdn.net/cfile/tistory/9948143D5A584CD10A"><br />
+    </div>
+	</div>
 
-	<script>
-window.onload = function(){ 
-	var pArr = ["0","1","2","3","4:꽝","5","6","7","8","9"]; 
-	$('#start_btn').click(function(){ 
-		rotation(); 
-	}); 
-	function rotation(){ 
-		$("#image").rotate({ 
-			angle:0, 
-			animateTo:360 * 5 + randomize(0, 360), 
-			center: ["50%", "50%"], 
-			easing: $.easing.easeInOutElastic, 
-			callback: function(){ 
-				var n = $(this).getRotateAngle(); 
-				endAnimate(n); 
-				}, 
-			duration:5000 
-		}); 
-	} 
-	
-	function endAnimate($n){ 
-		var n = $n; 
-		$('#result_id').html("<p>움직인각도:" + n + "</p>"); 
-		var real_angle = n%360 +18; 
-		var part = Math.floor(real_angle/36); 
-		
-		$('#result_id2').html("<p>상품범위:" + part + "</p>"); 
-		
-		if(part < 1){ 
-			$('#result_id3').html("<p>당첨내역:" + pArr[0] + "</p>"); 
-			return; 
-		} 
-		
-		if(part >= 10){ 
-			$('#result_id3').html("<p>당첨내역:" + pArr[pArr.length-1] + "</p>"); 
-			return; 
-		} $('#result_id3').html("<p>당첨내역:" + pArr[part] + "</p>"); } function randomize($min, $max){ return Math.floor(Math.random() * ($max - $min + 1)) + $min; } }; 
-		</script> 
 
- 
- 
+
    <!-- Footer -->
    <%@ include file="/WEB-INF/views/include/footer.jsp"%>
 

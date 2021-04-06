@@ -57,4 +57,11 @@ public class StoreServiceImpl implements StoreService {
 		log.info("getCategory");
 		return mapper.getCategory();
 	}
+
+	//commu
+	@Override
+	public List<BoardVO> getKnowhow() {
+		log.info("getKnowhow");
+		return mapper.getKnowhow();
+	}
 }

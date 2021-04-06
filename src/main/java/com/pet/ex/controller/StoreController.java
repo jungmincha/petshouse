@@ -71,7 +71,27 @@ public class StoreController {
 	public ModelAndView event(ModelAndView mav) {
 		log.info("event");
 	
-		mav.setViewName("store/event");
+		mav.setViewName("store/event4");
 		return mav;
 	}	
+	
+//community 부분
+	@GetMapping("/commu/home")
+	public ModelAndView commuhome(ModelAndView mav) {
+		log.info("commuhome");
+		mav.addObject("knowhow", service.getKnowhow());
+	//	mav.addObject("sns", service.getSns());
+		
+		
+		mav.setViewName("store/commuhome");
+		return mav;
+	}	
+	
+	
+	
+	
+	
+	
+	
+	
 }

@@ -21,4 +21,7 @@ public interface StoreMapper {
 	public List<BoardVO> getBestrate(int category_id);
 	
 	public List<CategoryVO> getCategory();
+
+	//commu
+	public List<BoardVO> getKnowhow();
 }
