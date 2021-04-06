@@ -151,6 +151,12 @@ th {
 h2 {
 	text-align: center;
 }
+.owl-carousel .owl-item img {
+	display: block;
+	width: 130px;
+	height :150px;
+
+}
 </style>
 
 </head>
