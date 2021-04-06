@@ -11,15 +11,15 @@ public interface SecurityService extends UserDetailsService {
 	UserDetails loadUserByUsername(String id);
 
 	// 멤버조회
-	MemberVO getMember(String id) throws Exception;
+	MemberVO getMember(String id);
 
 	// 회원가입
-	int insertMember(MemberVO member) throws Exception;
+	int insertMember(MemberVO member);
 
 	// 비밀번호 틀린횟수 증가
-	int updateTryCount(String id) throws Exception;
+	int updateTryCount(String id);
 
 	// 로그인 성공시 비밀번호 틀린횟수 초기화
-	int updateResetTryCount(String id) throws Exception;
+	int updateResetTryCount(String id);
 
 }

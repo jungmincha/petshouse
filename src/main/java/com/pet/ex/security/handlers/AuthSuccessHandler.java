@@ -24,7 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 public class AuthSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
 	@Autowired
-	SecurityService securityService;
+	private SecurityService securityService;
 
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,

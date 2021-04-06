@@ -20,12 +20,13 @@ import lombok.extern.slf4j.Slf4j;
 public class AuthProvider implements AuthenticationProvider {
 
 	@Autowired
-	SecurityService securityService;
+	private SecurityService securityService;
 
 	// 로그인 버튼을 누를 경우
 	// 실행 1
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+		log.info("authenticate() 로그인 실행1");
 		String id = authentication.getName();
 		String password = authentication.getCredentials().toString();
 		System.out.println(password);
@@ -34,7 +35,7 @@ public class AuthProvider implements AuthenticationProvider {
 
 	// 실행 2
 	private Authentication authenticate(String id, String password) throws AuthenticationException {
-
+		log.info("authenticate() 로그인 실행2");
 		MyAuthentication myInfo = (MyAuthentication) securityService.loadUserByUsername(id);
 
 		if (myInfo == null) {

@@ -41,6 +41,12 @@
 
 <title>Insert title here</title>
 
+<style>
+.pimg {
+	width: 100px;
+	height: 100px;
+}
+</style>
 </head>
 <body style="padding-top: 128px">
 
@@ -56,9 +62,9 @@
 							<table>
 								<thead>
 									<tr>
-										<th>전체선택<br> <input type="checkbox" id="allCk">
+										<th style="width:10%">전체선택<br> <input type="checkbox" id="allCk">
 										</th>
-										<th>상품 이미지</th>
+										<th >상품 이미지</th>
 										<th class="p-name">상품 이름</th>
 										<th>가격</th>
 										<th>수량</th>
@@ -86,8 +92,8 @@
 
 									<li class="cart-total">총 주문금액<span class="total">0원</span></li>
 								</ul>
-								<a onclick="payPage()" class="proceed-btn" style='cursor: pointer'>주문하기
-									</a>
+								<a onclick="payPage()" class="proceed-btn"
+									style='cursor: pointer'>주문하기 </a>
 							</div>
 						</div>
 					</div>
@@ -135,7 +141,7 @@
 														+ "' type='checkbox' name='board_id' value='"
 														+ data[i - 1].board_id
 														+ "'></input></td>"
-														+ "<td class='cart-pic first-row'> <a href='/admin/goods_detail/"+data[i-1].board_id+"'> <img src='/resources/img/cart-page/product-1.jpg'> </a></td> "
+														+ "<td class='cart-pic first-row'> <a href='/admin/goods_detail/"+data[i-1].board_id+"'> <img src='/resources/img/cart-page/product-1.jpg' class='pimg'> </a></td> "
 														+ "<td class='cart-title first-row'>"
 														+ "<h5>"
 														+ "<a href='/admin/goods_detail/"+data[i-1].board_id+"' style='color:#000000' >"
@@ -217,14 +223,16 @@
 										}, //ajax 성공 시 end
 
 										error : function(request, status, error) {
-											alert("code:" + request.status
-													+ "\n" + "message:"
-													+ request.responseText
-													+ "\n" + "error:" + error);
+											//alert("code:" + request.status
+											//+ "\n" + "message:"
+											//+ request.responseText
+											//+ "\n" + "error:" + error);
+											alert("카트가 비었습니다.")
 										} // ajax 에러 시 end
 
 									});// 장바구니 목록 함수 end
 						});
+
 		// 전체 선택
 		$('#allCk').click(function() {
 			var checked = $('#allCk').is(':checked');
@@ -237,6 +245,7 @@
 			summary();
 
 		});
+
 		// 해당 상품 삭제
 		function cartDelete(i) {
 			var tr = '#tr' + i;
@@ -246,6 +255,7 @@
 			sessionStorage.setItem('cartList', JSON.stringify(cartList));
 			summary();
 		}
+
 		// 카트 총 합 계산
 		function summary() {
 			var sum = 0;
@@ -258,6 +268,7 @@
 			}
 			$('.total').html(sum + '원');
 		}
+
 		// 전체 카트 삭제
 		function allCartDelete() {
 			$('#goods').remove();
@@ -265,6 +276,7 @@
 			sessionStorage.setItem('cartList', JSON.stringify(cartList));
 			summary();
 		}
+
 		// 결제 페이지 이동
 		function payPage() {
 			var payGoods = new Array();

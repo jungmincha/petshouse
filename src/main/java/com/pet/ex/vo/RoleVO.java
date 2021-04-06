@@ -13,5 +13,5 @@ public class RoleVO {
 
 	private int role_id;
 	private String rolename;
-	
+
 }

@@ -33,20 +33,19 @@ public class SecurityServiceImpl implements SecurityService {
 	public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
 		log.info("loadUserByUsername()");
 		MemberVO member = loginMapper.getMember(id);
-
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-
+		MyAuthentication myInfo = null;
 		if (member != null) {
 			authorities.add(new SimpleGrantedAuthority(member.getRoleVO().getRolename()));
-
+			myInfo = new MyAuthentication(id, member.getPassword(), authorities, member);
 		}
-		
-		return new MyAuthentication(id, member.getPassword(), authorities, member);
+
+		return myInfo;
 	}
 
 	// 회원가입
 	@Override
-	public int insertMember(MemberVO member) throws Exception {
+	public int insertMember(MemberVO member) {
 		log.info("insertMember()");
 		// 패스워드 암호화
 		String password = member.getPassword();
@@ -81,21 +80,21 @@ public class SecurityServiceImpl implements SecurityService {
 
 	// 멤버조회
 	@Override
-	public MemberVO getMember(String id) throws Exception {
+	public MemberVO getMember(String id) {
 		log.info("getMember()");
 		return loginMapper.getMember(id);
 	}
 
 	// 비밀번호 틀린횟수 증가
 	@Override
-	public int updateTryCount(String id) throws Exception {
+	public int updateTryCount(String id) {
 		log.info("updateTryCount()");
 		return loginMapper.updateTryCount(id);
 	}
 
 	// 로그인 성공시 비밀번호 틀린횟수 초기화
 	@Override
-	public int updateResetTryCount(String id) throws Exception {
+	public int updateResetTryCount(String id) {
 		log.info("updateTryCountReset()");
 		return loginMapper.updateResetTryCount(id);
 	}

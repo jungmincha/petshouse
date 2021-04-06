@@ -86,8 +86,10 @@
 </head>
 <body>
 	<p>
-		<sec:authentication property="principal" />
-
+		<c:set var="member_id">
+			<sec:authentication property="principal.member_id" />
+		</c:set>
+	${member_id }
 	</p>
 
 	<div class="container">

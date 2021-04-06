@@ -28,7 +28,7 @@ import lombok.extern.slf4j.Slf4j;
 public class AuthFailureHandler implements AuthenticationFailureHandler {
 
 	@Autowired
-	SecurityService securityService;
+	private SecurityService securityService;
 
 	public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
 			AuthenticationException exception) throws IOException, ServletException {
@@ -40,7 +40,7 @@ public class AuthFailureHandler implements AuthenticationFailureHandler {
 		try {
 
 			id = exception.getMessage();
-
+			log.info(id);
 			if (securityService.getMember(id) != null) {
 				securityService.updateTryCount(id);
 

@@ -16,8 +16,12 @@ public class PointVO {
 	private int point_id;
 	private int pscore;
 	private Timestamp pdate;
-	
-	//외래키
+
+	// 외래키
 	private PointtypeVO pointtypeVO;
 	private MemberVO memberVO;
+
+	// 합
+	private int sum;
+
 }

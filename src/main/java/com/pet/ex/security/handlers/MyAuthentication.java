@@ -19,7 +19,7 @@ public class MyAuthentication extends UsernamePasswordAuthenticationToken implem
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	MemberVO member;
+	private MemberVO member;
 
 	List<GrantedAuthority> grantedAuthorityList;
 

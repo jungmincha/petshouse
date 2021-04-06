@@ -132,9 +132,10 @@
 	<resultMap type="PointVO" id="pointvo">
 		<result column="point_id" property="point_id" />
 		<result column="pscore" property="pscore" />
-		<result column="pdate_id" property="point_id" />
-		<collection property="PointtypeVO" resultMap="pointtypevo" />
-		<collection property="MemberVO" resultMap="membervo" />
+		<result column="pdate" property="pdate" />
+		<result column="sum(pscore)" property="sum" />
+		<collection property="pointtypeVO" resultMap="pointtypevo" />
+		<collection property="memberVO" resultMap="membervo" />
 	</resultMap>
 
 	<resultMap type="RoleVO" id="rolevo">
@@ -153,11 +154,15 @@
 		<result column="goodspath" property="goodspath" />
 		<collection property="boardVO" resultMap="boardvo" />
 	</resultMap>
-
+	<!-- 상품 게시글 가져오기 -->
 	<select id="getBoard" parameterType="String" resultMap="boardvo">
 <![CDATA[
       select * from board b, goods g where board_id=#{board_id} and b.goods_id=g.goods_id
    ]]>
 	</select>
-
+	<select id="getPoint" parameterType="String" resultMap="pointvo">
+	<![CDATA[
+	select member_id, sum(pscore) from point where member_id=#{member_id} group by member_id
+	   ]]>
+	</select>
 </mapper>
