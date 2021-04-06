@@ -71,7 +71,7 @@ select {
 						<td> --%>
 
 					<td>
-						<%-- 	<div class="form-group">
+							<div class="form-group">
 								<label for="exampleSelect2">등록되지 않은 상품리스트</label> <select
 									  class="form-control" id="exampleSelect2">
 									<c:forEach items="${goods}" var="goods">
@@ -81,7 +81,7 @@ select {
 										</option>
 								</c:forEach>
 								</select>
-							</div>  --%>
+							</div> 
 						<div class="form-group">
 							<label for="exampleSelect2">등록되지 않은 상품리스트</label> <select
 								multiple="" class="form-control" name="goodsVO.goods_id">
@@ -91,13 +91,13 @@ select {
 										/${goods.stockVO.stockname}</option>
 								</c:forEach>
 							</select>
-						</div> <%-- 	<select name="goods"
+						</div> 	<select name="goods"
 							style="vertical-align: middle; text-align-last: center">
 								<c:forEach items="${goods}" var="goods">
 									<option value="${goods.goods_id}">
 										${goods.goods_id}/${goods.goodsname}</option>
 								</c:forEach>
-						</select> --%>
+						</select>
 						<div class="form-group row">
 							<label class="col-sm-3">상세설명</label>
 							<div class="col-sm-9">
@@ -110,11 +110,10 @@ select {
 							<div class="input-group col-sm-9">
 								<div class="custom-file">
 									<input type="file" class="custom-file-input"
-										id="content
-										" name="content"
-										style="display: block;"> <label
-										class="custom-file-label" for="inputGroupFile02">Choose
-										file</label>
+										id="content" name="content"
+										style="display: block;">
+										 <label class="custom-file-label" for="inputGroupFile02">
+										 Choose file</label>
 								</div>
 								<div class="input-group-append">
 									<span class="input-group-text">Upload</span>

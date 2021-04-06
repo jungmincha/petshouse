@@ -45,9 +45,6 @@ public class AdminController {
 	@Autowired
 	private AdminService service;
 
-	@Autowired
-	private FileService fileservice;
-
 	// 관리자홈
 	@GetMapping("/home")
 	public ModelAndView adminHome(ModelAndView mav) throws Exception {
@@ -117,16 +114,45 @@ public class AdminController {
 
 	// 상품수정
 	@PostMapping("/goods/update")
-	public RedirectView goodsModify(GoodsVO goodsVO, ModelAndView mav) throws Exception {
-
+	public RedirectView goodsModify(MultipartHttpServletRequest multi, GoodsVO goodsVO, ModelAndView mav) 
+			throws IllegalStateException, IOException {  
+		
 		log.info("상품수정");
+		String path = multi.getSession().getServletContext().getRealPath("/static/img/admin");
 
+		path = path.replace("webapp", "resources");
+
+		File dir = new File(path);
+		if (!dir.isDirectory()) {
+			dir.mkdir();
+		}
+
+		List<MultipartFile> mf = multi.getFiles("file");
+
+		if (mf.size() == 1 && mf.get(0).getOriginalFilename().equals("")) {
+
+		} else {
+			for (int i = 0; i < mf.size(); i++) { // 파일명 중복 검사
+				UUID uuid = UUID.randomUUID();
+				// 본래 파일명
+				String thumbnail = mf.get(i).getOriginalFilename();
+
+				String savePath = path + "\\" + thumbnail; // 저장 될 파일 경로
+
+				mf.get(i).transferTo(new File(savePath)); // 파일 저장
+				
+				goodsVO.setThumbnail(thumbnail);
+			}	
+		}
 		service.goodsModify(goodsVO);
-
 		return new RedirectView("/admin/goods");
 
+		 
 	}
+	
 
+		
+ 
 	// 상품삭제/상품게시글삭제/리뷰삭제
 	@DeleteMapping("/goods/{goods_id}")
 	public ResponseEntity<String> goodsDelete(GoodsVO goodsVO, Model model) {
@@ -166,36 +192,40 @@ public class AdminController {
 
 	// 상품등록
 	@PostMapping("/goods/register")
-	public ModelAndView goodsInput( GoodsVO goodsVO, ModelAndView mav)
+	public ModelAndView goodsInput(MultipartHttpServletRequest multi, GoodsVO goodsVO, ModelAndView mav)
 			throws IllegalStateException, IOException {
 
 		log.info("goods_register");
+		String path = multi.getSession().getServletContext().getRealPath("/static/img/admin");
 
-		/*
-		 * String path =
-		 * multi.getSession().getServletContext().getRealPath("/static/img/admin"); path
-		 * = path.replace("webapp", "resources"); File dir = new File(path); if
-		 * (!dir.isDirectory()) { dir.mkdir(); }
-		 * 
-		 * List<MultipartFile> mf = multi.getFiles("file");
-		 * 
-		 * if (mf.size() == 1 && mf.get(0).getOriginalFilename().equals("")) {
-		 * 
-		 * } else { for (int i = 0; i < mf.size(); i++) { // 파일명 중복 검사 UUID uuid =
-		 * UUID.randomUUID(); // 본래 파일명 String imgname =
-		 * mf.get(i).getOriginalFilename();
-		 * 
-		 * String savePath = path + "\\" + imgname; // 저장 될 파일 경로
-		 * 
-		 * mf.get(i).transferTo(new File(savePath)); // 파일 저장
-		 * 
-		 * fileservice.fileUpload(imgname); } }
-		 */
+		path = path.replace("webapp", "resources");
+
+		File dir = new File(path);
+		if (!dir.isDirectory()) {
+			dir.mkdir();
+		}
+
+		List<MultipartFile> mf = multi.getFiles("file");
+
+		if (mf.size() == 1 && mf.get(0).getOriginalFilename().equals("")) {
+
+		} else {
+			for (int i = 0; i < mf.size(); i++) { // 파일명 중복 검사
+				UUID uuid = UUID.randomUUID();
+				// 본래 파일명
+				String thumbnail = mf.get(i).getOriginalFilename();
+
+				String savePath = path + "\\" + thumbnail; // 저장 될 파일 경로
+
+				mf.get(i).transferTo(new File(savePath)); // 파일 저장
+				
+				goodsVO.setThumbnail(thumbnail);
+			}	
+		}
 		service.goodsInput(goodsVO);
 		mav.setView(new RedirectView("/admin/goods", true));
 
 		return mav;
-
 	}
 
 	// 상품 게시글 등록

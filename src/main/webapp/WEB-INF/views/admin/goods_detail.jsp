@@ -17,8 +17,7 @@
 	rel="stylesheet">
 <!-- styles -->
 <link href="/resources/sidemenu/css/styles.css" rel="stylesheet">
-<script
-	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
 <link
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
 	rel="stylesheet">
@@ -300,7 +299,7 @@ h2 {
 						<div class="row">
 							<div class="col-lg-6">
 								<div class="product-pic-zoom">
-									<img class="product-big-img"
+									<img class="product-big-img" "
 										src="/resources/img/file/cat5.jpg" alt="">
 									<div class="zoom-icon">
 										<i class="fa fa-search-plus"></i>
@@ -308,7 +307,7 @@ h2 {
 								</div>
 								<div class="product-thumbs">
 									<div class="product-thumbs-track ps-slider owl-carousel">
-										<div class="pt active"
+										<div class="pt active" 
 											data-imgbigurl="/resources/img/file/cat5.jpg">
 											<img src="/resources/img/file/cat5.jpg" alt="">
 										</div>

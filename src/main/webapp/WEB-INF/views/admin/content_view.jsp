@@ -55,10 +55,10 @@ select {
 	<!-- Page Content -->
 
 	<div class="col-lg-30">
-		<form action="${pageContext.request.contextPath}/admin/goods/update" method="post">
+		<form action="${pageContext.request.contextPath}/admin/goods/update" 
+		method="post"  enctype="multipart/form-data">
 			<input type="hidden" name="goods_id" id="goods_id" value="${goods.goods_id}">
-			
-
+		
 			<div class="col-lg-30">
 
 				<fieldset>
@@ -67,8 +67,8 @@ select {
 							<h2>상품 조회</h2>
 					</td>
 						<tr>
-							<td><img style="width: 400px;" id="preview-image"
-								src="https://dummyimage.com/600x500/ffffff&text=+privew"></td>
+							<td><img style="width: 400px;" id="preview-image" name="preview-image"
+								src="/resources/img/admin/${goods.thumbnail}"></td>
 							<%-- <%=request.getRealPath("/")%> 저장경로 --%>
 							<td>
 								<div class="form-group row">
@@ -76,7 +76,7 @@ select {
 									<div class="input-group col-sm-9">
 										<div class="custom-file">
 											<input type="file" class="custom-file-input" id="thumbnail"
-												name="thumbnail" style="display: block;"> 
+												name="file" multiple="multiple" style="display: block;"> 
 												<label class="custom-file-label" for="inputGroupFile02">
 												Choose file
 												</label>
@@ -216,6 +216,7 @@ select {
 
 
 	<script>
+	
 		  	function readImage(input) {
 			    // 인풋 태그에 파일이 있는 경우
 			    if(input.files && input.files[0]) {

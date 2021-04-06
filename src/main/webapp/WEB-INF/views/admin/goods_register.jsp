@@ -88,7 +88,7 @@ select {
 
 
 	<div class="col-lg-30">
-		<form id="goods" name="goods" class="needs-validation" novalidate enctype="multipart/form-data"
+		<form id="goods" name="goods" class="needs-validation" enctype="multipart/form-data"
 			action="${pageContext.request.contextPath}/admin/goods/register"
 			method="post">
 			<fieldset>
@@ -97,7 +97,7 @@ select {
 						<h2>상품 등록</h2>
 					</td>
 					<tr>
-						<td><img style="width: 400px;" id="preview-image"
+						<td><img style="width: 400px;" id="preview-image" name="preview-image"
 							src="https://dummyimage.com/600x500/ffffff&text=+privew"></td>
 						<%-- 	<%=request.getRealPath("/")%> 저장경로 --%>
 						<td>
@@ -106,7 +106,7 @@ select {
 								<div class="input-group col-sm-9">
 									<div class="custom-file">
 										<input type="file" class="custom-file-input" id="thumbnail"
-											name="thumbnail" style="display: block;"> <label
+											name="file" multiple="multiple" style="display: block;"> <label
 											class="custom-file-label" for="inputGroupFile02">Choose
 											file</label>
 									</div>

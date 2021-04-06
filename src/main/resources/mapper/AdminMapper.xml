@@ -202,7 +202,7 @@
 
 	<select id="getGoods" resultMap="goodsvo">
         <![CDATA[
-     	select  g.goods_id, g.goodsname, g.description, s.stock_id, s.stockname, g.price, g.psize, g.pcolor, c.categoryname as sortname, cc.categoryname, c.category_id 
+     	select  g.goods_id, g.goodsname, g.description, s.stock_id, g.thumbnail, s.stockname, g.price, g.psize, g.pcolor, c.categoryname as sortname, cc.categoryname, c.category_id 
       	from goods g, stock s, category c, category cc
       	where g.stock_id=s.stock_id and g.category_id=c.category_id and c.code=cc.category_id and g.goods_id = #{goods_id} 
          ]]>
@@ -231,9 +231,9 @@
 	</insert>
 
 	<!-- 상품수정 -->
-	<update id="modifyGoods" parameterType="goodsvo">
+	<update id="goodsModify" parameterType="goodsvo">
 		<![CDATA[
-	    	update goods set 
+	    	update goods set thumbnail = #{thumbnail},
 	    	     price= #{price} , description = #{description},  
 	    	     psize=#{psize}, pcolor=#{pcolor} , stock_id = #{stockVO.stock_id} , category_id = #{categoryVO.category_id}
 	    	     where goods_id = #{goods_id} 

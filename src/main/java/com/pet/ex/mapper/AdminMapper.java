@@ -75,6 +75,8 @@ public interface AdminMapper {
 
 	public void memberDelete(String member_id);
 
+	public void fileUpload(String imgname);
+
 	
 
 	

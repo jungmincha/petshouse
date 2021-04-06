@@ -1467,7 +1467,9 @@ ol {
 
 .owl-carousel .owl-item img {
 	display: block;
-	width: auto;
+	width: 130px;
+	height :150px;
+
 }
 
 /*---------------------
