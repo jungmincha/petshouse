@@ -6,8 +6,7 @@
 <html lang>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
 <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -59,6 +58,7 @@ select {
     		console.log(name);
     		
     		
+    		
     		 var category = $("#category").val();
     	
     		
@@ -70,7 +70,8 @@ select {
     			
     	
     			name:name,
-    			
+
+    
     			
     	};
     	
@@ -91,6 +92,7 @@ select {
    $('#input').html(data);
 		  console.log(id);
 		  console.log(name);
+		  console.log(animal);
 		
         },
         error: function (e) {
@@ -198,7 +200,7 @@ select {
  					
                        
                       <li>
-                      <a href="#"  style ="font-size: 18px;" onclick="fire_ajax_submit('${vo.category_id}' , '${vo.categoryname}');">
+                      <a href="#"  style ="font-size: 18px;" onclick="fire_ajax_submit('${vo.category_id}' , '${category[0].categoryname} / ${vo.categoryname}');">
                       ${vo.categoryname}
                       </a>
                       </li>
@@ -222,7 +224,7 @@ select {
                       <ul>
                            <c:forEach items = "${smallcategory}" var="vo2" begin="7" end="13">
     			      <li>
-    			      <a href="#" style ="font-size: 18px;" onclick="fire_ajax_submit('${vo2.category_id}' , '${vo2.categoryname}');">
+    			      <a href="#" style ="font-size: 18px;" onclick="fire_ajax_submit('${vo2.category_id}' , '${category[1].categoryname} / ${vo2.categoryname}');">
     			      ${vo2.categoryname}
     			      </a>
     			      </li>
@@ -243,7 +245,7 @@ select {
                          <ul>
                            <c:forEach items = "${smallcategory}" var="vo3" begin="14" end="17">
             			 <li>
-                          <a href="#" style ="font-size: 18px;" onclick="fire_ajax_submit('${vo3.category_id}' , '${vo3.categoryname}');">
+                          <a href="#" style ="font-size: 18px;" onclick="fire_ajax_submit('${vo3.category_id}' , '${category[2].categoryname} / ${vo3.categoryname}');">
                           ${vo3.categoryname}
                           </a>
                           </li>
@@ -264,7 +266,7 @@ select {
                          <ul>
                             <c:forEach items = "${smallcategory}" var="vo4" begin="18" end="24">
 						    <li>
-						    <a href="#" style ="font-size: 18px;" onclick="fire_ajax_submit('${vo4.category_id}' , '${vo4.categoryname}');">
+						    <a href="#" style ="font-size: 18px;" onclick="fire_ajax_submit('${vo4.category_id}' , '${category[3].categoryname} / ${vo4.categoryname}');">
 						    ${vo4.categoryname}
 						    </a>
 						    </li>
@@ -285,7 +287,7 @@ select {
                          <ul>
                            <c:forEach items = "${smallcategory}" var="vo5" begin="25" end="29">
              			   <li>
-             			   <a href="#" style ="font-size: 18px;" onclick="fire_ajax_submit('${vo5.category_id}' , '${vo5.categoryname}');">
+             			   <a href="#" style ="font-size: 18px;" onclick="fire_ajax_submit('${vo5.category_id}' , '${category[4].categoryname} / ${vo5.categoryname}');">
              			   ${vo5.categoryname}
              			   </a>
              			   </li>
@@ -306,7 +308,7 @@ select {
                          <ul>
                             <c:forEach items = "${smallcategory}" var="vo6" begin="30" end="36">
 						    <li>
-						    <a href="#" style ="font-size: 18px;" onclick="fire_ajax_submit('${vo6.category_id}' , '${vo6.categoryname}');">
+						    <a href="#" style ="font-size: 18px;" onclick="fire_ajax_submit('${vo6.category_id}' , '${category[5].categoryname} / ${vo6.categoryname}');">
 						    ${vo6.categoryname}
 						    </a>
 						    </li>
@@ -323,7 +325,8 @@ select {
             
          </div>
          
-         
+        
+              
          <div class="col-lg-9">
               <div class="row">
                                          
@@ -351,20 +354,20 @@ select {
 <div class="row text-center">
 
 
+
+
+
+
     <c:forEach items="${rate}" var="rate">
              
                            <div class="product-item">
-                              <div class="pi-pic">
-                                 <img src="/resources/img/goods/goods_01.jpg" style="width:200px;" alt="">
-
-                       
-                                
-                              </div>
-                              <div class="pi-text">
+                                 <div class="pi-text">
                                  <div class="catagory-name"></div>
                                  <c:forEach items="${goods}" var="goods">
                                     <c:if
                                        test="${rate.goodsVO.goods_id eq goods.goodsVO.goods_id}">
+                                    
+                                        <img src="/resources/img/file/${goods.goodsVO.thumbnail}" style="width:200px;" alt="">
                                        <a href="/admin/goods_detail/${goods.board_id}">
                                           <h5>${goods.goodsVO.goodsname}</h5>
                                        </a>

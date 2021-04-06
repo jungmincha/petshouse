@@ -13,4 +13,12 @@ public interface MapService {
 	public List<BoardVO> getList(Criteria cri);
 	
 	public int getTotal(Criteria cri);
+
+	public void write(BoardVO boardVO);
+
+	public BoardVO content_view(int board_id);
+
+	public void inputDelete(int board_id);
+
+	
 }

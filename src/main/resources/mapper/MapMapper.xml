@@ -157,7 +157,8 @@
 
 <select id="getList" resultMap="boardvo"> 
 		<![CDATA[ 
-		 select * from(select rownum as rnum, a.* from(select * from board order by pgroup desc, pstep asc)
+			
+		 select * from(select rownum as rnum, a.* from(select * from board where boardtype_id=7 order by pgroup desc, pstep asc)
       a where rownum <= #{pageNum} * #{amount}) where rnum > (#{pageNum}-1) * #{amount}
 		]]>
 	</select>
@@ -166,7 +167,27 @@
     <![CDATA[  select count(*) from board  
      ]]>
    </select>
-	
+
+<insert id="write" parameterType="boardvo">
+   <![CDATA[
+      insert into board (board_id, title, pdate, content, plike, hit, hashtag, pgroup, pstep, pindent, member_id, boardtype_id)   
+       values (board_seq.nextval ,#{title}, sysdate, #{content} ,#{plike},#{hit},'인사',board_seq.currval,#{pstep},#{pindent},'admin@naver.com', 7)
+   ]]>
+   </insert>
+
+<select id="content_view" resultMap="boardvo">
+   <![CDATA[
+      select * from board where board_id = #{board_id}
+   ]]>
+   </select>
+   
+   <select id="delete">
+   <![CDATA[
+    delete from board where board_id = #{board_id}
+   ]]>
+   </select>
+
+
 
 
 </mapper>

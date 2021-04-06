@@ -27,7 +27,7 @@
                 <div class="col-lg-12">
                 <h3>종로구</h3>
                 
-                
+                <br/>
           <table border=1 style="width:1140px;">
       <tr>
       	<td>글번호</td>
@@ -43,7 +43,7 @@
          	<td>${list.board_id}</td>
  			  <td><c:forEach begin="1" end="${list.pindent}">[re]</c:forEach>
  			  
-             <a id="a-content"href="${pageContext.request.contextPath}/restful/board/${list.board_id}">${list.title}</a></td>        
+             <a href="/map/board/${list.board_id}">${list.title}</a></td>        
             <td>${list.content}</td>
           
             <td>${list.pdate}</td>
@@ -52,7 +52,11 @@
         
          </tr>
       </c:forEach>
+      
+      
       </table>
+      
+       <a href="write_view">글작성</a>
       
             <div style="text-align:center">
    <c:if test="${pageMaker.prev}">
@@ -73,7 +77,7 @@
    
 
 
- <a href="board/rest_write_view">글작성</a>
+
      
       </div>
       

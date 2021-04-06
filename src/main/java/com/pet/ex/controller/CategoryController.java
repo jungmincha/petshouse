@@ -66,7 +66,7 @@ public class CategoryController {
 	
 
 	@PostMapping("/smallcategory/{category_id}")
-	public ModelAndView smallcategory(@RequestBody String name,  GoodsVO goodsvo, BoardVO boardvo, ModelAndView mav, CategoryVO categoryvo)  {
+	public ModelAndView smallcategory(@RequestBody String name, GoodsVO goodsvo, BoardVO boardvo, ModelAndView mav, CategoryVO categoryvo)  {
 
 
 
@@ -85,7 +85,8 @@ public class CategoryController {
 		  String name1 = name.substring(0, idx);
 			
 			mav.addObject("sgname", name1); 
-		
+			System.out.println("=====================================================================================");
+		System.out.println(categoryvo.getCategoryname());
 		
 		mav.setViewName("category/smallcategory");
 		log.info("smallcategory...");

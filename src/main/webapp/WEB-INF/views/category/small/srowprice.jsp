@@ -318,7 +318,7 @@ select {
                        
                            <div class="product-item">
                               <div class="pi-pic">
-                                 <img src="/resources/img/goods/goods_01.jpg" style="width:200px;heighy:100px;" alt="">
+                                   <img src="/resources/img/file/${goods.goodsVO.thumbnail}" style="width:200px;" alt="">
                      			 </div>
                               <div class="pi-text">
                                  <div class="catagory-name"></div>

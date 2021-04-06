@@ -174,9 +174,10 @@ function select_submit(arr) {
  					
                        
                       <li>
-                      <a href="#"  style ="font-size: 18px;" onclick="fire_ajax_submit('${vo.category_id}' , '${vo.categoryname}');">
+                      <a href="#"  style ="font-size: 18px;" onclick="fire_ajax_submit('${vo.category_id}' , '${category[0].categoryname} / ${vo.categoryname}');">
                       ${vo.categoryname}
-                        ${vo.category_id}
+                   
+                       
                       </a>
                       </li>
                        
@@ -199,7 +200,7 @@ function select_submit(arr) {
                       <ul>
                            <c:forEach items = "${smallcategory}" var="vo2" begin="7" end="13">
     			      <li>
-    			      <a href="#" style ="font-size: 18px;" onclick="fire_ajax_submit('${vo2.category_id}' , '${vo2.categoryname}');">
+    			      <a href="#" style ="font-size: 18px;" onclick="fire_ajax_submit('${vo2.category_id}' , '${category[1].categoryname} / ${vo2.categoryname}');">
     			      ${vo2.categoryname}
     			      </a>
     			      </li>
@@ -220,7 +221,7 @@ function select_submit(arr) {
                          <ul>
                            <c:forEach items = "${smallcategory}" var="vo3" begin="14" end="17">
             			 <li>
-                          <a href="#" style ="font-size: 18px;" onclick="fire_ajax_submit('${vo3.category_id}' , '${vo3.categoryname}');">
+                          <a href="#" style ="font-size: 18px;" onclick="fire_ajax_submit('${vo3.category_id}' , '${category[2].categoryname} / ${vo3.categoryname}');">
                           ${vo3.categoryname}
                           </a>
                           </li>
@@ -241,7 +242,7 @@ function select_submit(arr) {
                          <ul>
                             <c:forEach items = "${smallcategory}" var="vo4" begin="18" end="24">
 						    <li>
-						    <a href="#" style ="font-size: 18px;" onclick="fire_ajax_submit('${vo4.category_id}' , '${vo4.categoryname}');">
+						    <a href="#" style ="font-size: 18px;" onclick="fire_ajax_submit('${vo4.category_id}' , '${category[3].categoryname} / ${vo4.categoryname}');">
 						    ${vo4.categoryname}
 						    </a>
 						    </li>
@@ -262,7 +263,7 @@ function select_submit(arr) {
                          <ul>
                            <c:forEach items = "${smallcategory}" var="vo5" begin="25" end="29">
              			   <li>
-             			   <a href="#" style ="font-size: 18px;" onclick="fire_ajax_submit('${vo5.category_id}' , '${vo5.categoryname}');">
+             			   <a href="#" style ="font-size: 18px;" onclick="fire_ajax_submit('${vo5.category_id}' , '${category[4].categoryname} / ${vo5.categoryname}');">
              			   ${vo5.categoryname}
              			   </a>
              			   </li>
@@ -283,7 +284,7 @@ function select_submit(arr) {
                          <ul>
                             <c:forEach items = "${smallcategory}" var="vo6" begin="30" end="36">
 						    <li>
-						    <a href="#" style ="font-size: 18px;" onclick="fire_ajax_submit('${vo6.category_id}' , '${vo6.categoryname}');">
+						    <a href="#" style ="font-size: 18px;" onclick="fire_ajax_submit('${vo6.category_id}' , '${category[5].categoryname} / ${vo6.categoryname}');">
 						    ${vo6.categoryname}
 						    </a>
 						    </li>
@@ -306,16 +307,15 @@ function select_submit(arr) {
 		<div class="col-lg-9">
 		
 
-		
-			<c:forEach items="${sgid}" var="id">
-				<h3>${id}</h3>
-				</c:forEach>
+
 				
 		
 		<c:forEach items="${sgname}" var="name">
 				<h3>${name}</h3>
 				</c:forEach>
 				
+				<br/>
+					<br/>
 		
 			<div class="row">
 		
@@ -357,7 +357,7 @@ function select_submit(arr) {
                        
                            <div class="product-item">
                               <div class="pi-pic">
-                                 <img src="/resources/img/goods/goods_01.jpg" style="width:200px;" alt="">
+                                  <img src="/resources/img/file/${goods.goodsVO.thumbnail}" style="width:200px;" alt="">
                      			 </div>
                               <div class="pi-text">
                                  <div class="catagory-name"></div>

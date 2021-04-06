@@ -34,4 +34,37 @@ public class MapServiceImpl implements MapService {
 		return  mapper.getTotal(cri);
 	}
 
+
+
+	@Override
+	public void write(BoardVO boardVO) {
+	mapper.write(boardVO);
+		
+	}
+
+
+
+	@Override
+	public BoardVO content_view(int board_id) {
+		
+		return mapper.content_view(board_id);
+	}
+
+
+
+	@Override
+	public void inputDelete(int board_id) {
+		
+		mapper.inputDelete(board_id);
+		
+	}
+
+
+
+	
+
+
+
+	
+
 }

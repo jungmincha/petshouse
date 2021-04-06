@@ -171,7 +171,7 @@
                            회사가 별도로 정한 지침 등에 의합니다.
                             </p>
                             <p>회원님의 위치가 <span id = "address" style="font-weight:bold; font-size:20px;"></span>이 맞으면 '계속 하기'을 눌러주세요.</p>
-                            <form action="/map/petstown" method="get">
+                            <form action="/map/board" method="get">
                                 <div class="row">
                                   <div class="col-lg-12">
                             

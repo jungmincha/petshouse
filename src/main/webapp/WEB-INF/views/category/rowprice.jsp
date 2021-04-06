@@ -59,10 +59,20 @@ select {
 <script type="text/javascript">
 
 
-  	function fire_ajax_submit(id) {
-    	console.log(id);
-    	var category = {}
-    	category["category"] = $("#category").val();
+  	function fire_ajax_submit(id, name) {
+  		console.log(id);
+		console.log(name);
+			
+		 var category = $("#category").val();
+	
+	var form={
+			
+			category:category,		
+			name:name,
+
+
+			
+	};
     	
     	var url = "/category/smallcategory/"+id;
     	
@@ -71,7 +81,7 @@ select {
         type: "POST",
         contentType: 'application/json; charset=utf-8',
   		url: url,
-        data: JSON.stringify(category), 
+        data: JSON.stringify(form), 
         cache : false,
         
         success: function (data) { 
@@ -163,7 +173,7 @@ select {
  					
                        
                       <li>
-                      <a href="#"  style ="font-size: 18px;" onclick="fire_ajax_submit(${vo.category_id});">
+                      <a href="#"  style ="font-size: 18px;" onclick="fire_ajax_submit('${vo.category_id}' , '${category[0].categoryname} / ${vo.categoryname}');">
                       ${vo.categoryname}
                       </a>
                       </li>
@@ -187,7 +197,7 @@ select {
                       <ul>
                            <c:forEach items = "${smallcategory}" var="vo2" begin="7" end="13">
     			      <li>
-    			      <a href="#" style ="font-size: 18px;" onclick="fire_ajax_submit(${vo2.category_id});">
+    			      <a href="#" style ="font-size: 18px;" onclick="fire_ajax_submit('${vo2.category_id}' , '${category[1].categoryname} / ${vo2.categoryname}');">
     			      ${vo2.categoryname}
     			      </a>
     			      </li>
@@ -208,7 +218,7 @@ select {
                          <ul>
                            <c:forEach items = "${smallcategory}" var="vo3" begin="14" end="17">
             			 <li>
-                          <a href="#" style ="font-size: 18px;" onclick="fire_ajax_submit(${vo3.category_id});">
+                          <a href="#" style ="font-size: 18px;" onclick="fire_ajax_submit('${vo3.category_id}' , '${category[2].categoryname} / ${vo3.categoryname}');">
                           ${vo3.categoryname}
                           </a>
                           </li>
@@ -229,7 +239,7 @@ select {
                          <ul>
                             <c:forEach items = "${smallcategory}" var="vo4" begin="18" end="24">
 						    <li>
-						    <a href="#" style ="font-size: 18px;" onclick="fire_ajax_submit(${vo4.category_id});">
+						    <a href="#" style ="font-size: 18px;" onclick="fire_ajax_submit('${vo4.category_id}' , '${category[3].categoryname} / ${vo4.categoryname}');">
 						    ${vo4.categoryname}
 						    </a>
 						    </li>
@@ -250,7 +260,7 @@ select {
                          <ul>
                            <c:forEach items = "${smallcategory}" var="vo5" begin="25" end="29">
              			   <li>
-             			   <a href="#" style ="font-size: 18px;" onclick="fire_ajax_submit(${vo5.category_id});">
+             			   <a href="#" style ="font-size: 18px;" onclick="fire_ajax_submit('${vo5.category_id}' , '${category[4].categoryname} / ${vo5.categoryname}');">
              			   ${vo5.categoryname}
              			   </a>
              			   </li>
@@ -271,7 +281,7 @@ select {
                          <ul>
                             <c:forEach items = "${smallcategory}" var="vo6" begin="30" end="36">
 						    <li>
-						    <a href="#" style ="font-size: 18px;" onclick="fire_ajax_submit(${vo6.category_id});">
+						    <a href="#" style ="font-size: 18px;" onclick="fire_ajax_submit('${vo6.category_id}' , '${category[5].categoryname} / ${vo6.categoryname}');">
 						    ${vo6.categoryname}
 						    </a>
 						    </li>
@@ -324,13 +334,11 @@ select {
  <c:forEach items="${goods}" var="goods" varStatus="status">
                        
                            <div class="product-item">
-                              <div class="pi-pic">
-                                 <img src="/resources/img/goods/goods_01.jpg" style="width:200px;heighy:100px;" alt="">
-                     			 </div>
+                              
                               <div class="pi-text">
                                  <div class="catagory-name"></div>
                              
-                                    
+                                     <img src="/resources/img/file/${goods.goodsVO.thumbnail}" style="width:200px;" alt="">
                                        <a href="/admin/goods_detail/${goods.board_id}">
                                           <h5>${goods.goodsVO.goodsname}</h5>
                                        </a>
