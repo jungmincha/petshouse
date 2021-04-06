@@ -196,7 +196,7 @@ public class AdminController {
 			throws IllegalStateException, IOException {
 
 		log.info("goods_register");
-		String path = multi.getSession().getServletContext().getRealPath("/static/img/admin");
+		String path = multi.getSession().getServletContext().getRealPath("/static/img/admin/goods");
 
 		path = path.replace("webapp", "resources");
 
@@ -207,9 +207,7 @@ public class AdminController {
 
 		List<MultipartFile> mf = multi.getFiles("file");
 
-		if (mf.size() == 1 && mf.get(0).getOriginalFilename().equals("")) {
-
-		} else {
+		 
 			for (int i = 0; i < mf.size(); i++) { // 파일명 중복 검사
 				UUID uuid = UUID.randomUUID();
 				// 본래 파일명
@@ -221,7 +219,7 @@ public class AdminController {
 				
 				goodsVO.setThumbnail(thumbnail);
 			}	
-		}
+		
 		service.goodsInput(goodsVO);
 		mav.setView(new RedirectView("/admin/goods", true));
 
@@ -242,14 +240,39 @@ public class AdminController {
 
 	// 상품 게시글 등록
 	@PostMapping("/board/register")
-	public ModelAndView boardInput(BoardVO boardVO, GoodsVO goodsVO, ModelAndView mav) throws Exception {
+	public ModelAndView boardInput(MultipartHttpServletRequest multi, BoardVO boardVO, GoodsVO goodsVO, ModelAndView mav) 
+			throws IllegalStateException, IOException {
 
 		log.info("goods_register_view");
+		String path = multi.getSession().getServletContext().getRealPath("/static/img/admin/board");
 
+		path = path.replace("webapp", "resources");
+
+		File dir = new File(path);
+		if (!dir.isDirectory()) {
+			dir.mkdir();
+		}
+
+		List<MultipartFile> mf = multi.getFiles("file");
+
+		 
+			for (int i = 0; i < mf.size(); i++) { // 파일명 중복 검사
+				 
+				String detail_img = mf.get(i).getOriginalFilename();
+
+				String savePath = path + "\\" + detail_img; // 저장 될 파일 경로
+
+				mf.get(i).transferTo(new File(savePath)); // 파일 저장
+				
+				boardVO.setContent(detail_img);
+			}	
+		
 		service.boardInput(boardVO);
 		mav.setView(new RedirectView("/admin/goods", true));
 
 		return mav;
+		
+	
 	}
 
 	// 상품게시글 상세조회

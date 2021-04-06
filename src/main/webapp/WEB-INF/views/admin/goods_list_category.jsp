@@ -20,7 +20,8 @@
 <link
 	href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap"
 	rel="stylesheet">
-
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- Css Styles -->
 <link rel="stylesheet" href="/resources/css/bootstrap.min.css"
 	type="text/css">
@@ -122,7 +123,7 @@ h2 {
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-2">
-				<%@ include file="/WEB-INF/views/include/category.jsp"%>
+			
 			</div>
 
 			<%--  	

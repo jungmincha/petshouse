@@ -283,7 +283,7 @@
 
 	<select id="getBoard" resultMap="boardvo"> 
 	<![CDATA[ 
-      select b.board_id, g.goods_id, g.goodsname, g.description, b.content, b.pdate, s.stockname, g.price, g.psize, g.pcolor, b.hashtag, c.categoryname as sortname, cc.categoryname  
+      select b.board_id, g.goods_id, g.goodsname, g.description, b.content, b.pdate, s.stockname, g.price, g.psize, g.thumbnail, g.pcolor, b.hashtag, c.categoryname as sortname, cc.categoryname  
       from goods g, board b, stock s, category c, category cc
       where g.goods_id = b.goods_id and g.stock_id=s.stock_id and g.category_id=c.category_id and c.code=cc.category_id and b.board_id = #{board_id}  and b.boardtype_id=3 
 	]]>

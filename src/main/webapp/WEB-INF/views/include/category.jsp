@@ -77,9 +77,6 @@ $.ajax({
 </head>
  <body>
  
- 	<div id = "input">
- 	<div class="row">
-	 
 		
     <div class="sidebar" style="display: block;" >
                 <ul class="nav">
@@ -216,10 +213,6 @@ $.ajax({
 
                   		<!--  카테고리 부트스트랩 end -->
 
-            
-         </div>    
-         </div>
- 
 	 
 </body>
  
