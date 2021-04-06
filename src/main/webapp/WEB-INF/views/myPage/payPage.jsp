@@ -224,7 +224,7 @@
 								+ "<li class='fw-normal'>배송비  <span id='deliveryPay1'></span><input type='hidden' id='deliveryPay'></li>"
 								+ "<li class='fw-normal'>포인트 사용  <span id='payPoint1'></span><input type='hidden' id='payPoint'></li>"
 								+ "<li class='total-price'>최종 결제 금액 <span id='lastTotal1'></span><input type='hidden' id='lastTotal'></li>"
-								+ "<li class='fw-normal'>적립액 <span id='innerPoint1'></span><input type='hidden' id='innerPoint'></li>"
+								+ "<li class='fw-normal'>적립 포인트 <span id='innerPoint1'></span><input type='hidden' id='innerPoint'></li>"
 						$('#pay').append(html);
 
 						// 총 상품 금액 계산 
@@ -333,7 +333,8 @@
 			buyer_tel : tel,
 			buyer_addr : address,
 			buyer_postcode : '123-456',
-			m_redirect_url : 'localhost:8383/store/home'
+			m_redirect_url : 'localhost:8383/store/home',
+			company : '(주)캣버그'
 		}, function(rsp) {
 			if (rsp.success) {
 				var msg = '결제가 완료되었습니다.';
@@ -341,6 +342,7 @@
 				msg += '상점 거래ID : ' + rsp.merchant_uid;
 				msg += '결제 금액 : ' + rsp.paid_amount;
 				msg += '카드 승인번호 : ' + rsp.apply_num;
+				window.location.assign("/store/home");
 			} else {
 				var msg = '결제에 실패하였습니다.';
 				msg += '에러내용 : ' + rsp.error_msg;
