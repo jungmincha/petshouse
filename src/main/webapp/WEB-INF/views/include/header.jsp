@@ -157,14 +157,14 @@
             </div>
             <nav class="nav-menu mobile-menu">
                <ul>
-                  <li><a href="/">Home</a></li>
+                  <li><a href="/store/home">Home</a></li>
                   <li><a href="/store/commu/home">커뮤니티</a>
                      <ul class="dropdown">
 
                         <li><a href="/commu">SNS</a></li>
                         <li><a href="/commu/tips">노하우</a></li>
                         <li><a href="/commu/qna">질문과답변</a></li>
-                        <li><a href="/commu">펫츠하우스</a></li>
+                        <li><a href="/map/home">펫츠하우스</a></li>
                      </ul></li>
                   <li><a href="/store/home">STORE</a>
                      <ul class="dropdown">

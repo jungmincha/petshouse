@@ -49,7 +49,8 @@
 	<!-- Shopping Cart Section Begin -->
 	<section class="checkout-section spad">
 		<div class="container">
-			<form action="#" class="checkout-form" name='form'>
+			<form action="/myPage/payPage/insert" class="checkout-form"
+				name='form' method="post">
 				<div class="row">
 					<div class="col-lg-8">
 
@@ -95,12 +96,12 @@
 								<hr>
 							</div>
 							<div class="col-lg-5">
-								<label for="fir">받는 사람</label> <input type="text" id="fir">
+								<label for="fir">받는 사람</label> <input type="text" name="deliveryname">
 							</div>
 							<div class="col-lg-5">
-								<label for="phone">연락처</label> <input type="text" id="phone">
+								<label for="phone">연락처</label> <input type="text" name="deliverytel">
 							</div>
-							<div class="group-input col-lg-4">
+							<div class="group-input col-lg-10">
 
 								<label for="street">주소</label>
 								<div class="input-group mb-3">
@@ -110,15 +111,12 @@
 											value="주소검색"
 											style="font-size: 10pt; background-color: #000000; color: #ffffff; font-weight: bold" />
 									</div>
-									<input class="form-control" type="text" width="6px"
-										style="font-size: 13pt;" id="zipno" name="zipno" />
+									<input class="form-control" type="text"
+										style="font-size: 13pt;" id="address" name="deliveryaddress" />
 								</div>
 
 							</div>
-							<div class="col-lg-10">
-								<input class="form-control" type="text" style="font-size: 13pt;"
-									id="address" name="address" />
-							</div>
+							<div class="col-lg-10"></div>
 
 
 
@@ -141,8 +139,7 @@
 										<label for="point">사용 가능 포인트 ${point.sum}P</label> <input
 											type="text" id="point" />
 									</div>
-									<div class="col-lg-4 "
-										style="position: absolute; right: 50px; bottom: 35px;">
+									<div class="col-lg-4 ">
 										<button onclick="usePoint()">전액사용</button>
 
 									</div>
@@ -179,8 +176,11 @@
 							<div class="order-total">
 								<ul class="order-table" id='pay'>
 									<li>Product <span>Total</span></li>
+									<!-- 합산 시 사용 -->
 									<input type="hidden" name="goodsSum">
 									<input type="hidden" name="goodsName">
+									<input type="hidden" name="amount">
+									<input type="hidden" name="board_id">
 								</ul>
 
 								<div class="order-btn">
@@ -214,17 +214,19 @@
 									+ payGoods[i].name
 									+ "&nbsp x &nbsp "
 									+ payGoods[i].amount
+									+ "<input type='hidden' name='amount' value='"+payGoods[i].amount+"'>"
 									+ " <span>"
 									+ payGoods[i].sum
+									+ "원</span> "
 									+ "<input type='hidden' name='goodsSum' value='"+ payGoods[i].sum+"'><input type='hidden' name='goodsName' value='"+ payGoods[i].name+"'>"
-									+ "원</span></li>"
+									+ "<input type='hidden' name='board_id' value='"+ payGoods[i].board_id+"'></li>"
 
 						}
 						html += "<li class='total-price'>총 상품 금액 <span id='goodsTotal1'></span><input type='hidden' id='goodsTotal'></li>"
 								+ "<li class='fw-normal'>배송비  <span id='deliveryPay1'></span><input type='hidden' id='deliveryPay'></li>"
-								+ "<li class='fw-normal'>포인트 사용  <span id='payPoint1'></span><input type='hidden' id='payPoint'></li>"
-								+ "<li class='total-price'>최종 결제 금액 <span id='lastTotal1'></span><input type='hidden' id='lastTotal'></li>"
-								+ "<li class='fw-normal'>적립 포인트 <span id='innerPoint1'></span><input type='hidden' id='innerPoint'></li>"
+								+ "<li class='fw-normal'>포인트 사용  <span id='payPoint1'></span><input type='hidden' id='payPoint' name='usepoint'></li>"
+								+ "<li class='total-price'>최종 결제 금액 <span id='lastTotal1'></span><input type='hidden' id='lastTotal' name='payprice'></li>"
+								+ "<li class='fw-normal'>적립 포인트 <span id='earningPoint1'></span><input type='hidden' id='earningPoint' name='earningpoint'></li>"
 						$('#pay').append(html);
 
 						// 총 상품 금액 계산 
@@ -246,8 +248,12 @@
 							$("#deliveryPay1").text(0 + "원")
 							$("#deliveryPay").val(0)
 						}
+
+						// 최초 포인트 설정
 						$('#payPoint').val(0);
 						$('#payPoint1').text(0 + "P");
+
+						// 최종 결제 금액 계산
 						lastTotal();
 
 					}
@@ -268,8 +274,7 @@
 	// 주소 콜백
 	function jusoCallBack(roadFullAddr, zipNo) {
 		// 팝업페이지에서 주소입력한 정보를 받아서, 현 페이지에 정보를 등록합니다.	
-		$('#address').val(roadFullAddr);
-		$('#zipno').val(zipNo);
+		$('#address').val("(" + zipNo + ")" + roadFullAddr);
 	}
 
 	// 전체 포인트 사용
@@ -286,6 +291,7 @@
 
 		$('#payPoint').val("-" + $("#point").val());
 		$('#payPoint1').text("-" + $("#point").val() + "P");
+		lastTotal()
 	})
 
 	// 최종 결제 금액 계산
@@ -298,17 +304,19 @@
 		$("#lastTotal1").text(lastTotal + "원")
 		// 적립 포인트 계산
 		var innerPoint = Math.floor(lastTotal * 0.01);
-		$("#innerPoint1").text(innerPoint + "P");
-		$("#innerPoint").val(innerPoint);
+		$("#earningPoint1").text(innerPoint + "P");
+		$("#earningPoint").val(innerPoint);
 	}
 </script>
 
+
 <script>
+// 아임포트
 	IMP.init('imp29855153');
 
 	function payNow(method) {
 		event.preventDefault();
-		// 회원정보
+		// 구매자정보
 		var email = "${member.member_id}";
 		var name = "${member.name}";
 		var tel = "${member.tel}";
@@ -317,16 +325,16 @@
 		//결제 정보
 		var lastTotal = $("#lastTotal").val();
 		var nameCount = this.form.goodsName.length - 2;
-		var name = this.form.goodsName[1].value;
+		var goodsName = this.form.goodsName[1].value;
 		if (nameCount > 1) {
-			name += " 외 " + nameCount + "개"
+			goodsName += " 외 " + nameCount + "개"
 		}
 
 		IMP.request_pay({
 			pg : 'html5_inicis', // version 1.1.0부터 지원.
 			pay_method : method,
 			merchant_uid : 'merchant_' + new Date().getTime(),
-			name : name,
+			name : goodsName,
 			amount : lastTotal, //판매 가격
 			buyer_email : email,
 			buyer_name : name,
@@ -342,7 +350,7 @@
 				msg += '상점 거래ID : ' + rsp.merchant_uid;
 				msg += '결제 금액 : ' + rsp.paid_amount;
 				msg += '카드 승인번호 : ' + rsp.apply_num;
-				window.location.assign("/store/home");
+				document.form.submit();
 			} else {
 				var msg = '결제에 실패하였습니다.';
 				msg += '에러내용 : ' + rsp.error_msg;

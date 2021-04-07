@@ -10,7 +10,6 @@ import com.pet.ex.vo.BoardVO;
 @Mapper
 public interface CommunityMapper {
 
-
 	// 노하우 특정 글 페이지
 	public BoardVO getTipsview(int board_id);
 
@@ -19,7 +18,7 @@ public interface CommunityMapper {
 
 	// 노하우 진짜 글쓰기
 	public void writeTips(BoardVO boardVO);
-	
+
 	// 페이징 처리 리스트 출력
 	public List<BoardVO> getTipsWithPaging(Criteria cri);
 
@@ -31,7 +30,6 @@ public interface CommunityMapper {
 
 	// 노하우 글 삭제하기
 	public void tdelete(int board_id);
-	
 
 	// 질문과 답변 특정 글 페이지
 	public BoardVO getQnaview(int board_id);
@@ -45,12 +43,9 @@ public interface CommunityMapper {
 	// 조회수 어쩔거임
 	public void hit(int board_id);
 
-	// 질문과 답변 메인페이지  출력
+	// 질문과 답변 메인페이지 출력
 	public List<BoardVO> getListWithPaging(Criteria cri);
 
-	// 질문과 답변 댓글 출력
-	public List<BoardVO> getComment(int Board_id);
-	
 	// 질문과 답변 댓글쓰기
 	public void writeComment(BoardVO boardVO);
 
@@ -63,6 +58,12 @@ public interface CommunityMapper {
 	// 질문과 답변 글 삭제하기
 	public void delete(int board_id);
 
+	// 질문과 답변 댓글 작성
+	public void insertComment(BoardVO boardVO);
 
+	// 질문과 답변 댓글 리스트 출력
+	public List<BoardVO> listComment(int board_id);
 
+	// 질문과 답변 댓글 출력(ajax)
+	public BoardVO getComment(int Board_id);
 }
