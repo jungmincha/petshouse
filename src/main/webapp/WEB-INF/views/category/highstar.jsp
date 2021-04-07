@@ -396,8 +396,8 @@ select {
                                           class="fa fa-random"></i></a></li>
                                  </ul>
                               </div>
-                              <div class="pi-text">
-                                 <div class="catagory-name"></div>
+                              <div class="pi-text" style="padding:10px;">
+                               
                                  <c:forEach items="${goods}" var="goods">
                                     <c:if
                                        test="${rate.goodsVO.goods_id eq goods.goodsVO.goods_id}">

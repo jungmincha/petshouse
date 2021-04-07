@@ -149,8 +149,7 @@
 
 	<select id="getCategory" resultType="CategoryVO"> 
      <![CDATA[ 
-        select level, CATEGORY_ID, CATEGORYNAME, CODE from category
-        start with CODE is null connect by prior CATEGORY_ID = CODE and CATEGORY_ID<7
+     select * from category where category_id <7
     ]]>
 	</select>
 
@@ -250,7 +249,7 @@
 	<select id="getrowSmallGoods" resultMap="boardvo"> 
      <![CDATA[ 
 		 select g.thumbnail, g.goods_id, g.goodsname, TO_CHAR(g.price,'99,999') as price, b.board_id , g.category_id from board b, goods g 
-		 where b.goods_id=g.goods_id and b.boardtype_id=3 and g.category_id= ${category_id} ORDER BY price asc
+		 where b.goods_id=g.goods_id and b.boardtype_id=3 and g.category_id= #{g.category_id} ORDER BY price asc
     ]]>
 	</select>
 

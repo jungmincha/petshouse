@@ -153,7 +153,7 @@ public class CategoryController {
 	
 	
 	@PostMapping("/small/srowprice")
-	public ModelAndView srowcategory(CategoryVO categoryvo ,GoodsVO goodsvo, ModelAndView mav , BoardVO boardvo) throws Exception{
+	public ModelAndView srowcategory(@RequestBody String id , CategoryVO categoryvo ,GoodsVO goodsvo, ModelAndView mav , BoardVO boardvo) throws Exception{
 		
 		/* mav.addObject("goods", service.getrowprice()); */
 		mav.addObject("rate", service.getStorerate());
@@ -162,7 +162,8 @@ public class CategoryController {
 	
 		
 		
-		mav.addObject("smallgoods", service.getrowSmallGoods(categoryvo));
+		
+		mav.addObject("smallgoods", service.getrowSmallGoods(categoryvo.getCategory_id()));
 		
 		mav.setViewName("category/small/srowprice");
 		
@@ -171,6 +172,7 @@ public class CategoryController {
 		log.info("srowprice...");
 		System.out.println("========================================================================================================================");
 		System.out.println(categoryvo.getCategory_id());
+		System.out.println(id);
 	
 		return mav;
 	}
