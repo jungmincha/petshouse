@@ -38,6 +38,30 @@
 
       // 숫자 평점을 별로 변환하도록 호출하는 함수
       $('.star-prototype').generateStars();
+      
+      
+      $('.btns').click(function(){
+    	  var pageNum = 1;
+    	  pageNum++;
+    	  console.log(pageNum);
+    			  
+    	  	$.ajax({
+    	        type :"POST",
+    	        url :"/store/home/morelist",
+    	        data : {
+    	        	pageNum: pageNum 
+    	        },
+    	        success :function(data){
+    	            console.log(data);
+    	            
+    	        }, 
+    	        error : function(request, status, error) {
+					alert("code:" + request.status + "\n" + "message:"
+							+ request.responseText + "\n" + "error:" + error);
+
+				} // ajax 에러 시 end
+    	    });
+    	});
    });
 </script>
 
@@ -291,11 +315,11 @@
                </div>
             </div>
             <div class="row">
-               <c:forEach items="${bestrate}" var="bestrate">
+            	<c:forEach items="${bestrate}" var="bestrate">
                   <div class="col-lg-3 col-sm-6">
-                     <div class="product-item">
-                        <div class="pi-pic">
-                        
+                     <div class="product-item">                   
+                      
+                        <div class="pi-pic">                     
                            <c:forEach items="${goods}" var="goods">
                                  <c:if test="${goods.goodsVO.goods_id eq bestrate.goodsVO.goods_id}">
                                     <img src="/resources/img/admin/goods/${goods.goodsVO.thumbnail}" alt="">
@@ -303,20 +327,19 @@
 	                           <div class="sale">Best ${bestrate.rnum}</div>
 	                           <div class="icon">
 	                              <i class="icon_heart_alt"></i>
-	                           </div>
-	                           
+	                           </div> 
 	                         	 <ul>
 	                                <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
 	                                <li class="quick-view"><a href="/admin/goods_detail/${goods.board_id}">+ Quick View</a></li>
 	                            </ul>
                         </div>
+                        
                         <div class="pi-text">
-                           <div class="catagory-name"></div>
-                           
+                           <div class="catagory-name"></div>    
                                  <a href="/admin/goods_detail/${goods.board_id}">
                                     <h5>${goods.goodsVO.goodsname}</h5>
                                  </a>
-                                 <div class="product-price">${goods.goodsVO.price}원</div>
+                           <div class="product-price">${goods.goodsVO.price}원</div>
                               </c:if>
                            </c:forEach>
                            <span class="star-prototype"> ${bestrate.avgscore}</span>
@@ -326,12 +349,13 @@
                   </div>
                </c:forEach>                      
             </div>
-           </section>
+           </section> 
          <!-- Best Item End -->
          
 	      <!-- 더보기 페이징 처리 -->
 	      
-	      <div id='addbtn'><div class="btns"><a href="javascript:moreList();" class="btn btn-primary">더보기</a></div></div>
+	     <div class="btns"><div class="btn btn-primary">더보기</div></div>
+
 		</div>
       <!-- /.container -->
       

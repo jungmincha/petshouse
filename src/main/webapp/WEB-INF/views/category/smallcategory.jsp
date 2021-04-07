@@ -9,25 +9,11 @@
 
 <meta name="description" content="">
 <meta name="author" content="">
-<script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
+
 
 <title>Insert title here</title>
+<script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
 
-
-
-
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
-
-  
-  
-   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  
-  
 <style>
 .tab-item {
 	width: 1000;
@@ -179,7 +165,7 @@ function select_submit(arr , id) {
 	         });
 	      };
 
-	      // 숫자 평점을 별로 변환하도록 호출하는 함수
+	      // 숫자 평점을 별로 변환하도록 호출하는 함수\
 	      $('.star-prototype').generateStars();
 	   });
 
@@ -198,14 +184,18 @@ function select_submit(arr , id) {
 
 <body style="padding-top:128px">
 
+
+
+
 <c:forEach items="${sgname}" var="sgname" >
 			<h3>${sgname}</h3>
 			</c:forEach>
 
 <br/>
+
 			
 				
-				
+		
 				
 				<div class="dropdown">
      <button type="button" style="font-size:20px; color:black;background-color:white; border:none; " class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
@@ -213,16 +203,15 @@ function select_submit(arr , id) {
     </button>
     <div class="dropdown-menu">
     <a class="dropdown-item" style="font-size:20px;" href="/category/home">최신순</a>
+    
+<c:forEach items="${smallCategory_id}" var="smallCategory_id" >
+			
+  <a class="dropdown-item" style="font-size:20px;" href="#" onclick="select_submit('srowprice' , '${smallCategory_id}' )">가격 낮은순</a>
 
-  <a class="dropdown-item" style="font-size:20px;" href="#" onclick="select_submit('srowprice' , '103' )">가격 낮은순</a>
-  <a class="dropdown-item" style="font-size:20px;" href="/category/highprice">가격 높은순</a>
-   <a class="dropdown-item" style="font-size:20px;" href="/category/highstar">별점 높은순</a>
-     <!--   <a class="dropdown-item" style="font-size:20px;" href="/category/highprice">가격 높은순</a> -->
-<!--      <a class="dropdown-item" style="font-size:20px;" href="#" onclick="select_submit('highprice')">가격 높은순</a>  -->
-   <!--    <a class="dropdown-item" style="font-size:20px;" href="#" onclick="select_submit('rowprice')">가격 낮은순</a> -->
-   
-<!--       <a class="dropdown-item" style="font-size:20px;" href="#" onclick="select_submit('highstar')">별점 높은순</a> -->
-      
+  <a class="dropdown-item" style="font-size:20px;" href="#" onclick="select_submit('shighprice' , '${smallCategory_id}' )">가격 높은순</a>
+   <a class="dropdown-item" style="font-size:20px;" href="#r" onclick="select_submit('shighstar' , '${smallCategory_id}' )">별점 높은순</a>
+     </c:forEach>
+  
     
     </div>
   </div>
@@ -232,14 +221,15 @@ function select_submit(arr , id) {
 				<c:forEach items="${smallgoods}" var="goods" varStatus="status">
                        
                            <div class="product-item">
-                              <div class="pi-pic" style="padding:10px;"> 
-                                  <img src="/resources/img/admin/goods/${goods.goodsVO.thumbnail}" alt="">
+                              <div class="pi-pic"> 
+                                  
                      			 </div>
-                              <div class="pi-text">
+                              <div class="pi-text" style="padding:10px;">
                                
                              
                                     
                                        <a href="/admin/goods_detail/${goods.board_id}">
+                                       <img src="/resources/img/admin/goods/${goods.goodsVO.thumbnail}" alt="">
                                           <h5>${goods.goodsVO.goodsname}</h5>
                                        </a>
                                        <div class="product-price">${goods.goodsVO.price}원</div>
@@ -250,7 +240,6 @@ function select_submit(arr , id) {
                               </c:forEach> 
 
 				</div>
-
-
+	
 </body>
 </html>

@@ -124,21 +124,19 @@ select {
   	
   	
   	
-function select_submit(arr, id) {
-  		
+ 	function select_submit(arr, id) {
     	console.log(arr);
-    	console.log(id));
-    
-
+    	console.log(id);
     	 var category = $("#category").val();
+    		
+    		var form={
+    				
+    				category:category,		
+    				id:id,
+    		}
+    	var url = "/category/small/"+arr;
 
-	var form={ 			
-     			category:category,
-    			id:id,
-     	};
-
-     	
-      	var url = "/category/small/"+arr;
+ 
     	
     	
     $.ajax({
@@ -158,6 +156,11 @@ function select_submit(arr, id) {
         }
     });
   	} 
+    		
+    		
+    		
+    		
+    		
  
  $(document).ready(function() {
 	      $.fn.generateStars = function() {
@@ -221,11 +224,11 @@ function select_submit(arr, id) {
                               <div class="pi-pic"> 
                                   
                      			 </div>
-                              <div class="pi-text">
+                              <div class="pi-text"  style="padding:10px;">
                                
                              
                                     
-                                       <a href="/admin/goods_detail/${goods.board_id}" style="padding:10px;">
+                                       <a href="/admin/goods_detail/${goods.board_id}">
                                        <img src="/resources/img/admin/goods/${goods.goodsVO.thumbnail}" alt="">
                                           <h5>${goods.goodsVO.goodsname}</h5>
                                        </a>

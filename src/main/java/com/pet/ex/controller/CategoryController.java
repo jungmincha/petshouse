@@ -44,7 +44,7 @@ public class CategoryController {
 
 	// 카테고리 메인페이지
 
-	@GetMapping("/home")
+	@RequestMapping("/home")
 	public ModelAndView categoryhome(GoodsVO goodsvo, ModelAndView mav, CategoryVO categoryvo , BoardVO boardVO) throws Exception {
  
 
@@ -65,7 +65,7 @@ public class CategoryController {
 
 	
 
-	@PostMapping("/smallcategory/{category_id}")
+	@RequestMapping("/smallcategory/{category_id}")
 	public ModelAndView smallcategory(@RequestBody String name, GoodsVO goodsvo, BoardVO boardvo, ModelAndView mav, CategoryVO categoryvo)  {
 
 
@@ -75,6 +75,8 @@ public class CategoryController {
 			mav.addObject("category", service.getCategory());
 			mav.addObject("rate", service.getStorerate());
 			mav.addObject("smallcategory", service.getScategory(categoryvo));
+			
+			
 			
 	//소분류 값  추출하는 로직 -start
 			
@@ -86,7 +88,19 @@ public class CategoryController {
 			
 			mav.addObject("sgname", name1); 
 			System.out.println("=====================================================================================");
-		System.out.println(categoryvo.getCategoryname());
+
+		System.out.println(categoryvo.getCategory_id());
+		
+		
+		  int smallCategory_id = categoryvo.getCategory_id();
+		  // smallCategory_id을 보내주기 위해 string으로 변환해준다. 
+		 
+		  String sCategory_id = Integer.toString(smallCategory_id);
+		  
+		  
+		  
+		  mav.addObject("smallCategory_id", sCategory_id);
+
 		
 		mav.setViewName("category/smallcategory");
 		log.info("smallcategory...");
@@ -101,7 +115,7 @@ public class CategoryController {
 	}
 
 	
-	@GetMapping("/highprice")
+	@PostMapping("/highprice")
 	public ModelAndView pricecategory(GoodsVO goodsvo, ModelAndView mav, CategoryVO categoryvo , BoardVO boardvo) throws Exception{
 		
 		mav.addObject("goods", service.gethighprice());
@@ -118,7 +132,7 @@ public class CategoryController {
 	}
 	
 	
-	@GetMapping("/rowprice")
+	@PostMapping("/rowprice")
 	public ModelAndView rowcategory(GoodsVO goodsvo, ModelAndView mav, CategoryVO categoryvo , BoardVO boardvo) throws Exception{
 		
 		mav.addObject("goods", service.getrowprice());
@@ -134,7 +148,7 @@ public class CategoryController {
 	}
 	
 	
-	@GetMapping("/highstar")
+	@PostMapping("/highstar")
 	public ModelAndView highstar(GoodsVO goodsvo, ModelAndView mav, CategoryVO categoryvo , BoardVO boardVO) throws Exception {
 
 
@@ -159,10 +173,18 @@ public class CategoryController {
 		mav.addObject("rate", service.getStorerate());
 		mav.addObject("category", service.getCategory());
 		mav.addObject("smallcategory", service.getScategory(categoryvo));
-	
 		
 		
 		
+		  id=id.substring(7);
+		  
+		  int idx = id.indexOf("\"");
+		  
+		  String id1 = id.substring(0, idx);
+		  
+		  categoryvo.setCategory_id(Integer.parseInt(id1));
+		 
+		 
 		mav.addObject("smallgoods", service.getrowSmallGoods(categoryvo.getCategory_id()));
 		
 		mav.setViewName("category/small/srowprice");
@@ -171,12 +193,84 @@ public class CategoryController {
 		
 		log.info("srowprice...");
 		System.out.println("========================================================================================================================");
-		System.out.println(categoryvo.getCategory_id());
-		System.out.println(id);
+
+	 System.out.println(id1); 
+	 
+	 System.out.println(categoryvo.getCategoryname());
 	
 		return mav;
 	}
 	
+	
+	
+	
+	@PostMapping("/small/shighprice")
+	public ModelAndView shighcategory(@RequestBody String id , CategoryVO categoryvo ,GoodsVO goodsvo, ModelAndView mav , BoardVO boardvo) throws Exception{
+		
+		/* mav.addObject("goods", service.getrowprice()); */
+		mav.addObject("rate", service.getStorerate());
+		mav.addObject("category", service.getCategory());
+		mav.addObject("smallcategory", service.getScategory(categoryvo));
+		
+		
+		
+		  id=id.substring(7);
+		  
+		  int idx = id.indexOf("\"");
+		  
+		  String id1 = id.substring(0, idx);
+		  
+		  categoryvo.setCategory_id(Integer.parseInt(id1));
+		 
+		 
+		mav.addObject("smallgoods", service.gethighSmallGoods(categoryvo.getCategory_id()));
+		
+		mav.setViewName("category/small/shighprice");
+		
+		
+		
+		log.info("shighprice...");
+		System.out.println("========================================================================================================================");
+
+	 System.out.println(id1); 
+	
+		return mav;
+	}
+	
+	
+	
+	@PostMapping("/small/shighstar")
+	public ModelAndView shighstar(@RequestBody String id , CategoryVO categoryvo ,GoodsVO goodsvo, ModelAndView mav , BoardVO boardvo) throws Exception{
+		
+		/* mav.addObject("goods", service.getrowprice()); */
+		mav.addObject("rate", service.gethighStar());//별점 리뷰 조회
+		mav.addObject("category", service.getCategory());
+		mav.addObject("smallcategory", service.getScategory(categoryvo));
+		
+		
+		
+		  id=id.substring(7);
+		  
+		  int idx = id.indexOf("\"");
+		  
+		  String id1 = id.substring(0, idx);
+		  
+		  categoryvo.setCategory_id(Integer.parseInt(id1));
+		 
+		 
+		mav.addObject("smallgoods", service.gethighstarGoods(categoryvo.getCategory_id()));
+		
+		mav.setViewName("category/small/shighstar");
+		
+		
+		
+		log.info("shighstar...");
+		System.out.println("========================================================================================================================");
+
+	 System.out.println(id1); 
+	
+		return mav;
+	}
 	
 	
 	
