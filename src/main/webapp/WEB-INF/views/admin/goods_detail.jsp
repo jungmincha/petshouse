@@ -319,12 +319,12 @@ h2 {
 												src="/resources/img/admin/goods/${goods.goodsVO.thumbnail}"
 												width="1270" alt="">
 										</div>
-										<c:forEach var="goods" items="${goods.content}">
+									<%-- 	<c:forEach var="goods" items="${goods.content}">
 											<div class="pt" data-imgbigurl="/resources/img/admin/board/${goods.content}">
 											<img src="/resources/img/admin/board/${goods.content}" alt="">
 										</div>
-										</c:forEach>
-										<!-- <div class="pt" data-imgbigurl="/resources/img/file/냥냥이.jpg">
+										</c:forEach> --%>
+										  <div class="pt" data-imgbigurl="/resources/img/file/냥냥이.jpg">
 											<img src="/resources/img/file/냥냥이.jpg" alt="">
 										</div>
 										<div class="pt" data-imgbigurl="/resources/img/file/cat2.jpg">
@@ -335,7 +335,7 @@ h2 {
 										</div>
 										<div class="pt" data-imgbigurl="/resources/img/file/cat3.jpg">
 											<img src="/resources/img/file/cat3.jpg" alt="">
-										</div> -->
+										</div>  
 									</div>
 								</div>
 							</div>
