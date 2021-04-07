@@ -127,75 +127,75 @@ h2 {
 
 
 
-			<div class="container">
+	<div class="container">
 
-			<div class="row">
-				 
-				<div class="col-lg-2">
-				 	<%@ include file="/WEB-INF/views/include/category.jsp"%>  
-				</div>
-		
+		<div class="row">
 
-				<!--  카테고리 부트스트랩 end -->
-				<div class="col-lg-8">
-					<div id="input">
-						<table class="table2 table-hover " border="1">
-							<h2>상품 관리</h2>
-							<tr>
-								<th>상품번호</th>
-								<th>상품명</th>
-								<th>가격</th>
-								<th>재고상태</th>
-								<th>삭제</th>
+			<div class="col-lg-2">
+				<%@ include file="/WEB-INF/views/include/category.jsp"%>
+			</div>
+
+
+			<!--  카테고리 부트스트랩 end -->
+			<div class="col-lg-8">
+				<div id="input">
+					<table class="table2 table-hover " border="1">
+						<h2>상품 관리</h2>
+						<tr>
+							<th>상품번호</th>
+							<th>상품명</th>
+							<th>가격</th>
+							<th>재고상태</th>
+							<th>삭제</th>
+						</tr>
+						<c:forEach items="${list}" var="goods">
+							<tr onClick="location.href='/admin/goods/${goods.goods_id}'"
+								style="cursor: pointer;">
+								<td>${goods.goods_id}</td>
+								<td>${goods.goodsname}</td>
+								<td><fmt:formatNumber value="${goods.price}"
+										pattern="###,###,###" />원</td>
+								<td>${goods.stockVO.stockname}</td>
+								<td onclick="event.cancelBubble=true;"><a class="a-delete"
+									data-bid='${goods.goods_id}'
+									href="/admin/goods/${goods.goods_id}">삭제</a></td>
 							</tr>
-							<c:forEach items="${list}" var="goods">
-								<tr onClick="location.href='/admin/goods/${goods.goods_id}'"
-									style="cursor: pointer;">
-									<td>${goods.goods_id}</td>
-									<td>${goods.goodsname}</td>
-									<td><fmt:formatNumber value="${goods.price}"
-											pattern="###,###,###" />원</td>
-									<td>${goods.stockVO.stockname}</td>
-									<td onclick="event.cancelBubble=true;"><a class="a-delete"
-										data-bid='${goods.goods_id}'
-										href="/admin/goods/${goods.goods_id}">삭제</a></td>
-								</tr>
-							</c:forEach>
-						</table>
-						<a class="btn btn-warning float-right"
-							href="/admin/board/registerView">상품게시글등록</a> <a
-							class="btn btn-warning float-right"
-							href="/admin/goods/registerView">상품등록</a>
+						</c:forEach>
+					</table>
+					<a class="btn btn-warning float-right"
+						href="/admin/board/registerView">상품게시글등록</a> <a
+						class="btn btn-warning float-right"
+						href="/admin/goods/registerView">상품등록</a>
 
-						<!-- 페이징처리 -->
-						<ul class="pagination justify-content-center"
-							style="padding-bottom: 50px; padding-top: 50px;">
+					<!-- 페이징처리 -->
+					<ul class="pagination justify-content-center"
+						style="padding-bottom: 50px; padding-top: 50px;">
 
-							<c:if test="${pageMaker.prev}">
-								<li class="page-item"><a class="page-link"
-									href="goods${pageMaker.makeQuery(pageMaker.startPage - 1) }">Previous</a></li>
-							</c:if>
+						<c:if test="${pageMaker.prev}">
+							<li class="page-item"><a class="page-link"
+								href="goods${pageMaker.makeQuery(pageMaker.startPage - 1) }">Previous</a></li>
+						</c:if>
 
-							<c:forEach begin="${pageMaker.startPage }"
-								end="${pageMaker.endPage }" var="idx">
-								<c:out value="${pageMaker.cri.pageNum == idx?'':''}" />
-								<li class="page-item"><a class="page-link"
-									href="goods${pageMaker.makeQuery(idx)}">${idx}</a></li>
-							</c:forEach>
+						<c:forEach begin="${pageMaker.startPage }"
+							end="${pageMaker.endPage }" var="idx">
+							<c:out value="${pageMaker.cri.pageNum == idx?'':''}" />
+							<li class="page-item"><a class="page-link"
+								href="goods${pageMaker.makeQuery(idx)}">${idx}</a></li>
+						</c:forEach>
 
 
-							<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-								<li class="page-item"><a class="page-link"
-									href="goods${pageMaker.makeQuery(pageMaker.endPage +1) }">
-										Next</a></li>
-							</c:if>
-						</ul>
+						<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
+							<li class="page-item"><a class="page-link"
+								href="goods${pageMaker.makeQuery(pageMaker.endPage +1) }">
+									Next</a></li>
+						</c:if>
+					</ul>
 
-						<br>
-					</div>
+					<br>
 				</div>
 			</div>
-	</div> 
+		</div>
+	</div>
 
 	<!-- Footer -->
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
@@ -218,4 +218,4 @@ h2 {
 <script src="/resources/js/main.js"></script>
 
 </html>
- 
+

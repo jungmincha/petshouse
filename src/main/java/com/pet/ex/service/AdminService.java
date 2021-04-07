@@ -44,7 +44,7 @@ public interface AdminService {
 	public  List<GoodsVO> getNboard();
 	public void boardInput(BoardVO boardVO);
 //	public void fileUpload(String imgname);
-	public void detailInput(String imgname);
+	/* public void detailInput(String imgname); */
 	
 	
 	

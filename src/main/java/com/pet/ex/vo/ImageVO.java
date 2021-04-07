@@ -11,11 +11,9 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ImageVO {
 
-	private int image_id;
-	private String imagename;
-	private String imagepath;
-	
-	//외래키
+	private String imgname;
+
+	// 외래키
 	private BoardVO boardVO;
-	
+	private GoodsVO goodsVO;
 }

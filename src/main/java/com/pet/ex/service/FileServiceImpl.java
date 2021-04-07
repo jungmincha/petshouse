@@ -5,7 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pet.ex.mapper.FileMapper;
-import com.pet.ex.vo.ImgtestVO;
+import com.pet.ex.vo.ImageVO;
+ 
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,7 +26,7 @@ public class FileServiceImpl implements FileService {
 	}
 
 	@Override
-	public List<ImgtestVO> getImgtest() {
+	public List<ImageVO> getImgtest() {
 		log.info("getImgtest");
 		return mapper.getImgtest();
 	}

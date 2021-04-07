@@ -120,20 +120,21 @@ h2 {
 
 
 <body>
+
+
+
 	<div class="container">
 		<div class="row">
-			<div class="col-lg-2">
-			
-			</div>
+			<div class="col-lg-2"></div>
 
-		
+
 			<!--  카테고리 부트스트랩 end -->
 
 			<div class="col-lg-20">
-		 	
+
 				<table class="table2 table-hover" border="1">
 
-					<h2>상품 관리</h2> 
+					<h2>상품 관리</h2>
 					<tr>
 						<th>상품번호</th>
 						<th>상품명</th>
@@ -156,10 +157,10 @@ h2 {
 					</c:forEach>
 
 				</table>
-					<a class="btn btn-warning float-right"
-						href="/admin/board/registerView">상품게시글등록</a> <a
-						class="btn btn-warning float-right"
-						href="/admin/goods/registerView">상품등록</a>
+				<a class="btn btn-warning float-right"
+					href="/admin/board/registerView">상품게시글등록</a> <a
+					class="btn btn-warning float-right"
+					href="/admin/goods/registerView">상품등록</a>
 			</div>
 		</div>
 	</div>

@@ -66,19 +66,9 @@
 	</resultMap>
 
 	<resultMap type="ImageVO" id="imagevo">
-		<result column="image_id" property="image_id" />
-		<result column="imagename" property="imagename" />
-		<result column="imagepath" property="imagepath" />
+		<result column="imgname" property="imgname" />
 		<collection property="boardVO" resultMap="boardvo" />
-	</resultMap>
-
-	<resultMap type="ImgtestVO" id="imgtestvo">
-		<result column="imgtest_id" property="imgtest_id" />
-		<result column="oimgname" property="oimgname" />
-		<result column="simgname" property="simgname" />
-		<result column="filesize" property="filesize" />
-		<result column="savepath" property="savepath" />
-		<collection property="boardVO" resultMap="boardvo" />
+		<collection property="goodsVO" resultMap="goodsvo" />
 	</resultMap>
 
 	<resultMap type="LogintypeVO" id="logintypevo">
