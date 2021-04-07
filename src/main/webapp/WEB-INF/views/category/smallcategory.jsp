@@ -42,16 +42,50 @@ select {
 	height: 30px;
 	font-size: 18px;
 }
+
+
+.hero-items {
+	   padding-top: 150px;
+	}
+	
+	.single-hero-items {
+	   max-height: 580px;
+	}
+	
+	.category, .hotitem {
+	   padding-top: 40px;
+	}
+	
+	.product-item {
+	   padding-top: 20px;
+	}
+	
+	.recommended {
+	   padding-top: 60px;
+	}
+	
+	.best {
+	   padding: 80px;
+	}
+	
+	.product-item img{
+    	width: 200px;
+    	height: 280px;
+    }
+    	
+	span.star-prototype, span.star-prototype>* {
+	   height: 16px;
+	   background: url(http://i.imgur.com/YsyS5y8.png) 0 -16px repeat-x;
+	   display: inline-block;
+	}
+	
+	span.star-prototype>* {
+	   background-position: 0 0;
+	   max-width: 80px;
+	}
+
+
 </style>
-
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="/resources/sidemenu/https://code.jquery.com/jquery.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="/resources/sidemenu/bootstrap/js/bootstrap.min.js"></script>
-<script src="/resources/sidemenu/js/custom.js"></script>
-
-<link href="/resources/sidemenu/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-<link href="/resources/sidemenu/css/styles.css" rel="stylesheet">
 
 
 <script type="text/javascript">
@@ -134,205 +168,50 @@ function select_submit(arr) {
         }
     });
   	} 
-  	
+ 
+ $(document).ready(function() {
+	      $.fn.generateStars = function() {
+	         return this.each(function(i, e) {
+	            $(e).html($('<span/>').width($(e).text() * 16));
+	         });
+	      };
+
+	      // 숫자 평점을 별로 변환하도록 호출하는 함수
+	      $('.star-prototype').generateStars();
+	   });
+
+
+
 </script>
+
+
+ 
+  	
+
+
+
 </head>
 
 
 <body style="padding-top:128px">
-<section class="product-shop spad page-details">
-      
 
-   <div class ="container">
-    <!--가져올 부분-->
-	<div id = "input">
+<c:forEach items="${sgname}" var="sgname" >
+			<h3>${sgname}</h3>
+			</c:forEach>
 
-
-
-	<div class="row">
-		<div class="col-lg-3">
-			<div class="filter-widget"></div>
-
-			<br>
-			<br>
-		 <!-- 카테고리 부트스트랩 start -->
-           <div class="sidebar" style="display: block;" >
-                <ul class="nav">
-                   <li class="submenu">
-                 
-   
-                 
-                
-                      <!-- 고양이 -->
-                     <a href="#" style ="font-size: 25px;"> 
-               		 <i class="fas fa-cat"></i>${category[0].categoryname}<span class="caret pull-right"></span>
-                     </a>
-                     
-                     <!-- Sub menu -->
-                     <ul>
-                       <c:forEach items = "${smallcategory}" var="vo" begin="0" end="6">
- 					
-                       
-                      <li>
-                      <a href="#"  style ="font-size: 18px;" onclick="fire_ajax_submit('${vo.category_id}' , '${category[0].categoryname} / ${vo.categoryname}');">
-                      ${vo.categoryname}
-                   
-                       
-                      </a>
-                      </li>
-                       
-                          
-                          </c:forEach>
-                      </ul>    
-                      </li>
-                      </ul>
-                       
-                       
-                        
-                  <!-- 강아지 -->
-                   <ul class="nav">
-                   <li class="submenu">
-                     <a href="#" style ="font-size: 25px;"> 
-                     <i class="fas fa-dog"></i>${category[1].categoryname}<span class="caret pull-right"></span>
-                     </a>
-                     
-                        <!-- Sub menu -->
-                      <ul>
-                           <c:forEach items = "${smallcategory}" var="vo2" begin="7" end="13">
-    			      <li>
-    			      <a href="#" style ="font-size: 18px;" onclick="fire_ajax_submit('${vo2.category_id}' , '${category[1].categoryname} / ${vo2.categoryname}');">
-    			      ${vo2.categoryname}
-    			      </a>
-    			      </li>
-                            </c:forEach>
-                       </ul>
-                       </li>
-                       </ul>
-                    
-                    
-                    
-                  <!-- 조류 -->
-                      <ul class="nav">
-                   <li class="submenu">
-                  <a href="#" style ="font-size: 25px;">
-                     <i class="fas fa-frog"></i>${category[2].categoryname}<span class="caret pull-right"></span>
-                  </a>
-                  <!-- Sub menu -->
-                         <ul>
-                           <c:forEach items = "${smallcategory}" var="vo3" begin="14" end="17">
-            			 <li>
-                          <a href="#" style ="font-size: 18px;" onclick="fire_ajax_submit('${vo3.category_id}' , '${category[2].categoryname} / ${vo3.categoryname}');">
-                          ${vo3.categoryname}
-                          </a>
-                          </li>
-                             </c:forEach>
-                         </ul>
-                         </li>
-                        </ul>
-                    
-                    
-                    
-                        <!-- 어류 -->
-                            <ul class="nav">
-                   <li class="submenu">
-                        <a href="#" style ="font-size: 25px;">
-                            <i class="fas fa-fish"></i>${category[3].categoryname}<span class="caret pull-right"></span>
-                         </a>
-                         <!-- Sub menu -->
-                         <ul>
-                            <c:forEach items = "${smallcategory}" var="vo4" begin="18" end="24">
-						    <li>
-						    <a href="#" style ="font-size: 18px;" onclick="fire_ajax_submit('${vo4.category_id}' , '${category[3].categoryname} / ${vo4.categoryname}');">
-						    ${vo4.categoryname}
-						    </a>
-						    </li>
-                        
-                          
-                          </c:forEach>
-                          </ul>
-                          </li>
-                          </ul>
-                    
-                        <!-- 파충류 -->
-                         <ul class="nav">
-                 	     <li class="submenu">
-                          <a href="#" style ="font-size: 25px;">
-                            <i class="fas fa-crow"></i>${category[4].categoryname}<span class="caret pull-right"></span>
-                         </a>
-                         <!-- Sub menu -->
-                         <ul>
-                           <c:forEach items = "${smallcategory}" var="vo5" begin="25" end="29">
-             			   <li>
-             			   <a href="#" style ="font-size: 18px;" onclick="fire_ajax_submit('${vo5.category_id}' , '${category[4].categoryname} / ${vo5.categoryname}');">
-             			   ${vo5.categoryname}
-             			   </a>
-             			   </li>
-                              </c:forEach>
-                           </ul>
-                           </li>
-                           </ul>
-                           
-                           
-                    
-                       <!-- 기타 -->
-                        <ul class="nav">
-                        <li class="submenu">
-                          <a href="#" style ="font-size: 25px;">
-                            <i class="fas fa-paw"></i>${category[5].categoryname}<span class="caret pull-right"></span>
-                         </a>
-                         <!-- Sub menu -->
-                         <ul>
-                            <c:forEach items = "${smallcategory}" var="vo6" begin="30" end="36">
-						    <li>
-						    <a href="#" style ="font-size: 18px;" onclick="fire_ajax_submit('${vo6.category_id}' , '${category[5].categoryname} / ${vo6.categoryname}');">
-						    ${vo6.categoryname}
-						    </a>
-						    </li>
-                           </c:forEach>
-                       		</ul>
-                       		</li>
-                            </ul>
-                      
-                        </div>
-
-
-                  		<!--  카테고리 부트스트랩 end -->
-
-
-
-		</div>
-
-
-
-		<div class="col-lg-9">
-		
-
-
-				
-		
-		<c:forEach items="${sgname}" var="name">
-				<h3>${name}</h3>
-				</c:forEach>
-				
-				<br/>
-					<br/>
-		
-			<div class="row">
-		
-
-				<div class="dropdown">
-    <button type="button" style="font-size:20px; color:black;background-color:white; border:none; " class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-     카테고리별
-    </button>
-    
-    
-    <div class="dropdown-menu">
-    
 
 			
+				
+				
+				
+				<div class="dropdown">
+     <button type="button" style="font-size:20px; color:black;background-color:white; border:none; " class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+    카테고리
+    </button>
+    <div class="dropdown-menu">
     <a class="dropdown-item" style="font-size:20px;" href="/category/home">최신순</a>
-   <!--  <a class="dropdown-item" style="font-size:20px;" href="/category/rowprice">가격 낮은순</a> -->
- <a class="dropdown-item" style="font-size:20px;" href="#" onclick="select_submit('srowprice')">가격 낮은순</a> 
+
+  <a class="dropdown-item" style="font-size:20px;" href="/category/rowprice">가격 낮은순</a>
   <a class="dropdown-item" style="font-size:20px;" href="/category/highprice">가격 높은순</a>
    <a class="dropdown-item" style="font-size:20px;" href="/category/highstar">별점 높은순</a>
      <!--   <a class="dropdown-item" style="font-size:20px;" href="/category/highprice">가격 높은순</a> -->
@@ -340,24 +219,18 @@ function select_submit(arr) {
    <!--    <a class="dropdown-item" style="font-size:20px;" href="#" onclick="select_submit('rowprice')">가격 낮은순</a> -->
    
 <!--       <a class="dropdown-item" style="font-size:20px;" href="#" onclick="select_submit('highstar')">별점 높은순</a> -->
-   
-  
+      
     
     </div>
-    
   </div>
-
-				
-
-				<div class="row text-center">
 			
 
-				
+					<div class="row text-center">
 				<c:forEach items="${smallgoods}" var="goods" varStatus="status">
                        
                            <div class="product-item">
                               <div class="pi-pic">
-                                  <img src="/resources/img/file/${goods.goodsVO.thumbnail}" style="width:200px;" alt="">
+                                  <img src="/resources/img/admin/goods/${goods.goodsVO.thumbnail}" alt="">
                      			 </div>
                               <div class="pi-text">
                                  <div class="catagory-name"></div>
@@ -372,40 +245,9 @@ function select_submit(arr) {
                               </div>
                            </div>
                               </c:forEach> 
-				
-				
-				
-					<%-- <c:forEach items="${smallgoods}" var="dto">
-						<div class="col-lg-4 col-md-6 mb-4">
-							<div class="card h-100">
-								<img class="card-img-top"
-									src="https://t1.daumcdn.net/cfile/blog/26661E4655C8AE7509">
-								<div class="card-body">
-
-									<h4 class="card-title">${dto.goodsVO.goodsname}</h4>
-									<p class="card-text">${dto.goodsVO.price}원</p>
-									<p class="card-text">${dto.goodsVO.description}</p>
-									<p class="card-text">${dto.pdate}</p>
-
-
-								</div>
-
-							</div>
-						</div>
-					</c:forEach>
- --%>
 
 				</div>
 
 
-
-
-
-			</div>
-		</div>
-	</div>
-</div>
-</div>
-</section>
 </body>
 </html>

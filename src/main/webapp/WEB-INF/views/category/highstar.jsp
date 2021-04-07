@@ -40,6 +40,46 @@ select {
 	height: 30px;
 	font-size: 18px;
 }
+
+.hero-items {
+	   padding-top: 150px;
+	}
+	
+	.single-hero-items {
+	   max-height: 580px;
+	}
+	
+	.category, .hotitem {
+	   padding-top: 40px;
+	}
+	
+	.product-item {
+	   padding-top: 20px;
+	}
+	
+	.recommended {
+	   padding-top: 60px;
+	}
+	
+	.best {
+	   padding: 80px;
+	}
+	
+	.product-item img{
+    	width: 200px;
+    	height: 280px;
+    }
+    	
+	span.star-prototype, span.star-prototype>* {
+	   height: 16px;
+	   background: url(http://i.imgur.com/YsyS5y8.png) 0 -16px repeat-x;
+	   display: inline-block;
+	}
+	
+	span.star-prototype>* {
+	   background-position: 0 0;
+	   max-width: 80px;
+	}
 </style>
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -125,6 +165,17 @@ select {
 
 }  	
   	
+  	
+  	 $(document).ready(function() {
+	      $.fn.generateStars = function() {
+	         return this.each(function(i, e) {
+	            $(e).html($('<span/>').width($(e).text() * 16));
+	         });
+	      };
+
+	      // 숫자 평점을 별로 변환하도록 호출하는 함수
+	      $('.star-prototype').generateStars();
+	   });
 
 </script>
 </head>
@@ -350,7 +401,7 @@ select {
                                  <c:forEach items="${goods}" var="goods">
                                     <c:if
                                        test="${rate.goodsVO.goods_id eq goods.goodsVO.goods_id}">
-                                         <img src="/resources/img/file/${goods.goodsVO.thumbnail}" style="width:200px;" alt="">
+                                         <img src="/resources/img/admin/goods/${goods.goodsVO.thumbnail}" style="width:200px;" alt="">
                                        <a href="/admin/goods_detail/${goods.board_id}">
                                           <h5>${goods.goodsVO.goodsname}</h5>
                                        </a>

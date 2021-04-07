@@ -39,6 +39,53 @@ select {
 	height: 30px;
 	font-size: 18px;
 }
+
+
+
+.hero-items {
+	   padding-top: 150px;
+	}
+	
+	.single-hero-items {
+	   max-height: 580px;
+	}
+	
+	.category, .hotitem {
+	   padding-top: 40px;
+	}
+	
+	.product-item {
+	   padding-top: 20px;
+	}
+	
+	.recommended {
+	   padding-top: 60px;
+	}
+	
+	.best {
+	   padding: 80px;
+	}
+	
+	.product-item img{
+    	width: 200px;
+    	height: 280px;
+    }
+    	
+	span.star-prototype, span.star-prototype>* {
+	   height: 16px;
+	   background: url(http://i.imgur.com/YsyS5y8.png) 0 -16px repeat-x;
+	   display: inline-block;
+	}
+	
+	span.star-prototype>* {
+	   background-position: 0 0;
+	   max-width: 80px;
+	}
+
+
+
+
+
 </style>
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -51,6 +98,48 @@ select {
   
   
 <script type="text/javascript">
+
+$(document).ready(function() {
+    console.log("${category_id}")
+
+    var category = $("#category").val();
+
+    var form = {
+
+       category : category,
+
+       name : "${categoryName}",
+
+    };
+
+    var url = "/category/smallcategory/" + "${category_id}";
+
+    $.ajax({
+       type : "POST",
+       contentType : 'application/json; charset=utf-8',
+       url : url,
+       data : JSON.stringify(form),
+       cache : false,
+
+       success : function(data) {
+
+          console.log("SUCCESS : ", data);
+
+          $('#input').html(data);
+          console.log(id);
+          console.log(name);
+          console.log(animal);
+
+       },
+       error : function(e) {
+          console.log("ERROR : ", e);
+
+       }
+    });
+
+ })
+
+
 
 
   	function fire_ajax_submit(id, name) {
@@ -141,12 +230,16 @@ select {
   	
   	
   
-  	$.fn.generateStars = function() {
-  	    return this.each(function(i,e){$(e).html($('<span/>').width($(e).text()*16));});
-  	};
- // 숫자 평점을 별로 변환하도록 호출하는 함수
-  	$('.star-prototype').generateStars();
- 	
+  	 $(document).ready(function() {
+  	      $.fn.generateStars = function() {
+  	         return this.each(function(i, e) {
+  	            $(e).html($('<span/>').width($(e).text() * 16));
+  	         });
+  	      };
+
+  	      // 숫자 평점을 별로 변환하도록 호출하는 함수
+  	      $('.star-prototype').generateStars();
+  	   });
   	
   	
   	
@@ -173,8 +266,7 @@ select {
    
 
    
-   <!--가져올 부분-->
-	<div id = "input">
+   
 	
       <div class="row">
          <div class="col-lg-3">
@@ -330,7 +422,12 @@ select {
          <div class="col-lg-9">
               <div class="row">
                                          
-  <div class="dropdown">
+  
+  
+  <!--가져올 부분-->
+	<div id = "input">
+	
+	<div class="dropdown">
      <button type="button" style="font-size:20px; color:black;background-color:white; border:none; " class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
      전체
     </button>
@@ -354,10 +451,6 @@ select {
 <div class="row text-center">
 
 
-
-
-
-
     <c:forEach items="${rate}" var="rate">
              
                            <div class="product-item">
@@ -367,7 +460,7 @@ select {
                                     <c:if
                                        test="${rate.goodsVO.goods_id eq goods.goodsVO.goods_id}">
                                     
-                                        <img src="/resources/img/file/${goods.goodsVO.thumbnail}" style="width:200px;" alt="">
+                                        <img src="/resources/img/admin/goods/${goods.goodsVO.thumbnail}"  alt="">
                                        <a href="/admin/goods_detail/${goods.board_id}">
                                           <h5>${goods.goodsVO.goodsname}</h5>
                                        </a>
@@ -380,30 +473,8 @@ select {
                            </div>
            
                      </c:forEach>
-                      <br/>
-                      <br/>
-            
-
-
-
-
- <%-- <c:forEach items="${goods}" var="dto" varStatus="status">
-      <div class="col-lg-4 col-md-6 mb-4">
-        <div class="card h-100">
-          <img class="card-img-top" src="http://image.kmib.co.kr/online_image/2020/0927/611718110015050456_2.jpg" alt="">
-          <div class="card-body">
-
-            <h4 class="card-title">${dto.goodsVO.goodsname}</h4>
-            <p class="card-text">${dto.goodsVO.price}</p>
-             
-            <p class="card-text">${dto.pdate}</p>
-          
+                   
      
-          </div>
-          
-        </div>
-      </div>
-      </c:forEach>   --%>
       </div>
 
          
