@@ -115,13 +115,10 @@ public class AdminServiceImpl implements AdminService {
 	public void boardInput(BoardVO boardVO) {		
 
 		mapper.boardInput(boardVO);
+		mapper.detailInput(boardVO.getGoodsVO().getGoods_id());
 	}
 	
-	@Override
-	public void detailInput(String imgname) {
-		log.info("imgname");
-		mapper.detailInput(imgname);
-	}
+	
 
 	
 	@Override

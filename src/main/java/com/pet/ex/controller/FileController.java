@@ -15,7 +15,8 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.pet.ex.service.FileService;
-import com.pet.ex.vo.ImgtestVO;
+import com.pet.ex.vo.ImageVO;
+
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -67,7 +68,7 @@ public class FileController {
 	}
 
 	@GetMapping("/filelist")
-	public ModelAndView filelist(ImgtestVO imgtestVO, ModelAndView mav) {
+	public ModelAndView filelist(ImageVO imageVO, ModelAndView mav) {
 		log.info("filelist");
 		mav.addObject("filelist", fileservice.getImgtest());
 		mav.setViewName("file/filelist");

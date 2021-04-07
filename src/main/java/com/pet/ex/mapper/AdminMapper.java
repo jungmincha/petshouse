@@ -48,7 +48,7 @@ public interface AdminMapper {
 	
 	public void boardInput(BoardVO boardVO);
 
-	public void detailInput(String imgname);
+	public void detailInput(int goods_id);
 	
 	public BoardVO getboardInfo(int board_id);
 
@@ -76,6 +76,8 @@ public interface AdminMapper {
 	public MemberVO getMemberdetail(String member_id);
 
 	public void memberDelete(String member_id);
+
+	
 
 
 

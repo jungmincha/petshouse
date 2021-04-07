@@ -66,16 +66,10 @@
 <collection property="categoryVO" resultMap="categoryvo"/>
 </resultMap>
 
-<resultMap id="imagevo" type="ImageVO">
-<result property="image_id" column="image_id"/>
-<result property="imagename" column="imagename"/>
-<result property="imagepath" column="imagepath"/>
-<collection property="boardVO" resultMap="boardvo"/>
-</resultMap>
-
-<resultMap id="imgtestvo" type="ImgtestVO">
-<result property="imgname" column="oimgname"/>
-<collection property="boardVO" resultMap="boardvo"/>
+<resultMap type="ImageVO" id="imagevo">
+<result column="imgname" property="imgname" />
+<collection property="boardVO" resultMap="boardvo" />
+<collection property="goodsVO" resultMap="goodsvo" />
 </resultMap>
 
 <resultMap id="logintypevo" type="LogintypeVO">

@@ -66,19 +66,9 @@
 	</resultMap>
 
 	<resultMap type="ImageVO" id="imagevo">
-		<result column="image_id" property="image_id" />
-		<result column="imagename" property="imagename" />
-		<result column="imagepath" property="imagepath" />
+		<result column="imgname" property="imgname" />
 		<collection property="boardVO" resultMap="boardvo" />
-	</resultMap>
-
-	<resultMap type="ImgtestVO" id="imgtestvo">
-		<result column="imgtest_id" property="imgtest_id" />
-		<result column="oimgname" property="oimgname" />
-		<result column="simgname" property="simgname" />
-		<result column="filesize" property="filesize" />
-		<result column="savepath" property="savepath" />
-		<collection property="boardVO" resultMap="boardvo" />
+		<collection property="goodsVO" resultMap="goodsvo" />
 	</resultMap>
 
 	<resultMap type="LogintypeVO" id="logintypevo">
@@ -155,45 +145,45 @@
 	</resultMap>
 
 
-<!-- 고양이,강아지 등 대분류 카테고리 이름 얻는 mapper -->
-	
-<select id="getCategory" resultType="CategoryVO"> 
+	<!-- 고양이,강아지 등 대분류 카테고리 이름 얻는 mapper -->
+
+	<select id="getCategory" resultType="CategoryVO"> 
      <![CDATA[ 
         select level, CATEGORY_ID, CATEGORYNAME, CODE from category
         start with CODE is null connect by prior CATEGORY_ID = CODE and CATEGORY_ID<7
-    ]]> 
-   </select> 
+    ]]>
+	</select>
 
-<!-- 사료, 장난감 등 소분류 카테고리 이름 얻는 mapper -->
-<select id="getScategory" resultType="CategoryVO"> 
+	<!-- 사료, 장난감 등 소분류 카테고리 이름 얻는 mapper -->
+	<select id="getScategory" resultType="CategoryVO"> 
      <![CDATA[ 
         select categoryname , code , category_id from category WHERE code = code
-    ]]> 
-   </select> 
-	
+    ]]>
+	</select>
 
-   <!-- 소분류 별로 분류해 카테고리 홈에 뿌려주는 mapper-->
-   	<select id="getSmallGoods" resultMap="boardvo"> 
+
+	<!-- 소분류 별로 분류해 카테고리 홈에 뿌려주는 mapper -->
+	<select id="getSmallGoods" resultMap="boardvo"> 
      <![CDATA[ 
 		 select g.thumbnail , g.goods_id, g.goodsname, TO_CHAR(g.price,'99,999') as price, b.board_id , pdate , g.category_id from board b, goods g 
 		 where b.goods_id=g.goods_id and b.boardtype_id=3 and g.category_id=#{getCategory_id} ORDER BY pdate desc
-    ]]> 
-   </select> 
-   
-   
-  
+    ]]>
+	</select>
 
-<!-- 전체 상품을 최신순으로 조회해서 뿌려주는  mapper-->
-	 <select id="getboard" resultMap="boardvo"> 
+
+
+
+	<!-- 전체 상품을 최신순으로 조회해서 뿌려주는 mapper -->
+	<select id="getboard" resultMap="boardvo"> 
      <![CDATA[ 
  
 	  select g.thumbnail , g.goods_id, g.goodsname, TO_CHAR(g.price,'99,999') as price, b.board_id from board b, goods g 
 	  where b.goods_id=g.goods_id and b.boardtype_id=3 
  
-	]]> 
-	</select> 
-	
-	<!-- 리뷰 별점  mapper-->
+	]]>
+	</select>
+
+	<!-- 리뷰 별점 mapper -->
 	<select id="getStorerate" resultMap="boardvo">
 		<![CDATA[
 	      
@@ -203,47 +193,47 @@
 		       
 	   ]]>
 	</select>
-	
-		<!-- 별점 높은순  mapper-->
-<select id="gethighStar" resultMap="boardvo"> 
+
+	<!-- 별점 높은순 mapper -->
+	<select id="gethighStar" resultMap="boardvo"> 
      <![CDATA[ 
 	
 	select * from(
 		           select round(avg(ratescore),1) as avgscore, count(*) as count, goods_id
                    from board where boardtype_id=8 group by goods_id)order by avgscore desc
 	
-	]]> 
-	</select> 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-		<!-- category 상품에 대한 높은 가격순-->
+	]]>
+	</select>
+
+
+
+
+
+
+
+
+
+
+
+	<!-- category 상품에 대한 높은 가격순 -->
 	<select id="gethighprice" resultMap="boardvo"> 
      <![CDATA[ 
 	  select g.thumbnail, g.goods_id, g.goodsname, TO_CHAR(g.price,'99,999') as price, b.board_id ,pdate from board b, goods g
  where b.goods_id=g.goods_id and b.boardtype_id=3 ORDER BY price DESC
-	]]> 
-	</select> 
-	
-	
-	
-	
-	
+	]]>
+	</select>
+
+
+
+
+
 	<select id="getrowprice" resultMap="boardvo"> 
      <![CDATA[ 
 	  select  g.thumbnail, g.goods_id, g.goodsname, TO_CHAR(g.price,'99,999') as price, b.board_id ,pdate from board b, goods g
  where b.goods_id=g.goods_id and b.boardtype_id=3 ORDER BY price ASC
-	]]> 
-	</select> 
-	
+	]]>
+	</select>
+
 	<select id="getshighprice" resultMap="boardvo"> 
      <![CDATA[ 
 	
@@ -251,21 +241,21 @@
 	 where b.goods_id=g.goods_id and b.boardtype_id=3
   	and g.category_id=#{g.category_id} ORDER BY price desc
 	
-	]]> 
-	</select> 
-	
-	
+	]]>
+	</select>
 
-	
-		<select id="getrowSmallGoods" resultMap="boardvo"> 
+
+
+
+	<select id="getrowSmallGoods" resultMap="boardvo"> 
      <![CDATA[ 
 		 select g.thumbnail, g.goods_id, g.goodsname, TO_CHAR(g.price,'99,999') as price, b.board_id , g.category_id from board b, goods g 
 		 where b.goods_id=g.goods_id and b.boardtype_id=3 and g.category_id= ${category_id} ORDER BY price asc
-    ]]> 
-   </select> 
-	
-	
-	
+    ]]>
+	</select>
+
+
+
 
 
 </mapper>

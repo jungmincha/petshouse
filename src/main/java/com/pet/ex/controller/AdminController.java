@@ -265,7 +265,7 @@ public class AdminController {
 				
 				mf.get(i).transferTo(new File(savePath)); // 파일 저장
 		
-				service.detailInput(imgname);
+				service.boardInput(boardVO);
 			}	
 		
 		
