@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html >
 <html>
 <head>
@@ -389,24 +390,32 @@ h2 {
 											</div>
 										</div>
 									</div>
+									
+
 									<div class="pd-size-choose">
-										<div class="sc-item">${goods.goodsVO.psize}
-											뿌릴예정 <input type="radio" id="sm-size"> <label
-												for="sm-size">s</label>
-										</div>
+										<c:set var="pcolor" value="${goods.goodsVO.pcolor}" />
+										<c:set var="color" value="${fn:split(pcolor, ',')}" />
+										<c:forEach var="c" items="${color}">
 										<div class="sc-item">
-											<input type="radio" id="md-size"> <label
-												for="md-size">m</label>
-										</div>
-										<div class="sc-item">
-											<input type="radio" id="lg-size"> <label
-												for="lg-size">l</label>
-										</div>
-										<div class="sc-item">
-											<input type="radio" id="xl-size"> <label
-												for="xl-size">xs</label>
-										</div>
+											<input type="radio" id="s-size" />
+											<label for="s-size">${c}</label>
+											</div>
+										</c:forEach>
 									</div>
+									
+									
+										<div class="pd-size-choose">
+										<c:set var="psize" value="${goods.goodsVO.psize}" />
+										<c:set var="size" value="${fn:split(psize, ',')}" />
+										<c:forEach var="s" items="${size}">
+										<div class="sc-item">
+											<input type="radio" id="lg-size" />
+											<label for="lg-size">${s}</label>
+											</div>
+										</c:forEach>
+									</div>
+									
+									
 									<div class="quantity">
 										<div class="pro-qty">
 											<span class="dec qtybtn">-</span> <input id="amount"
@@ -421,8 +430,9 @@ h2 {
 										<li><span>TAGS</span>: #${goods.hashtag}</li>
 									</ul>
 									<div class="pd-share">
-										<div class="p-code"><small>재고상태 :
-											${goods.goodsVO.stockVO.stockname}</small></div>
+										<div class="p-code">
+											<small>재고상태 : ${goods.goodsVO.stockVO.stockname}</small>
+										</div>
 										<div class="pd-social">
 											<a href="#"><i class="ti-facebook"></i></a> <a href="#"><i
 												class="ti-twitter-alt"></i></a> <a href="#"><i
