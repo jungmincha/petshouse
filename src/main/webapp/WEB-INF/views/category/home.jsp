@@ -9,9 +9,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
-<script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
+
 
 <title>Insert title here</title>
+<script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="/resources/sidemenu/https://code.jquery.com/jquery.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="/resources/sidemenu/bootstrap/js/bootstrap.min.js"></script>
+<script src="/resources/sidemenu/js/custom.js"></script>
+
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <!-- Bootstrap -->
@@ -39,8 +47,6 @@ select {
 	height: 30px;
 	font-size: 18px;
 }
-
-
 
 .hero-items {
 	   padding-top: 150px;
@@ -82,24 +88,16 @@ select {
 	   max-width: 80px;
 	}
 
-
-
-
-
 </style>
 
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="/resources/sidemenu/https://code.jquery.com/jquery.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="/resources/sidemenu/bootstrap/js/bootstrap.min.js"></script>
-<script src="/resources/sidemenu/js/custom.js"></script>
+
   
 
   
   
 <script type="text/javascript">
 
-$(document).ready(function() {
+/* $(document).ready(function() {
     console.log("${category_id}")
 
     var category = $("#category").val();
@@ -137,7 +135,7 @@ $(document).ready(function() {
        }
     });
 
- })
+ })  */
 
 
 
@@ -191,13 +189,27 @@ $(document).ready(function() {
     });
 
 }
+
+
+
   	
   	
   	
-/* 	function select_submit(arr) {
-    	console.log(arr);
-    	var category = {}
-    	category["category"] = $("#category").val();
+	function select_submit(arr) {
+		console.log(arr);
+
+
+		 var category = $("#category").val();
+	
+		
+
+
+	var form={
+			
+			category:category,
+	
+			
+	};
     	
     	var url = "/category/"+arr;
     	
@@ -206,7 +218,7 @@ $(document).ready(function() {
         type: "POST",
         contentType: 'application/json; charset=utf-8',
   		url: url,
-        data: JSON.stringify(category), 
+        data: JSON.stringify(form), 
         cache : false,
         
         success: function (data) { 
@@ -225,7 +237,7 @@ $(document).ready(function() {
 
 }
   	
-  	 */
+  	
   	
   	
   	
@@ -433,10 +445,12 @@ $(document).ready(function() {
     </button>
     <div class="dropdown-menu">
     <a class="dropdown-item" style="font-size:20px;" href="/category/home">최신순</a>
+   <a class="dropdown-item" style="font-size:20px;" href="#" onclick="select_submit('rowprice')">가격 낮은순</a>
+     <a class="dropdown-item" style="font-size:20px;" href="#" onclick="select_submit('highprice')">가격 높은순</a> 
 
-  <a class="dropdown-item" style="font-size:20px;" href="/category/rowprice">가격 낮은순</a>
-  <a class="dropdown-item" style="font-size:20px;" href="/category/highprice">가격 높은순</a>
-   <a class="dropdown-item" style="font-size:20px;" href="/category/highstar">별점 높은순</a>
+   
+    <a class="dropdown-item" style="font-size:20px;" href="#" onclick="select_submit('highstar')">별점 높은순</a>
+    
      <!--   <a class="dropdown-item" style="font-size:20px;" href="/category/highprice">가격 높은순</a> -->
 <!--      <a class="dropdown-item" style="font-size:20px;" href="#" onclick="select_submit('highprice')">가격 높은순</a>  -->
    <!--    <a class="dropdown-item" style="font-size:20px;" href="#" onclick="select_submit('rowprice')">가격 낮은순</a> -->
@@ -494,9 +508,9 @@ $(document).ready(function() {
    <!-- Footer -->
    <%@ include file="/WEB-INF/views/include/footer.jsp"%>
   <!-- Bootstrap core JavaScript -->
-  <script src="/resources/store/vendor/jquery/jquery.min.js"></script>
+ <!--  <script src="/resources/store/vendor/jquery/jquery.min.js"></script>
    <script
-      src="/resources/store/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+      src="/resources/store/vendor/bootstrap/js/bootstrap.bundle.min.js"></script> 
    <script src="/resources/js/jquery-3.3.1.min.js"></script>
    <script src="/resources/js/bootstrap.min.js"></script>
    <script src="/resources/js/jquery-ui.min.js"></script>
@@ -506,7 +520,7 @@ $(document).ready(function() {
    <script src="/resources/js/jquery.dd.min.js"></script>
    <script src="/resources/js/jquery.slicknav.js"></script>
    <script src="/resources/js/owl.carousel.min.js"></script>
-   <script src="/resources/js/main.js"></script> 
+   <script src="/resources/js/main.js"></script>  -->
 
 </body>
 </html>

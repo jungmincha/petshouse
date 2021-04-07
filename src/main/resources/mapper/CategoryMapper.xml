@@ -149,7 +149,7 @@
 
 	<select id="getCategory" resultType="CategoryVO"> 
      <![CDATA[ 
-     select * from category where category_id <7
+     select * from category where category_id<7 order by category_id asc
     ]]>
 	</select>
 
@@ -245,16 +245,29 @@
 
 
 
-
+<!-- 소분류 상품에 대한 낮은 가격순 -->
 	<select id="getrowSmallGoods" resultMap="boardvo"> 
      <![CDATA[ 
 		 select g.thumbnail, g.goods_id, g.goodsname, TO_CHAR(g.price,'99,999') as price, b.board_id , g.category_id from board b, goods g 
 		 where b.goods_id=g.goods_id and b.boardtype_id=3 and g.category_id= #{g.category_id} ORDER BY price asc
     ]]>
 	</select>
+	
+	<!-- 소분류 상품에 대한 높은 가격순 -->
+	<select id="gethighSmallGoods" resultMap="boardvo"> 
+     <![CDATA[ 
+		 select g.thumbnail, g.goods_id, g.goodsname, TO_CHAR(g.price,'99,999') as price, b.board_id , g.category_id from board b, goods g 
+		 where b.goods_id=g.goods_id and b.boardtype_id=3 and g.category_id= #{g.category_id} ORDER BY price desc
+    ]]>
+	</select>
 
 
-
-
+<!-- 소분류 상품에 대한 높은 별점 -->
+	<select id="gethighstarGoods" resultMap="boardvo"> 
+     <![CDATA[ 
+		 select g.thumbnail, g.goods_id, g.goodsname, TO_CHAR(g.price,'99,999') as price, b.board_id , g.category_id from board b, goods g 
+		 where b.goods_id=g.goods_id and b.boardtype_id=3 and g.category_id= #{g.category_id}
+    ]]>
+	</select>
 
 </mapper>

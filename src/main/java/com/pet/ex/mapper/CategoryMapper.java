@@ -37,6 +37,10 @@ public interface CategoryMapper {
 
 	public List<BoardVO> getrowSmallGoods(int category_id);
 
+	public List<BoardVO> gethighSmallGoods(int category_id);
+
+	public List<BoardVO> gethighstarGoods(int category_id);
+
 
 
 

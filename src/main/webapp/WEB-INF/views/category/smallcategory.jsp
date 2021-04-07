@@ -9,12 +9,12 @@
 
 <meta name="description" content="">
 <meta name="author" content="">
-<script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
+
 
 <title>Insert title here</title>
 
-
-
+<script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
@@ -23,7 +23,7 @@
   
    <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+ 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   
@@ -179,7 +179,7 @@ function select_submit(arr , id) {
 	         });
 	      };
 
-	      // 숫자 평점을 별로 변환하도록 호출하는 함수
+	      // 숫자 평점을 별로 변환하도록 호출하는 함수\
 	      $('.star-prototype').generateStars();
 	   });
 
@@ -206,9 +206,10 @@ function select_submit(arr , id) {
 			</c:forEach>
 
 <br/>
+
 			
 				
-				
+		
 				
 				<div class="dropdown">
      <button type="button" style="font-size:20px; color:black;background-color:white; border:none; " class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
@@ -221,15 +222,10 @@ function select_submit(arr , id) {
 			
   <a class="dropdown-item" style="font-size:20px;" href="#" onclick="select_submit('srowprice' , '${smallCategory_id}' )">가격 낮은순</a>
 
-  <a class="dropdown-item" style="font-size:20px;" href="/category/highprice">가격 높은순</a>
-   <a class="dropdown-item" style="font-size:20px;" href="/category/highstar">별점 높은순</a>
+  <a class="dropdown-item" style="font-size:20px;" href="#" onclick="select_submit('shighprice' , '${smallCategory_id}' )">가격 높은순</a>
+   <a class="dropdown-item" style="font-size:20px;" href="#r" onclick="select_submit('shighstar' , '${smallCategory_id}' )">별점 높은순</a>
      </c:forEach>
-     <!--   <a class="dropdown-item" style="font-size:20px;" href="/category/highprice">가격 높은순</a> -->
-<!--      <a class="dropdown-item" style="font-size:20px;" href="#" onclick="select_submit('highprice')">가격 높은순</a>  -->
-   <!--    <a class="dropdown-item" style="font-size:20px;" href="#" onclick="select_submit('rowprice')">가격 낮은순</a> -->
-   
-<!--       <a class="dropdown-item" style="font-size:20px;" href="#" onclick="select_submit('highstar')">별점 높은순</a> -->
-      
+  
     
     </div>
   </div>
@@ -257,7 +253,6 @@ function select_submit(arr , id) {
                               </c:forEach> 
 
 				</div>
-
-
+	
 </body>
 </html>

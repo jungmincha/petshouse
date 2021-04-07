@@ -136,21 +136,19 @@ select {
   	
   	
   	
-function select_submit(arr, id) {
-  		
+ 	function select_submit(arr, id) {
     	console.log(arr);
-    	console.log(id));
-    
-
+    	console.log(id);
     	 var category = $("#category").val();
+    		
+    		var form={
+    				
+    				category:category,		
+    				id:id,
+    	
+    	var url = "/category/small/"+arr;
 
-	var form={ 			
-     			category:category,
-    			id:id,
-     	};
-
-     	
-      	var url = "/category/small/"+arr;
+ 
     	
     	
     $.ajax({

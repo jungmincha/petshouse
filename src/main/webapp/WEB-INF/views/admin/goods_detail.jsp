@@ -12,20 +12,23 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <title>상품조회</title>
-<!-- Bootstrap -->
-<link href="/resources/sidemenu/bootstrap/css/bootstrap.min.css"
-	rel="stylesheet">
-<!-- styles -->
-<link href="/resources/sidemenu/css/styles.css" rel="stylesheet">
+<!-- 제이쿼리 사용하는 cnd -->
+<script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
 
-<link
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
-	rel="stylesheet">
+
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="/resources/sidemenu/https://code.jquery.com/jquery.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="/resources/sidemenu/bootstrap/js/bootstrap.min.js"></script>
 <script src="/resources/sidemenu/js/custom.js"></script>
+
+<!-- Bootstrap -->
+<link href="/resources/sidemenu/bootstrap/css/bootstrap.min.css"rel="stylesheet">
+<!-- styles -->
+<link href="/resources/sidemenu/css/styles.css" rel="stylesheet">
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+
 
 
 <script>
@@ -67,26 +70,34 @@
 	}
 	
 	//카테고리
-	function fire_ajax_submit(id) {
+	function fire_ajax_submit(id , name) {
 
-    	var category = {}
-    	
-    	category["category"] = $("#cateBoard").val();
-
+		console.log(id);
+		console.log(name);
+			 var category = $("#category").val();
+	
+	
+	var form={
+			
+			category:category,
+	
+			name:name,
+			
+	};
     	var url = "/category/smallcategory/"+id;
 
     $.ajax({
     	
-        type: "POST",
+        type: "Post",
         contentType: 'application/json; charset=utf-8',
   		url: url,
-     	data: JSON.stringify(category), 
+     	data: JSON.stringify(form), 
         cache : false,
         
     
         success: function (data) { 
           console.log("SUCCESS : ", data);
-       
+          console.log(id);
           $('#input').html(data);
 	
  
@@ -185,7 +196,7 @@ h2 {
 
 
 										<li><a href="#" style="font-size: 15px;"
-											onclick="fire_ajax_submit(${vo.category_id});">${vo.categoryname}</a></li>
+											onclick="fire_ajax_submit('${vo.category_id}' , '${cateBoard[0].categoryname} / ${vo.categoryname}');">${vo.categoryname}</a></li>
 
 
 									</c:forEach>
@@ -206,7 +217,7 @@ h2 {
 
 
 										<li><a href="#" style="font-size: 15px;"
-											onclick="fire_ajax_submit(${vo2.category_id});">${vo2.categoryname}</a></li>
+												onclick="fire_ajax_submit('${vo2.category_id}' , '${cateBoard[1].categoryname} / ${vo2.categoryname}');">${vo2.categoryname}</a></li>
 
 
 
@@ -225,7 +236,7 @@ h2 {
 
 
 										<li><a href="#" style="font-size: 15px;"
-											onclick="fire_ajax_submit(${vo3.category_id});">${vo3.categoryname}</a></li>
+												onclick="fire_ajax_submit('${vo3.category_id}' , '${cateBoard[2].categoryname} / ${vo3.categoryname}');">${vo3.categoryname}</a></li>
 
 
 									</c:forEach>
@@ -243,7 +254,7 @@ h2 {
 
 
 										<li><a href="#" style="font-size: 15px;"
-											onclick="fire_ajax_submit(${vo4.category_id});">${vo4.categoryname}</a></li>
+												onclick="fire_ajax_submit('${vo4.category_id}' , '${cateBoard[3].categoryname} / ${vo4.categoryname}');">${vo4.categoryname}</a></li>
 
 
 									</c:forEach>
@@ -261,7 +272,7 @@ h2 {
 
 
 										<li><a href="#" style="font-size: 15px;"
-											onclick="fire_ajax_submit(${vo5.category_id});">${vo5.categoryname}</a></li>
+											onclick="fire_ajax_submit('${vo5.category_id}' , '${cateBoard[4].categoryname} / ${vo5.categoryname}');">${vo5.categoryname}</a></li>
 
 
 									</c:forEach>
@@ -279,7 +290,7 @@ h2 {
 
 
 										<li><a href="#" style="font-size: 15px;"
-											onclick="fire_ajax_submit(${vo6.category_id});">${vo6.categoryname}</a></li>
+											onclick="fire_ajax_submit('${vo6.category_id}' , '${cateBoard[5].categoryname} / ${vo6.categoryname}');">${vo6.categoryname}</a></li>
 
 
 									</c:forEach>
@@ -299,10 +310,18 @@ h2 {
 
 
 
-				<div class="col-lg-9">
-					<form action="modify" method="post">
 
-						<div class="row">
+				
+				<div class="col-lg-9">
+				
+	
+				
+				
+					<form action="modify" method="post">
+						<!-- input ajax 시작하는 곳! -->
+						<div id = "input" class="row">
+						
+						
 							<div class="col-lg-6">
 								<div class="product-pic-zoom">
 									<img class="product-big-img" height="550"
@@ -433,7 +452,7 @@ h2 {
 									</div>
 								</div>
 							</div>
-						</div>
+					
 
 
 						<div class="product-tab">
@@ -601,6 +620,10 @@ h2 {
 								</div>
 							</div>
 						</div>
+						
+							</div>
+						
+							<!-- input ajax 끝나는 곳! -->
 					</form>
 				</div>
 			</div>
@@ -619,6 +642,7 @@ h2 {
 	<script src="/resources/js/jquery.slicknav.js"></script>
 	<script src="/resources/js/owl.carousel.min.js"></script>
 	<script src="/resources/js/main.js"></script>
+
 
 
 	<!-- Footer -->
