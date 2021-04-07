@@ -9,24 +9,12 @@
 
 <meta name="description" content="">
 <meta name="author" content="">
-<script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
+
 
 <title>Insert title here</title>
+<script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
 
 
-
-
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
-
-  
-  
-   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  
   
 <style>
 .tab-item {
@@ -230,14 +218,15 @@ function select_submit(arr, id) {
 				<c:forEach items="${smallgoods}" var="goods" varStatus="status">
                        
                            <div class="product-item">
-                              <div class="pi-pic" style="padding:10px;"> 
-                                  <img src="/resources/img/admin/goods/${goods.goodsVO.thumbnail}" alt="">
+                              <div class="pi-pic"> 
+                                  
                      			 </div>
                               <div class="pi-text">
                                
                              
                                     
-                                       <a href="/admin/goods_detail/${goods.board_id}">
+                                       <a href="/admin/goods_detail/${goods.board_id}" style="padding:10px;">
+                                       <img src="/resources/img/admin/goods/${goods.goodsVO.thumbnail}" alt="">
                                           <h5>${goods.goodsVO.goodsname}</h5>
                                        </a>
                                        <div class="product-price">${goods.goodsVO.price}원</div>

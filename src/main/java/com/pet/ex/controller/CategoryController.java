@@ -44,7 +44,7 @@ public class CategoryController {
 
 	// 카테고리 메인페이지
 
-	@GetMapping("/home")
+	@RequestMapping("/home")
 	public ModelAndView categoryhome(GoodsVO goodsvo, ModelAndView mav, CategoryVO categoryvo , BoardVO boardVO) throws Exception {
  
 

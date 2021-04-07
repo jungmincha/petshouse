@@ -13,23 +13,6 @@
 
 <title>Insert title here</title>
 <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="/resources/sidemenu/https://code.jquery.com/jquery.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="/resources/sidemenu/bootstrap/js/bootstrap.min.js"></script>
-<script src="/resources/sidemenu/js/custom.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<!-- Bootstrap -->
-<link href="/resources/sidemenu/bootstrap/css/bootstrap.min.css"
-	rel="stylesheet">
-<!-- styles -->
-<link href="/resources/sidemenu/css/styles.css" rel="stylesheet">
-<script
-	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<link
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
-	rel="stylesheet">
 
 <style>
 .tab-item {
@@ -293,8 +276,9 @@ select {
                               
                                 <div class="pi-text" style="padding:10px;">
                              
-                                     <img src="/resources/img/admin/goods/${goods.goodsVO.thumbnail}" style="width:200px;" alt="">
+                                     
                                        <a href="/admin/goods_detail/${goods.board_id}">
+                                       <img src="/resources/img/admin/goods/${goods.goodsVO.thumbnail}" style="width:200px;" alt="">
                                           <h5>${goods.goodsVO.goodsname}</h5>
                                        </a>
                                        <div class="product-price">${goods.goodsVO.price}원</div>
