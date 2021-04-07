@@ -55,7 +55,7 @@
 
 </head>
 
-<body>
+<body style="padding-top:180px">
 
 	<!-- Header -->
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>

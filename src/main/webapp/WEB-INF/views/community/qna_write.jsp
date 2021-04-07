@@ -35,7 +35,6 @@
 	type="text/css">
 <link rel="stylesheet" href="/resources/css/style.css" type="text/css">
 
-
 <!-- bootstrap css cdn -->
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -62,9 +61,12 @@
 
 </head>
 
-<body>
+<body style="padding-top:180px">
 	<!-- Header -->
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
+		
+	<%@ include file="/resources/jQuery-tagEditor-master/jquery.tag-editor.css"%>
+	<%@ include file="/resources/jQuery-tagEditor-master/jquery.tag-editor.min.js"%>
 
 	<div class="container" style="width: 800px;">
 
@@ -73,7 +75,7 @@
 		<form action="${pageContext.request.contextPath}/commu/qna"
 			enctype="multipart/form-data" method="post">
 			
-			<input type="hidden" class="form-control" name="memberVO.member_id" value="<sec:authentication property='name'/>">
+			<input type="hidden" class="form-control" name="memberVO.member_id" value="<sec:authentication property='principal.member_id'/>">
 			<h2 style="margin-top: 30px;">질문하기</h2>
 			
 			
@@ -99,98 +101,14 @@
 
 			<div id='ui-widget'>
 				<input type="text" class="hashtag" name="hashtag" maxlength="100"
-					placeholder="태그 목록" id="text_task" />
-
+					placeholder="태그 목록" />
 			</div>
-		
-
-			<script>
-				var hashtag = document.getElementById('hashtag').innerHTML;
-				var splitedArray = content.split(' ');
-				var linkedContent = '';
-				for ( var word in splitedArray) {
-					word = splitedArray[word];
-					if (word.indexOf('#') == 0) {
-						word = '<a href=\'링크\'>' + word + '</a>';
-					}
-					linkedContent += word + ' ';
-				}
-				document.getElementById('hashtag').innerHTML = linkedContent;
-						
-			</script>
-
 
 			<button type="submit" class="btn btn-warning float-right"
 				style="float: right; margin-top: 30px;"
 				onclick="location.href='${pageContext.request.contextPath}/commu/qna'">질문
 				등록</button>
 
-			<!-- <script>
-/* add Tag by click or press enter, comma, space */
-var elements = document.getElementById('element');
-var taskSubmit = document.getElementById('btn_add_task');
-var taskBox = document.querySelector('#text_task');
-var taskList = document.getElementById('list_tasks');
-
-/* Prevent input other than Korean, English and numbers */
-taskBox.addEventListener('keyup',  removeSpecial);
-function removeSpecial (e) {
-   e.target.value = e.target.value.replace(/[^ㄱ-힣a-zA-Z0-9+#]/gi,"");
-}
-
-/* Prevent duplicate tags */
-
-/* click */
-document.addEventListener('click', clickFunction, false);
-function clickFunction(e) {
-    var task = taskBox.value.trim();
-    var newLI = document.createElement('li');
-    var removeBtn = document.createElement('button');
-    var element = newLI.appendChild(document.createTextNode(task));
-    if (taskBox.value != "") {
-        e.preventDefault();
-        taskList.appendChild(newLI);
-        taskList.appendChild(removeBtn);
-        taskBox.value = '';
-    }
-}
-
-/* keyup */
-document.addEventListener('keyup', keyupFunction, false);
-function keyupFunction(e) {
-    var keyCode = e.keyCode;
-    var task = taskBox.value.trim();
-    var newLI = document.createElement('li');
-    var removeBtn = document.createElement('button');
-    var element = newLI.appendChild(document.createTextNode(task));
-    if ((taskBox.value != "") && (keyCode === 188 || keyCode === 13 || keyCode === 32))  {
-        e.preventDefault();
-        taskList.appendChild(newLI);
-        newLI.appendChild(removeBtn);
-        taskBox.value = '';
-        removeBtn.addEventListener('click', function() {
-            removeBtn.parentNode.removeChild(removeBtn);
-            newLI.parentNode.removeChild(newLI);
-        });
-    }
-}
-
-/* Autocomplete using jQuery*/
-$(function() {
-	var languages = [
-		"ActionScript", "AppleScript", "Asp","BASIC", "C",
-		"C++", "Clojure", "COBOL", "ColdFusion", "Erlang",
-		"Fortran", "Groovy", "Haskell", "Java", "JavaScript",
-		"Lisp", "Perl", "PHP", "Python", "Ruby",
-		"Scala", "Scheme"
-	];
-
-	$( "#text_task" ).autocomplete({
-        source: languages
-	});
-});
-
-</script> -->
 		</form>
 	</div>
 

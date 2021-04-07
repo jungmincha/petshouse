@@ -49,7 +49,7 @@
 	type="text/css">
 </head>
 
-<body>
+<body style="padding-top:180px">
 
 	<!-- Header -->
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
@@ -142,11 +142,11 @@
 
 
 
-					<div class="row text-center" style="margin-top:20px;">
+					<div class="row text-center" style="margin-top:20px; margin-left:5px;">
 
 						<c:forEach items="${tips}" var="tp" varStatus="status">
 
-							<div class="product-item" style="margin: 20px; width: 390px;">
+							<div class="product-item" style="margin: 15px; width: 390px;">
 								<div class="pi-pic">
 								<img src="/resources/img/qna/201489577_128.jpg" alt="">
 								</div>

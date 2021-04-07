@@ -12,9 +12,9 @@ public class Criteria {
 	private int pageNum;
 	private int amount;
 	
-    //리뷰를 5개씩 출력하려고 1,5로 설정했음
+ 
 	public Criteria() {
-		this(1, 5);
+		this(1, 10);
 
 	}
 
