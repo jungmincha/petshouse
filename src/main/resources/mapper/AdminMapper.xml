@@ -274,6 +274,13 @@
        values (board_seq.nextval , #{content} , 0,0,#{hashtag},board_seq.currval,0,0, 'admin@naver.com', 3, #{goodsVO.goods_id})    
 	]]>
 	</insert>
+	
+	<!-- 상품상세이미지 업로드 -->
+	<insert id="detailInput">
+	 <![CDATA[
+    INSERT INTO IMGTEST2 VALUES (#{imgname}, #{board_id})
+	 ]]>
+	</insert>
 
 	<select id="getboardInfo" resultMap="boardvo"> 
 		<![CDATA[ 

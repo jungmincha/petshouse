@@ -118,6 +118,13 @@ public class AdminServiceImpl implements AdminService {
 	}
 	
 	@Override
+	public void detailInput(String imgname) {
+		log.info("imgname");
+		mapper.detailInput(imgname);
+	}
+
+	
+	@Override
 	public BoardVO getBoard(int board_id) {		
 	
 		return mapper.getBoard(board_id);
@@ -178,6 +185,7 @@ public class AdminServiceImpl implements AdminService {
 		log.info("memberDelete");
 		mapper.memberDelete(member_id);
 	}
+
 
 
 

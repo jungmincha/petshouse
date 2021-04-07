@@ -151,11 +151,11 @@ th {
 h2 {
 	text-align: center;
 }
+
 .owl-carousel .owl-item img {
 	display: block;
 	width: 130px;
-	height :150px;
-
+	height: 150px;
 }
 </style>
 
@@ -313,12 +313,18 @@ h2 {
 								</div>
 								<div class="product-thumbs">
 									<div class="product-thumbs-track ps-slider owl-carousel">
-										<div class="pt active" 
+										<div class="pt active"
 											data-imgbigurl="/resources/img/admin/goods/${goods.goodsVO.thumbnail}">
-											<img src="/resources/img/admin/goods/${goods.goodsVO.thumbnail}" width="1270" alt="">
+											<img
+												src="/resources/img/admin/goods/${goods.goodsVO.thumbnail}"
+												width="1270" alt="">
 										</div>
-										
-										<div class="pt" data-imgbigurl="/resources/img/file/냥냥이.jpg">
+										<c:forEach var="goods" items="${goods.content}">
+											<div class="pt" data-imgbigurl="/resources/img/admin/board/${goods.content}">
+											<img src="/resources/img/admin/board/${goods.content}" alt="">
+										</div>
+										</c:forEach>
+										<!-- <div class="pt" data-imgbigurl="/resources/img/file/냥냥이.jpg">
 											<img src="/resources/img/file/냥냥이.jpg" alt="">
 										</div>
 										<div class="pt" data-imgbigurl="/resources/img/file/cat2.jpg">
@@ -329,7 +335,7 @@ h2 {
 										</div>
 										<div class="pt" data-imgbigurl="/resources/img/file/cat3.jpg">
 											<img src="/resources/img/file/cat3.jpg" alt="">
-										</div>
+										</div> -->
 									</div>
 								</div>
 							</div>
@@ -522,8 +528,9 @@ h2 {
 
 									<div class="tab-pane fade" id="tab-3" role="tabpanel">
 
-										 
-										 <br><br>
+
+										<br>
+										<br>
 										<div class="shoppingguide">
 
 											<table>

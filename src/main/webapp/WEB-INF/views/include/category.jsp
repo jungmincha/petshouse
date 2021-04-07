@@ -36,7 +36,7 @@
   
   <script type="text/javascript">
 // 카테고리 ajax
-function fire_ajax_submit(id) {
+function category(id) {
 	console.log(id);
 	var category = {}
 	category["category"] = $("#category").val();
@@ -115,7 +115,7 @@ $.ajax({
                       <ul>
                            <c:forEach items = "${sort}" var="vo2" begin="7" end="13">
     			      <li>
-    			      <a href="#" style ="font-size: 15px;" onclick="fire_ajax_submit(${vo2.category_id});">
+    			      <a href="#" style ="font-size: 15px;" onclick="category(${vo2.category_id});">
     			      ${vo2.categoryname}
     			      </a>
     			      </li>

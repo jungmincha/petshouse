@@ -47,6 +47,8 @@ public interface AdminMapper {
 	public List<GoodsVO> getNboard();
 	
 	public void boardInput(BoardVO boardVO);
+
+	public void detailInput(String imgname);
 	
 	public BoardVO getboardInfo(int board_id);
 
@@ -75,7 +77,8 @@ public interface AdminMapper {
 
 	public void memberDelete(String member_id);
 
-	public void fileUpload(String imgname);
+
+
 
 	
 

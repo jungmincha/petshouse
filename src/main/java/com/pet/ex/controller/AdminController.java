@@ -228,7 +228,7 @@ public class AdminController {
 
 	// 상품 게시글 등록
 	@GetMapping("/board/registerView")
-	public ModelAndView boardInputView(BoardVO boardVO, GoodsVO goodsVO, ModelAndView mav) throws Exception {
+	public ModelAndView boardInputView(BoardVO boardVO, ModelAndView mav) throws Exception {
 
 		log.info("goods_register_view");
 
@@ -242,7 +242,8 @@ public class AdminController {
 	@PostMapping("/board/register")
 	public ModelAndView boardInput(MultipartHttpServletRequest multi, BoardVO boardVO, GoodsVO goodsVO, ModelAndView mav) 
 			throws IllegalStateException, IOException {
-
+		
+		service.boardInput(boardVO);
 		log.info("goods_register_view");
 		String path = multi.getSession().getServletContext().getRealPath("/static/img/admin/board");
 
@@ -258,16 +259,16 @@ public class AdminController {
 		 
 			for (int i = 0; i < mf.size(); i++) { // 파일명 중복 검사
 				 
-				String detail_img = mf.get(i).getOriginalFilename();
+				String imgname = mf.get(i).getOriginalFilename();
 
-				String savePath = path + "\\" + detail_img; // 저장 될 파일 경로
-
-				mf.get(i).transferTo(new File(savePath)); // 파일 저장
+				String savePath = path + "\\" + imgname; // 저장 될 파일 경로
 				
-				boardVO.setContent(detail_img);
+				mf.get(i).transferTo(new File(savePath)); // 파일 저장
+		
+				service.detailInput(imgname);
 			}	
 		
-		service.boardInput(boardVO);
+		
 		mav.setView(new RedirectView("/admin/goods", true));
 
 		return mav;

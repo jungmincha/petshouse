@@ -44,7 +44,7 @@ public interface AdminService {
 	public  List<GoodsVO> getNboard();
 	public void boardInput(BoardVO boardVO);
 //	public void fileUpload(String imgname);
-	
+	public void detailInput(String imgname);
 	
 	
 	
@@ -68,6 +68,9 @@ public interface AdminService {
 	
 	//회원 삭제
 	public void memberDelete(String member_id);
+	
+	
+	
 
 	
 
