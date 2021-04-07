@@ -38,34 +38,6 @@
 
       // 숫자 평점을 별로 변환하도록 호출하는 함수
       $('.star-prototype').generateStars();
-      
-      //category home 이동 
-      function fire_ajax_submit(id) {
-      	console.log(id);
-      	var category_id = id;
-  		
-  		var form = {
-  				category_id: category_id
-  		};    
-  		
-      	var url = "/category/smallcategory/"+id;
-      		
-      $.ajax({
-          type: "POST",
-          contentType: 'application/json; charset=utf-8',
-    		url: url,
-          data: JSON.stringify(form), 
-          cache : false,
-          
-          success: function (data) {         	
-            console.log("SUCCESS : ", data); 
-          },
-          
-          error: function (e) {
-       	   console.log("ERROR : ", e);
-          }
-      });
-      };
    });
 </script>
 
@@ -186,34 +158,34 @@
                </div>
             </div>
          </div>
-         <div class="row">
+          <div class="row">
             <div class="col-sm-2">
-             <a href="#" onclick ="fire_ajax_submit(1);">    
+             <a href="/store/commu/category/101?categoryName=고양이 / 사료">    
                     <img src="/resources/img/category/cat.jpg"></a>
             </div>
 
             <div class="col-sm-2">
-                  <a href="" onclick="location.href='/category/smallcategory/201';">
+                  <a href="/store/commu/category/201?categoryName=강아지 / 사료">
                     <img src="/resources/img/category/dog.jpg"></a>
             </div>
 
             <div class="col-sm-2">
-                  <a href="/category/smallcategory/301">
+                  <a href="/store/commu/category/301?categoryName=파충류 / 사료">
                     <img src="/resources/img/category/reptile.jpg"></a>
             </div>
 
             <div class="col-sm-2">
-                  <a href="/category/smallcategory/401">
+                  <a href="/store/commu/category/501?categoryName=조류 / 모이">
                     <img src="/resources/img/category/bird.jpg"></a>
             </div>
 
             <div class="col-sm-2">
-                  <a href="/category/smallcategory/501">
+                  <a href="/store/commu/category/401?categoryName=어류 / 어항">
                      <img src="/resources/img/category/fish.jpg"></a>
             </div>
 
             <div class="col-sm-2">
-                  <a href="/category/smallcategory/601">
+                  <a href="/store/commu/category/601?categoryName=기타 / 사료">
                      <img src="/resources/img/category/other.jpg"></a>
             </div>
          </div>
@@ -243,26 +215,21 @@
                               
                               <c:forEach items="${goods}" var="goods">
                                <c:if test="${rate.goodsVO.goods_id eq goods.goodsVO.goods_id}">
-                                 <img src="/resources/img/admin/${goods.goodsVO.thumbnail}" alt="">
-                               </c:if>
-							  </c:forEach>
+                                 <img src="/resources/img/admin/goods/${goods.goodsVO.thumbnail}" alt="">
+                            
 							  
                                  <div class="sale">BEST ${rate.rnum}</div>
-                                 <c:forEach items="${goods}" var="goods">
-                                  <c:if test="${rate.goodsVO.goods_id eq goods.goodsVO.goods_id}">
+                              
                                  <ul>
                                     <li class="w-icon active"><a href="#"><i
                                           class="icon_bag_alt"></i></a></li>
                                     <li class="quick-view"><a href="/admin/goods_detail/${goods.board_id}">+ Quick View</a></li>
                                  </ul>
-                                 </c:if>
-                                 </c:forEach>
+                                
                               </div>
                               <div class="pi-text">
                                  <div class="catagory-name"></div>
-                                 <c:forEach items="${goods}" var="goods">
-                                    <c:if
-                                       test="${rate.goodsVO.goods_id eq goods.goodsVO.goods_id}">
+                             
                                        <a href="/admin/goods_detail/${goods.board_id}">
                                           <h5>${goods.goodsVO.goodsname}</h5>
                                        </a>
@@ -276,13 +243,11 @@
                         </c:if>
                      </c:forEach>
                   </div>
-               </div>
-            </div>
          </section>
          <!-- Hot Item section End -->
 
          <!-- Recommended Item Begin -->
-         <section class="recommended">
+         <section class="recommended">        
             <div class="deal-of-week set-bg spad" data-setbg="/resources/img/storehome/re_banner.jpg">
                <div class="col-12 col-md-6 text-center">
                   <div class="section-title">
@@ -333,20 +298,17 @@
                         
                            <c:forEach items="${goods}" var="goods">
                                  <c:if test="${goods.goodsVO.goods_id eq bestrate.goodsVO.goods_id}">
-                                    <img src="/resources/img/admin/${goods.goodsVO.thumbnail}" alt="">
-                                 </c:if>
-                           </c:forEach>
+                                    <img src="/resources/img/admin/goods/${goods.goodsVO.thumbnail}" alt="">
                            
-                           <div class="sale">Best ${bestrate.rnum}</div>
-                           <div class="icon">
-                              <i class="icon_heart_alt"></i>
-                           </div>
-                           <c:forEach items="${goods}" var="goods">
-                              <c:if test="${bestrate.goodsVO.goods_id eq goods.goodsVO.goods_id}">
-                            <ul>
-                                <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                <li class="quick-view"><a href="/admin/goods_detail/${goods.board_id}">+ Quick View</a></li>
-                            </ul>
+	                           <div class="sale">Best ${bestrate.rnum}</div>
+	                           <div class="icon">
+	                              <i class="icon_heart_alt"></i>
+	                           </div>
+	                           
+	                         	 <ul>
+	                                <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
+	                                <li class="quick-view"><a href="/admin/goods_detail/${goods.board_id}">+ Quick View</a></li>
+	                            </ul>
                         </div>
                         <div class="pi-text">
                            <div class="catagory-name"></div>
@@ -357,8 +319,8 @@
                                  <div class="product-price">${goods.goodsVO.price}원</div>
                               </c:if>
                            </c:forEach>
-                           <span class="star-prototype"> ${bestrate.avgscore}</span> <span>
-                              &nbsp; 리뷰 ${bestrate.count}</span>
+                           <span class="star-prototype"> ${bestrate.avgscore}</span>
+                              <span> &nbsp; 리뷰 ${bestrate.count}</span>
                         </div>
                      </div>
                   </div>
@@ -366,69 +328,13 @@
             </div>
            </section>
          <!-- Best Item End -->
-            
-            	<!-- 페이징 -->
-<script> 
-var total_page = "<?=$total_page?>"; 
-var now_page = "<?=$page?>"; 
-var roll_page = now_page;
-
-$(window).scroll(function() { 
-	var chkBtm = parseInt($(document).height()) - parseInt($(window).height()); 
-
-	if (chkBtm == $(window).scrollTop()) { 
-		roll_page++; 
-
-		if (roll_page <= total_page) { 
-			callContent(roll_page, 'append'); 
-		} 
-	} else if ($(window).scrollTop() == 0) { 
-		now_page--; 
-		if (now_page > 0) { 
-			callContent(now_page, 'prepend'); 
-		} 
-	} 
-}); 
-
-function callContent(a, b) { 
-	var url = "<?=G5_BBS_URL?>/board.php?bo_table=<?=$bo_table?>&page=" + a; 
-	var tbody = ""; 
-	var thtml = ""; 
-	$.ajax({ 
-		type: "POST", 
-		url: url, 
-		dataType: "html", 
-		success: function(html) { 
-			tbody = html.split('<article>'); 
-			thtml = tbody[1].split('</article>'); 
-			setTimeout(function() { 
-				if (b == 'append') { 
-					 $("#fboardlist").append(thtml[0]); 
-				} 
-			}, 1000); 
-		}, 
-		error: function(xhr, status, error) { 
-			alert(error); 
-		} 
-	}); 
-}
-</script>
-<ul class="pagination justify-content-center" style="padding-bottom: 50px; padding-top: 20px;">
-					<c:if test="${pageMaker.prev}">
-						<li class="page-item"><a class="page-link" href="home${pageMaker.makeQuery(pageMaker.startPage - 1) }"> Previous</a></li>
-					</c:if>
-			
-					<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
-						<c:out value="${pageMaker.cri.pageNum == idx?'':''}" />
-						<li class="page-item"><a class="page-link" href="home${pageMaker.makeQuery(idx)}">${idx}</a></li>
-					</c:forEach>
-			
-					<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-						<li class="page-item"><a class="page-link" href="home${pageMaker.makeQuery(pageMaker.endPage +1) }">Next</a></li>
-					</c:if>
-				</ul>
-      </div>
+         
+	      <!-- 더보기 페이징 처리 -->
+	      
+	      <div id='addbtn'><div class="btns"><a href="javascript:moreList();" class="btn btn-primary">더보기</a></div></div>
+		</div>
       <!-- /.container -->
+      
 
    <!-- Footer -->
    <%@ include file="/WEB-INF/views/include/footer.jsp"%>

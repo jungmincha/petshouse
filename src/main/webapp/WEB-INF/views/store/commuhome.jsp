@@ -145,37 +145,37 @@
      <!-- Instagram Section Begin -->
       <div class="container">
     <div class="instagram-photo">
-        <div class="insta-item set-bg" data-setbg="/resources/img/insta-1.jpg">
+        <div class="insta-item set-bg" data-setbg="/resources/img/commuhome/cat1.jpg">
             <div class="inside-text">
                 <i class="ti-instagram"></i>
                 <h5><a href="#">Cat</a></h5>
             </div>
         </div>
-        <div class="insta-item set-bg" data-setbg="/resources/img/insta-2.jpg">
+        <div class="insta-item set-bg" data-setbg="/resources/img/commuhome/dog1.jpg">
             <div class="inside-text">
                 <i class="ti-instagram"></i>
                 <h5><a href="#">Dog</a></h5>
             </div>
         </div>
-        <div class="insta-item set-bg" data-setbg="/resources/img/insta-3.jpg">
+        <div class="insta-item set-bg" data-setbg="/resources/img/commuhome/reptile.jpg">
             <div class="inside-text">
                 <i class="ti-instagram"></i>
                 <h5><a href="#">Reptile</a></h5>
             </div>
         </div>
-        <div class="insta-item set-bg" data-setbg="/resources/img/insta-4.jpg">
+        <div class="insta-item set-bg" data-setbg="/resources/img/commuhome/cat1.jpg">
             <div class="inside-text">
                 <i class="ti-instagram"></i>
                 <h5><a href="#">Bird</a></h5>
             </div>
         </div>
-        <div class="insta-item set-bg" data-setbg="/resources/img/insta-5.jpg">
+        <div class="insta-item set-bg" data-setbg="/resources/img/commuhome/cat1.jpg">
             <div class="inside-text">
                 <i class="ti-instagram"></i>
                 <h5><a href="#">Fish</a></h5>
             </div>
         </div>
-        <div class="insta-item set-bg" data-setbg="/resources/img/insta-6.jpg">
+        <div class="insta-item set-bg" data-setbg="/resources/img/commuhome/cat1.jpg">
             <div class="inside-text">
                 <i class="ti-instagram"></i>
                 <h5><a href="#">Other</a></h5>
@@ -208,22 +208,23 @@
 								document.write('</span></p>')
 							</script>
                         </div>
+                         <div class="blog-large-pic">
+                           <a href="/store/commu/home">
+                            <img src="/resources/img/commuhome/sns.jpg" alt=""></a>
+                        </div>
+                        
                      </div>
                      </div>
                     </div>
                     </div> 
-             <div class="container">
+          <!--    <div class="container">
             	<div class="row">         
                         <div class="blog-large-pic col-12 col-md-9">
                             <img src="/resources/img/blog/blog-detail.jpg" alt="">
                       	</div>
-                         <div class="blog-large col-12 col-md-3">
+                        <div class="blog-large col-12 col-md-3">
                             <img src="/resources/img/blog/blog-detail.jpg" alt="" style="width:240px; height:368.44px;">
-                        </div>
-                    
-                    </div>
-                </div>
-            
+                        </div> -->                 
     <!-- SNS Section End -->
 
      <!-- Category Section Begin -->
@@ -237,32 +238,32 @@
          </div>
          <div class="row">
             <div class="col-sm-2">
-             <a href="#" onclick ="fire_ajax_submit(1);">    
+             <a href="/store/commu/category/101?categoryName=고양이 / 사료">    
                     <img src="/resources/img/category/cat.jpg"></a>
             </div>
 
             <div class="col-sm-2">
-                  <a href="" onclick="location.href='/category/smallcategory/201';">
+                  <a href="/store/commu/category/201?categoryName=강아지 / 사료">
                     <img src="/resources/img/category/dog.jpg"></a>
             </div>
 
             <div class="col-sm-2">
-                  <a href="/category/smallcategory/301">
+                  <a href="/store/commu/category/301?categoryName=파충류 / 사료">
                     <img src="/resources/img/category/reptile.jpg"></a>
             </div>
 
             <div class="col-sm-2">
-                  <a href="/category/smallcategory/401">
+                  <a href="/store/commu/category/501?categoryName=조류 / 모이">
                     <img src="/resources/img/category/bird.jpg"></a>
             </div>
 
             <div class="col-sm-2">
-                  <a href="/category/smallcategory/501">
+                  <a href="/store/commu/category/401?categoryName=어류 / 어항">
                      <img src="/resources/img/category/fish.jpg"></a>
-            </div>
+            </div>s
 
             <div class="col-sm-2">
-                  <a href="/category/smallcategory/601">
+                  <a href="/store/commu/category/601?categoryName=기타 / 사료">
                      <img src="/resources/img/category/other.jpg"></a>
             </div>
          </div>
@@ -282,8 +283,8 @@
                      <c:forEach items="${knowhow}" var="knowhow">                   
                            <div class="product-item">
                               <div class="pi-pic">
-                                <img src="/resources/img/category/cat1.jpg" alt="">
-                                 <div class="sale">BEST</div>
+                                <img src="/resources/img/latest-1.jpg" alt="">
+                                 <div class="sale">BEST ${knowhow.rnum}</div>
                               </div>
                                <div class="latest-text">
                             <div class="tag-list">
@@ -305,22 +306,26 @@
         <div class="sns col-lg-12"> 
 			<div class="section-title">
 			    <h2>오늘의 인기사진</h2>
-			</div>
+			</div>		
 		</div>   
-
-            <c:forEach items="${knowhow}" var="knowhow">
+	<!--<div class="col-lg-12 col-md-6"> 
+		    <div class="col-lg-11">  &nbsp; </div> 
+		      <div class="col-lg-1" style="float: left">       
+              <div>더보기 </div> 
+              </div>                           
+                </div>    -->	
+                
+		<c:forEach var="item" items="${knowhow}" begin="1" end="8" step="1" varStatus="status">
                 <div class="col-lg-3 col-md-6">
                     <div class="single-latest-blog">
-                        <img src="/resources/img/latest-1.jpg" alt="">
+                         <a href="/store/commu/home"><img src="/resources/img/latest-1.jpg" alt=""></a>
                         <div class="latest-text">
                             <div class="tag-list">                            
-                            </div>
-                            
+                            </div>                            
                         </div>
                     </div>
                 </div>
  			</c:forEach>
- 			
             </div>
 		</section>
         </div>

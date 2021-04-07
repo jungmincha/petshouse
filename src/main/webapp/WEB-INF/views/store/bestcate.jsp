@@ -161,7 +161,7 @@
              			   
                               <c:forEach items="${goods}" var="goods">
                                <c:if test="${rate.goodsVO.goods_id eq goods.goodsVO.goods_id}">
-                                 <img src="/resources/img/admin/${goods.goodsVO.thumbnail}" alt="">
+                                 <img src="/resources/img/admin/goods/${goods.goodsVO.thumbnail}" alt="">
                                </c:if>
 							  </c:forEach>
 							  
