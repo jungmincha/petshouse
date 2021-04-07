@@ -42,7 +42,7 @@
       
       $('.btns').click(function(){
     	  var pageNum = 1;
-    	  pageNum++;
+
     	  console.log(pageNum);
     			  
     	  	$.ajax({
@@ -52,16 +52,36 @@
     	        	pageNum: pageNum 
     	        },
     	        success :function(data){
-    	            console.log(data);
-    	            
-    	        }, 
+    	           console.log(data);
+    	           var bestrate = data.bestrate;
+    	           var goods = data.goods;
+
+    	           html =  '<div class="row">';
+    	           for(var i in bestrate){
+    	        	  html += '<div class="col-lg-3 col-sm-6"> <div class="product-item">  <div class="pi-pic">';
+    	        	for(var j in goods){
+	       	          	if(goods[j].goodsVO.goods_id == bestrate[i].goodsVO.goods_id){
+	       	          	html += '<img src="/resources/img/admin/goods/'+goods[j].goodsVO.thumbnail+ '>';
+	       	          	html += '<div class="sale">Best' + bestrate[i].rnum + '</div>';        
+	       	          	html += '<ul><li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>';
+	       	          	html += '<li class="quick-view"><a href="/admin/goods_detail/' + goods[j].board_id + '>+ Quick View</a></li>';
+	       	          	html += '</ul> </div> <div class="pi-text"> <div class="catagory-name"> </div>';
+	       	         	html += '<a href="/admin/goods_detail/' + goods[j].board_id + '> <h5>' + goods[j].goodsVO.goodsname + '</h5></a>';
+	       	         	html += '<div class="product-price">' + goods[j].goodsVO.price + '원</div>';
+	       	         	html += '<span class="star-prototype">' + bestrate[i].avgscore + '</span>';
+	       	         	html += '<span> &nbsp; 리뷰' + bestrate[i].count + '</span> </div> </div> </div> </div>';       	          	
+	       	          	}//if end 
+    	        	}//goods foreach end      	   
+    	           } //bestrate foreach end
+    	            $(".cate").append(html)
+    	        }, //success end
     	        error : function(request, status, error) {
 					alert("code:" + request.status + "\n" + "message:"
 							+ request.responseText + "\n" + "error:" + error);
 
 				} // ajax 에러 시 end
-    	    });
-    	});
+    	    }); //ajax end
+    	}); //click end
    });
 </script>
 
@@ -235,38 +255,36 @@
                      <c:forEach items="${rate}" var="rate">
                         <c:if test="${rate.rnum le 10}">
                            <div class="product-item">
-                              <div class="pi-pic">
-                              
+                              <div class="pi-pic">                                                    
                               <c:forEach items="${goods}" var="goods">
                                <c:if test="${rate.goodsVO.goods_id eq goods.goodsVO.goods_id}">
-                                 <img src="/resources/img/admin/goods/${goods.goodsVO.thumbnail}" alt="">
-                            
-							  
-                                 <div class="sale">BEST ${rate.rnum}</div>
-                              
-                                 <ul>
-                                    <li class="w-icon active"><a href="#"><i
-                                          class="icon_bag_alt"></i></a></li>
-                                    <li class="quick-view"><a href="/admin/goods_detail/${goods.board_id}">+ Quick View</a></li>
-                                 </ul>
-                                
+                                 <img src="/resources/img/admin/goods/${goods.goodsVO.thumbnail}" alt="">  
+                                	 <div class="sale">BEST ${rate.rnum}</div>
+                                   <ul>
+                                      <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
+                                      <li class="quick-view"><a href="/admin/goods_detail/${goods.board_id}">+ Quick View</a></li>
+                                   </ul>
+                                 </c:if>
+                               </c:forEach>  
                               </div>
+                              
                               <div class="pi-text">
                                  <div class="catagory-name"></div>
-                             
+                             	   <c:forEach items="${goods}" var="goods">
+                             		 <c:if test="${rate.goodsVO.goods_id eq goods.goodsVO.goods_id}">
                                        <a href="/admin/goods_detail/${goods.board_id}">
                                           <h5>${goods.goodsVO.goodsname}</h5>
                                        </a>
                                        <div class="product-price">${goods.goodsVO.price}원</div>
-                                    </c:if>
-                                 </c:forEach>
                                  <span class="star-prototype"> ${rate.avgscore}</span>
                                  &nbsp; <span>리뷰 ${rate.count}</span>
+                                 	 </c:if>
+                                 </c:forEach>
                               </div>
                            </div>
                         </c:if>
                      </c:forEach>
-                  </div>
+                 </div>
          </section>
          <!-- Hot Item section End -->
 
@@ -308,13 +326,11 @@
          <!-- Best Item Begin -->
          <section class="best">
             <div class="row">
-               <div class="col-lg-12">
-                  <div class="section-title">
+                  <div class="col-lg-12 section-title">
                      <h2>Best Products</h2>
-                  </div>
-               </div>
+               	  </div>
             </div>
-            <div class="row">
+            <div class="cate row">
             	<c:forEach items="${bestrate}" var="bestrate">
                   <div class="col-lg-3 col-sm-6">
                      <div class="product-item">                   
@@ -325,25 +341,26 @@
                                     <img src="/resources/img/admin/goods/${goods.goodsVO.thumbnail}" alt="">
                            
 	                           <div class="sale">Best ${bestrate.rnum}</div>
-	                           <div class="icon">
-	                              <i class="icon_heart_alt"></i>
-	                           </div> 
 	                         	 <ul>
 	                                <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
 	                                <li class="quick-view"><a href="/admin/goods_detail/${goods.board_id}">+ Quick View</a></li>
 	                            </ul>
-                        </div>
+	                        	</c:if>
+	                        </c:forEach>
+                       	</div>
                         
                         <div class="pi-text">
-                           <div class="catagory-name"></div>    
+                           <div class="catagory-name"></div>
+                              <c:forEach items="${goods}" var="goods">
+                                 <c:if test="${goods.goodsVO.goods_id eq bestrate.goodsVO.goods_id}"> 
                                  <a href="/admin/goods_detail/${goods.board_id}">
                                     <h5>${goods.goodsVO.goodsname}</h5>
                                  </a>
                            <div class="product-price">${goods.goodsVO.price}원</div>
-                              </c:if>
-                           </c:forEach>
-                           <span class="star-prototype"> ${bestrate.avgscore}</span>
+                              <span class="star-prototype"> ${bestrate.avgscore}</span>
                               <span> &nbsp; 리뷰 ${bestrate.count}</span>
+                              	</c:if>
+                              </c:forEach>
                         </div>
                      </div>
                   </div>
