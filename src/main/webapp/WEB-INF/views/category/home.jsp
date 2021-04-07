@@ -494,7 +494,7 @@ $(document).ready(function() {
    <!-- Footer -->
    <%@ include file="/WEB-INF/views/include/footer.jsp"%>
   <!-- Bootstrap core JavaScript -->
-   <script src="/resources/store/vendor/jquery/jquery.min.js"></script>
+  <script src="/resources/store/vendor/jquery/jquery.min.js"></script>
    <script
       src="/resources/store/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
    <script src="/resources/js/jquery-3.3.1.min.js"></script>
@@ -506,7 +506,7 @@ $(document).ready(function() {
    <script src="/resources/js/jquery.dd.min.js"></script>
    <script src="/resources/js/jquery.slicknav.js"></script>
    <script src="/resources/js/owl.carousel.min.js"></script>
-   <script src="/resources/js/main.js"></script>
+   <script src="/resources/js/main.js"></script> 
 
 </body>
 </html>

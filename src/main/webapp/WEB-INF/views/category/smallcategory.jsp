@@ -198,6 +198,9 @@ function select_submit(arr , id) {
 
 <body style="padding-top:128px">
 
+
+
+
 <c:forEach items="${sgname}" var="sgname" >
 			<h3>${sgname}</h3>
 			</c:forEach>
@@ -213,10 +216,14 @@ function select_submit(arr , id) {
     </button>
     <div class="dropdown-menu">
     <a class="dropdown-item" style="font-size:20px;" href="/category/home">최신순</a>
+    
+<c:forEach items="${smallCategory_id}" var="smallCategory_id" >
+			
+  <a class="dropdown-item" style="font-size:20px;" href="#" onclick="select_submit('srowprice' , '${smallCategory_id}' )">가격 낮은순</a>
 
-  <a class="dropdown-item" style="font-size:20px;" href="#" onclick="select_submit('srowprice' , '103' )">가격 낮은순</a>
   <a class="dropdown-item" style="font-size:20px;" href="/category/highprice">가격 높은순</a>
    <a class="dropdown-item" style="font-size:20px;" href="/category/highstar">별점 높은순</a>
+     </c:forEach>
      <!--   <a class="dropdown-item" style="font-size:20px;" href="/category/highprice">가격 높은순</a> -->
 <!--      <a class="dropdown-item" style="font-size:20px;" href="#" onclick="select_submit('highprice')">가격 높은순</a>  -->
    <!--    <a class="dropdown-item" style="font-size:20px;" href="#" onclick="select_submit('rowprice')">가격 낮은순</a> -->

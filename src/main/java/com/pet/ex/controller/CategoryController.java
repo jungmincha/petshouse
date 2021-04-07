@@ -76,6 +76,8 @@ public class CategoryController {
 			mav.addObject("rate", service.getStorerate());
 			mav.addObject("smallcategory", service.getScategory(categoryvo));
 			
+			
+			
 	//소분류 값  추출하는 로직 -start
 			
 		  name=name.substring(9);
@@ -86,7 +88,19 @@ public class CategoryController {
 			
 			mav.addObject("sgname", name1); 
 			System.out.println("=====================================================================================");
-		System.out.println(categoryvo.getCategoryname());
+
+		System.out.println(categoryvo.getCategory_id());
+		
+		
+		  int smallCategory_id = categoryvo.getCategory_id();
+		  // smallCategory_id을 보내주기 위해 string으로 변환해준다. 
+		 
+		  String sCategory_id = Integer.toString(smallCategory_id);
+		  
+		  
+		  
+		  mav.addObject("smallCategory_id", sCategory_id);
+
 		
 		mav.setViewName("category/smallcategory");
 		log.info("smallcategory...");
@@ -159,8 +173,20 @@ public class CategoryController {
 		mav.addObject("rate", service.getStorerate());
 		mav.addObject("category", service.getCategory());
 		mav.addObject("smallcategory", service.getScategory(categoryvo));
-	
 		
+		
+		
+		  id=id.substring(7);
+		  
+		  int idx = id.indexOf("\"");
+		  
+		  String id1 = id.substring(0, idx);
+		  
+		  
+		  
+		  categoryvo.setCategory_id(Integer.parseInt(id1));
+		 
+		 
 		
 		
 		mav.addObject("smallgoods", service.getrowSmallGoods(categoryvo.getCategory_id()));
@@ -171,8 +197,8 @@ public class CategoryController {
 		
 		log.info("srowprice...");
 		System.out.println("========================================================================================================================");
-		System.out.println(categoryvo.getCategory_id());
-		System.out.println(id);
+
+	 System.out.println(id1); 
 	
 		return mav;
 	}
