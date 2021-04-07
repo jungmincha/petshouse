@@ -99,8 +99,7 @@
     	width: 120px;
     	height: 280px;
     }
-
-    
+      
     span.star-prototype, span.star-prototype > * {
     height: 16px; 
     background: url(http://i.imgur.com/YsyS5y8.png) 0 -16px repeat-x;
@@ -110,15 +109,14 @@
 	span.star-prototype > * {
 	    background-position: 0 0;
 	    max-width:80px; 
-	}
-	
-	
+	}	
   </style>
 </head>
 
 <body>
  <!-- header -->
  <%@ include file="/WEB-INF/views/include/header.jsp" %>
+ 
     <!-- Best Products  -->
     <section class="latest-blog spad">
         <div class="container">
@@ -169,7 +167,7 @@
              				   
                               <c:forEach items="${goods}" var="goods">
                                <c:if test="${rate.goodsVO.goods_id eq goods.goodsVO.goods_id}">
-                                 <img src="/resources/img/admin/${goods.goodsVO.thumbnail}" alt="">
+                                 <img src="/resources/img/admin/goods/${goods.goodsVO.thumbnail}" alt="">
                                </c:if>
 							  </c:forEach>
              				
@@ -201,8 +199,7 @@
                 </c:forEach>
             </div>
          </div>
-         </div>
-        
+         </div>     
     </section>
      <!-- Goods End -->
     
