@@ -58,7 +58,7 @@ select {
 		<form action="${pageContext.request.contextPath}/admin/goods/update" 
 		method="post"  enctype="multipart/form-data">
 			<input type="hidden" name="goods_id" id="goods_id" value="${goods.goods_id}">
-		
+			<input type="hidden" name="thumbnail" value="${goods.thumbnail}" >
 			<div class="col-lg-30">
 
 				<fieldset>
@@ -76,7 +76,8 @@ select {
 									<div class="input-group col-sm-9">
 										<div class="custom-file">
 											<input type="file" class="custom-file-input" id="thumbnail"
-												name="file" multiple="multiple" style="display: block;"> 
+												name="file" multiple="multiple" style="display: block;"
+												> 
 												<label class="custom-file-label" for="inputGroupFile02">
 												Choose file
 												</label>
@@ -157,8 +158,9 @@ select {
 										</select><br> <small>현재상태 : ${goods.stockVO.stockname}</small>
 									</div>
 								</div>
-
-
+								
+							
+								
 
 								<div class="form-group row">
 									<label class="col-sm-3">상품소개</label>
@@ -319,6 +321,15 @@ select {
 												});
 
 							});
+			
+			
+			if($("pcheck").prop("checked")){
+				$("#pcheck").val(1);
+			}else{
+				$("#test").val(0);
+			
+			}
+			
 	</script>
 	<!-- Footer -->
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>

@@ -148,7 +148,7 @@
 	<insert id="uploadFile">
 	 <![CDATA[
     INSERT INTO
-       image VALUES (#{imgname}, 9)
+       IMAGE(imgname, board_id, goods_id) VALUES (#{imgname}, 357, 119)
 	 ]]>
 	</insert>
 

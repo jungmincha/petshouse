@@ -5,6 +5,7 @@ import java.util.List;
 import com.pet.ex.vo.BoardVO;
 import com.pet.ex.vo.CategoryVO;
 import com.pet.ex.vo.GoodsVO;
+import com.pet.ex.vo.ImageVO;
 import com.pet.ex.vo.MemberVO;
 import com.pet.ex.vo.StockVO;
 
@@ -42,11 +43,9 @@ public interface AdminService {
 
 	//상품 게시글 등록
 	public  List<GoodsVO> getNboard();
-	public void boardInput(BoardVO boardVO);
-//	public void fileUpload(String imgname);
-	/* public void detailInput(String imgname); */
-	
-	
+	public void boardInput(BoardVO boardVO ); 
+	public void detailInput(ImageVO imageVO);
+	public void updateCheck(BoardVO boardVO);
 	
 	
 	
@@ -56,7 +55,7 @@ public interface AdminService {
 	public BoardVO getboardInfo(int board_id);
 	public List<CategoryVO> getsortBoard(CategoryVO categoryVO);
 	public List<CategoryVO> getcateBoard();
-	
+	public List<ImageVO> getImg(int goods_id);
 	
 	
 	//회원 목록 조회
@@ -68,6 +67,10 @@ public interface AdminService {
 	
 	//회원 삭제
 	public void memberDelete(String member_id);
+	
+ 
+	
+	
  
 	
 

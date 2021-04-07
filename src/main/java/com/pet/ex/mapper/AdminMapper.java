@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.pet.ex.vo.BoardVO;
 import com.pet.ex.vo.CategoryVO;
 import com.pet.ex.vo.GoodsVO;
+import com.pet.ex.vo.ImageVO;
 import com.pet.ex.vo.MemberVO;
 import com.pet.ex.vo.StockVO;
 
@@ -48,19 +49,21 @@ public interface AdminMapper {
 	
 	public void boardInput(BoardVO boardVO);
 
-	public void detailInput(int goods_id);
+	public void detailInput(ImageVO imageVO);
 	
 	public BoardVO getboardInfo(int board_id);
 
 	public BoardVO getBoard(int board_id);
 
+	public List<ImageVO> getImg(int goods_id);
+	
 	public BoardVO getRateone(int goods_id);
 
 	public List<CategoryVO> getcateBoard();
 
 	public List<CategoryVO> getsortBoard(CategoryVO categoryVO);
 	
-
+	
 
 
 	
@@ -78,6 +81,10 @@ public interface AdminMapper {
 	public void memberDelete(String member_id);
 
 	public List<String> getGoodsSize(int goods_id);
+
+	public void updateCheck(BoardVO boardVO);
+ 
+
 
 	
 

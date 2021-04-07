@@ -140,6 +140,7 @@ h2 {
 						<th>상품명</th>
 						<th>가격</th>
 						<th>재고상태</th>
+						<th>등록여부</th>
 						<th>삭제</th>
 					</tr>
 					<c:forEach items="${list2}" var="goods">
@@ -150,6 +151,7 @@ h2 {
 							<td><fmt:formatNumber value="${goods.price}"
 									pattern="###,###,###" />원</td>
 							<td>${goods.stockVO.stockname}</td>
+							<td>${goods.pcheck}</td>
 							<td onclick="event.cancelBubble=true;"><a class="a-delete"
 								data-bid='${goods.goods_id}'
 								href="/admin/goods/${goods.goods_id}">삭제</a></td>
