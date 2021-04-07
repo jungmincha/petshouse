@@ -100,9 +100,19 @@ public class CategoryServicelmpl implements CategoryService {
 	public List<BoardVO> getrowSmallGoods (int category_id) {
 		
 		
-		
-		
 		return mapper.getrowSmallGoods(category_id);
+	}
+
+	@Override
+	public List<BoardVO> gethighSmallGoods(int category_id) {
+		// TODO Auto-generated method stub
+		return mapper.gethighSmallGoods(category_id);
+	}
+
+	@Override
+	public List<BoardVO> gethighstarGoods(int category_id) {
+		// TODO Auto-generated method stub
+		return mapper.gethighstarGoods(category_id);
 	}
 
 	
