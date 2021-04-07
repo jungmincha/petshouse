@@ -447,8 +447,7 @@ $(document).ready(function() {
                        
                            <div class="product-item">
                               
-                              <div class="pi-text">
-                                 <div class="catagory-name"></div>
+                                <div class="pi-text" style="padding:10px;">
                              
                                      <img src="/resources/img/admin/goods/${goods.goodsVO.thumbnail}" style="width:200px;" alt="">
                                        <a href="/admin/goods_detail/${goods.board_id}">

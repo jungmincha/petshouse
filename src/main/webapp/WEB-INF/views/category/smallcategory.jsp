@@ -135,15 +135,17 @@ select {
   	}
   	
   	
-  	
-function select_submit(arr) {
+  	//카테고리별로 이동시켜주는 ajax
+function select_submit(arr , id) {
   		
     	console.log(arr);
+    	console.log(id);
 
     	 var category = $("#category").val();
 
 	var form={ 			
      			category:category,
+     			id:id,
     
      	};
 
@@ -169,6 +171,7 @@ function select_submit(arr) {
     });
   	} 
  
+  	
  $(document).ready(function() {
 	      $.fn.generateStars = function() {
 	         return this.each(function(i, e) {
@@ -199,7 +202,7 @@ function select_submit(arr) {
 			<h3>${sgname}</h3>
 			</c:forEach>
 
-
+<br/>
 			
 				
 				
@@ -211,7 +214,7 @@ function select_submit(arr) {
     <div class="dropdown-menu">
     <a class="dropdown-item" style="font-size:20px;" href="/category/home">최신순</a>
 
-  <a class="dropdown-item" style="font-size:20px;" href="/category/rowprice">가격 낮은순</a>
+  <a class="dropdown-item" style="font-size:20px;" href="#" onclick="select_submit('srowprice' , '103' )">가격 낮은순</a>
   <a class="dropdown-item" style="font-size:20px;" href="/category/highprice">가격 높은순</a>
    <a class="dropdown-item" style="font-size:20px;" href="/category/highstar">별점 높은순</a>
      <!--   <a class="dropdown-item" style="font-size:20px;" href="/category/highprice">가격 높은순</a> -->
@@ -229,11 +232,11 @@ function select_submit(arr) {
 				<c:forEach items="${smallgoods}" var="goods" varStatus="status">
                        
                            <div class="product-item">
-                              <div class="pi-pic">
+                              <div class="pi-pic" style="padding:10px;"> 
                                   <img src="/resources/img/admin/goods/${goods.goodsVO.thumbnail}" alt="">
                      			 </div>
                               <div class="pi-text">
-                                 <div class="catagory-name"></div>
+                               
                              
                                     
                                        <a href="/admin/goods_detail/${goods.board_id}">

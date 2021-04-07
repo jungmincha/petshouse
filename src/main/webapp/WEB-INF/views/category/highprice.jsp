@@ -445,11 +445,11 @@ $(document).ready(function() {
  <c:forEach items="${goods}" var="goods" varStatus="status">
                        
                            <div class="product-item">
-                              <div class="pi-pic">
+                              <div class="pi-pic" style="padding:10px;">
                                    <img src="/resources/img/admin/goods/${goods.goodsVO.thumbnail}" style="width:200px;" alt="">
                      			 </div>
                               <div class="pi-text">
-                                 <div class="catagory-name"></div>
+                              
                              
                                     
                                        <a href="/admin/goods_detail/${goods.board_id}">

@@ -446,7 +446,7 @@ $(document).ready(function() {
     
     </div>
   </div>
-    
+ 
                  
 <div class="row text-center">
 
@@ -454,8 +454,8 @@ $(document).ready(function() {
     <c:forEach items="${rate}" var="rate">
              
                            <div class="product-item">
-                                 <div class="pi-text">
-                                 <div class="catagory-name"></div>
+                                 <div class="pi-text" style="padding:10px;">
+                                
                                  <c:forEach items="${goods}" var="goods">
                                     <c:if
                                        test="${rate.goodsVO.goods_id eq goods.goodsVO.goods_id}">
@@ -485,6 +485,7 @@ $(document).ready(function() {
    
    
 </div>
+
    </section> 
    <!-- Product Shop Section End -->
    
@@ -492,7 +493,20 @@ $(document).ready(function() {
 
    <!-- Footer -->
    <%@ include file="/WEB-INF/views/include/footer.jsp"%>
-
+  <!-- Bootstrap core JavaScript -->
+   <script src="/resources/store/vendor/jquery/jquery.min.js"></script>
+   <script
+      src="/resources/store/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+   <script src="/resources/js/jquery-3.3.1.min.js"></script>
+   <script src="/resources/js/bootstrap.min.js"></script>
+   <script src="/resources/js/jquery-ui.min.js"></script>
+   <script src="/resources/js/jquery.countdown.min.js"></script>
+   <script src="/resources/js/jquery.nice-select.min.js"></script>
+   <script src="/resources/js/jquery.zoom.min.js"></script>
+   <script src="/resources/js/jquery.dd.min.js"></script>
+   <script src="/resources/js/jquery.slicknav.js"></script>
+   <script src="/resources/js/owl.carousel.min.js"></script>
+   <script src="/resources/js/main.js"></script>
 
 </body>
 </html>
