@@ -30,7 +30,7 @@ public class StoreServiceImpl implements StoreService {
 	@Override
 	public List<BoardVO> getStorerate(Criteria cri) {
 		log.info("getStorerate/cri");
-		cri.setAmount(15);
+		cri.setAmount(8);
 		return mapper.getStorerate(cri);
 	}
 

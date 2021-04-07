@@ -67,9 +67,9 @@
 </resultMap>
 
 <resultMap type="ImageVO" id="imagevo">
-<result column="imgname" property="imgname" />
-<collection property="boardVO" resultMap="boardvo" />
-<collection property="goodsVO" resultMap="goodsvo" />
+	<result column="imgname" property="imgname" />
+	<collection property="boardVO" resultMap="boardvo" />
+	<collection property="goodsVO" resultMap="goodsvo" />
 </resultMap>
 
 <resultMap id="logintypevo" type="LogintypeVO">
@@ -198,6 +198,7 @@
 	        select * from category where category_id between 1 and 6 order by category_id asc
 	   ]]>
 	</select>
+	
 	
 	<!-- commu 노하우 조회-->
 	<select id="getKnowhow" resultType="BoardVO">
