@@ -289,6 +289,7 @@ public class AdminController {
 		mav.addObject("cateBoard", service.getcateBoard());
 		mav.addObject("one", service.getRateone(boardVO.getGoodsVO().getGoods_id()));
 		mav.addObject("goods", service.getBoard(boardVO.getBoard_id()));
+	
 		mav.setViewName("admin/goods_detail");
 
 		return mav;

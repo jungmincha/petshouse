@@ -68,10 +68,7 @@ public interface AdminService {
 	
 	//회원 삭제
 	public void memberDelete(String member_id);
-	
-	
-	
-
+ 
 	
 
 	

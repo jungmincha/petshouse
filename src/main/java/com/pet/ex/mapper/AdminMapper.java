@@ -77,6 +77,8 @@ public interface AdminMapper {
 
 	public void memberDelete(String member_id);
 
+	public List<String> getGoodsSize(int goods_id);
+
 	
 
 

@@ -68,7 +68,7 @@ select {
 					</td>
 						<tr>
 							<td><img style="width: 400px;" id="preview-image" name="preview-image"
-								src="/resources/img/goods/${goods.thumbnail}"></td>
+								src="/resources/img/admin/goods/${goods.thumbnail}"></td>
 							<%-- <%=request.getRealPath("/")%> 저장경로 --%>
 							<td>
 								<div class="form-group row">

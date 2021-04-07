@@ -306,7 +306,7 @@ h2 {
 							<div class="col-lg-6">
 								<div class="product-pic-zoom">
 									<img class="product-big-img" height="550"
-										src="/resources/img/admin/${goods.goodsVO.thumbnail}" alt="">
+										src="/resources/img/admin/goods/${goods.goodsVO.thumbnail}" alt="">
 									<div class="zoom-icon">
 										<i class="fa fa-search-plus"></i>
 									</div>
@@ -335,7 +335,7 @@ h2 {
 										</div>
 										<div class="pt" data-imgbigurl="/resources/img/file/cat3.jpg">
 											<img src="/resources/img/file/cat3.jpg" alt="">
-										</div>  
+										</div> 
 									</div>
 								</div>
 							</div>
