@@ -92,7 +92,7 @@ select {
 								<label class="col-sm-3" for="detail_img">상품상세사진</label>
 								<div class="input-group col-sm-9">
 									<div class="custom-file">
-										<input type="file" class="custom-file-input" id="file"
+										<input type="file" class="custom-file-input" id="file" maxlength="5" 
 											name="file" multiple="multiple" style="display: block;">
 										<label class="custom-file-label" for="inputGroupFile02">
 											Choose file</label>
