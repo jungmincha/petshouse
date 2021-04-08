@@ -77,7 +77,7 @@
 <td style="text-align:center">
 <input type = "submit" value = "작성 완료" >
 
-<td><a href = "/map/board">목록으로</a>&nbsp;&nbsp;
+<td><a href = "/map/petstown">목록으로</a>&nbsp;&nbsp;
 
 
 

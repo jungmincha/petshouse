@@ -71,6 +71,14 @@ public class MapServiceImpl implements MapService {
 
 
 
+	@Override
+	public List<MemberVO> getMemberList(String getMember_id) {
+		
+		return mapper.getMemberList(getMember_id);
+	}
+
+
+
 	
 
 

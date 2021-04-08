@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.pet.ex.page.Criteria;
@@ -40,36 +41,53 @@ public class MapController {
 	
 	
 	
+
+	
 	
 	
 	
 	
 	
 	//펫츠타운 메인페이지
-	@RequestMapping("/board")
-	   public ModelAndView petstown(@RequestParam(value="test") String loc, 
-			   
-			   @RequestParam(value="member_id") String member_id,
-			   
+	@RequestMapping("/petstown")
+	   public ModelAndView petstown(
+			 @RequestParam(value="test" ,required = false)String location,
+			 
+			   @RequestParam(value="member_id",required = false)String member_id,
+			  
 			   ModelAndView mav , Criteria cri , MemberVO memberVO) {
 	      	
 		mav.addObject("list", service.getList(cri));
 		int total = service.getTotal(cri);
 		
+		memberVO.setLocation(location);
+		  
+		  
+		  service.insertLoc(memberVO);
+		
+		
 		mav.addObject("pageMaker",  new PageVO(cri, total));
-		mav.addObject("location", loc);
 		
+	 mav.addObject("location", location); 
+		 
+	 mav.addObject("member_id", member_id); 
+		 
+		/* memberVO.setMember_id(member_id); */
 		
-		memberVO.setLocation(loc);
+			/*
+			 * mav.addObject("member_list", service.getMemberList(memberVO.getMember_id()));
+			 */
 		
-		service.insertLoc(memberVO);
+		  
+		 
 	
 		
 		System.out.println(member_id);
 		
+		/* System.out.println(loc); */
 	      mav.setViewName("map/petstown");
 	      System.out.println("===============================================================================");
-	      System.out.println(loc);
+	    
 	      return mav;
 	   }
 	
@@ -87,15 +105,15 @@ public class MapController {
 	 }
 	
 	//content_view 페이지
-	@RequestMapping("/board/{board_id}")
-	public String content_view(Model model, BoardVO boardVO) {
+	@RequestMapping("/petstown/{board_id}")
+	public ModelAndView content_view(ModelAndView mav, BoardVO boardVO) {
 		
 		log.info("rest_content_view...");
 		
 	
-		model.addAttribute("content_view", service.content_view(boardVO.getBoard_id()));
-		
-		return "map/content_view";
+		mav.addObject("content_view", service.content_view(boardVO.getBoard_id()));
+		mav.setViewName("map/content_view");
+		return mav;
 		
 	}
 	
@@ -105,12 +123,14 @@ public class MapController {
 	
 	//write
 		  @RequestMapping("/write")//글작성 폼에서 정보입력(즉, insert) 
-		  public String write(BoardVO boardVO)throws Exception 
+		  public ModelAndView write(ModelAndView mav ,BoardVO boardVO)throws Exception 
 		  
 		  { 
 			  log.info("write"); 
 			  service.write(boardVO);
-			  return "redirect:board";
+			  
+			  mav.setViewName("redirect:petstown");
+			  return mav;
 			  
 		  }
 		  
@@ -119,15 +139,16 @@ public class MapController {
 		 
 	 //delete
 		  @RequestMapping("/delete/{board_id}")
-		   public String delete(BoardVO boardVO, Model model) throws Exception{
+		   public ModelAndView delete(ModelAndView mav ,BoardVO boardVO) throws Exception{
 
 		      
 		      
 		      log.info("delete");
 		      service.inputDelete(boardVO.getBoard_id());
 		      
+		      mav.setViewName("redirect:petstown");
 		      
-		      return "redirect:board";
+		      return mav;
 		   }
 		   
 	

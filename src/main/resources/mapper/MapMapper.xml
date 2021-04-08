@@ -184,4 +184,13 @@
 	</insert>
 
 
+
+
+<select id="getMemberList" resultType="MemberVO">
+   <![CDATA[
+    select * from member where member_id=#{member_id}
+   ]]>
+	</select>
+
+
 </mapper>

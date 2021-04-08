@@ -79,7 +79,7 @@ ${content_view.content}
 <td style="text-align:center">
 
 
-<td><a href = "/map/board">목록으로</a>&nbsp;&nbsp; <a href = "/map/delete/${content_view.board_id}">삭제</a>&nbsp;&nbsp;<input type="submit" value="수정">  </td>
+<td><a href = "/map/petstown">목록으로</a>&nbsp;&nbsp; <a href = "/map/delete/${content_view.board_id}">삭제</a>&nbsp;&nbsp;<input type="submit" value="수정">  </td>
 
 
 
