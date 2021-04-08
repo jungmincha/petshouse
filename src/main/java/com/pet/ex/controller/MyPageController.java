@@ -66,18 +66,6 @@ public class MyPageController {
 		return mav;
 	}
 
-	// 결제 페이지 이동 (ajax)
-	/*
-	 * @PostMapping(value = "/payPage", produces = "application/json; charset=utf8")
-	 * public List<CartVO> payPage(@RequestBody List<Map<String, Object>> param,
-	 * ModelAndView mav) { log.info("/myPage/payPage"); List<CartVO> payGoods = new
-	 * ArrayList<CartVO>(); CartVO cart = new CartVO(); for (Map<String, Object>
-	 * goods : param) { cart.setBoard_id((int) goods.get("board_id"));
-	 * cart.setAmount((int) goods.get("amount")); cart.setSum((int)
-	 * goods.get("sum")); payGoods.add(cart); } System.out.println(payGoods); return
-	 * payGoods; }
-	 */
-
 	// 결제 후 결제 정보 삽입
 	@PostMapping("/payPage/insert")
 	public ModelAndView insertPay(ModelAndView mav, PayVO pay, HttpServletRequest request) {
@@ -104,4 +92,11 @@ public class MyPageController {
 		return mav;
 	}
 
+	// 주문 배송 내역 조회
+	@GetMapping("/orderList")
+	public ModelAndView orderList(ModelAndView mav) {
+
+		mav.setViewName("/myPage/orderList");
+		return mav;
+	}
 }

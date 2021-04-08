@@ -62,9 +62,10 @@
 							<table>
 								<thead>
 									<tr>
-										<th style="width:10%">전체선택<br> <input type="checkbox" id="allCk">
+										<th style="width: 10%">전체선택<br> <input
+											type="checkbox" id="allCk">
 										</th>
-										<th >상품 이미지</th>
+										<th>상품 이미지</th>
 										<th class="p-name">상품 이름</th>
 										<th>가격</th>
 										<th>수량</th>
@@ -219,7 +220,9 @@
 
 											// tbody에 기록
 											$("#goods").append(html);
-
+											if (cartList.length == 0) {
+												alert("카트가 비었습니다.")
+											}
 										}, //ajax 성공 시 end
 
 										error : function(request, status, error) {

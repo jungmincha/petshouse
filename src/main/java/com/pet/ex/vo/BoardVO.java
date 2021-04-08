@@ -1,6 +1,7 @@
 package com.pet.ex.vo;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -38,5 +39,12 @@ public class BoardVO {
 
 	// 순서대로 정렬
 	private int rnum;
+
+	// 시간 포맷 변경
+	SimpleDateFormat time = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+
+	public String getPdate() {
+		return time.format(pdate);
+	}
 
 }

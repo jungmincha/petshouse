@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class PayGoodsVO {
-	
+
 	public PayGoodsVO() {
 		this.payVO = new PayVO();
 		this.boardVO = new BoardVO();

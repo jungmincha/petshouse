@@ -42,11 +42,10 @@
 	src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 </head>
 <style>
-.pimg{
-width:40px;
-height:40px;
+.pimg {
+	width: 40px;
+	height: 40px;
 }
-
 </style>
 <body style="padding-top: 100px">
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
@@ -152,7 +151,7 @@ height:40px;
 							</div>
 							<div class="col-lg-6">
 								<div class="row ">
-									<div class="col-lg-7">
+									<div class="col-lg-8">
 										<label for="point">사용 가능 포인트 ${point.sum}P</label> <input
 											type="text" id="point" />
 									</div>
@@ -298,20 +297,23 @@ height:40px;
 	// 전체 포인트 사용
 	function usePoint() {
 		event.preventDefault();
-		$("#point").val("${point.sum}");
-		$('#payPoint').val("-" + $("#point").val());
-		$('#payPoint1').text("-" + $("#point").val() + "P");
-		lastTotal()
+		var goodsTotal = parseInt($("#goodsTotal").val());
+		if("${point.sum}" > goodsTotal){
+		    $("#point").val(goodsTotal);
+		    $('#payPoint').val("-" + $("#point").val());
+			$('#payPoint1').text("-" + $("#point").val() + "P");
+			lastTotal();
+		} else if("${point.sum}">999){
+			$("#point").val("${point.sum}");
+			$('#payPoint').val("-" + $("#point").val());
+			$('#payPoint1').text("-" + $("#point").val() + "P");
+			lastTotal();
+		} else{
+			alert("1000포인트 이상부터 사용가능합니다.");
+		}
+		
 	}
-
-	// 포인트 값 체인지
-	$("#point").on("change keyup paste", function() {
-
-		$('#payPoint').val("-" + $("#point").val());
-		$('#payPoint1').text("-" + $("#point").val() + "P");
-		lastTotal()
-	})
-
+	
 	// 최종 결제 금액 계산
 	function lastTotal() {
 		var lastTotal = 0;
@@ -325,6 +327,7 @@ height:40px;
 		$("#earningPoint1").text(innerPoint + "P");
 		$("#earningPoint").val(innerPoint);
 	}
+	
 	// 아임포트
 	IMP.init('imp29855153');
 
@@ -380,22 +383,47 @@ height:40px;
 		$('#deliverytel').val("");
 	}
 	
-	// 포인트 유효성 검사
-	$("#point").keyup( function() {
-		var val= $("#point").val();
-		console.log(val)
-		if(val.replace(/[0-9]/g, "").length > 0) {
+	// 포인트 값 체인지
+	$("#point").on("change keyup paste", function() {
+
+		var val = $("#point").val();
+		var valInt = parseInt($("#point").val());
+		var goodsTotal = $("#goodsTotal").val();
+		
+		if(valInt>goodsTotal){
+			 alert("포인트 사용액이 상품금액보다 큽니다.");
+		     $("#point").val('');
+		     $('#payPoint').val('0');
+			 $('#payPoint1').text('0P');
+			lastTotal();
+		}
+		else if(val.replace(/[0-9]/g, "").length > 0) {
 	        alert("숫자만 입력해 주십시오.");
 	        $("#point").val('');
+	        $('#payPoint').val('0');
+			 $('#payPoint1').text('0P');
+			 lastTotal();
 	    } else if("${point.sum}"<1000){
 			 alert("1000P 이상 부터 사용가능합니다.");
-		} else if(val < 999 || val > "${point.sum}") {
-	        alert("1000~${point.sum} 사이로 사용 가능합니다.");
+			 $("#point").val('');
+			 $('#payPoint').val('0');
+			 $('#payPoint1').text('0P');
+			 lastTotal();
+		} else if(valInt < 1 || valInt > "${point.sum}") {
+			console.log(val)
+	        alert("1~${point.sum} 사이로 사용 가능합니다.");
 	        $("#point").val('');
+	        $('#payPoint').val('0');
+			 $('#payPoint1').text('0P');
+			 lastTotal();
+	    } else{
+	    	$('#payPoint').val("-" + $("#point").val());
+			$('#payPoint1').text("-" + $("#point").val() + "P");
+			lastTotal();
 	    }
-	    
-
-	});
+	})
+	
+	
 	
 </script>
 <!-- Js Plugins -->

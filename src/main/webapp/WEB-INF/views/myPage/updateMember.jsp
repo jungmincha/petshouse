@@ -13,7 +13,7 @@
 <meta name="keywords" content="Fashi, unica, creative, html">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>Insert title here</title>
+<title>회원 정보 수정</title>
 <!-- Google Font -->
 <link
 	href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap"
@@ -38,7 +38,7 @@
 	type="text/css">
 <link rel="stylesheet" href="/resources/css/style.css" type="text/css">
 </head>
-<body style="padding-top:128px">
+<body style="padding-top: 128px">
 
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
 

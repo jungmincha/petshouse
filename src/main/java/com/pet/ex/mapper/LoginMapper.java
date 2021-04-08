@@ -29,6 +29,6 @@ public interface LoginMapper {
 	public MemberVO emailCheck(MemberVO member);
 
 	// 이메일 인증 성공시 certify 'Y'로 update
-	void updateCertify(MemberVO member);
+	public void updateCertify(MemberVO member);
 
 }

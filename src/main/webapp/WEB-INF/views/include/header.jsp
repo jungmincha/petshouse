@@ -78,10 +78,10 @@
 					<div class="col-lg-3 text-right col-md-3">
 						<ul class="nav-right">
 							<li class="heart-icon"><a href="#"> <i
-									class="icon_heart_alt"></i> 
+									class="icon_heart_alt"></i>
 							</a></li>
-							<li class="cart-icon"><a href="/myPage/cart"> <i
-									class="icon_bag_alt" ></i> <span id="cartCount"></span>
+							<li class="cart-icon"><a href="/myPage/cart" id="cartCount">
+									<i class="icon_bag_alt"></i>
 							</a>
 								<div class="cart-hover">
 
@@ -121,7 +121,7 @@
 						<li><a href="/store/commu/home">커뮤니티</a>
 							<ul class="dropdown">
 
-								<li><a href="/commu">SNS</a></li>
+								<li><a href="/commu/sns">SNS</a></li>
 								<li><a href="/commu/tips">노하우</a></li>
 								<li><a href="/commu/qna">질문과답변</a></li>
 								<li><a href="/map/home">펫츠하우스</a></li>
@@ -136,9 +136,9 @@
 						<li><a href="./shop.html">마이페이지</a>
 							<ul class="dropdown">
 								<li><a href="#">프로필</a></li>
-								<li><a href="#">주문배송내역</a></li>
+								<li><a href="/myPage/orderList">주문배송내역</a></li>
 								<li><a href="#">포인트</a></li>
-								<li><a href="#">회원정보수정</a></li>
+								<li><a href="/myPage/updateMember">회원정보수정</a></li>
 							</ul></li>
 
 						<li><a href="/admin/home">관리자페이지</a>
@@ -174,11 +174,13 @@
 	<script src="/resources/js/main.js"></script>
 </body>
 <script>
-$(document).ready(function (){
-	var count = JSON.parse(sessionStorage.getItem("cartList")).length;
-	console.log(count)
-	
-	$("#cartCount").text(count)
-})
+	$(document).ready(function() {
+		var count = JSON.parse(sessionStorage.getItem("cartList")).length;
+
+		if (count > 0) {
+			html = "<span id='cartCount'>" + count + "</span>"
+		}
+		$("#cartCount").append(html)
+	})
 </script>
 </html>

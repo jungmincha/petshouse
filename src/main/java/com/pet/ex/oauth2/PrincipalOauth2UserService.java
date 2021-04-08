@@ -18,10 +18,10 @@ import com.pet.ex.vo.MemberVO;
 
 @Service
 public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
-	
+
 	@Autowired
 	private LoginMapper loginMapper;
-	
+
 	private MemberVO member;
 
 	// 구글로 부터 받은 userRequest 데이터에 대한 후처리되는 함수

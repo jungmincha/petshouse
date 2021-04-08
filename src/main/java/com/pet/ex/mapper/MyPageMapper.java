@@ -9,8 +9,10 @@ import com.pet.ex.vo.PointVO;
 
 @Mapper
 public interface MyPageMapper {
+	// 장바구니에 담긴 상품목록 가져오기
 	public BoardVO getBoard(String board_id);
 
+	// 사용가능한 포인트 가져옴
 	public PointVO getPoint(String member_id);
 
 	// 결제 후 정보 저장
