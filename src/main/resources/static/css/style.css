@@ -2193,8 +2193,8 @@ ul, ol {
 	background: #8230E3;
 }
 
-.product-details .pd-size-choose {
-	margin-bottom: 30px;
+.product-details .pd-size-choose   {
+	margin-bottom: 20px;
 }
 
 .product-details .pd-size-choose .sc-item {
@@ -2225,7 +2225,7 @@ ul, ol {
 }
 
 .product-details .pd-size-choose .sc-item label.active {
-	background: #252525;
+	background: #e7ab3c;
 	color: #ffffff;
 }
 

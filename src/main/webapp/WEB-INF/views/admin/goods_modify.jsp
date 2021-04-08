@@ -168,7 +168,7 @@ select {
 									<label class="col-sm-3">상품소개</label>
 									<div class="col-sm-9">
 										<textarea name="description" id="description" cols="30"
-											name="description" rows="5" class="form-control">${goods.description}</textarea>
+											  rows="5" class="form-control">${goods.description}</textarea>
 									</div>
 								</div>
 

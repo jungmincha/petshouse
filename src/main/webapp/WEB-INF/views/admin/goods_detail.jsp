@@ -160,7 +160,7 @@ h2 {
 </style>
 
 </head>
-<body style="padding-top: 100px">
+<body style="padding-top: 80px">
 
 
 	<!-- header -->
@@ -303,9 +303,6 @@ h2 {
 
 				<div class="col-lg-9">
 
-
-
-
 					<form action="modify" method="post">
 						<!-- input ajax 시작하는 곳! -->
 						<div id="input" class="row">
@@ -313,7 +310,7 @@ h2 {
 
 							<div class="col-lg-6">
 								<div class="product-pic-zoom">
-									<img class="product-big-img" height="550"
+									<img class="product-big-img" height="500"
 										src="/resources/img/admin/goods/${goods.goodsVO.thumbnail}"
 										alt="">
 									<div class="zoom-icon">
@@ -348,6 +345,10 @@ h2 {
 										<span>${goods.categoryVO.categoryname}/${goods.categoryVO.sortname}</span>
 										<h3>${goods.goodsVO.goodsname}</h3>
 
+										<input type="button" class="btn"
+											style="background-color: #e7ab3c; float: right; color: #ffffff"
+											value="게시글수정"
+											onClick="location.href='${pageContext.request.contextPath}/admin/board/${goods.board_id}'">
 
 
 										<a href="#" class="heart-icon"><i class="icon_heart_alt"></i></a>
@@ -390,32 +391,30 @@ h2 {
 											</div>
 										</div>
 									</div>
-									
+
 
 									<div class="pd-size-choose">
 										<c:set var="pcolor" value="${goods.goodsVO.pcolor}" />
 										<c:set var="color" value="${fn:split(pcolor, ',')}" />
 										<c:forEach var="c" items="${color}">
-										<div class="sc-item">
-											<input type="radio" id="s-size" />
-											<label for="s-size">${c}</label>
+											<div class="sc-item">
+												<input type="radio" id="pcolor" name="pcolor" /> <label for="pcolor">${c}</label>
 											</div>
 										</c:forEach>
 									</div>
-									
-									
-										<div class="pd-size-choose">
+
+
+									<div class="pd-size-choose">
 										<c:set var="psize" value="${goods.goodsVO.psize}" />
 										<c:set var="size" value="${fn:split(psize, ',')}" />
 										<c:forEach var="s" items="${size}">
-										<div class="sc-item">
-											<input type="radio" id="lg-size" />
-											<label for="lg-size">${s}</label>
+											<div class="sc-item">
+												<input type="radio" id="size" name="size"/> <label for="size">${s}</label>
 											</div>
 										</c:forEach>
 									</div>
-									
-									
+
+
 									<div class="quantity">
 										<div class="pro-qty">
 											<span class="dec qtybtn">-</span> <input id="amount"
@@ -427,17 +426,20 @@ h2 {
 									<ul class="pd-tags">
 										<li><span>CATEGORIES</span>:
 											${goods.categoryVO.categoryname}/${goods.categoryVO.sortname}</li>
-										<li><span>TAGS</span>: #${goods.hashtag}</li>
+										<li><span>TAGS</span>:  
+										<c:set var="hashtag" value="${goods.hashtag}" /> 
+										<c:set var="tag" value="${fn:split(hashtag, ' ')}" /> 
+										<c:forEach var="t" items="${tag}">
+											
+												<a href="xxx">${t}</a>
+
+										</c:forEach></li>
 									</ul>
 									<div class="pd-share">
 										<div class="p-code">
 											<small>재고상태 : ${goods.goodsVO.stockVO.stockname}</small>
 										</div>
-										<div class="pd-social">
-											<a href="#"><i class="ti-facebook"></i></a> <a href="#"><i
-												class="ti-twitter-alt"></i></a> <a href="#"><i
-												class="ti-linkedin"></i></a>
-										</div>
+
 									</div>
 								</div>
 							</div>
@@ -616,9 +618,7 @@ h2 {
 					</form>
 				</div>
 			</div>
-		</div>
-
-
+			</div>
 	</section>
 	<!-- Product Shop Section End -->
 	<script src="/resources/js/jquery-3.3.1.min.js"></script>

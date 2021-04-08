@@ -109,7 +109,7 @@ public class AdminController {
 		mav.addObject("category", JSONArray.fromObject(category));
 		mav.addObject("stock", service.getStock());
 		mav.addObject("goods", service.getGoods(goods_id));
-		mav.setViewName("admin/content_view");
+		mav.setViewName("admin/goods_modify");
 
 		return mav;
 	}
@@ -284,15 +284,31 @@ public class AdminController {
 		
 	
 	}
+	
+	@GetMapping("/board/{board_id}")
+	public ModelAndView boardModify(@PathVariable("board_id") int board_id, BoardVO boardVO, CategoryVO categoryVO, ModelAndView mav) {
+
+		log.info("boardModify");
+
+		
+		boardVO = service.getboardInfo(board_id);
+		
+		mav.addObject("board", service.getBoard(boardVO.getBoard_id()));
+		mav.addObject("img", service.getImg(boardVO.getGoodsVO().getGoods_id()));
+		 
+		mav.setViewName("admin/board_modify");
+
+		return mav;
+	}
 
 	// 상품게시글 상세조회
 	@GetMapping("/goods_detail/{board_id}")
-	public ModelAndView goods_view(@PathVariable("board_id") int board_id, BoardVO boardVO, GoodsVO goodsVO,
+	public ModelAndView board_view(@PathVariable("board_id") int board_id, BoardVO boardVO, GoodsVO goodsVO,
 			CategoryVO categoryVO, StockVO stockVO, ModelAndView mav) throws Exception {
 
 		boardVO = service.getboardInfo(board_id);
 
-		log.info("goods_view");
+		log.info("board_view");
 		
 		mav.addObject("img", service.getImg(boardVO.getGoodsVO().getGoods_id()));
 		mav.addObject("sortBoard", service.getsortBoard(categoryVO));
