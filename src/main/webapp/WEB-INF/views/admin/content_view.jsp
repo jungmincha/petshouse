@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
 <!DOCTYPE html >
 <html>
 <head>
@@ -10,7 +12,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <title>상품조회</title>
- 
+
 <style>
 .table_center {
 	display: table;
@@ -43,7 +45,7 @@ select {
 </style>
 
 </head>
-<body style="padding-top:180px">
+<body style="padding-top: 180px">
 
 
 
@@ -55,19 +57,21 @@ select {
 	<!-- Page Content -->
 
 	<div class="col-lg-30">
-		<form action="${pageContext.request.contextPath}/admin/goods/update" 
-		method="post"  enctype="multipart/form-data">
-			<input type="hidden" name="goods_id" id="goods_id" value="${goods.goods_id}">
-		
+		<form action="${pageContext.request.contextPath}/admin/goods/update"
+			method="post" enctype="multipart/form-data">
+			<input type="hidden" name="goods_id" id="goods_id"
+				value="${goods.goods_id}"> <input type="hidden"
+				name="thumbnail" value="${goods.thumbnail}">
 			<div class="col-lg-30">
 
 				<fieldset>
 					<table class="table_center" cellpadding="20">
-				    <td colspan="20">
+						<td colspan="20">
 							<h2>상품 조회</h2>
-					</td>
+						</td>
 						<tr>
-							<td><img style="width: 400px;" id="preview-image" name="preview-image"
+							<td><img style="width: 400px;" id="preview-image"
+								name="preview-image"
 								src="/resources/img/admin/goods/${goods.thumbnail}"></td>
 							<%-- <%=request.getRealPath("/")%> 저장경로 --%>
 							<td>
@@ -76,10 +80,9 @@ select {
 									<div class="input-group col-sm-9">
 										<div class="custom-file">
 											<input type="file" class="custom-file-input" id="thumbnail"
-												name="file" multiple="multiple" style="display: block;"> 
-												<label class="custom-file-label" for="inputGroupFile02">
-												Choose file
-												</label>
+												name="file" multiple="multiple" style="display: block;">
+											<label class="custom-file-label" for="inputGroupFile02">
+												Choose file </label>
 										</div>
 										<div class="input-group-append">
 											<span class="input-group-text">Upload</span>
@@ -97,28 +100,30 @@ select {
 								<div class="form-group row">
 									<label class="col-sm-3">가격</label>
 									<div class="col-sm-9">
-										<input type="text" id="price" name="price" class="form-control"
-											value="${goods.price}" aria-describedby="priceHelp">
-										<small id="priceHelp" class="form-text text-muted"> 예) 15000 </small>	
+										<input type="text" id="price" name="price"
+											class="form-control" value="${goods.price}"
+											aria-describedby="priceHelp"> <small id="priceHelp"
+											class="form-text text-muted"> 예) 15000 </small>
 									</div>
 								</div>
 
 								<div class="form-group row">
 									<label class="col-sm-3">사이즈</label>
 									<div class="col-sm-9">
-										<input type="text" id="psize" name="psize" class="form-control"
-											 aria-describedby="sizeHelp" value="${goods.psize}"> 
-											 <small id="sizeHelp" class="form-text text-muted">예) S,M,L</small>
+										<input type="text" id="psize" name="psize"
+											class="form-control" aria-describedby="sizeHelp"
+											value="${goods.psize}"> <small id="sizeHelp"
+											class="form-text text-muted">예) S,M,L</small>
 									</div>
 								</div>
 
 								<div class="form-group row">
 									<label class="col-sm-3">색상</label>
 									<div class="col-sm-9">
-										<input type="text" name="pcolor" id="pcolor" class="form-control"
-											  aria-describedby="colorHelp" value="${goods.pcolor}">
-										<small id="colorHelp" class="form-text text-muted">예)
-											빨간색, 노란색</small>
+										<input type="text" name="pcolor" id="pcolor"
+											class="form-control" aria-describedby="colorHelp"
+											value="${goods.pcolor}"> <small id="colorHelp"
+											class="form-text text-muted">예) 빨간색, 노란색</small>
 									</div>
 								</div>
 
@@ -130,13 +135,13 @@ select {
 											class="form-control"
 											style="vertical-align: middle; text-align-last: center">
 											<option value="">${goods.categoryVO.categoryname}</option>
-										</select> <label>2차 분류</label> 
-										<select class="category2" name="categoryVO.category_id" class="form-control"
+										</select> <label>2차 분류</label> <select class="category2"
+											name="categoryVO.category_id" class="form-control"
 											style="vertical-align: middle; text-align-last: center">
 											<option value="${goods.categoryVO.category_id}">
-											${goods.categoryVO.sortname}</option>
-										</select> 
-										 
+												${goods.categoryVO.sortname}</option>
+										</select>
+
 									</div>
 								</div>
 
@@ -148,16 +153,15 @@ select {
 
 										<select name="stockVO.stock_id"
 											style="vertical-align: middle; text-align-last: center">
-											<option value="${goods.stockVO.stock_id}" > ${goods.stockVO.stockname}
-											<c:forEach items="${stock}" var="stock">
-												<option value="${stock.stock_id}" > ${stock.stockname}
-												</option>
-											</c:forEach>
-
+											<option value="${goods.stockVO.stock_id}">
+												${goods.stockVO.stockname}
+												<c:forEach items="${stock}" var="stock">
+													<option value="${stock.stock_id}">
+														${stock.stockname}</option>
+												</c:forEach>
 										</select><br> <small>현재상태 : ${goods.stockVO.stockname}</small>
 									</div>
 								</div>
-
 
 
 								<div class="form-group row">
@@ -171,32 +175,31 @@ select {
 								<div class="form-group row">
 									<div class="col-sm-offset-2 col-sm-6">
 										<input type="button" class="btn btn-block" data-toggle="modal"
-										data-target="#Modal" onclick = ex() style="background-color: #e7ab3c"
-										value="상품정보수정"> 
+											data-target="#Modal" onclick=ex()
+											style="background-color: #e7ab3c" value="상품정보수정">
 									</div>
-										<!-- Modal -->
-								<div class="modal fade" id="Modal" tabindex="-1"
-									role="dialog" aria-labelledby="ModalLabel"
-									aria-hidden="true">
-									<div class="modal-dialog" role="document">
-										<div class="modal-content">
-											<div class="modal-header">
-												<h5 class="modal-title" id="ModalLabel">확인창</h5>
-												<button type="button" class="close" data-dismiss="modal"
-													aria-label="Close">
-													<span aria-hidden="true">&times;</span>
-												</button>
-											</div>
-											<div class="modal-body">상품을 수정하시겠습니까?</div>
-											<div class="modal-footer">
-												<button type="button" class="btn btn-secondary"
-													data-dismiss="modal">닫기</button>
-												<button type="submit" class="btn btn-warning" 
-												style="background-color: #e7ab3c" >수정하기</button>
+									<!-- Modal -->
+									<div class="modal fade" id="Modal" tabindex="-1" role="dialog"
+										aria-labelledby="ModalLabel" aria-hidden="true">
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title" id="ModalLabel">확인창</h5>
+													<button type="button" class="close" data-dismiss="modal"
+														aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="modal-body">상품을 수정하시겠습니까?</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-secondary"
+														data-dismiss="modal">닫기</button>
+													<button type="submit" class="btn btn-warning"
+														style="background-color: #e7ab3c">수정하기</button>
+												</div>
 											</div>
 										</div>
 									</div>
-								</div>
 									<div class="col-sm-offset-2 col-sm-6">
 										<input type="button" class="btn btn-block"
 											style="background-color: #e7ab3c" value="상품목록"
@@ -319,6 +322,15 @@ select {
 												});
 
 							});
+			
+			
+			if($("pcheck").prop("checked")){
+				$("#pcheck").val(1);
+			}else{
+				$("#test").val(0);
+			
+			}
+			
 	</script>
 	<!-- Footer -->
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>

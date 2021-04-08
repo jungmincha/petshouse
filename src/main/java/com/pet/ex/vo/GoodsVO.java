@@ -19,6 +19,7 @@ public class GoodsVO {
 	private String psize;
 	private String pcolor;
 	private String thumbnail;
+	private String pcheck;
 	private String image3d;
 
 	// 외래키
