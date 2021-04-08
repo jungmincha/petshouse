@@ -62,11 +62,13 @@
 		<result column="thumbnail" property="thumbnail" />
 		<result column="image3d" property="image3d" />
 		<result column="count" property="count" />
+		<result column="pcheck" property="pcheck" />
 		<collection property="stockVO" resultMap="stockvo" />
 		<collection property="categoryVO" resultMap="categoryvo" />
 	</resultMap>
 
 	<resultMap type="ImageVO" id="imagevo">
+		<result column="img_id" property="img_id" />
 		<result column="imgname" property="imgname" />
 		<collection property="boardVO" resultMap="boardvo" />
 		<collection property="goodsVO" resultMap="goodsvo" />
@@ -153,13 +155,15 @@
       		select * from (
    					 select rownum as rnum, a.* 
        		  				from ( 	
-                 				select g.goods_id, g.goodsname, g.price, s.stockname 
+                 				select g.goods_id, g.goodsname, g.price, g.pcheck, s.stockname   
                 				 from  goods g , stock s where g.stock_id = s.stock_id
              				 order by goods_id    
              				 )a where rownum <= #{pageNum} * #{amount}
    						)where rnum > (#{pageNum}-1) * #{amount}  
     	]]>
 	</select>
+	
+ 
 
 	<select id="getTotalGoods" resultType="int">
 		<![CDATA[
@@ -169,7 +173,7 @@
 
 	<select id="getList2" resultMap="goodsvo"> 
 	  	 <![CDATA[      
-     	  	select g.goods_id, g.goodsname, g.price, s.stockname
+     	  	select g.goods_id, g.goodsname, g.price, s.stockname, g.pcheck
                 from  goods g , stock s 
                 where g.stock_id = s.stock_id and g.category_id=#{g.category_id} 
               order by goods_id 
@@ -265,10 +269,17 @@
 	]]>
 	</insert>
 	
+	<update id="updateCheck" >
+		<![CDATA[
+	    	update goods set pcheck= N'등록' where goods_id in (select goods_id from board where boardtype_id=3) and goods_id = #{goodsVO.goods_id}
+		]]>
+	</update>
+	
+
 	<!-- 상품상세이미지 업로드 -->
 	<insert id="detailInput">
 	 <![CDATA[
-    INSERT INTO IMAGE VALUES (#{imgname}, #{goods_id})
+    INSERT INTO IMAGE(img_id, imgname, goods_id) VALUES (image_seq.nextval, #{imgname}, #{goodsVO.goods_id})
 	 ]]>
 	</insert>
 
@@ -285,6 +296,14 @@
       where g.goods_id = b.goods_id and g.stock_id=s.stock_id and g.category_id=c.category_id and c.code=cc.category_id and b.board_id = #{board_id}  and b.boardtype_id=3 
 	]]>
 	</select>
+	
+	<select id="getImg" resultMap="imagevo"> 
+	<![CDATA[ 
+      select * from image where goods_id=#{goodsVO.goods_id}
+	]]>
+	</select>
+	
+	
 
 	<select id="getRateone" parameterType="int" resultMap="boardvo">
 	   <![CDATA[

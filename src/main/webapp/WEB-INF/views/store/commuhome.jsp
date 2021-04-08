@@ -48,6 +48,9 @@
  <!-- Swiper JS -->
  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
+<!-- more -->
+<script src="/readmore-js/readmore.min.js"></script>
+
 <script>
    $(document).ready(function() {
       $.fn.generateStars = function() {
@@ -59,20 +62,7 @@
       // 숫자 평점을 별로 변환하도록 호출하는 함수
       $('.star-prototype').generateStars();
 
-      
-        var swiper = new Swiper('.swiper-container', {
-          slidesPerView: 1,
-          spaceBetween: 30,
-          loop: true,
-          pagination: {
-            el: '.swiper-pagination',
-            clickable: true,
-          },
-          navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-          },
-        });
+
      
    });
 </script>
@@ -93,33 +83,6 @@
       padding: 0;
     }
 
-    .swiper-container {
-      width: 100%;
-      height: 100%;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .swiper-slide {
-      text-align: center;
-      font-size: 18px;
-      background: #fff;
-
-      /* Center slide text vertically */
-      display: -webkit-box;
-      display: -ms-flexbox;
-      display: -webkit-flex;
-      display: flex;
-      -webkit-box-pack: center;
-      -ms-flex-pack: center;
-      -webkit-justify-content: center;
-      justify-content: center;
-      -webkit-box-align: center;
-      -ms-flex-align: center;
-      -webkit-align-items: center;
-      align-items: center;
-    }
-    
     .instagram-photo{
     	padding-top: 15px;
     }
@@ -131,10 +94,8 @@
     .single-latest-blog img{
     	width: 280px;
     	height: 280px;
-    }
-    
-    
-
+	}
+	
 </style>
 </head>
 
@@ -145,25 +106,25 @@
      <!-- Instagram Section Begin -->
       <div class="container">
     <div class="instagram-photo">
-        <div class="insta-item set-bg" data-setbg="/resources/img/commuhome/cat1.jpg">
+        <div class="insta-item set-bg" data-setbg="/resources/img/commuhome/cat.jpg">
             <div class="inside-text">
                 <i class="ti-instagram"></i>
                 <h5><a href="#">Cat</a></h5>
             </div>
         </div>
-        <div class="insta-item set-bg" data-setbg="/resources/img/commuhome/dog1.jpg">
+        <div class="insta-item set-bg" data-setbg="/resources/img/commuhome/reptile.jpg">
             <div class="inside-text">
                 <i class="ti-instagram"></i>
                 <h5><a href="#">Dog</a></h5>
             </div>
         </div>
-        <div class="insta-item set-bg" data-setbg="/resources/img/commuhome/reptile.jpg">
+        <div class="insta-item set-bg" data-setbg="/resources/img/commuhome/dog1.jpg">
             <div class="inside-text">
                 <i class="ti-instagram"></i>
                 <h5><a href="#">Reptile</a></h5>
             </div>
         </div>
-        <div class="insta-item set-bg" data-setbg="/resources/img/commuhome/cat1.jpg">
+        <div class="insta-item set-bg" data-setbg="/resources/img/commuhome/bird1.jpg">
             <div class="inside-text">
                 <i class="ti-instagram"></i>
                 <h5><a href="#">Bird</a></h5>
@@ -260,7 +221,7 @@
             <div class="col-sm-2">
                   <a href="/store/commu/category/401?categoryName=어류 / 어항">
                      <img src="/resources/img/category/fish.jpg"></a>
-            </div>s
+            </div>
 
             <div class="col-sm-2">
                   <a href="/store/commu/category/601?categoryName=기타 / 사료">

@@ -6,6 +6,7 @@ import com.pet.ex.mapper.AdminMapper;
 import com.pet.ex.vo.BoardVO;
 import com.pet.ex.vo.CategoryVO;
 import com.pet.ex.vo.GoodsVO;
+import com.pet.ex.vo.ImageVO;
 import com.pet.ex.vo.MemberVO;
 import com.pet.ex.vo.StockVO;
 
@@ -20,23 +21,22 @@ import lombok.extern.slf4j.Slf4j;
 public class AdminServiceImpl implements AdminService {
 
 	public AdminMapper mapper;
-	
+
 	/* 상품관리 */
-	
+
 	@Override
-	public List<GoodsVO> getList(Criteria cri) { 
-	
+	public List<GoodsVO> getList(Criteria cri) {
+
 		cri.setAmount(15);
 		return mapper.getList(cri);
 	}
-	
+
 	@Override
 	public int getTotalGoods(Criteria cri) {
 
 		return mapper.getTotalGoods(cri);
 	}
-	
-	
+
 	@Override
 	public List<GoodsVO> getList2(int category_id) {
 		/*
@@ -44,31 +44,31 @@ public class AdminServiceImpl implements AdminService {
 		 */
 		return mapper.getList2(category_id);
 	}
-	
+
 	@Override
 	public List<CategoryVO> getCatengoods() {
 
 		return mapper.getCatengoods();
 	}
-	
+
 	@Override
 	public List<CategoryVO> getSort(CategoryVO categoryVO) {
 
 		return mapper.getSort(categoryVO);
 	}
-	
+
 	@Override
 	public GoodsVO getGoods(int goods_id) {
 
 		return mapper.getGoods(goods_id);
 	}
-	
+
 	@Override
 	public List<StockVO> getStock() {
 
 		return mapper.getStock();
 	}
-	
+
 	@Override
 	public List<CategoryVO> getCategory() {
 
@@ -76,55 +76,71 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public void goodsInput(GoodsVO goodsVO) {		
+	public void goodsInput(GoodsVO goodsVO) {
 
 		mapper.goodsInput(goodsVO);
+		
 	}
-	
+
 	@Override
 	public void goodsModify(GoodsVO goodsVO) {
-	
+
 		mapper.goodsModify(goodsVO);
 	}
-	
+
 	@Override
 	public void goodsDelete(int goods_id) {
-		
+
 		/* mapper.reviewDelete(goods_id); */
 		mapper.boardDelete(goods_id);
 		mapper.goodsDelete(goods_id);
 	}
-	
+
 //	@Override
 //	public void fileUpload(String imgname) {
 //		 
 //		mapper.fileUpload(imgname);
 //	}
 
-	
-	
 	/* 상품게시글관리 */
-	
+
 	@Override
 	public List<GoodsVO> getNboard() {
 		log.info("getNboard");
 		return mapper.getNboard();
 	}
-	
+
 	@Override
-	public void boardInput(BoardVO boardVO) {		
+	public void boardInput(BoardVO boardVO ) {
 
 		mapper.boardInput(boardVO);
-		mapper.detailInput(boardVO.getGoodsVO().getGoods_id());
+	 
+
+	}
+
+	 
+	@Override
+	public void detailInput( ImageVO imageVO) {
+
+		mapper.detailInput(imageVO);
+	}
+
+	@Override
+	public void updateCheck(BoardVO boardVO) {
+	 
+		mapper.updateCheck(boardVO);
+	}
+
+	@Override
+	public BoardVO getBoard(int board_id) {
+
+		return mapper.getBoard(board_id);
 	}
 	
-	
-
-	
 	@Override
-	public BoardVO getBoard(int board_id) {		
-	
-		return mapper.getBoard(board_id);
+	public List<ImageVO> getImg(int goods_id) {
+		 
+		return mapper.getImg(goods_id);
 	}
 
 	@Override
@@ -135,25 +151,23 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public BoardVO getboardInfo(int board_id) {
-	 
+
 		return mapper.getboardInfo(board_id);
 	}
 
 	@Override
 	public List<CategoryVO> getsortBoard(CategoryVO categoryVO) {
-	 
+
 		return mapper.getsortBoard(categoryVO);
 	}
 
 	@Override
 	public List<CategoryVO> getcateBoard() {
-		 
-	    return mapper.getcateBoard();
+
+		return mapper.getcateBoard();
 	}
-	
 
 	
-
 	
 	
 	
@@ -182,15 +196,9 @@ public class AdminServiceImpl implements AdminService {
 		log.info("memberDelete");
 		mapper.memberDelete(member_id);
 	}
- 
-
-
-
-
-
 
 	
-
-
+ 
+	
 
 }

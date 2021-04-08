@@ -1,6 +1,10 @@
 package com.pet.ex.controller;
 
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,6 +29,7 @@ import lombok.extern.slf4j.Slf4j;
 public class StoreController {
 	@Autowired
 	StoreService service;
+	private ModelAndView mav;
 	
 	//storehome 이동
 	@GetMapping("/home")
@@ -32,11 +37,23 @@ public class StoreController {
 		log.info("storehome");
 		mav.addObject("rate", service.getStorerate());
 		mav.addObject("bestrate", service.getStorerate(cri));
-		int total = service.getStoretotal();
-		mav.addObject("pageMaker", new PageVO(cri, total));		
+		//int total = service.getStoretotal();
+		//mav.addObject("pageMaker", new PageVO(cri, total));		
 		mav.addObject("goods", service.getGoodsinfo());
 		mav.setViewName("store/home");
 		return mav;
+	}
+	
+	//storehome에서 상품 더보기 
+	@PostMapping("/home/morelist")
+	public Map<String, Object> storehome(Criteria cri) {
+		log.info("morelist");
+		Map<String, Object> list = new HashMap<>();
+		List<BoardVO> bestrate = service.getStorerate(cri);
+		List<BoardVO> goods = service.getGoodsinfo();
+		list.put("bestrate", bestrate);
+		list.put("goods", goods);
+		return list;
 	}
 
 	//besthome 이동

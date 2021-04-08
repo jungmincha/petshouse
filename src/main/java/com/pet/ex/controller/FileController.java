@@ -37,7 +37,7 @@ public class FileController {
 	public ModelAndView fileUpload(MultipartHttpServletRequest multi, ModelAndView mav) throws IllegalStateException, IOException {
 		log.info("fileUpload");
 		//파일 경로 설정
-		String path = multi.getSession().getServletContext().getRealPath("/static/img/file");  
+		String path = multi.getSession().getServletContext().getRealPath("/static/img/admin/board");  
 		
 		path = path.replace("webapp", "resources");
 	      

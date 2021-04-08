@@ -41,7 +41,13 @@
 <script type="text/javascript"
 	src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 </head>
+<style>
+.pimg{
+width:40px;
+height:40px;
+}
 
+</style>
 <body style="padding-top: 100px">
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
 
@@ -51,6 +57,8 @@
 		<div class="container">
 			<form action="/myPage/payPage/insert" class="checkout-form"
 				name='form' method="post">
+				<input type="hidden" name="memberVO.member_id"
+					value="<sec:authentication property="principal.member_id"/>">
 				<div class="row">
 					<div class="col-lg-8">
 
@@ -89,17 +97,21 @@
 										<h5 style="font-weight: bold">배송지 정보</h5>
 									</div>
 									<div class="col-lg-6 text-right">
-										<span>내 정보 가져오기</span>
+										<span onclick="reset()">초기화</span>
 									</div>
 								</div>
 
 								<hr>
 							</div>
 							<div class="col-lg-5">
-								<label for="fir">받는 사람</label> <input type="text" name="deliveryname">
+								<label for="fir">받는 사람</label> <input type="text"
+									name="deliveryname" id="deliveryname"
+									value="<sec:authentication property="principal.name"/>">
 							</div>
 							<div class="col-lg-5">
-								<label for="phone">연락처</label> <input type="text" name="deliverytel">
+								<label for="phone">연락처</label> <input id="deliverytel"
+									type="text" name="deliverytel"
+									value="0<sec:authentication property="principal.tel"/>">
 							</div>
 							<div class="group-input col-lg-10">
 
@@ -112,7 +124,9 @@
 											style="font-size: 10pt; background-color: #000000; color: #ffffff; font-weight: bold" />
 									</div>
 									<input class="form-control" type="text"
-										style="font-size: 13pt;" id="address" name="deliveryaddress" />
+										style="font-size: 13pt;" id="deliveryaddress"
+										name="deliveryaddress"
+										value="<sec:authentication property="principal.address"/>" />
 								</div>
 
 							</div>
@@ -127,8 +141,11 @@
 								<div class="row">
 									<div class="col-lg-6">
 										<h5 style="font-weight: bold">포인트</h5>
-									</div>
 
+									</div>
+									<div class="col-lg-6 text-right">
+										<span>1000포인트 이상부터 사용가능합니다.</span>
+									</div>
 								</div>
 
 								<hr>
@@ -176,7 +193,7 @@
 							<div class="order-total">
 								<ul class="order-table" id='pay'>
 									<li>Product <span>Total</span></li>
-									<!-- 합산 시 사용 -->
+									<!-- 스크립트 계산시 사용 -->
 									<input type="hidden" name="goodsSum">
 									<input type="hidden" name="goodsName">
 									<input type="hidden" name="amount">
@@ -211,6 +228,7 @@
 						var html = "";
 						for (var i = 0; i < payGoods.length; i++) {
 							html += "<li class='fw-normal'>"
+									+ "<img src='/resources/img/cart-page/product-1.jpg' class='pimg'>"
 									+ payGoods[i].name
 									+ "&nbsp x &nbsp "
 									+ payGoods[i].amount
@@ -274,7 +292,7 @@
 	// 주소 콜백
 	function jusoCallBack(roadFullAddr, zipNo) {
 		// 팝업페이지에서 주소입력한 정보를 받아서, 현 페이지에 정보를 등록합니다.	
-		$('#address').val("(" + zipNo + ")" + roadFullAddr);
+		$('#deliveryaddress').val("(" + zipNo + ")" + roadFullAddr);
 	}
 
 	// 전체 포인트 사용
@@ -307,11 +325,7 @@
 		$("#earningPoint1").text(innerPoint + "P");
 		$("#earningPoint").val(innerPoint);
 	}
-</script>
-
-
-<script>
-// 아임포트
+	// 아임포트
 	IMP.init('imp29855153');
 
 	function payNow(method) {
@@ -325,8 +339,9 @@
 		//결제 정보
 		var lastTotal = $("#lastTotal").val();
 		var nameCount = this.form.goodsName.length - 2;
+		console.log(nameCount)
 		var goodsName = this.form.goodsName[1].value;
-		if (nameCount > 1) {
+		if (nameCount > 0) {
 			goodsName += " 외 " + nameCount + "개"
 		}
 
@@ -334,15 +349,15 @@
 			pg : 'html5_inicis', // version 1.1.0부터 지원.
 			pay_method : method,
 			merchant_uid : 'merchant_' + new Date().getTime(),
-			name : goodsName,
+			name : goodsName, // 상품 이름
 			amount : lastTotal, //판매 가격
-			buyer_email : email,
-			buyer_name : name,
-			buyer_tel : tel,
-			buyer_addr : address,
+			buyer_email : email, // 이메일
+			buyer_name : name, // 구매자 이름
+			buyer_tel : tel, // 구매자 번호
+			buyer_addr : address, // 구매자 주소
 			buyer_postcode : '123-456',
-			m_redirect_url : 'localhost:8383/store/home',
-			company : '(주)캣버그'
+			m_redirect_url : 'localhost:8383/myPage/payPage/paySuccess', // 리다이렉트 주소
+			company : '(주)캣버그' // 상호명
 		}, function(rsp) {
 			if (rsp.success) {
 				var msg = '결제가 완료되었습니다.';
@@ -358,6 +373,30 @@
 			alert(msg);
 		});
 	}
+	// 초기화
+	function reset(){
+		$('#deliveryname').val("");
+		$('#deliveryaddress').val("");
+		$('#deliverytel').val("");
+	}
+	
+	// 포인트 유효성 검사
+	$("#point").keyup( function() {
+		var val= $("#point").val();
+		console.log(val)
+		if(val.replace(/[0-9]/g, "").length > 0) {
+	        alert("숫자만 입력해 주십시오.");
+	        $("#point").val('');
+	    } else if("${point.sum}"<1000){
+			 alert("1000P 이상 부터 사용가능합니다.");
+		} else if(val < 999 || val > "${point.sum}") {
+	        alert("1000~${point.sum} 사이로 사용 가능합니다.");
+	        $("#point").val('');
+	    }
+	    
+
+	});
+	
 </script>
 <!-- Js Plugins -->
 <script src="/resources/js/jquery-3.3.1.min.js"></script>

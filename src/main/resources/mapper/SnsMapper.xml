@@ -2,7 +2,33 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.pet.ex.mapper.MyPageMapper">
+<mapper namespace="com.pet.ex.mapper.SnsMapper">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	<resultMap type="BoardtypeVO" id="boardtypevo">
 		<result column="boardtype_id" property="boardtype_id" />
 		<result column="boardtypename" property="boardtypename" />
@@ -22,7 +48,6 @@
 		<result column="ratescore" property="ratescore" />
 		<result column="avgscore" property="avgscore" />
 		<result column="count" property="count" />
-		<result column="rnum" property="rnum" />
 		<collection property="memberVO" resultMap="membervo" />
 		<collection property="boardtypeVO" resultMap="boardtypevo" />
 		<collection property="goodsVO" resultMap="goodsvo" />
@@ -42,7 +67,7 @@
 		<result column="category_id" property="category_id" />
 		<result column="categoryname" property="categoryname" />
 		<result column="code" property="code" />
-		<result column="sortnumber" property="sortnumber" />
+		<result column="sortname" property="sortname" />
 	</resultMap>
 
 	<resultMap type="FollowVO" id="followvo">
@@ -61,11 +86,13 @@
 		<result column="thumbnail" property="thumbnail" />
 		<result column="image3d" property="image3d" />
 		<result column="count" property="count" />
+		<result column="pcheck" property="pcheck" />
 		<collection property="stockVO" resultMap="stockvo" />
 		<collection property="categoryVO" resultMap="categoryvo" />
 	</resultMap>
 
 	<resultMap type="ImageVO" id="imagevo">
+		<result column="img_id" property="img_id" />
 		<result column="imgname" property="imgname" />
 		<collection property="boardVO" resultMap="boardvo" />
 		<collection property="goodsVO" resultMap="goodsvo" />
@@ -86,9 +113,15 @@
 		<result column="trycount" property="trycount" />
 		<result column="enable" property="enable" />
 		<result column="certify" property="certify" />
+		<result column="pdate" property="pdate" />
 		<collection property="roleVO" resultMap="rolevo" />
 		<collection property="logintypeVO" resultMap="logintypevo" />
 		<collection property="categoryVO" resultMap="categoryvo" />
+	</resultMap>
+
+	<resultMap type="PaymentVO" id="paymentvo">
+		<result column="payment_id" property="payment_id" />
+		<result column="paymentname" property="paymentname" />
 	</resultMap>
 
 	<resultMap type="PaystateVO" id="paystatevo">
@@ -105,8 +138,8 @@
 		<result column="deliveryaddress" property="deliveryaddress" />
 		<result column="deliveryname" property="deliveryname" />
 		<result column="deliverytel" property="deliverytel" />
-		<collection property="paystateVO" resultMap="paystatevo" />
-		<collection property="memberVO" resultMap="membervo" />
+		<collection property="PaymentVO" resultMap="paymentvo" />
+		<collection property="PaystateVO" resultMap="paystatevo" />
 	</resultMap>
 
 	<resultMap type="PointtypeVO" id="pointtypevo">
@@ -117,10 +150,9 @@
 	<resultMap type="PointVO" id="pointvo">
 		<result column="point_id" property="point_id" />
 		<result column="pscore" property="pscore" />
-		<result column="pdate" property="pdate" />
-		<result column="sum(pscore)" property="sum" />
-		<collection property="pointtypeVO" resultMap="pointtypevo" />
-		<collection property="memberVO" resultMap="membervo" />
+		<result column="pdate_id" property="point_id" />
+		<collection property="PointtypeVO" resultMap="pointtypevo" />
+		<collection property="MemberVO" resultMap="membervo" />
 	</resultMap>
 
 	<resultMap type="RoleVO" id="rolevo">
@@ -139,41 +171,5 @@
 		<result column="goodspath" property="goodspath" />
 		<collection property="boardVO" resultMap="boardvo" />
 	</resultMap>
-	<!-- 상품 게시글 가져오기 -->
-	<select id="getBoard" parameterType="String" resultMap="boardvo">
-<![CDATA[
-      select * from board b, goods g where board_id=#{board_id} and b.goods_id=g.goods_id
-   ]]>
-	</select>
-	<select id="getPoint" parameterType="String" resultMap="pointvo">
-	<![CDATA[
-	select member_id, sum(pscore) from point where member_id=#{member_id} group by member_id
-	   ]]>
-	</select>
-	<insert id="insertPay" parameterType="PayVO">
-		<![CDATA[
-		   INSERT INTO pay (pay_id,payprice,usepoint,earningpoint,deliveryaddress,deliveryname,deliverytel,member_id) 
-values(pay_seq.nextval,#{payprice}, #{usepoint}, #{earningpoint},#{deliveryaddress},#{deliveryname},#{deliverytel},#{memberVO.member_id})
-		   ]]>
-	</insert>
-	<select id="getPay_id" parameterType="String" resultMap="payvo">
-	<![CDATA[
-	select * from (select * from pay where member_id=#{memberVO.member_id} order by paydate desc) where rownum=1
-	   ]]>
-	</select>
 
-	<insert id="insertPayGoods" parameterType="PayGoodsVO">
-<![CDATA[
-		INSERT INTO payGoods(
-		pay_id,
-		board_id,amount
-		) VALUES
-		(
-			
-			#{payVO.pay_id}
-			,#{boardVO.board_id},#{amount}
-			
-	)
-   ]]>
-	</insert>
 </mapper>

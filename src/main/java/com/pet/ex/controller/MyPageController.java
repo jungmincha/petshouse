@@ -1,26 +1,24 @@
 package com.pet.ex.controller;
 
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
+
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import com.pet.ex.service.MyPageService;
 import com.pet.ex.service.SecurityService;
 import com.pet.ex.vo.BoardVO;
+import com.pet.ex.vo.PayGoodsVO;
 import com.pet.ex.vo.PayVO;
 
 import lombok.extern.slf4j.Slf4j;
@@ -58,14 +56,6 @@ public class MyPageController {
 
 	}
 
-	@GetMapping("/cartTest")
-	public ModelAndView cartTest(ModelAndView mav) {
-
-		mav.setViewName("/myPage/cartTest");
-		return mav;
-
-	}
-
 	// 결제 페이지 이동
 	@GetMapping("/payPage")
 	public ModelAndView pay(ModelAndView mav, Authentication authentication) {
@@ -91,17 +81,26 @@ public class MyPageController {
 	// 결제 후 결제 정보 삽입
 	@PostMapping("/payPage/insert")
 	public ModelAndView insertPay(ModelAndView mav, PayVO pay, HttpServletRequest request) {
+		log.info("/payPage/insert");
 		String[] amounts = request.getParameterValues("amount");
 		String[] board_ids = request.getParameterValues("board_id");
-		System.out.println(amounts[1]);
-		System.out.println(board_ids[1]);
-		System.out.println("이름 : " + pay.getDeliveryname());
-		System.out.println("주소 : " + pay.getDeliveryaddress());
-		System.out.println("전화번호 : " + pay.getDeliverytel());
-		System.out.println("적립포인트 : " + pay.getEarningpoint());
-		System.out.println("결제 금액 : " + pay.getPayprice());
-		System.out.println("사용 포인트 : " + pay.getUsepoint());
-		mav.setViewName("/home/home");
+		myPageService.insertPay(pay);
+
+		// 해당아이디의 최신 결제내역을 가져옴
+		PayVO payVO = myPageService.getPay_id(pay.getMemberVO().getMember_id());
+
+		// payGoods에 정보 저장
+		PayGoodsVO payGoodsVO = new PayGoodsVO();
+
+		for (int i = 1; i < amounts.length; i++) {
+			payGoodsVO.setAmount(Integer.parseInt(amounts[i]));
+			payGoodsVO.getBoardVO().setBoard_id(Integer.parseInt(board_ids[i]));
+			payGoodsVO.getPayVO().setPay_id(payVO.getPay_id());
+			myPageService.insertPayGoods(payGoodsVO);
+
+		}
+
+		mav.setViewName("/myPage/paySuccess");
 		return mav;
 	}
 
