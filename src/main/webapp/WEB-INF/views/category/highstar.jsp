@@ -73,11 +73,6 @@ select {
 	}
 </style>
 
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="/resources/sidemenu/https://code.jquery.com/jquery.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="/resources/sidemenu/bootstrap/js/bootstrap.min.js"></script>
-<script src="/resources/sidemenu/js/custom.js"></script>
   
   
 <script type="text/javascript">
@@ -246,7 +241,7 @@ select {
                                     </c:if>
                                  </c:forEach>
                                  별점 <span class="star-prototype"> ${rate.avgscore}</span>
-                                 &nbsp; <span>리뷰 ${rate.count}</span>
+                                
                               </div>
                            </div>
                         </c:if>
