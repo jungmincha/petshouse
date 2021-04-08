@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pet.ex.mapper.StoreMapper">
+
+<resultMap id="boardtypevo" type="BoardtypeVO">
+<result property="boardtype_id" column="boardtype_id"/>
+<result property="boardtypename" column="boardtypename"/>
+</resultMap>
+
+<resultMap id="boardvo" type="BoardVO">
+<result property="board_id" column="board_id"/>
+<result property="title" column="title"/>
+<result property="content" column="content"/>
+<result property="pdate" column="pdate"/>
+<result property="plike" column="plike"/>
+<result property="hit" column="hit"/>
+<result property="hashtag" column="hashtag"/>
+<result property="pgroup" column="pgroup"/>
+<result property="pstep" column="pstep"/>
+<result property="pindent" column="pindent"/>
+<result property="ratescore" column="ratescore"/>
+<result property="avgscore" column="avgscore"/>
+<result property="count" column="count"/>
+<result property="rnum" column="rnum"/>
+<collection property="memberVO" resultMap="membervo"/>
+<collection property="boardtypeVO" resultMap="boardtypevo"/>
+<collection property="goodsVO" resultMap="goodsvo"/>
+<collection property="categoryVO" resultMap="categoryvo"/>
+</resultMap>
+
+<resultMap id="cartvo" type="CartVO">
+<result property="cart_id" column="cart_id"/>
+<result property="orderstate" column="orderstate"/>
+<result property="amount" column="amount"/>
+<collection property="memberVO" resultMap="membervo"/>
+<collection property="goodsVO" resultMap="goodsvo"/>
+<collection property="payVO" resultMap="payvo"/>
+</resultMap>
+
+<resultMap id="categoryvo" type="CategoryVO">
+<result property="category_id" column="category_id"/>
+<result property="categoryname" column="categoryname"/>
+<result property="code" column="code"/>
+<result property="sortnumber" column="sortnumber"/>
+</resultMap>
+
+<resultMap id="followvo" type="FollowVO">
+<result property="follow_id" column="follow_id"/>
+<result property="follower_id" column="follower_id"/>
+<collection property="memberVO" resultMap="membervo"/>
+</resultMap>
+
+<resultMap id="goodsvo" type="GoodsVO">
+<result property="goods_id" column="goods_id"/>
+<result property="goodsname" column="goodsname"/>
+<result property="price" column="price"/>
+<result property="description" column="description"/>
+<result property="psize" column="psize"/>
+<result property="pcolor" column="pcolor"/>
+<result property="thumbnail" column="thumbnail"/>
+<result property="image3d" column="image3d"/>
+<result property="count" column="count"/>
+<collection property="stockVO" resultMap="stockvo"/>
+<collection property="categoryVO" resultMap="categoryvo"/>
+</resultMap>
+
+<resultMap type="ImageVO" id="imagevo">
+	<result column="imgname" property="imgname" />
+	<collection property="boardVO" resultMap="boardvo" />
+	<collection property="goodsVO" resultMap="goodsvo" />
+</resultMap>
+
+<resultMap id="logintypevo" type="LogintypeVO">
+<result property="logintype_id" column="logintype_id"/>
+<result property="logintypename" column="logintypename"/>
+</resultMap>
+
+<resultMap id="membervo" type="MemberVO">
+<result property="member_id" column="member_id"/>
+<result property="password" column="password"/>
+<result property="name" column="name"/>
+<result property="nickname" column="nickname"/>
+<result property="tel" column="tel"/>
+<result property="address" column="address"/>
+<result property="trycount" column="trycount"/>
+<result property="enable" column="enable"/>
+<result property="certify" column="certify"/>
+<collection property="roleVO" resultMap="rolevo"/>
+<collection property="logintypeVO" resultMap="logintypevo"/>
+<collection property="categoryVO" resultMap="categoryvo"/>
+</resultMap>
+
+<resultMap id="paymentvo" type="PaymentVO">
+<result property="payment_id" column="payment_id"/>
+<result property="paymentname" column="paymentname"/>
+</resultMap>
+
+<resultMap id="paystatevo" type="PaystateVO">
+<result property="paystate_id" column="paystate_id"/>
+<result property="paystatename" column="paystatename"/>
+</resultMap>
+
+<resultMap id="payvo" type="PayVO">
+<result property="pay_id" column="pay_id"/>
+<result property="payprice" column="paypice"/>
+<result property="usepoint" column="usepoint"/>
+<result property="earningpoint" column="earningpoint"/>
+<result property="paydate" column="paydate"/>
+<result property="deliveryaddress" column="deliveryaddress"/>
+<result property="deliveryname" column="deliveryname"/>
+<result property="deliverytel" column="deliverytel"/>
+<collection property="PaymentVO" resultMap="paymentvo"/>
+<collection property="PaystateVO" resultMap="paystatevo"/>
+</resultMap>
+
+<resultMap id="pointtypevo" type="PointtypeVO">
+<result property="pointtype_id" column="pointtype_id"/>
+<result property="pointtypename" column="pointtypename"/>
+</resultMap>
+
+<resultMap id="pointvo" type="PointVO">
+<result property="point_id" column="point_id"/>
+<result property="pscore" column="pscore"/>
+<result property="point_id" column="pdate_id"/>
+<collection property="PointtypeVO" resultMap="pointtypevo"/>
+<collection property="MemberVO" resultMap="membervo"/>
+</resultMap>
+
+<resultMap id="rolevo" type="RoleVO">
+<result property="role_id" column="role_id"/>
+<result property="rolename" column="rolename"/>
+</resultMap>
+
+<resultMap id="stockvo" type="StockVO">
+<result property="stock_id" column="stock_id"/>
+<result property="stockname" column="stockname"/>
+</resultMap>
+
+<resultMap id="tagvo" type="TagVO">
+<result property="tag_id" column="tag_id"/>
+<result property="goodsname" column="goodsname"/>
+<result property="goodspath" column="goodspath"/>
+<collection property="boardVO" resultMap="boardvo"/>
+</resultMap>
+
+	<!-- storehome 상품에 대한 별점 평균 -->
+	<select id="getStore" resultMap="boardvo">
+		<![CDATA[
+	        select * from(
+		        select rownum as rnum, A.*from (
+		           select round(avg(ratescore),1) as avgscore, count(*) as count, goods_id from board where boardtype_id=8 group by goods_id order by count(*) desc
+		       ) A where rownum <= 20
+	       )where rnum > 0
+	   ]]>
+	</select>	
+	
+	<!-- storehome 페이징 처리 -->
+	<select id="getStorerate" resultMap="boardvo">
+		<![CDATA[
+	        select * from(
+		        select rownum as rnum, A.*from (
+		           select round(avg(ratescore),1) as avgscore, count(*) as count, goods_id from board where boardtype_id=8 group by goods_id order by count(*) desc
+		       ) A where rownum <= #{pageNum} * #{amount}
+	       )where rnum > (#{pageNum}-1) * #{amount} 
+	   ]]>
+	</select>
+
+	<!-- 회원 수 조회 -->
+	<select id="getStoretotal" resultType="int">
+	  <![CDATA[
+	     select count(*) from board where boardtype_id=3
+	   ]]>
+	</select>
+	
+	<!-- Goods 전체 정보 -->
+	<select id="getGoodsinfo" resultMap="boardvo">
+		<![CDATA[
+	      select g.goods_id, g.goodsname, TO_CHAR(g.price,'99,999') as price, b.board_id, g.thumbnail from board b, goods g where b.goods_id=g.goods_id and b.boardtype_id=3
+	   ]]>
+	</select>
+	
+	<!-- best 상품에 대한 별점 평균 -->
+	<select id="getBestrate" resultMap="boardvo">
+		<![CDATA[
+	        select * from(
+	        select rownum as rnum, A.*from (
+	           select round(avg(ratescore),1) as avgscore, count(*) as count, goods_id from board where boardtype_id=8 and category_id=#{category_id} group by goods_id order by count(*) desc
+	       ) A where rownum <=20
+	      )where rnum >= 1
+	   ]]>
+	</select>
+	
+	<!-- category 조회-->
+	<select id="getCategory" resultType="CategoryVO">
+		<![CDATA[
+	        select * from category where category_id between 1 and 6 order by category_id asc
+	   ]]>
+	</select>
+	
+	
+	<!-- commu 노하우 조회-->
+	<select id="getKnowhow" resultType="BoardVO">
+		<![CDATA[
+	         select rownum as rnum, substr(content, 1, 10) as content, title, pdate, hit from board where boardtype_id=5 and rownum>= 1 order by plike desc
+	   ]]>
+	</select>	
+	
+	<!-- commu sns 조회-->
+	<select id="getSns" resultType="BoardVO">
+		<![CDATA[
+	         select substr(content, 1, 10) as content, title, pdate, hit from board where boardtype_id=7 order by plike desc
+	   ]]>
+	</select>
+</mapper>
