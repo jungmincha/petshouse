@@ -177,7 +177,11 @@
    ]]>
 	</select>
 
-
+<insert id="insertLoc">
+   <![CDATA[
+      update member set location = #{location} WHERE member_id=#{member_id}
+   ]]>
+	</insert>
 
 
 </mapper>

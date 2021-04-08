@@ -9,6 +9,7 @@ import com.pet.ex.mapper.MapMapper;
 import com.pet.ex.page.Criteria;
 import com.pet.ex.page.PageVO;
 import com.pet.ex.vo.BoardVO;
+import com.pet.ex.vo.MemberVO;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -56,6 +57,15 @@ public class MapServiceImpl implements MapService {
 	public void inputDelete(int board_id) {
 		
 		mapper.inputDelete(board_id);
+		
+	}
+
+
+
+	@Override
+	public void insertLoc(MemberVO memberVO) {
+		
+		mapper.insertLoc(memberVO);
 		
 	}
 
