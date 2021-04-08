@@ -99,24 +99,23 @@ a:hover {
 			<h2 style="margin-top: 30px;">노하우</h2>
 			
 			
-			<select name="categoryVO.category_id"
-			style="vertical-align: middle; text-align-last: center">
-			
+		<input type="file" name="file" multiple="multiple"/>
+   
+
+		
+		<div class="row">
+	<select class=" form-control col-2" name="categoryVO.category_id" style="height:38px; margin-left:15px; margin-right:10px;">
 			<option value="1">고양이</option>
 			<option value="2">강아지</option>
 			<option value="3">파충류</option>
 			<option value="4">조류</option>
 			<option value="5">어류</option>
 			<option value="6">기타</option>
-			</select>
-	
-    <input type="file" name="file" multiple="multiple"/>
-   
+	</select>
 
-			<input type="text" class="form-control" name="title" placeholder="제목"
-				style="margin-top: 30px; margin-bottom: 20px;">
-	
-			
+			<input type="text" maxlength="30" class="form-control" name="title" placeholder="제목을 입력해주세요 최대(30자)"
+				style=" margin-bottom: 20px; width:628px;">
+	</div>
 
 			 <textarea id="editor4" name="content"></textarea>
 

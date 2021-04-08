@@ -64,9 +64,7 @@
 <body style="padding-top:180px">
 	<!-- Header -->
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
-		
-	<%@ include file="/resources/jQuery-tagEditor-master/jquery.tag-editor.css"%>
-	<%@ include file="/resources/jQuery-tagEditor-master/jquery.tag-editor.min.js"%>
+	
 
 	<div class="container" style="width: 800px;">
 
@@ -79,29 +77,28 @@
 			<h2 style="margin-top: 30px;">질문하기</h2>
 			
 			
-			<select name="categoryVO.category_id"
-			style="vertical-align: middle; text-align-last: center">
-			
+ <input type="file" name="file" multiple="multiple"/>
+    
+   	<div class="row">
+	<select class=" form-control col-2" name="categoryVO.category_id" style="height:38px; margin-left:15px; margin-right:10px;">
 			<option value="1">고양이</option>
 			<option value="2">강아지</option>
 			<option value="3">파충류</option>
 			<option value="4">조류</option>
 			<option value="5">어류</option>
 			<option value="6">기타</option>
-			</select>
-	
-    <input type="file" name="file" multiple="multiple"/>
-   
+	</select>
 
-			<input type="text" class="form-control" name="title" placeholder="제목"
-				style="margin-top: 30px; margin-bottom: 20px;">
-			<textarea id="editor4" name="content" placeholder="내용"
-				style="width: 770px; height: 400px; margin-bottom: 20px;"></textarea>
+   
+<input type="text" class="form-control" name="title" placeholder="제목"
+				style=" margin-bottom: 20px; width:628px;">
+	</div>
+			<textarea class="form-control col" name="content" placeholder="내용"
+				style="width: 770px; height: 400px; margin-bottom: 20px; resize: none;"></textarea>
 			<!-- 		<input type="text" class="form-control" name="hashtag" placeholder="해시태그"> -->
 
 			<div id='ui-widget'>
-				<input type="text" class="hashtag" name="hashtag" maxlength="100"
-					placeholder="태그 목록" />
+				<input type="text" class="form-control" name="hashtag" placeholder="태그 목록" />
 			</div>
 
 			<button type="submit" class="btn btn-warning float-right"

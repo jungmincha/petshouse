@@ -189,7 +189,7 @@
 			     	from  board b , member m
 					where b.member_id = m.member_id
     				and b.boardtype_id= 5 order by board_id desc
-			    ) A WHERE ROWNUM <= #{pageNum} * #{amount}
+			    ) A WHERE ROWNUM <= #{pageNum} * 12
 			) WHERE RNUM > (#{pageNum}-1) * #{amount}  
 		]]>
 	</select>
@@ -259,19 +259,33 @@
 	<!-- 질문과답변 검색 -->
 	<select id="getQsearch" resultMap="boardvo">
    <![CDATA[
-   		select * from board where content like '%'||#{keyword}||'%' and boardtype_id='4' or title like '%'||#{keyword}||'%' and boardtype_id='4'
+   		select * from board where content like '%'||#{keyword}||'%' and boardtype_id='4' or title like '%'||#{keyword}||'%' and boardtype_id='4' order by pdate desc
    ]]>
 	</select>
 
 
-	<!-- 게시판 종류 질문과답변으로 지정해놨음 페이징처리용 -->
+	<!-- 질문과 답변 카테고리에 해당하는 글 끌고오기 -->
+	<select id="getPetQna" resultMap="boardvo"> 
+ 	<![CDATA[
+			select b.board_id, b.title, b.content, b.pdate,b.hit, b.pgroup, b.pstep, b.category_id, b.pindent,b.hashtag, m.member_id, m.nickname, b.boardtype_id, c.category_id, c.categoryname
+			from  board b , member m, category c
+			where b.member_id = m.member_id
+			and b.category_id =  c.category_id
+    		and b.boardtype_id= 4 and b.pstep=0 and c.category_id=#{category_id} order by board_id desc
+			  
+ 	]]>
+	</select>
+	
+	
+	<!-- 질문과답변 페이징처리용 -->
 	<select id="getListWithPaging" resultMap="boardvo">
 		<![CDATA[		
 		SELECT * FROM (
 			     SELECT ROWNUM AS RNUM, A.* FROM (
-			     	select b.board_id, b.title, b.content, b.pdate,b.hit, b.pgroup,b.pstep, b.pindent,b.hashtag, m.member_id, m.nickname, b.boardtype_id 
-			     	from  board b , member m
+			     	select b.board_id, b.title, b.content, b.pdate,b.hit, b.pgroup,b.pstep, b.pindent,b.hashtag, m.member_id, m.nickname, b.boardtype_id, c.category_id, c.categoryname 
+			     	from  board b , member m, category c
 					where b.member_id = m.member_id
+					and b.category_id =  c.category_id
     				and b.boardtype_id= 4 and b.pstep=0 order by board_id desc
 			    ) A WHERE ROWNUM <= #{pageNum} * #{amount}
 			) WHERE RNUM > (#{pageNum}-1) * #{amount}  
@@ -298,13 +312,15 @@
 	<!--노하우, 질답 글 삭제 -->
 	<select id="delete">
 		<![CDATA[
-			delete from board where board_id = #{board_id}
+			delete from board where pgroup = #{pgroup}
 		]]>
 	</select>
 
 	<!-- 노하우, 질답 조회수 -->
 	<select id="hit" resultType="int"> 
- 	<![CDATA[ update board set hit = hit + 1 where board_id = #{board_id} ]]>
+ 	<![CDATA[ 
+ 	update board set hit = hit + 1 where board_id = #{board_id} 	
+ 	]]>
 	</select>
 
 	<!-- 검색용 카운트 -->

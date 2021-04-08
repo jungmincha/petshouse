@@ -19,12 +19,15 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.pet.ex.page.Criteria;
 import com.pet.ex.page.PageVO;
+import com.pet.ex.service.AdminService;
 import com.pet.ex.service.CommunityService;
 import com.pet.ex.service.FileService;
 import com.pet.ex.vo.BoardVO;
+import com.pet.ex.vo.CategoryVO;
 import com.pet.ex.vo.MemberVO;
 
 import lombok.extern.slf4j.Slf4j;
+import net.sf.json.JSONArray;
 
 @Slf4j
 @RestController
@@ -33,6 +36,9 @@ public class CommunityController {
 
 	@Autowired
 	private CommunityService communityService;
+	
+	@Autowired
+	private AdminService service;
 
 	@Autowired
 	private FileService fileservice;
@@ -146,6 +152,7 @@ public class CommunityController {
 	// 질문과 답변 메인 페이지 리스트 출력
 	@RequestMapping("/qna")
 	public ModelAndView qna(Criteria cri, ModelAndView mav) {
+		
 		mav.addObject("qna", communityService.getQnaList(cri));
 		int total = communityService.getTotal(cri);
 		mav.addObject("pageMaker", new PageVO(cri, total));
@@ -153,6 +160,14 @@ public class CommunityController {
 		return mav;
 
 	}
+	
+	// 질문과 답변 특정 글 페이지 출력
+		@GetMapping("/qna/pet")
+		public List<BoardVO> qna_pet(int category_id) throws Exception {
+			List<BoardVO> list = communityService.getPetQna(category_id);
+			log.info("qna_pet()실행"); 
+			return list;
+		}
 
 	// 질문과 답변 특정 글 페이지 출력
 	@GetMapping("/qna_view")

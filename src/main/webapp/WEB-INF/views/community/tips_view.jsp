@@ -63,9 +63,9 @@
 	<div class="container" style="margin-bottom: 40px">
 		<div class="head">
 			<div style="margin-top: 45px; margin-bottom: 10px;">
-				<a class="qna-subtitle" href="qna">질문과 답변</a>
+				<a class="tips-subtitle" href="tips">노하우</a>
 			</div>
-			<h3 class="qnatitle" style="font-weight: bold; margin-bottom: 10px;">${tips_view.title}</h3>
+			<h3 class="tipstitle" style="font-weight: bold; margin-bottom: 10px;">${tips_view.title}</h3>
 		</div>
 
 
@@ -86,7 +86,7 @@
 				<hr>
 				<section style="margin-top: 40px; margin-bottom: 20px;">${tips_view.content}</section>
 				<section style="margin-top: 40px; margin-bottom: 20px;">${tips_view.hashtag}</section>
-				<span style="color: gray">${tips_view.pdate}</span> <span
+				<span style="color: gray">${tips_view.pdate}</span>  <span
 				style="color: gray">조회수 ${tips_view.hit}</span>
 			</td>
 		</table>
