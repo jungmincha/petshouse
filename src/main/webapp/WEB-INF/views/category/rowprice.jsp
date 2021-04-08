@@ -283,7 +283,7 @@ select {
                                        </a>
                                        <div class="product-price">${goods.goodsVO.price}원</div>
          						   별점 <span class="star-prototype">${rate[status.index].avgscore}</span>
-                                 &nbsp; <span>리뷰 ${rate[status.index].count}</span>      
+                                  
                               </div>
                            </div>
                               </c:forEach> 

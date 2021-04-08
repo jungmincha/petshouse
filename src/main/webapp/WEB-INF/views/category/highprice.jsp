@@ -71,11 +71,7 @@ select {
 	}
 </style>
 
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="/resources/sidemenu/https://code.jquery.com/jquery.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="/resources/sidemenu/bootstrap/js/bootstrap.min.js"></script>
-<script src="/resources/sidemenu/js/custom.js"></script>
+
   
 
   
@@ -292,7 +288,7 @@ select {
                                        </a>
                                        <div class="product-price">${goods.goodsVO.price}원</div>
          						   별점 <span class="star-prototype">${rate[status.index].avgscore}</span>
-                                 &nbsp; <span>리뷰 ${rate[status.index].count}</span>      
+                                 
                               </div>
                            </div>
                               </c:forEach> 

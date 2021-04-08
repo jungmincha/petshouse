@@ -5,6 +5,7 @@ import java.util.List;
 import com.pet.ex.page.Criteria;
 
 import com.pet.ex.vo.BoardVO;
+import com.pet.ex.vo.MemberVO;
 
 
 
@@ -19,6 +20,8 @@ public interface MapService {
 	public BoardVO content_view(int board_id);
 
 	public void inputDelete(int board_id);
+
+	public void insertLoc(MemberVO memberVO);
 
 	
 }

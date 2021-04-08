@@ -492,7 +492,7 @@ $(document).ready(function() {
                                     </c:if>
                                  </c:forEach>
                                  별점 <span class="star-prototype"> ${rate.avgscore}</span>
-                                 &nbsp; <span>리뷰 ${rate.count}</span>
+                                
                               </div>
                            </div>
            
