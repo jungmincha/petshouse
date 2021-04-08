@@ -106,7 +106,7 @@ select {
   
 <script type="text/javascript">
 
-/* $(document).ready(function() {
+$(document).ready(function() {
     console.log("${category_id}")
 
     var category = $("#category").val();
@@ -144,7 +144,7 @@ select {
        }
     });
 
- })  */
+ }) 
 
 
 
@@ -492,7 +492,7 @@ select {
                                     </c:if>
                                  </c:forEach>
                                  별점 <span class="star-prototype"> ${rate.avgscore}</span>
-                                 &nbsp; <span>리뷰 ${rate.count}</span>
+                                
                               </div>
                            </div>
            

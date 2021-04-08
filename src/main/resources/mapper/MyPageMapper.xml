@@ -91,11 +91,6 @@
 		<collection property="categoryVO" resultMap="categoryvo" />
 	</resultMap>
 
-	<resultMap type="PaymentVO" id="paymentvo">
-		<result column="payment_id" property="payment_id" />
-		<result column="paymentname" property="paymentname" />
-	</resultMap>
-
 	<resultMap type="PaystateVO" id="paystatevo">
 		<result column="paystate_id" property="paystate_id" />
 		<result column="paystatename" property="paystatename" />
@@ -110,8 +105,8 @@
 		<result column="deliveryaddress" property="deliveryaddress" />
 		<result column="deliveryname" property="deliveryname" />
 		<result column="deliverytel" property="deliverytel" />
-		<collection property="PaymentVO" resultMap="paymentvo" />
-		<collection property="PaystateVO" resultMap="paystatevo" />
+		<collection property="paystateVO" resultMap="paystatevo" />
+		<collection property="memberVO" resultMap="membervo" />
 	</resultMap>
 
 	<resultMap type="PointtypeVO" id="pointtypevo">
@@ -155,4 +150,30 @@
 	select member_id, sum(pscore) from point where member_id=#{member_id} group by member_id
 	   ]]>
 	</select>
+	<insert id="insertPay" parameterType="PayVO">
+		<![CDATA[
+		   INSERT INTO pay (pay_id,payprice,usepoint,earningpoint,deliveryaddress,deliveryname,deliverytel,member_id) 
+values(pay_seq.nextval,#{payprice}, #{usepoint}, #{earningpoint},#{deliveryaddress},#{deliveryname},#{deliverytel},#{memberVO.member_id})
+		   ]]>
+	</insert>
+	<select id="getPay_id" parameterType="String" resultMap="payvo">
+	<![CDATA[
+	select * from (select * from pay where member_id=#{memberVO.member_id} order by paydate desc) where rownum=1
+	   ]]>
+	</select>
+
+	<insert id="insertPayGoods" parameterType="PayGoodsVO">
+<![CDATA[
+		INSERT INTO payGoods(
+		pay_id,
+		board_id,amount
+		) VALUES
+		(
+			
+			#{payVO.pay_id}
+			,#{boardVO.board_id},#{amount}
+			
+	)
+   ]]>
+	</insert>
 </mapper>

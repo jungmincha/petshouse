@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.pet.ex.page.Criteria;
 import com.pet.ex.page.PageVO;
 import com.pet.ex.vo.BoardVO;
+import com.pet.ex.vo.MemberVO;
 
 @Mapper
 public interface MapMapper {
@@ -20,5 +21,7 @@ public interface MapMapper {
 	public BoardVO content_view(int board_id);
 
 	public void inputDelete(int board_id);
+
+	public void insertLoc(MemberVO memberVO);
 
 }

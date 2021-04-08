@@ -150,4 +150,13 @@ public class CommunityServiceImpl implements CommunityService {
 
 	}
 
+	//질문과 답변 동물에 해당하는 글
+	@Override
+	public List<BoardVO> getPetQna(int category_id) {
+		log.info("mapper.getPetQna()");
+		return mapper.getPetQna(category_id);
+	}
+	
+	
+
 }

@@ -44,6 +44,7 @@ public class StoreController {
 		return mav;
 	}
 	
+	//storehome에서 상품 더보기 
 	@PostMapping("/home/morelist")
 	public Map<String, Object> storehome(Criteria cri) {
 		log.info("morelist");
@@ -52,8 +53,6 @@ public class StoreController {
 		List<BoardVO> goods = service.getGoodsinfo();
 		list.put("bestrate", bestrate);
 		list.put("goods", goods);
-		//mav.addObject("goods", service.getGoodsinfo());
-		//mav.setViewName("store/home");
 		return list;
 	}
 

@@ -51,6 +51,8 @@
 <style>
 .jumbotron {
 	text-align: center;
+	background-color: #EEE9E9 !important;
+	height: 300px;
 }
 
 .qcontent {
@@ -83,7 +85,7 @@ a:hover {
 
 </head>
 
-<body>
+<body style="padding-top: 180px">
 
 	<!-- Header -->
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
@@ -92,7 +94,9 @@ a:hover {
 	<div class="container">
 		<div class="jumbotron">
 			<h3 class="display-5">질문과 답변</h3>
-			<hr class="my-4">
+			<br>
+			<hr>
+			<br>
 			<form action="${pageContext.request.contextPath}/commu/qnasearch"
 				method="post">
 				<div class="questions-header__form__search col">
@@ -103,79 +107,127 @@ a:hover {
 				</div>
 			</form>
 		</div>
-	</div>
 
-	<!-- 동물 카테고리, 정렬, 글쓰기 버튼 -->
-	<div class="container" style="padding-bottom: 30px;">
 
-		<select id="selectPet" name="categoryVO.category_id"
-			style="vertical-align: middle; text-align-last: center">
+		<!-- 동물 카테고리, 정렬, 글쓰기 버튼 -->
+		<div class=" row" style="padding-bottom: 30px;">
 
-			<option value="1">고양이</option>
-			<option value="2">강아지</option>
-			<option value="3">파충류</option>
-			<option value="4">조류</option>
-			<option value="5">어류</option>
-			<option value="6">기타</option>
-		</select> <a class="btn btn-warning float-right" href="qna_write">질문하기</a>
-	</div>
-	<div class="form-group row">
-		<label class="col-sm-3">카테고리</label>
-		<div class="col-sm-9">
-			<label>1차 분류</label> <select class="category1" class="form-control"
-				style="vertical-align: middle; text-align-last: center">
-				<option value="">동물</option>
-			</select> <label>2차 분류</label> <select class="category2"
-				name="categoryVO.category_id" class="form-control"
-				style="vertical-align: middle; text-align-last: center" required>
-				<option value="">상품</option>
-			</select>
-			<div class="invalid-feedback">카테고리를 선택하세요!</div>
+			<select id="selectPet" class="form-control col-sm-1"
+				name="categoryVO.category_id"
+				style="margin-left: 15px; text-align-last: center">
+
+				<option value="0">동물</option>
+				<option value="1">고양이</option>
+				<option value="2">강아지</option>
+				<option value="3">파충류</option>
+				<option value="4">조류</option>
+				<option value="5">어류</option>
+				<option value="6">기타</option>
+			</select> <span class="col-sm-9"></span> <a class="btn btn-warning col-sm-1 "
+				style="margin-left: 65px;" href="qna_write">질문하기</a>
+		</div>
+
+		<!-- 게시글 끌고오기 -->
+
+		
+			<table class="table table-hover">
+			<c:forEach items="${qna}" var="qna">
+				<tbody id="qnaList">
+					<td><a href="${pageContext.request.contextPath}/commu/qna_view?board_id=${qna.board_id}">
+							<div style="font-weight: bold; font-size: 18px;">${qna.title}</div>
+							<div>${qna.content}</div> <span>${qna.memberVO.nickname}</span> 
+							<span style="font-size: 13px; color: gray;">${qna.pdate}</span> 
+							<span style="font-size: 13px; color: gray;"> 조회수 ${qna.hit}</span>
+					</a></td>
+				</tbody>
+				</c:forEach>
+			</table>
+		
+
+
+		<!-- 페이징 -->
+		<div class="ul row">
+		<ul class="pagination justify-content-center"
+			style="padding-bottom: 50px; padding-top: 50px;">
+			<c:if test="${pageMaker.prev}">
+				<li class="page-item"><a class="page-link"
+					href="qna${pageMaker.makeQuery(pageMaker.startPage - 1) }">
+						Previous</a></li>
+			</c:if>
+
+			<c:forEach begin="${pageMaker.startPage }"
+				end="${pageMaker.endPage }" var="idx">
+				<c:out value="${pageMaker.cri.pageNum == idx?'':''}" />
+				<li class="page-item"><a class="page-link"
+					href="qna${pageMaker.makeQuery(idx)}">${idx}</a></li>
+			</c:forEach>
+
+			<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
+				<li class="page-item"><a class="page-link"
+					href="qna${pageMaker.makeQuery(pageMaker.endPage +1) }">Next</a></li>
+			</c:if>
+		</ul>
 		</div>
 	</div>
 
-	<!-- 게시글 끌고와야함 글 제목, 사진?, 작성자, 날짜, 댓글수, 해시태그? 그리고 테이블은 td만 쓰면 될듯..? -->
+	<script type="text/javascript">
+		// 해당 동물의 글을 끌고올거야
+		$('#selectPet')
+				.change(
+						function() {
+							var category_id = $(this).val();
+							console.log(category_id);
 
-	<div class="container">
-		<c:forEach items="${qna}" var="qna">
-			<table class="table table-hover">
-				<tbody>
-					<td><a
-						href="${pageContext.request.contextPath}/commu/qna_view?board_id=${qna.board_id}">
-							<div style="font-weight: bold; font-size: 18px;">${qna.title}</div>
-							<div>${qna.content}</div> <span>${qna.memberVO.nickname}</span> <span
-							style="font-size: 13px; color: gray;">${qna.pdate}</span> <span
-							style="font-size: 13px; color: gray;"> 조회수 ${qna.hit}</span> <a>키워드
-								버튼 나열</a>
-					</a></td>
-				</tbody>
-			</table>
-		</c:forEach>
-	</div>
+							$
+									.ajax({
+										url : "/commu/qna/pet",
+										type : "get",
+										data : {
+											category_id : category_id,
+										},
+										success : function(data) {
 
-	<!-- 페이징 -->
-	<ul class="pagination justify-content-center"
-		style="padding-bottom: 50px; padding-top: 50px;">
-		<c:if test="${pageMaker.prev}">
-			<li class="page-item"><a class="page-link"
-				href="qna${pageMaker.makeQuery(pageMaker.startPage - 1) }">
-					Previous</a></li>
-		</c:if>
+											console.log(data);
+											$(".table").empty();
+											var html = "<table class='table table-hover'>";
+											for (var i = 1; i <= data.length; i++) {
 
-		<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }"
-			var="idx">
-			<c:out value="${pageMaker.cri.pageNum == idx?'':''}" />
-			<li class="page-item"><a class="page-link"
-				href="qna${pageMaker.makeQuery(idx)}">${idx}</a></li>
-		</c:forEach>
+												html += "<tbody id='qnaList'><td>"
+														+ "<a href='${pageContext.request.contextPath}/commu/qna_view?board_id="
+														+ data[i - 1].board_id
+														+ "'>"
+														+ data[i - 1].categoryVO.category_id
+														+ "<div style='font-weight: bold; font-size: 18px;'>"
+														+ data[i - 1].title
+														+ "</div>"
+														+ "<div>"
+														+ data[i - 1].content
+														+ "</div> <span>"
+														+ data[i - 1].memberVO.nickname
+														+ "</span>"
+														+ "<span style='font-size: 13px; color: gray;'>"+data[i - 1].pdate+"</span> "
+														+ "<span style='font-size: 13px; color: gray;'> 조회수 "
+														+ data[i - 1].hit
+														+ "</span>" + "</a>"
+														+ "</td></tbody>"
 
-		<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-			<li class="page-item"><a class="page-link"
-				href="qna${pageMaker.makeQuery(pageMaker.endPage +1) }">Next</a></li>
-		</c:if>
-	</ul>
+											}	
+											html += "</table>"
+											$(".ul").prepend(html);
 
-	
+										}, //ajax 성공 시 end
+
+										error : function(request, status, error) {
+											alert("code:" + request.status
+													+ "\n" + "message:"
+													+ request.responseText
+													+ "\n" + "error:" + error);
+
+										} // ajax 에러 시 end
+
+									})
+						})
+	</script>
 
 	<!-- Footer -->
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>

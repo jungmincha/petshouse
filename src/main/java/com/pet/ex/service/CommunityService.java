@@ -64,4 +64,10 @@ public interface CommunityService {
 	// 질문과 답변 댓글 작성
 	public void insertComment(BoardVO boardVO);
 
+	// 질문과 답변 동물에 해당하는 글
+	public List<BoardVO> getPetQna(int category_id);
+
+
+	
+
 }

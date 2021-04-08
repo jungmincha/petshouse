@@ -23,7 +23,7 @@ public class PayVO {
 	private int deliverytel;
 
 	// 외래키
-	private PaymentVO paymentVO;
 	private PaystateVO paystateVO;
+	private MemberVO memberVO;
 
 }
