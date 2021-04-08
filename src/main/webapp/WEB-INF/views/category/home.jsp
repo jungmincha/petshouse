@@ -106,7 +106,7 @@ select {
   
 <script type="text/javascript">
 
-/* $(document).ready(function() {
+$(document).ready(function() {
     console.log("${category_id}")
 
     var category = $("#category").val();
@@ -144,7 +144,7 @@ select {
        }
     });
 
- })  */
+ }) 
 
 
 

@@ -68,9 +68,9 @@
 		//var pop = window.open("/popup/jusoPopup.jsp","pop","scrollbars=yes, resizable=yes"); 
 	}
 
-	function jusoCallBack(roadFullAddr) {
+	function jusoCallBack(roadFullAddr, zipNo) {
 		// 팝업페이지에서 주소입력한 정보를 받아서, 현 페이지에 정보를 등록합니다.	
-		$('#address').val(roadFullAddr);
+		$('#address').val("(" + zipNo + ")" + roadFullAddr);
 	}
 </script>
 </head>
