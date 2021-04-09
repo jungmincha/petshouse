@@ -71,7 +71,7 @@
 		
 
 		<form action="${pageContext.request.contextPath}/commu/qna"
-			enctype="multipart/form-data" method="post">
+			class="needs-validation" enctype="multipart/form-data" method="post">
 			
 			<input type="hidden" class="form-control" name="memberVO.member_id" value="<sec:authentication property='principal.member_id'/>">
 			<h2 style="margin-top: 30px;">질문하기</h2>
@@ -91,15 +91,22 @@
 
    
 <input type="text" class="form-control" name="title" placeholder="제목"
-				style=" margin-bottom: 20px; width:628px;">
+				style=" margin-bottom: 20px; width:628px;" required><div class="invalid-feedback">없으면 공백 추가!</div>
 	</div>
 			<textarea class="form-control col" name="content" placeholder="내용"
-				style="width: 770px; height: 400px; margin-bottom: 20px; resize: none;"></textarea>
-			<!-- 		<input type="text" class="form-control" name="hashtag" placeholder="해시태그"> -->
+				style="width: 770px; height: 400px; margin-bottom: 20px; resize: none;" required></textarea>
+				<div class="invalid-feedback">없으면 공백 추가!</div>
+			
 
-			<div id='ui-widget'>
-				<input type="text" class="form-control" name="hashtag" placeholder="태그 목록" />
-			</div>
+							<div class="form-group row">
+							
+								<div class="col-sm-9">
+									<input type="text" class="form-control" name="hashtag"
+										placeholder="해시태그" id="hashtag"
+										aria-describedby="hashtagHelp" /> 
+								</div>
+							</div>
+							
 
 			<button type="submit" class="btn btn-warning float-right"
 				style="float: right; margin-top: 30px;"
@@ -108,7 +115,29 @@
 
 		</form>
 	</div>
+<script>
+(function () {
+	  'use strict'
 
+	  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+	  var forms = document.querySelectorAll('.needs-validation')
+
+	  // Loop over them and prevent submission
+	  Array.prototype.slice.call(forms)
+	    .forEach(function (form) {
+	      form.addEventListener('submit', function (event) {
+	        if (!form.checkValidity()) {
+	          event.preventDefault()
+	          event.stopPropagation()
+	        }
+
+	        form.classList.add('was-validated')
+	      }, false)
+	    })
+	})();
+	
+	
+</script>
 	<!-- Footer -->
 	<div style="margin-top: 100px">
 		<%@ include file="/WEB-INF/views/include/footer.jsp"%>

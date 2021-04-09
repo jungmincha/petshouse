@@ -67,6 +67,9 @@ public interface CommunityService {
 	// 질문과 답변 동물에 해당하는 글
 	public List<BoardVO> getPetQna(int category_id);
 
+	// 질문과 답변 태그
+	public List<BoardVO> getQtag(String keyword);
+
 
 	
 

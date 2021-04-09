@@ -151,6 +151,67 @@
 .sub {
 	font-size: 13px;
 }
+
+.custom-file label{ 
+display: inline-block;
+  padding: .5em .75em;
+  color: black;
+  font-size: inherit;
+  line-height: normal;
+  vertical-align: middle;
+  background-color: #fff;
+  cursor: pointer;
+  border-radius: .25em;
+  -webkit-transition: background-color 0.2s;
+  transition: background-color 0.2s;
+}
+
+.custom-file label:active {
+  background-color: #ffd233;
+}
+
+/* 스크롤바 */
+.modal-content {
+    width: 250px;
+    height: 140px;
+    overflow: auto;
+  }
+  .modal-content::-webkit-scrollbar {
+    width: 10px;
+  }
+  .modal-content::-webkit-scrollbar-thumb {
+    background-color: #666666;
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+  }
+  .modal-content::-webkit-scrollbar-track {
+    background-color: #CCCCCC;
+    border-radius: 10px;
+    box-shadow: inset 0px 0px 5px white;
+  }
+ 
+ /* 리뷰창 스크롤바 */
+ #review {
+    width: 250px;
+    height: 140px;
+    overflow: auto;
+  }
+  #review::-webkit-scrollbar {
+    width: 10px;
+  }
+  #review::-webkit-scrollbar-thumb {
+    background-color: #666666;
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+  }
+  #review::-webkit-scrollbar-track {
+    background-color: #CCCCCC;
+    border-radius: 10px;
+    box-shadow: inset 0px 0px 5px white;
+  }
+  
 </style>
 </head>
 <body style="padding-top: 180px;">
@@ -221,15 +282,15 @@
 								<div id="myModal" class="modal">
 
 									<!-- Modal content -->
-									<div class="modal-content" style="width: 690px; height: 900px;">
-										<div class="close">&times;</div>
+									<div class="modal-content"  style="width: 600px; height: 710px;">
+										<div class="close" style="font-size:30px;">&times;</div>
 										<div style="text-align: center; font-weight: bold;">
 											<h4>리뷰 쓰기</h4>
 										</div>
 
 										<div class="container">
 
-											<form id=""
+											<form class=" needs-validation"
 												action="${pageContext.request.contextPath}/경로를 넣어주세요"
 												method="Post">
 
@@ -261,6 +322,7 @@
 																stars</label> <input type="radio" id="star1" name="ratescore"
 																value="1" /> <label for="star1" title="text">1
 																star</label>
+																<div class="invalid-feedback">없으면 공백 추가!</div>
 														</div>
 													</div>
 												</div>
@@ -272,17 +334,15 @@
 												</div>
 												<div class="form-group row">
 
-													<div class="imgpart" style="margin: auto; width: 100%;">
-														<img id="preview-image"
-															src="https://dummyimage.com/400x1/ffffff&text=+">
-														<div class="form-group"></div>
-													</div>
+													<div id="preview"></div>
+													
 													<div class="input-group col-12">
 														<div class="custom-file">
 															<input type="file" class="custom-file-input" id="image"
-																name="image" style="display: block;"> <label
+																name="image" style="display: block;"> 
+																<label
 																class="custom-file-label" for="inputGroupFile02">사진을
-																등록해주세요</label>
+																등록해주세요 (최대 1장)</label>
 														</div>
 													</div>
 												</div>
@@ -295,6 +355,7 @@
 														<textarea class="form-control" name="content"
 															style="margin: auto; width: 100%; height: 100px; resize: none;"
 															id="review" placeholder="리뷰를 등록해주세요." required></textarea>
+															<div class="invalid-feedback">없으면 공백 추가!</div>
 													</div>
 												</div>
 												<!-- 리뷰 작성 end -->
@@ -323,6 +384,105 @@
 
 
 	<script>
+	
+	//공백확인용...
+	(function () {
+		  'use strict'
+
+		  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+		  var forms = document.querySelectorAll('.needs-validation')
+
+		  // Loop over them and prevent submission
+		  Array.prototype.slice.call(forms)
+		    .forEach(function (form) {
+		      form.addEventListener('submit', function (event) {
+		        if (!form.checkValidity()) {
+		          event.preventDefault()
+		          event.stopPropagation()
+		        }
+
+		        form.classList.add('was-validated')
+		      }, false)
+		    })
+		})();
+	
+	//사진
+	$(document)
+	.ready(
+			function(e) {
+				$("input[type='file']")
+						.change(
+								function(e) {
+
+									//div 내용 비워주기
+									$('#preview').empty();
+
+									var files = e.target.files;
+									var arr = Array.prototype.slice
+											.call(files);
+
+									//업로드 가능 파일인지 체크
+									for (var i = 0; i < files.length; i++) {
+										if (!checkExtension(
+												files[i].name,
+												files[i].size)) {
+											return false;
+										}
+									}
+
+									preview(arr);
+
+								});//file change
+
+				function checkExtension(fileName, fileSize) {
+
+					var regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");
+					var maxSize = 20971520; //20MB
+
+					if (fileSize >= maxSize) {
+						alert('파일 사이즈 초과');
+						$("input[type='file']").val(""); //파일 초기화
+						return false;
+					}
+
+					if (regex.test(fileName)) {
+						alert('업로드 불가능한 파일이 있습니다.');
+						$("input[type='file']").val(""); //파일 초기화
+						return false;
+					}
+					return true;
+				}
+
+				function preview(arr) {
+					arr
+							.forEach(function(f) {
+
+								//파일명이 길면 파일명...으로 처리
+								var fileName = f.name;
+								if (fileName.length > 10) {
+									fileName = fileName.substring(0, 7)
+											+ "...";
+								}
+
+								//div에 이미지 추가
+								var str = '<div style="display: inline-flex; padding: 10px;">';
+								
+
+								//이미지 파일 미리보기
+								if (f.type.match('image.*')) {
+									var reader = new FileReader(); //파일을 읽기 위한 FileReader객체 생성
+									reader.onload = function(e) { //파일 읽어들이기를 성공했을때 호출되는 이벤트 핸들러
+										//str += '<button type="button" class="delBtn" value="'+f.name+'" style="background: red">x</button><br>';
+										str += '<ul><img src="'+e.target.result+'" title="'+f.name+'" width=300 height=300 />';
+										str += '</ul></div>';
+										$(str).appendTo('#preview');
+									}
+									reader.readAsDataURL(f);
+								}
+							});//arr.forEach
+				}
+			});
+	
 	//사진
 	function readImage(input) {
 	    // 인풋 태그에 파일이 있는 경우
