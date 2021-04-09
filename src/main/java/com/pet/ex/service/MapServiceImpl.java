@@ -39,6 +39,9 @@ public class MapServiceImpl implements MapService {
 
 	@Override
 	public void write(BoardVO boardVO) {
+		
+		
+		
 	mapper.write(boardVO);
 		
 	}

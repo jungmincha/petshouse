@@ -3,8 +3,8 @@ package com.pet.ex.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-
-
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,7 +30,7 @@ public class MapController {
 	private MapService service;
 	
 	//펫츠타운 위치기반동의 페이지
-	@RequestMapping("/home")
+	@GetMapping("/home")
 	public String map() {
 		
 	
@@ -41,7 +41,6 @@ public class MapController {
 	
 	
 	
-
 	
 	
 	
@@ -49,26 +48,30 @@ public class MapController {
 	
 	
 	//펫츠타운 메인페이지
-	@RequestMapping("/petstown")
-	   public ModelAndView petstown(
-			 @RequestParam(value="test" ,required = false)String location,
+	@GetMapping("/board")
+	   public ModelAndView board(
+			 @RequestParam(value="test" ,required = false)String loc,
 			 
 			   @RequestParam(value="member_id",required = false)String member_id,
+			   
+		
 			  
 			   ModelAndView mav , Criteria cri , MemberVO memberVO) {
 	      	
 		mav.addObject("list", service.getList(cri));
+		
 		int total = service.getTotal(cri);
 		
-		memberVO.setLocation(location);
-		  
-		  
-		  service.insertLoc(memberVO);
 		
+		 memberVO.setLocation(loc);
+		 
+		 
+		 service.insertLoc(memberVO);
+		 
 		
 		mav.addObject("pageMaker",  new PageVO(cri, total));
 		
-	 mav.addObject("location", location); 
+	 mav.addObject("location", loc); 
 		 
 	 mav.addObject("member_id", member_id); 
 		 
@@ -83,9 +86,10 @@ public class MapController {
 	
 		
 		System.out.println(member_id);
-		
+		System.out.println(loc);
+
 		/* System.out.println(loc); */
-	      mav.setViewName("map/petstown");
+		 mav.setViewName("map/board"); 
 	      System.out.println("===============================================================================");
 	    
 	      return mav;
@@ -93,20 +97,51 @@ public class MapController {
 	
 	
 	
-	@RequestMapping("/write_view")
-	  public ModelAndView write_view(ModelAndView mav) {
+	@GetMapping("/write_view")
+	  public ModelAndView write_view(
+			  
+			  @RequestParam(value="test" ,required = false)String loc,
+				 
+			   @RequestParam(value="member_id",required = false)String member_id,
+			  
+			  
+			  ModelAndView mav) {
 	  
 	  log.info("write_view...");
 	  
+	  
+	  mav.addObject("location", loc); 
+		 
+		 mav.addObject("member_id", member_id); 
+		 System.out.println(member_id);
+			System.out.println(loc);
+			   System.out.println("===============================================================================");
 	  mav.setViewName("map/write_view");
 	  
 	 
 	  return mav;
 	 }
 	
+	
+	
+	
 	//content_view 페이지
-	@RequestMapping("/petstown/{board_id}")
-	public ModelAndView content_view(ModelAndView mav, BoardVO boardVO) {
+	@GetMapping("/board/{board_id}")
+	public ModelAndView content_view(
+			
+			 @RequestParam(value="test" ,required = false)String loc,
+			 
+			   @RequestParam(value="member_id",required = false)String member_id,			
+			
+			ModelAndView mav, BoardVO boardVO) {
+		
+		mav.addObject("location", loc); 
+		 
+		 mav.addObject("member_id", member_id); 
+		 System.out.println(member_id);
+			System.out.println(loc);
+			   System.out.println("===============================================================================");
+		
 		
 		log.info("rest_content_view...");
 		
@@ -122,14 +157,49 @@ public class MapController {
 	
 	
 	//write
-		  @RequestMapping("/write")//글작성 폼에서 정보입력(즉, insert) 
-		  public ModelAndView write(ModelAndView mav ,BoardVO boardVO)throws Exception 
+		  @GetMapping("/write")//글작성 폼에서 정보입력(즉, insert) 
+		  public ModelAndView write(
+				  
+				  @RequestParam(value="test" ,required = false)String loc,
+					 
+				   @RequestParam(value="member_id",required = false)String member_id,
+				  
+				  
+				  ModelAndView mav ,BoardVO boardVO, MemberVO memberVO, Criteria cri )throws Exception 
 		  
 		  { 
 			  log.info("write"); 
+			  
+
+			  
+	
+	
 			  service.write(boardVO);
 			  
-			  mav.setViewName("redirect:petstown");
+		
+			  
+			  
+			  mav.addObject("list", service.getList(cri));
+				
+				int total = service.getTotal(cri);
+				
+				mav.addObject("pageMaker",  new PageVO(cri, total));
+			  
+				
+			  memberVO.setLocation(loc);
+			  
+				service.insertLoc(memberVO);
+				
+				
+				
+				 mav.addObject("location", loc); 
+				 
+				 mav.addObject("member_id", member_id); 
+
+				 System.out.println(member_id); 
+				 
+				 
+			  mav.setViewName("map/board");
 			  return mav;
 			  
 		  }
@@ -140,13 +210,11 @@ public class MapController {
 	 //delete
 		  @RequestMapping("/delete/{board_id}")
 		   public ModelAndView delete(ModelAndView mav ,BoardVO boardVO) throws Exception{
-
-		      
-		      
+	      
 		      log.info("delete");
 		      service.inputDelete(boardVO.getBoard_id());
 		      
-		      mav.setViewName("redirect:petstown");
+		      mav.setViewName("map/board");
 		      
 		      return mav;
 		   }

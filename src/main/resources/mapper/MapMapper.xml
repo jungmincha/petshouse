@@ -158,12 +158,12 @@
      ]]>
 	</select>
 
-	<insert id="write" parameterType="boardvo">
+	<select id="write" resultMap="boardvo">
    <![CDATA[
       insert into board (board_id, title, pdate, content, plike, hit, hashtag, pgroup, pstep, pindent, member_id, boardtype_id)   
-       values (board_seq.nextval ,#{title}, sysdate, #{content} ,#{plike},#{hit},'인사',board_seq.currval,#{pstep},#{pindent},'admin@naver.com', 7)
+       values (board_seq.nextval ,#{title}, sysdate, #{content} ,#{plike},#{hit},'인사',board_seq.currval,#{pstep},#{pindent},'asas@naver.com', 7)
    ]]>
-	</insert>
+	</select>
 
 	<select id="content_view" resultMap="boardvo">
    <![CDATA[

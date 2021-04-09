@@ -28,18 +28,18 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                <h3>종로구</h3>
+                 <h3>${location}</h3>
+               <br>
+           <h5>${member_id}</h5>
                 
                 <br/>
-<form action="/map/modify" method="post">
- <input type="hidden" id="board_id" value="${content_view.board_id}"> 
+<form action="/map/modify" method="get">
+<input id="test" type="hidden" name="test" value="${location}" /> 
+	<input id="member_id" type="hidden" name="member_id" value="${member_id}" /> 
 <table border=1 style="width:1140px;">
     
 
-       <%--   <input type="hidden" id="bId" value="${reply_view.bId}">
-         <input type="hidden" id="bGroup" value="${reply_view.bGroup}">
-         <input type="hidden" id="bStep" value="${reply_view.bStep}">
-         <input type="hidden" id="bIndent" value="${reply_view.bIndent}"> --%>
+       
         
 <tr>         
 <td style="text-align:center">번호</td>
@@ -79,7 +79,8 @@ ${content_view.content}
 <td style="text-align:center">
 
 
-<td><a href = "/map/petstown">목록으로</a>&nbsp;&nbsp; <a href = "/map/delete/${content_view.board_id}">삭제</a>&nbsp;&nbsp;<input type="submit" value="수정">  </td>
+<td><a href = "/map/board?test=${location}&member_id=${member_id}">목록으로</a>&nbsp;&nbsp;
+ <a href = "/map/delete/${content_view.board_id}">삭제</a>&nbsp;&nbsp;<input type="submit" value="수정">  </td>
 
 
 
@@ -99,6 +100,10 @@ ${content_view.content}
    <!-- Footer -->
    <%@ include file="/WEB-INF/views/include/footer.jsp"%>  
 
+ <% response.setHeader("Cache-Control","no-store");
+ response.setHeader("Pragma","no-cache"); 
+ response.setDateHeader("Expires",0); 
+ if (request.getProtocol().equals("HTTP/1.1")) response.setHeader("Cache-Control", "no-cache"); %>
  
     
     
