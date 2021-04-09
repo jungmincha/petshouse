@@ -22,6 +22,8 @@
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="/resources/sidemenu/bootstrap/js/bootstrap.min.js"></script>
 <script src="/resources/sidemenu/js/custom.js"></script>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 
 <!-- Bootstrap -->
 <link href="/resources/sidemenu/bootstrap/css/bootstrap.min.css"
@@ -156,6 +158,41 @@ h2 {
 	display: block;
 	width: 130px;
 	height: 150px;
+}
+
+.pcolor {
+	width: 45px;
+	background-color: #e7ab3c;
+	height: 30px;
+}
+
+.form_radio_btn {
+	display: inline-block;
+	margin-right: 10px;
+}
+
+.form_radio_btn input[type=radio] {
+	display: none;
+}
+
+.form_radio_btn label {
+	display: inline-block;
+	cursor: pointer;
+	padding: 0px 15px;
+	line-height: 34px;
+	border: 1px solid #999;
+	/* border-radius: 6px; */
+	 user-select: none; 
+}
+
+/* Checked */
+.form_radio_btn input[type=radio]:checked+label {
+	background: #ffe0a6;
+}
+
+/* Hover */
+.form_radio_btn label:hover {
+	color: #666;
 }
 </style>
 
@@ -397,11 +434,27 @@ h2 {
 										<c:set var="pcolor" value="${goods.goodsVO.pcolor}" />
 										<c:set var="color" value="${fn:split(pcolor, ',')}" />
 										<c:forEach var="c" items="${color}">
-											<div class="sc-item">
-												<input type="radio" id="pcolor" name="pcolor" /> <label for="pcolor">${c}</label>
+
+											<div class="btn-group btn-group-toggle" data-toggle="buttons">
+												<label class="btn btn-warning pcolor"> <input
+													type="radio" name="pcolor" id="pcolor"> ${c}
+												</label>
 											</div>
+
 										</c:forEach>
 									</div>
+
+								 
+										<c:set var="pcolor" value="${goods.goodsVO.pcolor}" />
+										<c:set var="color" value="${fn:split(pcolor, ',')}" />
+										<c:forEach var="c" items="${color}">
+											<div class="form_radio_btn">
+												<input id="pcolor1" type="radio" name="pcolor1" value="${c}">
+												<label for="pcolor1">${c} </label>
+											</div>
+
+										</c:forEach>
+									 
 
 
 									<div class="pd-size-choose">
@@ -409,10 +462,16 @@ h2 {
 										<c:set var="size" value="${fn:split(psize, ',')}" />
 										<c:forEach var="s" items="${size}">
 											<div class="sc-item">
-												<input type="radio" id="size" name="size"/> <label for="size">${s}</label>
+												<input type="radio" id="size" name="size" /> <label
+													for="size">${s}</label>
 											</div>
 										</c:forEach>
 									</div>
+
+
+
+
+
 
 
 									<div class="quantity">
@@ -426,14 +485,14 @@ h2 {
 									<ul class="pd-tags">
 										<li><span>CATEGORIES</span>:
 											${goods.categoryVO.categoryname}/${goods.categoryVO.sortname}</li>
-										<li><span>TAGS</span>:  
-										<c:set var="hashtag" value="${goods.hashtag}" /> 
-										<c:set var="tag" value="${fn:split(hashtag, ' ')}" /> 
-										<c:forEach var="t" items="${tag}">
-											
+										<li><span>TAGS</span>: <c:set var="hashtag"
+												value="${goods.hashtag}" /> <c:set var="tag"
+												value="${fn:split(hashtag, ' ')}" /> <c:forEach var="t"
+												items="${tag}">
+
 												<a href="xxx">${t}</a>
 
-										</c:forEach></li>
+											</c:forEach></li>
 									</ul>
 									<div class="pd-share">
 										<div class="p-code">
@@ -618,7 +677,7 @@ h2 {
 					</form>
 				</div>
 			</div>
-			</div>
+		</div>
 	</section>
 	<!-- Product Shop Section End -->
 	<script src="/resources/js/jquery-3.3.1.min.js"></script>
@@ -631,7 +690,11 @@ h2 {
 	<script src="/resources/js/jquery.slicknav.js"></script>
 	<script src="/resources/js/owl.carousel.min.js"></script>
 	<script src="/resources/js/main.js"></script>
-
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 
 
 	<!-- Footer -->
