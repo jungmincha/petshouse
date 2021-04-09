@@ -60,10 +60,7 @@
       };
 
       // 숫자 평점을 별로 변환하도록 호출하는 함수
-      $('.star-prototype').generateStars();
-
-
-     
+      $('.star-prototype').generateStars(); 
    });
 </script>
 

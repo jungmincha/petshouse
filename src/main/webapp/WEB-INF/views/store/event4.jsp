@@ -37,9 +37,8 @@
    type="text/css">
 <link rel="stylesheet" href="/resources/css/style.css" type="text/css">
 <!-- jquery cdn -->
-<script
-   src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-   <script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+   <script> 
    $(document).ready(function(){ 
 	    var list = new Array(
 	    		{
@@ -109,28 +108,76 @@
    	   	
    	   	ctx.strokeStyle = '#9197B5';
    	   	ctx.strokeText('즉석 룰렛 뽑기!', 0,0);
-   	
-   	 var random = 0;
-   	 var clicked = 0;
-    	$('#canvas').on({'click':function(){
-    		if(clicked <= 0){
-    			random += Math.random()*360 + 720;
-    			$(this).css({'transition-timing-function': 'ease-in-out', 'transition': '5s', 'transform': 'rotate('+random+'deg)'});
- 				console.log(random);
-	    	}else if(clicked >= 1){
-	    		event.preventDefault();
-	    		alert("이벤트 참여하셨습니다.")
-	    	}  		
-    		clicked++;
+   	 
+   	var member_id = $("#member_id").val();
+   	 
+   	//로그인 여부 체크
+   	function checkLogin() {
+		 if(member_id == undefined){
+			 alert("로그인 후 이벤트 참여 가능합니다.");
+			 location.href = '/login/login';
+		 }
+	 }
+    	
+   	$('#canvas').click(function(){
+   		checkLogin();
+   		
+   	  	var random = 0;
+   	   	var clicked = 0;
+   	   	var pscore = 0;
+   	   	
+    	if(clicked <= 0){
+    		random += Math.random()*360 + 720;
+    		$(this).css({'transition-timing-function': 'ease-in-out', 'transition': '5s', 'transform': 'rotate('+random+'deg)'});
+ 			console.log(random);
+	    } 
+    	//포인트 지정
+    	if(random >= 720 && random <= 765){
+    		pscore = 100;
+	   	}else if(random >= 766 && random <= 810){
+	   		pscore = 3000;
+    	}else if(random >= 811 && random <= 855){
+    		pscore = 1000;
+    	}else if(random >= 856 && random <= 900){
+    		pscore = 0;
+	   	}else if(random >= 901 && random <= 945){
+	   		pscore = 500;
+	   	}else if(random >= 946 && random <= 990){
+	   		pscore = 100;
+	   	}else if(random >= 991 && random <= 1035){
+	   		pscore = 0;
+	    }else if(random >= 1036 && random <= 1080){
+	    	pscore = 5000;
     	}
-
-    	});
+    	
+    	console.log(member_id);
+    	console.log(pscore);
+    	
+    	//회원 포인트 적립
+    	
+    	$.ajax({
+   	        type :"PUT",
+   	        url :"/store/event",
+   	        data : {
+   	        	member_id: member_id,
+   	        	pscore: pscore
+   	        },
+	   	    success: function (result) {       
+	            if(result == "SUCCESS"){
+		    		console.log(result); 
+		    		setTimeout(function(){
+		    			alert("포인트 " + pscore + " 적립 완료!");	    		
+		    		},5000);
+		        }
+		    },
+		    error: function (e) {
+		    	console.log(e);
+		    }
+    	});//ajax end
+   	});//click end
    });
-
-   </script>
-   
-   
-   
+   </script>  
+  
  <style>
 	 #board{
  		width: 1000px; 
@@ -157,17 +204,18 @@
 	.container-fluid {
    		 background: #000000;
 	}
-	
-
-  
   </style>
-
   </head> 
 <body>
    <!-- header -->
    <%@ include file="/WEB-INF/views/include/header.jsp"%>
    
-      <div class="container-fluid">
+   <!-- content -->
+    <sec:authorize access="hasAnyRole('ROLE_USER','ROLE_ADMIN')">
+			<input type="hidden" id="member_id" value="<sec:authentication property="principal.member_id"/>">
+	</sec:authorize>
+		
+    <div class="container">
          <div class="row">
             <div class="col-lg-12">
  				<div id="board">
@@ -181,9 +229,6 @@
    <%@ include file="/WEB-INF/views/include/footer.jsp"%>
 
    <!-- Bootstrap core JavaScript -->
-   <script src="/resources/store/vendor/jquery/jquery.min.js"></script>
-   <script
-      src="/resources/store/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
    <script src="/resources/js/jquery-3.3.1.min.js"></script>
    <script src="/resources/js/bootstrap.min.js"></script>
    <script src="/resources/js/jquery-ui.min.js"></script>

@@ -76,10 +76,7 @@
      	   console.log("ERROR : ", e);
         }
     });
-
-}
-  
-    
+} 
   </script>
   
 <style>
@@ -159,57 +156,106 @@
   		  <!-- Category End -->   
   		  
             <!-- Goods -->
-             <div class="row">
-           <c:forEach items="${rate}" var="rate">
+             <div class="cate row">
+           <c:forEach items="${bestrate}" var="rate">
                 <div class="col-lg-3 col-sm-6">
                     <div class="product-item">
-                        <div class="pi-pic">
-             				   
+                    
+                        <div class="pi-pic">			   
                               <c:forEach items="${goods}" var="goods">
                                <c:if test="${rate.goodsVO.goods_id eq goods.goodsVO.goods_id}">
                                  <img src="/resources/img/admin/goods/${goods.goodsVO.thumbnail}" alt="">
-                               </c:if>
-							  </c:forEach>
+                           
              				
                             <div class="sale">Best ${rate.rnum}</div>     
-                            <div class="icon">
-                                <i class="icon_heart_alt"></i>
-                            </div>
-                          <c:forEach items="${goods}" var="goods"> 
-                            <c:if test="${rate.goodsVO.goods_id eq goods.goodsVO.goods_id}">					 
-                            <ul>
+                           
+                          	<ul>
                                 <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
                                 <li class="quick-view"><a href="/admin/goods_detail/${goods.board_id}">+ Quick View</a></li>
                             </ul>
+                            </c:if>
+                            </c:forEach>
                         </div>
+                        
                         <div class="pi-text">
                             <div class="catagory-name"> </div>
+                            <c:forEach items="${goods}" var="goods">
+                               <c:if test="${rate.goodsVO.goods_id eq goods.goodsVO.goods_id}">
+                                
 					           	  <a href="/admin/goods_detail/${goods.board_id}">
                                 			<h5>${goods.goodsVO.goodsname}</h5>               
                            				 </a>                       
-		                            	<div class="product-price">
-		                             	    ${goods.goodsVO.price}원                           
-		                           		 </div>
-		                            </c:if> 
-                            </c:forEach> 
+		                            	<div class="product-price"> ${goods.goodsVO.price}원</div>                   
 						  <span class="star-prototype"> ${rate.avgscore}</span> <span> &nbsp; 리뷰 ${rate.count}</span>         
+                        </c:if>
+                        </c:forEach>
                         </div>                    
                     </div>     
                 </div>
                 </c:forEach>
             </div>
-         </div>
-         </div>     
-    </section>
+            
+            <div class="col-lg-12 text-center">
+            <button type="button" class="btn btn-warning" onClick="btnClick()">더보기</button>
+	        </div>
+	        </div>
+	        </div>
+	        </section>
      <!-- Goods End -->
+ 
+      <!-- 더보기 페이징 처리 -->
+     <script>
+      var pageNum = 1;
+     
+      function btnClick(){
+    	  pageNum += 1;
+    	  console.log(pageNum);
+    	  		  
+    	  	$.ajax({
+    	        type :"POST",
+    	        url :"/store/morelist",
+    	        data : {
+    	        	pageNum: pageNum 
+    	        },
+    	        success :function(data){
+    	           console.log(data);
+    	           var bestrate = data.bestrate;
+    	           var goods = data.goods;
+					
+    	          html = "";
+    	           for(var i in bestrate){
+    	        	  html += "<div class='col-lg-3 col-sm-6'> <div class='product-item'>  <div class='pi-pic'>";
+    	        	for(var j in goods){
+	       	          	if(goods[j].goodsVO.goods_id == bestrate[i].goodsVO.goods_id){
+	       	          	html += "<img src='/resources/img/admin/goods/"+goods[j].goodsVO.thumbnail + "'>";
+	       	          	html += "<div class='sale'>Best" + bestrate[i].rnum + "</div>";        
+	       	          	html += "<ul><li class='w-icon active'><a href='#'><i class='icon_bag_alt'></i></a></li>";
+	       	          	html += "<li class='quick-view'><a href='/admin/goods_detail/" + goods[j].board_id + "'>+ Quick View</a></li>";
+	       	          	html += "</ul> </div> <div class='pi-text'> <div class='catagory-name'> </div>";
+	       	         	html += "<a href='/admin/goods_detail/" + goods[j].board_id + "'> <h5>" + goods[j].goodsVO.goodsname + "</h5></a>";
+	       	         	html += "<div class='product-price'>" + goods[j].goodsVO.price + "원</div>";
+	       	        	html += "<span class='star-prototype'> <span class='star' style='width:"+(bestrate[i].avgscore*16)+"px'> </span>" + "</span>";       	         	
+	       	         	html += "<span> &nbsp; 리뷰" + bestrate[i].count + "</span> </div> </div> </div> </div>";       	          	       	          	
+	       	          	}//if end 
+    	        	}//goods foreach end      	   
+    	           } //bestrate foreach end
+    	           
+    	            $(".cate").append(html); 
+    	          
+    	        }, 	        
+    	        //success end
+    	        error : function(request, status, error) {
+					alert("code:" + request.status + "\n" + "message:"
+							+ request.responseText + "\n" + "error:" + error);
+				} // ajax 에러 시 end
+    	    }); //ajax end	 
+    	}; //click end	
+      </script>
     
    <!-- Footer -->
  <%@ include file="/WEB-INF/views/include/footer.jsp" %>
  
    <!-- Bootstrap core JavaScript -->
-   <script src="/resources/store/vendor/jquery/jquery.min.js"></script>
-   <script
-      src="/resources/store/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
    <script src="/resources/js/jquery-3.3.1.min.js"></script>
    <script src="/resources/js/bootstrap.min.js"></script>
    <script src="/resources/js/jquery-ui.min.js"></script>

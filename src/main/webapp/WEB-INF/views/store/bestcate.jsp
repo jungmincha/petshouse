@@ -153,45 +153,43 @@
   		  <!-- Category End -->   
   		  
             <!-- Goods -->
-             <div class="row">
+             <div class="cate row">
            <c:forEach items="${rate}" var="rate">
                 <div class="col-lg-3 col-sm-6">
                     <div class="product-item">
-                        <div class="pi-pic">
-             			   
+                    
+                        <div class="pi-pic">			   
                               <c:forEach items="${goods}" var="goods">
                                <c:if test="${rate.goodsVO.goods_id eq goods.goodsVO.goods_id}">
                                  <img src="/resources/img/admin/goods/${goods.goodsVO.thumbnail}" alt="">
-                               </c:if>
-							  </c:forEach>
-							  
+                           
+             				
                             <div class="sale">Best ${rate.rnum}</div>     
-                            <div class="icon">
-                                <i class="icon_heart_alt"></i>
-                            </div>
-                              <c:forEach items="${goods}" var="goods"> 
-                             		<c:if test="${rate.goodsVO.goods_id eq goods.goodsVO.goods_id}">					            
-                            <ul>
+                           
+                          	<ul>
                                 <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                <li class="quick-view"><a href="/admin/goods_detail/${goods.board_id}">+ Quick View</a></li>              
+                                <li class="quick-view"><a href="/admin/goods_detail/${goods.board_id}">+ Quick View</a></li>
                             </ul>
+                            </c:if>
+                            </c:forEach>
                         </div>
+                        
                         <div class="pi-text">
                             <div class="catagory-name"> </div>
-                          	  <a href="/admin/goods_detail/${goods.board_id}">
+                            <c:forEach items="${goods}" var="goods">
+                               <c:if test="${rate.goodsVO.goods_id eq goods.goodsVO.goods_id}">
+                                
+					           	  <a href="/admin/goods_detail/${goods.board_id}">
                                 			<h5>${goods.goodsVO.goodsname}</h5>               
                            				 </a>                       
-		                            	<div class="product-price">
-		                             	    ${goods.goodsVO.price}원                           
-		                           		 </div>
-		                            </c:if> 
-                            </c:forEach> 
+		                            	<div class="product-price"> ${goods.goodsVO.price}원</div>                   
 						  <span class="star-prototype"> ${rate.avgscore}</span> <span> &nbsp; 리뷰 ${rate.count}</span>         
+                        </c:if>
+                        </c:forEach>
                         </div>                    
                     </div>     
                 </div>
                 </c:forEach>
-            </div>
-        
+            </div>      
 </body>
 </html>
