@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.pet.ex.page.Criteria;
 import com.pet.ex.vo.BoardVO;
 import com.pet.ex.vo.CategoryVO;
+import com.pet.ex.vo.PointVO;
 
 @Mapper
 public interface StoreMapper {
@@ -26,4 +27,6 @@ public interface StoreMapper {
 	public List<BoardVO> getKnowhow();
 
 	public List<BoardVO> getSns();
+
+	public void point(PointVO pointVO);
 }
