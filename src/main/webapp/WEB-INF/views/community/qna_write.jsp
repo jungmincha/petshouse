@@ -45,7 +45,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="/resources/ckeditor/ckeditor.js"></script>
 
-<script>
+<!-- <script> 아직...
     function checkLogin() {
         var id = '${member_id}'; // 수정 ''처리
         alert(id);
@@ -57,7 +57,7 @@
             location.href = '/community/tips_write';
         }
     }
-</script>
+</script> -->
 
 </head>
 
