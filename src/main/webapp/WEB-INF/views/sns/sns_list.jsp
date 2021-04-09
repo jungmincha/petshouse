@@ -64,8 +64,10 @@ p {
 		<div class="row">
 
 			<div class="card-feed__item-wrap col-12 col-md-4 col-lg-3">
-
+				  <a href="#">팔로우</a>
 				<div class="card">
+				
+		
 					<img src="/resources/img/admin/goods/cat1.jpg" alt=""
 						class="card-img-top i" />
 					<div class="card-body">
