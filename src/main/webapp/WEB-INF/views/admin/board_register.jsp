@@ -42,10 +42,23 @@ select {
 	margin: 50px auto;
 	width: 500px;
 }
+
+.file {
+	width: 500px;
+	height: 500px;
+}
+
+
+
+}
+.container{
+	margin: 10px auto  ;
+
+}
 </style>
 
 </head>
-<body style="padding-top: 160px">
+<body style="padding-top: 180px">
 
 
 
@@ -55,20 +68,18 @@ select {
 
 
 	<!-- Page Content -->
-
-	<div class="col-lg-10 center">
+	 <div class="container">
+	<div class="col-lg-12  ">
 		<form id="board" name="board" enctype="multipart/form-data"
 			action="${pageContext.request.contextPath}/admin/board/register"
 			method="post">
 
 			<fieldset>
-				<table class="table_center" style="">
-
-					<tr>
-						<td><h2>상품 게시글 등록</h2></td>
-					</tr>
-					<tr>
-						<td>
+			<h2>상품 게시글 등록</h2>
+				
+				<input type="submit" class="btn" 
+										style="background-color: #e7ab3c; float:right;" value="게시글등록">
+					
 							<div class="form-group">
 								<label for="exampleSelect2">등록되지 않은 상품리스트</label> <select
 									class="form-control" id="goodsVO.goods_id" name="goodsVO.goods_id">
@@ -103,11 +114,8 @@ select {
 
 
 							<div class="form-group row">
-								<div class="col-sm-3"></div>
-								<div class="col-sm-9">
-
-									<div id="preview"></div>
-								</div>
+								 
+								
 							</div>
 
 
@@ -124,21 +132,19 @@ select {
 								</div>
 							</div>
 
-							<div class="form-group row center">
-								<div class="col-sm-offset-2 col-sm-12">
-									<input type="submit" class="btn btn-block"
-										style="background-color: #e7ab3c" value="상품게시글등록">
+						
+					
+					<div class="col-sm-12">
+
+									<div id="preview"></div>
 								</div>
-							</div>
-						</td>
-					</tr>
-
-
-				</table>
+					
+					
+				
 			</fieldset>
 		</form>
 	</div>
-
+	</div>
 
 	<script>
 		
@@ -206,17 +212,16 @@ select {
 										}
 
 										//div에 이미지 추가
-										var str = '<div style="display: inline-flex; padding: 10px;"><li>';
-										str += '<span>' + fileName
-												+ '</span><br>';
+										var str = '<div style="display: inline-flex; padding: 10px;">';
+										 
 
 										//이미지 파일 미리보기
 										if (f.type.match('image.*')) {
 											var reader = new FileReader(); //파일을 읽기 위한 FileReader객체 생성
 											reader.onload = function(e) { //파일 읽어들이기를 성공했을때 호출되는 이벤트 핸들러
 												//str += '<button type="button" class="delBtn" value="'+f.name+'" style="background: red">x</button><br>';
-												str += '<img src="'+e.target.result+'" title="'+f.name+'" width=100 height=100 />';
-												str += '</li></div>';
+												str += '<img src="'+e.target.result+'" title="'+f.name+'" width=100 height=150 />';
+												str += '</div>';
 												$(str).appendTo('#preview');
 											}
 											reader.readAsDataURL(f);
