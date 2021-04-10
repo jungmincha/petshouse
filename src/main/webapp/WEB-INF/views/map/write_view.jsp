@@ -31,11 +31,12 @@
                  <h3>${location}</h3>
                <br>
            <h5>${member_id}</h5>
-                
+                    <h5>${nickname}</h5>
                 <br/>
-<form action="/map/write" method="get">
-	<input id="test" type="hidden" name="test" value="${location}" /> 
-	<input id="member_id" type="hidden" name="member_id" value="${member_id}" /> 
+<form action="/map/write" method="post">
+ <input id="location" type="hidden" name="location" value="${location}" /> 
+  <input id="nicknamen" type="hidden" name="nickname" value="${nickname}" /> 
+	<%-- <input id="member_id" type="hidden" name="member_id" value="${member_id}" />  --%>
 	<table border=1 style="width:1140px;">
     
 
@@ -59,7 +60,7 @@
 <td style="text-align:center">아이디</td>
 <td>
 
-<input id="member_id" type="text" name="member_id" value="${member_id}" style="border:none;" /> 
+<input id="member_id" type="text" name="member_id" style="border:none;"  value="${member_id}">
 </td>
 </tr>
 
@@ -82,7 +83,7 @@
 <td style="text-align:center">
 <input type = "submit" value = "작성 완료" >
 
-<td><a href = "/map/board?test=${location}&member_id=${member_id}">목록으로</a>&nbsp;&nbsp;
+<td><a href = "/map/board?location=${location}&nickname=${nickname}&member_id=${member_id}">목록으로</a>&nbsp;&nbsp;
 
 
 

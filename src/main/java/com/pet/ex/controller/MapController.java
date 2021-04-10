@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,33 +41,36 @@ public class MapController {
 	
 	
 	
-	
-	
-	
-	
-	
+		
 	
 	
 	//펫츠타운 메인페이지
 	@GetMapping("/board")
 	   public ModelAndView board(
-			 @RequestParam(value="test" ,required = false)String loc,
+			 @RequestParam(value="location" ,required = false)String loc,
 			 
 			   @RequestParam(value="member_id",required = false)String member_id,
 			   
+			   @RequestParam(value="nickname",required = false)String nickname,
+			   
 		
 			  
-			   ModelAndView mav , Criteria cri , MemberVO memberVO) {
-	      	
+			   ModelAndView mav , Criteria cri , MemberVO memberVO, BoardVO boardVO) {
+		
+		memberVO.setLocation(loc);
+		 
+		 service.insertLoc(memberVO);
+		
+		
+		
+		 boardVO.setLocation(loc);
+		
 		mav.addObject("list", service.getList(cri));
 		
 		int total = service.getTotal(cri);
 		
 		
-		 memberVO.setLocation(loc);
-		 
-		 
-		 service.insertLoc(memberVO);
+		
 		 
 		
 		mav.addObject("pageMaker",  new PageVO(cri, total));
@@ -74,23 +78,17 @@ public class MapController {
 	 mav.addObject("location", loc); 
 		 
 	 mav.addObject("member_id", member_id); 
-		 
-		/* memberVO.setMember_id(member_id); */
-		
-			/*
-			 * mav.addObject("member_list", service.getMemberList(memberVO.getMember_id()));
-			 */
-		
-		  
+	 mav.addObject("nickname", nickname); 
+
 		 
 	
 		
 		System.out.println(member_id);
 		System.out.println(loc);
 
-		/* System.out.println(loc); */
+
 		 mav.setViewName("map/board"); 
-	      System.out.println("===============================================================================");
+	   
 	    
 	      return mav;
 	   }
@@ -100,10 +98,11 @@ public class MapController {
 	@GetMapping("/write_view")
 	  public ModelAndView write_view(
 			  
-			  @RequestParam(value="test" ,required = false)String loc,
+			  @RequestParam(value="location" ,required = false)String loc,
 				 
 			   @RequestParam(value="member_id",required = false)String member_id,
 			  
+			   @RequestParam(value="nickname",required = false)String nickname,
 			  
 			  ModelAndView mav) {
 	  
@@ -113,6 +112,8 @@ public class MapController {
 	  mav.addObject("location", loc); 
 		 
 		 mav.addObject("member_id", member_id); 
+		 
+		 mav.addObject("nickname", nickname); 
 		 System.out.println(member_id);
 			System.out.println(loc);
 			   System.out.println("===============================================================================");
@@ -129,10 +130,11 @@ public class MapController {
 	@GetMapping("/board/{board_id}")
 	public ModelAndView content_view(
 			
-			 @RequestParam(value="test" ,required = false)String loc,
+			 @RequestParam(value="location" ,required = false)String loc,
 			 
 			   @RequestParam(value="member_id",required = false)String member_id,			
 			
+			   @RequestParam(value="nickname",required = false)String nickname,
 			ModelAndView mav, BoardVO boardVO) {
 		
 		mav.addObject("location", loc); 
@@ -147,6 +149,7 @@ public class MapController {
 		
 	
 		mav.addObject("content_view", service.content_view(boardVO.getBoard_id()));
+		 mav.addObject("nickname", nickname); 
 		mav.setViewName("map/content_view");
 		return mav;
 		
@@ -157,13 +160,14 @@ public class MapController {
 	
 	
 	//write
-		  @GetMapping("/write")//글작성 폼에서 정보입력(즉, insert) 
+		  @RequestMapping("/write")//글작성 폼에서 정보입력(즉, insert) 
 		  public ModelAndView write(
 				  
-				  @RequestParam(value="test" ,required = false)String loc,
+				  @RequestParam(value="location" ,required = false)String loc,
 					 
 				   @RequestParam(value="member_id",required = false)String member_id,
 				  
+				   @RequestParam(value="nickname",required = false)String nickname,
 				  
 				  ModelAndView mav ,BoardVO boardVO, MemberVO memberVO, Criteria cri )throws Exception 
 		  
@@ -171,7 +175,10 @@ public class MapController {
 			  log.info("write"); 
 			  
 
-			  
+			  MemberVO member = new MemberVO();
+				boardVO.setMemberVO(member);
+				boardVO.getMemberVO().setLocation(loc);
+				boardVO.getMemberVO().setMember_id(member_id);
 	
 	
 			  service.write(boardVO);
@@ -194,12 +201,13 @@ public class MapController {
 				
 				 mav.addObject("location", loc); 
 				 
-				 mav.addObject("member_id", member_id); 
-
+			 mav.addObject("member_id", member_id); 
+			 mav.addObject("nickname", nickname); 
 				 System.out.println(member_id); 
+				 System.out.println(loc);
 				 
 				 
-			  mav.setViewName("map/board");
+			  mav.setViewName("redirect:board");
 			  return mav;
 			  
 		  }
@@ -214,7 +222,7 @@ public class MapController {
 		      log.info("delete");
 		      service.inputDelete(boardVO.getBoard_id());
 		      
-		      mav.setViewName("map/board");
+		      mav.setViewName("redirect:board");
 		      
 		      return mav;
 		   }

@@ -31,11 +31,12 @@
                  <h3>${location}</h3>
                <br>
            <h5>${member_id}</h5>
-                
+                    <h5>${nickname}</h5>
                 <br/>
 <form action="/map/modify" method="get">
-<input id="test" type="hidden" name="test" value="${location}" /> 
+<input id="location" type="hidden" name="location" value="${location}" /> 
 	<input id="member_id" type="hidden" name="member_id" value="${member_id}" /> 
+		<input id="nickname" type="hidden" name="nickname" value="${nickname}" />  
 <table border=1 style="width:1140px;">
     
 
@@ -79,7 +80,7 @@ ${content_view.content}
 <td style="text-align:center">
 
 
-<td><a href = "/map/board?test=${location}&member_id=${member_id}">목록으로</a>&nbsp;&nbsp;
+<td><a href ="/map/board?location=${location}&nickname=${nickname}&member_id=${member_id}">목록으로</a>&nbsp;&nbsp;
  <a href = "/map/delete/${content_view.board_id}">삭제</a>&nbsp;&nbsp;<input type="submit" value="수정">  </td>
 
 

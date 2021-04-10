@@ -56,12 +56,13 @@ window.onload = function() {
                 <h3>${location}</h3>
                <br>
            <h5>${member_id}</h5>
-           
+            <h5>${nickname}</h5>
            
                  
           <form  action="/map/write_view" method="get">  
-          <input id="test" type="hidden" name="test" value="${location}" /> 
-	<input id="member_id" type="hidden" name="member_id" value="${member_id}" />      
+          <input id="location" type="hidden" name="location" value="${location}" /> 
+	<input id="member_id" type="hidden" name="member_id" value="${member_id}" />     
+	<input id="nickname" type="hidden" name="nickname" value="${nickname}" />    
                 
                 <br/>
           <table border=1 style="width:1140px;">
@@ -81,7 +82,7 @@ window.onload = function() {
          	<td>${list.memberVO.member_id}</td>
  			  <td><c:forEach begin="1" end="${list.pindent}">[re]</c:forEach>
  			  
-             <a href="/map/board/${list.board_id}?test=${location}&member_id=${member_id}">${list.title}</a></td>        
+             <a href="/map/board/${list.board_id}?location=${location}&nickname=${nickname}&member_id=${member_id}">${list.title}</a></td>        
             <td>${list.content}</td>
           
             <td>${list.pdate}</td>

@@ -168,7 +168,7 @@
 										//body에 있는 주소를 가져와 String으로 변환해준 다음 다시 input에 value값으로 넣어주는 로직이다.
 										var location = $('#address').text();
 
-										$('input[name=test]').attr('value', location);
+										$('input[name=location]').attr('value', location);
 
 										break;
 									}
@@ -244,18 +244,18 @@
 							<p>
 								회원님의 위치가 <span id="address"
 									style="font-weight: bold; font-size: 20px;"></span>이 맞으면 '
-									동의 하기'을 눌러주세요.
+									계속 하기'을 눌러주세요.
 							</p>
 							<form action="/map/board" method="get">
 								<div class="row">
 									<div class="col-lg-12">
-										<input id="test" type="hidden" name="test" value="" /> 
+										<input id="location" type="hidden" name="location" value="" /> 
 											<sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
 										<input type="hidden" name="member_id" value="<sec:authentication property="principal.member_id" />">
-									<%-- 	<input type="hidden" name="nickname" value="<sec:authentication property="principal.nickname" />"> --%>
+								 	<input type="hidden" name="nickname" value="<sec:authentication property="principal.nickname" />"> 
 											</sec:authorize>
 										<button type="submit" class="site-btn" 
-											style="font-size: 20px;" >동의 하기</button>
+											style="font-size: 20px;" >계속 하기</button>
 								
 										
 										
