@@ -2185,6 +2185,41 @@ ul, ol {
 	margin-bottom: 0;
 }
 
+.product-details .pd-color-choose {
+   margin-bottom: 20px;
+}
+
+.product-details .pd-color-choose .color-item {
+   display: inline-block;
+   margin-right: 5px;
+}
+
+.product-details .pd-color-choose .color-item:last-child {
+   margin-right: 0;
+}
+
+.product-details .pd-color-choose .color-item input {
+   position: absolute;
+   visibility: hidden;
+}
+
+.product-details .pd-color-choose .color-item label {
+   font-size: 16px;
+   color: #252525;
+   font-weight: 700;
+   height: 40px;
+   width: 47px;
+   border: 1px solid #ebebeb;
+   text-align: center;
+   line-height: 40px;
+   text-transform: uppercase;
+   cursor: pointer;
+}
+
+.product-details .pd-color-choose .color-item label.active {
+   background: #e7ab3c;
+   color: #ffffff;
+}
 .product-details .pd-color .pd-color-choose .cc-item label.cc-yellow {
 	background: #EEEE21;
 }
