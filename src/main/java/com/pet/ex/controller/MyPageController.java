@@ -1,6 +1,7 @@
 package com.pet.ex.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -15,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.pet.ex.page.Criteria;
+import com.pet.ex.page.PageVO;
 import com.pet.ex.service.MyPageService;
 import com.pet.ex.service.SecurityService;
 import com.pet.ex.vo.BoardVO;
@@ -98,5 +102,16 @@ public class MyPageController {
 
 		mav.setViewName("/myPage/orderList");
 		return mav;
+	}
+
+	@GetMapping("/orderList/ajax")
+	public Map<String, Object> orderListAjax(Criteria cri) {
+		List<PayVO> pay = new ArrayList<PayVO>();
+		Map<String, Object> payAjax = new HashMap<String, Object>();
+		pay = myPageService.listOrder(cri);
+		int total = myPageService.getPayTotal();
+		payAjax.put("pay", pay);
+		payAjax.put("pageMaker", new PageVO(cri, total));
+		return payAjax;
 	}
 }

@@ -124,7 +124,7 @@
 								<li><a href="/commu/sns">SNS</a></li>
 								<li><a href="/commu/tips">노하우</a></li>
 								<li><a href="/commu/qna">질문과답변</a></li>
-								<li><a href="/map/home">펫츠하우스</a></li>
+								<li><a href="/map/home">펫츠타운</a></li>
 							</ul></li>
 						<li><a href="/store/home">STORE</a>
 							<ul class="dropdown">
@@ -143,6 +143,7 @@
 
 						<li><a href="/admin/home">관리자페이지</a>
 							<ul class="dropdown">
+								<li><a href="#">공지사항관리</a></li>
 								<li><a href="/admin/goods">상품관리</a></li>
 								<li><a href="/admin/member_list">회원관리</a></li>
 								<li><a href="#">통계</a></li>
@@ -151,7 +152,6 @@
 					</ul>
 				</nav>
 
-				<div id="mobile-menu-wrap"></div>
 			</div>
 		</div>
 

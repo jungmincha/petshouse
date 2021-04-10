@@ -197,6 +197,7 @@
 									<input type="hidden" name="goodsName">
 									<input type="hidden" name="amount">
 									<input type="hidden" name="board_id">
+									<input type="hidden" name="iamport_id" id="iamport_id">
 								</ul>
 
 								<div class="order-btn">
@@ -336,7 +337,7 @@
 		// 구매자정보
 		var email = "${member.member_id}";
 		var name = "${member.name}";
-		var tel = "${member.tel}";
+		var tel = "0${member.tel}";
 		var address = "${member.address}";
 
 		//결제 정보
@@ -368,6 +369,7 @@
 				msg += '상점 거래ID : ' + rsp.merchant_uid;
 				msg += '결제 금액 : ' + rsp.paid_amount;
 				msg += '카드 승인번호 : ' + rsp.apply_num;
+				$("#iamport_id").val(rsp.imp_uid)
 				document.form.submit();
 			} else {
 				var msg = '결제에 실패하였습니다.';

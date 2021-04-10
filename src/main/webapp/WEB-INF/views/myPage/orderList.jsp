@@ -152,72 +152,93 @@
 	font-size: 13px;
 }
 
-.custom-file label{ 
-display: inline-block;
-  padding: .5em .75em;
-  color: black;
-  font-size: inherit;
-  line-height: normal;
-  vertical-align: middle;
-  background-color: #fff;
-  cursor: pointer;
-  border-radius: .25em;
-  -webkit-transition: background-color 0.2s;
-  transition: background-color 0.2s;
+.custom-file label {
+	display: inline-block;
+	padding: .5em .75em;
+	color: black;
+	font-size: inherit;
+	line-height: normal;
+	vertical-align: middle;
+	background-color: #fff;
+	cursor: pointer;
+	border-radius: .25em;
+	-webkit-transition: background-color 0.2s;
+	transition: background-color 0.2s;
 }
 
 .custom-file label:active {
-  background-color: #ffd233;
+	background-color: #ffd233;
 }
 
 /* 스크롤바 */
 .modal-content {
-    width: 250px;
-    height: 140px;
-    overflow: auto;
-  }
-  .modal-content::-webkit-scrollbar {
-    width: 10px;
-  }
-  .modal-content::-webkit-scrollbar-thumb {
-    background-color: #666666;
-    border-radius: 10px;
-    background-clip: padding-box;
-    border: 2px solid transparent;
-  }
-  .modal-content::-webkit-scrollbar-track {
-    background-color: #CCCCCC;
-    border-radius: 10px;
-    box-shadow: inset 0px 0px 5px white;
-  }
- 
- /* 리뷰창 스크롤바 */
- #review {
-    width: 250px;
-    height: 140px;
-    overflow: auto;
-  }
-  #review::-webkit-scrollbar {
-    width: 10px;
-  }
-  #review::-webkit-scrollbar-thumb {
-    background-color: #666666;
-    border-radius: 10px;
-    background-clip: padding-box;
-    border: 2px solid transparent;
-  }
-  #review::-webkit-scrollbar-track {
-    background-color: #CCCCCC;
-    border-radius: 10px;
-    box-shadow: inset 0px 0px 5px white;
-  }
-  
+	width: 250px;
+	height: 140px;
+	overflow: auto;
+}
+
+.modal-content::-webkit-scrollbar {
+	width: 10px;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+	background-color: #666666;
+	border-radius: 10px;
+	background-clip: padding-box;
+	border: 2px solid transparent;
+}
+
+.modal-content::-webkit-scrollbar-track {
+	background-color: #CCCCCC;
+	border-radius: 10px;
+	box-shadow: inset 0px 0px 5px white;
+}
+
+/* 리뷰창 스크롤바 */
+#review {
+	width: 250px;
+	height: 140px;
+	overflow: auto;
+}
+
+#review::-webkit-scrollbar {
+	width: 10px;
+}
+
+#review::-webkit-scrollbar-thumb {
+	background-color: #666666;
+	border-radius: 10px;
+	background-clip: padding-box;
+	border: 2px solid transparent;
+}
+
+#review::-webkit-scrollbar-track {
+	background-color: #CCCCCC;
+	border-radius: 10px;
+	box-shadow: inset 0px 0px 5px white;
+}
+
+.top {
+	background-color: #e7ab3c;
+	border-radius: 10px;
+	cursor: pointer;
+	position: fixed;
+	right: 5px;
+	font-size: 15px;
+	bottom: 500px;
+	padding: 10px;
+}
 </style>
 </head>
 <body style="padding-top: 180px;">
-
+	<div class="top" onclick="window.scrollTo(0,0);">top</div>
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
 
+	<div class="container">
+		<button type="button" class="btn btn-primary collapsed"
+			data-toggle="collapse" data-target="#asd">Simple collapsible</button>
+		<div id="asd" class="collapse">dsfdsfsd</div>
+	</div>
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-3"></div>
@@ -248,12 +269,17 @@ display: inline-block;
 
 			<div class="col-lg-1"></div>
 		</div>
-		<div class="row">
-			<div class="col-lg-12">
+		<div class="row" id="orderList">
+			<!-- <div class="col-lg-12">
 				<div class="blog-details-inner">
+
 					<div class="posted-by">
-						<div class="row">
+
+						<button type="button" class="btn btn-info" data-toggle="collapse"
+							data-target="#demo">Click Me</button>
+						<div class="row collapse in" id="demo">
 							<div class="col-lg-4">
+
 								<div class="pb-pic">
 									<img src="/resources/img/products/product-1.jpg" class="pimg"
 										alt="">
@@ -262,283 +288,343 @@ display: inline-block;
 									<a href="#">
 										<h5>303123122 / 2021.04.08</h5>
 									</a>
-									<p>다용도 책상 테이블</p>
+									<p style="font-size: 22px">다용도 책상 테이블</p>
+									<span style="font-size: 13px">색상 - 빨강 / 사이즈 - M</span><br>
 								</div>
+
 							</div>
 							<div class="col-lg-2"></div>
 							<div class="col-lg-4">
-								<span style="font-size: 20px">색상 - 빨강</span><br> <span
-									style="font-size: 20px">29000원</span><br>
+								<br> <span style="font-size: 18px">29000원</span><br> <span
+									style="font-size: 18px">수량 - 1</span>
 
 							</div>
 							<div class="col-lg-2">
-								<span style="font-size: 20px"><button>배송추적</button></span><br>
+								<span style="font-size: 20px"><button>배송조회</button></span><br>
 
-								<!-- 모달 버튼 -->
+								모달 버튼
 								<span style="font-size: 20px"><button id="myBtn">리뷰
 										작성</button></span><br>
-
-								<!-- The Modal -->
-								<div id="myModal" class="modal">
-
-									<!-- Modal content -->
-									<div class="modal-content"  style="width: 600px; height: 710px;">
-										<div class="close" style="font-size:30px;">&times;</div>
-										<div style="text-align: center; font-weight: bold;">
-											<h4>리뷰 쓰기</h4>
-										</div>
-
-										<div class="container">
-
-											<form class=" needs-validation"
-												action="${pageContext.request.contextPath}/경로를 넣어주세요"
-												method="Post">
-
-												<div class="rbox">포토 리뷰 500P, 일반 리뷰 100P</div>
-
-												<!-- 상품사진, 상품명 -->
-												<div style="margin-top: 15px;">
-													<div class="pb-pic">
-														<img src="/resources/img/products/product-1.jpg"
-															class="pimg" alt="">
-													</div>
-													<div class="pb-text" style="line-height: 80px;">상품 이름
-														넣으세요</div>
-												</div>
-
-												<!-- 별점 -->
-												<div class="rsub">별점 평가</div>
-												<div class="form-group row">
-													<div class="form-group">
-														<div class="rate">
-															<input type="radio" id="star5" name="ratescore" value="5"
-																required /> <label for="star5" title="text">5
-																stars</label> <input type="radio" id="star4" name="ratescore"
-																value="4" /> <label for="star4" title="text">4
-																stars</label> <input type="radio" id="star3" name="ratescore"
-																value="3" /> <label for="star3" title="text">3
-																stars</label> <input type="radio" id="star2" name="ratescore"
-																value="2" /> <label for="star2" title="text">2
-																stars</label> <input type="radio" id="star1" name="ratescore"
-																value="1" /> <label for="star1" title="text">1
-																star</label>
-																<div class="invalid-feedback">없으면 공백 추가!</div>
-														</div>
-													</div>
-												</div>
-												<!-- 별점 end -->
-
-												<!-- 사진 등록 -->
-												<div class="rsub">
-													사진 등록 <span class="sub">(선택)</span>
-												</div>
-												<div class="form-group row">
-
-													<div id="preview"></div>
-													
-													<div class="input-group col-12">
-														<div class="custom-file">
-															<input type="file" class="custom-file-input" id="image"
-																name="image" style="display: block;"> 
-																<label
-																class="custom-file-label" for="inputGroupFile02">사진을
-																등록해주세요 (최대 1장)</label>
-														</div>
-													</div>
-												</div>
-												<!-- 사진등록 end -->
-
-												<!-- 리뷰 작성 -->
-												<div>
-													<div class="rsub">리뷰 작성</div>
-													<div>
-														<textarea class="form-control" name="content"
-															style="margin: auto; width: 100%; height: 100px; resize: none;"
-															id="review" placeholder="리뷰를 등록해주세요." required></textarea>
-															<div class="invalid-feedback">없으면 공백 추가!</div>
-													</div>
-												</div>
-												<!-- 리뷰 작성 end -->
-
-												<span>
-													<button type="submit" class="btn btn-warning"
-														style="margin: auto; width: 100%;"
-														onclick="location.href='${pageContext.request.contextPath}/경로를 입력하세요.'">리뷰
-														등록</button>
-												</span>
-											</form>
-										</div>
-									</div>
-								</div>
-								<!-- modal-content end -->
-
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
+			</div> -->
 
 		</div>
 
 	</div>
 
+	<c:if test="${pageMaker.prev}">
+		<a href="listPage${pageMaker.makeQuery(pageMaker.startPage - 1) }">«</a>
+	</c:if>
 
-	<script>
-	
+	<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }"
+		var="idx">
+		<a href="listPage${pageMaker.makeQuery(idx)}">${idx}</a>
+	</c:forEach>
+
+	<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
+		<a href="listPage${pageMaker.makeQuery(pageMaker.endPage +1) }"> »</a>
+	</c:if>
+	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
+	<!-- The Modal -->
+	<div id="myModal" class="modal">
+
+		<!-- Modal content -->
+		<div class="modal-content" style="width: 600px; height: 710px;">
+			<div class="close" style="font-size: 30px;">&times;</div>
+			<div style="text-align: center; font-weight: bold;">
+				<h4>리뷰 쓰기</h4>
+			</div>
+
+			<div class="container">
+
+				<form class=" needs-validation"
+					action="${pageContext.request.contextPath}/경로를 넣어주세요" method="Post">
+
+					<div class="rbox">포토 리뷰 500P, 일반 리뷰 100P</div>
+
+					<!-- 상품사진, 상품명 -->
+					<div style="margin-top: 15px;">
+						<div class="pb-pic">
+							<img src="/resources/img/products/product-1.jpg" class="pimg"
+								alt="">
+						</div>
+						<div class="pb-text" style="line-height: 80px;">상품 이름 넣으세요</div>
+					</div>
+
+					<!-- 별점 -->
+					<div class="rsub">별점 평가</div>
+					<div class="form-group row">
+						<div class="form-group">
+							<div class="rate">
+								<input type="radio" id="star5" name="ratescore" value="5"
+									required /> <label for="star5" title="text">5 stars</label> <input
+									type="radio" id="star4" name="ratescore" value="4" /> <label
+									for="star4" title="text">4 stars</label> <input type="radio"
+									id="star3" name="ratescore" value="3" /> <label for="star3"
+									title="text">3 stars</label> <input type="radio" id="star2"
+									name="ratescore" value="2" /> <label for="star2" title="text">2
+									stars</label> <input type="radio" id="star1" name="ratescore" value="1" />
+								<label for="star1" title="text">1 star</label>
+								<div class="invalid-feedback">없으면 공백 추가!</div>
+							</div>
+						</div>
+					</div>
+					<!-- 별점 end -->
+
+					<!-- 사진 등록 -->
+					<div class="rsub">
+						사진 등록 <span class="sub">(선택)</span>
+					</div>
+					<div class="form-group row">
+
+						<div id="preview"></div>
+
+						<div class="input-group col-12">
+							<div class="custom-file">
+								<input type="file" class="custom-file-input" id="image"
+									name="image" style="display: block;"> <label
+									class="custom-file-label" for="inputGroupFile02">사진을
+									등록해주세요 (최대 1장)</label>
+							</div>
+						</div>
+					</div>
+					<!-- 사진등록 end -->
+
+					<!-- 리뷰 작성 -->
+					<div>
+						<div class="rsub">리뷰 작성</div>
+						<div>
+							<textarea class="form-control" name="content"
+								style="margin: auto; width: 100%; height: 100px; resize: none;"
+								id="review" placeholder="리뷰를 등록해주세요." required></textarea>
+							<div class="invalid-feedback">없으면 공백 추가!</div>
+						</div>
+					</div>
+					<!-- 리뷰 작성 end -->
+
+					<span>
+						<button type="submit" class="btn btn-warning"
+							style="margin: auto; width: 100%;"
+							onclick="location.href='${pageContext.request.contextPath}/경로를 입력하세요.'">리뷰
+							등록</button>
+					</span>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- modal-content end -->
+
+
+</body>
+<script>
 	//공백확인용...
-	(function () {
-		  'use strict'
+	/* (function () {
+	 'use strict'
 
-		  // Fetch all the forms we want to apply custom Bootstrap validation styles to
-		  var forms = document.querySelectorAll('.needs-validation')
+	 // Fetch all the forms we want to apply custom Bootstrap validation styles to
+	 var forms = document.querySelectorAll('.needs-validation')
 
-		  // Loop over them and prevent submission
-		  Array.prototype.slice.call(forms)
-		    .forEach(function (form) {
-		      form.addEventListener('submit', function (event) {
-		        if (!form.checkValidity()) {
-		          event.preventDefault()
-		          event.stopPropagation()
-		        }
+	 // Loop over them and prevent submission
+	 Array.prototype.slice.call(forms)
+	 .forEach(function (form) {
+	 form.addEventListener('submit', function (event) {
+	 if (!form.checkValidity()) {
+	 event.preventDefault()
+	 event.stopPropagation()
+	 }
 
-		        form.classList.add('was-validated')
-		      }, false)
-		    })
-		})();
+	 form.classList.add('was-validated')
+	 }, false)
+	 })
+	 })();
+
+	 //사진
+	 $(document)
+	 .ready(
+	 function(e) {
+	 $("input[type='file']")
+	 .change(
+	 function(e) {
+
+	 //div 내용 비워주기
+	 $('#preview').empty();
+
+	 var files = e.target.files;
+	 var arr = Array.prototype.slice
+	 .call(files);
+
+	 //업로드 가능 파일인지 체크
+	 for (var i = 0; i < files.length; i++) {
+	 if (!checkExtension(
+	 files[i].name,
+	 files[i].size)) {
+	 return false;
+	 }
+	 }
+
+	 preview(arr);
+
+	 });//file change
+
+	 function checkExtension(fileName, fileSize) {
+
+	 var regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");
+	 var maxSize = 20971520; //20MB
+
+	 if (fileSize >= maxSize) {
+	 alert('파일 사이즈 초과');
+	 $("input[type='file']").val(""); //파일 초기화
+	 return false;
+	 }
+
+	 if (regex.test(fileName)) {
+	 alert('업로드 불가능한 파일이 있습니다.');
+	 $("input[type='file']").val(""); //파일 초기화
+	 return false;
+	 }
+	 return true;
+	 }
+
+	 function preview(arr) {
+	 arr
+	 .forEach(function(f) {
+
+	 //파일명이 길면 파일명...으로 처리
+	 var fileName = f.name;
+	 if (fileName.length > 10) {
+	 fileName = fileName.substring(0, 7)
+	 + "...";
+	 }
+
+	 //div에 이미지 추가
+	 var str = '<div style="display: inline-flex; padding: 10px;">';
 	
-	//사진
-	$(document)
-	.ready(
-			function(e) {
-				$("input[type='file']")
-						.change(
-								function(e) {
+	 //이미지 파일 미리보기
+	 if (f.type.match('image.*')) {
+	 var reader = new FileReader(); //파일을 읽기 위한 FileReader객체 생성
+	 reader.onload = function(e) { //파일 읽어들이기를 성공했을때 호출되는 이벤트 핸들러
+	 //str += '<button type="button" class="delBtn" value="'+f.name+'" style="background: red">x</button><br>';
+	 str += '<ul><img src="'+e.target.result+'" title="'+f.name+'" width=300 height=300 />';
+	 str += '</ul></div>';
+	 $(str).appendTo('#preview');
+	 }
+	 reader.readAsDataURL(f);
+	 }
+	 });//arr.forEach
+	 }
+	 });
 
-									//div 내용 비워주기
-									$('#preview').empty();
+	 //사진
+	 function readImage(input) {
+	 // 인풋 태그에 파일이 있는 경우
+	 if(input.files && input.files[0]) {
+	 // 이미지 파일인지 검사 (생략)
+	 // FileReader 인스턴스 생성
+	 const reader = new FileReader()
+	 // 이미지가 로드가 된 경우
+	 reader.onload = e => {
+	 const previewImage = document.getElementById("preview-image")
+	 previewImage.src = e.target.result
+	 }
+	 // reader가 이미지 읽도록 하기
+	 reader.readAsDataURL(input.files[0])
+	 }
+	 }
+	 // input file에 change 이벤트 부여
+	 const thumbnail = document.getElementById("image")
+	 thumbnail.addEventListener("change", e => {
+	 readImage(e.target)
+	 })
 
-									var files = e.target.files;
-									var arr = Array.prototype.slice
-											.call(files);
-
-									//업로드 가능 파일인지 체크
-									for (var i = 0; i < files.length; i++) {
-										if (!checkExtension(
-												files[i].name,
-												files[i].size)) {
-											return false;
-										}
-									}
-
-									preview(arr);
-
-								});//file change
-
-				function checkExtension(fileName, fileSize) {
-
-					var regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");
-					var maxSize = 20971520; //20MB
-
-					if (fileSize >= maxSize) {
-						alert('파일 사이즈 초과');
-						$("input[type='file']").val(""); //파일 초기화
-						return false;
-					}
-
-					if (regex.test(fileName)) {
-						alert('업로드 불가능한 파일이 있습니다.');
-						$("input[type='file']").val(""); //파일 초기화
-						return false;
-					}
-					return true;
-				}
-
-				function preview(arr) {
-					arr
-							.forEach(function(f) {
-
-								//파일명이 길면 파일명...으로 처리
-								var fileName = f.name;
-								if (fileName.length > 10) {
-									fileName = fileName.substring(0, 7)
-											+ "...";
-								}
-
-								//div에 이미지 추가
-								var str = '<div style="display: inline-flex; padding: 10px;">';
-								
-
-								//이미지 파일 미리보기
-								if (f.type.match('image.*')) {
-									var reader = new FileReader(); //파일을 읽기 위한 FileReader객체 생성
-									reader.onload = function(e) { //파일 읽어들이기를 성공했을때 호출되는 이벤트 핸들러
-										//str += '<button type="button" class="delBtn" value="'+f.name+'" style="background: red">x</button><br>';
-										str += '<ul><img src="'+e.target.result+'" title="'+f.name+'" width=300 height=300 />';
-										str += '</ul></div>';
-										$(str).appendTo('#preview');
-									}
-									reader.readAsDataURL(f);
-								}
-							});//arr.forEach
-				}
-			});
-	
-	//사진
-	function readImage(input) {
-	    // 인풋 태그에 파일이 있는 경우
-	    if(input.files && input.files[0]) {
-	        // 이미지 파일인지 검사 (생략)
-	        // FileReader 인스턴스 생성
-	        const reader = new FileReader()
-	        // 이미지가 로드가 된 경우
-	        reader.onload = e => {
-	            const previewImage = document.getElementById("preview-image")
-	            previewImage.src = e.target.result
-	        }
-	        // reader가 이미지 읽도록 하기
-	        reader.readAsDataURL(input.files[0])
-	    }
-	}
-	// input file에 change 이벤트 부여
-	const thumbnail = document.getElementById("image")
-	thumbnail.addEventListener("change", e => {
-	    readImage(e.target)
-	})
-	
 	 $("#image").change(function(){
 	 if(this.files && this.files[0]) {
-	  var reader = new FileReader;
-	
+	 var reader = new FileReader;
+
 	 reader.readAsDataURL(this.files[0]);
-	}
-	}); 
-	
-	
-//모달
-var modal = document.getElementById('myModal');
+	 }
+	 }); 
 
-var btn = document.getElementById("myBtn");
 
-var span = document.getElementsByClassName("close")[0];                                          
+	 //모달
+	 var modal = document.getElementById('myModal');
 
-btn.onclick = function() {
-    modal.style.display = "block";
-}
+	 var btn = document.getElementById("myBtn");
 
-span.onclick = function() {
-    modal.style.display = "none";
-}
+	 var span = document.getElementsByClassName("close")[0];                                          
 
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
+	 btn.onclick = function() {
+	 modal.style.display = "block";
+	 }
 
+	 span.onclick = function() {
+	 modal.style.display = "none";
+	 }
+
+	 window.onclick = function(event) {
+	 if (event.target == modal) {
+	 modal.style.display = "none";
+	 }
+	 } */
+	$(document)
+			.ready(
+					function() {
+						console.log("실행")
+						var pageNum = 1;
+						var amount = 10;
+
+						$
+								.ajax({
+									url : "/myPage/orderList/ajax",
+									type : "get",
+									//dataType : 'json',
+									//contentType : 'application/json; charset=UTF-8',
+									data : {
+										pageNum : pageNum,
+										amount : amount
+									},
+									success : function(data) {
+										html = "";
+										console.log(data);
+
+										for (var i = 1; i <= data.pay.length; i++) {
+											html += "<div class='col-lg-12'>"
+													+ "<div class='blog-details-inner'>"
+													+ "<div class='posted-by'>"
+													+ "<button type='button' class='btn btn-info' data-toggle='collapse' data-target='#demo"+i+"'>Click Me</button>"
+													+ "<div class='row collapse in' id='demo"+i+"'> <div class='col-lg-4'> <div class='pb-pic'>"
+													+ "<img src='/resources/img/products/product-1.jpg' class='pimg'> </div>"
+													+ "<div class='pb-text'> <a href='#''> <h5>"
+													+ data.pay[i - 1].pay_id
+													+ " / "
+													+ getFormatDate(data.pay[i - 1].paydate)
+													+ "</h5> </a> <p style='font-size: 22px'>다용도 책상 테이블</p>"
+													+ "<span style='font-size: 13px'>색상 - 빨강 / 사이즈 - M</span><br> </div>"
+													+ "</div> <div class='col-lg-2'></div> <div class='col-lg-4'> <br> <span style='font-size: 18px'>29000원</span><br> <span  style='font-size: 18px'>수량 - 1</span>"
+													+ "</div> <div class='col-lg-2'> <span style='font-size: 20px'><button>배송조회</button></span><br>"
+													+ "<span style='font-size: 20px'><button id='myBtn'>리뷰 작성</button></span><br>"
+													+ "</div> </div> </div> </div> </div> "
+										}
+										console.log(html)
+										$("#orderList").append(html);
+									}, //ajax 성공 시 
+									error : function(request, status, error) {
+										alert("카트가 비었습니다.")
+									} // ajax 에러 시 end
+
+								});// 장바구니 목록 함수 end
+						function getFormatDate(date) {
+							console.log(date);
+							var date = date.substr(0, 19);
+							var date = date.split("T");
+							var date = date[0]+" "+date[1];
+							console.log(date);
+							return date; //'-' 추가하여 yyyy-mm-dd 형태 생성 가능
+						}
+					})
 </script>
-
-	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
-</body>
 <!-- Js Plugins -->
 <script src="/resources/js/jquery-3.3.1.min.js"></script>
 <script src="/resources/js/bootstrap.min.js"></script>
