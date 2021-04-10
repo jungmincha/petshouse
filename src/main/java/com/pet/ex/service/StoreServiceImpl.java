@@ -9,6 +9,7 @@ import com.pet.ex.mapper.StoreMapper;
 import com.pet.ex.page.Criteria;
 import com.pet.ex.vo.BoardVO;
 import com.pet.ex.vo.CategoryVO;
+import com.pet.ex.vo.PointVO;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -69,5 +70,11 @@ public class StoreServiceImpl implements StoreService {
 	public List<BoardVO> getSns() {
 		log.info("getSns");
 		return mapper.getSns();
+	}
+
+	@Override
+	public void point(PointVO pointVO) {
+		log.info("point");
+		mapper.point(pointVO);
 	}
 }

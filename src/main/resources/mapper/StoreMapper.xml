@@ -187,8 +187,8 @@
 	        select * from(
 	        select rownum as rnum, A.*from (
 	           select round(avg(ratescore),1) as avgscore, count(*) as count, goods_id from board where boardtype_id=8 and category_id=#{category_id} group by goods_id order by count(*) desc
-	       ) A where rownum <=20
-	      )where rnum >= 1
+	       ) A where rownum <= 20
+	      )where rnum > 0
 	   ]]>
 	</select>
 	
@@ -198,6 +198,13 @@
 	        select * from category where category_id between 1 and 6 order by category_id asc
 	   ]]>
 	</select>
+	
+	<!-- point 저장 -->
+	<insert id="point">
+		<![CDATA[
+	       insert into point values(point_seq.nextval, ${pscore}, sysdate, 6, #{memberVO.member_id})
+	   ]]>
+	</insert>	
 	
 	
 	<!-- commu 노하우 조회-->

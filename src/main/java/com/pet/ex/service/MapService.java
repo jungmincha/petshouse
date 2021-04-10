@@ -23,5 +23,7 @@ public interface MapService {
 
 	public void insertLoc(MemberVO memberVO);
 
+	public List<MemberVO> getMemberList(String getMember_id);
+
 	
 }

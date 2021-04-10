@@ -43,10 +43,10 @@ button {
 }
 
 .modalBox {
-	border-radius: 6px;
+	border-radius: 10px;
 	position: absolute;
 	background-color: #fff;
-	width: 800px;
+	width: 900px;
 	height: 600px;
 	padding: 15px;
 }
@@ -62,19 +62,23 @@ button {
 #image{
 	cursor: pointer;
 }
+
 *{
     margin: 0;
     padding: 0;
 }
+
 .rate {
     float: left;
     height: 46px;
     padding: 0 10px;
 }
+
 .rate:not(:checked) > input {
     position:absolute;
     top:-9999px;
 }
+
 .rate:not(:checked) > label {
     float:right;
     width:1em;
@@ -102,31 +106,33 @@ button {
     color: #ffd233;
 }
 
-
 </style>
+
 <body>
 
+	<!-- 모달 버튼  -->
 	<button class="openBtn btn-warning">리뷰 작성</button>
 
-	<div class="modal hidden">
 		<!-- 모달창 띄워줌 -->
-		<div class="bg"></div>
+		<div class="modal hidden">
 		<!-- 모달 백그라운드 -->
+		<div class="bg"></div>
+		<!-- 모달창 -->
 		<div class="modalBox container">
-			<!-- 모달창 -->
+			
 
 			<div>
-				<button class="closeBtn">닫기</button>
+				<button class="closeBtn btn-warning">닫기</button>
 			</div>
 
-			<form id="goods" style="margin-top: 20px;"
-				action="${pageContext.request.contextPath}/경로를 넣어주세요" method="Post">
+			<!-- 리뷰 폼 -->
+			<form id="" style="margin-top: 20px;" action="${pageContext.request.contextPath}/경로를 넣어주세요" method="Post">
 
-				<h3 style="margin-bottom: 30px;">리뷰 작성</h3>
-				<hr>
-				<fieldset>
-				<table class="table_center" cellpadding="20">
-					<td><img style="width: 400px;" id="preview-image"
+				<h4 style="margin-bottom: 30px;">리뷰 작성</h4><hr>
+				
+				
+				<table class="table_center">
+					<td style="padding-top:50px;"><img style="width: 400px;" id="preview-image"
 							src="https://dummyimage.com/600x550/ffffff&text=+privew"></td>
 				
 				<td>	
@@ -140,7 +146,7 @@ button {
 				</div>
 				<div class="form-group row">
 					<label class="col-sm-3" style="text-align: center">상품명</label>
-					<div class="col-sm-9">GoodsVO.goods_id</div>
+					<div class="col-sm-9">상품명 끌고오기</div>
 				</div>
 
 				<hr>
@@ -171,10 +177,10 @@ button {
 				<hr>
 
 				<div class="form-group row">
-					<label class="col-sm-3" style="text-align: center">리뷰</label>
+					<label class="col-sm-3" style="text-align: center ">리뷰</label>
 					<div class="col-sm-9">
 						<textarea class="form-control" name="content"
-							style="height: 100px"
+							style="height: 50px; resize: none;"
 							placeholder="리뷰를 등록해주세요. (일반 100 포인트 / 포토 500포인트)" ></textarea>
 					</div>
 				</div>
@@ -187,7 +193,7 @@ button {
 
 </td>
 </table>
-</fieldset>
+
 			</form>
 
 		</div>
@@ -196,8 +202,6 @@ button {
 	<!-- 모달창    -->
 
 	<script>
-
-
 	$('input[type="text"]').keydown(function() {
 		  if (event.keyCode === 13) {
 		    event.preventDefault();

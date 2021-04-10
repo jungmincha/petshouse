@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 
@@ -81,6 +82,10 @@ a:active {
 a:hover {
 	text-decoration: none;
 }
+#hashtag{
+font-size:5px; 
+padding:5px ;
+}
 </style>
 
 </head>
@@ -123,13 +128,12 @@ a:hover {
 				<option value="4">조류</option>
 				<option value="5">어류</option>
 				<option value="6">기타</option>
-			</select> <span class="col-sm-9"></span> <a class="btn btn-warning col-sm-1 "
-				style="margin-left: 65px;" href="qna_write">질문하기</a>
+			</select> <span class="col-sm-9"></span> 
+			<a class="btn btn-warning col-sm-1 " style="margin-left: 65px;" href="qna_write">질문하기</a>
 		</div>
 
 		<!-- 게시글 끌고오기 -->
 
-		
 			<table class="table table-hover">
 			<c:forEach items="${qna}" var="qna">
 				<tbody id="qnaList">
@@ -138,6 +142,17 @@ a:hover {
 							<div>${qna.content}</div> <span>${qna.memberVO.nickname}</span> 
 							<span style="font-size: 13px; color: gray;">${qna.pdate}</span> 
 							<span style="font-size: 13px; color: gray;"> 조회수 ${qna.hit}</span>
+							<form action="${pageContext.request.contextPath}/commu/qnatag"
+				method="post">
+				<ul class="pd-tags">
+					<c:set var="hashtag" value="${qna.hashtag}" />
+					<c:set var="tag" value="${fn:split(hashtag, ' ')}" />
+					
+					<c:forEach var="t" items="${tag}">
+					<button id="hashtag" name="keyword"  class="btn btn-outline-info"  style=""value="${qna.hashtag}" onclick="location.href='${pageContext.request.contextPath}/commu/qnatag'">${t}</button>
+					</c:forEach>
+					
+				</ul> </form>
 					</a></td>
 				</tbody>
 				</c:forEach>
@@ -146,7 +161,7 @@ a:hover {
 
 
 		<!-- 페이징 -->
-		<div class="ul row">
+		<div class="ul">
 		<ul class="pagination justify-content-center"
 			style="padding-bottom: 50px; padding-top: 50px;">
 			<c:if test="${pageMaker.prev}">
@@ -178,8 +193,7 @@ a:hover {
 							var category_id = $(this).val();
 							console.log(category_id);
 
-							$
-									.ajax({
+							$.ajax({
 										url : "/commu/qna/pet",
 										type : "get",
 										data : {
@@ -196,7 +210,7 @@ a:hover {
 														+ "<a href='${pageContext.request.contextPath}/commu/qna_view?board_id="
 														+ data[i - 1].board_id
 														+ "'>"
-														+ data[i - 1].categoryVO.category_id
+														+ data[i - 1].categoryVO.categoryname
 														+ "<div style='font-weight: bold; font-size: 18px;'>"
 														+ data[i - 1].title
 														+ "</div>"

@@ -38,50 +38,6 @@
 
       // 숫자 평점을 별로 변환하도록 호출하는 함수
       $('.star-prototype').generateStars();
-      
-      
-      $('.btns').click(function(){
-    	  var pageNum = 1;
-
-    	  console.log(pageNum);
-    			  
-    	  	$.ajax({
-    	        type :"POST",
-    	        url :"/store/home/morelist",
-    	        data : {
-    	        	pageNum: pageNum 
-    	        },
-    	        success :function(data){
-    	           console.log(data);
-    	           var bestrate = data.bestrate;
-    	           var goods = data.goods;
-
-    	           html =  '<div class="row">';
-    	           for(var i in bestrate){
-    	        	  html += '<div class="col-lg-3 col-sm-6"> <div class="product-item">  <div class="pi-pic">';
-    	        	for(var j in goods){
-	       	          	if(goods[j].goodsVO.goods_id == bestrate[i].goodsVO.goods_id){
-	       	          	html += '<img src="/resources/img/admin/goods/'+goods[j].goodsVO.thumbnail+ '>';
-	       	          	html += '<div class="sale">Best' + bestrate[i].rnum + '</div>';        
-	       	          	html += '<ul><li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>';
-	       	          	html += '<li class="quick-view"><a href="/admin/goods_detail/' + goods[j].board_id + '>+ Quick View</a></li>';
-	       	          	html += '</ul> </div> <div class="pi-text"> <div class="catagory-name"> </div>';
-	       	         	html += '<a href="/admin/goods_detail/' + goods[j].board_id + '> <h5>' + goods[j].goodsVO.goodsname + '</h5></a>';
-	       	         	html += '<div class="product-price">' + goods[j].goodsVO.price + '원</div>';
-	       	         	html += '<span class="star-prototype">' + bestrate[i].avgscore + '</span>';
-	       	         	html += '<span> &nbsp; 리뷰' + bestrate[i].count + '</span> </div> </div> </div> </div>';       	          	
-	       	          	}//if end 
-    	        	}//goods foreach end      	   
-    	           } //bestrate foreach end
-    	            $(".cate").append(html)
-    	        }, //success end
-    	        error : function(request, status, error) {
-					alert("code:" + request.status + "\n" + "message:"
-							+ request.responseText + "\n" + "error:" + error);
-
-				} // ajax 에러 시 end
-    	    }); //ajax end
-    	}); //click end
    });
 </script>
 
@@ -115,13 +71,13 @@
     	height: 280px;
     }
     	
-	span.star-prototype, span.star-prototype>* {
+	span.star-prototype, span.star-prototype>*, span.star, span.star>* {
 	   height: 16px;
 	   background: url(http://i.imgur.com/YsyS5y8.png) 0 -16px repeat-x;
 	   display: inline-block;
 	}
 	
-	span.star-prototype>* {
+	span.star-prototype>*, span.star>* {
 	   background-position: 0 0;
 	   max-width: 80px;
 	}
@@ -203,32 +159,32 @@
             </div>
          </div>
           <div class="row">
-            <div class="col-sm-2">
+            <div class="col-lg-2 col-sm-2">
              <a href="/store/commu/category/101?categoryName=고양이 / 사료">    
                     <img src="/resources/img/category/cat.jpg"></a>
             </div>
 
-            <div class="col-sm-2">
+            <div class="col-lg-2 col-sm-2">
                   <a href="/store/commu/category/201?categoryName=강아지 / 사료">
                     <img src="/resources/img/category/dog.jpg"></a>
             </div>
 
-            <div class="col-sm-2">
+            <div class="col-lg-2 col-sm-2">
                   <a href="/store/commu/category/301?categoryName=파충류 / 사료">
                     <img src="/resources/img/category/reptile.jpg"></a>
             </div>
 
-            <div class="col-sm-2">
+            <div class="col-lg-2 col-sm-2">
                   <a href="/store/commu/category/501?categoryName=조류 / 모이">
                     <img src="/resources/img/category/bird.jpg"></a>
             </div>
 
-            <div class="col-sm-2">
+            <div class="col-lg-2 col-sm-2">
                   <a href="/store/commu/category/401?categoryName=어류 / 어항">
                      <img src="/resources/img/category/fish.jpg"></a>
             </div>
 
-            <div class="col-sm-2">
+            <div class="col-lg-2 col-sm-2">
                   <a href="/store/commu/category/601?categoryName=기타 / 사료">
                      <img src="/resources/img/category/other.jpg"></a>
             </div>
@@ -334,17 +290,16 @@
             	<c:forEach items="${bestrate}" var="bestrate">
                   <div class="col-lg-3 col-sm-6">
                      <div class="product-item">                   
-                      
+  
                         <div class="pi-pic">                     
                            <c:forEach items="${goods}" var="goods">
                                  <c:if test="${goods.goodsVO.goods_id eq bestrate.goodsVO.goods_id}">
-                                    <img src="/resources/img/admin/goods/${goods.goodsVO.thumbnail}" alt="">
-                           
-	                           <div class="sale">Best ${bestrate.rnum}</div>
-	                         	 <ul>
-	                                <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-	                                <li class="quick-view"><a href="/admin/goods_detail/${goods.board_id}">+ Quick View</a></li>
-	                            </ul>
+                                    <img src="/resources/img/admin/goods/${goods.goodsVO.thumbnail}" alt="">     
+	                           		<div class="sale">Best ${bestrate.rnum}</div>
+		                         	 <ul>
+		                                <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
+		                                <li class="quick-view"><a href="/admin/goods_detail/${goods.board_id}">+ Quick View</a></li>
+		                            </ul>
 	                        	</c:if>
 	                        </c:forEach>
                        	</div>
@@ -366,24 +321,67 @@
                   </div>
                </c:forEach>                      
             </div>
+            <div class="col-lg-12 text-center">
+            <button type="button" class="btn btn-warning" onClick="btnClick()">더보기</button>
+	        </div>
            </section> 
          <!-- Best Item End -->
-         
-	      <!-- 더보기 페이징 처리 -->
-	      
-	     <div class="btns"><div class="btn btn-primary">더보기</div></div>
-
 		</div>
       <!-- /.container -->
       
+     <!-- 더보기 페이징 처리 -->
+     <script>
+      var pageNum = 1;
+     
+      function btnClick(){
+    	  pageNum += 1;
+    	  console.log(pageNum);
+    	  		  
+    	  	$.ajax({
+    	        type :"POST",
+    	        url :"/store/morelist",
+    	        data : {
+    	        	pageNum: pageNum 
+    	        },
+    	        success :function(data){
+    	           console.log(data);
+    	           var bestrate = data.bestrate;
+    	           var goods = data.goods;
+					
+    	          html = "";
+    	           for(var i in bestrate){
+    	        	  html += "<div class='col-lg-3 col-sm-6'> <div class='product-item'>  <div class='pi-pic'>";
+    	        	for(var j in goods){
+	       	          	if(goods[j].goodsVO.goods_id == bestrate[i].goodsVO.goods_id){
+	       	          	html += "<img src='/resources/img/admin/goods/"+goods[j].goodsVO.thumbnail + "'>";
+	       	          	html += "<div class='sale'>Best" + bestrate[i].rnum + "</div>";        
+	       	          	html += "<ul><li class='w-icon active'><a href='#'><i class='icon_bag_alt'></i></a></li>";
+	       	          	html += "<li class='quick-view'><a href='/admin/goods_detail/" + goods[j].board_id + "'>+ Quick View</a></li>";
+	       	          	html += "</ul> </div> <div class='pi-text'> <div class='catagory-name'> </div>";
+	       	         	html += "<a href='/admin/goods_detail/" + goods[j].board_id + "'> <h5>" + goods[j].goodsVO.goodsname + "</h5></a>";
+	       	         	html += "<div class='product-price'>" + goods[j].goodsVO.price + "원</div>";
+	       	        	html += "<span class='star-prototype'> <span class='star' style='width:"+(bestrate[i].avgscore*16)+"px'> </span>" + "</span>";       	         	
+	       	         	html += "<span> &nbsp; 리뷰" + bestrate[i].count + "</span> </div> </div> </div> </div>";       	          	       	          	
+	       	          	}//if end 
+    	        	}//goods foreach end      	   
+    	           } //bestrate foreach end
+    	           
+    	            $(".cate").append(html); 
+    	          
+    	        }, 	        
+    	        //success end
+    	        error : function(request, status, error) {
+					alert("code:" + request.status + "\n" + "message:"
+							+ request.responseText + "\n" + "error:" + error);
+				} // ajax 에러 시 end
+    	    }); //ajax end	 
+    	}; //click end	
+      </script>
 
    <!-- Footer -->
    <%@ include file="/WEB-INF/views/include/footer.jsp"%>
 
    <!-- Bootstrap core JavaScript -->
-   <script src="/resources/store/vendor/jquery/jquery.min.js"></script>
-   <script
-      src="/resources/store/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
    <script src="/resources/js/jquery-3.3.1.min.js"></script>
    <script src="/resources/js/bootstrap.min.js"></script>
    <script src="/resources/js/jquery-ui.min.js"></script>

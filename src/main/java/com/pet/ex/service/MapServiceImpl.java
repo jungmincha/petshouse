@@ -39,6 +39,9 @@ public class MapServiceImpl implements MapService {
 
 	@Override
 	public void write(BoardVO boardVO) {
+		
+		
+		
 	mapper.write(boardVO);
 		
 	}
@@ -67,6 +70,14 @@ public class MapServiceImpl implements MapService {
 		
 		mapper.insertLoc(memberVO);
 		
+	}
+
+
+
+	@Override
+	public List<MemberVO> getMemberList(String getMember_id) {
+		
+		return mapper.getMemberList(getMember_id);
 	}
 
 

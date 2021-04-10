@@ -157,6 +157,12 @@ public class CommunityServiceImpl implements CommunityService {
 		return mapper.getPetQna(category_id);
 	}
 	
-	
+
+	// 질문과 답변 태그
+	@Override
+	public List<BoardVO> getQtag(String keyword) {
+		log.info("mapper.getQtag()호출");
+		return mapper.getQtag(keyword);
+	}
 
 }

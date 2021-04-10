@@ -36,7 +36,7 @@ public class CommunityController {
 
 	@Autowired
 	private CommunityService communityService;
-	
+
 	@Autowired
 	private AdminService service;
 
@@ -152,7 +152,6 @@ public class CommunityController {
 	// 질문과 답변 메인 페이지 리스트 출력
 	@RequestMapping("/qna")
 	public ModelAndView qna(Criteria cri, ModelAndView mav) {
-		
 		mav.addObject("qna", communityService.getQnaList(cri));
 		int total = communityService.getTotal(cri);
 		mav.addObject("pageMaker", new PageVO(cri, total));
@@ -160,14 +159,14 @@ public class CommunityController {
 		return mav;
 
 	}
-	
+
 	// 질문과 답변 특정 글 페이지 출력
-		@GetMapping("/qna/pet")
-		public List<BoardVO> qna_pet(int category_id) throws Exception {
-			List<BoardVO> list = communityService.getPetQna(category_id);
-			log.info("qna_pet()실행"); 
-			return list;
-		}
+	@GetMapping("/qna/pet")
+	public List<BoardVO> qna_pet(int category_id) throws Exception {
+		List<BoardVO> list = communityService.getPetQna(category_id);
+		log.info("qna_pet()실행");
+		return list;
+	}
 
 	// 질문과 답변 특정 글 페이지 출력
 	@GetMapping("/qna_view")
@@ -180,6 +179,7 @@ public class CommunityController {
 		return mav;
 	}
 
+	// 질문과 답변 댓글 작성
 	@PostMapping("/qna_view/insert")
 	public BoardVO insertComment(BoardVO boardVO, @RequestParam("member_id") String member_id) {
 		MemberVO member = new MemberVO();
@@ -198,6 +198,16 @@ public class CommunityController {
 		log.info("qsearch()실행");
 		mav.addObject("qsearch", communityService.getQsearch(keyword));
 		mav.setViewName("/community/qnasearch");
+		return mav;
+	}
+
+	// 질문과 답변 태그 검색
+	@PostMapping("/qnatag")
+	public ModelAndView qtag(@RequestParam("keyword") String keyword, ModelAndView mav, BoardVO boardVO)
+			throws Exception {
+		log.info("qtag()실행");
+		mav.addObject("qtag", communityService.getQtag(keyword));
+		mav.setViewName("/community/qnatag");
 		return mav;
 	}
 

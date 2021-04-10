@@ -70,4 +70,6 @@ public interface CommunityMapper {
 	// 질문과 답변 해당 동물의  글
 	public List<BoardVO> getPetQna(int category_id);
 
+	// 질문과 답변 태그
+	public List<BoardVO> getQtag(String keyword);
 }
