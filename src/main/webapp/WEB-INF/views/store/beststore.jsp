@@ -6,39 +6,28 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport"
-   content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
-<meta name="viewport"
-   content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
 <title>beststore</title>
 
 <!-- bootstrap css cdn -->
-<link rel="stylesheet"
-   href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-   type="text/css" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" type="text/css" />
+
 <!-- Css Styles -->
-<link rel="stylesheet" href="/resources/css/bootstrap.min.css"
-   type="text/css">
-<link rel="stylesheet" href="/resources/css/font-awesome.min.css"
-   type="text/css">
-<link rel="stylesheet" href="/resources/css/themify-icons.css"
-   type="text/css">
-<link rel="stylesheet" href="/resources/css/elegant-icons.css"
-   type="text/css">
-<link rel="stylesheet" href="/resources/css/owl.carousel.min.css"
-   type="text/css">
-<link rel="stylesheet" href="/resources/css/nice-select.css"
-   type="text/css">
-<link rel="stylesheet" href="/resources/css/jquery-ui.min.css"
-   type="text/css">
-<link rel="stylesheet" href="/resources/css/slicknav.min.css"
-   type="text/css">
+<link rel="stylesheet" href="/resources/css/bootstrap.min.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/font-awesome.min.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/themify-icons.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/elegant-icons.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/owl.carousel.min.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/nice-select.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/jquery-ui.min.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/slicknav.min.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/style.css" type="text/css">
+
 <!-- jquery cdn -->
-<script
-   src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
   <script type="text/javascript">
     $(document).ready(function(){	
@@ -52,12 +41,10 @@
     
     function fire_ajax_submit(id) {
     	console.log(id);
-    	var category_id = id;
-		
+    	var category_id = id;	
 		var form = {
 				category_id: category_id
-		};    
-		
+		};   
     	var url = "/store/best/"+id;
     		
     $.ajax({
@@ -65,19 +52,17 @@
         contentType: 'application/json; charset=utf-8',
   		url: url,
         data: JSON.stringify(form), 
-        cache : false,
-        
+        cache : false,  
         success: function (data) {         	
           console.log("SUCCESS : ", data); 
           $('#input').html(data);
-        },
-        
+        },    
         error: function (e) {
      	   console.log("ERROR : ", e);
         }
     });
 } 
-  </script>
+</script>
   
 <style>
     .single-banner{
@@ -106,6 +91,17 @@
 	span.star-prototype > * {
 	    background-position: 0 0;
 	    max-width:80px; 
+	}
+	
+	.top {
+	   background-color: #e7ab3c;
+	   border-radius: 10px;
+	   cursor: pointer; 
+	   position: fixed; 
+	   right: 5px; 
+	   font-size: 15px; 
+	   bottom: 500px;
+	   padding:10px;
 	}	
   </style>
 </head>
@@ -116,8 +112,8 @@
  
     <!-- Best Products  -->
     <section class="latest-blog spad">
-        <div class="container">
-       <!--가져올 부분-->
+       <div class="container">
+       <!--bestcate에서 호출되는 부분-->
 		<div id = "input">
             <div class="row">
                 <div class="col-lg-12">
@@ -157,38 +153,32 @@
   		  
             <!-- Goods -->
              <div class="cate row">
-           <c:forEach items="${bestrate}" var="rate">
+           		<c:forEach items="${rate}" var="rate">
                 <div class="col-lg-3 col-sm-6">
                     <div class="product-item">
-                    
                         <div class="pi-pic">			   
-                              <c:forEach items="${goods}" var="goods">
-                               <c:if test="${rate.goodsVO.goods_id eq goods.goodsVO.goods_id}">
-                                 <img src="/resources/img/admin/goods/${goods.goodsVO.thumbnail}" alt="">
-                           
-             				
-                            <div class="sale">Best ${rate.rnum}</div>     
-                           
-                          	<ul>
-                                <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                <li class="quick-view"><a href="/admin/goods_detail/${goods.board_id}">+ Quick View</a></li>
-                            </ul>
-                            </c:if>
+                        	<c:forEach items="${goods}" var="goods">
+                            	<c:if test="${rate.goodsVO.goods_id eq goods.goodsVO.goods_id}">
+                                	<img src="/resources/img/admin/goods/${goods.goodsVO.thumbnail}" alt="">
+		                            <div class="sale">Best ${rate.rnum}</div>                     
+		                          	<ul>
+		                                <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
+		                                <li class="quick-view"><a href="/admin/goods_detail/${goods.board_id}">+ Quick View</a></li>
+		                            </ul>
+                            	</c:if>
                             </c:forEach>
                         </div>
                         
                         <div class="pi-text">
                             <div class="catagory-name"> </div>
-                            <c:forEach items="${goods}" var="goods">
-                               <c:if test="${rate.goodsVO.goods_id eq goods.goodsVO.goods_id}">
-                                
-					           	  <a href="/admin/goods_detail/${goods.board_id}">
-                                			<h5>${goods.goodsVO.goodsname}</h5>               
-                           				 </a>                       
+                           		<c:forEach items="${goods}" var="goods">
+                            		<c:if test="${rate.goodsVO.goods_id eq goods.goodsVO.goods_id}">
+                                		<a href="/admin/goods_detail/${goods.board_id}">
+                                		  <h5>${goods.goodsVO.goodsname}</h5></a>                       
 		                            	<div class="product-price"> ${goods.goodsVO.price}원</div>                   
-						  <span class="star-prototype"> ${rate.avgscore}</span> <span> &nbsp; 리뷰 ${rate.count}</span>         
-                        </c:if>
-                        </c:forEach>
+						  				<span class="star-prototype"> ${rate.avgscore}</span> <span> &nbsp; 리뷰 ${rate.count}</span>         
+                        			</c:if>
+                        		</c:forEach>
                         </div>                    
                     </div>     
                 </div>
@@ -198,9 +188,9 @@
             <div class="col-lg-12 text-center">
             <button type="button" class="btn btn-warning" onClick="btnClick()">더보기</button>
 	        </div>
-	        </div>
-	        </div>
-	        </section>
+	       </div>
+	     </div>
+	  </section>
      <!-- Goods End -->
  
       <!-- 더보기 페이징 처리 -->
@@ -219,23 +209,23 @@
     	        },
     	        success :function(data){
     	           console.log(data);
-    	           var bestrate = data.bestrate;
+    	           var rate = data.rate;
     	           var goods = data.goods;
 					
     	          html = "";
-    	           for(var i in bestrate){
+    	           for(var i in rate){
     	        	  html += "<div class='col-lg-3 col-sm-6'> <div class='product-item'>  <div class='pi-pic'>";
     	        	for(var j in goods){
-	       	          	if(goods[j].goodsVO.goods_id == bestrate[i].goodsVO.goods_id){
-	       	          	html += "<img src='/resources/img/admin/goods/"+goods[j].goodsVO.thumbnail + "'>";
-	       	          	html += "<div class='sale'>Best" + bestrate[i].rnum + "</div>";        
-	       	          	html += "<ul><li class='w-icon active'><a href='#'><i class='icon_bag_alt'></i></a></li>";
-	       	          	html += "<li class='quick-view'><a href='/admin/goods_detail/" + goods[j].board_id + "'>+ Quick View</a></li>";
-	       	          	html += "</ul> </div> <div class='pi-text'> <div class='catagory-name'> </div>";
-	       	         	html += "<a href='/admin/goods_detail/" + goods[j].board_id + "'> <h5>" + goods[j].goodsVO.goodsname + "</h5></a>";
-	       	         	html += "<div class='product-price'>" + goods[j].goodsVO.price + "원</div>";
-	       	        	html += "<span class='star-prototype'> <span class='star' style='width:"+(bestrate[i].avgscore*16)+"px'> </span>" + "</span>";       	         	
-	       	         	html += "<span> &nbsp; 리뷰" + bestrate[i].count + "</span> </div> </div> </div> </div>";       	          	       	          	
+	       	          	if(goods[j].goodsVO.goods_id == rate[i].goodsVO.goods_id){
+	       	          	html += "<img src='/resources/img/admin/goods/"+goods[j].goodsVO.thumbnail + "'>"
+	       	          	  	 + "<div class='sale'>Best" + rate[i].rnum + "</div>"       
+	       	          		 + "<ul><li class='w-icon active'><a href='#'><i class='icon_bag_alt'></i></a></li>"
+		       	          	 + "<li class='quick-view'><a href='/admin/goods_detail/" + goods[j].board_id + "'>+ Quick View</a></li>"
+		       	          	 + "</ul> </div> <div class='pi-text'> <div class='catagory-name'> </div>"
+		       	         	 + "<a href='/admin/goods_detail/" + goods[j].board_id + "'> <h5>" + goods[j].goodsVO.goodsname + "</h5></a>"
+		       	         	 + "<div class='product-price'>" + goods[j].goodsVO.price + "원</div>"
+		       	        	 + "<span class='star-prototype'> <span class='star' style='width:"+(rate[i].avgscore*16)+"px'> </span>" + "</span>"       	         	
+		       	         	 + "<span> &nbsp; 리뷰" + rate[i].count + "</span> </div> </div> </div> </div>";       	          	       	          	
 	       	          	}//if end 
     	        	}//goods foreach end      	   
     	           } //bestrate foreach end
@@ -252,8 +242,11 @@
     	}; //click end	
       </script>
     
+    <!-- top scroll -->
+	<div class="top" onclick="window.scrollTo(0,0);">top</div>	
+	
    <!-- Footer -->
- <%@ include file="/WEB-INF/views/include/footer.jsp" %>
+ 	<%@ include file="/WEB-INF/views/include/footer.jsp" %>
  
    <!-- Bootstrap core JavaScript -->
    <script src="/resources/js/jquery-3.3.1.min.js"></script>

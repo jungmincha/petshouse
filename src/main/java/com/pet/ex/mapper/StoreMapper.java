@@ -10,23 +10,23 @@ import com.pet.ex.vo.CategoryVO;
 import com.pet.ex.vo.PointVO;
 
 @Mapper
-public interface StoreMapper {
-	public List<BoardVO> getStore();
-	
+public interface StoreMapper {	
 	public List<BoardVO> getStorerate(Criteria cri);
-	
-	public int getStoretotal();
 
 	public List<BoardVO> getGoodsinfo();
 	
 	public List<BoardVO> getBestrate(int category_id);
 	
 	public List<CategoryVO> getCategory();
+	
+	public void point(PointVO pointVO);
+	
+	public int getEventstatus(PointVO pointVO);
 
-	//commu
+	//커뮤니티 노하우 조회
 	public List<BoardVO> getKnowhow();
 
+	//커뮤니티 SNS 조회
 	public List<BoardVO> getSns();
 
-	public void point(PointVO pointVO);
 }

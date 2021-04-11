@@ -144,19 +144,8 @@
 <result property="goodspath" column="goodspath"/>
 <collection property="boardVO" resultMap="boardvo"/>
 </resultMap>
-
-	<!-- storehome 상품에 대한 별점 평균 -->
-	<select id="getStore" resultMap="boardvo">
-		<![CDATA[
-	        select * from(
-		        select rownum as rnum, A.*from (
-		           select round(avg(ratescore),1) as avgscore, count(*) as count, goods_id from board where boardtype_id=8 group by goods_id order by count(*) desc
-		       ) A where rownum <= 20
-	       )where rnum > 0
-	   ]]>
-	</select>	
 	
-	<!-- storehome 페이징 처리 -->
+	<!-- 상품에 대한 별점 평균/ 페이징 처리 -->
 	<select id="getStorerate" resultMap="boardvo">
 		<![CDATA[
 	        select * from(
@@ -166,22 +155,15 @@
 	       )where rnum > (#{pageNum}-1) * #{amount} 
 	   ]]>
 	</select>
-
-	<!-- 회원 수 조회 -->
-	<select id="getStoretotal" resultType="int">
-	  <![CDATA[
-	     select count(*) from board where boardtype_id=3
-	   ]]>
-	</select>
 	
-	<!-- Goods 전체 정보 -->
+	<!-- 상품 전체 정보 -->
 	<select id="getGoodsinfo" resultMap="boardvo">
 		<![CDATA[
 	      select g.goods_id, g.goodsname, TO_CHAR(g.price,'99,999') as price, b.board_id, g.thumbnail from board b, goods g where b.goods_id=g.goods_id and b.boardtype_id=3
 	   ]]>
 	</select>
 	
-	<!-- best 상품에 대한 별점 평균 -->
+	<!-- 베스트 상품에 대한 별점 평균 -->
 	<select id="getBestrate" resultMap="boardvo">
 		<![CDATA[
 	        select * from(
@@ -191,6 +173,13 @@
 	      )where rnum > 0
 	   ]]>
 	</select>
+	
+	<!-- 이벤트(7일) 참여 조회-->
+	<select id="getEventstatus" resultType="int">
+		<![CDATA[
+			select count(*) as count from point where pdate >= TO_CHAR(SYSDATE-7,'YYYYMMDD') and member_id=#{memberVO.member_id} and pointtype_id=6
+	   ]]>
+	</select>	
 	
 	<!-- category 조회-->
 	<select id="getCategory" resultType="CategoryVO">
@@ -206,6 +195,7 @@
 	   ]]>
 	</insert>	
 	
+
 	
 	<!-- commu 노하우 조회-->
 	<select id="getKnowhow" resultType="BoardVO">
