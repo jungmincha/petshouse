@@ -81,6 +81,17 @@
 	   background-position: 0 0;
 	   max-width: 80px;
 	}
+	
+	.top {
+	   background-color: #e7ab3c;
+	   border-radius: 10px;
+	   cursor: pointer; 
+	   position: fixed; 
+	   right: 5px; 
+	   font-size: 15px; 
+	   bottom: 500px;
+	   padding:10px;
+	}
 </style>
 </head>
 
@@ -99,7 +110,7 @@
                      <span>Cat, Toy</span>
                      <h1>Today's HOT</h1>
                      <p></p>
-                     <a href="#" class="primary-btn">Shop Now</a>
+                     <a href="/store/commu/category/101?categoryName=고양이 / 장난감" class="primary-btn">Shop Now</a>                   
                   </div>
                </div>
             </div>
@@ -113,7 +124,7 @@
                      <span>Dog, Snack</span>
                      <h1 style="color: #d3d3d3">Today's HOT</h1>
                      <p></p>
-                     <a href="#" class="primary-btn">Shop Now</a>
+                     <a href="/store/commu/category/101?categoryName=강아지 / 간식/영양제" class="primary-btn">Shop Now</a>
                   </div>
                </div>
             </div>
@@ -127,7 +138,7 @@
                      <span>Dog, Food</span>
                      <h1 style="color: #eeeeee">Today's HOT</h1>
                      <p></p>
-                     <a href="#" class="primary-btn">Shop Now</a>
+                     <a href="/store/commu/category/101?categoryName=강아지 / 사료" class="primary-btn">Shop Now</a>
                   </div>
                </div>
             </div>
@@ -141,7 +152,7 @@
                      <span>Dog, Clothes</span>
                      <h1 style="color: #eeeeee">Today's HOT</h1>
                      <p></p>
-                     <a href="#" class="primary-btn">Shop Now</a>
+                     <a href="/store/commu/category/101?categoryName=강아지 / 의류/패션" class="primary-btn">Shop Now</a>
                   </div>
                </div>
             </div>
@@ -287,15 +298,15 @@
                	  </div>
             </div>
             <div class="cate row">
-            	<c:forEach items="${bestrate}" var="bestrate">
+            	<c:forEach items="${rate}" var="rate">
                   <div class="col-lg-3 col-sm-6">
                      <div class="product-item">                   
   
                         <div class="pi-pic">                     
                            <c:forEach items="${goods}" var="goods">
-                                 <c:if test="${goods.goodsVO.goods_id eq bestrate.goodsVO.goods_id}">
+                                 <c:if test="${goods.goodsVO.goods_id eq rate.goodsVO.goods_id}">
                                     <img src="/resources/img/admin/goods/${goods.goodsVO.thumbnail}" alt="">     
-	                           		<div class="sale">Best ${bestrate.rnum}</div>
+	                           		<div class="sale">Best ${rate.rnum}</div>
 		                         	 <ul>
 		                                <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
 		                                <li class="quick-view"><a href="/admin/goods_detail/${goods.board_id}">+ Quick View</a></li>
@@ -307,13 +318,13 @@
                         <div class="pi-text">
                            <div class="catagory-name"></div>
                               <c:forEach items="${goods}" var="goods">
-                                 <c:if test="${goods.goodsVO.goods_id eq bestrate.goodsVO.goods_id}"> 
+                                 <c:if test="${goods.goodsVO.goods_id eq rate.goodsVO.goods_id}"> 
                                  <a href="/admin/goods_detail/${goods.board_id}">
                                     <h5>${goods.goodsVO.goodsname}</h5>
                                  </a>
                            <div class="product-price">${goods.goodsVO.price}원</div>
-                              <span class="star-prototype"> ${bestrate.avgscore}</span>
-                              <span> &nbsp; 리뷰 ${bestrate.count}</span>
+                              <span class="star-prototype"> ${rate.avgscore}</span>
+                              <span> &nbsp; 리뷰 ${rate.count}</span>
                               	</c:if>
                               </c:forEach>
                         </div>
@@ -345,23 +356,23 @@
     	        },
     	        success :function(data){
     	           console.log(data);
-    	           var bestrate = data.bestrate;
+    	           var rate = data.rate;
     	           var goods = data.goods;
 					
     	          html = "";
-    	           for(var i in bestrate){
+    	           for(var i in rate){
     	        	  html += "<div class='col-lg-3 col-sm-6'> <div class='product-item'>  <div class='pi-pic'>";
     	        	for(var j in goods){
-	       	          	if(goods[j].goodsVO.goods_id == bestrate[i].goodsVO.goods_id){
-	       	          	html += "<img src='/resources/img/admin/goods/"+goods[j].goodsVO.thumbnail + "'>";
-	       	          	html += "<div class='sale'>Best" + bestrate[i].rnum + "</div>";        
-	       	          	html += "<ul><li class='w-icon active'><a href='#'><i class='icon_bag_alt'></i></a></li>";
-	       	          	html += "<li class='quick-view'><a href='/admin/goods_detail/" + goods[j].board_id + "'>+ Quick View</a></li>";
-	       	          	html += "</ul> </div> <div class='pi-text'> <div class='catagory-name'> </div>";
-	       	         	html += "<a href='/admin/goods_detail/" + goods[j].board_id + "'> <h5>" + goods[j].goodsVO.goodsname + "</h5></a>";
-	       	         	html += "<div class='product-price'>" + goods[j].goodsVO.price + "원</div>";
-	       	        	html += "<span class='star-prototype'> <span class='star' style='width:"+(bestrate[i].avgscore*16)+"px'> </span>" + "</span>";       	         	
-	       	         	html += "<span> &nbsp; 리뷰" + bestrate[i].count + "</span> </div> </div> </div> </div>";       	          	       	          	
+	       	          	if(goods[j].goodsVO.goods_id == rate[i].goodsVO.goods_id){
+	       	          	html += "<img src='/resources/img/admin/goods/"+goods[j].goodsVO.thumbnail + "'>"
+	       	          		 + "<div class='sale'>Best" + rate[i].rnum + "</div>"       
+	       	          		 + "<ul><li class='w-icon active'><a href='#'><i class='icon_bag_alt'></i></a></li>"
+	       	          		 + "<li class='quick-view'><a href='/admin/goods_detail/" + goods[j].board_id + "'>+ Quick View</a></li>"
+	       	          		 + "</ul> </div> <div class='pi-text'> <div class='catagory-name'> </div>"
+	       	         	 	 + "<a href='/admin/goods_detail/" + goods[j].board_id + "'> <h5>" + goods[j].goodsVO.goodsname + "</h5></a>"
+	       	         	 	 + "<div class='product-price'>" + goods[j].goodsVO.price + "원</div>"
+	       	        	 	 + "<span class='star-prototype'> <span class='star' style='width:"+(rate[i].avgscore*16)+"px'> </span>" + "</span>"       	         	
+	       	         	 	 + "<span> &nbsp; 리뷰" + rate[i].count + "</span> </div> </div> </div> </div>";       	          	       	          	
 	       	          	}//if end 
     	        	}//goods foreach end      	   
     	           } //bestrate foreach end
@@ -378,6 +389,9 @@
     	}; //click end	
       </script>
 
+	<!-- top scroll -->
+	<div class="top" onclick="window.scrollTo(0,0);">top</div>	
+	
    <!-- Footer -->
    <%@ include file="/WEB-INF/views/include/footer.jsp"%>
 

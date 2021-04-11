@@ -7,12 +7,8 @@ import com.pet.ex.vo.BoardVO;
 import com.pet.ex.vo.CategoryVO;
 import com.pet.ex.vo.PointVO;
 
-public interface StoreService {
-	public List<BoardVO> getStorerate();
-	
+public interface StoreService {	
 	public List<BoardVO> getStorerate(Criteria cri);
-	
-	public int getStoretotal();
 
 	public List<BoardVO> getGoodsinfo();
 
@@ -22,11 +18,11 @@ public interface StoreService {
 	
 	public void point(PointVO pointVO);
 
-	//community 
-	//노하우 조회
+	public int getEventstatus(PointVO pointVO);
+	
+	//커뮤니티 노하우 조회
 	public List<BoardVO> getKnowhow();
 	
-	//sns 조회
+	//커뮤니티 SNS 조회
 	public List<BoardVO> getSns();
-
 }

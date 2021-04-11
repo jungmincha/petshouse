@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.pet.ex.page.Criteria;
-import com.pet.ex.page.PageVO;
-import com.pet.ex.service.FileService;
 import com.pet.ex.service.StoreService;
 
 import com.pet.ex.vo.BoardVO;
@@ -39,8 +37,7 @@ public class StoreController {
 	@GetMapping("/home")
 	public ModelAndView storehome(Criteria cri, ModelAndView mav) {
 		log.info("storehome");
-		mav.addObject("rate", service.getStorerate());
-		mav.addObject("bestrate", service.getStorerate(cri));		
+		mav.addObject("rate", service.getStorerate(cri));		
 		mav.addObject("goods", service.getGoodsinfo());
 		mav.setViewName("store/home");
 		return mav;
@@ -51,9 +48,9 @@ public class StoreController {
 	public Map<String, Object> storehome(Criteria cri) {
 		log.info("morelist");
 		Map<String, Object> list = new HashMap<>();
-		List<BoardVO> bestrate = service.getStorerate(cri);
+		List<BoardVO> rate = service.getStorerate(cri);
 		List<BoardVO> goods = service.getGoodsinfo();
-		list.put("bestrate", bestrate);
+		list.put("rate", rate);
 		list.put("goods", goods);
 		return list;
 	}
@@ -61,8 +58,8 @@ public class StoreController {
 	//besthome 이동
 	@GetMapping("/best")
 	public ModelAndView best(Criteria cri, ModelAndView mav) {
-		log.info("best");			
-		mav.addObject("bestrate", service.getStorerate(cri));
+		log.info("beststore");			
+		mav.addObject("rate", service.getStorerate(cri));
 		mav.addObject("goods", service.getGoodsinfo());	
 		mav.setViewName("store/beststore");
 		return mav;
@@ -82,7 +79,7 @@ public class StoreController {
 	@GetMapping("/event")
 	public ModelAndView event(ModelAndView mav) {
 		log.info("event");	
-		mav.setViewName("store/event4");
+		mav.setViewName("store/event");
 		return mav;
 	}
 	
@@ -95,8 +92,15 @@ public class StoreController {
 		pointVO.getMemberVO().setMember_id(member_id);
 		ResponseEntity<String> entity = null;			
 		try {
-			service.point(pointVO);
-			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+			int count = service.getEventstatus(pointVO);			
+			log.info("count" + count);	
+			//이벤트 중복 참여 검사
+			if(count >= 1) {
+				entity = new ResponseEntity<String>("FAIL", HttpStatus.OK);
+			}else{
+				service.point(pointVO);
+				entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
