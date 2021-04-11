@@ -21,6 +21,7 @@ public class PayVO {
 	private String deliveryaddress;
 	private String deliveryname;
 	private int deliverytel;
+	private String iamport_id;
 
 	// 외래키
 	private PaystateVO paystateVO;

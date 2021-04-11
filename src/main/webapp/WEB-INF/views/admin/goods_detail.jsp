@@ -160,39 +160,16 @@ h2 {
 	height: 150px;
 }
 
-.pcolor {
-	width: 45px;
+.top {
 	background-color: #e7ab3c;
-	height: 30px;
-}
-
-.form_radio_btn {
-	display: inline-block;
-	margin-right: 10px;
-}
-
-.form_radio_btn input[type=radio] {
-	display: none;
-}
-
-.form_radio_btn label {
-	display: inline-block;
-	cursor: pointer;
-	padding: 0px 15px;
-	line-height: 34px;
-	border: 1px solid #999;
-	/* border-radius: 6px; */
-	 user-select: none; 
-}
-
-/* Checked */
-.form_radio_btn input[type=radio]:checked+label {
-	background: #ffe0a6;
-}
-
-/* Hover */
-.form_radio_btn label:hover {
-	color: #666;
+	border-radius: 10px;
+	cursor: pointer; 
+	position: fixed; 
+	right: 5px; 
+	font-size: 15px; 
+	bottom: 500px;
+	padding:10px;
+ 
 }
 </style>
 
@@ -208,6 +185,7 @@ h2 {
 
 	<section class="product-shop spad page-details">
 		<div class="container">
+		<div class="top" onclick="window.scrollTo(0,0);">top</div>
 			<div class="row">
 				<div class="col-lg-2">
 					<div class="sidebar" style="display: block;">
@@ -411,51 +389,33 @@ h2 {
 										</h4>
 
 									</div>
-									<div class="pd-color">
-										<h6>Color ${goods.goodsVO.pcolor} 뿌릴예정</h6>
-										<div class="pd-color-choose">
-											<div class="cc-item">
-												<input type="radio" id="cc-black"> <label
-													for="cc-black"></label>
-											</div>
-											<div class="cc-item">
-												<input type="radio" id="cc-yellow"> <label
-													for="cc-yellow" class="cc-yellow"></label>
-											</div>
-											<div class="cc-item">
-												<input type="radio" id="cc-violet"> <label
-													for="cc-violet" class="cc-violet"></label>
-											</div>
-										</div>
-									</div>
 
 
-									<div class="pd-size-choose">
+
+									<div class="pd-color-choose">
 										<c:set var="pcolor" value="${goods.goodsVO.pcolor}" />
 										<c:set var="color" value="${fn:split(pcolor, ',')}" />
 										<c:forEach var="c" items="${color}">
-
-											<div class="btn-group btn-group-toggle" data-toggle="buttons">
-												<label class="btn btn-warning pcolor"> <input
-													type="radio" name="pcolor" id="pcolor"> ${c}
-												</label>
+											<div class="color-item">
+												<input id="pcolor" type="radio" name="pcolor" value="${c}" />
+												<label for="pcolor">${c} </label>
 											</div>
-
 										</c:forEach>
 									</div>
 
-								 
-										<c:set var="pcolor" value="${goods.goodsVO.pcolor}" />
-										<c:set var="color" value="${fn:split(pcolor, ',')}" />
-										<c:forEach var="c" items="${color}">
-											<div class="form_radio_btn">
-												<input id="pcolor1" type="radio" name="pcolor1" value="${c}">
-												<label for="pcolor1">${c} </label>
-											</div>
-
-										</c:forEach>
-									 
-
+									<script type="text/javascript">
+										$(".pd-color-choose .color-item label")
+												.on(
+														'click',
+														function() {
+															$(
+																	".pd-color-choose .color-item label")
+																	.removeClass(
+																			'active');
+															$(this).addClass(
+																	'active');
+														});
+									</script>
 
 									<div class="pd-size-choose">
 										<c:set var="psize" value="${goods.goodsVO.psize}" />
@@ -680,6 +640,7 @@ h2 {
 		</div>
 	</section>
 	<!-- Product Shop Section End -->
+
 	<script src="/resources/js/jquery-3.3.1.min.js"></script>
 	<script src="/resources/js/bootstrap.min.js"></script>
 	<script src="/resources/js/jquery-ui.min.js"></script>

@@ -55,34 +55,63 @@ p {
 
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
 
-
-
+	<!-- Category Section Begin -->
 	<div class="container">
-	<a class="btn btn-warning float-right"
-						href="/commu/sns/write">게시글등록</a>
-		<h2>SNS</h2>
+		<h2>SNS</h2> 
+			<a class="btn btn-warning float-right" href="/commu/sns/write_view">게시글등록</a>
+		 
+
+		<div class="row ">
+			<div class="col-sm-2">
+				<a href=" "> <img src="/resources/img/category/cat.jpg"></a>
+			</div>
+
+			<div class="col-sm-2">
+				<a href=" "> <img src="/resources/img/category/dog.jpg"></a>
+			</div>
+
+			<div class="col-sm-2">
+				<a href=" "> <img src="/resources/img/category/reptile.jpg"></a>
+			</div>
+
+			<div class="col-sm-2">
+				<a href=" "> <img src="/resources/img/category/bird.jpg"></a>
+			</div>
+
+			<div class="col-sm-2">
+				<a href=" "> <img src="/resources/img/category/fish.jpg"></a>
+			</div>
+
+			<div class="col-sm-2">
+				<a href=" "> <img src="/resources/img/category/other.jpg"></a>
+			</div>
+		</div>
+
+		<!-- Category Section End -->
+
+
+		
 		<div class="row">
 
 			<div class="card-feed__item-wrap col-12 col-md-4 col-lg-3">
-				  <a href="#">팔로우</a>
+
+				<a href="#">팔로우</a>
 				<div class="card">
-				
-		
 					<img src="/resources/img/admin/goods/cat1.jpg" alt=""
 						class="card-img-top i" />
 					<div class="card-body">
 						<div>
 							<div class="w3-border w3-center w3-padding">
-								 
+
+								<i class="fa fa-heart" style="font-size: 16px; color: red"></i>
+								<span class="rec_count"></span>
+
+
+								<button class="w3-button w3-black w3-round" id="rec_update">
 									<i class="fa fa-heart" style="font-size: 16px; color: red"></i>
-									<span class="rec_count"></span>
-								  
-								  
-									<button class="w3-button w3-black w3-round" id="rec_update">
-										<i class="fa fa-heart" style="font-size: 16px; color: red"></i>
-										&nbsp;<span class="rec_count"></span>
-									</button>
-								 
+									&nbsp;<span class="rec_count"></span>
+								</button>
+
 							</div>
 						</div>
 
@@ -94,7 +123,7 @@ p {
 				</div>
 			</div>
 			<div class="card-feed__item-wrap col-12 col-md-4 col-lg-3">
-
+				<a href="#">팔로우</a>
 				<div class="card">
 					<img src="/resources/img/admin/goods/cat2.jpg" alt=""
 						class="card-img-top i" />
@@ -106,7 +135,7 @@ p {
 				</div>
 			</div>
 			<div class="card-feed__item-wrap col-12 col-md-4 col-lg-3">
-
+				<a href="#">팔로우</a>
 				<div class="card">
 					<img src="/resources/img/admin/goods/cat4.jpg" alt=""
 						class="card-img-top i" />
@@ -118,7 +147,7 @@ p {
 				</div>
 			</div>
 			<div class="card-feed__item-wrap col-12 col-md-4 col-lg-3">
-
+				<a href="#">팔로우</a>
 				<div class="card">
 					<img src="/resources/img/admin/goods/부뚜냥.png" alt=""
 						class="card-img-top i" />
@@ -132,7 +161,7 @@ p {
 		</div>
 		<div class="row">
 			<div class="card-feed__item-wrap col-12 col-md-4 col-lg-3">
-
+				<a href="#">팔로우</a>
 				<div class="card">
 					<img src="/resources/img/admin/goods/호호.jpg" alt=""
 						class="card-img-top i" />
@@ -144,7 +173,7 @@ p {
 				</div>
 			</div>
 			<div class="card-feed__item-wrap col-12 col-md-4 col-lg-3">
-
+				<a href="#">팔로우</a>
 				<div class="card">
 					<img src="/resources/img/admin/goods/cat1.jpg" alt=""
 						class="card-img-top i" />
@@ -156,7 +185,7 @@ p {
 				</div>
 			</div>
 			<div class="card-feed__item-wrap col-12 col-md-4 col-lg-3">
-
+				<a href="#">팔로우</a>
 				<div class="card">
 					<img src="/resources/img/admin/goods/cat1.jpg" alt=""
 						class="card-img-top i" />
@@ -168,7 +197,7 @@ p {
 				</div>
 			</div>
 			<div class="card-feed__item-wrap col-12 col-md-4 col-lg-3">
-
+				<a href="#">팔로우</a>
 				<div class="card">
 					<img src="/resources/img/admin/goods/cat2.jpg" alt=""
 						class="card-img-top i" />
@@ -195,49 +224,69 @@ p {
 
 
 
-<script>
+	<script>
+		$(document)
+				.ready(
+						function() {
 
-$(document).ready(function () {
+							var heartval = $
+							{
+								heart
+							}
+							;
 
-    var heartval = ${heart};
+							if (heartval > 0) {
+								console.log(heartval);
+								$("#heart").prop("src",
+										"/resources/images/like2.png");
+								$(".heart").prop('name', heartval)
+							} else {
+								console.log(heartval);
+								$("#heart").prop("src",
+										"/resources/images/like1.png");
+								$(".heart").prop('name', heartval)
+							}
 
-    if(heartval>0) {
-        console.log(heartval);
-        $("#heart").prop("src", "/resources/images/like2.png");
-        $(".heart").prop('name',heartval)
-    }
-    else {
-        console.log(heartval);
-        $("#heart").prop("src", "/resources/images/like1.png");
-        $(".heart").prop('name',heartval)
-    }
+							$(".heart")
+									.on(
+											"click",
+											function() {
 
-    $(".heart").on("click", function () {
+												var that = $(".heart");
 
-        var that = $(".heart");
+												var sendData = {
+													'boardId' : '${boardVO.boardId}',
+													'heart' : that.prop('name')
+												};
+												$
+														.ajax({
+															url : '/board/heart',
+															type : 'POST',
+															data : sendData,
+															success : function(
+																	data) {
+																that.prop(
+																		'name',
+																		data);
+																if (data == 1) {
+																	$('#heart')
+																			.prop(
+																					"src",
+																					"/resources/images/like2.png");
+																} else {
+																	$('#heart')
+																			.prop(
+																					"src",
+																					"/resources/images/like1.png");
+																}
 
-        var sendData = {'boardId' : '${boardVO.boardId}','heart' : that.prop('name')};
-        $.ajax({
-            url :'/board/heart',
-            type :'POST',
-            data : sendData,
-            success : function(data){
-                that.prop('name',data);
-                if(data==1) {
-                    $('#heart').prop("src","/resources/images/like2.png");
-                }
-                else{
-                    $('#heart').prop("src","/resources/images/like1.png");
-                }
+															}
+														});
+											});
+						});
+	</script>
 
 
-            }
-        });
-    });
-});
-</script>
-
- 
 
 
 

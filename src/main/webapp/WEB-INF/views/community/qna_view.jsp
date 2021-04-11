@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!-- 추가함 -->
 <!DOCTYPE html>
 <html>
@@ -69,7 +70,7 @@
 </head>
 
 
-<body style="padding-top:170px">
+<body style="padding-top: 170px">
 
 
 	<!-- Header -->
@@ -83,25 +84,41 @@
 			<h3 class="qnatitle" style="font-weight: bold; margin-bottom: 10px;">${qna_view.title}</h3>
 		</div>
 
-		<div style="float:right">
-				<button type="button" class="btn btn-warning"
+		<div style="float: right">
+			<button type="button" class="btn btn-warning"
 				onclick="modify_event();">수정</button>
 
-				<button type="button" class="btn btn-warning"
+			<button type="button" class="btn btn-warning"
 				onclick="button_event();">삭제</button>
 		</div>
-		
+
 		<table>
 			<td>
 				<div style="font-size: 20px;">${qna_view.memberVO.nickname}</div>
 				<hr>
 				<section style="margin-top: 60px; margin-bottom: 20px;">${qna_view.content}</section>
-				<section style="margin-top: 40px; margin-bottom: 60px;">${qna_view.hashtag}</section>
-				<span style="color: gray;">${qna_view.pdate}</span>
-				<span style="color: gray">조회수 ${qna_view.hit}</span>
+				
+				
+				
+					
+						
+			
+				
+				<form action="${pageContext.request.contextPath}/commu/qnatag"
+				method="post">
+				<ul class="pd-tags">
+					<c:set var="hashtag" value="${qna_view.hashtag}" />
+					<c:set var="tag" value="${fn:split(hashtag, ' ')}" />
+					
+					<c:forEach var="t" items="${tag}">
+					<button name="keyword" value="${qna_view.hashtag}" onclick="location.href='${pageContext.request.contextPath}/commu/qnatag'">${t}</button>
+					</c:forEach>
+					
+				</ul> </form> <span style="color: gray;">${qna_view.pdate}</span> <span
+				style="color: gray">조회수 ${qna_view.hit}</span>
 			</td>
 		</table>
-	
+
 	</div>
 
 
@@ -117,19 +134,18 @@
 				<span><strong>댓글 </strong></span>
 			</div>
 			<div>
-				<table class="table" style="margin-bottom:50px;">
-				
-						<td class="row">
-						<textarea style="resize: none;" class="form-control col-11"
-						id="content" placeholder="댓글을 입력하세요"></textarea>
+				<table class="table" style="margin-bottom: 50px;">
+
+					<td class="row"><textarea style="resize: none;"
+							class="form-control col-11" id="content" placeholder="댓글을 입력하세요"></textarea>
 						<button class="col-1 btn btn-warning" onClick="getComment()">등록</button>
-						</td>
-					
+					</td>
+
 				</table>
 			</div>
 		</div>
-		
-		
+
+
 		<div class="container" style="margin-bottom: 10px;">
 
 			<div id="comment">
@@ -142,8 +158,8 @@
 				</c:forEach>
 
 			</div>
-			
-			
+
+
 			<div class="container">
 				<form id="commentListForm" name="commentListForm" method="post">
 					<div id="commentList"></div>
@@ -151,13 +167,13 @@
 			</div>
 		</div>
 	</div>
-	
-	
+
+
 	<div style="margin-top: 20px;">
 		<!-- Footer -->
 		<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 	</div>
-	
+
 	<script type="text/javascript">
 		// 댓글 작성 및 ajax로 댓글 불러오기
 		function getComment() {

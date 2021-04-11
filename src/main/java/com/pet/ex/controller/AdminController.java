@@ -261,7 +261,7 @@ public class AdminController {
 		 
 			for (int i = 0; i < mf.size(); i++) { // 파일명 중복 검사
 				
-				UUID uuid = UUID.randomUUID();
+				UUID uuid = UUID.randomUUID();			// 파일명 랜덤으로 변경
 				
 				String originalfileName = mf.get(i).getOriginalFilename();		  		
 	  			String ext = FilenameUtils.getExtension(originalfileName);

@@ -262,6 +262,13 @@
    		select * from board where content like '%'||#{keyword}||'%' and boardtype_id='4' or title like '%'||#{keyword}||'%' and boardtype_id='4' order by pdate desc
    ]]>
 	</select>
+	
+	<!-- 질문과답변 검색 -->
+	<select id="getQtag" resultMap="boardvo">
+   <![CDATA[
+   		select * from board where hashtag like '%'||#{keyword}||'%' and boardtype_id='4' order by pdate desc
+   ]]>
+	</select>
 
 
 	<!-- 질문과 답변 카테고리에 해당하는 글 끌고오기 -->
@@ -295,10 +302,9 @@
 	<!-- 질문과답변 토탈카운트 페이징 처리하려고 데려옴.. -->
 	<select id="getTotalCount" resultType="int">
 		<![CDATA[	
-		select count(*) from board
-		b , member m
-		where b.member_id = m.member_id
-		and b.boardtype_id= 4
+		select count(*) from board 
+		where 
+		boardtype_id= 4 and pstep=0
 		]]>
 	</select>
 

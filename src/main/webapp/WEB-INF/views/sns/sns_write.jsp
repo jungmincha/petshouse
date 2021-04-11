@@ -12,37 +12,9 @@
 <title>register</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
-<!-- <script language="javascript">
 
-/* $(document).ready(function(){
-	//상품 등록 유효성검사
-	$("#check").click(function(){
-		var name = $("#goodsname").val();	
-		
-		if(name == ""){
-			alert("상품명을 입력해주세요.");
-			name.focus();
-		}
-		
-		
-	});
-});	
- */
-//Example starter JavaScript for disabling form submissions if there are invalid fields
-  $(function() {
-    $(".sub").click(function() {
-      var valid = true;
- 
-      $("input[type=text]").each(function() {
-        if ($.trim($(this).val()) == '') {
-          valid = false;
-          $(this).css("background": "red");
-        }
-      })
-    })
-  })
-	</script> -->
 <style>
 .table_center {
 	display: table;
@@ -52,9 +24,7 @@
 	font-stretch: extra-condensed;
 }
 
-h2 {
-	text-align: center;
-}
+ 
 
 select {
 	width: 100px; /* 원하는 너비설정 */
@@ -76,10 +46,48 @@ select {
 #file {
 	display: none;
 }
+
+#preview {
+	width: 660px;
+	min-height: 180px;
+	padding: 10px;
+	background-color: #f5f5f5;
+	border-radius: 10px;
+}
+
+.top {
+	background-color: #e7ab3c;
+	border-radius: 10px;
+	cursor: pointer;
+	position: fixed;
+	right: 5px;
+	font-size: 15px;
+	bottom: 500px;
+	padding: 10px;
+}
+
+#preview:empty:before {
+	content: attr(data-placeholder);
+	color: #999;
+	font-size: .9em;
+}
+
+.title{
+
+margin-bottom: 40px;
+
+}
+.form-1 {
+	width: 1000px;
+}
+
+label {
+	text-align: cente;
+}
 </style>
 
 </head>
-<body style="padding-top: 180px">
+<body style="padding-top: 180px; ">
 
 
 
@@ -89,93 +97,102 @@ select {
 
 
 	<!-- Page Content -->
-
-
-	<div class="col-lg-30">
-		<form id="goods" name="goods" class="needs-validation"
-			enctype="multipart/form-data"
-			action="${pageContext.request.contextPath}/commu/sns/write"
-			method="post">
-			<fieldset>
-				<table class="table_center" cellpadding="20">
-					<td colspan="20">
-						<h2>사진 올리기</h2>
-					</td>
-					<tr>
-						<td><img style="width: 400px;" id="preview-image"
-							name="preview-image"
-							src="https://dummyimage.com/600x500/ffffff&text=+privew"></td>
-						<%-- 	<%=request.getRealPath("/")%> 저장경로 --%>
-						<td>
-							<div class="form-group row">
-								<label class="col-sm-3" for="thumbnail">사진</label>
-								<div class="input-group col-sm-9">
-									<div class="custom-file">
-										<input type="file" class="custom-file-input" id="thumbnail"
-											name="file" style="display: block;"> <label
-											class="custom-file-label" for="inputGroupFile02">Choose
-											file</label>
-									</div>
-									<div class="input-group-append">
-										<span class="input-group-text">Upload</span>
-									</div>
+	<div class="container" style="width: 1100px; min-height:900px;">
+		<div class="top" onclick="window.scrollTo(0,0);">top</div>
+		<div class="col-lg-12">
+			<form id="goods" name="goods" class="needs-validation" 	action="${pageContext.request.contextPath}/commu/sns/write"
+				enctype="multipart/form-data"	method="post">
+				
+				<div class="title">
+				<h2>사진 올리기</h2>
+				
+				</div>
+				
+				<div class="form-group row">
+				 <input type="submit" class="btn btn-warning  btn-lg" 
+						  style="position:fixed; top: 150px; right: 400px;  " value="sns등록">
+				</div>
+								 
+				<div class="form-1">
+				<div class="form-group row">
+				<div class="col-sm-2">카테고리</div>
+					<div class="col-lg-6" >
+					<select class=" form-control" name="category_id"
+						style="height: 38px; width:100px;  vertical-align: middle; text-align-last: center" >
+						<option value="1">고양이</option>
+						<option value="2">강아지</option>
+						<option value="3">파충류</option>
+						<option value="4">조류</option>
+						<option value="5">어류</option>
+						<option value="6">기타</option>
+					</select>
+					
+						 
+					</div></div>
+					
+					
+						<div class="form-group row ">
+							<div class="col-sm-2">사진</div>
+							<div class="col-sm-8">
+								<div class="custom-file">
+									<input type="file" class="custom-file-input" id="btnAtt"
+										accept="img/*" required multiple name="btnAtt"
+										style="display: block;"> <label
+										class="custom-file-label" for="inputGroupFile02">사진을
+										선택하세요.</label>
 								</div>
 							</div>
+						</div>
 
 
 
-							<div class="form-group row">
-								<label class="col-sm-3">카테고리</label>
-								<div class="col-sm-9">
-									<label>1차 분류</label> <select class="category1"
-										class="form-control"
-										style="vertical-align: middle; text-align-last: center">
-										<option value="">동물</option>
-									</select> <label>2차 분류</label> <select class="category2"
-										name="categoryVO.category_id" class="form-control"
-										style="vertical-align: middle; text-align-last: center"
-										required>
-										<option value="">상품</option>
-									</select>
-									<div class="invalid-feedback">카테고리를 선택하세요!</div>
+						<div class="form-group row">
+							<label class="col-sm-2"></label>
+							<div class="input-group col-lg-7 ">
+								<div id='image_preview '>
+									<div id='preview'
+										data-placeholder='이미지를 첨부 하려면 파일 선택 버튼을 클릭하거나 이미지를 드래그앤드롭 하세요 *최대 10장까지'></div>
 								</div>
 							</div>
+						</div>
 
 
 
-
-
-							<div class="form-group row">
-								<label class="col-sm-3">사진소개</label>
-								<div class="col-sm-9">
-									<textarea name="description" cols="30" rows="5"
-										class="form-control" placeholder="사진에 대해서 설명해주세요." required></textarea>
-								</div>
+						<div class="form-group row">
+							<label class="col-sm-2">사진소개</label>
+							<div class="col-lg-8">
+								<textarea name="content" cols="40" rows="7"
+									class="form-control" placeholder="사진에 대해서 설명해주세요." required></textarea>
 							</div>
+						</div>
 
-
-							<div class="form-group row">
-								<div class="col-sm-offset-2 col-sm-6">
-									<button type="submit" class="btn btn-block" id="check"
-										style="background-color: #e7ab3c float-right">SNS등록</button>
-									<%-- 	data-toggle="modal"
-										data-target="#Modal"  --%>
-								</div>
+						<div class="form-group row">
+							<label class="col-sm-2">해시태그</label>
+							<div class="col-lg-8">
+								<input type="text" name="hashtag" class="form-control"
+									placeholder="해시태그를 입력해주세요." required>
+								 <small id="hashtagHelp"
+										class="form-text text-muted"> 예) #강아지 #고양이 </small>
 							</div>
+						</div>
 
 
 
-							<div class="form-group row">
-								<div class="col-sm-offset-2 col-sm-6">
 
-									<input type="file" id="file" name="file"
-										onchange="changeValue(this)" />
+					
 
-									<button type="button" class="btn btn-block" id="btn-upload"
-										style="background-color: #e7ab3c">Image</button>
 
-								</div>
-							</div> <!-- Modal --> <!-- <div class="modal fade" id="Modal" tabindex="-1" role="dialog"
+
+						<div class="form-group row">
+							<div class="col-sm-offset-2 col-sm-6">
+
+								<input type="file" id="file" name="file"
+									onchange="changeValue(this)" />
+
+
+							</div>
+							<!-- Modal -->
+							<!-- <div class="modal fade" id="Modal" tabindex="-1" role="dialog"
 									aria-labelledby="ModalLabel" aria-hidden="true">
 									<div class="modal-dialog" role="document">
 										<div class="modal-content">
@@ -197,178 +214,223 @@ select {
 									</div> -->
 
 
-							</div>
-						</td>
-					</tr>
+						</div>
+					</div>
+			</form>
+		</div>
+	</div>
 
 
-				</table>
-			</fieldset>
-		</form>
-	 	<input type="file" id="file" name="file" onchange="changeValue(this)" />
 
-		<button type="button" class="btn btn-block" id="btn-upload"
-			style="background-color: #e7ab3c">사진추가하기</button>
-	 
-	
+
 	<script>
-	
-	(function () {
-		  'use strict'
+		(function() {
+			'use strict'
 
-		  // Fetch all the forms we want to apply custom Bootstrap validation styles to
-		  var forms = document.querySelectorAll('.needs-validation')
+			// Fetch all the forms we want to apply custom Bootstrap validation styles to
+			var forms = document.querySelectorAll('.needs-validation')
 
-		  // Loop over them and prevent submission
-		  Array.prototype.slice.call(forms)
-		    .forEach(function (form) {
-		      form.addEventListener('submit', function (event) {
-		        if (!form.checkValidity()) {
-		          event.preventDefault()
-		          event.stopPropagation()
-		        }
+			// Loop over them and prevent submission
+			Array.prototype.slice.call(forms).forEach(function(form) {
+				form.addEventListener('submit', function(event) {
+					if (!form.checkValidity()) {
+						event.preventDefault()
+						event.stopPropagation()
+					}
 
-		        form.classList.add('was-validated')
-		      }, false)
-		    })
-		})();
-		
-		
-		//
-		  	function readImage(input) {
-			    // 인풋 태그에 파일이 있는 경우
-			    if(input.files && input.files[0]) {
-			        // 이미지 파일인지 검사 (생략)
-			        // FileReader 인스턴스 생성
-			        const reader = new FileReader()
-			        // 이미지가 로드가 된 경우
-			        reader.onload = e => {
-			            const previewImage = document.getElementById("preview-image")
-			            previewImage.src = e.target.result
-			        }
-			        // reader가 이미지 읽도록 하기
-			        reader.readAsDataURL(input.files[0])
-			    }
-			}
-			// input file에 change 이벤트 부여
-			const thumbnail = document.getElementById("thumbnail")
-			thumbnail.addEventListener("change", e => {
-			    readImage(e.target)
+					form.classList.add('was-validated')
+				}, false)
 			})
-			
-			 $("#thumbnail").change(function(){
-			 if(this.files && this.files[0]) {
-			  var reader = new FileReader;
-			
-			 reader.readAsDataURL(this.files[0]);
+		})();
+
+		// 컨트롤러에서 데이터 받기
+		var jsonData = JSON.parse('${category}');
+		console.log(jsonData);
+
+		var cate1Arr = new Array();
+		var cate1Obj = new Object();
+
+		// 1차 분류 셀렉트 박스에 삽입할 데이터 준비
+		for (var i = 0; i < jsonData.length; i++) {
+
+			if (jsonData[i].level == "1") {
+				cate1Obj = new Object(); //초기화
+				cate1Obj.category_id = jsonData[i].category_id;
+				cate1Obj.categoryname = jsonData[i].categoryname;
+				cate1Arr.push(cate1Obj);
 			}
-			}); 
+		}
 
-			// 컨트롤러에서 데이터 받기
-			var jsonData = JSON.parse('${category}');
-			console.log(jsonData);
+		// 1차 분류 셀렉트 박스에 데이터 삽입
+		var cate1Select = $("select.category1")
 
-			var cate1Arr = new Array();
-			var cate1Obj = new Object();
+		for (var i = 0; i < cate1Arr.length; i++) {
+			cate1Select
+					.append("<option value='" + cate1Arr[i].category_id + "'>"
+							+ cate1Arr[i].categoryname + "</option>");
+		}
 
-			// 1차 분류 셀렉트 박스에 삽입할 데이터 준비
-			for (var i = 0; i < jsonData.length; i++) {
+		$(document)
+				.on(
+						"change",
+						"select.category1",
+						function() {
 
-				if (jsonData[i].level == "1") {
-					cate1Obj = new Object(); //초기화
-					cate1Obj.category_id = jsonData[i].category_id;
-					cate1Obj.categoryname = jsonData[i].categoryname;
-					cate1Arr.push(cate1Obj);
-				}
-			}
+							var cate2Arr = new Array();
+							var cate2Obj = new Object();
 
-			// 1차 분류 셀렉트 박스에 데이터 삽입
-			var cate1Select = $("select.category1")
+							// 2차 분류 셀렉트 박스에 삽입할 데이터 준비
+							for (var i = 0; i < jsonData.length; i++) {
 
-			for (var i = 0; i < cate1Arr.length; i++) {
-				cate1Select.append("<option value='" + cate1Arr[i].category_id + "'>"
-								+ cate1Arr[i].categoryname + "</option>");
-			}
+								if (jsonData[i].level == "2") {
+									cate2Obj = new Object(); //초기화
+									cate2Obj.category_id = jsonData[i].category_id;
+									cate2Obj.categoryname = jsonData[i].categoryname;
+									cate2Obj.code = jsonData[i].code;
 
-			$(document).on("change","select.category1",
-							function() {
-
-								var cate2Arr = new Array();
-								var cate2Obj = new Object();
-
-								// 2차 분류 셀렉트 박스에 삽입할 데이터 준비
-								for (var i = 0; i < jsonData.length; i++) {
-
-									if (jsonData[i].level == "2") {
-										cate2Obj = new Object(); //초기화
-										cate2Obj.category_id = jsonData[i].category_id;
-										cate2Obj.categoryname = jsonData[i].categoryname;
-										cate2Obj.code = jsonData[i].code;
-
-										cate2Arr.push(cate2Obj);
-									}
+									cate2Arr.push(cate2Obj);
 								}
+							}
 
-								var cate2Select = $("select.category2");
+							var cate2Select = $("select.category2");
 
-								/*
-								for(var i = 0; i < cate2Arr.length; i++) {
-								  cate2Select.append("<option value='" + cate2Arr[i].cateCode + "'>"
-								       + cate2Arr[i].cateName + "</option>");
-								}
-								 */
+							/*
+							for(var i = 0; i < cate2Arr.length; i++) {
+							  cate2Select.append("<option value='" + cate2Arr[i].cateCode + "'>"
+							       + cate2Arr[i].cateName + "</option>");
+							}
+							 */
 
-								cate2Select.children().remove();
+							cate2Select.children().remove();
 
-								$("option:selected", this).each(function() {
+							$("option:selected", this)
+									.each(
+											function() {
 
-											var selectVal = $(this).val();
-													
-											
-											cate2Select.append("<option value='" + selectVal + "'>전체</option>");
+												var selectVal = $(this).val();
 
-													for (var i = 0; i < cate2Arr.length; i++) {
-														if (selectVal == cate2Arr[i].code) {
-															cate2Select.append("<option value='" + cate2Arr[i].category_id + "'>"
-																			+ cate2Arr[i].categoryname + "</option>");
-														}
+												cate2Select
+														.append("<option value='" + selectVal + "'>전체</option>");
+
+												for (var i = 0; i < cate2Arr.length; i++) {
+													if (selectVal == cate2Arr[i].code) {
+														cate2Select
+																.append("<option value='" + cate2Arr[i].category_id + "'>"
+																		+ cate2Arr[i].categoryname
+																		+ "</option>");
 													}
+												}
 
-												});
+											});
 
-							});
-			
-			</script>
-	<script type="text/javascript">
+						});
+	</script>
 
-$(function () {
+	<script>
+( /* preview : 이미지들이 들어갈 위치 id, btn : file tag id */
+  imageView = function imageView(preview, btn){
 
-$('#btn-upload').click(function (e) {
-
-e.preventDefault();
-
-$('#file').click();
-
-});
-
-});
-
+    var attZone = document.getElementById(preview);
+    var btnAtt = document.getElementById(btn)
+    var sel_files = [];
+    
+    // 이미지와 체크 박스를 감싸고 있는 div 속성
+    var div_style = 'display:inline-block;position:relative;'
+                  + 'width:121px;height:150px;margin:3px; ;z-index:1';
+    // 미리보기 이미지 속성
+    var img_style = 'width:100%;height:100%;z-index:none';
+    // 이미지안에 표시되는 체크박스의 속성
+   
+    var chk_style = 'position:absolute;font-size:13px;'
+        + 'right:0px;top:0px;z-index:999;opacity:.8;';
+        
+    btnAtt.onchange = function(e){
+      var files = e.target.files;
+      var fileArr = Array.prototype.slice.call(files)
+      for(f of fileArr){
+        imageLoader(f);
+      }
+    }  
+    
+  
+    // 탐색기에서 드래그앤 드롭 사용
+    attZone.addEventListener('dragenter', function(e){
+      e.preventDefault();
+      e.stopPropagation();
+    }, false)
+    
+    attZone.addEventListener('dragover', function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      
+    }, false)
+  
+    attZone.addEventListener('drop', function(e){
+      var files = {};
+      e.preventDefault();
+      e.stopPropagation();
+      var dt = e.dataTransfer;
+      files = dt.files;
+      for(f of files){
+        imageLoader(f);
+      }
+      
+    }, false)
     
 
-            function changeValue(obj){
-
-    	        alert(obj.value);
-
-            }
+    
+    /*첨부된 이미리즐을 배열에 넣고 미리보기 */
+    imageLoader = function(file){
+      sel_files.push(file);
+      var reader = new FileReader();
+      reader.onload = function(ee){
+        let img = document.createElement('img')
+        img.setAttribute('style', img_style)
+        img.src = ee.target.result;
+        attZone.appendChild(makeDiv(img, file));
+      }
+      
+      reader.readAsDataURL(file);
+    }
+    
+    /*첨부된 파일이 있는 경우 checkbox와 함께 attZone에 추가할 div를 만들어 반환 */
+    makeDiv = function(img, file){
+      var div = document.createElement('div')
+      div.setAttribute('style', div_style)
+      
+      var btn = document.createElement('input')
+      btn.setAttribute('type', 'button')
+      btn.setAttribute('value', 'X')
+      btn.setAttribute('delFile', file.name);
+      btn.setAttribute('style', chk_style);
+      btn.onclick = function(ev){
+        var ele = ev.srcElement;
+        var delFile = ele.getAttribute('delFile');
+        for(var i=0 ;i<sel_files.length; i++){
+          if(delFile== sel_files[i].name){
+            sel_files.splice(i, 1);      
+          }
+        }
+        
+        dt = new DataTransfer();
+        for(f in sel_files) {
+          var file = sel_files[f];
+          dt.items.add(file);
+        }
+        btnAtt.files = dt.files;
+        var p = ele.parentNode;
+        attZone.removeChild(p)
+      }
+      div.appendChild(img)
+      div.appendChild(btn)
+      return div
+    }
+  }
+)('preview', 'btnAtt')
 
 </script>
 
-
-
-
-
 	<!-- Footer -->
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
-
 </body>
 </html>

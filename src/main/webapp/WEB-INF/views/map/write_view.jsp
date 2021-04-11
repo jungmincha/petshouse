@@ -28,12 +28,18 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                <h3>종로구</h3>
-                
+                 <h3>${location}</h3>
+               <br>
+           <h5>${member_id}</h5>
+                    <h5>${nickname}</h5>
                 <br/>
 <form action="/map/write" method="post">
-<table border=1 style="width:1140px;">
-      
+ <input id="location" type="hidden" name="location" value="${location}" /> 
+  <input id="nicknamen" type="hidden" name="nickname" value="${nickname}" /> 
+	<%-- <input id="member_id" type="hidden" name="member_id" value="${member_id}" />  --%>
+	<table border=1 style="width:1140px;">
+    
+
 
        <%--   <input type="hidden" id="bId" value="${reply_view.bId}">
          <input type="hidden" id="bGroup" value="${reply_view.bGroup}">
@@ -54,7 +60,7 @@
 <td style="text-align:center">아이디</td>
 <td>
 
-
+<input id="member_id" type="text" name="member_id" style="border:none;"  value="${member_id}">
 </td>
 </tr>
 
@@ -77,7 +83,7 @@
 <td style="text-align:center">
 <input type = "submit" value = "작성 완료" >
 
-<td><a href = "/map/petstown">목록으로</a>&nbsp;&nbsp;
+<td><a href = "/map/board?location=${location}&nickname=${nickname}&member_id=${member_id}">목록으로</a>&nbsp;&nbsp;
 
 
 
@@ -97,6 +103,10 @@
    <!-- Footer -->
    <%@ include file="/WEB-INF/views/include/footer.jsp"%>  
 
+ <% response.setHeader("Cache-Control","no-store");
+ response.setHeader("Pragma","no-cache"); 
+ response.setDateHeader("Expires",0); 
+ if (request.getProtocol().equals("HTTP/1.1")) response.setHeader("Cache-Control", "no-cache"); %>
  
     
     

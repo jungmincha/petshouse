@@ -5,9 +5,18 @@
 <mapper namespace="com.pet.ex.mapper.SnsMapper">
 
 
+<insert id="boardInput" parameterType="boardvo"> 
+	<![CDATA[ 
+	   insert into board (board_id,  content, plike, hit, hashtag, pgroup, pstep, pindent, member_id, boardtype_id,category_id)   
+       values (board_seq.nextval , #{content} , 0,0,#{hashtag},board_seq.currval,0,0, 'eunhee@naver.com', 2 , #{category_id})    
+	]]>
+	</insert>
 
-
-
+<insert id="imgInput">
+	 <![CDATA[
+    INSERT INTO IMAGE(img_id, imgname, board_id) VALUES (image_seq.nextval, #{imgname}, #{LAST_INSERT_ID()})
+	 ]]>
+	</insert>
 
 
 

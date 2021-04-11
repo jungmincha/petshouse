@@ -25,6 +25,7 @@ public class BoardVO {
 	private int pstep;
 	private int pindent;
 	private int ratescore;
+	private String location;
 	// 외래키
 	private MemberVO memberVO;
 	private BoardtypeVO boardtypeVO;

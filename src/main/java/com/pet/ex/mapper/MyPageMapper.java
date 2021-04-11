@@ -1,7 +1,10 @@
 package com.pet.ex.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
+import com.pet.ex.page.Criteria;
 import com.pet.ex.vo.BoardVO;
 import com.pet.ex.vo.PayGoodsVO;
 import com.pet.ex.vo.PayVO;
@@ -15,12 +18,25 @@ public interface MyPageMapper {
 	// 사용가능한 포인트 가져옴
 	public PointVO getPoint(String member_id);
 
-	// 결제 후 정보 저장
+	// 결제 후 결제 정보 저장
 	public void insertPay(PayVO pay);
+
+	// 결제 후 포인트 사용내역 저장
+	public void insertUsePoint(PayVO pay);
+
+	// 결제 후 포인트 적립내역 저장
+	public void insertEarningPoint(PayVO pay);
 
 	// 최신 결제정보를 가져옴(1개)
 	public PayVO getPay_id(String member_id);
 
 	// 결제 후 payGoods에 정보 저장
 	public void insertPayGoods(PayGoodsVO payGoods);
+
+	// 주문 리스트 불러오기
+	public List<PayVO> listOrder(Criteria cri);
+	
+	// 주문 리스트 총합
+	public int getPayTotal();
+
 }

@@ -52,7 +52,7 @@ public class MemberVO {
 
 	// 관심사
 	private String concern;
-	
+
 	private String location;
 
 }
