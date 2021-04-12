@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -24,6 +24,7 @@ import com.pet.ex.vo.BoardVO;
 import com.pet.ex.vo.CategoryVO;
 import com.pet.ex.vo.GoodsVO;
 import com.pet.ex.vo.ImageVO;
+import com.pet.ex.vo.MemberVO;
 
 import lombok.extern.slf4j.Slf4j;
 import net.sf.json.JSONArray;
@@ -39,6 +40,8 @@ public class SnsController {
 	
 	private SnsService service;
 
+	
+	//sns홈
 	@GetMapping("/sns")
 	public ModelAndView index(ModelAndView mav) throws Exception {
 
@@ -48,6 +51,7 @@ public class SnsController {
 		return mav;
 	}
 	
+	//sns 등록창
 	@GetMapping("/sns/write_view")
 	public ModelAndView write(ModelAndView mav) throws Exception {
 
@@ -58,7 +62,7 @@ public class SnsController {
 		return mav;
 	}
 	
-	// 상품 게시글 등록
+	// sns등록
 		@PostMapping("/sns/write")
 		public ModelAndView snsInput(MultipartHttpServletRequest multi, ImageVO imageVO, BoardVO boardVO, ModelAndView mav) 
 				throws IllegalStateException, IOException {
@@ -113,11 +117,33 @@ public class SnsController {
 			
 			log.info("SNS_View");
 			
+			mav.addObject("comment", service.listComment(boardVO.getBoard_id()));
+			log.info("SNS_View");
+			int count = service.counta(boardVO.getBoard_id());
 			mav.addObject("sns", service.getBoard(boardVO.getBoard_id()));
 			mav.addObject("img", service.getImg(board_id));
+			mav.addObject("count", count);
+			log.info("count");
+			System.out.println("카운트 : "+count);
+			System.out.println(count);
+			service.hit(boardVO.getBoard_id());
+			
 			mav.setViewName("sns/sns_contentView");
 
 			return mav;
+		}
+		
+		// sns 댓글 작성
+		@PostMapping("/sns/comment")
+		public BoardVO insertComment(BoardVO boardVO, @RequestParam("member_id") String member_id) {
+			
+			MemberVO member = new MemberVO();
+			boardVO.setMemberVO(member);
+			boardVO.getMemberVO().setMember_id(member_id);
+			service.insertComment(boardVO);
+			BoardVO comments = service.getComment(boardVO.getPgroup());
+			System.out.println(comments);
+			return comments;
 		}
 	
 	@GetMapping("/ex")

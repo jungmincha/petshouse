@@ -1,7 +1,5 @@
 package com.pet.ex.service;
 
- 
-
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -20,7 +18,6 @@ public class SnsServiceImpl implements SnsService {
 
 	public SnsMapper mapper;
 
-  
 	@Override
 	public void snsBoardInput(BoardVO boardVO) {
 		log.info("snsBoardInput");
@@ -41,22 +38,51 @@ public class SnsServiceImpl implements SnsService {
 
 	@Override
 	public BoardVO getBoardInfo(int board_id) {
-		 
+
 		return mapper.getboardInfo(board_id);
 	}
 
 	@Override
 	public BoardVO getBoard(int board_id) {
-		 
+
 		return mapper.getBoard(board_id);
 	}
 
 	@Override
 	public List<ImageVO> getImg(int board_id) {
-		 
+
 		return mapper.getImg(board_id);
 	}
 
-  
+	@Override
+	public void insertComment(BoardVO boardVO) {
+		log.info("insertComment");
+		mapper.insertComment(boardVO);
+
+	}
+
+	@Override
+	public BoardVO getComment(int Board_id) {
+		log.info("getComment()");
+		return mapper.getComment(Board_id);
+	}
+
+	@Override
+	public List<BoardVO> listComment(int Board_id) {
+		log.info("listComment()");
+		return mapper.listComment(Board_id);
+	}
+
+	@Override
+	public void hit(int board_id) {
+
+		mapper.hit(board_id);
+	}
+
+	@Override
+	public int counta(int board_id) {
+		log.info("counta()");
+		return mapper.counta(board_id);
+	}
 
 }

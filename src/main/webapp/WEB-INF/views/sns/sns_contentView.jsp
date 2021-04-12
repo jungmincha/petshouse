@@ -39,6 +39,8 @@
 <link rel="stylesheet" href="/resources/css/slicknav.min.css"
 	type="text/css">
 <link rel="stylesheet" href="/resources/css/style.css" type="text/css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 <style>
 p {
@@ -172,11 +174,54 @@ img {
  
 }
 </style>
+<script>
+	//로그인 체크
+	$(document).ready(function() {
+		var member_id = $("#member_id").val();
+
+		function checkLogin() {
+			if (member_id == undefined) {
+				alert("로그인 후 글을 작성해주세요.");
+				location.href = '/login/login';
+			}
+		}
+		//댓글 작성 로그인 체크
+		$('#cw').click(function() {
+			checkLogin();
+		});
+	});
+	
+	
+</script>
+<script type="text/javascript">
+	function button_event() {
+		if (confirm("정말 삭제하시겠습니까?") == true) { //확인
+			location.href = '${pageContext.request.contextPath}/commu/delete?board_id=${qna_view.board_id}'
+		} else { //취소
+			return;
+		}
+	}
+
+	function modify_event() {
+		if (confirm("수정하시겠습니까?") == true) { //확인
+			location.href = '${pageContext.request.contextPath}/commu/modify_page?board_id=${qna_view.board_id}'
+		} else { //취소
+			return;
+		}
+	}
+</script>
 </head>
 <body style="padding-top: 200px">
 
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
-
+	
+	
+<sec:authorize access="hasAnyRole('ROLE_USER','ROLE_ADMIN')">
+		<input type="hidden" id="member_id"
+			value="<sec:authentication property="principal.member_id"/>">
+	</sec:authorize>
+	
+	
  <div class="mt-150 mb-150">
 		<div class="container">
 			<div class="row">
@@ -209,9 +254,11 @@ img {
 							<p class="blog-meta">
 								<span class="author"><i class="fas fa-user"></i> ${sns.memberVO.nickname}</span>
 								<span class="date"><i class="fas fa-calendar"></i> ${sns.pdate}</span>
+								<span style="color: gray"> 조회수 ${sns.hit}</span>
 							</p>
 							 
 							<p>${sns.content}</p>
+							
  							<c:set var="hashtag" value="${sns.hashtag}" /> 
  							<c:set var="tag" value="${fn:split(hashtag, ' ')}" /> 
  							<c:forEach var="t" items="${tag}">
@@ -220,7 +267,7 @@ img {
 
 							</c:forEach>
 						 
- </div>
+						 </div>
 						 
 				 
 				<div class="col-lg-3">
@@ -261,19 +308,21 @@ img {
 
 <div class="container" style="margin-top:100px;">
 
-		<input type="hidden" id="pgroup" value="${qna_view.board_id }">
+		<input type="hidden" id="pgroup" value="${sns.board_id}">
 		<sec:authorize access="hasAnyRole('ROLE_USER','ROLE_ADMIN')">
 			<input type="hidden" id="member_id"
 				value="<sec:authentication property="principal.member_id"/>">
 		</sec:authorize>
 		<div>
 			<div>
-				<h4><strong>댓글</strong></h4>
+				<h4><strong>댓글&nbsp(${count})</strong></h4>
 			</div>
 			<div>
-				<table class="table" style="margin-bottom: 150px; ">
-
+			<div id = "inputContent" style = "width : 800px;">
+				<table class="table" style="margin: 10px; ">
+				
 					<td class="row">
+					
 					<textarea style="resize: none;"
 							class="form-control col-7" id="content" placeholder="댓글을 입력하세요"></textarea>
 						<button class="col-1 btn btn-warning"   onClick="getComment()">등록</button>
@@ -281,18 +330,18 @@ img {
 					</td>
 
 				</table>
-			</div>
+			</div></div>
 		</div>
 
 
-		<div class="container" style="margin-bottom: 10px;">
+		<div class="container">
 
-			<div id="comment">
+			<div id="comment" style = "width : 800px;">
 
-				<c:forEach items="${comment}" var="dto">
-					<div>${dto.memberVO.nickname}</div>
-					<div>${dto.content}</div>
-					<div>${dto.pdate}"</div>
+				<c:forEach items="${comment}" var="m">
+					<div>${m.memberVO.nickname}</div>
+					<div>${m.content}</div>
+					<div>${m.pdate}"</div>
 					<hr>
 				</c:forEach>
 
@@ -339,12 +388,61 @@ function showSlides(n) {
   dots[slideIndex-1].className += " active";
   captionText.innerHTML = dots[slideIndex-1].alt;
 }
+
+ 
+function getFormatDate(pdate) {
+
+	   var date = date.substr(0, 17);
+	   var date = date.split("T");
+	   var date = date[0] + " " + date[1];
+	   return pdate; 
+	}
 	</script> 
 	 
 	 
 	<div style="margin-top: 500px;">
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 	</div>
+	
+		<script type="text/javascript">
+		// 댓글 작성 및 ajax로 댓글 불러오기
+		function getComment() {
+	
+			var member_id = $("#member_id").val();
+			console.log(member_id);
+			var pgroup = $("#pgroup").val();
+			var content = $("#content").val();
+			$.ajax({
+				url : "/commu/sns/comment",
+				type : "post",
+				data : {
+					member_id : member_id,
+					pgroup : pgroup,
+					content : content
+				},
+				success : function(data) {
+
+					html = "<div>" + data.memberVO.nickname + "</div>"
+							+ "<div>" + data.content + "</div>" + "<div>"
+							+ data.pdate + "</div> <hr>"
+
+					$("#comment").prepend(html);
+							document.getElementById("content").value=''; 	
+					// $("#content").empty();
+							
+				}, //ajax 성공 시 end$
+			
+/* 
+				error : function(request, status, error) {
+					alert("code:" + request.status + "\n" + "message:"
+							+ request.responseText + "\n" + "error:" + error); */
+
+				// } // ajax 에러 시 end
+
+			})
+		}
+	</script>
+ 
 </body>
 
 
