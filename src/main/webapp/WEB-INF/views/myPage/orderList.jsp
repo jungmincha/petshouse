@@ -266,91 +266,15 @@
 
 			<div class="col-lg-1"></div>
 		</div>
-		<div class="row">
-			<!-- <div class="col-lg-12">
-				<div class="blog-details-inner">
-
-					<div class="posted-by">
-						<button type="button" class="btn btn-default"
-							data-toggle="collapse" data-target="#demo">▼</button>
-						<div class="row">
-
-							<div class="col-lg-4">
-
-								<div class="pb-pic">
-
-									<img src="/resources/img/products/product-1.jpg" class="pimg"
-										alt="">
-
-								</div>
-								<div class="pb-text">
-									<a href="#">
-										<h5>303123122 / 2021.04.08</h5>
-									</a>
-									<p style="font-size: 22px">다용도 책상 테이블</p>
-									<span style="font-size: 13px">색상 - 빨강 / 사이즈 - M</span><br>
-								</div>
-
-							</div>
-							<div class="col-lg-2"></div>
-							<div class="col-lg-4">
-								<br> <span style="font-size: 18px">29000원</span><br> <span
-									style="font-size: 18px">수량 - 1</span>
-
-							</div>
-							<div class="col-lg-2">
-								<span style="font-size: 20px"><button>배송조회</button></span><br>
-
-								<span style="font-size: 20px"><button id="myBtn">리뷰
-										작성</button></span><br>
-							</div>
-
-						</div>
-						<hr>
-						<div class="row collapse in" id="demo">
-
-							<div class="col-lg-4">
-
-								<div class="pb-pic">
-									<img src="/resources/img/products/product-1.jpg" class="pimg"
-										alt="">
-								</div>
-								<div class="pb-text">
-									<a href="#">
-										<h5>303123122 / 2021.04.08</h5>
-									</a>
-									<p style="font-size: 22px">다용도 책상 테이블</p>
-									<span style="font-size: 13px">색상 - 빨강 / 사이즈 - M</span><br>
-								</div>
-
-							</div>
-							<div class="col-lg-2"></div>
-							<div class="col-lg-4">
-								<br> <span style="font-size: 18px">29000원</span><br> <span
-									style="font-size: 18px">수량 - 1</span>
-
-							</div>
-							<div class="col-lg-2">
-								<span style="font-size: 20px"><button>배송조회</button></span><br>
-
-								<span style="font-size: 20px"><button id="myBtn">리뷰
-										작성</button></span><br>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div> -->
-
-		</div>
 
 	</div>
 	<form action="http://info.sweettracker.co.kr/tracking/5" method="post"
-		id="deliverySelect">
+		name="deliverySelect">
 
-		<input type="text" class="form-control" id="t_key" name="t_key"
-			value="b6qZIhyVpYgicymScLeVNQ"> <input type="text"
+		<input type="hidden" class="form-control" id="t_key" name="t_key"
+			value="b6qZIhyVpYgicymScLeVNQ"> <input type="hidden"
 			class="form-control" name="t_code" id="t_code" placeholder="택배사 코드">
-		<input type="text" class="form-control" name="t_invoice"
+		<input type="hidden" class="form-control" name="t_invoice"
 			id="t_invoice" placeholder="운송장 번호">
 
 
@@ -468,7 +392,7 @@
 						console.log("실행")
 						var pageNum = 1;
 						var amount = 10;
-
+						
 						$
 								.ajax({
 									url : "/myPage/orderList/ajax",
@@ -481,7 +405,7 @@
 									success : function(data) {
 										html = "";
 										console.log(data);
-
+										console.log(data.pay[0].paystate_id)
 										for (var i = 1; i <= data.pay.length; i++) {
 											console.log(data.pay[i-1].payGoodsVO.length);
 											html += "<div class='row'> <div class='col-lg-12'>"
@@ -505,10 +429,22 @@
 													+ "원</span><br> <span  style='font-size: 18px'>수량 : "
 													+ data.pay[i - 1].payGoodsVO[0].amount
 													+ "</span>"
-													+ "</div> <div class='col-lg-2'> <span style='font-size: 20px'><button>배송조회</button></span><br>"
-													+ "<span style='font-size: 20px'><button id='myBtn' onclick='modals("+ data.pay[i - 1].payGoodsVO[0].boardVO.goods_id+")'>리뷰 작성</button></span>"
-													+ "</div> </div>" 
-													+" <hr><div class='row collapse in' id='demo"+i+"'> "
+													switch (data.pay[i-1].paystate_id){
+														case 1 :
+														html += "</div> <div class='col-lg-2'> <span style='font-size: 20px'><button onclick='delivery()'>배송조회</button></span><br>"
+														+ "<span style='font-size: 20px'><button id='myBtn' onclick='modals("+ data.pay[i - 1].payGoodsVO[0].boardVO.goods_id+")'>리뷰 작성</button></span>"
+														+ "</div> </div>" 
+														break;
+														case 2 :
+														html += "</div> <div class='col-lg-2'> <span style='font-size: 20px'><button onclick='delivery()'>배송조회</button></span><br>"
+															+ "<span style='font-size: 20px'><button id='myBtn' onclick='modals("+ data.pay[i - 1].payGoodsVO[0].boardVO.goods_id+")'>리뷰 작성</button></span>"
+															+ "</div> </div>" 
+															break;
+														default :
+															break;
+													}
+													
+													html +=" <hr><div class='row collapse in' id='demo"+i+"'> "
 											for (var j = 1; j < data.pay[i - 1].payGoodsVO.length; j++) {
 												html += " <div class='col-lg-5'> <div class='pb-pic'>"
 														+ "<img src='/resources/img/products/product-2.jpg' class='pimg'> </div>"
@@ -533,7 +469,7 @@
 										
 									} // ajax 에러 시 end
 
-								});// 장바구니 목록 함수 end
+								});
 						function getFormatDate(date) {
 
 							var date = date.substr(0, 19);
@@ -692,7 +628,8 @@
 	}  
 	function delivery(t_code,t_invoice){
 		$("#t_code").val(t_code);
-		$("t_inv")
+		$("t_invoice").val(t_invoice);
+		document.deliverySelect.submit();
 	}
 	
 

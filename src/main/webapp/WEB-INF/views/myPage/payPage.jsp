@@ -230,14 +230,14 @@
 						var html = "";
 						for (var i = 0; i < payGoods.length; i++) {
 							html += "<li class='fw-normal'>"
-									+ "<img src='/resources/img/cart-page/product-1.jpg' class='pimg'>"
+									+ "<img src='/resources/img/admin/goods/"+payGoods[i].thumbnail+"' class='pimg'>"
 									+ payGoods[i].name
 									+ "&nbsp x &nbsp "
 									+ payGoods[i].amount
 									+ "<input type='hidden' name='amount' value='"+payGoods[i].amount+"'>"
 									+ " <span>"
 									+ payGoods[i].sum
-									+ "원</span> <br> 색상 : "+payGoods[i].pcolor+" 사이즈 : "+payGoods[i].psize+""
+									+ "원</span> <br> "+payGoods[i].pcolor+" / "+payGoods[i].psize
 									+ "<input type='hidden' name='goodsSum' value='"+ payGoods[i].sum+"'><input type='hidden' name='goodsName' value='"+ payGoods[i].name+"'>"
 									+"<input type='hidden' name='psize' value='"+ payGoods[i].psize+"'>"
 									+"<input type='hidden' name='pcolor' value='"+ payGoods[i].pcolor+"'>"

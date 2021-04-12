@@ -69,7 +69,7 @@
 										<th class="p-name">상품 이름</th>
 										<th>가격</th>
 										<th>수량</th>
-										<th>옵션</th>
+										<th>색상 / 사이즈</th>
 										<th>금액</th>
 										<th><i class="ti-close" onclick="allCartDelete()"
 											style='cursor: pointer'></i></th>
@@ -84,6 +84,7 @@
 									<input type='hidden' name='amount' />
 									<input type='hidden' name='psize' />
 									<input type='hidden' name='pcolor' />
+									<input type='hidden' name='thumbnail' />
 								</tbody>
 
 							</table>
@@ -149,7 +150,7 @@
 														+ "' type='checkbox' name='board_id' value='"
 														+ data[i - 1].board_id
 														+ "'></input></td>"
-														+ "<td class='cart-pic first-row'> <a href='/admin/goods_detail/"+data[i-1].board_id+"'> <img src='/resources/img/cart-page/product-1.jpg' class='pimg'> </a></td> "
+														+ "<td class='cart-pic first-row'> <a href='/admin/goods_detail/"+data[i-1].board_id+"'> <img src='/resources/img/admin/goods/"+data[i-1].goodsVO.thumbnail+"' class='pimg'> </a></td> "
 														+ "<td class='cart-title first-row'>"
 														+ "<h5>"
 														+ "<a href='/admin/goods_detail/"+data[i-1].board_id+"' style='color:#000000' >"
@@ -168,13 +169,13 @@
 														+ "' value='"+amount+"' readonly > <span class='inc qtybtn' onclick='total"
 														+ i
 														+ "(1)'>+</span> </div> </div>"
-														+ "</td> <td class='total-price first-row' style='color:#000000'> 색상 : "+pcolor+" <br> 사이즈 : "+psize+"</td><td class='total-price first-row' style='color:#000000'>"
+														+ "</td> <td class='total-price first-row' style='color:#000000'> "+pcolor+" / "+psize+"</td><td class='total-price first-row' style='color:#000000'>"
 														+ "<input style='border:none; text-align:right;' type='text' id='sum"
 														+ i
 														+ "' value='' readonly size='7px' name='sum' >원</td>"
 														+ "<td class='close-td first-row'><i class='ti-close' onclick='cartDelete("
 														+ i
-														+ ")' > <input type='hidden' name='name' value='"+data[i - 1].goodsVO.goodsname+"' ><input type='hidden' name='psize' value='"+psize+"' ><input type='hidden' name='pcolor' value='"+pcolor+"' > </td>"
+														+ ")' > <input type='hidden' name='name' value='"+data[i - 1].goodsVO.goodsname+"' ><input type='hidden' name='psize' value='"+psize+"' ><input type='hidden' name='pcolor' value='"+pcolor+"' > <input type='hidden' name='thumbnail' value='"+data[i-1].goodsVO.thumbnail+"' ></td>"
 														+ "</tr>"
 
 												// 상품 별 합 계산() ready
@@ -301,6 +302,7 @@
 					goods.pcolor = this.form.pcolor[i].value;
 					goods.name = this.form.name[i].value;
 					goods.sum = parseInt(this.form.sum[i].value);
+					goods.thumbnail = this.form.thumbnail[i].value;
 					payGoods.push(goods);
 				}
 			}

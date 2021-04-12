@@ -56,6 +56,8 @@
 		var goods = new Object();
 		goods.board_id = '${goods.board_id}';
 		goods.amount = parseInt($("#amount").val());
+		goods.psize = $(".activeSize").text();
+		goods.pcolor = $(".activeColor").text();
 		console.log(goods);
 		cart.push(goods);
 		console.log(cart);
@@ -411,9 +413,9 @@ h2 {
 															$(
 																	".pd-color-choose .color-item label")
 																	.removeClass(
-																			'active');
+																			'activeColor');
 															$(this).addClass(
-																	'active');
+																	'activeColor');
 														});
 									</script>
 
@@ -422,7 +424,7 @@ h2 {
 										<c:set var="size" value="${fn:split(psize, ',')}" />
 										<c:forEach var="s" items="${size}">
 											<div class="sc-item">
-												<input type="radio" id="size" name="size" /> <label
+												<input type="radio" id="psize" name="psize" value="${s}"/> <label
 													for="size">${s}</label>
 											</div>
 										</c:forEach>
