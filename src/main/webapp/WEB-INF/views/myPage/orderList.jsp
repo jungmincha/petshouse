@@ -344,6 +344,17 @@
 		</div>
 
 	</div>
+	<form action="http://info.sweettracker.co.kr/tracking/5" method="post"
+		id="deliverySelect">
+
+		<input type="text" class="form-control" id="t_key" name="t_key"
+			value="b6qZIhyVpYgicymScLeVNQ"> <input type="text"
+			class="form-control" name="t_code" id="t_code" placeholder="택배사 코드">
+		<input type="text" class="form-control" name="t_invoice"
+			id="t_invoice" placeholder="운송장 번호">
+
+
+	</form>
 
 	<c:if test="${pageMaker.prev}">
 		<a href="listPage${pageMaker.makeQuery(pageMaker.startPage - 1) }">«</a>
@@ -472,12 +483,14 @@
 										console.log(data);
 
 										for (var i = 1; i <= data.pay.length; i++) {
-
+											console.log(data.pay[i-1].payGoodsVO.length);
 											html += "<div class='row'> <div class='col-lg-12'>"
 													+ "<div class='blog-details-inner'>"
 													+ "<div class='posted-by'>"
-													+ "<button type='button' class='btn ' data-toggle='collapse' data-target='#demo"+i+"'>▼</button>"
-													+ " <div class='row'> <div class='col-lg-5'> <div class='pb-pic'>"
+													if(data.pay[i-1].payGoodsVO.length >1){
+														html += "<button type='button' class='btn ' data-toggle='collapse' data-target='#demo"+i+"'>▼</button>"
+													}
+													html += " <div class='row'> <div class='col-lg-5'> <div class='pb-pic'>"
 													+ "<img src='/resources/img/products/product-1.jpg' class='pimg'> </div>"
 													+ "<div class='pb-text'> <a href='#''> <h5>"
 													+ data.pay[i - 1].pay_id
@@ -493,11 +506,11 @@
 													+ data.pay[i - 1].payGoodsVO[0].amount
 													+ "</span>"
 													+ "</div> <div class='col-lg-2'> <span style='font-size: 20px'><button>배송조회</button></span><br>"
-													+ "<span style='font-size: 20px'><button id='myBtn' onclick='modals("+ data.pay[i - 1].payGoodsVO[0].boardVO.goods_id+")'>리뷰 작성</button></span><br>"
+													+ "<span style='font-size: 20px'><button id='myBtn' onclick='modals("+ data.pay[i - 1].payGoodsVO[0].boardVO.goods_id+")'>리뷰 작성</button></span>"
 													+ "</div> </div>" 
-													+"<hr> <div class='row collapse in' id='demo"+i+"'> "
+													+" <hr><div class='row collapse in' id='demo"+i+"'> "
 											for (var j = 1; j < data.pay[i - 1].payGoodsVO.length; j++) {
-												html += " <div class='col-lg-12'><br></div><div class='col-lg-5'> <div class='pb-pic'>"
+												html += " <div class='col-lg-5'> <div class='pb-pic'>"
 														+ "<img src='/resources/img/products/product-2.jpg' class='pimg'> </div>"
 														+ "<div class='pb-text'>  <p style='font-size: 22px'>"
 														+ data.pay[i - 1].payGoodsVO[j].boardVO.title
@@ -509,7 +522,7 @@
 														+ "</span>"
 														+ "</div> <div class='col-lg-2'> <br>"
 														+ "<span style='font-size: 20px'><button id='myBtn' onclick='modals("+ data.pay[i - 1].payGoodsVO[0].boardVO.board_id+")'>리뷰 작성</button></span><br>"
-														+ "</div> "
+														+ "<div class='col-lg-12'><br></div> </div> "
 											}
 											html += "</div> </div>"
 
@@ -677,6 +690,10 @@
 	modal.style.display = "none";
 	}
 	}  
+	function delivery(t_code,t_invoice){
+		$("#t_code").val(t_code);
+		$("t_inv")
+	}
 	
 
 </script>
