@@ -26,4 +26,8 @@ public interface MyPageService {
 
 	List<PayGoodsVO> listPayGoods(int pay_id);
 
+	List<PayVO> listPaystateOrder(Criteria cri, String member_id, String paystate_id);
+
+	Integer orderListCount(int paystate_id, String member_id);
+
 }

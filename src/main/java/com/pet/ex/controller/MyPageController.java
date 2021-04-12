@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -102,16 +103,24 @@ public class MyPageController {
 
 	// 주문 배송 내역 조회
 	@GetMapping("/orderList")
-	public ModelAndView orderList(ModelAndView mav) {
-
+	public ModelAndView orderList(ModelAndView mav, Authentication authentication) {
+		String member_id = authentication.getPrincipal().toString();
+		List<Integer> payCounts = new ArrayList<Integer>();
+		payCounts.add(myPageService.getPayTotal(member_id));
+		payCounts.add(myPageService.orderListCount(1,member_id));
+		payCounts.add(myPageService.orderListCount(2,member_id));
+		payCounts.add(myPageService.orderListCount(3,member_id));
+		payCounts.add(myPageService.orderListCount(4,member_id));
+		payCounts.add(myPageService.orderListCount(5,member_id));
+		mav.addObject("payCounts", payCounts);
 		mav.setViewName("/myPage/orderList");
 		return mav;
 	}
 
+	// 전체 주문 리스트 조회
 	@GetMapping("/orderList/ajax")
 	public Map<String, Object> orderListAjax(Criteria cri, Authentication authentication) {
 		String member_id = authentication.getPrincipal().toString();
-		System.out.println(cri.getPageNum());
 		List<PayVO> pay = new ArrayList<PayVO>();
 		Map<String, Object> payAjax = new HashMap<String, Object>();
 
@@ -120,9 +129,30 @@ public class MyPageController {
 		int total = myPageService.getPayTotal(member_id);
 
 		for (PayVO dto : pay) {
-			System.out.println(dto.getPay_id());
 			dto.setPayGoodsVO(myPageService.listPayGoods(dto.getPay_id()));
-			System.out.println(myPageService.listPayGoods(dto.getPay_id()));
+
+		}
+
+		payAjax.put("pay", pay);
+		payAjax.put("pageMaker", new PageVO(cri, total));
+		return payAjax;
+	}
+
+	// paystate별 주문 리스트 조회
+	@GetMapping("/orderList/ajax/{paystate_id}")
+	public Map<String, Object> orderList(Criteria cri, Authentication authentication,
+			@PathVariable("paystate_id") String paystate_id) {
+		String member_id = authentication.getPrincipal().toString();
+		List<PayVO> pay = new ArrayList<PayVO>();
+		Map<String, Object> payAjax = new HashMap<String, Object>();
+
+		pay = myPageService.listPaystateOrder(cri, member_id, paystate_id);
+		System.out.println(pay);
+		int total = myPageService.getPayTotal(member_id);
+
+		for (PayVO dto : pay) {
+			dto.setPayGoodsVO(myPageService.listPayGoods(dto.getPay_id()));
+			System.out.println();
 		}
 
 		payAjax.put("pay", pay);

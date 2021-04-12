@@ -251,14 +251,32 @@
 
 			<div class="col-lg-12">
 				<div class="jumbotron"
-					style="padding-top: 40px; padding-bottom: 70px">
+					style="padding-top: 40px; padding-bottom: 70px;">
 					<div class="row ">
-						<div class="col-lg-2 text-center">입금대기</div>
-						<div class="col-lg-2 text-center">결제완료</div>
-						<div class="col-lg-2 text-center">배송준비</div>
-						<div class="col-lg-2 text-center">배송중</div>
-						<div class="col-lg-2 text-center">배송완료</div>
-						<div class="col-lg-2 text-center">구매확정</div>
+						<div class="col-lg-2 text-center">
+							<a onclick="allOrder()" style="font-size: 22px">전체<br> <br>
+								<span style="font-size: 22px">${payCounts[0]}</span></a>
+						</div>
+						<div class="col-lg-2 text-center">
+							<a onclick="listOrder(1)" style="font-size: 22px">결제완료<br>
+								<br> <span style="font-size: 22px">${payCounts[1]}</span></a>
+						</div>
+						<div class="col-lg-2 text-center">
+							<a onclick="listOrder(2)" style="font-size: 22px">배송준비<br>
+								<br> <span style="font-size: 22px">${payCounts[2]}</span></a>
+						</div>
+						<div class="col-lg-2 text-center">
+							<a onclick="listOrder(3)" style="font-size: 22px">배송중<br>
+								<br> <span style="font-size: 22px">${payCounts[3]}</span></a>
+						</div>
+						<div class="col-lg-2 text-center">
+							<a onclick="listOrder(4)" style="font-size: 22px">배송완료<br>
+								<br> <span style="font-size: 22px">${payCounts[4]}</span></a>
+						</div>
+						<div class="col-lg-2 text-center">
+							<a onclick="listOrder(5)" style="font-size: 22px">구매확정<br>
+								<br> <span style="font-size: 22px">${payCounts[5]}</span></a>
+						</div>
 					</div>
 
 				</div>
@@ -386,6 +404,7 @@
 	<!-- 모달 끝 -->
 </body>
 <script>
+// 전체 오더리스트 조회
 	$(document)
 			.ready(
 					function() {
@@ -405,18 +424,16 @@
 									success : function(data) {
 										html = "";
 										console.log(data);
-										console.log(data.pay[0].paystate_id)
 										for (var i = 1; i <= data.pay.length; i++) {
-											console.log(data.pay[i-1].payGoodsVO.length);
-											html += "<div class='row'> <div class='col-lg-12'>"
+											html += "<div class='row payList'> <div class='col-lg-1'> </div> <div class='col-lg-10'>"
 													+ "<div class='blog-details-inner'>"
 													+ "<div class='posted-by'>"
 													if(data.pay[i-1].payGoodsVO.length >1){
 														html += "<button type='button' class='btn ' data-toggle='collapse' data-target='#demo"+i+"'>▼</button>"
 													}
 													html += " <div class='row'> <div class='col-lg-5'> <div class='pb-pic'>"
-													+ "<img src='/resources/img/products/product-1.jpg' class='pimg'> </div>"
-													+ "<div class='pb-text'> <a href='#''> <h5>"
+													+ "<img src='/resources/img/admin/goods/"+data.pay[i-1].payGoodsVO[0].boardVO.goodsVO.thumbnail+"' class='pimg'> </div>"
+													+ "<div class='pb-text'> <a href='#'> <h5>"
 													+ data.pay[i - 1].pay_id
 													+ " / "
 													+ getFormatDate(data.pay[i - 1].paydate)
@@ -424,45 +441,63 @@
 													+ data.pay[i - 1].payGoodsVO[0].boardVO.title
 													+ "</p>"
 													+ "<span style='font-size: 13px'>색상 - "+data.pay[i - 1].payGoodsVO[0].pcolor+" / 사이즈 - "+data.pay[i - 1].payGoodsVO[0].psize+"</span><br> </div>"
-													+ "</div> <div class='col-lg-2'></div> <div class='col-lg-3'> <br> <span style='font-size: 18px;text-'>총금액 : "
+													+ "</div> <div class='col-lg-1'></div> <div class='col-lg-3' style='text-align: center;'> <br> <span style='font-size: 18px;'>총 금액 : "
 													+ data.pay[i - 1].payprice
-													+ "원</span><br> <span  style='font-size: 18px'>수량 : "
+													+ "원</span><br> <span  style='font-size: 18px;'>수량 : "
 													+ data.pay[i - 1].payGoodsVO[0].amount
 													+ "</span>"
-													switch (data.pay[i-1].paystate_id){
+													switch (data.pay[i-1].paystateVO.paystate_id){
 														case 1 :
-														html += "</div> <div class='col-lg-2'> <span style='font-size: 20px'><button onclick='delivery()'>배송조회</button></span><br>"
-														+ "<span style='font-size: 20px'><button id='myBtn' onclick='modals("+ data.pay[i - 1].payGoodsVO[0].boardVO.goods_id+")'>리뷰 작성</button></span>"
-														+ "</div> </div>" 
-														break;
-														case 2 :
-														html += "</div> <div class='col-lg-2'> <span style='font-size: 20px'><button onclick='delivery()'>배송조회</button></span><br>"
-															+ "<span style='font-size: 20px'><button id='myBtn' onclick='modals("+ data.pay[i - 1].payGoodsVO[0].boardVO.goods_id+")'>리뷰 작성</button></span>"
-															+ "</div> </div>" 
+														html += "</div> <div class='col-lg-3'  style='text-align: right;'><br><span>상품준비중</span></div> </div>"
 															break;
+														case 2 :
+														html += "</div> <div class='col-lg-3'  style='text-align: right;'><br><span>배송준비중</span></div> </div>"
+															break;
+														case 3 :
+															html += "</div> <div class='col-lg-3' style='text-align: right;'><br> <span style='font-size: 20px'><button onclick='delivery()'>배송조회</button></span>"
+																+ "</div> </div>" 
+																break;
+														case 4 :
+															html += "</div> <div class='col-lg-3' style='text-align: right;'> <span style='font-size: 20px'><button onclick='delivery()'>배송조회</button></span><br>"
+																+ "<span style='font-size: 20px'><button>구매확정</button></span>"
+																+ "</div> </div>"
+																break;
+														case 5 :
+															html += "</div> <div class='col-lg-3' style='text-align: right;'>"
+																+ "<br><span style='font-size: 20px'><button id='myBtn' onclick='modals("+ data.pay[i - 1].payGoodsVO[0].boardVO.goods_id+")'>리뷰 작성</button></span>"
+																+ "</div> </div>" 
+																break;
 														default :
 															break;
 													}
-													
-													html +=" <hr><div class='row collapse in' id='demo"+i+"'> "
-											for (var j = 1; j < data.pay[i - 1].payGoodsVO.length; j++) {
-												html += " <div class='col-lg-5'> <div class='pb-pic'>"
-														+ "<img src='/resources/img/products/product-2.jpg' class='pimg'> </div>"
-														+ "<div class='pb-text'>  <p style='font-size: 22px'>"
-														+ data.pay[i - 1].payGoodsVO[j].boardVO.title
-														+ "</p>"
-														+ "<span style='font-size: 13px'>색상 - "+data.pay[i - 1].payGoodsVO[j].pcolor+" / 사이즈 - "+data.pay[i - 1].payGoodsVO[j].psize+"</span><br> </div>"
-														+ "</div> <div class='col-lg-2'></div> <div class='col-lg-3'> <br>"
-														+ "<span  style='font-size: 18px'>수량 : "
-														+ data.pay[i - 1].payGoodsVO[j].amount
-														+ "</span>"
-														+ "</div> <div class='col-lg-2'> <br>"
-														+ "<span style='font-size: 20px'><button id='myBtn' onclick='modals("+ data.pay[i - 1].payGoodsVO[0].boardVO.board_id+")'>리뷰 작성</button></span><br>"
-														+ "<div class='col-lg-12'><br></div> </div> "
-											}
-											html += "</div> </div>"
-
+													if( data.pay[i - 1].payGoodsVO.length>1){
+														html +=" <hr><div class='row collapse in' id='demo"+i+"'> "
+														for (var j = 1; j < data.pay[i - 1].payGoodsVO.length; j++) {
+															html += " <div class='col-lg-5'> <div class='pb-pic'>"
+																	+ "<img src='/resources/img/admin/goods/"+data.pay[i-1].payGoodsVO[j].boardVO.goodsVO.thumbnail+"' class='pimg'> </div>"
+																	+ "<div class='pb-text'>  <p style='font-size: 22px'>"
+																	+ data.pay[i - 1].payGoodsVO[j].boardVO.title
+																	+ "</p>"
+																	+ "<span style='font-size: 13px'>색상 - "+data.pay[i - 1].payGoodsVO[j].pcolor+" / 사이즈 - "+data.pay[i - 1].payGoodsVO[j].psize+"</span><br> </div>"
+																	+ "</div> <div class='col-lg-1'></div> <div class='col-lg-3' style='text-align: center;'> <br>"
+																	+ "<span  style='font-size: 18px'>수량 : "
+																	+ data.pay[i - 1].payGoodsVO[j].amount
+																	+ "</span>"
+																	+ "</div> <div class='col-lg-3'  style='text-align: right;'> <br>"
+																	if(data.pay[i-1].paystateVO.paystate_id==5){
+																		html += "<span style='font-size: 20px'><button id='myBtn' onclick='modals("+ data.pay[i - 1].payGoodsVO[0].boardVO.board_id+")'>리뷰 작성</button></span><br>"
+																	}
+																	html +="</div>"	
+																	console.log(data.pay[i-1].payGoodsVO.length)
+																	if(j < data.pay[i-1].payGoodsVO.length-1){
+																		html += "<div class='col-lg-12'><br></div>"
+																	}
+														}
+														html +="</div>"	
+													}
+													html +="</div></div></div></div></div>"
 										}
+								
 										$("#orderList").append(html);
 									}, //ajax 성공 시 
 									error : function(request, status, error) {
@@ -470,14 +505,9 @@
 									} // ajax 에러 시 end
 
 								});
-						function getFormatDate(date) {
-
-							var date = date.substr(0, 19);
-							var date = date.split("T");
-							var date = date[0] + " " + date[1];
-							return date; 
-						}
+						
 					});
+	
 	//공백확인용...
 	(function () {
 	'use strict'
@@ -626,13 +656,225 @@
 	modal.style.display = "none";
 	}
 	}  
+	
+	// 배송조회
 	function delivery(t_code,t_invoice){
 		$("#t_code").val(t_code);
 		$("t_invoice").val(t_invoice);
 		document.deliverySelect.submit();
 	}
-	
+	// 버튼 클릭시 전체 리스트 조회
+	function allOrder(){
+		$(".payList").remove();
+						console.log("실행")
+						var pageNum = 1;
+						var amount = 10;
+						
+						$
+								.ajax({
+									url : "/myPage/orderList/ajax",
+									type : "get",
+									data : {
+										pageNum : pageNum,
+										amount : amount
 
+									},
+									success : function(data) {
+										html = "";
+										console.log(data);
+										for (var i = 1; i <= data.pay.length; i++) {
+											html += "<div class='row payList'> <div class='col-lg-1'> </div> <div class='col-lg-10'>"
+													+ "<div class='blog-details-inner'>"
+													+ "<div class='posted-by'>"
+													if(data.pay[i-1].payGoodsVO.length >1){
+														html += "<button type='button' class='btn ' data-toggle='collapse' data-target='#demo"+i+"'>▼</button>"
+													}
+													html += " <div class='row'> <div class='col-lg-5'> <div class='pb-pic'>"
+													+ "<img src='/resources/img/admin/goods/"+data.pay[i-1].payGoodsVO[0].boardVO.goodsVO.thumbnail+"' class='pimg'> </div>"
+													+ "<div class='pb-text'> <a href='#'> <h5>"
+													+ data.pay[i - 1].pay_id
+													+ " / "
+													+ getFormatDate(data.pay[i - 1].paydate)
+													+ "</h5> </a> <p style='font-size: 22px'>"
+													+ data.pay[i - 1].payGoodsVO[0].boardVO.title
+													+ "</p>"
+													+ "<span style='font-size: 13px'>색상 - "+data.pay[i - 1].payGoodsVO[0].pcolor+" / 사이즈 - "+data.pay[i - 1].payGoodsVO[0].psize+"</span><br> </div>"
+													+ "</div> <div class='col-lg-1'></div> <div class='col-lg-3' style='text-align: center;'> <br> <span style='font-size: 18px;'>총 금액 : "
+													+ data.pay[i - 1].payprice
+													+ "원</span><br> <span  style='font-size: 18px;'>수량 : "
+													+ data.pay[i - 1].payGoodsVO[0].amount
+													+ "</span>"
+													switch (data.pay[i-1].paystateVO.paystate_id){
+														case 1 :
+														html += "</div> <div class='col-lg-3'  style='text-align: right;'><br><span>상품준비중</span></div> </div>"
+															break;
+														case 2 :
+														html += "</div> <div class='col-lg-3'  style='text-align: right;'><br><span>배송준비중</span></div> </div>"
+															break;
+														case 3 :
+															html += "</div> <div class='col-lg-3' style='text-align: right;'><br> <span style='font-size: 20px'><button onclick='delivery()'>배송조회</button></span>"
+																+ "</div> </div>" 
+																break;
+														case 4 :
+															html += "</div> <div class='col-lg-3' style='text-align: right;'> <span style='font-size: 20px'><button onclick='delivery()'>배송조회</button></span><br>"
+																+ "<span style='font-size: 20px'><button>구매확정</button></span>"
+																+ "</div> </div>"
+																break;
+														case 5 :
+															html += "</div> <div class='col-lg-3' style='text-align: right;'>"
+																+ "<br><span style='font-size: 20px'><button id='myBtn' onclick='modals("+ data.pay[i - 1].payGoodsVO[0].boardVO.goods_id+")'>리뷰 작성</button></span>"
+																+ "</div> </div>" 
+																break;
+														default :
+															break;
+													}
+													if( data.pay[i - 1].payGoodsVO.length>1){
+														html +=" <hr><div class='row collapse in' id='demo"+i+"'> "
+														for (var j = 1; j < data.pay[i - 1].payGoodsVO.length; j++) {
+															html += " <div class='col-lg-5'> <div class='pb-pic'>"
+																	+ "<img src='/resources/img/admin/goods/"+data.pay[i-1].payGoodsVO[j].boardVO.goodsVO.thumbnail+"' class='pimg'> </div>"
+																	+ "<div class='pb-text'>  <p style='font-size: 22px'>"
+																	+ data.pay[i - 1].payGoodsVO[j].boardVO.title
+																	+ "</p>"
+																	+ "<span style='font-size: 13px'>색상 - "+data.pay[i - 1].payGoodsVO[j].pcolor+" / 사이즈 - "+data.pay[i - 1].payGoodsVO[j].psize+"</span><br> </div>"
+																	+ "</div> <div class='col-lg-1'></div> <div class='col-lg-3' style='text-align: center;'> <br>"
+																	+ "<span  style='font-size: 18px'>수량 : "
+																	+ data.pay[i - 1].payGoodsVO[j].amount
+																	+ "</span>"
+																	+ "</div> <div class='col-lg-3'  style='text-align: right;'> <br>"
+																	if(data.pay[i-1].paystateVO.paystate_id==5){
+																		html += "<span style='font-size: 20px'><button id='myBtn' onclick='modals("+ data.pay[i - 1].payGoodsVO[0].boardVO.board_id+")'>리뷰 작성</button></span><br>"
+																	}
+																	html +="</div>"	
+																	console.log(data.pay[i-1].payGoodsVO.length)
+																	if(j < data.pay[i-1].payGoodsVO.length-1){
+																		html += "<div class='col-lg-12'><br></div>"
+																	}
+														}
+														html +="</div>"	
+													}
+													html +="</div></div></div></div></div>"
+										}
+								
+										$("#orderList").append(html);
+									}, //ajax 성공 시 
+									error : function(request, status, error) {
+										
+									} // ajax 에러 시 end
+
+								});
+						
+					}
+	
+	
+	
+	// 버튼 클릭시 리스트 조회
+	function listOrder(paystate) {
+		$(".payList").remove();
+		console.log("실행")
+		var pageNum = 1;
+		var amount = 10;
+		
+		$
+				.ajax({
+					url : "/myPage/orderList/ajax/"+paystate,
+					type : "get",
+					data : {
+						pageNum : pageNum,
+						amount : amount
+					},
+					success : function(data) {
+						html = "";
+						console.log(data);
+						for (var i = 1; i <= data.pay.length; i++) {
+							html += "<div class='row payList'> <div class='col-lg-1'> </div> <div class='col-lg-10'>"
+									+ "<div class='blog-details-inner'>"
+									+ "<div class='posted-by'>"
+									if(data.pay[i-1].payGoodsVO.length >1){
+										html += "<button type='button' class='btn ' data-toggle='collapse' data-target='#demo"+i+"'>▼</button>"
+									}
+									html += " <div class='row'> <div class='col-lg-5'> <div class='pb-pic'>"
+									+ "<img src='/resources/img/admin/goods/"+data.pay[i-1].payGoodsVO[0].boardVO.goodsVO.thumbnail+"' class='pimg'> </div>"
+									+ "<div class='pb-text'> <a href='#'> <h5>"
+									+ data.pay[i - 1].pay_id
+									+ " / "
+									+ getFormatDate(data.pay[i - 1].paydate)
+									+ "</h5> </a> <p style='font-size: 22px'>"
+									+ data.pay[i - 1].payGoodsVO[0].boardVO.title
+									+ "</p>"
+									+ "<span style='font-size: 13px'>색상 - "+data.pay[i - 1].payGoodsVO[0].pcolor+" / 사이즈 - "+data.pay[i - 1].payGoodsVO[0].psize+"</span><br> </div>"
+									+ "</div> <div class='col-lg-1'></div> <div class='col-lg-3' style='text-align: center;'> <br> <span style='font-size: 18px;'>총 금액 : "
+									+ data.pay[i - 1].payprice
+									+ "원</span><br> <span  style='font-size: 18px;'>수량 : "
+									+ data.pay[i - 1].payGoodsVO[0].amount
+									+ "</span>"
+									switch (data.pay[i-1].paystateVO.paystate_id){
+										case 1 :
+										html += "</div> <div class='col-lg-3'  style='text-align: right;'><br><span>상품준비중</span></div> </div>"
+											break;
+										case 2 :
+										html += "</div> <div class='col-lg-3'  style='text-align: right;'><br><span>배송준비중</span></div> </div>"
+											break;
+										case 3 :
+											html += "</div> <div class='col-lg-3' style='text-align: right;'><br> <span style='font-size: 20px'><button onclick='delivery()'>배송조회</button></span>"
+												+ "</div> </div>" 
+												break;
+										case 4 :
+											html += "</div> <div class='col-lg-3' style='text-align: right;'> <span style='font-size: 20px'><button onclick='delivery()'>배송조회</button></span><br>"
+												+ "<span style='font-size: 20px'><button>구매확정</button></span>"
+												+ "</div> </div>"
+												break;
+										case 5 :
+											html += "</div> <div class='col-lg-3' style='text-align: right;'>"
+												+ "<br><span style='font-size: 20px'><button id='myBtn' onclick='modals("+ data.pay[i - 1].payGoodsVO[0].boardVO.goods_id+")'>리뷰 작성</button></span>"
+												+ "</div> </div>" 
+												break;
+										default :
+											break;
+									}
+									if( data.pay[i - 1].payGoodsVO.length>1){
+										html +=" <hr><div class='row collapse in' id='demo"+i+"'> "
+										for (var j = 1; j < data.pay[i - 1].payGoodsVO.length; j++) {
+											html += " <div class='col-lg-5'> <div class='pb-pic'>"
+													+ "<img src='/resources/img/admin/goods/"+data.pay[i-1].payGoodsVO[j].boardVO.goodsVO.thumbnail+"' class='pimg'> </div>"
+													+ "<div class='pb-text'>  <p style='font-size: 22px'>"
+													+ data.pay[i - 1].payGoodsVO[j].boardVO.title
+													+ "</p>"
+													+ "<span style='font-size: 13px'>색상 - "+data.pay[i - 1].payGoodsVO[j].pcolor+" / 사이즈 - "+data.pay[i - 1].payGoodsVO[j].psize+"</span><br> </div>"
+													+ "</div> <div class='col-lg-1'></div> <div class='col-lg-3' style='text-align: center;'> <br>"
+													+ "<span  style='font-size: 18px'>수량 : "
+													+ data.pay[i - 1].payGoodsVO[j].amount
+													+ "</span>"
+													+ "</div> <div class='col-lg-3'  style='text-align: right;'> <br>"
+													if(data.pay[i-1].paystateVO.paystate_id==5){
+														html += "<span style='font-size: 20px'><button id='myBtn' onclick='modals("+ data.pay[i - 1].payGoodsVO[0].boardVO.board_id+")'>리뷰 작성</button></span><br>"
+													}
+													html +="</div>"	
+													console.log(data.pay[i-1].payGoodsVO.length)
+													if(j < data.pay[i-1].payGoodsVO.length-1){
+														html += "<div class='col-lg-12'><br></div>"
+													}
+										}
+										html +="</div>"	
+									}
+									html +="</div></div></div></div></div>"
+						}
+				
+						$("#orderList").append(html);
+					}, //ajax 성공 시 
+					error : function(request, status, error) {
+						
+					} // ajax 에러 시 end
+
+				}) }
+	
+	// 시간 포맷 함수
+	function getFormatDate(date) {
+
+		var date = date.substr(0, 10);
+	
+		return date; 
+	}
 </script>
 <!-- Js Plugins -->
 <script src="/resources/js/jquery-3.3.1.min.js"></script>

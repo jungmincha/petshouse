@@ -41,4 +41,10 @@ public interface MyPageMapper {
 
 	public List<PayGoodsVO> listPayGoods(int pay_id);
 
+	public List<PayVO> listPaystateOrder(Criteria cri, String member_id, String paystate_id);
+
+	public Integer allOrderListCount();
+
+	public Integer orderListCount(int paystate_id, String member_id);
+
 }

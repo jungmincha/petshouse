@@ -234,4 +234,20 @@
 	<select id="listPayGoods" resultMap="paygoodsvo">
 	<![CDATA[ select * from payGoods p, board b, goods g where p.board_id=b.board_id and pay_id=#{pay_id} and b.goods_id=g.goods_id ]]>
 	</select>
+
+	<select id="listPaystateOrder" resultMap="payvo">
+	<![CDATA[
+		select * from (
+    select rownum rnum, a.* 
+         from pay a where rownum <= #{cri.pageNum} * #{cri.amount} and member_id=#{member_id} and paystate_id=#{paystate_id}
+   ) where rnum > #{cri.pageNum}-1 * #{cri.amount}
+	]]>
+	</select>
+
+	<select id="orderListCount" resultType="int">
+		<![CDATA[
+		select count(*) from pay
+		where member_id = #{member_id} and paystate_id=#{paystate_id}
+		]]>
+	</select>
 </mapper>
