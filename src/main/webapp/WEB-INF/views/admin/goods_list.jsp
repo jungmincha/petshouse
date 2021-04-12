@@ -100,6 +100,46 @@
 </script>
 
 <style>
+
+.hero-items {
+	   padding-top: 150px;
+	}
+	
+	.single-hero-items {
+	   max-height: 580px;
+	}
+	
+	.category, .hotitem {
+	   padding-top: 40px;
+	}
+	
+	.product-item {
+	   padding-top: 20px;
+	}
+	
+	.recommended {
+	   padding-top: 60px;
+	}
+	
+	.best {
+	   padding: 80px;
+	}
+	
+	.product-item img{
+    	width: 120px;
+    	height: 280px;
+    }
+    	
+	span.star-prototype, span.star-prototype>*, span.star, span.star>* {
+	   height: 16px;
+	   background: url(http://i.imgur.com/YsyS5y8.png) 0 -16px repeat-x;
+	   display: inline-block;
+	}
+	
+	span.star-prototype>*, span.star>* {
+	   background-position: 0 0;
+	   max-width: 80px;
+	}
 .table2 {
 	display: table;
 	margin: 30px 30px 30px 30px;

@@ -1,83 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
+ 
+<!DOCTYPE html >
+<html>
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="Responsive Bootstrap4 Shop Template, Created by Imran Hossain from https://imransdesign.com/">
-
-	<!-- title -->
-	<title>Single News</title>
-
-	<!-- favicon -->
-	<link rel="shortcut icon" type="image/png" href="/resources/assets/img/favicon.png">
-	<!-- google font -->
-	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
-	<!-- fontawesome -->
-	<link rel="stylesheet" href="/resources/assets/css/all.min.css">
-	<!-- bootstrap -->
-	<link rel="stylesheet" href="/resources/assets/bootstrap/css/bootstrap.min.css">
-	<!-- owl carousel -->
-	<link rel="stylesheet" href="/resources/assets/css/owl.carousel.css">
-	<!-- magnific popup -->
-	<link rel="stylesheet" href="/resources/assets/css/magnific-popup.css">
-	<!-- animate css -->
-	<link rel="stylesheet" href="/resources/assets/css/animate.css">
-	<!-- mean menu css -->
-	<link rel="stylesheet" href="/resources/assets/css/meanmenu.min.css">
-	<!-- main style -->
-	<link rel="stylesheet" href="/resources/assets/css/main.css">
-	<!-- responsive -->
-	<link rel="stylesheet" href="/resources/assets/css/responsive.css">
-
+<meta charset="UTF-8">
+<title> </title>
+ 
 </head>
 <body>
-	
-	 
-
-	<!-- search area -->
-	<div class="search-area">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12">
-					<span class="close-btn"><i class="fas fa-window-close"></i></span>
-					<div class="search-bar">
-						<div class="search-bar-tablecell">
-							<h3>Search For:</h3>
-							<input type="text" placeholder="Keywords">
-							<button type="submit">Search <i class="fas fa-search"></i></button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- end search arewa -->
-	
-	<!-- breadcrumb-section -->
-	<div class="breadcrumb-section breadcrumb-bg">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-8 offset-lg-2 text-center">
-					<div class="breadcrumb-text">
-						<p>Read the Details</p>
-						<h1>Single Article</h1>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- end breadcrumb section -->
-	
-	<!-- single article section -->
-	<div class="mt-150 mb-150">
+<!DOCTYPE html>
+<html>
+<body>
+<div class="mt-150 mb-150">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-8">
 					<div class="single-article-section">
 						<div class="single-article-text">
-							<div class="single-artcile-bg"></div>
+							<img src="assets/img/avaters/avatar1.png" alt="">
 							<p class="blog-meta">
 								<span class="author"><i class="fas fa-user"></i> Admin</span>
 								<span class="date"><i class="fas fa-calendar"></i> 27 December, 2019</span>
@@ -94,7 +33,7 @@
 							<div class="comment-list">
 								<div class="single-comment-body">
 									<div class="comment-user-avater">
-										<img src="/resources/assets/img/avaters/avatar1.png" alt="">
+										<img src="assets/img/avaters/avatar1.png" alt="">
 									</div>
 									<div class="comment-text-body">
 										<h4>Jenny Joe <span class="comment-date">Aprl 26, 2020</span> <a href="#">reply</a></h4>
@@ -102,7 +41,7 @@
 									</div>
 									<div class="single-comment-body child">
 										<div class="comment-user-avater">
-											<img src="/resources/assets/img/avaters/avatar3.png" alt="">
+											<img src="assets/img/avaters/avatar3.png" alt="">
 										</div>
 										<div class="comment-text-body">
 											<h4>Simon Soe <span class="comment-date">Aprl 27, 2020</span> <a href="#">reply</a></h4>
@@ -112,7 +51,7 @@
 								</div>
 								<div class="single-comment-body">
 									<div class="comment-user-avater">
-										<img src="/resources/assets/img/avaters/avatar2.png" alt="">
+										<img src="assets/img/avaters/avatar2.png" alt="">
 									</div>
 									<div class="comment-text-body">
 										<h4>Addy Aoe <span class="comment-date">May 12, 2020</span> <a href="#">reply</a></h4>
@@ -174,58 +113,9 @@
 			</div>
 		</div>
 	</div>
-	<!-- end single article section -->
+</body>
+</html>
 
-	<!-- logo carousel -->
-	<div class="logo-carousel-section">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="logo-carousel-inner">
-						<div class="single-logo-item">
-							<img src="assets/img/company-logos/1.png" alt="">
-						</div>
-						<div class="single-logo-item">
-							<img src="assets/img/company-logos/2.png" alt="">
-						</div>
-						<div class="single-logo-item">
-							<img src="assets/img/company-logos/3.png" alt="">
-						</div>
-						<div class="single-logo-item">
-							<img src="assets/img/company-logos/4.png" alt="">
-						</div>
-						<div class="single-logo-item">
-							<img src="assets/img/company-logos/5.png" alt="">
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- end logo carousel -->
-
-	 
-	
-	<!-- jquery -->
-	<script src="/resources/assets/js/jquery-1.11.3.min.js"></script>
-	<!-- bootstrap -->
-	<script src="/resources/assets/bootstrap/js/bootstrap.min.js"></script>
-	<!-- count down -->
-	<script src="/resources/assets/js/jquery.countdown.js"></script>
-	<!-- isotope -->
-	<script src="/resources/assets/js/jquery.isotope-3.0.6.min.js"></script>
-	<!-- waypoints -->
-	<script src="/resources/assets/js/waypoints.js"></script>
-	<!-- owl carousel -->
-	<script src="/resources/assets/js/owl.carousel.min.js"></script>
-	<!-- magnific popup -->
-	<script src="/resources/assets/js/jquery.magnific-popup.min.js"></script>
-	<!-- mean menu -->
-	<script src="/resources/assets/js/jquery.meanmenu.min.js"></script>
-	<!-- sticker js -->
-	<script src="/resources/assets/js/sticker.js"></script>
-	<!-- main js -->
-	<script src="/resources/assets/js/main.js"></script>
-
+ 
 </body>
 </html>

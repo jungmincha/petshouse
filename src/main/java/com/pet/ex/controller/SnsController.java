@@ -8,6 +8,7 @@ import java.util.UUID;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -35,7 +36,7 @@ public class SnsController {
 
 	@Autowired
 	/* private SnsService service; */
-	private AdminService adminService;
+	
 	private SnsService service;
 
 	@GetMapping("/sns")
@@ -64,6 +65,8 @@ public class SnsController {
 			
 			
 			log.info("snsInput");
+			service.snsBoardInput(boardVO);
+			
 			String path = multi.getSession().getServletContext().getRealPath("/static/img/member/sns");
 
 			path = path.replace("webapp", "resources");
@@ -74,8 +77,7 @@ public class SnsController {
 			}
 
 			List<MultipartFile> mf = multi.getFiles("btnAtt");
-
-			 
+			
 				for (int i = 0; i < mf.size(); i++) { // 파일명 중복 검사
 					
 					UUID uuid = UUID.randomUUID();			// 파일명 랜덤으로 변경
@@ -90,16 +92,32 @@ public class SnsController {
 					
 					mf.get(i).transferTo(new File(savePath)); // 파일 저장
 					imageVO.setImgname(imgname);
-					imageVO.getBoardVO().setBoard_id(boardVO.getBoard_id());
-					/* service.imgInput(imageVO); */
+					BoardVO board = service.getSnsBoard_id();
+					imageVO.getBoardVO().setBoard_id(board.getBoard_id());
+					service.snsImgInput(imageVO); 
+ 
 				}	
-				service.snsInput(boardVO, imageVO);
+				
 				 
-			mav.setView(new RedirectView("/commu/sns", true));
+			    mav.setView(new RedirectView("/commu/sns", true));
 
 			return mav;
 			
 		
+		}
+		
+		@GetMapping("/sns/{board_id}")
+		public ModelAndView contentView(@PathVariable("board_id") int board_id, BoardVO boardVO, ModelAndView mav) throws Exception {
+
+			boardVO = service.getBoardInfo(board_id);
+			
+			log.info("SNS_View");
+			
+			mav.addObject("sns", service.getBoard(boardVO.getBoard_id()));
+			mav.addObject("img", service.getImg(board_id));
+			mav.setViewName("sns/sns_contentView");
+
+			return mav;
 		}
 	
 	@GetMapping("/ex")

@@ -4,21 +4,48 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pet.ex.mapper.SnsMapper">
 
+	<!-- sns등록 -->
+	
+	<insert id="snsBoardInput" parameterType="boardvo"> 
 
-<insert id="boardInput" parameterType="boardvo"> 
 	<![CDATA[ 
 	   insert into board (board_id,  content, plike, hit, hashtag, pgroup, pstep, pindent, member_id, boardtype_id,category_id)   
-       values (board_seq.nextval , #{content} , 0,0,#{hashtag},board_seq.currval,0,0, 'eunhee@naver.com', 2 , #{category_id})    
+       values (board_seq.nextval , #{content} , 0,    0,  #{hashtag}, board_seq.currval,0,0, 'eunhee@naver.com', 2 , #{categoryVO.category_id})    
 	]]>
 	</insert>
 
-<insert id="imgInput">
+	<select id="getSnsBoard_id" resultType="boardvo">
 	 <![CDATA[
-    INSERT INTO IMAGE(img_id, imgname, board_id) VALUES (image_seq.nextval, #{imgname}, #{LAST_INSERT_ID()})
+  		select * from (select * from board where boardtype_id=2 order by pdate desc) where rownum=1
+	 ]]>
+	</select>
+
+	<insert id="snsImgInput" parameterType="imagevo">
+	 <![CDATA[
+    INSERT INTO IMAGE(img_id, imgname, board_id) VALUES (image_seq.nextval, #{imgname}, #{boardVO.board_id})
 	 ]]>
 	</insert>
 
 
+	<!-- sns조회 -->
+	
+	<select id="getboardInfo" resultMap="boardvo"> 
+		<![CDATA[ 
+		select * from Board where board_id = #{board_id} 
+		]]>
+	</select>
+
+	<select id="getBoard" resultMap="boardvo"> 
+	<![CDATA[ 
+     select * from board b, member m where b.member_id = m.member_id and b.board_id = #{board_id}  and b.boardtype_id=2
+	]]>
+	</select>
+
+	<select id="getImg" resultMap="imagevo"> 
+	<![CDATA[ 
+      select * from image where board_id=#{boardVO.board_id}
+	]]>
+	</select>
 
 
 

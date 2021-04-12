@@ -188,7 +188,7 @@ h2 {
 		<div class="top" onclick="window.scrollTo(0,0);">top</div>
 			<div class="row">
 				<div class="col-lg-2">
-					<div class="sidebar" style="display: block;">
+					<div class="sidebar" style="display: block; position: fixed;  " >
 						<ul class="nav">
 							<li class="submenu">
 								<!-- 고양이 --> <a href="#" style="font-size: 20px;"> <i
@@ -659,8 +659,10 @@ h2 {
 
 
 	<!-- Footer -->
+	
+<div style="margin-top: 500px;">
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
-
+</div>
 </body>
 
 </html>

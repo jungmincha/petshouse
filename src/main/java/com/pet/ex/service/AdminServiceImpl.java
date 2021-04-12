@@ -96,14 +96,7 @@ public class AdminServiceImpl implements AdminService {
 		mapper.goodsDelete(goods_id);
 	}
 
-//	@Override
-//	public void fileUpload(String imgname) {
-//		 
-//		mapper.fileUpload(imgname);
-//	}
-
-	/* 상품게시글관리 */
-
+ 
 	@Override
 	public List<GoodsVO> getNboard() {
 		log.info("getNboard");
