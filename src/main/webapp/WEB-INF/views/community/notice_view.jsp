@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<!-- 추가함 -->
 <!DOCTYPE html>
 <html>
 
@@ -10,7 +12,7 @@
 <meta name="keywords" content="Fashi, unica, creative, html">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>${qna_view.title}수정하기</title>
+<title>${qna_view.title}</title>
 
 <link
 	href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap"
@@ -45,77 +47,73 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 <style>
-body::-webkit-scrollbar {
-    width: 10px;
-  }
-body::-webkit-scrollbar-thumb {
-    background-color: #666666;
-    border-radius: 10px;
-    background-clip: padding-box;
-    border: 2px solid transparent;
-  }
-body::-webkit-scrollbar-track {
-    background-color: #CCCCCC;
-    border-radius: 10px;
-    box-shadow: inset 0px 0px 5px white;
-  }
-  
-  textarea::-webkit-scrollbar {
-    width: 10px;
-  }
-textarea::-webkit-scrollbar-thumb {
-    background-color: #666666;
-    border-radius: 10px;
-    background-clip: padding-box;
-    border: 2px solid transparent;
-  }
-textarea::-webkit-scrollbar-track {
-    background-color: #CCCCCC;
-    border-radius: 10px;
-    box-shadow: inset 0px 0px 5px white;
-  }
+a:link {
+	text-decoration: none;
+	color: #333333;
+}
+
+a:visited {
+	text-decoration: none;
+	color: #333333;
+}
+
+a:active {
+	text-decoration: none;
+	color: #333333;
+}
+
+a:hover {
+	text-decoration: none;
+}
 </style>
+
+<script type="text/javascript">
+		function modify_event() {
+			if (confirm("수정하시겠습니까?") == true) { //확인
+				location.href = '${pageContext.request.contextPath}/commu/nodify_page?board_id=${notice_view.board_id}'
+			} else { //취소
+				return;
+			}
+		}
+</script>
+
 </head>
 
-<body style="padding-top:180px">
+
+<body style="padding-top: 170px">
 
 	<!-- Header -->
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
 
-	<div class="container" style="width: 800px;">
 
-		<form action="${pageContext.request.contextPath}/commu/modify"
-			method="post">
-			<input type="hidden" name="board_id" value="${qna_view.board_id}" />
-			<div class="row">
-				<select class=" form-control col-2" name="categoryVO.category_id"
-					style="height: 38px; margin-left: 15px; margin-right: 10px;">
-					<option value="1">고양이</option>
-					<option value="2">강아지</option>
-					<option value="3">파충류</option>
-					<option value="4">조류</option>
-					<option value="5">어류</option>
-					<option value="6">기타</option>
-				</select> 
-			<input type="text" class="form-control" style=" margin-bottom: 20px; width:628px;"  name="title"value="${qna_view.title}" />
+	<div class="container" style="margin-bottom: 40px">
+		<div class="head">
+			<div style="margin-top: 45px; margin-bottom: 10px;">
+				<a class="noti-subtitle" href="notice">공지사항</a>
 			</div>
-			<textarea class="form-control col" name="content"
-				style="width: 770px; height: 400px; margin-bottom: 20px; resize: none;">${qna_view.content}</textarea>
-			<input type="text" class="form-control" name="hashtag" maxlength="30"
-				value="${qna_view.hashtag}" />
-
-		<div style="margin-top:30px; float: right;">
-			<button type="submit" class="btn btn-warning"	
-				onclick="location.href='${pageContext.request.contextPath}/commu/qna'">수정하기</button>
-			<a class="btn btn-warning"  href="qna">취소</a>
+			<h3 class="noticetitle"
+				style="font-weight: bold; margin-bottom: 10px;">${notice_view.title}</h3>
 		</div>
 		
-		</form>
+		<div style="float: right">
+			<button type="button" class="btn btn-warning"
+				onclick="modify_event();">수정</button>
+		</div>
+		
+		<table>
+			<td>
+				<div style="font-size: 20px;">${notice_view.memberVO.nickname}</div>
+				<hr>
+				<section style="margin-top: 60px; margin-bottom: 20px;">${notice_view.content}</section>
+				<span style="color: gray;">${notice_view.pdate}</span> <span
+				style="color: gray">조회수 ${notice_view.hit}</span>
+			</td>
+		</table>
 
 	</div>
 
-	<!-- Footer -->
-	<div style="margin-top: 100px">
+	<div style="margin-top: 20px;">
+		<!-- Footer -->
 		<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 	</div>
 

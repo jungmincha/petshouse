@@ -44,15 +44,10 @@
 <!-- jquery cdn -->
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<link rel="stylesheet" href="/resources/css/select-style.css"
-	type="text/css">
-<link rel="stylesheet" href="/resources/js/select-index.js"
-	type="text/css">
 
 <style>
 .jumbotron {
 	text-align: center;
-	background-color: #EEE9E9 !important;
 	height: 300px;
 }
 
@@ -82,11 +77,60 @@ a:active {
 a:hover {
 	text-decoration: none;
 }
-#hashtag{
-font-size:5px; 
-padding:5px ;
+
+#hashtag {
+	font-size: 13px;
+	padding: 0.01px;
 }
+#hashtag:hover{
+background-color:#dddddd;
+}
+
+.top {
+   background-color: #e7ab3c;
+   border-radius: 10px;
+   cursor: pointer; 
+   position: fixed; 
+   right: 5px; 
+   font-size: 15px; 
+   bottom: 500px;
+   padding:10px;
+}
+
+body::-webkit-scrollbar {
+    width: 10px;
+  }
+body::-webkit-scrollbar-thumb {
+    background-color: #666666;
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+  }
+body::-webkit-scrollbar-track {
+    background-color: #CCCCCC;
+    border-radius: 10px;
+    box-shadow: inset 0px 0px 5px white;
+  }
+ 
 </style>
+
+<script>
+	//로그인 체크
+	$(document).ready(function() {
+		var member_id = $("#member_id").val();
+
+		function checkLogin() {
+			if (member_id == undefined) {
+				alert("로그인 후 글을 작성해주세요.");
+				location.href = '/login/login';
+			}
+		}
+		$('#qw').click(function() {
+			checkLogin();
+		});
+		
+	});
+</script>
 
 </head>
 
@@ -94,6 +138,15 @@ padding:5px ;
 
 	<!-- Header -->
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
+
+	<!-- content -->
+	<sec:authorize access="hasAnyRole('ROLE_USER','ROLE_ADMIN')">
+		<input type="hidden" id="member_id"
+			value="<sec:authentication property="principal.member_id"/>">
+	</sec:authorize>
+	
+	<!-- 탑 버튼 -->
+<div class="top" onclick="window.scrollTo(0,0);">top</div>
 
 
 	<div class="container">
@@ -128,60 +181,66 @@ padding:5px ;
 				<option value="4">조류</option>
 				<option value="5">어류</option>
 				<option value="6">기타</option>
-			</select> <span class="col-sm-9"></span> 
-			<a class="btn btn-warning col-sm-1 " style="margin-left: 65px;" href="qna_write">질문하기</a>
+			</select> <span class="col-sm-9"></span>
+			<button class="btn btn-outline-secondary col-sm-1 " id="qw"
+				style="margin-left: 65px;"
+				onclick="location.href='${pageContext.request.contextPath}qna_write'">질문 작성</button>
 		</div>
 
 		<!-- 게시글 끌고오기 -->
 
-			<table class="table table-hover">
+		<table class="table">
 			<c:forEach items="${qna}" var="qna">
 				<tbody id="qnaList">
-					<td><a href="${pageContext.request.contextPath}/commu/qna_view?board_id=${qna.board_id}">
-							<div style="font-weight: bold; font-size: 18px;">${qna.title}</div>
-							<div>${qna.content}</div> <span>${qna.memberVO.nickname}</span> 
-							<span style="font-size: 13px; color: gray;">${qna.pdate}</span> 
-							<span style="font-size: 13px; color: gray;"> 조회수 ${qna.hit}</span>
-							<form action="${pageContext.request.contextPath}/commu/qnatag"
-				method="post">
-				<ul class="pd-tags">
-					<c:set var="hashtag" value="${qna.hashtag}" />
-					<c:set var="tag" value="${fn:split(hashtag, ' ')}" />
-					
-					<c:forEach var="t" items="${tag}">
-					<button id="hashtag" name="keyword"  class="btn btn-outline-info"  style=""value="${qna.hashtag}" onclick="location.href='${pageContext.request.contextPath}/commu/qnatag'">${t}</button>
-					</c:forEach>
-					
-				</ul> </form>
+					<td><a
+						href="${pageContext.request.contextPath}/commu/qna_view?board_id=${qna.board_id}">
+							<form action="${pageContext.request.contextPath}/commu/qnatag" method="post">
+								<div style="font-weight: bold; font-size: 18px;">${qna.title}</div>
+								<ul class="pd-tags">
+									<div>${qna.content}</div>
+									<span>${qna.memberVO.nickname}</span>
+									<span style="font-size: 13px; color: gray;">${qna.pdate}</span>
+									<span style="font-size: 13px; color: gray;"> 조회수 ${qna.hit}</span>
+									<c:set var="hashtag" value="${qna.hashtag}" />
+									<c:set var="tag" value="${fn:split(hashtag, ' ')}" />
+									<c:forEach var="t" items="${tag}">
+										<span><button id="hashtag" name="keyword"
+												class="btn btn-disabled" style=""
+												value="${t}"
+												onclick="location.href='${pageContext.request.contextPath}/commu/qnatag'">${t}</button></span>
+									</c:forEach>
+
+								</ul>
+							</form>
 					</a></td>
 				</tbody>
-				</c:forEach>
-			</table>
-		
+			</c:forEach>
+		</table>
+
 
 
 		<!-- 페이징 -->
 		<div class="ul">
-		<ul class="pagination justify-content-center"
-			style="padding-bottom: 50px; padding-top: 50px;">
-			<c:if test="${pageMaker.prev}">
-				<li class="page-item"><a class="page-link"
-					href="qna${pageMaker.makeQuery(pageMaker.startPage - 1) }">
-						Previous</a></li>
-			</c:if>
+			<ul class="pagination justify-content-center"
+				style="padding-bottom: 50px; padding-top: 50px;">
+				<c:if test="${pageMaker.prev}">
+					<li class="page-item"><a class="page-link"
+						href="qna${pageMaker.makeQuery(pageMaker.startPage - 1) }">
+							Previous</a></li>
+				</c:if>
 
-			<c:forEach begin="${pageMaker.startPage }"
-				end="${pageMaker.endPage }" var="idx">
-				<c:out value="${pageMaker.cri.pageNum == idx?'':''}" />
-				<li class="page-item"><a class="page-link"
-					href="qna${pageMaker.makeQuery(idx)}">${idx}</a></li>
-			</c:forEach>
+				<c:forEach begin="${pageMaker.startPage }"
+					end="${pageMaker.endPage }" var="idx">
+					<c:out value="${pageMaker.cri.pageNum == idx?'':''}" />
+					<li class="page-item"><a class="page-link"
+						href="qna${pageMaker.makeQuery(idx)}">${idx}</a></li>
+				</c:forEach>
 
-			<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-				<li class="page-item"><a class="page-link"
-					href="qna${pageMaker.makeQuery(pageMaker.endPage +1) }">Next</a></li>
-			</c:if>
-		</ul>
+				<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
+					<li class="page-item"><a class="page-link"
+						href="qna${pageMaker.makeQuery(pageMaker.endPage +1) }">Next</a></li>
+				</c:if>
+			</ul>
 		</div>
 	</div>
 
@@ -193,7 +252,8 @@ padding:5px ;
 							var category_id = $(this).val();
 							console.log(category_id);
 
-							$.ajax({
+							$
+									.ajax({
 										url : "/commu/qna/pet",
 										type : "get",
 										data : {
@@ -203,14 +263,14 @@ padding:5px ;
 
 											console.log(data);
 											$(".table").empty();
-											var html = "<table class='table table-hover'>";
+											var html = "<table class='table'>";
 											for (var i = 1; i <= data.length; i++) {
 
 												html += "<tbody id='qnaList'><td>"
 														+ "<a href='${pageContext.request.contextPath}/commu/qna_view?board_id="
 														+ data[i - 1].board_id
 														+ "'>"
-														+ data[i - 1].categoryVO.categoryname
+														
 														+ "<div style='font-weight: bold; font-size: 18px;'>"
 														+ data[i - 1].title
 														+ "</div>"
@@ -219,13 +279,16 @@ padding:5px ;
 														+ "</div> <span>"
 														+ data[i - 1].memberVO.nickname
 														+ "</span>"
-														+ "<span style='font-size: 13px; color: gray;'>"+data[i - 1].pdate+"</span> "
+														+ "<span style='font-size: 13px; color: gray;'>"
+														+ data[i - 1].pdate
+														+ "</span> "
 														+ "<span style='font-size: 13px; color: gray;'> 조회수 "
 														+ data[i - 1].hit
-														+ "</span>" + "</a>"
+														+ "</span>"
+														+ "</a>"
 														+ "</td></tbody>"
 
-											}	
+											}
 											html += "</table>"
 											$(".ul").prepend(html);
 

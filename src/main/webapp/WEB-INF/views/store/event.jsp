@@ -37,82 +37,211 @@
    type="text/css">
 <link rel="stylesheet" href="/resources/css/style.css" type="text/css">
 <!-- jquery cdn -->
-<script
-   src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+   <script> 
+   $(document).ready(function(){ 
+	    var list = new Array(
+	    		{
+	    		   name: '100p',
+	    		   color: '#FFADC5'
+	    	  	},
+	    	  	{
+	    	  		name: '500p',
+	    	  		color: '#B8F3B8'
+	    	  	},
+	    	  	{
+		    		name: '꽝',
+		    		color: '#FFDDA6'
+		    	},
+	    		{
+		    		name: '1000p',
+		    		color: '#CCD1FF'
+		    	},
+		    	{
+		    		name: '3000p',
+		    		color: '#A8C8F9'
+		    	},
+		    	{
+		    		name: '100p',
+		    		color: '#FFADC5'
+		    	},
+	    		{
+		    		name: '5000p',
+		    		color: '#FFCCCC'
+		    	},
+	    		{
+		    		name: '꽝',
+		    		color: '#9197B5'
+		    	}	    	
+	   	);
+	    	    
+	   var canvas = document.getElementById('canvas');
+	   var ctx = canvas.getContext('2d');
+	   	
+	   ctx.translate(500, 500);
+	   	
+		list.forEach(function(e, i){
+	  		ctx.beginPath(); 		
+	   	   	ctx.arc(0, 0, 370, 0, (360/list.length)*(Math.PI/180), false);
+	   	   	ctx.lineTo(0,0);
+	   	   	ctx.closePath();
+	   	   	ctx.fillStyle=e.color;
+	   	   	ctx.fill();
+   	   	
+	   	   	ctx.fillStyle='white';
+	   	   	ctx.textAlign='left';
+	   	   	ctx.font='30px sanserif';
+	   	   	ctx.fillText(e.name, 210, 105);
+	   	   	
+	   	   	ctx.rotate((360/list.length) * (Math.PI/180));
+		});
 
-   <script type="text/javascript" src="/resources/js/jquery-1.11.3.min.js"></script> 
-   <script type="text/javascript" src="/resources/js/jQueryRotateCompressed.js"></script> 
-   <style> 
-  	 #image{ 
-  	 	margin:50px 50px;z-index:10; 
-  	 } 
-  	 #n_id{
-  	 	position:absolute;left:286px;top:75px;z-index:20;} 
-   </style> 
- 
+		//내부 원 설정
+   	   	ctx.beginPath();
+   	   	ctx.arc(0, 0, 0, 0, 0*Math.PI, false);
+   	   	ctx.fillStyle = 'white';
+   	   	ctx.fill();
+   	   	
+   	   	ctx.textAlign= 'center';
+   	   	ctx.textBaseline = 'middle';
+   	   	ctx.font = '50px sanserif';
+   	   	
+   	   	ctx.strokeStyle = '#9197B5';
+   	   	ctx.strokeText('', 0,0);
+   	 
+   	var member_id = $("#member_id").val();
+   	 
+   	//로그인 여부 체크
+   	function checkLogin() {
+		 if(member_id == undefined){
+			 alert("로그인 후 이벤트 참여 가능합니다.");
+			 location.href = '/login/login';
+		 }
+	 }
+    	
+   	$('#canvas').click(function(){
+   		checkLogin();
+   		
+   	  	var random = 0;
+   	   	var clicked = 0;
+   	   	var pscore = 0;
+   	   	
+    	if(clicked <= 0){
+    		random += Math.random()*360 + 720;
+    		$(this).css({'transition-timing-function': 'ease-in-out', 'transition': '5s', 'transform': 'rotate('+random+'deg)'});
+ 			console.log(random);
+	    } 
+    	//포인트 지정
+    	if(random >= 720 && random <= 765){
+    		pscore = 100;
+	   	}else if(random >= 766 && random <= 810){
+	   		pscore = 3000;
+    	}else if(random >= 811 && random <= 855){
+    		pscore = 1000;
+    	}else if(random >= 856 && random <= 900){
+    		pscore = 0;
+	   	}else if(random >= 901 && random <= 945){
+	   		pscore = 500;
+	   	}else if(random >= 946 && random <= 990){
+	   		pscore = 100;
+	   	}else if(random >= 991 && random <= 1035){
+	   		pscore = 0;
+	    }else if(random >= 1036 && random <= 1080){
+	    	pscore = 5000;
+    	}
+    	
+    	console.log(member_id);
+    	console.log(pscore);
+    	
+    	//참여 중복 확인 및 포인트 적립
+    	$.ajax({
+   	        type :"PUT",
+   	        url :"/store/event",
+   	        data : {
+   	        	member_id: member_id,
+   	        	pscore: pscore
+   	        },
+	   	    success: function (result) {
+	   	    	if(result == "SUCCESS"){
+		    		console.log(result); 
+		    		setTimeout(function(){
+		    			alert("포인트 " + pscore + " 적립 완료!");	    		
+		    		},5000);
+		        }else if(result == "FAIL"){
+	   	    		console.log(result);
+	   	    		alert("이벤트에 이미 참여하셨습니다.");
+	   	    	}
+		    },
+		    error: function (e) {
+		    	console.log(e);
+		    }
+    	});//ajax end
+   	});//click end
+   });
+   </script>  
+  
+ <style>
+	 #board{
+ 		width: 1200px; 
+ 		height: 1150px;
+ 		overflow: hidden;
+ 		position: relative;
+ 		top: 70px;
+ 	}
 
-
+	#pin{
+		width:0;
+		height:0;
+		top: 330px;
+		left: calc(50% - 16px);
+		position: absolute;
+		border-radius: 32px 32px 0 0;
+		border-top:70px solid crimson;
+		border-left:16px solid transparent;
+		border-right: 16px solid transparent;
+		border-bottom:0;
+		z-index:1;	
+	}
+	
+	.roulette{
+		padding-top: 70px;
+	}
+	
+	.way{
+		padding-top: 100px;
+		padding-bottom: 50px;
+	}
+  </style>
   </head> 
 <body>
    <!-- header -->
    <%@ include file="/WEB-INF/views/include/header.jsp"%>
- 
    
-   <img src="/resources/img/goods/roulette.png" id="image">
-   <img src="/resources/img/goods/niddle.png" id="n_id"> <br /> 
-   <input type='button' value='시작' id='start_btn'></input> 
-   <div id="result_id"></div> 
-   <div id="result_id2"></div>
-<div id="result_id3"></div> 
+   <!-- content -->
+    <sec:authorize access="hasAnyRole('ROLE_USER','ROLE_ADMIN')">
+			<input type="hidden" id="member_id" value="<sec:authentication property="principal.member_id"/>">
+	</sec:authorize>
+		
+    <div class="container text-center">
+         <div class="row">
+            <div class="col-lg-12">
+ 				<div id="board">
+ 					<img class="roulette" src="/resources/img/commuhome/roulette.jpg">
+	 				<div id="pin"></div>
+	 				<canvas id="canvas" width="1000px" height="1000px"></canvas>			
+ 				</div>
+ 				</div>
+ 			 <div class="way col-lg-12">	
+ 				<img src="/resources/img/commuhome/roulette3.jpg">
+ 			</div>
 
-	<script>
-window.onload = function(){ 
-	var pArr = ["0","1","2","3","4:꽝","5","6","7","8","9"]; 
-	$('#start_btn').click(function(){ 
-		rotation(); 
-	}); 
-	function rotation(){ 
-		$("#image").rotate({ 
-			angle:0, 
-			animateTo:360 * 5 + randomize(0, 360), 
-			center: ["50%", "50%"], 
-			easing: $.easing.easeInOutElastic, 
-			callback: function(){ 
-				var n = $(this).getRotateAngle(); 
-				endAnimate(n); 
-				}, 
-			duration:5000 
-		}); 
-	} 
-	
-	function endAnimate($n){ 
-		var n = $n; 
-		$('#result_id').html("<p>움직인각도:" + n + "</p>"); 
-		var real_angle = n%360 +18; 
-		var part = Math.floor(real_angle/36); 
-		
-		$('#result_id2').html("<p>상품범위:" + part + "</p>"); 
-		
-		if(part < 1){ 
-			$('#result_id3').html("<p>당첨내역:" + pArr[0] + "</p>"); 
-			return; 
-		} 
-		
-		if(part >= 10){ 
-			$('#result_id3').html("<p>당첨내역:" + pArr[pArr.length-1] + "</p>"); 
-			return; 
-		} $('#result_id3').html("<p>당첨내역:" + pArr[part] + "</p>"); } function randomize($min, $max){ return Math.floor(Math.random() * ($max - $min + 1)) + $min; } }; 
-		</script> 
-
- 
- 
+ 		</div>
+ 	</div>
+ 	
    <!-- Footer -->
    <%@ include file="/WEB-INF/views/include/footer.jsp"%>
 
    <!-- Bootstrap core JavaScript -->
-   <script src="/resources/store/vendor/jquery/jquery.min.js"></script>
-   <script
-      src="/resources/store/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
    <script src="/resources/js/jquery-3.3.1.min.js"></script>
    <script src="/resources/js/bootstrap.min.js"></script>
    <script src="/resources/js/jquery-ui.min.js"></script>
@@ -125,4 +254,3 @@ window.onload = function(){
    <script src="/resources/js/main.js"></script>
 </body>
 </html>
-

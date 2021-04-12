@@ -10,7 +10,7 @@
 <meta name="keywords" content="Fashi, unica, creative, html">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>${qna_view.title}수정하기</title>
+<title>공지사항</title>
 
 <link
 	href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap"
@@ -45,79 +45,69 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 <style>
-body::-webkit-scrollbar {
-    width: 10px;
-  }
-body::-webkit-scrollbar-thumb {
-    background-color: #666666;
-    border-radius: 10px;
-    background-clip: padding-box;
-    border: 2px solid transparent;
-  }
-body::-webkit-scrollbar-track {
-    background-color: #CCCCCC;
-    border-radius: 10px;
-    box-shadow: inset 0px 0px 5px white;
-  }
-  
-  textarea::-webkit-scrollbar {
-    width: 10px;
-  }
-textarea::-webkit-scrollbar-thumb {
-    background-color: #666666;
-    border-radius: 10px;
-    background-clip: padding-box;
-    border: 2px solid transparent;
-  }
-textarea::-webkit-scrollbar-track {
-    background-color: #CCCCCC;
-    border-radius: 10px;
-    box-shadow: inset 0px 0px 5px white;
-  }
+a:link {
+	text-decoration: none;
+	color: #333333;
+}
+
+a:visited {
+	text-decoration: none;
+	color: #333333;
+}
+
+a:active {
+	text-decoration: none;
+	color: #333333;
+}
+
+a:hover {
+	text-decoration: none;
+}
 </style>
+
 </head>
 
-<body style="padding-top:180px">
+<body style="padding-top: 180px">
 
 	<!-- Header -->
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
 
-	<div class="container" style="width: 800px;">
 
-		<form action="${pageContext.request.contextPath}/commu/modify"
-			method="post">
-			<input type="hidden" name="board_id" value="${qna_view.board_id}" />
-			<div class="row">
-				<select class=" form-control col-2" name="categoryVO.category_id"
-					style="height: 38px; margin-left: 15px; margin-right: 10px;">
-					<option value="1">고양이</option>
-					<option value="2">강아지</option>
-					<option value="3">파충류</option>
-					<option value="4">조류</option>
-					<option value="5">어류</option>
-					<option value="6">기타</option>
-				</select> 
-			<input type="text" class="form-control" style=" margin-bottom: 20px; width:628px;"  name="title"value="${qna_view.title}" />
-			</div>
-			<textarea class="form-control col" name="content"
-				style="width: 770px; height: 400px; margin-bottom: 20px; resize: none;">${qna_view.content}</textarea>
-			<input type="text" class="form-control" name="hashtag" maxlength="30"
-				value="${qna_view.hashtag}" />
+<div class="container" style="width: 800px;">
+
+		<form action="${pageContext.request.contextPath}/commu/notice"
+			enctype="multipart/form-data" method="post">
+
+			<input type="hidden" class="form-control" name="memberVO.member_id"
+				value="<sec:authentication property='principal.member_id'/>">
+				
+			<h2 style="margin-top: 30px;">공지사항 작성</h2>
+
+			<input type="file" name="file" multiple="multiple" />
+
+				<input type="text" class="form-control" name="title"
+					placeholder="제목" style="margin-bottom: 20px;">
+		
+			<textarea class="form-control col" name="content" placeholder="내용"
+				style="width: 770px; height: 400px; margin-bottom: 20px; resize: none;"></textarea>
 
 		<div style="margin-top:30px; float: right;">
-			<button type="submit" class="btn btn-warning"	
-				onclick="location.href='${pageContext.request.contextPath}/commu/qna'">수정하기</button>
-			<a class="btn btn-warning"  href="qna">취소</a>
+			<button type="submit" class="btn btn-warning"
+				onclick="location.href='${pageContext.request.contextPath}/commu/notice'">공지
+				등록</button>
+			<a class="btn btn-warning"  href="notice">취소</a>
 		</div>
 		
 		</form>
-
 	</div>
+
+
 
 	<!-- Footer -->
 	<div style="margin-top: 100px">
 		<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 	</div>
+
 
 	<!-- Js Plugins -->
 	<script src="/resources/js/jquery-3.3.1.min.js"></script>

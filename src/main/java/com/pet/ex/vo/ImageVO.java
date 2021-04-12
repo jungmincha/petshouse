@@ -1,8 +1,7 @@
 package com.pet.ex.vo;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.Getter; 
 import lombok.Setter;
 
 @Getter
@@ -13,9 +12,9 @@ public class ImageVO {
 	public ImageVO() {
 		this.boardVO = new BoardVO();
 		this.goodsVO = new GoodsVO();
-		
+ 
 	}
-	
+ 
 	private int img_id;
 	private String imgname;
 	

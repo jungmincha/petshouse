@@ -19,26 +19,18 @@
    href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
    type="text/css" />
 <!-- Css Styles -->
-<link rel="stylesheet" href="/resources/css/bootstrap.min.css"
-   type="text/css">
-<link rel="stylesheet" href="/resources/css/font-awesome.min.css"
-   type="text/css">
-<link rel="stylesheet" href="/resources/css/themify-icons.css"
-   type="text/css">
-<link rel="stylesheet" href="/resources/css/elegant-icons.css"
-   type="text/css">
-<link rel="stylesheet" href="/resources/css/owl.carousel.min.css"
-   type="text/css">
-<link rel="stylesheet" href="/resources/css/nice-select.css"
-   type="text/css">
-<link rel="stylesheet" href="/resources/css/jquery-ui.min.css"
-   type="text/css">
-<link rel="stylesheet" href="/resources/css/slicknav.min.css"
-   type="text/css">
+<link rel="stylesheet" href="/resources/css/bootstrap.min.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/font-awesome.min.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/themify-icons.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/elegant-icons.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/owl.carousel.min.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/nice-select.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/jquery-ui.min.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/slicknav.min.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/style.css" type="text/css">
+
 <!-- jquery cdn -->
-<script
-   src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
   <script type="text/javascript">
     $(document).ready(function(){	
@@ -52,12 +44,10 @@
     
     function fire_ajax_submit(id) {
     	console.log(id);
-    	var category_id = id;
-		
+    	var category_id = id;	
 		var form = {
 				category_id: category_id
-		};    
-		
+		};    		
     	var url = "/store/best/"+id;
     		
     $.ajax({
@@ -65,22 +55,17 @@
         contentType: 'application/json; charset=utf-8',
   		url: url,
         data: JSON.stringify(form), 
-        cache : false,
-        
+        cache : false, 
         success: function (data) {         	
           console.log("SUCCESS : ", data);       
           $('#input').html(data);
-        },
-        
+        },  
         error: function (e) {
      	   console.log("ERROR : ", e);
         }
     });
-
-}
-  
-    
-  </script>
+}  
+</script>
   
 <style>
     .single-banner{
@@ -110,8 +95,6 @@
 	    background-position: 0 0;
 	    max-width:80px; 
 	}
-	
-	
   </style>
 </head>
 
@@ -159,37 +142,31 @@
                     <div class="product-item">
                     
                         <div class="pi-pic">			   
-                              <c:forEach items="${goods}" var="goods">
+                            <c:forEach items="${goods}" var="goods">
                                <c:if test="${rate.goodsVO.goods_id eq goods.goodsVO.goods_id}">
-                                 <img src="/resources/img/admin/goods/${goods.goodsVO.thumbnail}" alt="">
-                           
-             				
-                            <div class="sale">Best ${rate.rnum}</div>     
-                           
-                          	<ul>
-                                <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                <li class="quick-view"><a href="/admin/goods_detail/${goods.board_id}">+ Quick View</a></li>
-                            </ul>
-                            </c:if>
+                                 <img src="/resources/img/admin/goods/${goods.goodsVO.thumbnail}" alt="">                                  				
+    	                        <div class="sale">Best ${rate.rnum}</div>                                
+	                          	<ul>
+	                                <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
+	                                <li class="quick-view"><a href="/admin/goods_detail/${goods.board_id}">+ Quick View</a></li>
+	                            </ul>
+                           		</c:if>
                             </c:forEach>
                         </div>
                         
                         <div class="pi-text">
-                            <div class="catagory-name"> </div>
+                           <div class="catagory-name"></div>
                             <c:forEach items="${goods}" var="goods">
-                               <c:if test="${rate.goodsVO.goods_id eq goods.goodsVO.goods_id}">
-                                
-					           	  <a href="/admin/goods_detail/${goods.board_id}">
-                                			<h5>${goods.goodsVO.goodsname}</h5>               
-                           				 </a>                       
-		                            	<div class="product-price"> ${goods.goodsVO.price}원</div>                   
-						  <span class="star-prototype"> ${rate.avgscore}</span> <span> &nbsp; 리뷰 ${rate.count}</span>         
-                        </c:if>
-                        </c:forEach>
+                               <c:if test="${rate.goodsVO.goods_id eq goods.goodsVO.goods_id}">                            
+					           	  <a href="/admin/goods_detail/${goods.board_id}"><h5>${goods.goodsVO.goodsname}</h5></a>                       
+		                          <div class="product-price"> ${goods.goodsVO.price}원</div>                   
+						  		  <span class="star-prototype"> ${rate.avgscore}</span> <span> &nbsp; 리뷰 ${rate.count}</span>         
+                       			</c:if>
+                        	</c:forEach>
                         </div>                    
                     </div>     
                 </div>
-                </c:forEach>
+               </c:forEach> 
             </div>      
-</body>
+	</body>
 </html>

@@ -91,7 +91,7 @@
 									</sec:authorize>
 									<sec:authorize access="hasAnyRole('ROLE_USER','ROLE_ADMIN')">
 										<li class="heart-icon"><a href="/login/logout"
-											class="login-panel"><i class="fa fa-user"></i>로그아웃</a></li>
+											class="login-panel"><i class="fa fa-user"></i>Logout</a></li>
 
 									</sec:authorize>
 
@@ -133,9 +133,8 @@
 								<li><a href="/store/event">이벤트</a></li>
 							</ul></li>
 
-						<li><a href="./shop.html">마이페이지</a>
+						<li><a href="#">마이페이지</a>
 							<ul class="dropdown">
-								<li><a href="#">프로필</a></li>
 								<li><a href="/myPage/orderList">주문배송내역</a></li>
 								<li><a href="#">포인트</a></li>
 								<li><a href="/myPage/updateMember">회원정보수정</a></li>
@@ -175,12 +174,16 @@
 </body>
 <script>
 	$(document).ready(function() {
-		var count = JSON.parse(sessionStorage.getItem("cartList")).length;
+		var count = 0;
+		if (sessionStorage.getItem("cartList") != null) {
+			count = JSON.parse(sessionStorage.getItem("cartList")).length;
+		}
 
 		if (count > 0) {
 			html = "<span id='cartCount'>" + count + "</span>"
+			$("#cartCount").append(html)
 		}
-		$("#cartCount").append(html)
+	
 	})
 </script>
 </html>

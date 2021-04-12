@@ -18,15 +18,14 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-import com.pet.ex.service.AdminService;
+ 
 import com.pet.ex.service.SnsService;
 import com.pet.ex.vo.BoardVO;
-import com.pet.ex.vo.CategoryVO;
-import com.pet.ex.vo.GoodsVO;
+ 
 import com.pet.ex.vo.ImageVO;
 
 import lombok.extern.slf4j.Slf4j;
-import net.sf.json.JSONArray;
+ 
 
 
 @Slf4j

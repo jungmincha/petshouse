@@ -10,7 +10,6 @@ import lombok.Setter;
 public class PayGoodsVO {
 
 	public PayGoodsVO() {
-		this.payVO = new PayVO();
 		this.boardVO = new BoardVO();
 	}
 
@@ -19,6 +18,6 @@ public class PayGoodsVO {
 	private String psize;
 
 	// 외래키
-	private PayVO payVO;
+	private int pay_id;
 	private BoardVO boardVO;
 }

@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!-- 추가함 -->
 <!DOCTYPE html>
 <html>
@@ -33,6 +34,25 @@
 <!-- jquery cdn -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
+<script>
+	//로그인 체크
+	$(document).ready(function() {
+		var member_id = $("#member_id").val();
+
+		function checkLogin() {
+			if (member_id == undefined) {
+				alert("로그인 후 글을 작성해주세요.");
+				location.href = '/login/login';
+			}
+		}
+		//댓글 작성 로그인 체크
+		$('#cw').click(function() {
+			checkLogin();
+		});
+	});
+	
+</script>
+
 <!-- 수정 삭제 경고창 -->
 <script type="text/javascript">
 		function button_event() {
@@ -52,7 +72,34 @@
 		}
 </script>
 <!-- 수정 삭제 경고창 end-->
+<style>
+a:link {
+	text-decoration: none;
+	color: #333333;
+}
 
+a:visited {
+	text-decoration: none;
+	color: #333333;
+}
+
+a:active {
+	text-decoration: none;
+	color: #333333;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+#hashtag {
+	font-size: 13px;
+	padding: 0.01px;
+}
+#hashtag:hover{
+background-color:#dddddd;
+}
+</style>
 </head>
 
 <body style="padding-top:180px">
@@ -85,15 +132,47 @@
 				<div style="font-size: 20px;">${tips_view.memberVO.nickname}</div>
 				<hr>
 				<section style="margin-top: 40px; margin-bottom: 20px;">${tips_view.content}</section>
-				<section style="margin-top: 40px; margin-bottom: 20px;">${tips_view.hashtag}</section>
+				<form action="${pageContext.request.contextPath}/commu/tipstag"
+				method="post">
+				<ul class="pd-tags">
+					<c:set var="hashtag" value="${tips_view.hashtag}" />
+					<c:set var="tag" value="${fn:split(hashtag, ' ')}" />
+					
+					<c:forEach var="t" items="${tag}">
+					<button id="hashtag" name="keyword" value="${t}" class="btn btn-disabled" onclick="location.href='${pageContext.request.contextPath}/commu/tipstag'">${t}</button>
+					</c:forEach>
+					
+				</ul> </form>
 				<span style="color: gray">${tips_view.pdate}</span>  <span
 				style="color: gray">조회수 ${tips_view.hit}</span>
 			</td>
 		</table>
-		<hr>
+		
 	</div>
 
 
+	<div class="container">
+
+		<input type="hidden" id="pgroup" value="${tips_view.board_id }">
+		<sec:authorize access="hasAnyRole('ROLE_USER','ROLE_ADMIN')">
+			<input type="hidden" id="member_id"
+				value="<sec:authentication property="principal.member_id"/>">
+		</sec:authorize>
+		<div>
+			<div>
+				<span><strong>댓글 </strong></span>
+			</div>
+			<div>
+				<table class="table" style="margin-bottom: 50px;">
+
+					<td class="row"><textarea style="resize: none;"
+							class="form-control col-11" id="content" placeholder="댓글을 입력하세요"></textarea>
+						<button id="cw" class="col-1 btn btn-outline-secondary" onClick="getComment()">등록</button>
+					</td>
+
+				</table>
+			</div>
+		</div>
 
 	<div class="container" style="margin-bottom: 10px;">
 		<table>
@@ -106,6 +185,53 @@
 
 		</table>
 	</div>
+	
+	
+			<div class="container">
+				<form id="commentListForm" name="commentListForm" method="post">
+					<div id="commentList"></div>
+				</form>
+			</div>
+		</div>
+	</div>
+	
+	<script type="text/javascript">
+		// 댓글 작성 및 ajax로 댓글 불러오기
+		function getComment() {
+	
+			var member_id = $("#member_id").val();
+			console.log(member_id);
+			var pgroup = $("#pgroup").val();
+			var content = $("#content").val();
+			$.ajax({
+				url : "/commu/tips_view/insert",
+				type : "post",
+				data : {
+					member_id : member_id,
+					pgroup : pgroup,
+					content : content
+				},
+				success : function(data) {
+
+					html = "<div>" + data.memberVO.nickname + "</div>"
+							+ "<div>" + data.content + "</div>" + "<div>"
+							+ data.pdate + "</div> <hr>"
+
+					$("#comment").prepend(html);
+					// $("#content").empty();
+							
+				}, //ajax 성공 시 end$
+			
+/* 
+				error : function(request, status, error) {
+					alert("code:" + request.status + "\n" + "message:"
+							+ request.responseText + "\n" + "error:" + error); */
+
+				// } // ajax 에러 시 end
+
+			})
+		}
+	</script>
 	
 	<div style="margin-top: 20px;">
 		<!-- Footer -->
