@@ -70,6 +70,33 @@ public interface CommunityService {
 	// 질문과 답변 태그
 	public List<BoardVO> getQtag(String keyword);
 
+	//노하우 
+	public List<BoardVO> getPetTips(int category_id);
+
+	//노하우 상단 인기 게시글
+	public List<BoardVO> getTipsRate();
+
+	
+	
+	// 공지사항 리스트 끌고오기
+	public List<BoardVO> getNoticeList(Criteria cri);
+	
+	// 공지사항 페이징 처리 출력
+	public int getNotal(Criteria criteria);
+
+	//공지사항 글 쓰기
+	public void writeNotice(BoardVO boardVO);
+	
+	//공지사항 삭제하기
+	public void noticeDelete(int board_id);
+
+	//공지사항 특정 글 보기
+	public BoardVO getNotView(int board_id);
+
+	//공지사항 수정하기
+	public void nodify(BoardVO boardVO);
+
+
 
 	
 

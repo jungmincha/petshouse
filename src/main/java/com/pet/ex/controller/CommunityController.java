@@ -6,6 +6,10 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,6 +28,7 @@ import com.pet.ex.service.CommunityService;
 import com.pet.ex.service.FileService;
 import com.pet.ex.vo.BoardVO;
 import com.pet.ex.vo.CategoryVO;
+import com.pet.ex.vo.GoodsVO;
 import com.pet.ex.vo.MemberVO;
 
 import lombok.extern.slf4j.Slf4j;
@@ -47,6 +52,7 @@ public class CommunityController {
 	@RequestMapping("/tips")
 	public ModelAndView tips(Criteria cri, ModelAndView mav) {
 		mav.addObject("tips", communityService.getTipsList(cri));
+		mav.addObject("rate", communityService.getTipsRate());
 		int total = communityService.getTiptal(cri);
 		mav.addObject("pageMaker", new PageVO(cri, total));
 		mav.setViewName("community/tips"); // 파일경로
@@ -64,6 +70,14 @@ public class CommunityController {
 		// communityService.hit(boardVO.getBoard_id()); 조회수어쩔거임
 		mav.setViewName("community/tips_view");
 		return mav;
+	}
+	
+	// 노하우 동물 글 페이지 출력
+	@GetMapping("/tips/pet")
+	public List<BoardVO> tips_pet(int category_id) throws Exception {
+		List<BoardVO> list = communityService.getPetTips(category_id);
+		log.info("tips_pet()실행");
+		return list;
 	}
 
 	// 노하우 글 검색
@@ -160,7 +174,7 @@ public class CommunityController {
 
 	}
 
-	// 질문과 답변 특정 글 페이지 출력
+	// 질문과 답변 동물 글 페이지 출력
 	@GetMapping("/qna/pet")
 	public List<BoardVO> qna_pet(int category_id) throws Exception {
 		List<BoardVO> list = communityService.getPetQna(category_id);
@@ -283,5 +297,113 @@ public class CommunityController {
 		mav.setView(new RedirectView("/commu/qna", true));
 		return mav;
 	}
+	
+	//////////////////////////////////////////////////////////////////////////////////////////////////////
+	//공지사항
+	// 질문과 답변 메인 페이지 리스트 출력
+	@RequestMapping("/notice")
+	public ModelAndView notice(Criteria cri, ModelAndView mav) {
+		mav.addObject("notice", communityService.getNoticeList(cri));
+		int total = communityService.getNotal(cri);
+		mav.addObject("pageMaker", new PageVO(cri, total));
+		mav.setViewName("community/notice"); // 파일경로
+		return mav;
+
+	}
+
+		// 공지사항 특정 글 페이지 출력
+		@GetMapping("/notice_view")
+		public ModelAndView notice_view(BoardVO boardVO, ModelAndView mav) throws Exception {
+			log.info("notice_view()실행");
+			communityService.hit(boardVO.getBoard_id());
+			mav.addObject("notice_view", communityService.getNotView(boardVO.getBoard_id())); // 특정 글 출력
+			mav.setViewName("community/notice_view");
+			return mav;
+		}
+
+
+		// 공지사항 글쓰기 페이지
+		@GetMapping("/notice_write")
+		public ModelAndView notice_write(ModelAndView mav) throws Exception {
+			log.info("notice_write()실행");
+			mav.setViewName("community/notice_write");
+			return mav;
+		}
+
+		// 공지사항 글 작성하기
+		@PostMapping("/notice")
+		public ModelAndView no_write(MultipartHttpServletRequest multi, BoardVO boardVO, ModelAndView mav)
+				throws IllegalStateException, IOException {
+			log.info("no_write()실행");
+			communityService.writeNotice(boardVO);
+			mav.setView(new RedirectView("/commu/notice", true));
+
+			String path = multi.getSession().getServletContext().getRealPath("/static/img/not");
+			path = path.replace("webapp", "resources");
+			File dir = new File(path);
+			if (!dir.isDirectory()) {
+				dir.mkdir();
+			}
+
+			List<MultipartFile> mf = multi.getFiles("file");
+
+			if (mf.size() == 1 && mf.get(0).getOriginalFilename().equals("")) {
+
+			} else {
+				for (int i = 0; i < mf.size(); i++) { // 파일명 중복 검사
+					UUID uuid = UUID.randomUUID();
+					// 본래 파일명
+					String imgname = mf.get(i).getOriginalFilename();
+
+					String savePath = path + "\\" + imgname; // 저장 될 파일 경로
+
+					mf.get(i).transferTo(new File(savePath)); // 파일 저장
+
+					fileservice.fileUpload(imgname);
+				}
+			}
+			return mav;
+		}
+		
+		// 공지사항 삭제
+		@DeleteMapping("/notice/{board_id}")
+		public ResponseEntity<String> noticeDelete(BoardVO boardVO, Model model) {
+
+			ResponseEntity<String> entity = null;
+			log.info("delete");
+
+			try {
+				communityService.noticeDelete(boardVO.getBoard_id());
+
+				entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+			} catch (Exception e) {
+				e.printStackTrace();
+
+				entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+			}
+
+			return entity;
+
+		}
+		
+		// 질문과 답변 글 수정 페이지
+		@GetMapping("/nodify_page")
+		public ModelAndView nodify_page(@RequestParam("board_id") int board_id, BoardVO boardVO, ModelAndView mav)
+				throws Exception {
+			log.info("nodify_page()실행");
+			mav.addObject("notice_view", communityService.getNotView(boardVO.getBoard_id()));
+			mav.setViewName("community/notice_modify");
+			return mav;
+		}
+
+		// 질문과 답변 찐 글 수정하기
+		@PostMapping("/nodify")
+		public ModelAndView nodify(BoardVO boardVO, ModelAndView mav) throws Exception {
+			log.info("nodify()실행");
+			communityService.nodify(boardVO);
+			mav.setView(new RedirectView("/commu/notice", true));
+			return mav;
+		}
+
 
 }

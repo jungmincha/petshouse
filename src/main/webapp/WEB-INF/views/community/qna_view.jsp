@@ -48,6 +48,26 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 <!-- 수정 삭제 경고창 -->
+
+<script>
+	//로그인 체크
+	$(document).ready(function() {
+		var member_id = $("#member_id").val();
+
+		function checkLogin() {
+			if (member_id == undefined) {
+				alert("로그인 후 글을 작성해주세요.");
+				location.href = '/login/login';
+			}
+		}
+		//댓글 작성 로그인 체크
+		$('#cw').click(function() {
+			checkLogin();
+		});
+	});
+	
+</script>
+
 <script type="text/javascript">
 	function button_event() {
 		if (confirm("정말 삭제하시겠습니까?") == true) { //확인
@@ -66,16 +86,37 @@
 	}
 </script>
 <!-- 수정 삭제 경고창 end-->
+<style>
+a:link {text-decoration: none; color: #333333;}
+a:visited {text-decoration: none; color: #333333;}
+a:active {text-decoration: none; color: #333333;}
+a:hover {text-decoration:none;}
 
+#hashtag {
+	font-size: 13px;
+	padding: 0.01px;
+}
+#hashtag:hover{
+background-color:#dddddd;
+}
+
+
+</style>
 </head>
 
 
 <body style="padding-top: 170px">
 
-
 	<!-- Header -->
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
 
+
+<!-- content -->
+	<sec:authorize access="hasAnyRole('ROLE_USER','ROLE_ADMIN')">
+		<input type="hidden" id="member_id"
+			value="<sec:authentication property="principal.member_id"/>">
+	</sec:authorize>
+	
 	<div class="container" style="margin-bottom: 40px">
 		<div class="head">
 			<div style="margin-top: 45px; margin-bottom: 10px;">
@@ -97,13 +138,6 @@
 				<div style="font-size: 20px;">${qna_view.memberVO.nickname}</div>
 				<hr>
 				<section style="margin-top: 60px; margin-bottom: 20px;">${qna_view.content}</section>
-				
-				
-				
-					
-						
-			
-				
 				<form action="${pageContext.request.contextPath}/commu/qnatag"
 				method="post">
 				<ul class="pd-tags">
@@ -111,7 +145,7 @@
 					<c:set var="tag" value="${fn:split(hashtag, ' ')}" />
 					
 					<c:forEach var="t" items="${tag}">
-					<button name="keyword" value="${qna_view.hashtag}" onclick="location.href='${pageContext.request.contextPath}/commu/qnatag'">${t}</button>
+					<button id="hashtag" name="keyword" value="${t}" class="btn btn-disabled" onclick="location.href='${pageContext.request.contextPath}/commu/qnatag'">${t}</button>
 					</c:forEach>
 					
 				</ul> </form> <span style="color: gray;">${qna_view.pdate}</span> <span
@@ -138,7 +172,7 @@
 
 					<td class="row"><textarea style="resize: none;"
 							class="form-control col-11" id="content" placeholder="댓글을 입력하세요"></textarea>
-						<button class="col-1 btn btn-warning" onClick="getComment()">등록</button>
+						<button id="cw" class="col-1 btn btn-outline-secondary" onClick="getComment()">등록</button>
 					</td>
 
 				</table>
@@ -177,7 +211,7 @@
 	<script type="text/javascript">
 		// 댓글 작성 및 ajax로 댓글 불러오기
 		function getComment() {
-
+	
 			var member_id = $("#member_id").val();
 			console.log(member_id);
 			var pgroup = $("#pgroup").val();
@@ -196,15 +230,17 @@
 							+ "<div>" + data.content + "</div>" + "<div>"
 							+ data.pdate + "</div> <hr>"
 
-					$("#comment").prepend(html)
-
-				}, //ajax 성공 시 end
-
+					$("#comment").prepend(html);
+					// $("#content").empty();
+							
+				}, //ajax 성공 시 end$
+			
+/* 
 				error : function(request, status, error) {
 					alert("code:" + request.status + "\n" + "message:"
-							+ request.responseText + "\n" + "error:" + error);
+							+ request.responseText + "\n" + "error:" + error); */
 
-				} // ajax 에러 시 end
+				// } // ajax 에러 시 end
 
 			})
 		}

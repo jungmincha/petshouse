@@ -19,17 +19,24 @@ public interface CommunityMapper {
 	// 노하우 진짜 글쓰기
 	public void writeTips(BoardVO boardVO);
 
-	// 페이징 처리 리스트 출력
+	// 노하우 페이징 처리 리스트 출력
 	public List<BoardVO> getTipsWithPaging(Criteria cri);
 
-	// 페이징 처리용 토탈카운트,,,,
+	// 노하우 페이징 처리용 토탈카운트,,,,
 	public int getTiptalCount(Criteria cri);
+	
+	//노하우 해당 동물의 글
+	public List<BoardVO> getPetTips(int category_id);
+
+	//노하우 인기 게시글
+	public List<BoardVO> getTipsRate();
 
 	// 노하우 글 수정하기
 	public void tmodify(BoardVO boardVO);
 
 	// 노하우 글 삭제하기
 	public void tdelete(int board_id);
+	
 
 	// 질문과 답변 특정 글 페이지
 	public BoardVO getQnaview(int board_id);
@@ -72,4 +79,23 @@ public interface CommunityMapper {
 
 	// 질문과 답변 태그
 	public List<BoardVO> getQtag(String keyword);
+
+
+	
+	
+	// 공지사항 페이징 처리 리스트 출력
+	public List<BoardVO> getNoticeWithPaging(Criteria cri);
+	
+	// 공지사항 페이징 처리용 토탈카운트,,,,
+	public int getNotalCount(Criteria cri);
+	
+	//공지사항 글 쓰기
+	public void writeNotice(BoardVO boardVO);
+	
+	public void noticeDelete(int board_id);
+
+	public BoardVO getNotView(int board_id);
+
+	public void nodify(BoardVO boardVO);
+
 }

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 
@@ -64,6 +65,14 @@ a:visited {text-decoration: none; color: #333333;}
 a:active {text-decoration: none; color: #333333;}
 a:hover {text-decoration:none;}
 
+#hashtag {
+	font-size: 13px;
+	padding: 0.01px;
+}
+#hashtag:hover{
+background-color:#dddddd;
+}
+
 </style>
 
 
@@ -96,28 +105,37 @@ a:hover {text-decoration:none;}
 	<!-- 게시글 끌고와야함 글 제목, 사진?, 작성자, 날짜, 댓글수, 해시태그? 그리고 테이블은 td만 쓰면 될듯..? -->
 
 	<div class="container">
-	
-	
-	<c:forEach items="${qsearch}" var="qs">
-		<table class="table table-hover">
-		
-			<thead>
-			</thead>
-			<tbody>
-				<td> <a href="${pageContext.request.contextPath}/commu/qna_view?board_id=${qs.board_id}">
-					<div style="font-weight:bold; font-size:18px;">${qs.title}</div>
-					<div>${qs.content}</div> 
-					<span>${qs.memberVO.nickname}</span> 
-					<span style="font-size:13px; color:gray;">${qs.pdate}</span> <span style="font-size:13px; color:gray;"> 조회수 ${qs.hit}</span> <a scope="row">키워드 버튼 나열</a>
-					</a>
-				</td>
 
-			</tbody>
+
+
+		<table class="table">
+			<c:forEach items="${qsearch}" var="qs">
+				<tbody>
+					<td><a
+						href="${pageContext.request.contextPath}/commu/qna_view?board_id=${qs.board_id}">
+							<form action="${pageContext.request.contextPath}/commu/qnatag" method="post">
+								<div style="font-weight: bold; font-size: 18px;">${qs.title}</div>
+								<ul class="pd-tags">
+									<div>${qs.content}</div>
+									<span>${qs.memberVO.nickname}</span>
+									<span style="font-size: 13px; color: gray;">${qs.pdate}</span>
+									<span style="font-size: 13px; color: gray;"> 조회수 ${qs.hit}</span>
+									<c:set var="hashtag" value="${qs.hashtag}" />
+									<c:set var="tag" value="${fn:split(hashtag, ' ')}" />
+									<c:forEach var="t" items="${tag}">
+										<span><button id="hashtag" name="keyword"
+												class="btn btn-disabled" style=""
+												value="${t}"
+												onclick="location.href='${pageContext.request.contextPath}/commu/qnatag'">${t}</button></span>
+									</c:forEach>
+
+								</ul>
+							</form>
+					</a></td>
+				</tbody>
+			</c:forEach>
 		</table>
-		</c:forEach>
-	</div>
-
-
+		
 	<!-- Footer -->
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 </body>
