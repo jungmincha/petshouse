@@ -486,8 +486,8 @@
 													+ "</h5> </a> <p style='font-size: 22px'>"
 													+ data.pay[i - 1].payGoodsVO[0].boardVO.title
 													+ "</p>"
-													+ "<span style='font-size: 13px'>색상 - 빨강 / 사이즈 - M</span><br> </div>"
-													+ "</div> <div class='col-lg-2'></div> <div class='col-lg-3'> <br> <span style='font-size: 18px'>총금액 : "
+													+ "<span style='font-size: 13px'>색상 - "+data.pay[i - 1].payGoodsVO[0].pcolor+" / 사이즈 - "+data.pay[i - 1].payGoodsVO[0].psize+"</span><br> </div>"
+													+ "</div> <div class='col-lg-2'></div> <div class='col-lg-3'> <br> <span style='font-size: 18px;text-'>총금액 : "
 													+ data.pay[i - 1].payprice
 													+ "원</span><br> <span  style='font-size: 18px'>수량 : "
 													+ data.pay[i - 1].payGoodsVO[0].amount
@@ -502,7 +502,7 @@
 														+ "<div class='pb-text'>  <p style='font-size: 22px'>"
 														+ data.pay[i - 1].payGoodsVO[j].boardVO.title
 														+ "</p>"
-														+ "<span style='font-size: 13px'>색상 - 빨강 / 사이즈 - M</span><br> </div>"
+														+ "<span style='font-size: 13px'>색상 - "+data.pay[i - 1].payGoodsVO[j].pcolor+" / 사이즈 - "+data.pay[i - 1].payGoodsVO[j].psize+"</span><br> </div>"
 														+ "</div> <div class='col-lg-2'></div> <div class='col-lg-3'> <br>"
 														+ "<span  style='font-size: 18px'>수량 : "
 														+ data.pay[i - 1].payGoodsVO[j].amount
@@ -526,7 +526,7 @@
 							var date = date.substr(0, 19);
 							var date = date.split("T");
 							var date = date[0] + " " + date[1];
-							return date; //'-' 추가하여 yyyy-mm-dd 형태 생성 가능
+							return date; 
 						}
 					});
 	//공백확인용...
