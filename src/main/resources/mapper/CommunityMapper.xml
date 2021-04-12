@@ -381,6 +381,18 @@
 	<!-- 댓글 카운트 해야함...수정해야함 -->
 	<!-- <select id="getReviewcount" resultMap="boardvo"> <![CDATA[ select count(*) 
 		as count from board where boardtype_id=8 and goods_id=12 ]]> </select> -->
+	<select id="getQnaBoard_id" resultType="boardvo">
+		 <![CDATA[
+  					select * from (select * from board where boardtype_id=4 order by pdate desc) where rownum=1
+	 	]]>
+	</select>
+
+	<insert id="QnaImgInput" parameterType="imagevo" >
+
+ 		<![CDATA[
+   				 INSERT INTO IMAGE(img_id, imgname, board_id) VALUES (image_seq.nextval, #{imgname}, #{boardVO.board_id})
+	 	]]>
+	</insert>
 
 
 

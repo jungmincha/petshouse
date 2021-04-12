@@ -80,6 +80,10 @@ public interface CommunityMapper {
 
 	// 질문과 답변 태그
 	public List<BoardVO> getQtag(String keyword);
+	
+	public BoardVO getQnaBoard_id();
+
+	public void QnaImgInput(ImageVO imageVO);
 
 
 }

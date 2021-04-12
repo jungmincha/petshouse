@@ -45,9 +45,6 @@ public class CommunityController {
 	@Autowired
 	private CommunityService communityService;
 
-	@Autowired
-	private AdminService service;
-
 	// 노하우 메인 페이지 리스트 출력 (검색, 글쓰기,사진업로드, 페이징, 댓글, 수정, 삭제, 조회 필요함)
 	@RequestMapping("/tips")
 	public ModelAndView tips(Criteria cri, ModelAndView mav) {
@@ -110,8 +107,7 @@ public class CommunityController {
 	public ModelAndView twrite(MultipartHttpServletRequest multi, BoardVO boardVO, ModelAndView mav)
 			throws IllegalStateException, IOException {
 		log.info("twrite()실행");
-		communityService.writeTips(boardVO);
-		mav.setView(new RedirectView("/commu/tips", true));
+		communityService.writeTips(boardVO);	
 
 		String path = multi.getSession().getServletContext().getRealPath("/static/img/tips");
 		path = path.replace("webapp", "resources");
@@ -134,9 +130,10 @@ public class CommunityController {
 
 				mf.get(i).transferTo(new File(savePath)); // 파일 저장
 
-				fileservice.fileUpload(imgname);
+				communityService.fileUpload(imgname);
 			}
 		}
+		mav.setView(new RedirectView("/commu/tips", true));
 		return mav;
 	}
 
@@ -248,11 +245,11 @@ public class CommunityController {
 
 	// 글 작성하기 질문과답변
 	@PostMapping("/qna")
-	public ModelAndView write(MultipartHttpServletRequest multi, BoardVO boardVO, ModelAndView mav)
+	public ModelAndView write(MultipartHttpServletRequest multi,ImageVO imageVO, BoardVO boardVO, ModelAndView mav)
 			throws IllegalStateException, IOException {
 		log.info("write()실행");
 		communityService.writeQna(boardVO);
-		mav.setView(new RedirectView("/commu/qna", true));
+	
 
 		String path = multi.getSession().getServletContext().getRealPath("/static/img/qna");
 		path = path.replace("webapp", "resources");
@@ -263,21 +260,26 @@ public class CommunityController {
 
 		List<MultipartFile> mf = multi.getFiles("file");
 
-		if (mf.size() == 1 && mf.get(0).getOriginalFilename().equals("")) {
+		for (int i = 0; i < mf.size(); i++) { // 파일명 중복 검사
+			
+			UUID uuid = UUID.randomUUID();			// 파일명 랜덤으로 변경
+			
+			String originalfileName = mf.get(i).getOriginalFilename();		  		
+  			String ext = FilenameUtils.getExtension(originalfileName);
+  			//저장 될 파일명
+  			String imgname=uuid+"."+ext; 
+		
 
-		} else {
-			for (int i = 0; i < mf.size(); i++) { // 파일명 중복 검사
-				UUID uuid = UUID.randomUUID();
-				// 본래 파일명
-				String imgname = mf.get(i).getOriginalFilename();
+			String savePath = path + "\\" + imgname; // 저장 될 파일 경로
+			
+			mf.get(i).transferTo(new File(savePath)); // 파일 저장
+			imageVO.setImgname(imgname);
+			BoardVO board = communityService.getQnaBoard_id();
+			imageVO.getBoardVO().setBoard_id(board.getBoard_id());
+			communityService.QnaImgInput(imageVO); 
 
-				String savePath = path + "\\" + imgname; // 저장 될 파일 경로
-
-				mf.get(i).transferTo(new File(savePath)); // 파일 저장
-
-				fileservice.fileUpload(imgname);
-			}
-		}
+		}	
+		mav.setView(new RedirectView("/commu/qna", true));
 		return mav;
 	}
 
