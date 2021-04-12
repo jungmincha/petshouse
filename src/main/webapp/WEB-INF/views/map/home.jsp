@@ -175,6 +175,12 @@
 								}
 							}
 						}
+						
+						
+						
+						
+						
+						
 
 					});
 		} else {
@@ -238,7 +244,7 @@
 
 						
 
-								
+							<%-- 	<a onclick = "location_auth('<sec:authentication property="principal.location" />')"href="#"> --%>
 						
 
 							<p>
@@ -246,13 +252,20 @@
 									style="font-weight: bold; font-size: 20px;"></span>이 맞으면 '
 									계속 하기'을 눌러주세요.
 							</p>
+							
+							
+		
 							<form action="/map/board" method="get">
 								<div class="row">
 									<div class="col-lg-12">
-										<input id="location" type="hidden" name="location" value="" /> 
+									
+											<!-- <input type="hidden" name="location" value="">  -->
 											<sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
-										<input type="hidden" name="member_id" value="<sec:authentication property="principal.member_id" />">
-								 	<input type="hidden" name="nickname" value="<sec:authentication property="principal.nickname" />"> 
+										
+										<input type="hidden" name="member_id" value="<sec:authentication property="principal.member_id"/>">
+								 	<input type="hidden" name="nickname" value="<sec:authentication property="principal.nickname"/>"> 
+						<input type="hidden" name="location" value=""/> 
+								 	
 											</sec:authorize>
 										<button type="submit" class="site-btn" 
 											style="font-size: 20px;" >계속 하기</button>

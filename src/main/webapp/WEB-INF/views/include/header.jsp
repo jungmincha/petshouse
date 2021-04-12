@@ -40,6 +40,57 @@
 <link rel="stylesheet" href="/resources/css/slicknav.min.css"
 	type="text/css">
 <link rel="stylesheet" href="/resources/css/style.css" type="text/css">
+<sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
+<input type="hidden" id="location_security"name="location_security" value="<sec:authentication property="principal.location"/>">
+<input type="hidden" id="member_id"name="member_id" value="<sec:authentication property="principal.member_id"/>">
+<input type="hidden" id="nickname"name="nickname" value="<sec:authentication property="principal.nickname"/>">
+</sec:authorize>
+
+<script>
+
+//위치기반 인증 자바스크립트 함수
+function location_auth(){
+	
+	
+	try {
+		var member_id = document.getElementById("member_id").value; 
+		} catch (e) {
+		  console.error(e);
+		  alert("로그인 후 이용 가능합니다.");
+		  location.href="/login/login";
+		}
+	
+	var location_security = document.getElementById("location_security").value; 
+	var member_id = document.getElementById("member_id").value; 
+	var nickname = document.getElementById("nickname").value; 
+	//var location = document.getElementById("location").value; 
+	console.log(location_security);
+	
+
+	
+	
+	
+	if(location_security==null){
+		
+		location.href="/map/home";
+		
+	}else{
+		
+		
+		location.href="/map/board?location="+location_security+"&member_id="+member_id+"&nickname="+nickname;
+		
+		console.log(location_security);
+		console.log(member_id);
+		console.log(nickname);
+		
+	}
+	
+}
+
+
+
+</script>
+
 
 
 </head>
@@ -124,7 +175,9 @@
 								<li><a href="/commu/sns">SNS</a></li>
 								<li><a href="/commu/tips">노하우</a></li>
 								<li><a href="/commu/qna">질문과답변</a></li>
-								<li><a href="/map/home">펫츠타운</a></li>
+								
+								<li><a onclick ="location_auth()"href="#">펫츠타운</a></li>
+						
 							</ul></li>
 						<li><a href="/store/home">STORE</a>
 							<ul class="dropdown">
@@ -142,7 +195,7 @@
 
 						<li><a href="/admin/home">관리자페이지</a>
 							<ul class="dropdown">
-								<li><a href="/admin/notice">공지사항관리</a></li>
+								<li><a href="#">공지사항관리</a></li>
 								<li><a href="/admin/goods">상품관리</a></li>
 								<li><a href="/admin/member_list">회원관리</a></li>
 								<li><a href="#">통계</a></li>

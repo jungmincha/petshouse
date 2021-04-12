@@ -25,5 +25,7 @@ public interface MapService {
 
 	public List<MemberVO> getMemberList(String getMember_id);
 
+	public List<BoardVO> getSerchList(Criteria cri);
+
 	
 }

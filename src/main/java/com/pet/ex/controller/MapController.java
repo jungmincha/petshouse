@@ -47,31 +47,32 @@ public class MapController {
 	//펫츠타운 메인페이지
 	@GetMapping("/board")
 	   public ModelAndView board(
-			 @RequestParam(value="location" ,required = false)String loc,
+			 @RequestParam(value="location" ,required = false)String loc, //insert해서 바뀐 주소 홍제 2동을 받아옴 
 			 
 			   @RequestParam(value="member_id",required = false)String member_id,
 			   
 			   @RequestParam(value="nickname",required = false)String nickname,
 			   
+			   
+				/* @RequestParam(value="s_location",required = false)String s_location, */
 		
+			   //@RequestParam(value="original_location",required = false)String original_location, //원래 주소
+			   
 			  
 			   ModelAndView mav , Criteria cri , MemberVO memberVO, BoardVO boardVO) {
 		
-		memberVO.setLocation(loc);
+		 memberVO.setLocation(loc); //홍제 2동 받아옴
 		 
-		 service.insertLoc(memberVO);
+		 //insert 현재위치
+		 service.insertLoc(memberVO); //홍제 2동 삽입된
 		
 		
-		
-		 boardVO.setLocation(loc);
-		
+		 boardVO.setLocation(loc); //여기서도 홍제 2동 삽입됨 
+		 
 		mav.addObject("list", service.getList(cri));
 		
 		int total = service.getTotal(cri);
-		
-		
-		
-		 
+			 
 		
 		mav.addObject("pageMaker",  new PageVO(cri, total));
 		
@@ -84,14 +85,71 @@ public class MapController {
 	
 		
 		System.out.println(member_id);
-		System.out.println(loc);
-
+		System.out.println("insert 구문" + loc);
+		   System.out.println("===============================================================================");
+//	System.out.println("시큐리티 인증"+s_location);
 
 		 mav.setViewName("map/board"); 
 	   
 	    
 	      return mav;
 	   }
+	
+	
+	@GetMapping("/search")
+	public ModelAndView search(
+			
+			 @RequestParam(value="location" ,required = false)String loc, //insert해서 바뀐 주소 홍제 2동을 받아옴 
+			 
+			   @RequestParam(value="member_id",required = false)String member_id,
+			   
+			   @RequestParam(value="nickname",required = false)String nickname,
+			   
+			   
+				/* @RequestParam(value="s_location",required = false)String s_location, */
+		
+			   //@RequestParam(value="original_location",required = false)String original_location, //원래 주소
+			   
+			  
+			   ModelAndView mav , Criteria cri , MemberVO memberVO, BoardVO boardVO) {
+		
+		 memberVO.setLocation(loc); //홍제 2동 받아옴
+		 
+		 //insert 현재위치
+		 service.insertLoc(memberVO); //홍제 2동 삽입된
+		
+		
+		 boardVO.setLocation(loc); //여기서도 홍제 2동 삽입됨 
+		 
+		mav.addObject("list", service.getSerchList(cri));
+		
+		int total = service.getTotal(cri);
+			 
+		
+		mav.addObject("pageMaker",  new PageVO(cri, total));
+		
+	 mav.addObject("location", loc); 
+		 
+	 mav.addObject("member_id", member_id); 
+	 mav.addObject("nickname", nickname); 
+
+		 
+	
+		
+		System.out.println(member_id);
+		System.out.println("insert 구문" + loc);
+		   System.out.println("===============================================================================");
+//	System.out.println("시큐리티 인증"+s_location);
+
+		 mav.setViewName("map/board"); 
+		
+		
+		
+		
+		
+		
+		return mav;
+	}
 	
 	
 	
@@ -103,6 +161,8 @@ public class MapController {
 			   @RequestParam(value="member_id",required = false)String member_id,
 			  
 			   @RequestParam(value="nickname",required = false)String nickname,
+			   
+			  // @RequestParam(value="original_location",required = false)String original_location, //원래 주소
 			  
 			  ModelAndView mav) {
 	  
@@ -116,7 +176,7 @@ public class MapController {
 		 mav.addObject("nickname", nickname); 
 		 System.out.println(member_id);
 			System.out.println(loc);
-			   System.out.println("===============================================================================");
+			   System.out.println("=========================================================================================================");
 	  mav.setViewName("map/write_view");
 	  
 	 
@@ -135,6 +195,8 @@ public class MapController {
 			   @RequestParam(value="member_id",required = false)String member_id,			
 			
 			   @RequestParam(value="nickname",required = false)String nickname,
+			   
+			  // @RequestParam(value="original_location",required = false)String original_location, //원래 주소
 			ModelAndView mav, BoardVO boardVO) {
 		
 		mav.addObject("location", loc); 
@@ -168,6 +230,8 @@ public class MapController {
 				   @RequestParam(value="member_id",required = false)String member_id,
 				  
 				   @RequestParam(value="nickname",required = false)String nickname,
+				   
+				 //  @RequestParam(value="original_location",required = false)String original_location, //원래 주소
 				  
 				  ModelAndView mav ,BoardVO boardVO, MemberVO memberVO, Criteria cri )throws Exception 
 		  

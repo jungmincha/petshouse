@@ -8,35 +8,6 @@
 <title>Insert title here</title>
 
 <script src="http://code.jquery.com/jquery-1.11.0.js"></script>
-<script>
-
-window.onload = function() {
-	
-/* 	var location = $('#location').text();
-	var member_id = $('#member_id').text();
-	console.log(location);
-	console.log(member_id);
-	
-	$('input[name=test]').attr('value', location);	
-	$('input[name=member_id]').attr('value', member_id);	
-	
-	 */
-	
-
-
-	
-	
-};
-
-
-	
-
-
-
-</script>
-
-
-
 
 
 </head>
@@ -54,10 +25,23 @@ window.onload = function() {
                 <div class="col-lg-12">
                 
                 <h3>${location}</h3>
+              
+                
+                <a href="/map/home">위치 다시 설정하기</a>
+                
                <br>
            <h5>${member_id}</h5>
             <h5>${nickname}</h5>
-           
+             <form  action="/map/search" method="get">  
+          <input id="location" type="hidden" name="location" value="${location}" /> 
+	<input id="member_id" type="hidden" name="member_id" value="${member_id}" />     
+	<input id="nickname" type="hidden" name="nickname" value="${nickname}" /> 
+	<button type="submit">검색</button>
+	</form>
+                 
+                       
+                 
+                 
                  
           <form  action="/map/write_view" method="get">  
           <input id="location" type="hidden" name="location" value="${location}" /> 
