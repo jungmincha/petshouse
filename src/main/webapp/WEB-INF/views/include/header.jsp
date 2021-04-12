@@ -142,7 +142,7 @@
 
 						<li><a href="/admin/home">관리자페이지</a>
 							<ul class="dropdown">
-								<li><a href="#">공지사항관리</a></li>
+								<li><a href="/admin/notice">공지사항관리</a></li>
 								<li><a href="/admin/goods">상품관리</a></li>
 								<li><a href="/admin/member_list">회원관리</a></li>
 								<li><a href="#">통계</a></li>
