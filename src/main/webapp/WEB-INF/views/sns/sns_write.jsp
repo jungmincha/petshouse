@@ -100,16 +100,15 @@ label {
 	<div class="container" style="width: 1100px; min-height:900px;">
 		<div class="top" onclick="window.scrollTo(0,0);">top</div>
 		<div class="col-lg-12">
-			<form id="goods" name="goods" class="needs-validation" 	action="${pageContext.request.contextPath}/commu/sns/write"
+			<form id="sns" name="sns" class="needs-validation" 	action="${pageContext.request.contextPath}/commu/sns/write"
 				enctype="multipart/form-data"	method="post">
 				
 				<div class="title">
-				<h2>사진 올리기</h2>
-				
+				<h2>사진 올리기</h2> 
 				</div>
 				
 				<div class="form-group row">
-				 <input type="submit" class="btn btn-warning  btn-lg" 
+				 <input type="submit" class="btn btn-warning " 
 						  style="position:fixed; top: 150px; right: 400px;  " value="sns등록">
 				</div>
 								 
@@ -117,7 +116,7 @@ label {
 				<div class="form-group row">
 				<div class="col-sm-2">카테고리</div>
 					<div class="col-lg-6" >
-					<select class=" form-control" name="category_id"
+					<select class=" form-control" name="categoryVO.category_id"
 						style="height: 38px; width:100px;  vertical-align: middle; text-align-last: center" >
 						<option value="1">고양이</option>
 						<option value="2">강아지</option>
@@ -136,8 +135,8 @@ label {
 							<div class="col-sm-8">
 								<div class="custom-file">
 									<input type="file" class="custom-file-input" id="btnAtt"
-										accept="img/*" required multiple name="btnAtt"
-										style="display: block;"> <label
+									    multiple="multiple" name="btnAtt"
+										style="display: block;" required> <label
 										class="custom-file-label" for="inputGroupFile02">사진을
 										선택하세요.</label>
 								</div>
@@ -178,19 +177,7 @@ label {
 
 
 
-
-					
-
-
-
-						<div class="form-group row">
-							<div class="col-sm-offset-2 col-sm-6">
-
-								<input type="file" id="file" name="file"
-									onchange="changeValue(this)" />
-
-
-							</div>
+ 
 							<!-- Modal -->
 							<!-- <div class="modal fade" id="Modal" tabindex="-1" role="dialog"
 									aria-labelledby="ModalLabel" aria-hidden="true">
@@ -224,6 +211,7 @@ label {
 
 
 	<script>
+	
 		(function() {
 			'use strict'
 
@@ -243,90 +231,15 @@ label {
 			})
 		})();
 
-		// 컨트롤러에서 데이터 받기
-		var jsonData = JSON.parse('${category}');
-		console.log(jsonData);
-
-		var cate1Arr = new Array();
-		var cate1Obj = new Object();
-
-		// 1차 분류 셀렉트 박스에 삽입할 데이터 준비
-		for (var i = 0; i < jsonData.length; i++) {
-
-			if (jsonData[i].level == "1") {
-				cate1Obj = new Object(); //초기화
-				cate1Obj.category_id = jsonData[i].category_id;
-				cate1Obj.categoryname = jsonData[i].categoryname;
-				cate1Arr.push(cate1Obj);
-			}
-		}
-
-		// 1차 분류 셀렉트 박스에 데이터 삽입
-		var cate1Select = $("select.category1")
-
-		for (var i = 0; i < cate1Arr.length; i++) {
-			cate1Select
-					.append("<option value='" + cate1Arr[i].category_id + "'>"
-							+ cate1Arr[i].categoryname + "</option>");
-		}
-
-		$(document)
-				.on(
-						"change",
-						"select.category1",
-						function() {
-
-							var cate2Arr = new Array();
-							var cate2Obj = new Object();
-
-							// 2차 분류 셀렉트 박스에 삽입할 데이터 준비
-							for (var i = 0; i < jsonData.length; i++) {
-
-								if (jsonData[i].level == "2") {
-									cate2Obj = new Object(); //초기화
-									cate2Obj.category_id = jsonData[i].category_id;
-									cate2Obj.categoryname = jsonData[i].categoryname;
-									cate2Obj.code = jsonData[i].code;
-
-									cate2Arr.push(cate2Obj);
-								}
-							}
-
-							var cate2Select = $("select.category2");
-
-							/*
-							for(var i = 0; i < cate2Arr.length; i++) {
-							  cate2Select.append("<option value='" + cate2Arr[i].cateCode + "'>"
-							       + cate2Arr[i].cateName + "</option>");
-							}
-							 */
-
-							cate2Select.children().remove();
-
-							$("option:selected", this)
-									.each(
-											function() {
-
-												var selectVal = $(this).val();
-
-												cate2Select
-														.append("<option value='" + selectVal + "'>전체</option>");
-
-												for (var i = 0; i < cate2Arr.length; i++) {
-													if (selectVal == cate2Arr[i].code) {
-														cate2Select
-																.append("<option value='" + cate2Arr[i].category_id + "'>"
-																		+ cate2Arr[i].categoryname
-																		+ "</option>");
-													}
-												}
-
-											});
-
-						});
+		 
 	</script>
 
 	<script>
+ 
+	 
+	
+	
+			
 ( /* preview : 이미지들이 들어갈 위치 id, btn : file tag id */
   imageView = function imageView(preview, btn){
 
@@ -379,7 +292,7 @@ label {
     
 
     
-    /*첨부된 이미리즐을 배열에 넣고 미리보기 */
+    /*첨부된 이미리들을 배열에 넣고 미리보기 */
     imageLoader = function(file){
       sel_files.push(file);
       var reader = new FileReader();
