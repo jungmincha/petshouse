@@ -32,6 +32,7 @@
 		<result column="enable" property="enable" />
 		<result column="username" property="username" />
 		<result column="certify" property="certify" />
+		<result column="location" property="location" />
 
 		<collection property="roleVO" resultMap="rolevo"></collection>
 		<collection property="logintypeVO" resultMap="logintypevo"></collection>
@@ -59,6 +60,7 @@
 		,m.category_id
 		, categoryname
 		,certify
+		,location
 		FROM
 		MEMBER
 		m, role r , logintype

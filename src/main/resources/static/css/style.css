@@ -2216,7 +2216,7 @@ ul, ol {
    cursor: pointer;
 }
 
-.product-details .pd-color-choose .color-item label.active {
+.product-details .pd-color-choose .color-item label.activeColor {
    background: #e7ab3c;
    color: #ffffff;
 }
@@ -2259,7 +2259,7 @@ ul, ol {
 	cursor: pointer;
 }
 
-.product-details .pd-size-choose .sc-item label.active {
+.product-details .pd-size-choose .sc-item label.activeSize {
 	background: #e7ab3c;
 	color: #ffffff;
 }

@@ -374,7 +374,7 @@
 
 				<form class=" needs-validation"
 					action="${pageContext.request.contextPath}/경로를 넣어주세요" method="Post">
-					<input type="hidden" id="board_id" name="board_id" value="">
+					<input type="hidden" id="goods_id" name="goods_id" value="">
 					<div class="rbox">포토 리뷰 500P, 일반 리뷰 100P</div>
 
 					<!-- 상품사진, 상품명 -->
@@ -493,11 +493,12 @@
 													+ data.pay[i - 1].payGoodsVO[0].amount
 													+ "</span>"
 													+ "</div> <div class='col-lg-2'> <span style='font-size: 20px'><button>배송조회</button></span><br>"
-													+ "<span style='font-size: 20px'><button id='myBtn' onclick='modals("+ data.pay[i - 1].payGoodsVO[0].boardVO.board_id+")'>리뷰 작성</button></span><br>"
-													+ "</div> </div> <hr> <div class='row collapse in' id='demo"+i+"'> "
+													+ "<span style='font-size: 20px'><button id='myBtn' onclick='modals("+ data.pay[i - 1].payGoodsVO[0].boardVO.goods_id+")'>리뷰 작성</button></span><br>"
+													+ "</div> </div>" 
+													+"<hr> <div class='row collapse in' id='demo"+i+"'> "
 											for (var j = 1; j < data.pay[i - 1].payGoodsVO.length; j++) {
 												html += " <div class='col-lg-12'><br></div><div class='col-lg-5'> <div class='pb-pic'>"
-														+ "<img src='/resources/img/products/product-1.jpg' class='pimg'> </div>"
+														+ "<img src='/resources/img/products/product-2.jpg' class='pimg'> </div>"
 														+ "<div class='pb-text'>  <p style='font-size: 22px'>"
 														+ data.pay[i - 1].payGoodsVO[j].boardVO.title
 														+ "</p>"
@@ -516,7 +517,7 @@
 										$("#orderList").append(html);
 									}, //ajax 성공 시 
 									error : function(request, status, error) {
-										alert("카트가 비었습니다.")
+										
 									} // ajax 에러 시 end
 
 								});// 장바구니 목록 함수 end
@@ -661,9 +662,9 @@
 
 	var span = document.getElementsByClassName("close")[0];                                          
 
-	function modals(board_id){
+	function modals(goods_id){
 		modal.style.display = "block";
-		$("#board_id").val(board_id);
+		$("#goods_id").val(goods_id);
 	
 		}
 

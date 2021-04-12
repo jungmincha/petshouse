@@ -76,6 +76,8 @@ public class MyPageController {
 		log.info("/payPage/insert");
 		String[] amounts = request.getParameterValues("amount");
 		String[] board_ids = request.getParameterValues("board_id");
+		String[] psizes = request.getParameterValues("psize");
+		String[] pcolors = request.getParameterValues("pcolor");
 		myPageService.insertPay(pay);
 
 		// 해당아이디의 최신 결제내역을 가져옴
@@ -86,6 +88,8 @@ public class MyPageController {
 
 		for (int i = 1; i < amounts.length; i++) {
 			payGoodsVO.setAmount(Integer.parseInt(amounts[i]));
+			payGoodsVO.setPcolor(pcolors[i]);
+			payGoodsVO.setPsize(psizes[i]);
 			payGoodsVO.getBoardVO().setBoard_id(Integer.parseInt(board_ids[i]));
 			payGoodsVO.setPay_id(payVO.getPay_id());
 			myPageService.insertPayGoods(payGoodsVO);
@@ -111,7 +115,7 @@ public class MyPageController {
 		List<PayVO> pay = new ArrayList<PayVO>();
 		Map<String, Object> payAjax = new HashMap<String, Object>();
 
-		pay = myPageService.listOrder(cri,member_id);
+		pay = myPageService.listOrder(cri, member_id);
 		System.out.println(pay);
 		int total = myPageService.getPayTotal(member_id);
 
