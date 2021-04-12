@@ -5,6 +5,7 @@ import java.util.List;
 import com.pet.ex.page.Criteria;
 import com.pet.ex.vo.BoardVO;
 import com.pet.ex.vo.CategoryVO;
+import com.pet.ex.vo.MemberVO;
 import com.pet.ex.vo.PointVO;
 
 public interface StoreService {	
@@ -25,4 +26,7 @@ public interface StoreService {
 	
 	//커뮤니티 SNS 조회
 	public List<BoardVO> getSns();
+
+	//회원 정보 조회
+	public MemberVO getMemberinfo();
 }

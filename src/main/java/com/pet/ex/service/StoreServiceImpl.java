@@ -9,6 +9,7 @@ import com.pet.ex.mapper.StoreMapper;
 import com.pet.ex.page.Criteria;
 import com.pet.ex.vo.BoardVO;
 import com.pet.ex.vo.CategoryVO;
+import com.pet.ex.vo.MemberVO;
 import com.pet.ex.vo.PointVO;
 
 import lombok.AllArgsConstructor;
@@ -71,5 +72,12 @@ public class StoreServiceImpl implements StoreService {
 	public List<BoardVO> getSns() {
 		log.info("getSns");
 		return mapper.getSns();
+	}
+
+	//회원 정보 조회
+	@Override
+	public MemberVO getMemberinfo() {
+		log.info("getMemberinfo");
+		return mapper.getMemberinfo();
 	}
 }

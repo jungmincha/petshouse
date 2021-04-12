@@ -23,5 +23,8 @@ public class PointVO {
 
 	// 합
 	private int sum;
+	
+	//총 개수 확인
+	private int count;
 
 }

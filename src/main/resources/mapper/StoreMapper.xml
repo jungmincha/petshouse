@@ -196,18 +196,29 @@
 	</insert>	
 	
 
-	
-	<!-- commu 노하우 조회-->
+	<!-- community part-->
+	<!-- 노하우 조회-->
 	<select id="getKnowhow" resultType="BoardVO">
 		<![CDATA[
 	         select rownum as rnum, substr(content, 1, 10) as content, title, pdate, hit from board where boardtype_id=5 and rownum>= 1 order by plike desc
 	   ]]>
 	</select>	
 	
-	<!-- commu sns 조회-->
+	<!-- sns 조회-->
 	<select id="getSns" resultType="BoardVO">
 		<![CDATA[
 	         select substr(content, 1, 10) as content, title, pdate, hit from board where boardtype_id=7 order by plike desc
 	   ]]>
 	</select>
+	
+	
+	<!-- 회원 정보 조회-->
+	<select id="getMemberinfo" resultType="MemberVO">
+		<![CDATA[
+	         select * from member where member_id='doriya0830@gmail.com'
+	   ]]>
+	</select>
+	
+	
+	
 </mapper>

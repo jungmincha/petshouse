@@ -6,18 +6,15 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport"
-   content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
-<meta name="viewport"
-   content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
 <title>beststore</title>
 
 <!-- bootstrap css cdn -->
-<link rel="stylesheet"
-   href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-   type="text/css" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" type="text/css" />
+
 <!-- Css Styles -->
 <link rel="stylesheet" href="/resources/css/bootstrap.min.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/font-awesome.min.css" type="text/css">
@@ -144,12 +141,8 @@
                         <div class="pi-pic">			   
                             <c:forEach items="${goods}" var="goods">
                                <c:if test="${rate.goodsVO.goods_id eq goods.goodsVO.goods_id}">
-                                 <img src="/resources/img/admin/goods/${goods.goodsVO.thumbnail}" alt="">                                  				
+                                 <a href="/admin/goods_detail/${goods.board_id}"><img src="/resources/img/admin/goods/${goods.goodsVO.thumbnail}" alt=""></a>                              				
     	                        <div class="sale">Best ${rate.rnum}</div>                                
-	                          	<ul>
-	                                <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-	                                <li class="quick-view"><a href="/admin/goods_detail/${goods.board_id}">+ Quick View</a></li>
-	                            </ul>
                            		</c:if>
                             </c:forEach>
                         </div>

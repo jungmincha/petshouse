@@ -159,12 +159,8 @@
                         <div class="pi-pic">			   
                         	<c:forEach items="${goods}" var="goods">
                             	<c:if test="${rate.goodsVO.goods_id eq goods.goodsVO.goods_id}">
-                                	<img src="/resources/img/admin/goods/${goods.goodsVO.thumbnail}" alt="">
+                                	<a href="/admin/goods_detail/${goods.board_id}"><img src="/resources/img/admin/goods/${goods.goodsVO.thumbnail}" alt=""></a>
 		                            <div class="sale">Best ${rate.rnum}</div>                     
-		                          	<ul>
-		                                <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-		                                <li class="quick-view"><a href="/admin/goods_detail/${goods.board_id}">+ Quick View</a></li>
-		                            </ul>
                             	</c:if>
                             </c:forEach>
                         </div>
@@ -217,11 +213,9 @@
     	        	  html += "<div class='col-lg-3 col-sm-6'> <div class='product-item'>  <div class='pi-pic'>";
     	        	for(var j in goods){
 	       	          	if(goods[j].goodsVO.goods_id == rate[i].goodsVO.goods_id){
-	       	          	html += "<img src='/resources/img/admin/goods/"+goods[j].goodsVO.thumbnail + "'>"
+	       	          	html +="<a href='/admin/goods_detail/" + goods[j].board_id + "'><img src='/resources/img/admin/goods/"+goods[j].goodsVO.thumbnail + "'>"
 	       	          	  	 + "<div class='sale'>Best" + rate[i].rnum + "</div>"       
-	       	          		 + "<ul><li class='w-icon active'><a href='#'><i class='icon_bag_alt'></i></a></li>"
-		       	          	 + "<li class='quick-view'><a href='/admin/goods_detail/" + goods[j].board_id + "'>+ Quick View</a></li>"
-		       	          	 + "</ul> </div> <div class='pi-text'> <div class='catagory-name'> </div>"
+		       	          	 + "</div> <div class='pi-text'> <div class='catagory-name'> </div>"
 		       	         	 + "<a href='/admin/goods_detail/" + goods[j].board_id + "'> <h5>" + goods[j].goodsVO.goodsname + "</h5></a>"
 		       	         	 + "<div class='product-price'>" + goods[j].goodsVO.price + "원</div>"
 		       	        	 + "<span class='star-prototype'> <span class='star' style='width:"+(rate[i].avgscore*16)+"px'> </span>" + "</span>"       	         	
