@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!-- 추가함 -->
 <!DOCTYPE html>
 <html>
@@ -12,7 +13,7 @@
 <meta name="keywords" content="Fashi, unica, creative, html">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>${qna_view.title}</title>
+<title>${notice_view.title}</title>
 
 <link
 	href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap"
@@ -70,7 +71,7 @@ a:hover {
 <script type="text/javascript">
 		function modify_event() {
 			if (confirm("수정하시겠습니까?") == true) { //확인
-				location.href = '${pageContext.request.contextPath}/commu/nodify_page?board_id=${notice_view.board_id}'
+				location.href = '${pageContext.request.contextPath}/admin/nodify_page?board_id=${notice_view.board_id}'
 			} else { //취소
 				return;
 			}
@@ -105,8 +106,16 @@ a:hover {
 				<div style="font-size: 20px;">${notice_view.memberVO.nickname}</div>
 				<hr>
 				<section style="margin-top: 60px; margin-bottom: 20px;">${notice_view.content}</section>
-				<span style="color: gray;">${notice_view.pdate}</span> <span
-				style="color: gray">조회수 ${notice_view.hit}</span>
+					<c:forEach  items="${img}" var="img">
+											<div class="pt"
+												data-imgbigurl="/resources/img/admin/notice/${img.imgname}">
+												<img src="/resources/img/admin/notice/${img.imgname}"
+													alt="">
+											</div>
+										</c:forEach>
+			<span style="font-size: 13px; color: gray;">
+								<fmt:formatDate value="${notice_view.pdate}" pattern="yyyy.MM.dd" /></span>
+				<span style="font-size: 13px;  color: gray">조회수 ${notice_view.hit}</span>
 			</td>
 		</table>
 

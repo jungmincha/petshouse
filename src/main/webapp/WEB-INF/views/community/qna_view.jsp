@@ -230,8 +230,10 @@ background-color:#dddddd;
 							+ "<div>" + data.content + "</div>" + "<div>"
 							+ data.pdate + "</div> <hr>"
 
-					$("#comment").prepend(html);
-					// $("#content").empty();
+				
+					 $("#comment").prepend(html); 
+					document.getElementById("content").value='';
+		
 							
 				}, //ajax 성공 시 end$
 			
@@ -243,6 +245,7 @@ background-color:#dddddd;
 				// } // ajax 에러 시 end
 
 			})
+
 		}
 	</script>
 	<!-- Js Plugins -->

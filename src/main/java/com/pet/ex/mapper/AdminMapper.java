@@ -85,6 +85,28 @@ public interface AdminMapper {
 	public void updateCheck(BoardVO boardVO);
  
 
+	// 조회수 어쩔거임
+	public void hit(int board_id);
+	// 글 수정하기
+	public void modify(BoardVO boardVO);
+	
+	// 공지사항 페이징 처리 리스트 출력
+	public List<BoardVO> getNoticeWithPaging(Criteria cri);
+		
+	// 공지사항 페이징 처리용 토탈카운트,,,,
+	public int getNotalCount(Criteria cri);
+	
+	//공지사항 특정 글 보기
+	public BoardVO getNotView(int board_id);
+	
+	//공지사항 글 쓰기
+	public void writeNotice(BoardVO boardVO);
+	
+	//공지사항 삭제
+	public void noticeDelete(int board_id);
+
+	//공지사항 글 수정
+	public void nodify(BoardVO boardVO);
 
 	
 

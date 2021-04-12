@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.pet.ex.page.Criteria;
 import com.pet.ex.vo.BoardVO;
+import com.pet.ex.vo.ImageVO;
 
 @Mapper
 public interface CommunityMapper {
@@ -80,22 +81,5 @@ public interface CommunityMapper {
 	// 질문과 답변 태그
 	public List<BoardVO> getQtag(String keyword);
 
-
-	
-	
-	// 공지사항 페이징 처리 리스트 출력
-	public List<BoardVO> getNoticeWithPaging(Criteria cri);
-	
-	// 공지사항 페이징 처리용 토탈카운트,,,,
-	public int getNotalCount(Criteria cri);
-	
-	//공지사항 글 쓰기
-	public void writeNotice(BoardVO boardVO);
-	
-	public void noticeDelete(int board_id);
-
-	public BoardVO getNotView(int board_id);
-
-	public void nodify(BoardVO boardVO);
 
 }

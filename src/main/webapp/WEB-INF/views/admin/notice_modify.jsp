@@ -69,7 +69,7 @@ textarea::-webkit-scrollbar-track {
 
 	<div class="container" style="width: 800px;">
 
-		<form action="${pageContext.request.contextPath}/commu/nodify"
+		<form action="${pageContext.request.contextPath}/admin/nodify"
 			method="post">
 			<input type="hidden" name="board_id" value="${notice_view.board_id}" />
 			
@@ -79,7 +79,7 @@ textarea::-webkit-scrollbar-track {
 
 		<div style="margin-top:30px; float: right;">
 			<button type="submit" class="btn btn-warning"	
-				onclick="location.href='${pageContext.request.contextPath}/commu/notice'">수정하기</button>
+				onclick="location.href='${pageContext.request.contextPath}/admin/notice'">수정하기</button>
 			<a class="btn btn-warning"  href="notice">취소</a>
 		</div>
 		

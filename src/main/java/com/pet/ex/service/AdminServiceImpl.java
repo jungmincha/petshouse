@@ -197,8 +197,58 @@ public class AdminServiceImpl implements AdminService {
 		mapper.memberDelete(member_id);
 	}
 
+	//  조회수
+	@Override
+	public void hit(int board_id) {
+		mapper.hit(board_id);
+	}
+	// 질문과 답변 글 수정하기
+	@Override
+	public void modify(BoardVO boardVO) {
+		log.info("mapper.modify()호출");
+		mapper.modify(boardVO);
+	}
+
+	//공지사항 리스트
+	@Override
+	public List<BoardVO> getNoticeList(Criteria cri) {
+		log.info("getNoticeList(cri)");
+		return mapper.getNoticeWithPaging(cri);
+	}
 	
- 
+
+	// 공지사항 페이징 처리용 토탈카운트
+	@Override
+	public int getNotal(Criteria cri) {
+		log.info("getNotal()");
+		return mapper.getNotalCount(cri);
+	}
+	
+	@Override
+	public BoardVO getNotView(int board_id) {
+		log.info("mapper.getNotView()");
+		return mapper.getNotView(board_id);
+	}
+	
+	//공지사항 글 작성
+	@Override
+	public void writeNotice(BoardVO boardVO) {
+		log.info("mapper.writeNotice()호출");
+		mapper.writeNotice(boardVO);
+		
+	}
+	
+	@Override
+	public void noticeDelete(int board_id) {
+		mapper.noticeDelete(board_id);
+	}
+
+
+	@Override
+	public void nodify(BoardVO boardVO) {
+		log.info("mapper.modify()호출");
+		mapper.modify(boardVO);
+	}
 	
 
 }
