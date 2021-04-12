@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 
@@ -101,15 +102,16 @@ a:hover {
 
 	<div class="container">
 	<div class="row">
-		<h3 style="margin-bottom:20px;">공지 사항 관리</h3>
-		<button class="btn btn-outline-secondary col-sm-1" id="nw"
-			style="margin-left: 65px; float: right;"
-			onclick="location.href='${pageContext.request.contextPath}notice_write'">공지 작성</button>
+	<h3 style="margin-bottom:20px;">공지 사항 관리</h3>
 
+		
 		<!-- 게시글 끌고오기 -->
 
 		
 			<div class="col-lg-12">
+			<button class="btn btn-outline-secondary col-sm-1" id="nw"
+			style="margin-left: 65px; float:right;  margin-bottom:20px;"
+			onclick="location.href='${pageContext.request.contextPath}notice_write'">공지 작성</button>
 
 				<table class="table">
 					<thead>
@@ -127,15 +129,15 @@ a:hover {
 
 								<td><span>${nt.board_id}</span></td>
 								<td><a
-									href="${pageContext.request.contextPath}/commu/notice_view?board_id=${nt.board_id}">
+									href="${pageContext.request.contextPath}/admin/notice_view?board_id=${nt.board_id}">
 										<div style="font-weight: bold; font-size: 18px;">${nt.title}</div>
 								</a></td>
 								<td><span>${nt.memberVO.nickname}</span></td>
 								<td><span>${nt.hit}</span></td>
-								<td><span style="font-size: 13px; color: gray;">${nt.pdate}</span>
-								</td>
+								<td><span style="font-size: 13px; color: gray;">
+								<fmt:formatDate value="${nt.pdate}" pattern="yyyy.MM.dd" /></span></td>
 								<td onclick="event.cancelBubble=true;"><a class="a-delete"
-									data-bid='${nt.board_id}' href="/commu/notice/${nt.board_id}">삭제</a></td>
+									data-bid='${nt.board_id}' href="/admin/notice/${nt.board_id}">삭제</a></td>
 							</tr>
 						</tbody>
 					</c:forEach>
@@ -171,36 +173,17 @@ a:hover {
 	</div>
 	<!-- container end -->
 	<script>
-		//전체 선택
-		$('#allCk').click(function() {
-			var checked = $('#allCk').is(':checked');
-
-			if (checked)
-				$('input:checkbox').prop('checked', true);
-
-			if (!checked)
-				$('input:checkbox').prop('checked', false);
-			summary();
-
-		});
-
-		// 해당 상품 삭제
-		function cartDelete(i) {
-			var tr = '#tr' + i;
-			var trObj = $(tr).remove();
-			cartList = JSON.parse(sessionStorage.getItem('cartList'));
-			cartList.splice(i - 1, 1);
-			sessionStorage.setItem('cartList', JSON.stringify(cartList));
-			summary();
-		}
-
-		// 전체 카트 삭제
-		function allCartDelete() {
-			$('#goods').remove();
-			var cartList = new Array();
-			sessionStorage.setItem('cartList', JSON.stringify(cartList));
-			summary();
-		}
+	
+	var date =getFormatDate($('.pdate').val());
+	console.log($('.pdate').val());
+	
+	function getFormatDate(date) {
+	
+        var date = date.substr(0, 10);
+        
+        console.log(date);
+        return date; 
+     }
 	</script>
 
 	<!-- Footer -->

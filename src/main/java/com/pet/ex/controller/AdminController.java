@@ -2,7 +2,9 @@ package com.pet.ex.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.apache.commons.io.FilenameUtils;
@@ -17,7 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -361,4 +363,125 @@ public class AdminController {
 		}
 		return entity;
 	}
+	
+	/////////////////////////////////////////////////////////
+	//공지사항
+	// 공지사항 리스트 출력
+	@RequestMapping("/notice")
+	public ModelAndView notice(Criteria cri, ModelAndView mav) {
+		mav.addObject("notice", service.getNoticeList(cri));
+		int total = service.getNotal(cri);
+		mav.addObject("pageMaker", new PageVO(cri, total));
+		mav.setViewName("admin/notice"); // 파일경로
+		return mav;
+
+	}
+
+
+	// 공지사항 특정 글 페이지 출력
+	@GetMapping("/notice_view")
+	public ModelAndView notice_view(BoardVO boardVO, ModelAndView mav) throws Exception {
+		log.info("notice_view()실행");
+		service.hit(boardVO.getBoard_id());
+		mav.addObject("img", service.getImg(boardVO.getBoard_id()));
+		mav.addObject("notice_view", service.getNotView(boardVO.getBoard_id())); // 특정 글 출력
+		mav.setViewName("admin/notice_view");
+		return mav;
+	}
+
+
+		// 공지사항 글쓰기 페이지
+		@GetMapping("/notice_write")
+		public ModelAndView notice_write(ModelAndView mav) throws Exception {
+			log.info("notice_write()실행");
+			mav.setViewName("admin/notice_write");
+			return mav;
+		}
+
+		// 공지사항 글 작성하기
+		@PostMapping("/notice")
+		public ModelAndView no_write(MultipartHttpServletRequest multi, BoardVO boardVO, ImageVO imageVO, ModelAndView mav)
+				throws IllegalStateException, IOException {
+			log.info("no_write()실행");
+			service.writeNotice(boardVO);
+			
+			
+			String path = multi.getSession().getServletContext().getRealPath("/static/img/admin/notice");
+
+			path = path.replace("webapp", "resources");
+
+			File dir = new File(path);
+			if (!dir.isDirectory()) {
+				dir.mkdir();
+			}
+
+			List<MultipartFile> mf = multi.getFiles("btnAtt");
+
+			 
+				for (int i = 0; i < mf.size(); i++) { // 파일명 중복 검사
+					
+					UUID uuid = UUID.randomUUID();			// 파일명 랜덤으로 변경
+					
+					String originalfileName = mf.get(i).getOriginalFilename();		  		
+		  			String ext = FilenameUtils.getExtension(originalfileName);
+		  			//저장 될 파일명
+		  			String imgname=uuid+"."+ext; 
+				
+
+					String savePath = path + "\\" + imgname; // 저장 될 파일 경로
+					
+					mf.get(i).transferTo(new File(savePath)); // 파일 저장
+					imageVO.setImgname(imgname);
+					imageVO.getBoardVO().setBoard_id(boardVO.getBoard_id());
+					/* service.imgInput(imageVO); */
+				}	
+				service.writeNotice(boardVO);
+				
+				mav.setView(new RedirectView("/admin/notice", true));
+			
+			return mav;
+		}
+		
+		// 공지사항 삭제
+		@DeleteMapping("/notice/{board_id}")
+		public ResponseEntity<String> noticeDelete(BoardVO boardVO, Model model) {
+
+			ResponseEntity<String> entity = null;
+			log.info("delete");
+
+			try {
+				service.noticeDelete(boardVO.getBoard_id());
+
+				entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+			} catch (Exception e) {
+				e.printStackTrace();
+
+				entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+			}
+
+			return entity;
+
+		}
+		
+		// 질문과 답변 글 수정 페이지
+		@GetMapping("/notice_modify_page")
+		public ModelAndView modify_page(@RequestParam("board_id") int board_id, BoardVO boardVO, ModelAndView mav)
+				throws Exception {
+			log.info("notice_modify_page()실행");
+			mav.addObject("notice_view", service.getNotView(boardVO.getBoard_id()));
+			mav.setViewName("admin/notice_modify");
+			return mav;
+		}
+
+		// 질문과 답변 찐 글 수정하기
+		@PostMapping("/nodify")
+		public ModelAndView nodify(BoardVO boardVO, ModelAndView mav) throws Exception {
+			log.info("nodify()실행");
+			service.nodify(boardVO);
+			mav.setView(new RedirectView("/admin/notice", true));
+			return mav;
+		}
+
+		
+	
 }

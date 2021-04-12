@@ -69,6 +69,30 @@ public interface AdminService {
 	public void memberDelete(String member_id);
 	
  
+	// 조회수 어쩔거임
+	public void hit(int board_id);
+	
+	// 질문과 답변 글 수정하기
+	public void modify(BoardVO boardVO);
+	
+	// 공지사항 리스트 끌고오기
+	public List<BoardVO> getNoticeList(Criteria cri);
+	
+	// 공지사항 페이징 처리 출력
+	public int getNotal(Criteria criteria);
+	
+	//공지사항 특정 글 보기
+	public BoardVO getNotView(int board_id);
+	
+	//공지사항 글 쓰기
+	public void writeNotice(BoardVO boardVO);
+	
+	//공지사항 삭제하기
+	public void noticeDelete(int board_id);
+	
+	//공지사항 수정하기
+	public void nodify(BoardVO boardVO);
+
 	
 	
  

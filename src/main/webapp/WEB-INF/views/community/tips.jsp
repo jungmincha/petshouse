@@ -151,45 +151,67 @@
 								style="border-radius: 5px; height: 150px;">
 						</div>
 						<div class="pi-text" style="text-align: left; padding-top: 5px;">
-							<h6 style="font-size: 15px; font-weight: bold;">${tp.title}</h6>
+							<h6 style="font-size: 15px; font-weight: bold;">${tp.title}</h6></div>
 					</a>
-					<div style="font-size: 14px;">${tp.memberVO.nickname}</div>
-					<div style="font-size: 13px; color: gray;">조회수 ${tp.hit}</div>
-				</div>
+					<div style="font-size: 14px;text-align: left;">${tp.memberVO.nickname}</div>
+					<div style="font-size: 13px; color: gray;text-align: left;">조회수 ${tp.hit}</div>
+				</div></c:forEach>
 		</div>
-		</c:forEach>
-		<br /> <br />
+		
+	
+		  
+            <div class="later col-lg-12 text-center">
+            <button type="button" class="btn btn-warning" onClick="btnClick()">더보기</button>
+	        </div>
+		
 	</div>
 
 	<!-- 페이징 -->
-	<div class="ul">
-		<ul class="pagination justify-content-center"
-			style="padding-bottom: 50px; padding-top: 50px;">
-			<c:if test="${pageMaker.prev}">
-				<li class="page-item"><a class="page-link"
-					href="tips${pageMaker.makeQuery(pageMaker.startPage - 1) }">
-						Previous</a></li>
-			</c:if>
+	
 
-			<c:forEach begin="${pageMaker.startPage }"
-				end="${pageMaker.endPage }" var="idx">
-				<c:out value="${pageMaker.cri.pageNum == idx?'':''}" />
-				<li class="page-item"><a class="page-link"
-					href="tips${pageMaker.makeQuery(idx)}">${idx}</a></li>
-			</c:forEach>
+ <script type="text/javascript">
+      var pageNum = 1;
+     
+      function btnClick(){
 
-			<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-				<li class="page-item"><a class="page-link"
-					href="tips${pageMaker.makeQuery(pageMaker.endPage +1) }">Next</a></li>
-			</c:if>
-		</ul>
-		<!-- 페이징 끝 -->
-	</div>
-	</div>
-	</div>
-
-	<!-- Blog Section End -->
-	<script type="text/javascript">
+    	  pageNum += 1;
+    	  console.log(pageNum);
+    	  		  
+    	  	$.ajax({
+    	        type :"POST",
+    	        url :"/commu/morelist",
+    	        data : {
+    	        	pageNum: pageNum 
+    	        },
+    	        success :function(data){
+    	           console.log(data);
+    	           var tips = data.tips;
+					
+    	          html = " "
+    	           for(var i in tips){
+    	        	  html +="<div class='product-item col-sm-3'>"
+							 +"<a href='${pageContext.request.contextPath}/commu/tips_view?board_id=" + tips[i].board_id+"'>"
+							 +"<div class='pi-pic'>"
+							 +"<img src='/resources/img/qna/201489577_128.jpg' alt='' style='border-radius: 5px; height: 150px;'></div>"   	          	
+	       	          		 +"<div class='pi-text' style='text-align: left; padding-top: 5px;'>"
+	       	          		 +"<h6 style='font-size: 15px; font-weight: bold;'>"+tips[i].title+"</h6></div></a>"
+	       	          		 +"<div style='font-size: 14px;text-align: left;'>"+tips[i].memberVO.nickname+"</div>"
+	     					+"<div style='font-size: 13px; color: gray;text-align: left;'>조회수"+ tips[i].hit+"</div>"
+	     					+"</div>"
+    	           }
+    	        
+    	           
+    	            $("#table").append(html); 
+    	          
+    	        }, 	        
+    	        //success end
+    	        error : function(request, status, error) {
+					alert("code:" + request.status + "\n" + "message:"
+							+ request.responseText + "\n" + "error:" + error);
+				} // ajax 에러 시 end
+    	    }); //ajax end	 
+    	}; //click end	
+   
 		// 해당 동물의 글을 끌고올거야
 		$('#selectPet')
 				.change(
@@ -207,34 +229,26 @@
 										success : function(data) {
 
 											console.log(data);
-											$("#table").empty();
+											$("#table").remove();
 											var html = "<div id='table' class='table row text-center' style='margin-top:20px; margin-left:5px;'>"
 											for (var i = 1; i <= data.length; i++) {
 
-												html += "<div class='product-item col-sm-4' >"
-														+ "<a href='${pageContext.request.contextPath}/commu/tips_view?board_id="
-														+ data[i - 1].board_id
-														+ "'>"
-														+ "<div class='pi-pic'>"
-														+ "<img src='/resources/img/qna/201489577_128.jpg' alt='' style='border-radius:5px;height:150px;'>"
-														+ "</div>"
-														+ "<div class='pi-text'  style='text-align:left; padding-top:5px;'>	"					
-														+ "<h6 style='font-size:15px;font-weight:bold;'>"
-														+ data[i - 1].title
-														+ "</h6>"
-														+ "</a>"
-														+ "<div style='font-size:14px;'>"
-														+ data[i - 1].memberVO.nickname  
-														+ "</div>"
-														+ "<div style='font-size:13px; color:gray;'>조회수" 
-														+ data[i - 1].hit 
-														+ "</div>"							
-														+ "</div>"
-														+ "</div>"
-														+ "<br /> <br />"
+												html +="<div class='product-item col-sm-3'>"
+													+"<a href='${pageContext.request.contextPath}/commu/tips_view?board_id="+data[i - 1].board_id+"'>"
+													+"<div class='pi-pic'>"
+													+"<img src='/resources/img/qna/201489577_128.jpg' alt='' style='border-radius: 5px; height: 150px;'>"
+													+"</div>"
+													+"<div class='pi-text' style='text-align: left; padding-top: 5px;'>"
+													+"<h6 style='font-size: 15px; font-weight: bold;'>"+data[i - 1].title+"</h6></div>"
+													+"</a>"
+													+"<div style='font-size: 14px;text-align: left;'>"+data[i - 1].memberVO.nickname+"</div>"
+													+"<div style='font-size: 13px; color: gray;text-align: left;'>조회수"+data[i - 1].hit+"</div>"
+													+"</div>"
+				     					
+									     					
 											}
 											html += "</div>"
-											$(".ul").prepend(html);
+											$(".later").prepend(html);
 
 										}, //ajax 성공 시 end
 
@@ -250,7 +264,9 @@
 						})
 	</script>
 	<!-- Footer -->
-	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
+	<div style="margin-top: 100px">
+		<%@ include file="/WEB-INF/views/include/footer.jsp"%>
+	</div>
 
 	<!-- Js Plugins -->
 	<script src="/resources/js/jquery-3.3.1.min.js"></script>
