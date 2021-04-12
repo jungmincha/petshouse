@@ -153,6 +153,17 @@
 		]]>
 	</select>
 
+<select id="getSerchList" resultMap="boardvo"> 
+		<![CDATA[ 
+			
+		 select * from(select rownum as rnum, a.* from(select * from board where boardtype_id=7 and location LIKE '%명동% order by pgroup desc, pstep asc)
+      a where rownum <= #{pageNum} * #{amount}) where rnum > (#{pageNum}-1) * #{amount}
+		]]>
+	</select>
+
+
+
+
 	<select id="getTotal" resultType="int">
     <![CDATA[  select count(*) from board  
      ]]>

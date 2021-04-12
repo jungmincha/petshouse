@@ -82,6 +82,14 @@ public class MapServiceImpl implements MapService {
 
 
 
+	@Override
+	public List<BoardVO> getSerchList(Criteria cri) {
+		// TODO Auto-generated method stub
+		return mapper.getSerchList(cri);
+	}
+
+
+
 	
 
 
