@@ -8,8 +8,12 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-@NoArgsConstructor
 public class ImageVO {
+
+	public ImageVO() {
+		this.boardVO = new BoardVO();
+		this.goodsVO = new GoodsVO();
+	}
 
 	private int img_id;
 	private String imgname;

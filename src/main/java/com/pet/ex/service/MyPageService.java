@@ -20,8 +20,10 @@ public interface MyPageService {
 
 	void insertPayGoods(PayGoodsVO payGoodsVO);
 
-	List<PayVO> listOrder(Criteria cri);
+	List<PayVO> listOrder(Criteria cri, String member_id);
 
-	int getPayTotal();
+	int getPayTotal(String member_id);
+
+	List<PayGoodsVO> listPayGoods(int pay_id);
 
 }

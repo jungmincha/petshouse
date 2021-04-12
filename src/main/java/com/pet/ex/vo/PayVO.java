@@ -1,6 +1,7 @@
 package com.pet.ex.vo;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,5 +27,6 @@ public class PayVO {
 	// 외래키
 	private PaystateVO paystateVO;
 	private MemberVO memberVO;
+	private List<PayGoodsVO> payGoodsVO;
 
 }

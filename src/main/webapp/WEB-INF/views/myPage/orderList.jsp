@@ -231,15 +231,13 @@
 </style>
 </head>
 <body style="padding-top: 180px;">
+	<!-- 상단 버튼 -->
 	<div class="top" onclick="window.scrollTo(0,0);">top</div>
+
+	<!-- 헤더 include -->
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
 
-	<div class="container">
-		<button type="button" class="btn btn-primary collapsed"
-			data-toggle="collapse" data-target="#asd">Simple collapsible</button>
-		<div id="asd" class="collapse">dsfdsfsd</div>
-	</div>
-	<div class="container">
+	<div class="container" id="orderList">
 		<div class="row">
 			<div class="col-lg-3"></div>
 			<div class="col-lg-6">
@@ -256,7 +254,6 @@
 					style="padding-top: 40px; padding-bottom: 70px">
 					<div class="row ">
 						<div class="col-lg-2 text-center">입금대기</div>
-
 						<div class="col-lg-2 text-center">결제완료</div>
 						<div class="col-lg-2 text-center">배송준비</div>
 						<div class="col-lg-2 text-center">배송중</div>
@@ -269,15 +266,49 @@
 
 			<div class="col-lg-1"></div>
 		</div>
-		<div class="row" id="orderList">
+		<div class="row">
 			<!-- <div class="col-lg-12">
 				<div class="blog-details-inner">
 
 					<div class="posted-by">
+						<button type="button" class="btn btn-default"
+							data-toggle="collapse" data-target="#demo">▼</button>
+						<div class="row">
 
-						<button type="button" class="btn btn-info" data-toggle="collapse"
-							data-target="#demo">Click Me</button>
+							<div class="col-lg-4">
+
+								<div class="pb-pic">
+
+									<img src="/resources/img/products/product-1.jpg" class="pimg"
+										alt="">
+
+								</div>
+								<div class="pb-text">
+									<a href="#">
+										<h5>303123122 / 2021.04.08</h5>
+									</a>
+									<p style="font-size: 22px">다용도 책상 테이블</p>
+									<span style="font-size: 13px">색상 - 빨강 / 사이즈 - M</span><br>
+								</div>
+
+							</div>
+							<div class="col-lg-2"></div>
+							<div class="col-lg-4">
+								<br> <span style="font-size: 18px">29000원</span><br> <span
+									style="font-size: 18px">수량 - 1</span>
+
+							</div>
+							<div class="col-lg-2">
+								<span style="font-size: 20px"><button>배송조회</button></span><br>
+
+								<span style="font-size: 20px"><button id="myBtn">리뷰
+										작성</button></span><br>
+							</div>
+
+						</div>
+						<hr>
 						<div class="row collapse in" id="demo">
+
 							<div class="col-lg-4">
 
 								<div class="pb-pic">
@@ -302,7 +333,6 @@
 							<div class="col-lg-2">
 								<span style="font-size: 20px"><button>배송조회</button></span><br>
 
-								모달 버튼
 								<span style="font-size: 20px"><button id="myBtn">리뷰
 										작성</button></span><br>
 							</div>
@@ -327,8 +357,10 @@
 	<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
 		<a href="listPage${pageMaker.makeQuery(pageMaker.endPage +1) }"> »</a>
 	</c:if>
+
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
-	<!-- The Modal -->
+
+	<!-- 모달 시작 -->
 	<div id="myModal" class="modal">
 
 		<!-- Modal content -->
@@ -342,7 +374,7 @@
 
 				<form class=" needs-validation"
 					action="${pageContext.request.contextPath}/경로를 넣어주세요" method="Post">
-
+					<input type="hidden" id="board_id" name="board_id" value="">
 					<div class="rbox">포토 리뷰 500P, 일반 리뷰 100P</div>
 
 					<!-- 상품사진, 상품명 -->
@@ -372,6 +404,7 @@
 							</div>
 						</div>
 					</div>
+
 					<!-- 별점 end -->
 
 					<!-- 사진 등록 -->
@@ -415,159 +448,9 @@
 			</div>
 		</div>
 	</div>
-	<!-- modal-content end -->
-
-
+	<!-- 모달 끝 -->
 </body>
 <script>
-	//공백확인용...
-	/* (function () {
-	 'use strict'
-
-	 // Fetch all the forms we want to apply custom Bootstrap validation styles to
-	 var forms = document.querySelectorAll('.needs-validation')
-
-	 // Loop over them and prevent submission
-	 Array.prototype.slice.call(forms)
-	 .forEach(function (form) {
-	 form.addEventListener('submit', function (event) {
-	 if (!form.checkValidity()) {
-	 event.preventDefault()
-	 event.stopPropagation()
-	 }
-
-	 form.classList.add('was-validated')
-	 }, false)
-	 })
-	 })();
-
-	 //사진
-	 $(document)
-	 .ready(
-	 function(e) {
-	 $("input[type='file']")
-	 .change(
-	 function(e) {
-
-	 //div 내용 비워주기
-	 $('#preview').empty();
-
-	 var files = e.target.files;
-	 var arr = Array.prototype.slice
-	 .call(files);
-
-	 //업로드 가능 파일인지 체크
-	 for (var i = 0; i < files.length; i++) {
-	 if (!checkExtension(
-	 files[i].name,
-	 files[i].size)) {
-	 return false;
-	 }
-	 }
-
-	 preview(arr);
-
-	 });//file change
-
-	 function checkExtension(fileName, fileSize) {
-
-	 var regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");
-	 var maxSize = 20971520; //20MB
-
-	 if (fileSize >= maxSize) {
-	 alert('파일 사이즈 초과');
-	 $("input[type='file']").val(""); //파일 초기화
-	 return false;
-	 }
-
-	 if (regex.test(fileName)) {
-	 alert('업로드 불가능한 파일이 있습니다.');
-	 $("input[type='file']").val(""); //파일 초기화
-	 return false;
-	 }
-	 return true;
-	 }
-
-	 function preview(arr) {
-	 arr
-	 .forEach(function(f) {
-
-	 //파일명이 길면 파일명...으로 처리
-	 var fileName = f.name;
-	 if (fileName.length > 10) {
-	 fileName = fileName.substring(0, 7)
-	 + "...";
-	 }
-
-	 //div에 이미지 추가
-	 var str = '<div style="display: inline-flex; padding: 10px;">';
-	
-	 //이미지 파일 미리보기
-	 if (f.type.match('image.*')) {
-	 var reader = new FileReader(); //파일을 읽기 위한 FileReader객체 생성
-	 reader.onload = function(e) { //파일 읽어들이기를 성공했을때 호출되는 이벤트 핸들러
-	 //str += '<button type="button" class="delBtn" value="'+f.name+'" style="background: red">x</button><br>';
-	 str += '<ul><img src="'+e.target.result+'" title="'+f.name+'" width=300 height=300 />';
-	 str += '</ul></div>';
-	 $(str).appendTo('#preview');
-	 }
-	 reader.readAsDataURL(f);
-	 }
-	 });//arr.forEach
-	 }
-	 });
-
-	 //사진
-	 function readImage(input) {
-	 // 인풋 태그에 파일이 있는 경우
-	 if(input.files && input.files[0]) {
-	 // 이미지 파일인지 검사 (생략)
-	 // FileReader 인스턴스 생성
-	 const reader = new FileReader()
-	 // 이미지가 로드가 된 경우
-	 reader.onload = e => {
-	 const previewImage = document.getElementById("preview-image")
-	 previewImage.src = e.target.result
-	 }
-	 // reader가 이미지 읽도록 하기
-	 reader.readAsDataURL(input.files[0])
-	 }
-	 }
-	 // input file에 change 이벤트 부여
-	 const thumbnail = document.getElementById("image")
-	 thumbnail.addEventListener("change", e => {
-	 readImage(e.target)
-	 })
-
-	 $("#image").change(function(){
-	 if(this.files && this.files[0]) {
-	 var reader = new FileReader;
-
-	 reader.readAsDataURL(this.files[0]);
-	 }
-	 }); 
-
-
-	 //모달
-	 var modal = document.getElementById('myModal');
-
-	 var btn = document.getElementById("myBtn");
-
-	 var span = document.getElementsByClassName("close")[0];                                          
-
-	 btn.onclick = function() {
-	 modal.style.display = "block";
-	 }
-
-	 span.onclick = function() {
-	 modal.style.display = "none";
-	 }
-
-	 window.onclick = function(event) {
-	 if (event.target == modal) {
-	 modal.style.display = "none";
-	 }
-	 } */
 	$(document)
 			.ready(
 					function() {
@@ -579,35 +462,57 @@
 								.ajax({
 									url : "/myPage/orderList/ajax",
 									type : "get",
-									//dataType : 'json',
-									//contentType : 'application/json; charset=UTF-8',
 									data : {
 										pageNum : pageNum,
 										amount : amount
+
 									},
 									success : function(data) {
 										html = "";
 										console.log(data);
 
 										for (var i = 1; i <= data.pay.length; i++) {
-											html += "<div class='col-lg-12'>"
+
+											html += "<div class='row'> <div class='col-lg-12'>"
 													+ "<div class='blog-details-inner'>"
 													+ "<div class='posted-by'>"
-													+ "<button type='button' class='btn btn-info' data-toggle='collapse' data-target='#demo"+i+"'>Click Me</button>"
-													+ "<div class='row collapse in' id='demo"+i+"'> <div class='col-lg-4'> <div class='pb-pic'>"
+													+ "<button type='button' class='btn ' data-toggle='collapse' data-target='#demo"+i+"'>▼</button>"
+													+ " <div class='row'> <div class='col-lg-5'> <div class='pb-pic'>"
 													+ "<img src='/resources/img/products/product-1.jpg' class='pimg'> </div>"
 													+ "<div class='pb-text'> <a href='#''> <h5>"
 													+ data.pay[i - 1].pay_id
 													+ " / "
 													+ getFormatDate(data.pay[i - 1].paydate)
-													+ "</h5> </a> <p style='font-size: 22px'>다용도 책상 테이블</p>"
+													+ "</h5> </a> <p style='font-size: 22px'>"
+													+ data.pay[i - 1].payGoodsVO[0].boardVO.title
+													+ "</p>"
 													+ "<span style='font-size: 13px'>색상 - 빨강 / 사이즈 - M</span><br> </div>"
-													+ "</div> <div class='col-lg-2'></div> <div class='col-lg-4'> <br> <span style='font-size: 18px'>29000원</span><br> <span  style='font-size: 18px'>수량 - 1</span>"
+													+ "</div> <div class='col-lg-2'></div> <div class='col-lg-3'> <br> <span style='font-size: 18px'>총금액 : "
+													+ data.pay[i - 1].payprice
+													+ "원</span><br> <span  style='font-size: 18px'>수량 : "
+													+ data.pay[i - 1].payGoodsVO[0].amount
+													+ "</span>"
 													+ "</div> <div class='col-lg-2'> <span style='font-size: 20px'><button>배송조회</button></span><br>"
-													+ "<span style='font-size: 20px'><button id='myBtn'>리뷰 작성</button></span><br>"
-													+ "</div> </div> </div> </div> </div> "
+													+ "<span style='font-size: 20px'><button id='myBtn' onclick='modals("+ data.pay[i - 1].payGoodsVO[0].boardVO.board_id+")'>리뷰 작성</button></span><br>"
+													+ "</div> </div> <hr> <div class='row collapse in' id='demo"+i+"'> "
+											for (var j = 1; j < data.pay[i - 1].payGoodsVO.length; j++) {
+												html += " <div class='col-lg-12'><br></div><div class='col-lg-5'> <div class='pb-pic'>"
+														+ "<img src='/resources/img/products/product-1.jpg' class='pimg'> </div>"
+														+ "<div class='pb-text'>  <p style='font-size: 22px'>"
+														+ data.pay[i - 1].payGoodsVO[j].boardVO.title
+														+ "</p>"
+														+ "<span style='font-size: 13px'>색상 - 빨강 / 사이즈 - M</span><br> </div>"
+														+ "</div> <div class='col-lg-2'></div> <div class='col-lg-3'> <br>"
+														+ "<span  style='font-size: 18px'>수량 : "
+														+ data.pay[i - 1].payGoodsVO[j].amount
+														+ "</span>"
+														+ "</div> <div class='col-lg-2'> <br>"
+														+ "<span style='font-size: 20px'><button id='myBtn' onclick='modals("+ data.pay[i - 1].payGoodsVO[0].boardVO.board_id+")'>리뷰 작성</button></span><br>"
+														+ "</div> "
+											}
+											html += "</div> </div>"
+
 										}
-										console.log(html)
 										$("#orderList").append(html);
 									}, //ajax 성공 시 
 									error : function(request, status, error) {
@@ -616,14 +521,163 @@
 
 								});// 장바구니 목록 함수 end
 						function getFormatDate(date) {
-							console.log(date);
+
 							var date = date.substr(0, 19);
 							var date = date.split("T");
-							var date = date[0]+" "+date[1];
-							console.log(date);
+							var date = date[0] + " " + date[1];
 							return date; //'-' 추가하여 yyyy-mm-dd 형태 생성 가능
 						}
-					})
+					});
+	//공백확인용...
+	(function () {
+	'use strict'
+
+	// Fetch all the forms we want to apply custom Bootstrap validation styles to
+	var forms = document.querySelectorAll('.needs-validation')
+
+	// Loop over them and prevent submission
+	Array.prototype.slice.call(forms)
+	.forEach(function (form) {
+	form.addEventListener('submit', function (event) {
+	if (!form.checkValidity()) {
+	event.preventDefault()
+	event.stopPropagation()
+	}
+
+	form.classList.add('was-validated')
+	}, false)
+	})
+	})();
+
+	//사진
+	$(document)
+	.ready(
+	function(e) {
+	$("input[type='file']")
+	.change(
+	function(e) {
+
+	//div 내용 비워주기
+	$('#preview').empty();
+
+	var files = e.target.files;
+	var arr = Array.prototype.slice
+	.call(files);
+
+	//업로드 가능 파일인지 체크
+	for (var i = 0; i < files.length; i++) {
+	if (!checkExtension(
+	files[i].name,
+	files[i].size)) {
+	return false;
+	}
+	}
+
+	preview(arr);
+
+	});//file change
+
+	function checkExtension(fileName, fileSize) {
+
+	var regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");
+	var maxSize = 20971520; //20MB
+
+	if (fileSize >= maxSize) {
+	alert('파일 사이즈 초과');
+	$("input[type='file']").val(""); //파일 초기화
+	return false;
+	}
+
+	if (regex.test(fileName)) {
+	alert('업로드 불가능한 파일이 있습니다.');
+	$("input[type='file']").val(""); //파일 초기화
+	return false;
+	}
+	return true;
+	}
+
+	function preview(arr) {
+	arr
+	.forEach(function(f) {
+
+	//파일명이 길면 파일명...으로 처리
+	var fileName = f.name;
+	if (fileName.length > 10) {
+	fileName = fileName.substring(0, 7)
+	+ "...";
+	}
+
+	//div에 이미지 추가
+	var str = '<div style="display: inline-flex; padding: 10px;">';
+
+	//이미지 파일 미리보기
+	if (f.type.match('image.*')) {
+	var reader = new FileReader(); //파일을 읽기 위한 FileReader객체 생성
+	reader.onload = function(e) { //파일 읽어들이기를 성공했을때 호출되는 이벤트 핸들러
+	//str += '<button type="button" class="delBtn" value="'+f.name+'" style="background: red">x</button><br>';
+	str += '<ul><img src="'+e.target.result+'" title="'+f.name+'" width=300 height=300 />';
+	str += '</ul></div>';
+	$(str).appendTo('#preview');
+	}
+	reader.readAsDataURL(f);
+	}
+	});//arr.forEach
+	}
+	});
+
+	//사진
+	function readImage(input) {
+	// 인풋 태그에 파일이 있는 경우
+	if(input.files && input.files[0]) {
+	// 이미지 파일인지 검사 (생략)
+	// FileReader 인스턴스 생성
+	const reader = new FileReader()
+	// 이미지가 로드가 된 경우
+	reader.onload = e => {
+	const previewImage = document.getElementById("preview-image")
+	previewImage.src = e.target.result
+	}
+	// reader가 이미지 읽도록 하기
+	reader.readAsDataURL(input.files[0])
+	}
+	}
+	// input file에 change 이벤트 부여
+	const thumbnail = document.getElementById("image")
+	thumbnail.addEventListener("change", e => {
+	readImage(e.target)
+	})
+
+	$("#image").change(function(){
+	if(this.files && this.files[0]) {
+	var reader = new FileReader;
+
+	reader.readAsDataURL(this.files[0]);
+	}
+	}); 
+
+
+	//모달
+	var modal = document.getElementById('myModal');
+
+	var span = document.getElementsByClassName("close")[0];                                          
+
+	function modals(board_id){
+		modal.style.display = "block";
+		$("#board_id").val(board_id);
+	
+		}
+
+	span.onclick = function() {
+	modal.style.display = "none";
+	}
+
+	window.onclick = function(event) {
+	if (event.target == modal) {
+	modal.style.display = "none";
+	}
+	}  
+	
+
 </script>
 <!-- Js Plugins -->
 <script src="/resources/js/jquery-3.3.1.min.js"></script>

@@ -110,4 +110,8 @@ public class PrincipalOauth2User implements OAuth2User {
 	public String getConcern() {
 		return member.getConcern();
 	}
+
+	public String getLocation() {
+		return member.getLocation();
+	}
 }
