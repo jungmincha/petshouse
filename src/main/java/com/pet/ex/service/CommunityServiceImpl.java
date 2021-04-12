@@ -180,6 +180,16 @@ public class CommunityServiceImpl implements CommunityService {
 		return mapper.getTipsRate();
 	}
 
-	
+	@Override
+	public BoardVO getQnaBoard_id() {
+		log.info("getQnaBoard_id");
+		return mapper.getQnaBoard_id();
+	}
+
+	@Override
+	public void QnaImgInput(ImageVO imageVO) {
+		log.info("QnaImgInput");
+		mapper.QnaImgInput(imageVO);
+	}
 
 }

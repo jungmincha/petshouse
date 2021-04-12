@@ -76,6 +76,11 @@ public interface CommunityService {
 
 	//노하우 상단 인기 게시글
 	public List<BoardVO> getTipsRate();
+	
+	//qna 등록
+	public BoardVO  getQnaBoard_id();
+
+	public void QnaImgInput(ImageVO imageVO);
 
 	
 
