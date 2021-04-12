@@ -34,9 +34,11 @@ public interface MyPageMapper {
 	public void insertPayGoods(PayGoodsVO payGoods);
 
 	// 주문 리스트 불러오기
-	public List<PayVO> listOrder(Criteria cri);
-	
+	public List<PayVO> listOrder(Criteria cri, String member_id);
+
 	// 주문 리스트 총합
-	public int getPayTotal();
+	public int getPayTotal(String member_id);
+
+	public List<PayGoodsVO> listPayGoods(int pay_id);
 
 }

@@ -69,6 +69,7 @@
 										<th class="p-name">상품 이름</th>
 										<th>가격</th>
 										<th>수량</th>
+										<th>옵션</th>
 										<th>금액</th>
 										<th><i class="ti-close" onclick="allCartDelete()"
 											style='cursor: pointer'></i></th>
@@ -81,6 +82,8 @@
 									<input type='hidden' name="sum" />
 									<input type='hidden' name='name' />
 									<input type='hidden' name='amount' />
+									<input type='hidden' name='psize' />
+									<input type='hidden' name='pcolor' />
 								</tbody>
 
 							</table>
@@ -130,9 +133,13 @@
 											var html = "";
 											for (var i = 1; i <= data.length; i++) {
 												var amount;
+												var psize;
+												var pcolor;
 												for (var j = 0; j < cartList.length; j++) {
 													if (cartList[j].board_id == data[i - 1].board_id) {
 														amount = cartList[j].amount;
+														psize = cartList[j].psize;
+														pcolor = cartList[j].pcolor;
 													}
 												}
 
@@ -161,13 +168,13 @@
 														+ "' value='"+amount+"' readonly > <span class='inc qtybtn' onclick='total"
 														+ i
 														+ "(1)'>+</span> </div> </div>"
-														+ "</td> <td class='total-price first-row' style='color:#000000'>"
+														+ "</td> <td class='total-price first-row' style='color:#000000'> 색상 : "+pcolor+" <br> 사이즈 : "+psize+"</td><td class='total-price first-row' style='color:#000000'>"
 														+ "<input style='border:none; text-align:right;' type='text' id='sum"
 														+ i
 														+ "' value='' readonly size='7px' name='sum' >원</td>"
 														+ "<td class='close-td first-row'><i class='ti-close' onclick='cartDelete("
 														+ i
-														+ ")' > <input type='hidden' name='name' value='"+data[i - 1].goodsVO.goodsname+"'  > </td>"
+														+ ")' > <input type='hidden' name='name' value='"+data[i - 1].goodsVO.goodsname+"' ><input type='hidden' name='psize' value='"+psize+"' ><input type='hidden' name='pcolor' value='"+pcolor+"' > </td>"
 														+ "</tr>"
 
 												// 상품 별 합 계산() ready
@@ -290,9 +297,9 @@
 					var goods = new Object();
 					goods.board_id = parseInt(this.form.board_id[i].value);
 					goods.amount = parseInt(this.form.amount[i].value);
-
+					goods.psize = this.form.psize[i].value;
+					goods.pcolor = this.form.pcolor[i].value;
 					goods.name = this.form.name[i].value;
-
 					goods.sum = parseInt(this.form.sum[i].value);
 					payGoods.push(goods);
 				}

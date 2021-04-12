@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 
@@ -47,7 +48,19 @@
 
 <style>
 
+.jumbotron {
+	text-align: center;
+	height: 300px;
+}
 
+#hashtag{
+font-size:8px; 
+padding:4px ;
+}
+
+#hashtag:hover{
+background-color:#dddddd;
+}
 
 a:link {text-decoration: none; color: #333333;}
 a:visited {text-decoration: none; color: #333333;}
@@ -70,9 +83,26 @@ a:hover {text-decoration:none;}
 
 	<div class="container">
 	
+	<div class="jumbotron">
+			<h3 class="display-5">질문과 답변</h3>
+			
+			<br>펫츠하우스에서 조언을 받으세요.
+			<br>
+			<hr>
+			<br>
+			<form action="${pageContext.request.contextPath}/commu/qnasearch"
+				method="post">
+				<div class="questions-header__form__search col">
+					<span aria-hidden="true"></span> <input
+						class="form-control mr-sm-8" type="text" name="keyword"
+						style="text-align: center; height: 60px;"
+						placeholder="내 반려동물에 대한 모든 궁금증!">
+				</div>
+			</form>
+		</div>
 	
 	<c:forEach items="${qtag}" var="qt">
-		<table class="table table-hover">
+		<table class="table">
 		
 			<thead>
 			</thead>
@@ -80,9 +110,18 @@ a:hover {text-decoration:none;}
 				<td> <a href="${pageContext.request.contextPath}/commu/qna_view?board_id=${qt.board_id}">
 					<div style="font-weight:bold; font-size:18px;">${qt.title}</div>
 					<div>${qt.content}</div> 
+					<form action="${pageContext.request.contextPath}/commu/qnatag" method="post">
+					<ul class="pd-tags">
 					<span>${qt.memberVO.nickname}</span> 
-					<span style="font-size:13px; color:gray;">${qt.pdate}</span> <span style="font-size:13px; color:gray;"> 조회수 ${qt.hit}</span>
-					<div>${qt.hashtag}</div> 
+					<span style="font-size:13px; color:gray;">${qt.pdate}</span> <span style="font-size:13px; color:gray;"> 조회수 ${qt.hit}</span>	
+					<c:set var="hashtag" value="${qt.hashtag}" />
+					<c:set var="tag" value="${fn:split(hashtag, ' ')}" />
+					<c:forEach var="t" items="${tag}">
+					<span><button id="hashtag" name="keyword"  class="btn btn-disabled"  style=""value="${t}" onclick="location.href='${pageContext.request.contextPath}/commu/qnatag'">${t}</button></span>
+					</c:forEach>
+					
+				</ul> 
+				</form>
 					</a>
 				</td>
 

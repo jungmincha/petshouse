@@ -46,19 +46,23 @@
 		<form action="${pageContext.request.contextPath}/commu/tmodify" method="post">
 
 			<input type="hidden" name="board_id" value="${tips_view.board_id}" />
-			<input size="98" type="text" name="title" value="${tips_view.title}" />
+			<input class="form-control" type="text" style=" margin-bottom: 20px;" name="title" value="${tips_view.title}" />
 
 			
 
- 			<textarea id="editor4" name="content">${tips_view.content}</textarea>
+ 			<textarea id="editor4" name="content" >${tips_view.content}</textarea>
 			<script>
 					CKEDITOR.replace('editor4');			
 			</script>  
 			
-			<input size="98" type="text" name="hashtag" value="${tips_view.hashtag}" />
-			<button type="submit" class="btn btn-warning float-right" style="float: right; margin-top: 30px;"
+			<input class="form-control" style=" margin-top: 20px;" type="text" name="hashtag" value="${tips_view.hashtag}" />
+			
+		<div style="margin-top:30px; float: right;">
+			<button type="submit" class="btn btn-warning"	
 				onclick="location.href='${pageContext.request.contextPath}/commu/tips'">수정하기</button>
-
+			<a class="btn btn-warning"  href="tips">취소</a>
+		</div>
+		
 		</form>
 
 	</div>

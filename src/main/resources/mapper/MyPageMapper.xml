@@ -98,13 +98,14 @@
 
 	<resultMap type="PayVO" id="payvo">
 		<result column="pay_id" property="pay_id" />
-		<result column="paypice" property="payprice" />
+		<result column="payprice" property="payprice" />
 		<result column="usepoint" property="usepoint" />
 		<result column="earningpoint" property="earningpoint" />
 		<result column="paydate" property="paydate" />
 		<result column="deliveryaddress" property="deliveryaddress" />
 		<result column="deliveryname" property="deliveryname" />
 		<result column="deliverytel" property="deliverytel" />
+		<result column="iamport_id" property="iamport_id" />
 		<collection property="paystateVO" resultMap="paystatevo" />
 		<collection property="memberVO" resultMap="membervo" />
 	</resultMap>
@@ -137,6 +138,14 @@
 		<result column="tag_id" property="tag_id" />
 		<result column="goodsname" property="goodsname" />
 		<result column="goodspath" property="goodspath" />
+		<collection property="boardVO" resultMap="boardvo" />
+	</resultMap>
+
+	<resultMap type="PayGoodsVO" id="paygoodsvo">
+		<result column="pay_id" property="pay_id" />
+		<result column="amount" property="amount" />
+		<result column="pcolor" property="pcolor" />
+		<result column="psize" property="psize" />
 		<collection property="boardVO" resultMap="boardvo" />
 	</resultMap>
 
@@ -183,12 +192,12 @@
 	<![CDATA[
 		INSERT INTO payGoods(
 		pay_id,
-		board_id,amount
+		board_id,amount,psize,pcolor
 		) VALUES
 		(
 
-		#{payVO.pay_id}
-		,#{boardVO.board_id},#{amount}
+		#{pay_id}
+		,#{boardVO.board_id},#{amount},#{psize},#{pcolor}
 
 		)
 	]]>
@@ -213,13 +222,16 @@
 	<![CDATA[
 		select * from (
     select rownum rnum, a.* 
-         from pay a where rownum <= #{pageNum} * #{amount}
-   ) where rnum > #{pageNum}-1 * #{amount}
+         from pay a where rownum <= #{cri.pageNum} * #{cri.amount} and member_id=#{member_id}
+   ) where rnum > #{cri.pageNum}-1 * #{cri.amount}
 	]]>
 	</select>
 
 	<select id="getPayTotal" resultType="int">
-		<![CDATA[ select count(*) from pay ]]>
+		<![CDATA[ select count(*) from pay where member_id = #{member_id} ]]>
 	</select>
 
+	<select id="listPayGoods" resultMap="paygoodsvo">
+	<![CDATA[ select * from payGoods p, board b, goods g where p.board_id=b.board_id and pay_id=#{pay_id} and b.goods_id=g.goods_id ]]>
+	</select>
 </mapper>

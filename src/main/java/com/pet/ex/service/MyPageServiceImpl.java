@@ -60,15 +60,21 @@ public class MyPageServiceImpl implements MyPageService {
 
 	// 주문 리스트 불러오기
 	@Override
-	public List<PayVO> listOrder(Criteria cri) {
-		// TODO Auto-generated method stub
-		return myPageMapper.listOrder(cri);
+	public List<PayVO> listOrder(Criteria cri, String member_id) {
+		log.info("listOrder()");
+		return myPageMapper.listOrder(cri, member_id);
 	}
 
 	@Override
-	public int getPayTotal() {
-		// TODO Auto-generated method stub
-		return myPageMapper.getPayTotal();
+	public int getPayTotal(String member_id) {
+		log.info("getPayTotal()");
+		return myPageMapper.getPayTotal(member_id);
+	}
+
+	@Override
+	public List<PayGoodsVO> listPayGoods(int pay_id) {
+		log.info("listPayGoods()");
+		return myPageMapper.listPayGoods(pay_id);
 	}
 
 }

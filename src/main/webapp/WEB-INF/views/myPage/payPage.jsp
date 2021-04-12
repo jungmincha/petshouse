@@ -198,6 +198,8 @@
 									<input type="hidden" name="amount">
 									<input type="hidden" name="board_id">
 									<input type="hidden" name="iamport_id" id="iamport_id">
+									<input type="hidden" name="psize">
+									<input type="hidden" name="pcolor">
 								</ul>
 
 								<div class="order-btn">
@@ -235,8 +237,10 @@
 									+ "<input type='hidden' name='amount' value='"+payGoods[i].amount+"'>"
 									+ " <span>"
 									+ payGoods[i].sum
-									+ "원</span> "
+									+ "원</span> <br> 색상 : "+payGoods[i].pcolor+" 사이즈 : "+payGoods[i].psize+""
 									+ "<input type='hidden' name='goodsSum' value='"+ payGoods[i].sum+"'><input type='hidden' name='goodsName' value='"+ payGoods[i].name+"'>"
+									+"<input type='hidden' name='psize' value='"+ payGoods[i].psize+"'>"
+									+"<input type='hidden' name='pcolor' value='"+ payGoods[i].pcolor+"'>"
 									+ "<input type='hidden' name='board_id' value='"+ payGoods[i].board_id+"'></li>"
 
 						}
