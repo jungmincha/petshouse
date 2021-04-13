@@ -77,7 +77,7 @@ $(function() {
             <br>
             
             
-<form action="/map/write" method="post">
+<form action="/map/write" method="post" enctype="multipart/form-data">
  <input id="location" type="hidden" name="location" value="${location}" /> 
 <%--   <input id="nicknamen" type="hidden" name="nickname" value="${nickname}" />  --%>
  <input id="member_id" type="hidden" name="member_id" value="${member_id}" /> 
@@ -108,14 +108,20 @@ type="text" name="nickname" style="margin-bottom: 20px; width: 770px;" value="${
 
 <textarea class="form-control col" name="content" placeholder="내용"
 				style="width: 770px; height: 400px; margin-bottom: 20px; resize: none;"></textarea>
-
+<div class="form-group row">
+<input type="file" name="file" multiple="multiple"/>
+   
+</div>
 
 <input style="margin-bottom: 20px; width: 300px;"  placeholder="전송" class="form-control" type = "submit" value = "작성 완료" >
 
 <a style="margin-bottom: 20px; width: 300px; text-align: center;"  class="form-control" href = "/map/board?location=${location}&nickname=${nickname}&member_id=${member_id}">목록으로</a>
 
 
-      
+						
+						
+						
+		     
 </form>      
          </div>           
                

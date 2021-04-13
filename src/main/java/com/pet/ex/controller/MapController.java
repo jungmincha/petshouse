@@ -1,9 +1,13 @@
 package com.pet.ex.controller;
 
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.pet.ex.page.Criteria;
@@ -20,6 +26,7 @@ import com.pet.ex.page.PageVO;
 import com.pet.ex.service.CommunityService;
 import com.pet.ex.service.MapService;
 import com.pet.ex.vo.BoardVO;
+import com.pet.ex.vo.ImageVO;
 import com.pet.ex.vo.MemberVO;
 
 import lombok.AllArgsConstructor;
@@ -101,60 +108,6 @@ public class MapController {
 	   }
 	
 	
-	@GetMapping("/search")
-	public ModelAndView search(
-			
-			 @RequestParam(value="location" ,required = false)String loc, //insert해서 바뀐 주소 홍제 2동을 받아옴 
-			 
-			   @RequestParam(value="member_id",required = false)String member_id,
-			   
-			   @RequestParam(value="nickname",required = false)String nickname,
-			   
-			   
-				/* @RequestParam(value="s_location",required = false)String s_location, */
-		
-			   //@RequestParam(value="original_location",required = false)String original_location, //원래 주소
-			   
-			  
-			   ModelAndView mav , Criteria cri , MemberVO memberVO, BoardVO boardVO) {
-		
-		 memberVO.setLocation(loc); //홍제 2동 받아옴
-		 
-		 //insert 현재위치
-		 service.insertLoc(memberVO); //홍제 2동 삽입된
-		
-		
-		 boardVO.setLocation(loc); //여기서도 홍제 2동 삽입됨 
-		 
-		mav.addObject("list", service.getSerchList(cri));
-		
-		int total = service.getTotal(cri);
-			 
-		
-		mav.addObject("pageMaker",  new PageVO(cri, total));
-		
-	 mav.addObject("location", loc); 
-		 
-	 mav.addObject("member_id", member_id); 
-	 mav.addObject("nickname", nickname); 
-
-		 
-	
-		
-		System.out.println(member_id);
-		System.out.println("insert 구문" + loc);
-		   System.out.println("===============================================================================");
-//	System.out.println("시큐리티 인증"+s_location);
-
-		 mav.setViewName("map/board"); 
-		
-		
-		
-		
-		
-		
-		return mav;
-	}
 	
 	
 	
@@ -201,11 +154,13 @@ public class MapController {
 			
 			   @RequestParam(value="nickname",required = false)String nickname,
 			   
+			 
+			   
 			  // @RequestParam(value="original_location",required = false)String original_location, //원래 주소
 			ModelAndView mav, BoardVO boardVO) {
 		
 		mav.addObject("location", loc); 
-		 
+
 		 mav.addObject("member_id", member_id); 
 		 mav.addObject("comment", service.listComment(boardVO.getBoard_id()));
 		 System.out.println(member_id);
@@ -237,9 +192,11 @@ public class MapController {
 				  
 				   @RequestParam(value="nickname",required = false)String nickname,
 				   
+				  
+				   
 				 //  @RequestParam(value="original_location",required = false)String original_location, //원래 주소
 				  
-				  ModelAndView mav ,BoardVO boardVO, MemberVO memberVO, Criteria cri )throws Exception 
+				  ModelAndView mav ,ImageVO imageVO, BoardVO boardVO, MemberVO memberVO, Criteria cri , MultipartHttpServletRequest multi)throws Exception 
 		  
 		  { 
 			  log.info("write"); 
@@ -249,11 +206,10 @@ public class MapController {
 				boardVO.setMemberVO(member);
 				boardVO.getMemberVO().setLocation(loc);
 				boardVO.getMemberVO().setMember_id(member_id);
-	
-	
+				
+				
+				
 			  service.write(boardVO);
-			  
-		
 			  
 			  
 			  mav.addObject("list", service.getList(cri));
@@ -267,8 +223,6 @@ public class MapController {
 			  
 				service.insertLoc(memberVO);
 				
-				
-				
 				 mav.addObject("location", loc); 
 				 
 			 mav.addObject("member_id", member_id); 
@@ -276,12 +230,57 @@ public class MapController {
 				 System.out.println(member_id); 
 				 System.out.println(loc);
 				 
+			
 				 
+				 String path = multi.getSession().getServletContext().getRealPath("/static/img/location");
+
+					path = path.replace("webapp", "resources");
+
+					File dir = new File(path);
+					if (!dir.isDirectory()) {
+						dir.mkdir();
+					}
+
+					List<MultipartFile> mf = multi.getFiles("file");
+
+					 
+						for (int i = 0; i < mf.size(); i++) { // 파일명 중복 검사
+							
+							UUID uuid = UUID.randomUUID();			// 파일명 랜덤으로 변경
+							
+							String originalfileName = mf.get(i).getOriginalFilename();		  		
+				  			String ext = FilenameUtils.getExtension(originalfileName);
+				  			//저장 될 파일명
+				  			String imgname=uuid+"."+ext; 
+						
+
+							String savePath = path + "\\" + imgname; // 저장 될 파일 경로
+					
+							
+							
+							System.out.println("=============================================================================");
+							System.out.println(savePath);
+							
+							mf.get(i).transferTo(new File(savePath)); // 파일 저장
+							imageVO.setImgname(imgname);
+							imageVO.getBoardVO().setBoard_id(boardVO.getBoard_id());
+							System.out.println("=============================================================================");
+							System.out.println(boardVO.getBoard_id());
+							
+							service.detailInput(imageVO);
+							
+							
+							
+						}
+					 
 			  mav.setViewName("redirect:board");
 			  return mav;
 			  
 		  }
 		  
+		  
+		  
+	
 		  
 		// 질문과 답변 댓글 작성
 		  

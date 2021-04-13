@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.pet.ex.page.Criteria;
 import com.pet.ex.page.PageVO;
 import com.pet.ex.vo.BoardVO;
+import com.pet.ex.vo.ImageVO;
 import com.pet.ex.vo.MemberVO;
 
 @Mapper
@@ -35,5 +36,11 @@ public interface MapMapper {
 	public BoardVO getComment(int board_id);
 
 	public List<BoardVO> getHashtag(BoardVO boardVO);
+
+	public void fileUpload(String imgname);
+
+	public void detailInput(ImageVO imageVO);
+
+
 
 }

@@ -85,7 +85,8 @@ background-color:#dddddd;
         <h3>${location}</h3>
         <br>
                     <h4>${nickname}</h4>
-              
+                   <h4> ${hashtag}</h4>
+            
 <form action="/map/modify" method="get">
 <input id="location" type="hidden" name="location" value="${location}" /> 
 	<input id="member_id" type="hidden" name="member_id" value="${member_id}" /> 

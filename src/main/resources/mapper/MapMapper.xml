@@ -238,6 +238,28 @@
 	
 		]]>
 	</select>
+	
+	
+
+	
+	
+<insert id="fileUpload">
+	 <![CDATA[
+    INSERT INTO
+       image(imgname, board_id) VALUES (#{imgname}, 16)
+	 ]]>
+	</insert>
+	
+	
+	<!-- 상품상세이미지 업로드 -->
+	<insert id="detailInput">
+	 <![CDATA[
+    INSERT INTO IMAGE(img_id, imgname,board_id) VALUES (image_seq.nextval, #{imgname} , board_seq.currval)
+	 ]]>
+	</insert>
+	
+
+
 
 
 </mapper>

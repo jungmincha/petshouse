@@ -156,10 +156,7 @@ $(document).ready(function() {
     		
     		
     		 var category = $("#category").val();
-    	
-    		
   
-   
     	var form={
     			
     			category:category,

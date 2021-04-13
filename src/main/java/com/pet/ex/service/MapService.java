@@ -5,6 +5,7 @@ import java.util.List;
 import com.pet.ex.page.Criteria;
 
 import com.pet.ex.vo.BoardVO;
+import com.pet.ex.vo.ImageVO;
 import com.pet.ex.vo.MemberVO;
 
 
@@ -34,6 +35,12 @@ public interface MapService {
 	public BoardVO getComment(int Board_id);
 
 	public List<BoardVO> getHashtag(BoardVO boardVO);
+
+	public void fileUpload(String imgname);
+
+	public void detailInput(ImageVO imageVO);
+
+	//public List<ImageVO> getImgList();
 
 	
 }
