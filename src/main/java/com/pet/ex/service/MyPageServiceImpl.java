@@ -80,14 +80,20 @@ public class MyPageServiceImpl implements MyPageService {
 	@Override
 	public List<PayVO> listPaystateOrder(Criteria cri, String member_id, String paystate_id) {
 		log.info("listPaystateOrder()");
-		return myPageMapper.listPaystateOrder(cri,member_id,paystate_id);
+		return myPageMapper.listPaystateOrder(cri, member_id, paystate_id);
 	}
 
+	@Override
+	public Integer orderListCount(int paystate_id, String member_id) {
+
+		return myPageMapper.orderListCount(paystate_id, member_id);
+	}
 
 	@Override
-	public Integer orderListCount(int paystate_id,String member_id) {
-		
-		return myPageMapper.orderListCount(paystate_id,member_id);
+	public int getPaystateTotal(String member_id, String paystate_id) {
+		log.info("getPaystateTotal");
+		return myPageMapper.getPaystateTotal(member_id, paystate_id);
+
 	}
 
 }

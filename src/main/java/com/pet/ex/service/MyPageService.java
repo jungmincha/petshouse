@@ -30,4 +30,6 @@ public interface MyPageService {
 
 	Integer orderListCount(int paystate_id, String member_id);
 
+	int getPaystateTotal(String member_id, String paystate_id);
+
 }

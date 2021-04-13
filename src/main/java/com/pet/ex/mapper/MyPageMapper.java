@@ -47,4 +47,6 @@ public interface MyPageMapper {
 
 	public Integer orderListCount(int paystate_id, String member_id);
 
+	public int getPaystateTotal(String member_id, String paystate_id);
+
 }

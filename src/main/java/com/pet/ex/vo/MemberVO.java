@@ -37,6 +37,8 @@ public class MemberVO {
 
 	private Timestamp pdate;
 
+	private String thumbnail;
+	
 	// 외래키
 	private RoleVO roleVO;
 
@@ -54,5 +56,7 @@ public class MemberVO {
 	private String concern;
 
 	private String location;
+	
+	 
 
 }

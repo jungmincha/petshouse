@@ -368,12 +368,16 @@
 			company : '(주)캣버그' // 상호명
 		}, function(rsp) {
 			if (rsp.success) {
+				//카트 초기화 
+				var cartList = new Array();
+				sessionStorage.setItem("cartList", JSON.stringify(cartList));
+				
 				var msg = '결제가 완료되었습니다.';
 				msg += '고유ID : ' + rsp.imp_uid;
 				msg += '상점 거래ID : ' + rsp.merchant_uid;
 				msg += '결제 금액 : ' + rsp.paid_amount;
 				msg += '카드 승인번호 : ' + rsp.apply_num;
-				$("#iamport_id").val(rsp.imp_uid)
+				$("#iamport_id").val(rsp.imp_uid);
 				document.form.submit();
 			} else {
 				var msg = '결제에 실패하였습니다.';

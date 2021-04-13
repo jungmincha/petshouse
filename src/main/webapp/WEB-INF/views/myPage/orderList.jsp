@@ -286,6 +286,7 @@
 		</div>
 
 	</div>
+	<!-- 배송조회 -->
 	<form action="http://info.sweettracker.co.kr/tracking/5" method="post"
 		name="deliverySelect">
 
@@ -297,19 +298,6 @@
 
 
 	</form>
-
-	<c:if test="${pageMaker.prev}">
-		<a href="listPage${pageMaker.makeQuery(pageMaker.startPage - 1) }">«</a>
-	</c:if>
-
-	<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }"
-		var="idx">
-		<a href="listPage${pageMaker.makeQuery(idx)}">${idx}</a>
-	</c:forEach>
-
-	<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-		<a href="listPage${pageMaker.makeQuery(pageMaker.endPage +1) }"> »</a>
-	</c:if>
 
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 
@@ -328,15 +316,17 @@
 				<form class=" needs-validation"
 					action="${pageContext.request.contextPath}/경로를 넣어주세요" method="Post">
 					<input type="hidden" id="goods_id" name="goods_id" value="">
+
 					<div class="rbox">포토 리뷰 500P, 일반 리뷰 100P</div>
 
 					<!-- 상품사진, 상품명 -->
 					<div style="margin-top: 15px;">
 						<div class="pb-pic">
-							<img src="/resources/img/products/product-1.jpg" class="pimg"
-								alt="">
+							<img src="/resources/img/admin/goods/" id="pimg">
 						</div>
-						<div class="pb-text" style="line-height: 80px;">상품 이름 넣으세요</div>
+						<div class="pb-text" style="line-height: 80px;">
+							<span>이름을 넣</span>
+						</div>
 					</div>
 
 					<!-- 별점 -->
@@ -371,7 +361,7 @@
 						<div class="input-group col-12">
 							<div class="custom-file">
 								<input type="file" class="custom-file-input" id="image"
-									name="image" style="display: block;"> <label
+									name="pimage" style="display: block;"> <label
 									class="custom-file-label" for="inputGroupFile02">사진을
 									등록해주세요 (최대 1장)</label>
 							</div>
@@ -404,14 +394,13 @@
 	<!-- 모달 끝 -->
 </body>
 <script>
+
 // 전체 오더리스트 조회
 	$(document)
 			.ready(
 					function() {
-						console.log("실행")
 						var pageNum = 1;
 						var amount = 10;
-						
 						$
 								.ajax({
 									url : "/myPage/orderList/ajax",
@@ -419,9 +408,9 @@
 									data : {
 										pageNum : pageNum,
 										amount : amount
-
 									},
 									success : function(data) {
+										// 성공 시 리스트 append
 										html = "";
 										console.log(data);
 										for (var i = 1; i <= data.pay.length; i++) {
@@ -464,12 +453,13 @@
 																break;
 														case 5 :
 															html += "</div> <div class='col-lg-3' style='text-align: right;'>"
-																+ "<br><span style='font-size: 20px'><button id='myBtn' onclick='modals("+ data.pay[i - 1].payGoodsVO[0].boardVO.goods_id+")'>리뷰 작성</button></span>"
+																+ "<br><span style='font-size: 20px'><button id='myBtn' onclick='modals("+ data.pay[i - 1].payGoodsVO[0].boardVO.goodsVO.goods_id+")'>리뷰 작성</button></span>"
 																+ "</div> </div>" 
 																break;
 														default :
 															break;
 													}
+													// 상품이 여러개 인 경우
 													if( data.pay[i - 1].payGoodsVO.length>1){
 														html +=" <hr><div class='row collapse in' id='demo"+i+"'> "
 														for (var j = 1; j < data.pay[i - 1].payGoodsVO.length; j++) {
@@ -485,10 +475,10 @@
 																	+ "</span>"
 																	+ "</div> <div class='col-lg-3'  style='text-align: right;'> <br>"
 																	if(data.pay[i-1].paystateVO.paystate_id==5){
-																		html += "<span style='font-size: 20px'><button id='myBtn' onclick='modals("+ data.pay[i - 1].payGoodsVO[0].boardVO.board_id+")'>리뷰 작성</button></span><br>"
+																		html += "<span style='font-size: 20px'><button id='myBtn' onclick='modals("+ data.pay[i - 1].payGoodsVO[j].boardVO.goodsVO.goods_id+")'>리뷰 작성</button></span><br>"
 																	}
 																	html +="</div>"	
-																	console.log(data.pay[i-1].payGoodsVO.length)
+																
 																	if(j < data.pay[i-1].payGoodsVO.length-1){
 																		html += "<div class='col-lg-12'><br></div>"
 																	}
@@ -497,7 +487,12 @@
 													}
 													html +="</div></div></div></div></div>"
 										}
-								
+										// 페이징 처리
+										html += "<div class='container'><ul class='pagination'  style='justify-content: center;'><c:if test='"+data.pageMaker.prev+"'>"
+										+"<li class='page-item'> <a class='page-link' onclick='allOrder("+(data.pageMaker.startPage-1)+","+data.pageMaker.amount+")"'>«</a></li> </c:if>"
+										for(var i = data.pageMaker.startPage; i<=data.pageMaker.endPage;i++){
+										html += "<li class='page-item'> <a class='page-link' onclick='allOrder("+i+","+data.pageMaker.cri.amount+")'>"+i+"</a></li> "	}
+										html += "<c:if test='${"+data.pageMaker.next +"&&"+ data.pageMaker.endPage+"> 0}'> <li class='page-item'> <a class='page-link' onclick='allOrder("+(data.pageMaker.endPage+1)+","+data.pageMaker.amount+")"'> »</a></li> </c:if></ul></div>"	
 										$("#orderList").append(html);
 									}, //ajax 성공 시 
 									error : function(request, status, error) {
@@ -507,7 +502,7 @@
 								});
 						
 					});
-	
+
 	//공백확인용...
 	(function () {
 	'use strict'
@@ -641,10 +636,11 @@
 
 	var span = document.getElementsByClassName("close")[0];                                          
 
-	function modals(goods_id){
+	function modals(goods_id , thumbnail, title){
 		modal.style.display = "block";
 		$("#goods_id").val(goods_id);
-	
+		console.log(goods_id);
+		console.log(thumbnail);
 		}
 
 	span.onclick = function() {
@@ -663,13 +659,11 @@
 		$("t_invoice").val(t_invoice);
 		document.deliverySelect.submit();
 	}
+	
 	// 버튼 클릭시 전체 리스트 조회
-	function allOrder(){
+	function allOrder(pageNum,amount){
 		$(".payList").remove();
-						console.log("실행")
-						var pageNum = 1;
-						var amount = 10;
-						
+		$(".pagination").remove();						
 						$
 								.ajax({
 									url : "/myPage/orderList/ajax",
@@ -722,7 +716,7 @@
 																break;
 														case 5 :
 															html += "</div> <div class='col-lg-3' style='text-align: right;'>"
-																+ "<br><span style='font-size: 20px'><button id='myBtn' onclick='modals("+ data.pay[i - 1].payGoodsVO[0].boardVO.goods_id+")'>리뷰 작성</button></span>"
+																+ "<br><span style='font-size: 20px'><button id='myBtn' onclick='modals("+ data.pay[i - 1].payGoodsVO[0].boardVO.goodsVO.goods_id+")'>리뷰 작성</button></span>"
 																+ "</div> </div>" 
 																break;
 														default :
@@ -743,10 +737,10 @@
 																	+ "</span>"
 																	+ "</div> <div class='col-lg-3'  style='text-align: right;'> <br>"
 																	if(data.pay[i-1].paystateVO.paystate_id==5){
-																		html += "<span style='font-size: 20px'><button id='myBtn' onclick='modals("+ data.pay[i - 1].payGoodsVO[0].boardVO.board_id+")'>리뷰 작성</button></span><br>"
+																		html += "<span style='font-size: 20px'><button id='myBtn' onclick='modals("+ data.pay[i - 1].payGoodsVO[j].boardVO.goodsVO.goods_id+")'>리뷰 작성</button></span><br>"
 																	}
 																	html +="</div>"	
-																	console.log(data.pay[i-1].payGoodsVO.length)
+																
 																	if(j < data.pay[i-1].payGoodsVO.length-1){
 																		html += "<div class='col-lg-12'><br></div>"
 																	}
@@ -755,7 +749,12 @@
 													}
 													html +="</div></div></div></div></div>"
 										}
-								
+										
+										html += "<div class='container'><ul class='pagination'  style='justify-content: center;'><c:if test='"+data.pageMaker.prev+"'>"
+										+"<li class='page-item'> <a class='page-link' onclick='allOrder("+(data.pageMaker.startPage-1)+","+data.pageMaker.amount+")"'>«</a></li> </c:if>"
+										for(var i = data.pageMaker.startPage; i<=data.pageMaker.endPage;i++){
+										html += "<li class='page-item'> <a class='page-link' onclick='allOrder("+i+","+data.pageMaker.cri.amount+")'>"+i+"</a></li> "	}
+										html += "<c:if test='${"+data.pageMaker.next +"&&"+ data.pageMaker.endPage+"> 0}'> <li class='page-item'> <a class='page-link' onclick='allOrder("+(data.pageMaker.endPage+1)+","+data.pageMaker.amount+")"'> »</a></li> </c:if></ul></div>"	
 										$("#orderList").append(html);
 									}, //ajax 성공 시 
 									error : function(request, status, error) {
@@ -766,14 +765,10 @@
 						
 					}
 	
-	
-	
 	// 버튼 클릭시 리스트 조회
-	function listOrder(paystate) {
+	function listOrder(paystate,pageNum,amount) {
 		$(".payList").remove();
-		console.log("실행")
-		var pageNum = 1;
-		var amount = 10;
+		$(".pagination").remove();
 		
 		$
 				.ajax({
@@ -826,7 +821,7 @@
 												break;
 										case 5 :
 											html += "</div> <div class='col-lg-3' style='text-align: right;'>"
-												+ "<br><span style='font-size: 20px'><button id='myBtn' onclick='modals("+ data.pay[i - 1].payGoodsVO[0].boardVO.goods_id+")'>리뷰 작성</button></span>"
+												+ "<br><span style='font-size: 20px'><button id='myBtn' onclick='modals("+data.pay[i - 1].payGoodsVO[0].boardVO.goodsVO.goods_id+" , '"+data.pay[i - 1].payGoodsVO[0].boardVO.goodsVO.thumbnail+"')'>리뷰 작성</button></span>"
 												+ "</div> </div>" 
 												break;
 										default :
@@ -847,10 +842,10 @@
 													+ "</span>"
 													+ "</div> <div class='col-lg-3'  style='text-align: right;'> <br>"
 													if(data.pay[i-1].paystateVO.paystate_id==5){
-														html += "<span style='font-size: 20px'><button id='myBtn' onclick='modals("+ data.pay[i - 1].payGoodsVO[0].boardVO.board_id+")'>리뷰 작성</button></span><br>"
+														html += "<span style='font-size: 20px'><button id='myBtn' onclick='modals("+ data.pay[i - 1].payGoodsVO[j].boardVO.goodsVO.goods_id+")'>리뷰 작성</button></span><br>"
 													}
 													html +="</div>"	
-													console.log(data.pay[i-1].payGoodsVO.length)
+												
 													if(j < data.pay[i-1].payGoodsVO.length-1){
 														html += "<div class='col-lg-12'><br></div>"
 													}
@@ -859,7 +854,11 @@
 									}
 									html +="</div></div></div></div></div>"
 						}
-				
+						html += "<div class='container'><ul class='pagination'  style='justify-content: center;'><c:if test='"+data.pageMaker.prev+"'>"
+						+"<li class='page-item'> <a class='page-link' onclick='listOrder("+paystate+","+(data.pageMaker.startPage-1)+","+data.pageMaker.amount+")"'>«</a></li> </c:if>"
+						for(var i = data.pageMaker.startPage; i<=data.pageMaker.endPage;i++){
+						html += "<li class='page-item'> <a class='page-link' onclick='listOrder("+paystate+","+i+","+data.pageMaker.cri.amount+")'>"+i+"</a></li> "	}
+						html += "<c:if test='${"+data.pageMaker.next +"&&"+ data.pageMaker.endPage+"> 0}'> <li class='page-item'> <a class='page-link' onclick='allOrder("+(data.pageMaker.endPage+1)+","+data.pageMaker.amount+")"'> »</a></li> </c:if></ul></div>"
 						$("#orderList").append(html);
 					}, //ajax 성공 시 
 					error : function(request, status, error) {

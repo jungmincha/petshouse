@@ -222,13 +222,17 @@
 	<![CDATA[
 		select * from (
     select rownum rnum, a.* 
-         from pay a where rownum <= #{cri.pageNum} * #{cri.amount} and member_id=#{member_id}
-   ) where rnum > #{cri.pageNum}-1 * #{cri.amount}
+         from (select * from pay order by paydate desc) a where rownum <= #{cri.pageNum} * #{cri.amount} and member_id=#{member_id}
+   ) where rnum > (#{cri.pageNum}-1) * #{cri.amount}
 	]]>
 	</select>
 
 	<select id="getPayTotal" resultType="int">
 		<![CDATA[ select count(*) from pay where member_id = #{member_id} ]]>
+	</select>
+
+	<select id="getPaystateTotal" resultType="int">
+		<![CDATA[ select count(*) from pay where member_id = #{member_id} and paystate_id=#{paystate_id} ]]>
 	</select>
 
 	<select id="listPayGoods" resultMap="paygoodsvo">
@@ -239,8 +243,8 @@
 	<![CDATA[
 		select * from (
     select rownum rnum, a.* 
-         from pay a where rownum <= #{cri.pageNum} * #{cri.amount} and member_id=#{member_id} and paystate_id=#{paystate_id}
-   ) where rnum > #{cri.pageNum}-1 * #{cri.amount}
+         from (select * from pay order by paydate desc) a where rownum <= #{cri.pageNum} * #{cri.amount} and member_id=#{member_id} and paystate_id=#{paystate_id}
+   ) where rnum > (#{cri.pageNum}-1) * #{cri.amount}
 	]]>
 	</select>
 

@@ -107,11 +107,11 @@ public class MyPageController {
 		String member_id = authentication.getPrincipal().toString();
 		List<Integer> payCounts = new ArrayList<Integer>();
 		payCounts.add(myPageService.getPayTotal(member_id));
-		payCounts.add(myPageService.orderListCount(1,member_id));
-		payCounts.add(myPageService.orderListCount(2,member_id));
-		payCounts.add(myPageService.orderListCount(3,member_id));
-		payCounts.add(myPageService.orderListCount(4,member_id));
-		payCounts.add(myPageService.orderListCount(5,member_id));
+		payCounts.add(myPageService.orderListCount(1, member_id));
+		payCounts.add(myPageService.orderListCount(2, member_id));
+		payCounts.add(myPageService.orderListCount(3, member_id));
+		payCounts.add(myPageService.orderListCount(4, member_id));
+		payCounts.add(myPageService.orderListCount(5, member_id));
 		mav.addObject("payCounts", payCounts);
 		mav.setViewName("/myPage/orderList");
 		return mav;
@@ -125,7 +125,6 @@ public class MyPageController {
 		Map<String, Object> payAjax = new HashMap<String, Object>();
 
 		pay = myPageService.listOrder(cri, member_id);
-		System.out.println(pay);
 		int total = myPageService.getPayTotal(member_id);
 
 		for (PayVO dto : pay) {
@@ -145,14 +144,14 @@ public class MyPageController {
 		String member_id = authentication.getPrincipal().toString();
 		List<PayVO> pay = new ArrayList<PayVO>();
 		Map<String, Object> payAjax = new HashMap<String, Object>();
-
+		System.out.println(cri.getPageNum());
 		pay = myPageService.listPaystateOrder(cri, member_id, paystate_id);
 		System.out.println(pay);
-		int total = myPageService.getPayTotal(member_id);
+		int total = myPageService.getPaystateTotal(member_id, paystate_id);
 
 		for (PayVO dto : pay) {
 			dto.setPayGoodsVO(myPageService.listPayGoods(dto.getPay_id()));
-			System.out.println();
+
 		}
 
 		payAjax.put("pay", pay);
