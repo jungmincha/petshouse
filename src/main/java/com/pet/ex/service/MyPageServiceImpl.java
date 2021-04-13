@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.pet.ex.mapper.MyPageMapper;
 import com.pet.ex.page.Criteria;
 import com.pet.ex.vo.BoardVO;
+import com.pet.ex.vo.ImageVO;
 import com.pet.ex.vo.PayGoodsVO;
 import com.pet.ex.vo.PayVO;
 import com.pet.ex.vo.PointVO;
@@ -85,7 +86,7 @@ public class MyPageServiceImpl implements MyPageService {
 
 	@Override
 	public Integer orderListCount(int paystate_id, String member_id) {
-
+		log.info("orderListCount()");
 		return myPageMapper.orderListCount(paystate_id, member_id);
 	}
 
@@ -94,6 +95,25 @@ public class MyPageServiceImpl implements MyPageService {
 		log.info("getPaystateTotal");
 		return myPageMapper.getPaystateTotal(member_id, paystate_id);
 
+	}
+
+	@Override
+	public void insertReview(BoardVO boardVO) {
+		log.info("insertReview()");
+		myPageMapper.insertReview(boardVO);
+	}
+
+	@Override
+	public void insertImg(ImageVO imageVO) {
+		log.info("insertImg()");
+		myPageMapper.insertImg(imageVO);
+
+	}
+
+	@Override
+	public void insertPoint(int pscore, int pointtype_id, String member_id) {
+		log.info("insertPoint()");
+		myPageMapper.insertPoint(pscore, pointtype_id, member_id);
 	}
 
 }

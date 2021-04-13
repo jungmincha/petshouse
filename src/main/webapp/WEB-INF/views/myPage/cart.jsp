@@ -136,11 +136,15 @@
 												var amount;
 												var psize;
 												var pcolor;
+
 												for (var j = 0; j < cartList.length; j++) {
+
 													if (cartList[j].board_id == data[i - 1].board_id) {
 														amount = cartList[j].amount;
 														psize = cartList[j].psize;
 														pcolor = cartList[j].pcolor;
+														cartList.splice(j, 1);
+														break;
 													}
 												}
 
@@ -169,7 +173,11 @@
 														+ "' value='"+amount+"' readonly > <span class='inc qtybtn' onclick='total"
 														+ i
 														+ "(1)'>+</span> </div> </div>"
-														+ "</td> <td class='total-price first-row' style='color:#000000'> "+pcolor+" / "+psize+"</td><td class='total-price first-row' style='color:#000000'>"
+														+ "</td> <td class='total-price first-row' style='color:#000000'> "
+														+ pcolor
+														+ " / "
+														+ psize
+														+ "</td><td class='total-price first-row' style='color:#000000'>"
 														+ "<input style='border:none; text-align:right;' type='text' id='sum"
 														+ i
 														+ "' value='' readonly size='7px' name='sum' >원</td>"
@@ -228,7 +236,9 @@
 
 											// tbody에 기록
 											$("#goods").append(html);
-											if (cartList.length == 0) {
+											var cartList = sessionStorage
+													.getItem("cartList");
+											if (cartList.length == 2) {
 												alert("카트가 비었습니다.")
 											}
 										}, //ajax 성공 시 end
@@ -285,7 +295,7 @@
 			$('#goods').remove();
 			var cartList = new Array();
 			sessionStorage.setItem('cartList', JSON.stringify(cartList));
-			summary();
+			$('.total').html(0 + '원');
 		}
 
 		// 결제 페이지 이동

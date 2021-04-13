@@ -1,18 +1,22 @@
 package com.pet.ex.vo;
 
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
 @AllArgsConstructor
-@NoArgsConstructor
 public class BoardVO {
+
+	public BoardVO() {
+		this.memberVO = new MemberVO();
+		this.boardtypeVO = new BoardtypeVO();
+		this.goodsVO = new GoodsVO();
+		this.categoryVO = new CategoryVO();
+	}
 
 	private int board_id;
 	private String title;
@@ -26,6 +30,7 @@ public class BoardVO {
 	private int pindent;
 	private int ratescore;
 	private String location;
+	private String thumbnail;
 	// 외래키
 	private MemberVO memberVO;
 	private BoardtypeVO boardtypeVO;

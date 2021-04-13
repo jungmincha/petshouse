@@ -254,4 +254,26 @@
 		where member_id = #{member_id} and paystate_id=#{paystate_id}
 		]]>
 	</select>
+
+	<insert id="insertReview">
+		<![CDATA[
+		insert into board (board_id, content, ratescore, member_id, boardtype_id,pgroup, goods_id)
+		values(board_seq.nextval,#{content},#{ratescore},#{memberVO.member_id},8,board_seq.currval,#{goodsVO.goods_id} )
+		]]>
+	</insert>
+
+	<insert id="insertImg">
+		<![CDATA[
+		insert into image (img_id, imgname, goods_id)
+		values(image_seq.nextval,#{imgname},#{goodsVO.goods_id})
+		]]>
+	</insert>
+
+	<insert id="insertPoint">
+		<![CDATA[
+		insert into point (point_id, pscore, pointtype_id,member_id)
+		values(point_seq.nextval,#{pscore},#{pointtype_id},#{member_id})
+		]]>
+	</insert>
+	
 </mapper>

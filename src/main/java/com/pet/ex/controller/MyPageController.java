@@ -23,6 +23,7 @@ import com.pet.ex.page.PageVO;
 import com.pet.ex.service.MyPageService;
 import com.pet.ex.service.SecurityService;
 import com.pet.ex.vo.BoardVO;
+import com.pet.ex.vo.ImageVO;
 import com.pet.ex.vo.PayGoodsVO;
 import com.pet.ex.vo.PayVO;
 
@@ -45,7 +46,6 @@ public class MyPageController {
 		log.info("/myPage/cart");
 		mav.setViewName("/myPage/cart");
 		return mav;
-
 	}
 
 	// 장바구니 목록 불러오기 (ajax)
@@ -53,12 +53,10 @@ public class MyPageController {
 	public List<BoardVO> cartList2(@RequestBody List<Map<String, Object>> param) {
 		log.info("/myPage/cartList");
 		List<BoardVO> board = new ArrayList<BoardVO>();
-
 		for (Map<String, Object> cart : param) {
 			board.add(myPageService.getBoard((String) cart.get("board_id")));
 		}
 		return board;
-
 	}
 
 	// 결제 페이지 이동
@@ -144,18 +142,50 @@ public class MyPageController {
 		String member_id = authentication.getPrincipal().toString();
 		List<PayVO> pay = new ArrayList<PayVO>();
 		Map<String, Object> payAjax = new HashMap<String, Object>();
-		System.out.println(cri.getPageNum());
 		pay = myPageService.listPaystateOrder(cri, member_id, paystate_id);
-		System.out.println(pay);
+
 		int total = myPageService.getPaystateTotal(member_id, paystate_id);
 
 		for (PayVO dto : pay) {
 			dto.setPayGoodsVO(myPageService.listPayGoods(dto.getPay_id()));
-
 		}
 
 		payAjax.put("pay", pay);
 		payAjax.put("pageMaker", new PageVO(cri, total));
 		return payAjax;
+	}
+
+	// 리뷰 작성
+	@PostMapping("/orderList/review/insert")
+	public ModelAndView insertReview(Authentication authentication, ModelAndView mav, BoardVO boardVO, ImageVO imageVO,
+			String paystate_id) {
+		log.info("myPage/orderList/review/insert");
+		String member_id = authentication.getPrincipal().toString();
+
+		boardVO.getMemberVO().setMember_id(member_id);
+		myPageService.insertReview(boardVO);
+		System.out.println(imageVO.getImgname());
+		if (imageVO.getImgname().equals(" ")) {
+			myPageService.insertImg(imageVO);
+			myPageService.insertPoint(500, 5, member_id);
+
+		} else {
+			myPageService.insertPoint(100, 4, member_id);
+
+		}
+
+		mav.addObject("paystate", paystate_id);
+
+		// orderList페이지
+		List<Integer> payCounts = new ArrayList<Integer>();
+		payCounts.add(myPageService.getPayTotal(member_id));
+		payCounts.add(myPageService.orderListCount(1, member_id));
+		payCounts.add(myPageService.orderListCount(2, member_id));
+		payCounts.add(myPageService.orderListCount(3, member_id));
+		payCounts.add(myPageService.orderListCount(4, member_id));
+		payCounts.add(myPageService.orderListCount(5, member_id));
+		mav.addObject("payCounts", payCounts);
+		mav.setViewName("/myPage/orderList");
+		return mav;
 	}
 }

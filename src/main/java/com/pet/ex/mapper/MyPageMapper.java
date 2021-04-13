@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.pet.ex.page.Criteria;
 import com.pet.ex.vo.BoardVO;
+import com.pet.ex.vo.ImageVO;
 import com.pet.ex.vo.PayGoodsVO;
 import com.pet.ex.vo.PayVO;
 import com.pet.ex.vo.PointVO;
@@ -48,5 +49,11 @@ public interface MyPageMapper {
 	public Integer orderListCount(int paystate_id, String member_id);
 
 	public int getPaystateTotal(String member_id, String paystate_id);
+
+	public void insertReview(BoardVO boardVO);
+
+	public void insertImg(ImageVO imageVO);
+
+	public void insertPoint(int pscore, int pointtype_id, String member_id);
 
 }
