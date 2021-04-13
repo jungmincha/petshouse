@@ -27,41 +27,6 @@
 <link rel="stylesheet" href="/resources/css/style.css" type="text/css">
 <!-- jquery cdn -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
-<script>
-$(document).ready(function(){ 	 
-   	var member_id = $("#member_id").val();   	 
-   	var follower_id = $("#follower_id").val();   
-   	
-   	function checkLogin() {
-		 if(follower_id == undefined){
-			 alert("로그인 후 이용 가능합니다.");
-			 location.href = '/login/login';
-		 }
-	};
-	
-    $(".follow").click(function () {
-    	checkLogin();
-    	console.log(member_id);
-    	console.log(follower_id);
-    	
-    	$.ajax({
-    		type :"POST",
-	        url :"/store/follow/",
-	        data : {
-	        	follower_id: follower_id 
-	        },
-	        success :function(data){
-	           console.log(data);
-	           
-				
-    	}
- 		
-   	});
-
-});
-</script>
-
 <style>
 	.profile-info{
 		padding-top: 200px;
@@ -84,52 +49,14 @@ $(document).ready(function(){
    <!-- header -->
    <%@ include file="/WEB-INF/views/include/header.jsp"%>
    `
-    <!-- Login Check -->
-    <sec:authorize access="hasAnyRole('ROLE_USER','ROLE_ADMIN')">
-			<input type="hidden" id="follower_id" value="<sec:authentication property="principal.member_id"/>">
-	</sec:authorize>
-	
 	<!-- Profile Section -->
      <div class="profile-info container">
       	<div class="row col-lg-12">
-      		<div class="profile-info_name">
-      			<input type="hidden" id="member_id" value="yeanhee@naver.com" />yeanhee@naver.com
-      		</div>
-      	</div>
-      	<div class="row col-lg-12">
-      		<div class="profile-info_follow-state"> 		
-            	<a href="">팔로워<span>${follower}</span></a>
-            	<a href="">팔로잉<span>${following}</span></a>
-	        </div>
-	        
-	        <!-- 본인 계정인 경우 수정 버튼 발생-->
-	        <c:if test="${member_info.member_id eq 'yeanhee@naver.com'}">
-				<ul class="navbar-nav">
-					<li class="nav-item dropdown">
-					   <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown"> 내정보 </a>
-						<div class="dropdown-menu">
-							<a class="dropdown-item" href="/main/logout_processing">로그아웃</a>
-							<a class="dropdown-item" href="#">계정삭제</a> 
-							<a class="dropdown-item" href="/main/user/secret_user">계정공개범위</a>
-						</div>
-					</li>
-				</ul>
-			</c:if>
-			
-			<!-- 본인 계정이 아닌 경우 팔로우 버튼 발생-->
-			<c:if test="${member_info.member_id ne 'yeanhee@gmail.com'}">	
-				<c:if test="${followcheck == 0}">							
-					<div class="col-lg-12">
-		        		<button type="button" class="follow btn-info" onclick="">팔로우</button>
-			        </div>	   
-		        </c:if>		
-		        <c:if test="${followcheck != 0}">							
-					<div class="col-lg-12">
-		        		<button type="button" class="cancle btn-info" onclick="">팔로우 취소</button>
-			        </div>	   
-		        </c:if>		
-			</c:if>
-	     </div>
+      	<form action="/store/myPage/follow/${member_info.member_id}" method="post">  	
+      		<input type="hidden" name="memberVO.member_id" value="${member_info.member_id}">
+	        <input type="submit" value="팔로우">
+	    </form>
+		 </div>				
   	</div>
   	
 	<!-- top scroll -->

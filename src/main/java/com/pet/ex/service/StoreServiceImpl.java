@@ -9,6 +9,7 @@ import com.pet.ex.mapper.StoreMapper;
 import com.pet.ex.page.Criteria;
 import com.pet.ex.vo.BoardVO;
 import com.pet.ex.vo.CategoryVO;
+import com.pet.ex.vo.FollowVO;
 import com.pet.ex.vo.MemberVO;
 import com.pet.ex.vo.PointVO;
 
@@ -79,5 +80,23 @@ public class StoreServiceImpl implements StoreService {
 	public MemberVO getMemberinfo() {
 		log.info("getMemberinfo");
 		return mapper.getMemberinfo();
+	}
+
+	@Override
+	public int getFollowertotal(String member_id) {
+		log.info("getFollowertotal");
+		return mapper.getFollowertotal(member_id);
+	}
+
+	@Override
+	public int getFolloingtotal(String member_id) {
+		log.info("getFolloingtotal");
+		return mapper.getFolloingtotal(member_id);
+	}
+
+	@Override
+	public int isFollow(FollowVO followVO) {
+		log.info("isFollow");
+		return mapper.isFollow(followVO);
 	}
 }

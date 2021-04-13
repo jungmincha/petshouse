@@ -18,10 +18,12 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.pet.ex.page.Criteria;
+import com.pet.ex.service.CategoryService;
 import com.pet.ex.service.StoreService;
 
 import com.pet.ex.vo.BoardVO;
 import com.pet.ex.vo.CategoryVO;
+import com.pet.ex.vo.FollowVO;
 import com.pet.ex.vo.MemberVO;
 import com.pet.ex.vo.PointVO;
 
@@ -33,6 +35,9 @@ import lombok.extern.slf4j.Slf4j;
 public class StoreController {
 	@Autowired
 	StoreService service;
+	
+	@Autowired
+	CategoryService categoryService;
 
 	//storehome 이동
 	@GetMapping("/home")
@@ -94,7 +99,7 @@ public class StoreController {
 		ResponseEntity<String> entity = null;			
 		try {
 			int count = service.getEventstatus(pointVO);			
-			log.info("count" + count);	
+			log.info("count: " + count);	
 			//이벤트 중복 참여 검사
 			if(count >= 1) {
 				entity = new ResponseEntity<String>("FAIL", HttpStatus.OK);
@@ -125,17 +130,56 @@ public class StoreController {
 	   log.info(categoryName);
 	   mav.addObject("category_id", category.getCategory_id());
 	   mav.addObject("categoryName", categoryName);
+	   mav.addObject("category", categoryService.getCategory());
+	   mav.addObject("smallcategory", categoryService.getScategory());
 	   mav.setViewName("category/home");	
 	   return mav;
 	}
 	
 	//팔로우 기능
-	@GetMapping("/myPage/follow")
+	@RequestMapping("/myPage/follow")
 	public ModelAndView follow(ModelAndView mav) {
-		//String id = authentication.getPrincipal().toString();
 		log.info("follow");	
 		mav.addObject("member_info", service.getMemberinfo());
+		mav.setViewName("store/followbasic");
+		return mav;
+	}	
+
+	//팔로우 기능
+	@PostMapping("/myPage/follow/{memberVO.member_id}")
+	public ModelAndView follow(FollowVO followVO, Authentication authentication, ModelAndView mav) {
+		log.info("follow");
+		//팔로우 하려는 계정
+		String member_id = followVO.getMemberVO().getMember_id();
+		//회원 본인 계정
+		String follower_id = authentication.getPrincipal().toString();	
+		followVO.setFollower_id(follower_id);
+		System.out.println(follower_id);
+
+		//팔로우&팔로잉 수 
+		mav.addObject("follower", service.getFollowertotal(member_id));
+		mav.addObject("following", service.getFolloingtotal(member_id));
+		//팔로우 유무 체크
+		mav.addObject("followcheck", service.isFollow(followVO));
+				
+		//mav.addObject("member_info", service.getMemberinfo());
 		mav.setViewName("store/follow");
 		return mav;
 	}	
+	
+	//팔로우 기능
+	@PutMapping("/myPage/follow/{follower_id}")
+	public ResponseEntity<String> follow(@RequestParam("follower_id") String follower_id, FollowVO followVO) {
+		log.info("point");
+		//followVO.setFollower_id(follower_id);
+		ResponseEntity<String> entity = null;			
+		try {	
+			//service.follow(followVO);
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
 }
