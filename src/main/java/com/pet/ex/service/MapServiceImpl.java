@@ -90,6 +90,38 @@ public class MapServiceImpl implements MapService {
 
 
 
+	@Override
+	public List<BoardVO> listComment(int board_id) {
+		
+		return mapper.listComment(board_id);
+	}
+
+
+
+	@Override
+	public void insertComment(BoardVO boardVO) {
+		mapper.insertComment(boardVO);
+		
+	}
+
+
+
+	@Override
+	public BoardVO getComment(int Board_id) {
+		
+		return mapper.getComment(Board_id);
+	}
+
+
+
+	@Override
+	public List<BoardVO> getHashtag(BoardVO boardVO) {
+	
+		return mapper.getHashtag(boardVO);
+	}
+
+
+
 	
 
 

@@ -28,4 +28,12 @@ public interface MapMapper {
 
 	public List<BoardVO> getSerchList(Criteria cri);
 
+	public List<BoardVO> listComment(int board_id);
+
+	public void insertComment(BoardVO boardVO);
+
+	public BoardVO getComment(int board_id);
+
+	public List<BoardVO> getHashtag(BoardVO boardVO);
+
 }

@@ -1,6 +1,9 @@
 package com.pet.ex.controller;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.pet.ex.page.Criteria;
 import com.pet.ex.page.PageVO;
+import com.pet.ex.service.CommunityService;
 import com.pet.ex.service.MapService;
 import com.pet.ex.vo.BoardVO;
 import com.pet.ex.vo.MemberVO;
@@ -25,18 +29,19 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 
 @RequestMapping("/map")
-@Controller
+@RestController
 public class MapController {
 	
 	private MapService service;
+
 	
 	//펫츠타운 위치기반동의 페이지
 	@GetMapping("/home")
-	public String map() {
+	public ModelAndView map(ModelAndView mav) {
 		
-	
+	mav.setViewName("map/home");
 		
-		return "map/home";
+		return mav;
 	}
 	
 	
@@ -164,11 +169,11 @@ public class MapController {
 			   
 			  // @RequestParam(value="original_location",required = false)String original_location, //원래 주소
 			  
-			  ModelAndView mav) {
+			  ModelAndView mav , BoardVO boardVO) {
 	  
 	  log.info("write_view...");
 	  
-	  
+	 
 	  mav.addObject("location", loc); 
 		 
 		 mav.addObject("member_id", member_id); 
@@ -202,6 +207,7 @@ public class MapController {
 		mav.addObject("location", loc); 
 		 
 		 mav.addObject("member_id", member_id); 
+		 mav.addObject("comment", service.listComment(boardVO.getBoard_id()));
 		 System.out.println(member_id);
 			System.out.println(loc);
 			   System.out.println("===============================================================================");
@@ -277,6 +283,30 @@ public class MapController {
 		  }
 		  
 		  
+		// 질문과 답변 댓글 작성
+		  
+			@PostMapping("/map_view/insert")
+			public BoardVO insertComment(BoardVO boardVO,
+					
+					  @RequestParam(value="location" ,required = false)String loc,
+					  
+					  
+					  
+					  @RequestParam(value="nickname",required = false)String nickname,
+					 
+					
+					@RequestParam("member_id") String member_id) {
+				MemberVO member = new MemberVO();
+				boardVO.setMemberVO(member);
+				boardVO.getMemberVO().setMember_id(member_id);
+				service.insertComment(boardVO);
+				BoardVO comments = service.getComment(boardVO.getPgroup());
+				System.out.println(comments);
+				return comments;
+			}
+		  
+		  
+		  
 		  
 		 
 	 //delete
@@ -291,7 +321,34 @@ public class MapController {
 		      return mav;
 		   }
 		   
-	
+		  @GetMapping("/location/tag")
+			public List<BoardVO> tag(String hashtag, String location, Criteria cri , BoardVO boardVO) throws Exception {
+				
+			 
+		
+			  List<BoardVO> list = new ArrayList<BoardVO>();
+				
+				
+				
+				
+				if (hashtag == null) {
+					
+					
+					list = service.getList(cri);
+				} else {
+					 MemberVO member = new MemberVO();
+						boardVO.setMemberVO(member);
+						boardVO.getMemberVO().setLocation(location);
+						boardVO.setHashtag(hashtag);
+					list = service.getHashtag(boardVO);
+				}
+				
+				
+				System.out.println("===확인===="+hashtag);
+				System.out.println("===확인===="+location);
+				log.info("hashtag...");
+				return list;
+			}
 	
 	
 	
