@@ -3,7 +3,9 @@ package com.pet.ex.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.apache.commons.io.FilenameUtils;
@@ -281,6 +283,16 @@ public class CommunityController {
 		}	
 		mav.setView(new RedirectView("/commu/qna", true));
 		return mav;
+	}
+	
+	//상품 더보기 
+	@PostMapping("/morelist")
+	public Map<String, Object> tips(Criteria cri) {
+		log.info("morelist");
+		Map<String, Object> list = new HashMap<>();
+		List<BoardVO> tips = communityService.getTipsList(cri);
+		list.put("tips", tips);
+		return list;
 	}
 
 	// 질문과 답변 글 수정 페이지

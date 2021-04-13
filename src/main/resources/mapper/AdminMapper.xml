@@ -402,7 +402,7 @@
 	</select>
 
 	<!-- 공지사항 토탈카운트 페이징 처리하려고 데려옴.. -->
-	<select id="getNotalCount" resultType="int">
+	<select id="getNoticeTotalCount" resultType="int">
 		<![CDATA[	
 		select count(*) from board 
 		where 
@@ -425,7 +425,7 @@
 	</delete>
 	
 		<!--공지사항 특정글 출력 -->
-	<select id="getNotView" resultMap="boardvo">
+	<select id="getNoticeView" resultMap="boardvo">
    <![CDATA[
 		select b.board_id, b.title, b.content, b.pdate,b.hit, b.pgroup,b.pstep, b.pindent,b.hashtag, m.member_id, m.nickname, b.boardtype_id 
 		from board b, member m
@@ -433,5 +433,51 @@
 		and b.board_id=#{board_id}
    ]]>
 	</select>
+	
+	<select id="getNoticeImg" resultMap="imagevo"> 
+	<![CDATA[ 
+      select * from image where board_id=#{boardVO.board_id}
+	]]>
+	</select>
+	
+		<insert parameterType="imagevo" id="NoticeImgInput">
+
+ 		<![CDATA[
+   			INSERT INTO IMAGE(img_id, imgname, board_id) VALUES (image_seq.nextval, #{imgname}, #{boardVO.board_id})
+	 	]]>
+	</insert>
+	
+		<select id="getNoticeBoard_id" resultType="boardvo">
+		 <![CDATA[
+  			select * from (select * from board where boardtype_id=1 order by pdate desc) where rownum=1
+	 	]]>
+	</select>
+	
+	
+	<select id="getboardInfo1" resultMap="boardvo">
+
+		 <![CDATA[ 
+			select * from Board where board_id = #{board_id} 
+		]]>
+
+	</select>
+
+	<select id="getBoard1" resultMap="boardvo">
+
+		 <![CDATA[ 
+   		 	 select * from board b, member m where b.member_id = m.member_id and b.board_id = #{board_id}  and b.boardtype_id=1
+		]]>
+	</select>
+	
+	
+	<!-- 상품수정 -->
+	<update id="ImgModify"  parameterType="imagevo">
+		<![CDATA[
+	    	update  image set imgname = #{imgname} where board_id = #{boardVO.board_id} 
+		]]>
+	</update>
+	
+
+	
 
 </mapper>

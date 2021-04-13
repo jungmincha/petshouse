@@ -67,7 +67,7 @@ public class AdminController {
 		mav.addObject("list", service.getList(cri));
 		mav.addObject("category", service.getCatengoods());
 		mav.addObject("sort", service.getSort(categoryVO));
-	 
+
 		int total = service.getTotalGoods(cri);
 		log.info("total" + total);
 		mav.addObject("pageMaker", new PageVO(cri, total));
@@ -118,9 +118,9 @@ public class AdminController {
 
 	// 상품수정
 	@PostMapping("/goods/update")
-	public RedirectView goodsModify(MultipartHttpServletRequest multi, GoodsVO goodsVO, ModelAndView mav) 
-			throws IllegalStateException, IOException {  
-		
+	public RedirectView goodsModify(MultipartHttpServletRequest multi, GoodsVO goodsVO, ModelAndView mav)
+			throws IllegalStateException, IOException {
+
 		log.info("상품수정");
 		String path = multi.getSession().getServletContext().getRealPath("/static/img/admin/goods");
 
@@ -144,19 +144,15 @@ public class AdminController {
 				String savePath = path + "\\" + thumbnail; // 저장 될 파일 경로
 
 				mf.get(i).transferTo(new File(savePath)); // 파일 저장
-				
+
 				goodsVO.setThumbnail(thumbnail);
-			}	
+			}
 		}
 		service.goodsModify(goodsVO);
 		return new RedirectView("/admin/goods");
 
-		 
 	}
-	
 
-		
- 
 	// 상품삭제/상품게시글삭제/리뷰삭제
 	@DeleteMapping("/goods/{goods_id}")
 	public ResponseEntity<String> goodsDelete(GoodsVO goodsVO, Model model) {
@@ -211,19 +207,18 @@ public class AdminController {
 
 		List<MultipartFile> mf = multi.getFiles("file");
 
-		 
-			for (int i = 0; i < mf.size(); i++) { // 파일명 중복 검사
-				UUID uuid = UUID.randomUUID();
-				// 본래 파일명
-				String thumbnail = mf.get(i).getOriginalFilename();
+		for (int i = 0; i < mf.size(); i++) { // 파일명 중복 검사
+			UUID uuid = UUID.randomUUID();
+			// 본래 파일명
+			String thumbnail = mf.get(i).getOriginalFilename();
 
-				String savePath = path + "\\" + thumbnail; // 저장 될 파일 경로
+			String savePath = path + "\\" + thumbnail; // 저장 될 파일 경로
 
-				mf.get(i).transferTo(new File(savePath)); // 파일 저장
-				
-				goodsVO.setThumbnail(thumbnail);
-			}	
-		
+			mf.get(i).transferTo(new File(savePath)); // 파일 저장
+
+			goodsVO.setThumbnail(thumbnail);
+		}
+
 		service.goodsInput(goodsVO);
 		mav.setView(new RedirectView("/admin/goods", true));
 
@@ -244,10 +239,9 @@ public class AdminController {
 
 	// 상품 게시글 등록
 	@PostMapping("/board/register")
-	public ModelAndView boardInput(MultipartHttpServletRequest multi, ImageVO imageVO, BoardVO boardVO, GoodsVO goodsVO, ModelAndView mav) 
-			throws IllegalStateException, IOException {
-		
-		
+	public ModelAndView boardInput(MultipartHttpServletRequest multi, ImageVO imageVO, BoardVO boardVO, GoodsVO goodsVO,
+			ModelAndView mav) throws IllegalStateException, IOException {
+
 		log.info("goods_register_view");
 		String path = multi.getSession().getServletContext().getRealPath("/static/img/admin/board");
 
@@ -260,44 +254,41 @@ public class AdminController {
 
 		List<MultipartFile> mf = multi.getFiles("file");
 
-		 
-			for (int i = 0; i < mf.size(); i++) { // 파일명 중복 검사
-				
-				UUID uuid = UUID.randomUUID();			// 파일명 랜덤으로 변경
-				
-				String originalfileName = mf.get(i).getOriginalFilename();		  		
-	  			String ext = FilenameUtils.getExtension(originalfileName);
-	  			//저장 될 파일명
-	  			String imgname=uuid+"."+ext; 
-			
+		for (int i = 0; i < mf.size(); i++) { // 파일명 중복 검사
 
-				String savePath = path + "\\" + imgname; // 저장 될 파일 경로
-				
-				mf.get(i).transferTo(new File(savePath)); // 파일 저장
-				imageVO.setImgname(imgname);
-				imageVO.getGoodsVO().setGoods_id(boardVO.getGoodsVO().getGoods_id());
-				service.detailInput(imageVO);
-			}	
-			service.boardInput(boardVO);
-			service.updateCheck(boardVO);
+			UUID uuid = UUID.randomUUID(); // 파일명 랜덤으로 변경
+
+			String originalfileName = mf.get(i).getOriginalFilename();
+			String ext = FilenameUtils.getExtension(originalfileName);
+			// 저장 될 파일명
+			String imgname = uuid + "." + ext;
+
+			String savePath = path + "\\" + imgname; // 저장 될 파일 경로
+
+			mf.get(i).transferTo(new File(savePath)); // 파일 저장
+			imageVO.setImgname(imgname);
+			imageVO.getGoodsVO().setGoods_id(boardVO.getGoodsVO().getGoods_id());
+			service.detailInput(imageVO);
+		}
+		service.boardInput(boardVO);
+		service.updateCheck(boardVO);
 		mav.setView(new RedirectView("/admin/goods", true));
 
 		return mav;
-		
-	
+
 	}
-	
+
 	@GetMapping("/board/{board_id}")
-	public ModelAndView boardModify(@PathVariable("board_id") int board_id, BoardVO boardVO, CategoryVO categoryVO, ModelAndView mav) {
+	public ModelAndView boardModify(@PathVariable("board_id") int board_id, BoardVO boardVO, CategoryVO categoryVO,
+			ModelAndView mav) {
 
 		log.info("boardModify");
 
-		
 		boardVO = service.getboardInfo(board_id);
-		
+
 		mav.addObject("board", service.getBoard(boardVO.getBoard_id()));
 		mav.addObject("img", service.getImg(boardVO.getGoodsVO().getGoods_id()));
-		 
+
 		mav.setViewName("admin/board_modify");
 
 		return mav;
@@ -311,13 +302,13 @@ public class AdminController {
 		boardVO = service.getboardInfo(board_id);
 
 		log.info("board_view");
-		
+
 		mav.addObject("img", service.getImg(boardVO.getGoodsVO().getGoods_id()));
 		mav.addObject("sortBoard", service.getsortBoard(categoryVO));
 		mav.addObject("cateBoard", service.getcateBoard());
 		mav.addObject("one", service.getRateone(boardVO.getGoodsVO().getGoods_id()));
 		mav.addObject("goods", service.getBoard(boardVO.getBoard_id()));
-	
+
 		mav.setViewName("admin/goods_detail");
 
 		return mav;
@@ -363,125 +354,181 @@ public class AdminController {
 		}
 		return entity;
 	}
-	
+
 	/////////////////////////////////////////////////////////
-	//공지사항
+	// 공지사항
 	// 공지사항 리스트 출력
 	@RequestMapping("/notice")
 	public ModelAndView notice(Criteria cri, ModelAndView mav) {
 		mav.addObject("notice", service.getNoticeList(cri));
-		int total = service.getNotal(cri);
+		int total = service.getNoticeTotal(cri);
 		mav.addObject("pageMaker", new PageVO(cri, total));
 		mav.setViewName("admin/notice"); // 파일경로
 		return mav;
 
 	}
 
-
-	// 공지사항 특정 글 페이지 출력
-	@GetMapping("/notice_view")
-	public ModelAndView notice_view(BoardVO boardVO, ModelAndView mav) throws Exception {
+	// 공지사항 특정 글 페이지 출력    완료
+	@GetMapping("/notice/{board_id}")
+	public ModelAndView notice_view(@PathVariable("board_id") int board_id, BoardVO boardVO, ModelAndView mav)
+			throws Exception {
+		boardVO = service.getBoardInfo1(board_id);
 		log.info("notice_view()실행");
+		mav.addObject("notice_view", service.getBoard1(boardVO.getBoard_id()));
+		mav.addObject("img", service.getNoticeImg(board_id));
 		service.hit(boardVO.getBoard_id());
-		mav.addObject("img", service.getImg(boardVO.getBoard_id()));
-		mav.addObject("notice_view", service.getNotView(boardVO.getBoard_id())); // 특정 글 출력
 		mav.setViewName("admin/notice_view");
 		return mav;
 	}
 
+	// 공지사항 글쓰기 페이지
+	@GetMapping("/notice/write")
+	public ModelAndView notice_write(ModelAndView mav) throws Exception {
+		log.info("notice_write()실행");
+		mav.setViewName("admin/notice_write");
+		return mav;
+	}
 
-		// 공지사항 글쓰기 페이지
-		@GetMapping("/notice_write")
-		public ModelAndView notice_write(ModelAndView mav) throws Exception {
-			log.info("notice_write()실행");
-			mav.setViewName("admin/notice_write");
-			return mav;
+	// 공지사항 글 작성하기
+	@PostMapping("/notice/register")
+	public ModelAndView no_write(MultipartHttpServletRequest multi, BoardVO boardVO, ImageVO imageVO, ModelAndView mav)
+			throws IllegalStateException, IOException {
+		log.info("no_write()실행");
+		service.writeNotice(boardVO);
+
+		String path = multi.getSession().getServletContext().getRealPath("/static/img/admin/notice");
+
+		path = path.replace("webapp", "resources");
+
+		File dir = new File(path);
+		if (!dir.isDirectory()) {
+			dir.mkdir();
 		}
 
-		// 공지사항 글 작성하기
-		@PostMapping("/notice")
-		public ModelAndView no_write(MultipartHttpServletRequest multi, BoardVO boardVO, ImageVO imageVO, ModelAndView mav)
-				throws IllegalStateException, IOException {
-			log.info("no_write()실행");
-			service.writeNotice(boardVO);
-			
-			
-			String path = multi.getSession().getServletContext().getRealPath("/static/img/admin/notice");
+		List<MultipartFile> mf = multi.getFiles("file");
 
-			path = path.replace("webapp", "resources");
+		for (int i = 0; i < mf.size(); i++) { // 파일명 중복 검사
 
-			File dir = new File(path);
-			if (!dir.isDirectory()) {
-				dir.mkdir();
-			}
+			UUID uuid = UUID.randomUUID(); // 파일명 랜덤으로 변경
 
-			List<MultipartFile> mf = multi.getFiles("btnAtt");
+			String originalfileName = mf.get(i).getOriginalFilename();
+			String ext = FilenameUtils.getExtension(originalfileName);
+			// 저장 될 파일명
+			String imgname = uuid + "." + ext;
 
-			 
-				for (int i = 0; i < mf.size(); i++) { // 파일명 중복 검사
-					
-					UUID uuid = UUID.randomUUID();			// 파일명 랜덤으로 변경
-					
-					String originalfileName = mf.get(i).getOriginalFilename();		  		
-		  			String ext = FilenameUtils.getExtension(originalfileName);
-		  			//저장 될 파일명
-		  			String imgname=uuid+"."+ext; 
-				
+			String savePath = path + "\\" + imgname; // 저장 될 파일 경로
 
-					String savePath = path + "\\" + imgname; // 저장 될 파일 경로
-					
-					mf.get(i).transferTo(new File(savePath)); // 파일 저장
-					imageVO.setImgname(imgname);
-					imageVO.getBoardVO().setBoard_id(boardVO.getBoard_id());
-					/* service.imgInput(imageVO); */
-				}	
-				service.writeNotice(boardVO);
-				
-				mav.setView(new RedirectView("/admin/notice", true));
-			
-			return mav;
-		}
-		
-		// 공지사항 삭제
-		@DeleteMapping("/notice/{board_id}")
-		public ResponseEntity<String> noticeDelete(BoardVO boardVO, Model model) {
-
-			ResponseEntity<String> entity = null;
-			log.info("delete");
-
-			try {
-				service.noticeDelete(boardVO.getBoard_id());
-
-				entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
-			} catch (Exception e) {
-				e.printStackTrace();
-
-				entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
-			}
-
-			return entity;
-
-		}
-		
-		// 질문과 답변 글 수정 페이지
-		@GetMapping("/notice_modify_page")
-		public ModelAndView modify_page(@RequestParam("board_id") int board_id, BoardVO boardVO, ModelAndView mav)
-				throws Exception {
-			log.info("notice_modify_page()실행");
-			mav.addObject("notice_view", service.getNotView(boardVO.getBoard_id()));
-			mav.setViewName("admin/notice_modify");
-			return mav;
+			mf.get(i).transferTo(new File(savePath)); // 파일 저장
+			imageVO.setImgname(imgname);
+			BoardVO board = service.getNoticeBoard_id();
+			imageVO.getBoardVO().setBoard_id(board.getBoard_id());
+			service.NoticeImgInput(imageVO);
 		}
 
-		// 질문과 답변 찐 글 수정하기
-		@PostMapping("/nodify")
-		public ModelAndView nodify(BoardVO boardVO, ModelAndView mav) throws Exception {
-			log.info("nodify()실행");
-			service.nodify(boardVO);
-			mav.setView(new RedirectView("/admin/notice", true));
-			return mav;
+		mav.setView(new RedirectView("/admin/notice", true));
+
+		return mav;
+	}
+
+	// 공지사항 삭제
+	@DeleteMapping("/notice/{board_id}")
+	public ResponseEntity<String> noticeDelete(BoardVO boardVO, Model model) {
+
+		ResponseEntity<String> entity = null;
+		log.info("delete");
+
+		try {
+			service.noticeDelete(boardVO.getBoard_id());
+
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 
-		
+		return entity;
+
+	}
 	
+	// 공지사항 수정 페이지
+		@RequestMapping("/notice/modify/{board_id}")
+		public ModelAndView modify_page(@PathVariable("board_id") int board_id, BoardVO boardVO, ModelAndView mav) {
+			
+			boardVO = service.getBoardInfo1(board_id);
+
+			mav.addObject("board", service.getBoard1(boardVO.getBoard_id()));
+			log.info("modify_page()실행");
+
+			mav.addObject("img", service.getNoticeImg(board_id));
+
+			mav.setViewName("admin/notice_modify");
+
+			return mav;
+		}
+
+		/*
+		 * // 질문과 답변 글 수정 페이지
+		 * 
+		 * @GetMapping("/notice_modify_page") public ModelAndView
+		 * modify_page(@RequestParam("board_id") int board_id, BoardVO boardVO,
+		 * ModelAndView mav) throws Exception { log.info("notice_modify_page()실행");
+		 * mav.addObject("notice_view", service.getNotView(boardVO.getBoard_id()));
+		 * mav.setViewName("admin/notice_modify"); return mav; }
+		 */
+	
+	// 공지사항 수정 포스트
+	@PostMapping("/notice/update")
+	public RedirectView noticeModify(MultipartHttpServletRequest multi, BoardVO boardVO, ImageVO imageVO,ModelAndView mav)
+			throws IllegalStateException, IOException {
+
+		String path = multi.getSession().getServletContext().getRealPath("/static/img/admin/notice");
+
+		path = path.replace("webapp", "resources");
+
+		File dir = new File(path);
+		if (!dir.isDirectory()) {
+			dir.mkdir();
+		}
+
+		List<MultipartFile> mf = multi.getFiles("file");
+
+		for (int i = 0; i < mf.size(); i++) { // 파일명 중복 검사
+
+			 // 파일명 랜덤으로 변경
+
+			UUID uuid = UUID.randomUUID(); // 파일명 랜덤으로 변경
+
+			String originalfileName = mf.get(i).getOriginalFilename();
+			String ext = FilenameUtils.getExtension(originalfileName);
+			// 저장 될 파일명
+			String imgname = uuid + "." + ext;
+
+			String savePath = path + "\\" + imgname; // 저장 될 파일 경로
+
+		 
+
+			mf.get(i).transferTo(new File(savePath)); // 파일 저장
+			imageVO.setImgname(imgname);
+			BoardVO board = service.getNoticeBoard_id();
+			imageVO.getBoardVO().setBoard_id(board.getBoard_id());
+			service.ImgModify(imageVO);
+			
+	
+		}
+
+		
+		return new RedirectView("/admin/notice");
+
+	}
+
+	/*
+	 * // 질문과 답변 찐 글 수정하기
+	 * 
+	 * @PostMapping("/nodify") public ModelAndView nodify(BoardVO boardVO,
+	 * ModelAndView mav) throws Exception { log.info("nodify()실행");
+	 * service.nodify(boardVO); mav.setView(new RedirectView("/admin/notice",
+	 * true)); return mav; }
+	 */
+
 }

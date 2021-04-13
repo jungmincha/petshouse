@@ -79,10 +79,10 @@ public interface AdminService {
 	public List<BoardVO> getNoticeList(Criteria cri);
 	
 	// 공지사항 페이징 처리 출력
-	public int getNotal(Criteria criteria);
+	public int getNoticeTotal(Criteria criteria);
 	
 	//공지사항 특정 글 보기
-	public BoardVO getNotView(int board_id);
+	public BoardVO getNoticeView(int board_id);
 	
 	//공지사항 글 쓰기
 	public void writeNotice(BoardVO boardVO);
@@ -93,7 +93,23 @@ public interface AdminService {
 	//공지사항 수정하기
 	public void nodify(BoardVO boardVO);
 
+	//공지사항 이미지 가져오기
+	public List<ImageVO> getNoticeImg(int board_id);
 	
+	//공지사항 이미지 삽입
+	public void NoticeImgInput(ImageVO imageVO);
+	
+	//공지사항 번호 가져오기
+	public BoardVO getNoticeBoard_id();
+
+	//공지사항 글
+	public BoardVO getBoard1(int board_id);
+	
+	//공지사항 글	
+	public BoardVO getBoardInfo1(int board_id);
+	
+	public void ImgModify(ImageVO imageVO);
+
 	
  
 	

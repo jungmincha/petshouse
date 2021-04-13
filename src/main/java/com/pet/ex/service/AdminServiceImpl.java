@@ -219,15 +219,15 @@ public class AdminServiceImpl implements AdminService {
 
 	// 공지사항 페이징 처리용 토탈카운트
 	@Override
-	public int getNotal(Criteria cri) {
-		log.info("getNotal()");
-		return mapper.getNotalCount(cri);
+	public int getNoticeTotal(Criteria cri) {
+		log.info("getNoticeTotal()");
+		return mapper.getNoticeTotalCount(cri);
 	}
 	
 	@Override
-	public BoardVO getNotView(int board_id) {
-		log.info("mapper.getNotView()");
-		return mapper.getNotView(board_id);
+	public BoardVO getNoticeView(int board_id) {
+		log.info("mapper.getNoticeView()");
+		return mapper.getNoticeView(board_id);
 	}
 	
 	//공지사항 글 작성
@@ -249,6 +249,41 @@ public class AdminServiceImpl implements AdminService {
 		log.info("mapper.modify()호출");
 		mapper.modify(boardVO);
 	}
-	
 
+	@Override
+	public List<ImageVO> getNoticeImg(int board_id) {
+		log.info("getNoticeImg");
+		return mapper.getNoticeImg(board_id);
+	}
+
+	@Override
+	public void NoticeImgInput(ImageVO imageVO) {
+		log.info("NoticeImgInput");
+		mapper.NoticeImgInput(imageVO);
+	}
+	
+	@Override
+	public BoardVO getNoticeBoard_id() {
+		log.info("getNoticeBoard_id");
+		return mapper.getNoticeBoard_id();
+	}
+	
+	@Override
+	public BoardVO getBoardInfo1(int board_id) {
+
+		return mapper.getboardInfo1(board_id);
+	}
+
+	@Override
+	public BoardVO getBoard1(int board_id) {
+
+		return mapper.getBoard1(board_id);
+	}
+
+
+	@Override
+	public void ImgModify(ImageVO imageVO) {
+
+		mapper.ImgModify(imageVO);
+	}
 }

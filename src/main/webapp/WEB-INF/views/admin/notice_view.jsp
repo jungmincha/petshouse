@@ -71,7 +71,7 @@ a:hover {
 <script type="text/javascript">
 		function modify_event() {
 			if (confirm("수정하시겠습니까?") == true) { //확인
-				location.href = '${pageContext.request.contextPath}/admin/nodify_page?board_id=${notice_view.board_id}'
+				location.href = '${pageContext.request.contextPath}/admin/notice/modify/${notice_view.board_id}'
 			} else { //취소
 				return;
 			}
@@ -90,7 +90,8 @@ a:hover {
 	<div class="container" style="margin-bottom: 40px">
 		<div class="head">
 			<div style="margin-top: 45px; margin-bottom: 10px;">
-				<a class="noti-subtitle" href="notice">공지사항</a>
+				<a class="noti-subtitle" href="/admin/notice">공지사항</a>				
+				<input type="hidden" name="board_id" value="${notice_view.board_id}">
 			</div>
 			<h3 class="noticetitle"
 				style="font-weight: bold; margin-bottom: 10px;">${notice_view.title}</h3>
@@ -106,13 +107,13 @@ a:hover {
 				<div style="font-size: 20px;">${notice_view.memberVO.nickname}</div>
 				<hr>
 				<section style="margin-top: 60px; margin-bottom: 20px;">${notice_view.content}</section>
-					<c:forEach  items="${img}" var="img">
-											<div class="pt"
-												data-imgbigurl="/resources/img/admin/notice/${img.imgname}">
-												<img src="/resources/img/admin/notice/${img.imgname}"
-													alt="">
-											</div>
-										</c:forEach>
+					
+		   				<c:forEach  items="${img}" var="notice">
+		   				<div class="mySlides">
+						 <img src="/resources/img/admin/notice/${notice.imgname}" style="width:100%; height:600px;">
+						</div>
+						</c:forEach>
+						
 			<span style="font-size: 13px; color: gray;">
 								<fmt:formatDate value="${notice_view.pdate}" pattern="yyyy.MM.dd" /></span>
 				<span style="font-size: 13px;  color: gray">조회수 ${notice_view.hit}</span>

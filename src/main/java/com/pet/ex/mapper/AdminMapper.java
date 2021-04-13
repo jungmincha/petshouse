@@ -94,10 +94,10 @@ public interface AdminMapper {
 	public List<BoardVO> getNoticeWithPaging(Criteria cri);
 		
 	// 공지사항 페이징 처리용 토탈카운트,,,,
-	public int getNotalCount(Criteria cri);
+	public int getNoticeTotalCount(Criteria cri);
 	
 	//공지사항 특정 글 보기
-	public BoardVO getNotView(int board_id);
+	public BoardVO getNoticeView(int board_id);
 	
 	//공지사항 글 쓰기
 	public void writeNotice(BoardVO boardVO);
@@ -108,8 +108,17 @@ public interface AdminMapper {
 	//공지사항 글 수정
 	public void nodify(BoardVO boardVO);
 
+	public List<ImageVO> getNoticeImg(int board_id);
 	
+	public void NoticeImgInput(ImageVO imageVO);
+	
+	public BoardVO getNoticeBoard_id();
+	
+	public BoardVO getboardInfo1(int board_id);
 
+	public BoardVO getBoard1(int board_id);
+	
+	public void ImgModify(ImageVO imageVO);
 
 
 

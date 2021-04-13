@@ -75,7 +75,7 @@ a:hover {
 
 <div class="container" style="width: 800px;">
 
-		<form action="${pageContext.request.contextPath}/admin/notice"
+		<form action="${pageContext.request.contextPath}/admin/notice/register"
 			enctype="multipart/form-data" method="post">
 
 			<input type="hidden" class="form-control" name="memberVO.member_id"
@@ -87,8 +87,8 @@ a:hover {
 							<div class="col-sm-2">사진</div>
 							<div class="col-sm-8">
 								<div class="custom-file">
-									<input type="file" class="custom-file-input" id="btnAtt"
-										accept="img/*" required multiple name="btnAtt"
+									<input type="file" class="custom-file-input" id="file"
+										accept="img/*" required multiple name="file"
 										style="display: block;"> <label
 										class="custom-file-label" for="inputGroupFile02">사진을
 										선택하세요.</label>

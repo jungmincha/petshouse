@@ -104,14 +104,25 @@ a:hover {
 	<div class="row">
 	<h3 style="margin-bottom:20px;">공지 사항 관리</h3>
 
+      
+      
+		<sec:authorize access="hasAnyRole('ROLE_ADMIN')">
+			<input type="hidden" id="member_id"
+				value="<sec:authentication property="principal.member_id"/>">
+		</sec:authorize>
 		
 		<!-- 게시글 끌고오기 -->
 
 		
-			<div class="col-lg-12">
-			<button class="btn btn-outline-secondary col-sm-1" id="nw"
+		
+			<c:if test="${'admin@google.com' eq 'admin@google.com'}">                     
+            <div class="col-lg-12">
+                <button class="btn btn-outline-secondary col-sm-1" id="nw"
 			style="margin-left: 65px; float:right;  margin-bottom:20px;"
-			onclick="location.href='${pageContext.request.contextPath}notice_write'">공지 작성</button>
+			onclick="location.href='${pageContext.request.contextPath}notice/write'">공지 작성</button>
+              </div>            
+         </c:if>
+			
 
 				<table class="table">
 					<thead>
@@ -121,7 +132,9 @@ a:hover {
 							<th>작성자</th>
 							<th>조회수</th>
 							<th>작성일</th>
+							<c:if test="${'admin@google.com' eq 'admin@google.com'}">    
 							<th>삭제</th>
+							   </c:if>
 					</thead>
 					<c:forEach items="${notice}" var="nt">
 						<tbody id="noticeList">
@@ -129,15 +142,16 @@ a:hover {
 
 								<td><span>${nt.board_id}</span></td>
 								<td><a
-									href="${pageContext.request.contextPath}/admin/notice_view?board_id=${nt.board_id}">
+									href="${pageContext.request.contextPath}/admin/notice/${nt.board_id}">
 										<div style="font-weight: bold; font-size: 18px;">${nt.title}</div>
 								</a></td>
 								<td><span>${nt.memberVO.nickname}</span></td>
 								<td><span>${nt.hit}</span></td>
 								<td><span style="font-size: 13px; color: gray;">
 								<fmt:formatDate value="${nt.pdate}" pattern="yyyy.MM.dd" /></span></td>
-								<td onclick="event.cancelBubble=true;"><a class="a-delete"
+									<c:if test="${'admin@google.com' eq 'admin@google.com'}"><td onclick="event.cancelBubble=true;"><a class="a-delete"
 									data-bid='${nt.board_id}' href="/admin/notice/${nt.board_id}">삭제</a></td>
+									   </c:if>
 							</tr>
 						</tbody>
 					</c:forEach>
@@ -172,7 +186,7 @@ a:hover {
 		</div>
 	</div>
 	<!-- container end -->
-	<script>
+<!-- 	<script>
 	
 	var date =getFormatDate($('.pdate').val());
 	console.log($('.pdate').val());
@@ -184,7 +198,9 @@ a:hover {
         console.log(date);
         return date; 
      }
-	</script>
+	</script> -->
+	
+
 
 	<!-- Footer -->
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
