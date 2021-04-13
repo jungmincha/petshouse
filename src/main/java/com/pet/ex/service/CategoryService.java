@@ -22,7 +22,7 @@ public interface CategoryService {
 
 
 
-	public List<CategoryVO> getScategory(CategoryVO categoryvo);
+	public List<CategoryVO> getScategory();
 
 
 

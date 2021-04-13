@@ -43,9 +43,9 @@ public class CategoryServicelmpl implements CategoryService {
 	}
 
 	@Override
-	public List<CategoryVO> getScategory(CategoryVO categoryVO) {
+	public List<CategoryVO> getScategory() {
 		log.info("getScategory...");
-		return mapper.getScategory(categoryVO);
+		return mapper.getScategory();
 	}
 
 	@Override

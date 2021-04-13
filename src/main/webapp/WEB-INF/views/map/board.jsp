@@ -49,6 +49,29 @@
 	<input id="nickname" type="hidden" name="nickname" value="${nickname}" />    
                 
                 <br/>
+                
+                <table class="table">
+			<c:forEach items="${list}" var="list">
+				<tbody id="mapList">
+					<td><a href="/map/board/${list.board_id}?location=${location}&nickname=${nickname}&member_id=${member_id}">
+							
+								<div style="font-weight: bold; font-size: 18px;">${list.title}</div>
+								<ul class="pd-tags">
+									<div>${list.content}</div>
+									<span>${nickname}</span>
+									<span style="font-size: 13px; color: gray;">${list.pdate}</span>
+									<span style="font-size: 13px; color: gray;"> 조회수 ${list.hit}</span>
+									
+
+								</ul>
+							
+					</a></td>
+				</tbody>
+			</c:forEach>
+		</table>
+                
+                  
+                
           <table border=1 style="width:1140px;">
       <tr>
       	<td>글번호</td>

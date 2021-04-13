@@ -56,7 +56,7 @@ public class CategoryController {
 		
 		
 		mav.addObject("category", service.getCategory());
-		mav.addObject("smallcategory", service.getScategory(categoryvo));
+		mav.addObject("smallcategory", service.getScategory());
 		mav.setViewName("category/home");
 		log.info("home...");
 
@@ -74,7 +74,7 @@ public class CategoryController {
 			
 			mav.addObject("category", service.getCategory());
 			mav.addObject("rate", service.getStorerate());
-			mav.addObject("smallcategory", service.getScategory(categoryvo));
+			mav.addObject("smallcategory", service.getScategory());
 			
 			
 			
@@ -122,7 +122,7 @@ public class CategoryController {
 
 		mav.addObject("rate", service.getStorerate());
 		mav.addObject("category", service.getCategory());
-		mav.addObject("smallcategory", service.getScategory(categoryvo));
+		mav.addObject("smallcategory", service.getScategory());
 
 		mav.setViewName("category/highprice");
 		
@@ -138,7 +138,7 @@ public class CategoryController {
 		mav.addObject("goods", service.getrowprice());
 		mav.addObject("rate", service.getStorerate());
 		mav.addObject("category", service.getCategory());
-		mav.addObject("smallcategory", service.getScategory(categoryvo));
+		mav.addObject("smallcategory", service.getScategory());
 
 		mav.setViewName("category/rowprice");
 		
@@ -156,7 +156,7 @@ public class CategoryController {
 		mav.addObject("goods", service.getboard());//별점순 조회
 		mav.addObject("rate", service.gethighStar());//별점 리뷰 조회
 		mav.addObject("category", service.getCategory());
-		mav.addObject("smallcategory", service.getScategory(categoryvo));
+		mav.addObject("smallcategory", service.getScategory());
 		mav.setViewName("category/highprice");
 		
 		log.info("highstar...");
@@ -172,7 +172,7 @@ public class CategoryController {
 		/* mav.addObject("goods", service.getrowprice()); */
 		mav.addObject("rate", service.getStorerate());
 		mav.addObject("category", service.getCategory());
-		mav.addObject("smallcategory", service.getScategory(categoryvo));
+		mav.addObject("smallcategory", service.getScategory());
 		
 		
 		
@@ -210,7 +210,7 @@ public class CategoryController {
 		/* mav.addObject("goods", service.getrowprice()); */
 		mav.addObject("rate", service.getStorerate());
 		mav.addObject("category", service.getCategory());
-		mav.addObject("smallcategory", service.getScategory(categoryvo));
+		mav.addObject("smallcategory", service.getScategory());
 		
 		
 		
@@ -245,7 +245,7 @@ public class CategoryController {
 		/* mav.addObject("goods", service.getrowprice()); */
 		mav.addObject("rate", service.gethighStar());//별점 리뷰 조회
 		mav.addObject("category", service.getCategory());
-		mav.addObject("smallcategory", service.getScategory(categoryvo));
+		mav.addObject("smallcategory", service.getScategory());
 		
 		
 		
