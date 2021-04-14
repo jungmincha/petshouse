@@ -109,7 +109,8 @@
 		 }
 	 }
     	
-   	$('#canvas').click(function(){
+   	$('#canvas').click(function(e){
+   		e.preventDefault();
    		checkLogin();
    		
    	  	var random = 0;

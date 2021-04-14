@@ -240,10 +240,19 @@
 	   ]]>
 	</select> 
 	 
+	<!-- 팔로우 -->
+	<insert id="follow">
+		<![CDATA[
+	        insert into follow values(follow_seq.nextval, #{memberVO.member_id}, #{follower_id})
+	   ]]>
+	</insert>
 	 
-	 
-	 
-	 
+	<!-- 언팔로우 -->
+	<select id="unfollow">
+		<![CDATA[
+	        delete from follow where member_id=#{memberVO.member_id} and follower_id=#{follower_id}
+	   ]]>
+	</select>  
 	 
 	 
 	 

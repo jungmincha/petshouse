@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -136,18 +137,18 @@ public class StoreController {
 	   return mav;
 	}
 	
-	//팔로우 기능
+	//팔로우 버튼
 	@RequestMapping("/myPage/follow")
 	public ModelAndView follow(ModelAndView mav) {
 		log.info("follow");	
 		mav.addObject("member_info", service.getMemberinfo());
-		mav.setViewName("store/followbasic");
+		mav.setViewName("store/follow");
 		return mav;
 	}	
 
-	//팔로우 기능
-	@PostMapping("/myPage/follow/{memberVO.member_id}")
-	public ModelAndView follow(FollowVO followVO, Authentication authentication, ModelAndView mav) {
+	//팔로우 상세 보기
+	@PostMapping("/myPage/followview/{memberVO.member_id}")
+	public ModelAndView followview(FollowVO followVO, Authentication authentication, ModelAndView mav) {
 		log.info("follow");
 		//팔로우 하려는 계정
 		String member_id = followVO.getMemberVO().getMember_id();
@@ -161,20 +162,42 @@ public class StoreController {
 		mav.addObject("following", service.getFolloingtotal(member_id));
 		//팔로우 유무 체크
 		mav.addObject("followcheck", service.isFollow(followVO));
-				
-		//mav.addObject("member_info", service.getMemberinfo());
-		mav.setViewName("store/follow");
+	
+		mav.addObject("member_info", service.getMemberinfo());
+		mav.setViewName("store/followview");
 		return mav;
 	}	
 	
-	//팔로우 기능
-	@PutMapping("/myPage/follow/{follower_id}")
-	public ResponseEntity<String> follow(@RequestParam("follower_id") String follower_id, FollowVO followVO) {
-		log.info("point");
-		//followVO.setFollower_id(follower_id);
+	//팔로우
+	@PostMapping("/myPage/follow/{memberVO.member_id}")
+	public ResponseEntity<String> follow(FollowVO followVO, Authentication authentication) {
+		log.info("follow");
+		String follower_id = authentication.getPrincipal().toString();	
+		followVO.setFollower_id(follower_id);
+		System.out.println(follower_id);
+
 		ResponseEntity<String> entity = null;			
 		try {	
-			//service.follow(followVO);
+			service.follow(followVO);
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
+	
+	//언팔로우
+	@PostMapping("/myPage/unfollow/{memberVO.member_id}")
+	public ResponseEntity<String> unfollow(FollowVO followVO, Authentication authentication) {
+		log.info("unfollow");
+		String follower_id = authentication.getPrincipal().toString();	
+		followVO.setFollower_id(follower_id);
+		System.out.println(follower_id);
+		
+		ResponseEntity<String> entity = null;			
+		try {	
+			service.unfollow(followVO);
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();

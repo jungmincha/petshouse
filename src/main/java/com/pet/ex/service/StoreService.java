@@ -39,4 +39,10 @@ public interface StoreService {
 
 	//팔로우 유무 체크
 	public int isFollow(FollowVO followVO);
+
+	//팔로우 
+	public void follow(FollowVO followVO);
+	
+	//언팔로우 
+	public void unfollow(FollowVO followVO);
 }

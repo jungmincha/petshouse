@@ -43,4 +43,8 @@ public interface StoreMapper {
 	//팔로우 유무 체크
 	public int isFollow(FollowVO followVO);
 
+	public void follow(FollowVO followVO);
+
+	public void unfollow(FollowVO followVO);
+
 }

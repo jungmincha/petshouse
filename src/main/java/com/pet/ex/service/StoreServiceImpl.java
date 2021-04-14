@@ -99,4 +99,16 @@ public class StoreServiceImpl implements StoreService {
 		log.info("isFollow");
 		return mapper.isFollow(followVO);
 	}
+
+	@Override
+	public void follow(FollowVO followVO) {
+		log.info("follow");
+		mapper.follow(followVO);	
+	}
+
+	@Override
+	public void unfollow(FollowVO followVO) {
+		log.info("unfollow");
+		mapper.unfollow(followVO);	
+	}
 }
