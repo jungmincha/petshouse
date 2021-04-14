@@ -4,9 +4,11 @@ package com.pet.ex.service;
 
 import java.util.List;
 
+import com.pet.ex.page.Criteria;
 import com.pet.ex.vo.BoardVO;
 
 import com.pet.ex.vo.ImageVO;
+import com.pet.ex.vo.MemberVO;
 
 public interface SnsService {
 
@@ -37,8 +39,12 @@ public interface SnsService {
     //댓글수
 	public int counta(int board_id);
 
-	//sns리스트뿌리는건데왜안뿌려짐..?
-	public List<ImageVO> getsnsList();
+	 
+	public List<ImageVO> getsnsList(Criteria cri);
+
+	public int getSnstotal(Criteria cri);
+
+	public MemberVO getMemberInfo(String member_id);
  
 
 }

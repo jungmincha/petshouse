@@ -72,10 +72,7 @@ body {
   box-sizing: border-box;
 }
 
-img {
-  vertical-align: middle;
-   margin : 10px auto;
-}
+ 
 
 /* Position the image container (needed to position the left and right arrows) */
 .container {
@@ -175,6 +172,22 @@ img {
 	padding:10px;
  
 }
+
+.profile_box {
+	width: 40px;
+	height: 40px;
+	border-radius: 70%;
+	overflow: hidden;
+	margin : 5px;
+}
+
+.profile {
+	width: 40px;
+	height: 40px;
+	object-fit: cover;
+}
+
+ 
 </style>
 <script>
 	//로그인 체크
@@ -235,7 +248,7 @@ img {
  						<c:forEach var="img" items="${img}">
 		   				<div class="mySlides">
 		   			 
-						 <img src="/resources/img/member/sns/${img.imgname}" style="width:100%; height:500px;">
+						 <img src="/resources/img/member/sns/${img.imgname}" style="width:70%; height:70%;">
 						</div>
 						</c:forEach>
  				 <div style="text-align:center">
@@ -254,11 +267,15 @@ img {
     
  
 	
-							<p class="blog-meta">
-								<span class="author"><i class="fas fa-user"></i> ${sns.memberVO.nickname}</span>
-								<span class="date"><i class="fas fa-calendar"></i> ${sns.pdate}</span>
+							 
+								 <div class="row user_info"> 
+								 
+ 								 <div class="profile_box"> <img src="/resources/img/member/profile/${sns.memberVO.thumbnail}"
+								name="profile" alt="" class="profile" /> &nbsp&nbsp</div>
+								<span class="nickname">  ${sns.memberVO.nickname} &nbsp&nbsp</span>
+								<span class="pdate">  ${sns.pdate}&nbsp&nbsp</span>
 								<span style="color: gray"> 조회수 ${sns.hit}</span>
-							</p>
+							     </div>
 							 
 							<p>${sns.content}</p>
 							
@@ -270,7 +287,7 @@ img {
 
 							</c:forEach>
 						 
-						 </div>
+						    </div>
 						 
 				 
 				<div class="col-lg-3">
@@ -278,6 +295,9 @@ img {
 					
 					<div class="archive-posts">
 					<div class="row">
+				 <div class="profile_box">
+					<img src="/resources/img/member/profile/${sns.memberVO.thumbnail}"
+								name="profile" alt="" class="profile" /></div> 
 							<h4>${sns.memberVO.nickname}</h4>
 							&nbsp&nbsp&nbsp<a href="#">팔로우</a>
 					</div>	
@@ -293,16 +313,7 @@ img {
 							</ul>
 						</div><br><br>
 						
-						<div class="tag-section">
-							<h4>Tags</h4>
-							<ul>
-								<c:set var="hashtag" value="${sns.hashtag}" /> 
- 							<c:set var="tag" value="${fn:split(hashtag, ' ')}" /> 
- 							<c:forEach var="t" items="${tag}">
-
-							<a href="xxx">${t}<br></a></c:forEach>
-							</ul>
-						</div>
+						
 					</div>
 				</div></div>
 			</div>
@@ -341,7 +352,9 @@ img {
 			<div id="comment" style = "width : 800px;">
 
 				<c:forEach items="${comment}" var="m">
-					<div>${m.memberVO.nickname}</div>
+					<div class="row"><div class="profile_box">
+					<img src="/resources/img/member/profile/${m.memberVO.thumbnail}"
+								name="profile" alt="" class="profile" /></div>${m.memberVO.nickname}</div>
 					<div>${m.content}</div>
 					<div>${m.pdate}"</div>
 					<hr>
@@ -411,6 +424,7 @@ function getFormatDate(pdate) {
 		function getComment() {
 	
 			var member_id = $("#member_id").val();
+			var thumbnail = $("#thumbnail").val();
 			console.log(member_id);
 			var pgroup = $("#pgroup").val();
 			var content = $("#content").val();
@@ -421,11 +435,12 @@ function getFormatDate(pdate) {
 				data : {
 					member_id : member_id,
 					pgroup : pgroup,
-					content : content
+					content : content,
+					thumbnail : thumbnail
 				},
 				success : function(data) {
 
-					html = "<div>" + data.memberVO.nickname + "</div>"
+					html = "<div><img src=/resources/img/member/profile/" + data.memberVO.thumbnail +">" + data.memberVO.nickname + "</div>"
 							+ "<div>" + data.content + "</div>" + "<div>"
 							+ data.pdate + "</div> <hr>"
 

@@ -2,7 +2,9 @@ package com.pet.ex.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.apache.commons.io.FilenameUtils;
@@ -17,7 +19,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
- 
+
+import com.pet.ex.page.Criteria;
+import com.pet.ex.page.PageVO;
 import com.pet.ex.service.SnsService;
 import com.pet.ex.vo.BoardVO;
  
@@ -37,20 +41,29 @@ public class SnsController {
 
 	// sns홈
 	@RequestMapping("/sns")
-	public ModelAndView SNS(ModelAndView mav) throws Exception {
+	public ModelAndView SNS(Criteria cri, ModelAndView mav) throws Exception {
 
 		log.info("sns");
 		
-		mav.addObject("list", service.getsnsList());
-		log.info("sns2");
+		mav.addObject("list", service.getsnsList(cri));
+		
 		mav.setViewName("sns/sns_list");
 
 		return mav;
 	}
 	
+	@PostMapping("/sns/morelist")
+	public Map<String, Object> snsMorelist(Criteria cri) {
+		log.info("morelist");
+		Map<String, Object> list = new HashMap<>();
+		List<ImageVO> sns = service.getsnsList(cri);
+		list.put("sns", sns);
+		return list;
+	}
+	
 	@RequestMapping("/sns/modify_view")
 	public ModelAndView modify_view(@PathVariable("board_id") int board_id, BoardVO boardVO, ModelAndView mav) throws Exception {
-
+		boardVO = service.getBoardInfo(board_id);
 		log.info("modify_view");
 		
 		mav.addObject("sns", service.getBoard(boardVO.getBoard_id()));
@@ -64,7 +77,7 @@ public class SnsController {
 	// sns 등록창
 	@GetMapping("/sns/write_view")
 	public ModelAndView write(ModelAndView mav) throws Exception {
-
+		
 		log.info("write");
 
 		mav.setViewName("sns/sns_write");
@@ -154,19 +167,14 @@ public class SnsController {
 		return comments;
 	}
 
-	@GetMapping("/ex")
-	public ModelAndView ex(ModelAndView mav) throws Exception {
-
-		log.info("ex");
-		mav.setViewName("sns/ex");
-
-		return mav;
-	}
+ 
 	
 	@GetMapping("/myHome")
-	public ModelAndView myPageHome(ModelAndView mav) throws Exception {
+	public ModelAndView myPageHome(MemberVO memberVO, @RequestParam("member_id") String member_id, ModelAndView mav) throws Exception {
 
 		log.info("ex");
+		
+		mav.addObject("user", service.getMemberInfo(memberVO.getMember_id()));
 		mav.setViewName("myPage/myPageHome");
 
 		return mav;
