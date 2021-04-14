@@ -33,6 +33,8 @@ public interface SnsMapper {
 
 	public int counta(int board_id);
 
+	public List<ImageVO> getsnsList();
+
 
 
 }

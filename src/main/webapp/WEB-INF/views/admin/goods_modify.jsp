@@ -60,8 +60,8 @@ select {
 		<form action="${pageContext.request.contextPath}/admin/goods/update"
 			method="post" enctype="multipart/form-data">
 			<input type="hidden" name="goods_id" id="goods_id"
-				value="${goods.goods_id}"> <input type="hidden"
-				name="thumbnail" value="${goods.thumbnail}">
+				value="${goods.goods_id}"> 
+				<input type="hidden" name="thumbnail" value="${goods.thumbnail}">
 			<div class="col-lg-30">
 
 				<fieldset>
