@@ -34,10 +34,11 @@ public interface SnsService {
 
 	//조회수
 	public void hit(int board_id);
-  
- 
-
+    //댓글수
 	public int counta(int board_id);
+
+	//sns리스트뿌리는건데왜안뿌려짐..?
+	public List<ImageVO> getsnsList();
  
 
 }

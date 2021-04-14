@@ -74,6 +74,7 @@ body {
 
 img {
   vertical-align: middle;
+   margin : 10px auto;
 }
 
 /* Position the image container (needed to position the left and right arrows) */
@@ -84,7 +85,8 @@ img {
 /* Hide the images by default */
 .mySlides {
   display: none;
-  width:700px;
+  width:730px;
+  margin : 10px auto;
 }
 
 /* Add a pointer when hovering over the thumbnail images */
@@ -99,7 +101,7 @@ img {
   position: absolute;
   top: 40%;
   width: auto;
-  padding: 16px;
+  padding: 40px;
   margin-top: -50px;
   color: white;
   font-weight: bold;
@@ -229,10 +231,11 @@ img {
 				<input type="hidden" name="board_id" value="${board_id}">	
 				
 				<div class="top" onclick="window.scrollTo(0,0);">top</div> 	
- 
- 						<c:forEach var="sns" items="${img}">
+ 						${sns.categoryVO.categoryname}
+ 						<c:forEach var="img" items="${img}">
 		   				<div class="mySlides">
-						 <img src="/resources/img/member/sns/${sns.imgname}" style="width:100%; height:600px;">
+		   			 
+						 <img src="/resources/img/member/sns/${img.imgname}" style="width:100%; height:500px;">
 						</div>
 						</c:forEach>
  				 <div style="text-align:center">
@@ -318,9 +321,8 @@ img {
 				<h4><strong>댓글&nbsp(${count})</strong></h4>
 			</div>
 			<div>
-			<div id = "inputContent" style = "width : 800px;">
+			<div id = "inputContent" style = "width : 1000px;">
 				<table class="table" style="margin: 10px; ">
-				
 					<td class="row">
 					
 					<textarea style="resize: none;"
@@ -412,6 +414,7 @@ function getFormatDate(pdate) {
 			console.log(member_id);
 			var pgroup = $("#pgroup").val();
 			var content = $("#content").val();
+			
 			$.ajax({
 				url : "/commu/sns/comment",
 				type : "post",
