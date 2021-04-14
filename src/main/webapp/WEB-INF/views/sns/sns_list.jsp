@@ -50,19 +50,17 @@
 	type="text/css">
 
 <style>
- 
-
- .profile_box {
-		width: 36px;
-	height: 36px;
+.profile_box {
+	width: 40px;
+	height: 40px;
 	border-radius: 70%;
 	overflow: hidden;
-	margin : 10px;
+	margin: 5px;
 }
 
 .profile {
-	width: 36px;
-	height: 36px;
+	width: 40px;
+	height: 40px;
 	object-fit: cover;
 }
 </style>
@@ -106,123 +104,98 @@
 		<!-- Category Section End -->
 
 
-
-		<div class="row">
-		
+ 
+			<div id="snslist" class = row text-center"> 
 			<c:forEach items="${list}" var="sns">
-			 
+
 				<div class="card-feed  col-12 col-md-4 col-lg-3">
-					
-					<div class="user-Info row" style = "margin : 20px auto 0px 5px">
+
+					<div class="user-Info row" style="margin: 20px auto 0px 5px">
 						<div class="profile_box ">
-						  
-						<img src="/resources/img/member/profile/${sns.boardVO.memberVO.thumbnail}" name="profile" alt="" class="profile" /> 
-						 </div>
-						 <p>${sns.boardVO.memberVO.nickname }</p>&nbsp&nbsp<a href="#">팔로우</a> 
-						 <p><small>상태메시지</small></p>
-					 </div>
-							<div class="card">
-							 <a href="/commu/sns/${sns.boardVO.board_id}">
-								<img
-									src="/resources/img/member/sns/${sns.imgname }"
-									alt="" style = "height:300px;"class="card-img-top i" /></a>
-								<div class="card-body">
-								 
-										<div class="w3-border w3-center w3-padding">
 
-											<i class="fa fa-heart" style="font-size: 16px; color: red"></i>
-											<span class="rec_count"></span>
-
-
-											<button class="w3-button w3-black w3-round" id="rec_update">
-												<i class="fa fa-heart" style="font-size: 16px; color: red"></i>
-												&nbsp;<span class="rec_count"></span>
-											</button>
-
-										</div>
-									 
-
-
-									<p class="card-text">${sns.boardVO.content}</p>
-</div>
-								</div>
+							<img
+								src="/resources/img/member/profile/${sns.boardVO.memberVO.thumbnail}"
+								name="profile" alt="" class="profile" />
+						</div>
+						<p>${sns.boardVO.memberVO.nickname }</p>
+						&nbsp&nbsp<a href="#">팔로우</a>
+						<p>
+							<small>상태메시지</small>
+						</p>
+					</div>
+					<div class="card">
+						<a href="/commu/sns/${sns.boardVO.board_id}"> <img
+							src="/resources/img/member/sns/${sns.imgname }" alt=""
+							style="height: 300px;" class="card-img-top i" /></a>
+						<div class="card-body">
+							<div class="w3-border w3-center w3-padding">
+							  <button class="w3-button w3-black w3-round" id="rec_update">
+									<i class="fa fa-heart" style="font-size: 16px; color: red"></i>
+									&nbsp;<span class="rec_count"></span>
+								</button>
 							</div>
-						 
-			</c:forEach> 
+							<p class="card-text">${sns.boardVO.content}</p>
+						</div>
+					</div>
+				</div>
+			</c:forEach>
+		</div>
+		<div class="col-lg-12 text-center">
+			<button type="button" class="btn btn-warning" onClick="btnClick()">더보기</button>
 		</div>
 	</div>
 
+	<!-- 더보기 페이징 처리 -->
+	<script type="text/javascript">
+      var pageNum = 1;
+     
+      function btnClick(){
+
+    	  pageNum += 1;
+    	  console.log(pageNum);
+    	  		  
+    	  	$.ajax({
+    	        type :"POST",
+    	        url :"/commu/sns/morelist",
+    	        data : {
+    	        	pageNum: pageNum 
+    	        },
+    	        success :function(data){
+    	           console.log(data);
+    	           var sns = data.sns;
+					
+    	          html = " "
+    	           for(var i in sns){
+    	        	  html +="<div class='card-feed  col-12 col-md-4 col-lg-3'>"
+    	        	  		+"<div class='user-Info row' style='margin:20px auto 0px 5px'>
+    	        	  		+"<div class='profile_box'>
+    	        	  		+ "<img src='/resources/img/member/profile/" + ${sns.boardVO.memberVO.thumbnail}+"' name='profile' alt='' class='profile' /></div>"
+							 +"<p>" + sns[i].boardVO.memberVO.nickname + "'<p>"
+							 +"<a href='#'>팔로우</a><p><small>상태메시지</small></p></div>"
+							 +"<div class='card'>
+  							 +"<a href='/commu/sns/" + ${sns.boardVO.board_id} +"'>"   	          	
+	       	          		 +"<img src='/resources/img/member/sns/" + ${sns.imgname} + "'>"
+	       	          		 +"</div>"
+     							+"</div>"
+    	           }
+    	        
+    	           
+    	            $("#snslist").append(html); 
+    	          
+    	        }, 	        
+    	        //success end
+    	        error : function(request, status, error) {
+					alert("code:" + request.status + "\n" + "message:"
+							+ request.responseText + "\n" + "error:" + error);
+				} // ajax 에러 시 end
+    	    }); //ajax end	 
+    	}; //click end	
+	</script>
 
 
 
 
 
-
-
-
-
-
-	<!-- <script>
-		$(document)
-				.ready(
-						function() {
-
-							var heartval = $
-							{
-								heart
-							}
-							;
-
-							if (heartval > 0) {
-								console.log(heartval);
-								$("#heart").prop("src",
-										"/resources/images/like2.png");
-								$(".heart").prop('name', heartval)
-							} else {
-								console.log(heartval);
-								$("#heart").prop("src",
-										"/resources/images/like1.png");
-								$(".heart").prop('name', heartval)
-							}
-
-							$(".heart")
-									.on(
-											"click",
-											function() {
-
-												var that = $(".heart");
-
-												var sendData = {
-													'boardId' : '${boardVO.boardId}',
-													'heart' : that.prop('name')
-												};
-												$
-														.ajax({
-															url : '/board/heart',
-															type : 'POST',
-															data : sendData,
-															success : function(
-																	data) {
-																that.prop(
-																		'name',
-																		data);
-																if (data == 1) {
-																	$('#heart')
-																			.prop(
-																					"src",
-																					"/resources/images/like2.png");
-																} else {
-																	$('#heart')
-																			.prop(
-																					"src",
-																					"/resources/images/like1.png");
-																}
-
-															}
-														});
-											});
-						});
-	</script> -->
 
 
 

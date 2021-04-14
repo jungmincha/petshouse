@@ -15,30 +15,26 @@
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
 <Style>
-.user-profile__container{ 
+.user-profile__container {
+	border-radius: 4px;
+	border: 1px solid #dadce0;
+	text-align: center;
+	min-height: 400px;
+	margin: 10px auto;
+}
 
-    border-radius: 4px;
-    border: 1px solid #dadce0;
-    text-align: center;
-    min-height : 400px;
-    margin : 10px auto;
-  
-    }
- 
-    
 .box {
 	width: 130px;
 	height: 130px;
 	border-radius: 70%;
 	overflow: hidden;
-	margin : 10px auto;
+	margin: 10px auto;
 }
 
 .profile {
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
-	
 }
 </Style>
 
@@ -52,39 +48,46 @@
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
 
 
+
 	<!-- Page Content -->
-	<div class="container" style="  min-height: 900px;">
+	<div class="container" style="min-height: 900px;">
 		<div class="col-lg-12  col-lg-3 wrap--profile">
 			<form id="myPage" name="myPage"
 				action="${pageContext.request.contextPath}/commu/thumbnail"
 				method="post">
-
+				<sec:authorize access="hasAnyRole('ROLE_USER','ROLE_ADMIN')">
+					<input type="hidden" id="member_id"
+						value="<sec:authentication property="principal.member_id"/>">
+				</sec:authorize>
 
 				<div class="col-lg-3">
-				<div class="user-profile__container">
-					<div class="user-profile__profile-image box"
-						style="background: #BDBDBD;">
-						<img src="/resources/img/member/profile/${sns.memberVO.thumbnail}" name="profile"
-							alt="" class="profile" />
-					</div>
-				
-				<div class="profile-info">
-					<div class="profile-info__name">
-						<h3>eun hee</h3>
-					</div>
-					<div class="profile-info__follow-state row" style =  "text-align: center;">
-						<div class="profile-info__follow-state__text">
-							<a href="#">팔로워 <span class="highlight">0</span></a>
+					<div class="user-profile__container">
+						<div class="user-profile__profile-image box"
+							style="background: #BDBDBD;">
+							<img src="/resources/img/member/profile/${user.thumbnail}"
+								name="profile" alt="" class="profile" />
 						</div>
-						<div class="profile-info__follow-state__vertical-bar"></div>
-						<div class="profile-info__follow-state__text">
-							<a href="#">팔로잉 <span class="highlight">0</span></a>
+
+						<div class="profile-info">
+							<div class="profile-info__name">
+								<h3>${user.nickname}</h3>
+							</div>
+							<div class="profile-info__follow-state row"
+								style="text-align: center;">
+								<div class="profile-info__follow-state__text">
+									<a href="#">팔로워 <span class="highlight">0</span></a>
+								</div>
+								<div class="profile-info__follow-state__vertical-bar"></div>
+								<div class="profile-info__follow-state__text">
+									<a href="#">팔로잉 <span class="highlight">0</span></a>
+								</div>
+							</div>
+							<div class="profile-info__actions">
+								<a class="btn btn-warning" href="/users/735918/edit">설정</a>
+							</div>
 						</div>
 					</div>
-					<div class="profile-info__actions">
-						<a class="btn btn-warning" href="/users/735918/edit">설정</a>
-					</div>
-				</div></div></div>
+				</div>
 
 			</form>
 		</div>

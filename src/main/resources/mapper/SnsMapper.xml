@@ -13,13 +13,13 @@
 		]]>
 	</insert>
 
-
 	<select id="getSnsBoard_id" resultType="boardvo">
-		 <![CDATA[
+
+ <![CDATA[
   					select * from (select * from board where boardtype_id=2 order by pdate desc) where rownum=1
 	 	]]>
 	</select>
-
+	<!-- 다중이미지업로드 -->
 	<insert parameterType="imagevo" id="snsImgInput">
 
  		<![CDATA[
@@ -27,9 +27,9 @@
 	 	]]>
 	</insert>
 
+
+
 	<!-- sns조회 -->
-
-
 	<select id="getboardInfo" resultMap="boardvo">
 
 		 <![CDATA[ 
@@ -45,8 +45,6 @@
 		]]>
 	</select>
 
-
-
 	<select id="getImg" resultMap="imagevo">
 
 		 <![CDATA[ 
@@ -55,13 +53,24 @@
 	</select>
 
 
-
+	<!-- sns리스트 - 한개의 이미지만 가져와서 리스트로 뿌림 -->
 	<select id="getsnsList" resultMap="imagevo">
 
 		 <![CDATA[ 
-      		        select * from board b, member m , image i
-      		        where b.member_id = m.member_id and i.board_id = b.board_id
-      		        and b.boardtype_id=2 and b.pstep=0 order by b.pdate desc
+		 		SELECT * FROM (
+			     SELECT ROWNUM AS RNUM, A.* FROM (
+      		      select i.imgname, m.nickname,  m.thumbnail, b.board_id, b.content from image i, board b, member m where m.member_id = b.member_id 
+				 	and i.board_id=b.board_id and b.boardtype_id=2 and pstep=0 and img_id in( 
+ 					select  min(img_id) as img_id from image where board_id is not null group by board_id) order by b.pdate desc
+ 				)A WHERE ROWNUM <= #{pageNum} * #{amount}
+			) WHERE RNUM > (#{pageNum}-1) * #{amount}  
+		]]>
+	</select>
+	
+	<!-- sns 총갯수 -->
+	<select id="getSnstotal" resultType="int">
+		<![CDATA[	
+		select count(*) from board where boardtype_id=2 and pstep = 0
 		]]>
 	</select>
 
@@ -71,7 +80,7 @@
 	  select * from board b, member m where b.member_id=m.member_id and boardtype_id= 2 and pgroup = (select pgroup from board where board_id=#{board_id}) and pstep=1 order by b.pdate desc
    ]]>
 	</select>
-	
+
 	<select id="counta" resultType="int">
 		<![CDATA[
 	         select count(content) as count  from board where boardtype_id= 2 and pgroup = (select pgroup from board where board_id=#{board_id}) and pstep=1 order by content
@@ -81,7 +90,7 @@
 	<!-- 댓글 작성 후 ajax로 출력 -->
 	<select id="getComment" resultMap="boardvo">
    <![CDATA[
-	 select nickname, pgroup, content, pdate from (select m.nickname, pgroup, content, b.pdate from board b, member m where b.member_id=m.member_id and boardtype_id= 2 and pgroup = (select pgroup from board where board_id=#{board_id}) and pstep=1 order by b.pdate desc) where rownum=1
+	 select nickname, pgroup, content, pdate, thumbnail from (select m.nickname, b.pgroup, b.content, b.pdate, m.thumbnail from board b, member m where b.member_id=m.member_id and boardtype_id= 2 and pgroup = (select pgroup from board where board_id=#{board_id}) and pstep=1 order by b.pdate desc) where rownum=1
    ]]>
 	</select>
 
@@ -93,11 +102,18 @@
 
 	<insert id="insertComment">
 		<![CDATA[
-		insert into board(board_id,content, pgroup, pstep,member_id, boardtype_id )
+		insert into board(board_id,content, pgroup, pstep,member_id, boardtype_id , )
 		values (board_seq.nextval,#{content}, #{pgroup}, 1, #{memberVO.member_id}, 2)
 	]]>
 	</insert>
 
+
+
+	<select id="getMemberInfo" resultType="membervo">
+		<![CDATA[
+	         select * from member where member_id=#{member_id};
+	  	 ]]>
+	</select>
 
 
 

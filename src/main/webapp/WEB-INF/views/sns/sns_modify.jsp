@@ -24,8 +24,6 @@
 	font-stretch: extra-condensed;
 }
 
- 
-
 select {
 	width: 100px; /* 원하는 너비설정 */
 	padding: .4em .5em; /* 여백으로 높이 설정 */
@@ -72,11 +70,10 @@ select {
 	font-size: .9em;
 }
 
-.title{
-
-margin-bottom: 40px;
-
+.title {
+	margin-bottom: 40px;
 }
+
 .form-1 {
 	width: 1000px;
 }
@@ -87,7 +84,7 @@ label {
 </style>
 
 </head>
-<body style="padding-top: 180px; ">
+<body style="padding-top: 180px;">
 
 
 
@@ -97,117 +94,96 @@ label {
 
 
 	<!-- Page Content -->
-	<div class="container" style="width: 1100px; min-height:900px;">
+	<div class="container" style="width: 1100px; min-height: 900px;">
 		<div class="top" onclick="window.scrollTo(0,0);">top</div>
 		<div class="col-lg-12">
-			<form id="modify" name="modify" class="needs-validation" 	action="${pageContext.request.contextPath}/commu/sns/modify_view"
-				enctype="multipart/form-data"	method="post">
+			<form id="modify" name="modify" class="needs-validation"
+				action="${pageContext.request.contextPath}/commu/sns/modify_view"
+				enctype="multipart/form-data" method="post">
 				<input type="hidden" name="board_id" value="${sns.board_id}">
-				
+
 				<div class="title">
-				<h2>사진 올리기</h2> 
+					<h2>사진 올리기</h2>
 				</div>
-				
+
 				<div class="form-group row">
-				 <input type="submit" class="btn btn-warning " 
-						  style="position:fixed; top: 150px; right: 400px;  " value="sns등록">
+					<input type="submit" class="btn btn-warning "
+						style="position: fixed; top: 150px; right: 400px;" value="sns등록">
 				</div>
-								 
-				<div class="form-1">
+
+
 				<div class="form-group row">
-				<div class="col-sm-2">카테고리</div>
-					<div class="col-lg-6" >
-					<select class=" form-control" name="categoryVO.category_id"
-						style="height: 38px; width:100px;  vertical-align: middle; text-align-last: center" >
-						<option value="1">고양이</option>
-						<option value="2">강아지</option>
-						<option value="3">파충류</option>
-						<option value="4">조류</option>
-						<option value="5">어류</option>
-						<option value="6">기타</option>
-					</select>
-					
-						 
-					</div></div>
-					
-					
-						<div class="form-group row ">
-							<div class="col-sm-2">사진</div>
-							<div class="col-sm-8">
-								<div class="custom-file">
-									<input type="file" class="custom-file-input" id="btnAtt"
-									    multiple="multiple" name="btnAtt"
-										style="display: block;" required> <label
-										class="custom-file-label" for="inputGroupFile02">사진을
-										선택하세요.</label>
-								</div>
-							</div>
-						</div>
+					<div class="col-sm-2">카테고리</div>
+					<div class="col-lg-6">
+						<select class=" form-control" name="categoryVO.category_id"
+							style="height: 38px; width: 100px; vertical-align: middle; text-align-last: center">
+							<option value="">${sns.categoryVO.categoryname}</option>
+							<option value="1">고양이</option>
+							<option value="2">강아지</option>
+							<option value="3">파충류</option>
+							<option value="4">조류</option>
+							<option value="5">어류</option>
+							<option value="6">기타</option>
+						</select>
 
 
-
-						<div class="form-group row">
-							<label class="col-sm-2"></label>
-							<div class="input-group col-lg-7 ">
-								<div id='image_preview '>
-									<div id='preview'
-										data-placeholder='이미지를 첨부 하려면 파일 선택 버튼을 클릭하거나 이미지를 드래그앤드롭 하세요 *최대 10장까지'></div>
-								 <img src="/resources/img/member/sns/${img.imgname} alt="" />  
-								</div>
-							</div>
-						</div>
-
-
-
-						<div class="form-group row">
-							<label class="col-sm-2">사진소개</label>
-							<div class="col-lg-8">
-								<textarea name="content" cols="40" rows="7"
-									class="form-control" placeholder="사진에 대해서 설명해주세요." required>${sns.content}</textarea>
-							</div>
-						</div>
-
-						<div class="form-group row">
-							<label class="col-sm-2">해시태그</label>
-							<div class="col-lg-8">
-								<input type="text" name="hashtag" class="form-control"
-									placeholder="해시태그를 입력해주세요." value="${sns.hashtag}" required>
-								 <small id="hashtagHelp"
-										class="form-text text-muted"> 예) #강아지 #고양이 </small>
-							</div>
-						</div>
-
-
-
- 
-							<!-- Modal -->
-							<!-- <div class="modal fade" id="Modal" tabindex="-1" role="dialog"
-									aria-labelledby="ModalLabel" aria-hidden="true">
-									<div class="modal-dialog" role="document">
-										<div class="modal-content">
-											<div class="modal-header">
-												<h5 class="modal-title" id="ModalLabel">확인창</h5>
-												<button type="button" class="close" data-dismiss="modal"
-													aria-label="Close">
-													<span aria-hidden="true">&times;</span>
-												</button>
-											</div>
-											<div class="modal-body">상품등록하시겠습니까?</div>
-											<div class="modal-footer">
-												<button type="button" class="btn btn-secondary"
-													data-dismiss="modal">닫기</button>
-												<button type="submit" class="btn btn-warning"
-													style="background-color: #e7ab3c">등록하기</button>
-											</div>
-										</div>
-									</div> -->
-
-
-						</div></form>
 					</div>
-			
+				</div>
+
+
+				<div class="form-group row ">
+					<div class="col-sm-2">사진</div>
+					<div class="col-sm-8">
+						<div class="custom-file">
+							<input type="file" class="custom-file-input" id="btnAtt"
+								multiple="multiple" name="btnAtt" style="display: block;"
+								required> <label class="custom-file-label"
+								for="inputGroupFile02">사진을 선택하세요.</label>
+						</div>
+					</div>
+				</div>
+
+
+
+				<div class="form-group row">
+					<label class="col-sm-2"></label>
+					<div class="input-group col-lg-7 ">
+						<div id='image_preview '>
+							<div id='preview'>
+								<c:forEach items="${list}" var="sns"> 
+									<img src="/resources/img/member/sns/${sns.imgname}" alt="" />
+								</c:forEach>
+							</div>
+						</div>
+					</div>
+
+
+
+					<div class="form-group row">
+						<label class="col-sm-2">사진소개</label>
+						<div class="col-lg-8">
+							<textarea name="content" cols="40" rows="7" class="form-control"
+								placeholder="사진에 대해서 설명해주세요." required>${sns.content}</textarea>
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-sm-2">해시태그</label>
+						<div class="col-lg-8">
+							<input type="text" name="hashtag" class="form-control"
+								placeholder="해시태그를 입력해주세요." value="${sns.hashtag}" required>
+							<small id="hashtagHelp" class="form-text text-muted"> 예)
+								#강아지 #고양이 </small>
+						</div>
+					</div>
+
+
+				</div>
+			</form>
 		</div>
- 
+
+	</div>
+
 
 
 

@@ -5,8 +5,10 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.pet.ex.mapper.SnsMapper;
+import com.pet.ex.page.Criteria;
 import com.pet.ex.vo.BoardVO;
 import com.pet.ex.vo.ImageVO;
+import com.pet.ex.vo.MemberVO;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -87,9 +89,21 @@ public class SnsServiceImpl implements SnsService {
 	}
 
 	@Override
-	public List<ImageVO> getsnsList() {
+	public List<ImageVO> getsnsList(Criteria cri) {
 		log.info("getsnsList()");
-		return mapper.getsnsList();
+		cri.setAmount(8);
+		return mapper.getsnsList(cri);
+	}
+	
+	@Override
+	public int getSnstotal(Criteria cri) {
+		return mapper.getSnstotal(cri);
+	}
+
+	@Override
+	public MemberVO getMemberInfo(String member_id) {
+	 
+		return mapper.getMemberInfo(member_id);
 	}
 
 }

@@ -13,47 +13,31 @@
 
 
 <style>
-.table_center {
-	display: table;
-	margin: 50px auto;
-	width: 800px;
-	
-	font-size: 15px;
-	font-stretch: extra-condensed;
-}
-
-h2 {
-	text-align: center;
-}
-
-select {
-	width: 100px; /* 원하는 너비설정 */
-	padding: .4em .5em; /* 여백으로 높이 설정 */
-	font-family: inherit; /* 폰트 상속 */
-	background: url('이미지 경로') no-repeat 95% 50%;
-	/* 네이티브 화살표를 커스텀 화살표로 대체 */
-	border-radius: 5px; /* iOS 둥근모서리 제거 */
-	-webkit-appearance: none; /* 네이티브 외형 감추기 */
-	-moz-appearance: none;
-	appearance: none;
-}
-
-.box {
-	margin: 50px auto;
-	width: 500px;
-}
+ 
+ 
+ 
 
 .file {
 	width: 500px;
 	height: 500px;
 }
 
-
-
+ 
+#file {
+	display: none;
 }
-.container{
-	margin: 10px auto  ;
+#preview {
+	width: 700px;
+	min-height: 180px;
+	padding: 10px;
+	background-color: #f5f5f5;
+	border-radius: 10px;
+}
 
+#preview:empty:before {
+	content: attr(data-placeholder);
+	color: #999;
+	font-size: .9em;
 }
 </style>
 
@@ -68,166 +52,224 @@ select {
 
 
 	<!-- Page Content -->
-	 <div class="container">
-	<div class="col-lg-12  ">
-		<form id="board" name="board" enctype="multipart/form-data"
-			action="${pageContext.request.contextPath}/admin/board/register"
-			method="post">
+	<div class="container">
+		<div class="col-lg-12">
+			<form id="board" name="board" enctype="multipart/form-data"
+				action="${pageContext.request.contextPath}/admin/board/register"
+				method="post">
 
-			<fieldset>
-			<h2>상품 게시글 등록</h2>
-				
-				<input type="submit" class="btn" 
-										style="background-color: #e7ab3c; float:right;" value="게시글등록">
-					
-							<div class="form-group">
-								<label for="exampleSelect2">등록되지 않은 상품리스트</label> <select
-									class="form-control" id="goodsVO.goods_id" name="goodsVO.goods_id">
-									<c:forEach items="${goods}" var="goods">
-										<option value="${goods.goods_id}">
-											${goods.goods_id}/${goods.goodsname}/${goods.price}/${goods.pcolor}/${goods.psize}/${goods.categoryVO.categoryname}/${goods.categoryVO.sortname}
-											/${goods.stockVO.stockname}</option>
-									</c:forEach>
-								</select>
-							</div>
+				<fieldset>
+					<h2>상품 게시글 등록</h2>
 
+					<input type="submit" class="btn"
+						style="background-color: #e7ab3c; float: right;" value="게시글등록">
 
-							 <div class="form-group row">
-								<label class="col-sm-3">상세설명</label>
-								<div class="col-sm-9">
-									<textarea name="content" cols="30" rows="5"
-										class="form-control" required></textarea>
-								</div>
-							</div> 
-							<div class="form-group row">
-								<label class="col-sm-3" for="detail_img">상품상세사진</label>
-								<div class="input-group col-sm-9">
-									<div class="custom-file">
-										<input type="file" class="custom-file-input" id="file" maxlength="5" 
-											name="file" multiple="multiple" style="display: block;">
-										<label class="custom-file-label" for="inputGroupFile02">
-											Choose file</label>
-									</div>
-								</div>
-								<br>
-							</div>
+					<div class="form-group row" style="padding-top:70px;">
+						<label class="col-sm-2">등록되지 않은 상품</label>
+						 <div class="col-sm-8">
+						 <select class="form-control" id="goodsVO.goods_id" name="goodsVO.goods_id">
+							 <c:forEach items="${goods}" var="goods">
+								<option value="${goods.goods_id}">
+									${goods.goods_id}/${goods.goodsname}/${goods.price}/${goods.pcolor}/${goods.psize}/${goods.categoryVO.categoryname}/${goods.categoryVO.sortname}
+									/${goods.stockVO.stockname}</option>
+							</c:forEach>
+						</select>
+						</div>
+					</div>
 
 
-							<div class="form-group row">
-								 
-								
-							</div>
-
-
-							<div class="form-group row">
-								<label class="col-sm-3">해시태그</label>
-								<div class="col-sm-9">
-
-									<input type="text" class="form-control" name="hashtag"
-										placeholder="해시태그를 걸어주세요" id="hashtag"
-										aria-describedby="hashtagHelp" /> <small id="hashtagHelp"
-										class="form-text text-muted"> 예) #강아지 #고양이 </small>
-
-
-								</div>
-							</div>
-
-						
-					
-					<div class="col-sm-12">
-
-									<div id="preview"></div>
-								</div>
+					<div class="form-group row">
+						<label class="col-sm-2">상세설명</label>
+						<div class="col-sm-8">
+							<textarea name="content" cols="25" rows="5" class="form-control"
+								required></textarea>
+						</div>
+					</div>
 					
 					
-				
-			</fieldset>
-		</form>
+					<div class="form-group row ">
+						<div class="col-sm-2">사진</div>
+						<div class="col-sm-8">
+							<div class="custom-file">
+								<input type="file" class="custom-file-input" id="btnAtt"
+									multiple="multiple" name="btnAtt" style="display: block;"
+									required> <label class="custom-file-label"
+									for="inputGroupFile02">사진을 선택하세요.</label>
+							</div>
+						</div>
+					</div>
+
+
+
+					<div class="form-group row">
+						<label class="col-sm-2"></label>
+						<div class="input-group col-lg-7 ">
+							<div id='image_preview '>
+								<div id='preview'
+									data-placeholder='이미지를 첨부 하려면 파일 선택 버튼을 클릭하거나 이미지를 드래그앤드롭 하세요 *최대 10장까지'></div>
+							</div>
+						</div>
+					</div>
+
+
+					<div class="form-group row">
+						<label class="col-sm-2">해시태그</label>
+						<div class="col-sm-8">
+
+							<input type="text" class="form-control" name="hashtag"
+								placeholder="해시태그를 걸어주세요" id="hashtag"
+								aria-describedby="hashtagHelp" /> <small id="hashtagHelp"
+								class="form-text text-muted"> 예) #강아지 #고양이 </small>
+
+
+						</div>
+					</div>
+
+
+
+
+				</fieldset>
+			</form>
+		</div>
 	</div>
-	</div>
 
-	<script>
-		
-	</script>
+ 
 	<!-- Footer -->
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
-</body>
+ 
 
-<script type="text/javascript">
-	$(document)
-			.ready(
-					function(e) {
-						$("input[type='file']")
-								.change(
-										function(e) {
+	<script>
+	
+		(function() {
+			'use strict'
 
-											//div 내용 비워주기
-											$('#preview').empty();
+			// Fetch all the forms we want to apply custom Bootstrap validation styles to
+			var forms = document.querySelectorAll('.needs-validation')
 
-											var files = e.target.files;
-											var arr = Array.prototype.slice
-													.call(files);
+			// Loop over them and prevent submission
+			Array.prototype.slice.call(forms).forEach(function(form) {
+				form.addEventListener('submit', function(event) {
+					if (!form.checkValidity()) {
+						event.preventDefault()
+						event.stopPropagation()
+					}
 
-											//업로드 가능 파일인지 체크
-											for (var i = 0; i < files.length; i++) {
-												if (!checkExtension(
-														files[i].name,
-														files[i].size)) {
-													return false;
-												}
-											}
+					form.classList.add('was-validated')
+				}, false)
+			})
+		})();
 
-											preview(arr);
+		 
+	</script>
 
-										});//file change
+	<script>
+ 
+	 
+	
+	
+			
+( /* preview : 이미지들이 들어갈 위치 id, btn : file tag id */
+  imageView = function imageView(preview, btn){
 
-						function checkExtension(fileName, fileSize) {
+    var attZone = document.getElementById(preview);
+    var btnAtt = document.getElementById(btn)
+    var sel_files = [];
+    
+    // 이미지와 체크 박스를 감싸고 있는 div 속성
+    var div_style = 'display:inline-block;position:relative;'
+                  + 'width:121px;height:150px;margin:3px; ;z-index:1';
+    // 미리보기 이미지 속성
+    var img_style = 'width:100%;height:100%;z-index:none';
+    // 이미지안에 표시되는 체크박스의 속성
+   
+    var chk_style = 'position:absolute;font-size:13px;'
+        + 'right:0px;top:0px;z-index:999;opacity:.8;';
+        
+    btnAtt.onchange = function(e){
+      var files = e.target.files;
+      var fileArr = Array.prototype.slice.call(files)
+      for(f of fileArr){
+        imageLoader(f);
+      }
+    }  
+    
+  
+    // 탐색기에서 드래그앤 드롭 사용
+    attZone.addEventListener('dragenter', function(e){
+      e.preventDefault();
+      e.stopPropagation();
+    }, false)
+    
+    attZone.addEventListener('dragover', function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      
+    }, false)
+  
+    attZone.addEventListener('drop', function(e){
+      var files = {};
+      e.preventDefault();
+      e.stopPropagation();
+      var dt = e.dataTransfer;
+      files = dt.files;
+      for(f of files){
+        imageLoader(f);
+      }
+      
+    }, false)
+    
 
-							var regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");
-							var maxSize = 20971520; //20MB
+    
+    /*첨부된 이미리들을 배열에 넣고 미리보기 */
+    imageLoader = function(file){
+      sel_files.push(file);
+      var reader = new FileReader();
+      reader.onload = function(ee){
+        let img = document.createElement('img')
+        img.setAttribute('style', img_style)
+        img.src = ee.target.result;
+        attZone.appendChild(makeDiv(img, file));
+      }
+      
+      reader.readAsDataURL(file);
+    }
+    
+    /*첨부된 파일이 있는 경우 checkbox와 함께 attZone에 추가할 div를 만들어 반환 */
+    makeDiv = function(img, file){
+      var div = document.createElement('div')
+      div.setAttribute('style', div_style)
+      
+      var btn = document.createElement('input')
+      btn.setAttribute('type', 'button')
+      btn.setAttribute('value', 'X')
+      btn.setAttribute('delFile', file.name);
+      btn.setAttribute('style', chk_style);
+      btn.onclick = function(ev){
+        var ele = ev.srcElement;
+        var delFile = ele.getAttribute('delFile');
+        for(var i=0 ;i<sel_files.length; i++){
+          if(delFile== sel_files[i].name){
+            sel_files.splice(i, 1);      
+          }
+        }
+        
+        dt = new DataTransfer();
+        for(f in sel_files) {
+          var file = sel_files[f];
+          dt.items.add(file);
+        }
+        btnAtt.files = dt.files;
+        var p = ele.parentNode;
+        attZone.removeChild(p)
+      }
+      div.appendChild(img)
+      div.appendChild(btn)
+      return div
+    }
+  }
+)('preview', 'btnAtt')
 
-							if (fileSize >= maxSize) {
-								alert('파일 사이즈 초과');
-								$("input[type='file']").val(""); //파일 초기화
-								return false;
-							}
-
-							if (regex.test(fileName)) {
-								alert('업로드 불가능한 파일이 있습니다.');
-								$("input[type='file']").val(""); //파일 초기화
-								return false;
-							}
-							return true;
-						}
-
-						function preview(arr) {
-							arr
-									.forEach(function(f) {
-
-										//파일명이 길면 파일명...으로 처리
-										var fileName = f.name;
-										if (fileName.length > 10) {
-											fileName = fileName.substring(0, 7)
-													+ "...";
-										}
-
-										//div에 이미지 추가
-										var str = '<div style="display: inline-flex; padding: 10px;">';
-										 
-
-										//이미지 파일 미리보기
-										if (f.type.match('image.*')) {
-											var reader = new FileReader(); //파일을 읽기 위한 FileReader객체 생성
-											reader.onload = function(e) { //파일 읽어들이기를 성공했을때 호출되는 이벤트 핸들러
-												//str += '<button type="button" class="delBtn" value="'+f.name+'" style="background: red">x</button><br>';
-												str += '<img src="'+e.target.result+'" title="'+f.name+'" width=100 height=150 />';
-												str += '</div>';
-												$(str).appendTo('#preview');
-											}
-											reader.readAsDataURL(f);
-										}
-									});//arr.forEach
-						}
-					});
 </script>
+ 
+</body>
 </html>
