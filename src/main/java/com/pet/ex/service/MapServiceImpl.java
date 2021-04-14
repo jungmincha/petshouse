@@ -139,6 +139,28 @@ public class MapServiceImpl implements MapService {
 
 
 
+	@Override
+	public void modify(BoardVO boardVO) {
+
+
+		mapper.modify(boardVO);
+		
+	}
+
+
+
+	@Override
+	public void deleteComment(BoardVO boardVO) {
+		mapper.deleteComment(boardVO);
+		
+	}
+
+
+
+	
+
+
+
 	
 
 	
