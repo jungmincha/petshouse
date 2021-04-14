@@ -40,6 +40,10 @@ public interface MapService {
 
 	public void detailInput(ImageVO imageVO);
 
+	public void modify(BoardVO boardVO);
+
+	public void deleteComment(BoardVO boardVO);
+
 	//public List<ImageVO> getImgList();
 
 	
