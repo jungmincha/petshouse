@@ -148,8 +148,15 @@
 	<select id="getList" resultMap="boardvo"> 
 		<![CDATA[ 
 			
-		 select * from(select rownum as rnum, a.* from(select * from board where boardtype_id=7 and location = #{location} order by pgroup desc, pstep asc)
-      a where rownum <= #{pageNum} * #{amount}) where rnum > (#{pageNum}-1) * #{amount}
+		 SELECT * FROM (
+			     SELECT ROWNUM AS RNUM, A.* FROM (
+			     	select b.board_id, b.title, b.content, b.pdate,b.hit, b.pgroup,b.pstep, b.pindent,b.hashtag, m.member_id, m.nickname, b.boardtype_id 
+			     	from  board b , member m
+					where b.member_id = m.member_id
+					
+    				and b.boardtype_id= 7 and b.pstep=0 order by board_id desc
+			    ) A WHERE ROWNUM <= #{pageNum}* 5
+			) WHERE RNUM > (#{pageNum}-1) * #{amount}
 		]]>
 	</select>
 
@@ -171,18 +178,18 @@
 
 	<insert id="write" parameterType="boardvo">
    <![CDATA[
-      insert into board (board_id, title, pdate, content, plike, hit, hashtag, pgroup, pstep, pindent, member_id, boardtype_id ,location)   
-       values (board_seq.nextval ,#{title}, sysdate, #{content} ,#{plike},#{hit},#{hashtag},board_seq.currval,#{pstep},#{pindent},#{memberVO.member_id}, 7 ,#{memberVO.location})
+      insert into board (board_id, title, pdate, content, plike, hit, hashtag, pgroup, pstep, pindent, member_id,  boardtype_id ,location)   
+       values (board_seq.nextval ,#{title}, sysdate, #{content} ,#{plike},#{hit},#{hashtag},board_seq.currval,#{pstep},#{pindent},#{memberVO.member_id} ,7 ,#{memberVO.location})
    ]]>
 	</insert>
 
 	<select id="content_view" resultMap="boardvo">
    <![CDATA[
-      select * from board where board_id = #{board_id}
+      select * from board b , member m where b.member_id=m.member_id and board_id = #{board_id}
    ]]>
 	</select>
 
-	<select id="delete">
+	<select id="inputDelete">
    <![CDATA[
     delete from board where board_id = #{board_id}
    ]]>
@@ -243,7 +250,7 @@
 
 	
 	
-<insert id="fileUpload">
+<!-- <insert id="fileUpload">
 	 <![CDATA[
     INSERT INTO
        image(imgname, board_id) VALUES (#{imgname}, 16)
@@ -251,13 +258,13 @@
 	</insert>
 	
 	
-	<!-- 상품상세이미지 업로드 -->
+	상품상세이미지 업로드
 	<insert id="detailInput">
 	 <![CDATA[
     INSERT INTO IMAGE(img_id, imgname,board_id) VALUES (image_seq.nextval, #{imgname} , board_seq.currval)
 	 ]]>
 	</insert>
-	
+	 -->
 
 
 

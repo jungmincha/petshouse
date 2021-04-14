@@ -62,8 +62,7 @@ public class MapController {
 			 @RequestParam(value="location" ,required = false)String loc, //insert해서 바뀐 주소 홍제 2동을 받아옴 
 			 
 			   @RequestParam(value="member_id",required = false)String member_id,
-			   
-			   @RequestParam(value="nickname",required = false)String nickname,
+			  @RequestParam(value="nickname",required = false)String nickname,
 			   
 			   
 				/* @RequestParam(value="s_location",required = false)String s_location, */
@@ -180,6 +179,38 @@ public class MapController {
 	
 	
 	
+	@GetMapping("/modify_view/{board_id}")
+	  public ModelAndView modify_view(
+			  
+			  @RequestParam(value="location" ,required = false)String loc,
+				 
+			   @RequestParam(value="member_id",required = false)String member_id,
+			  
+			   @RequestParam(value="nickname",required = false)String nickname,
+			   
+			  // @RequestParam(value="original_location",required = false)String original_location, //원래 주소
+			  
+			  ModelAndView mav , BoardVO boardVO) {
+	  
+	  log.info("modify_view...");
+	  
+	 
+	  mav.addObject("location", loc); 
+	  mav.addObject("content_view", service.content_view(boardVO.getBoard_id()));
+		 mav.addObject("member_id", member_id); 
+		 
+		 mav.addObject("nickname", nickname); 
+		 System.out.println(member_id);
+			System.out.println(loc);
+			   System.out.println("=========================================================================================================");
+	  mav.setViewName("map/modify_view");
+	  
+	 
+	  return mav;
+	 }
+	
+	
+	
 	
 	
 	//write
@@ -206,6 +237,7 @@ public class MapController {
 				boardVO.setMemberVO(member);
 				boardVO.getMemberVO().setLocation(loc);
 				boardVO.getMemberVO().setMember_id(member_id);
+				boardVO.getMemberVO().setNickname(nickname);
 				
 				
 				
@@ -232,46 +264,46 @@ public class MapController {
 				 
 			
 				 
-				 String path = multi.getSession().getServletContext().getRealPath("/static/img/location");
-
-					path = path.replace("webapp", "resources");
-
-					File dir = new File(path);
-					if (!dir.isDirectory()) {
-						dir.mkdir();
-					}
-
-					List<MultipartFile> mf = multi.getFiles("file");
-
-					 
-						for (int i = 0; i < mf.size(); i++) { // 파일명 중복 검사
-							
-							UUID uuid = UUID.randomUUID();			// 파일명 랜덤으로 변경
-							
-							String originalfileName = mf.get(i).getOriginalFilename();		  		
-				  			String ext = FilenameUtils.getExtension(originalfileName);
-				  			//저장 될 파일명
-				  			String imgname=uuid+"."+ext; 
-						
-
-							String savePath = path + "\\" + imgname; // 저장 될 파일 경로
-					
-							
-							
-							System.out.println("=============================================================================");
-							System.out.println(savePath);
-							
-							mf.get(i).transferTo(new File(savePath)); // 파일 저장
-							imageVO.setImgname(imgname);
-							imageVO.getBoardVO().setBoard_id(boardVO.getBoard_id());
-							System.out.println("=============================================================================");
-							System.out.println(boardVO.getBoard_id());
-							
-							service.detailInput(imageVO);
-							
-							
-							
-						}
+					/*
+					 * String path =
+					 * multi.getSession().getServletContext().getRealPath("/static/img/location");
+					 * 
+					 * path = path.replace("webapp", "resources");
+					 * 
+					 * File dir = new File(path); if (!dir.isDirectory()) { dir.mkdir(); }
+					 * 
+					 * List<MultipartFile> mf = multi.getFiles("file");
+					 * 
+					 * 
+					 * for (int i = 0; i < mf.size(); i++) { // 파일명 중복 검사
+					 * 
+					 * UUID uuid = UUID.randomUUID(); // 파일명 랜덤으로 변경
+					 * 
+					 * String originalfileName = mf.get(i).getOriginalFilename(); String ext =
+					 * FilenameUtils.getExtension(originalfileName); //저장 될 파일명 String
+					 * imgname=uuid+"."+ext;
+					 * 
+					 * 
+					 * String savePath = path + "\\" + imgname; // 저장 될 파일 경로
+					 * 
+					 * 
+					 * 
+					 * System.out.println(
+					 * "============================================================================="
+					 * ); System.out.println(savePath);
+					 * 
+					 * mf.get(i).transferTo(new File(savePath)); // 파일 저장
+					 * imageVO.setImgname(imgname);
+					 * imageVO.getBoardVO().setBoard_id(boardVO.getBoard_id()); System.out.println(
+					 * "============================================================================="
+					 * ); System.out.println(boardVO.getBoard_id());
+					 * 
+					 * service.detailInput(imageVO);
+					 * 
+					 * 
+					 * 
+					 * }
+					 */
 					 
 			  mav.setViewName("redirect:board");
 			  return mav;
@@ -309,16 +341,45 @@ public class MapController {
 		  
 		 
 	 //delete
-		  @RequestMapping("/delete/{board_id}")
-		   public ModelAndView delete(ModelAndView mav ,BoardVO boardVO) throws Exception{
+		  @RequestMapping("/delete")
+		   public ModelAndView delete(
+				   
+					
+					 // @RequestParam(value="location" ,required = false)String loc,
+					  
+					//  @RequestParam(value="member_id",required = false)String member_id,
+					  
+					 // @RequestParam(value="nickname",required = false)String nickname,
+					
+				   
+				   
+				   
+				  int board_id, String location, String member_id, String nickname, ModelAndView mav ,BoardVO boardVO, MemberVO memberVO) throws Exception{
 	      
+			  System.out.println(board_id);
+			  System.out.println(location);
+			  System.out.println(member_id);
+			  System.out.println(nickname);
+			  
 		      log.info("delete");
-		      service.inputDelete(boardVO.getBoard_id());
+		      service.inputDelete(board_id);
+		      
+		      memberVO.setLocation(location);
+			  
+				service.insertLoc(memberVO);
+				
+				 mav.addObject("location", location); 
+				 
+				 mav.addObject("member_id", member_id); 
+				 mav.addObject("nickname", nickname); 
 		      
 		      mav.setViewName("redirect:board");
 		      
 		      return mav;
 		   }
+		  
+		  
+		  
 		   
 		  @GetMapping("/location/tag")
 			public List<BoardVO> tag(String hashtag, String location, Criteria cri , BoardVO boardVO) throws Exception {
@@ -348,8 +409,9 @@ public class MapController {
 				log.info("hashtag...");
 				return list;
 			}
-	
-	
+		  
+		  
+		
 	
 
 }

@@ -96,7 +96,7 @@ $(function() {
 				<option value="기타">기타</option>
 				</select> 
 				
-				<input type="text" class="form-control" name="title"
+				<input type="text" value ="${content_view.title}" class="form-control" name="title"
 					placeholder="제목" style="margin-bottom: 20px; width: 628px;">
 			</div>
 
@@ -107,8 +107,8 @@ $(function() {
 type="text" name="nickname" style="margin-bottom: 20px; width: 770px;" value="${nickname}">
 
 
-<textarea class="form-control col" name="content" placeholder="내용"
-				style="width: 770px; height: 400px; margin-bottom: 20px; resize: none;"></textarea>
+<textarea class="form-control col" name="content" placeholder="내용" 
+				style="width: 770px; height: 400px; margin-bottom: 20px; resize: none;">${content_view.content}</textarea>
 <div class="form-group row">
 <input type="file" name="file" multiple="multiple"/>
    
