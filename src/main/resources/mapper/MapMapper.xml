@@ -150,12 +150,12 @@
 			
 		 SELECT * FROM (
 			     SELECT ROWNUM AS RNUM, A.* FROM (
-			     	select b.board_id, b.title, b.content, b.pdate,b.hit, b.pgroup,b.pstep, b.pindent,b.hashtag, m.member_id, m.nickname, b.boardtype_id 
+			     	select b.board_id, b.title, b.content, b.pdate,b.hit, b.pgroup,b.pstep, b.pindent,b.hashtag, b.location, m.member_id, m.nickname, b.boardtype_id 
 			     	from  board b , member m
 					where b.member_id = m.member_id
 					
-    				and b.boardtype_id= 7 and b.pstep=0 order by board_id desc
-			    ) A WHERE ROWNUM <= #{pageNum}* 5
+    				and b.boardtype_id= 7 and b.location=#{location}and b.pstep=0 order by board_id desc
+			    ) A WHERE ROWNUM <= #{pageNum}* #{amount}
 			) WHERE RNUM > (#{pageNum}-1) * #{amount}
 		]]>
 	</select>

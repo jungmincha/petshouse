@@ -196,7 +196,7 @@ public class MapController {
 	  
 	 
 	  mav.addObject("location", loc); 
-	  mav.addObject("content_view", service.content_view(boardVO.getBoard_id()));
+		 
 		 mav.addObject("member_id", member_id); 
 		 
 		 mav.addObject("nickname", nickname); 
