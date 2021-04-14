@@ -109,7 +109,7 @@ body::-webkit-scrollbar-track {
             <div class="row">
                 <div class="col-lg-12">
                 
-                
+               
                 <select  id="sel" style="border:none; font-size:22px;">
  		<option value='${location}' selected>${location}</option>
    		 <option value="relocaion" >위치 다시 설정하기</option>
@@ -119,17 +119,15 @@ body::-webkit-scrollbar-track {
                <br>
                  <br>
                
-       
-        <h4>${nickname}</h4> 
-            <br>
-     
-	
+
+<h4>${nickname}</h4>
+ <br>
 	 <form  action="/map/write_view" method="get">  
           <input id="location" type="hidden" name="location" value="${location}" /> 
-	<input id="member_id" type="hidden" name="member_id" value="${member_id}" />     
-	<input id="nickname" type="hidden" name="nickname" value="${nickname}" />    
+	<input type="hidden" name="member_id" value="<sec:authentication property="principal.member_id"/>">
+								 	<input type="hidden" name="nickname" value="<sec:authentication property="principal.nickname"/>">  
 	
-	
+
                  
                  <div class=" row" style="padding-bottom: 30px;">
 
@@ -165,7 +163,7 @@ body::-webkit-scrollbar-track {
 								<div style="font-weight: bold; font-size: 18px;">${list.title}</div>
 								<ul class="pd-tags">
 									<div>${list.content}</div>
-									<span>${nickname}</span>
+									<span>${list.memberVO.nickname}</span>
 									<span style="font-size: 13px; color: gray;">${list.pdate}</span>
 									<span style="font-size: 13px; color: gray;"> 조회수 ${list.hit}</span>
 									<c:set var="hashtag" value="${list.hashtag}" />

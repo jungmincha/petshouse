@@ -71,4 +71,9 @@ public class MyAuthentication extends UsernamePasswordAuthenticationToken implem
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return member.getMember_id();
+	}
 }

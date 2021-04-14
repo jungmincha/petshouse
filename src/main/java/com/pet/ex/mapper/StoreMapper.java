@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.pet.ex.page.Criteria;
 import com.pet.ex.vo.BoardVO;
 import com.pet.ex.vo.CategoryVO;
+import com.pet.ex.vo.FollowVO;
 import com.pet.ex.vo.MemberVO;
 import com.pet.ex.vo.PointVO;
 
@@ -32,5 +33,18 @@ public interface StoreMapper {
 
 	//회원 정보 조회
 	public MemberVO getMemberinfo();
+
+	//팔로워 수 조회
+	public int getFollowertotal(String page_id);
+
+	//팔로잉 수 조회
+	public int getFolloingtotal(String member_id);
+
+	//팔로우 유무 체크
+	public int isFollow(FollowVO followVO);
+
+	public void follow(FollowVO followVO);
+
+	public void unfollow(FollowVO followVO);
 
 }

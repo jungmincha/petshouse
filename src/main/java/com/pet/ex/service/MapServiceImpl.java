@@ -9,6 +9,7 @@ import com.pet.ex.mapper.MapMapper;
 import com.pet.ex.page.Criteria;
 import com.pet.ex.page.PageVO;
 import com.pet.ex.vo.BoardVO;
+import com.pet.ex.vo.ImageVO;
 import com.pet.ex.vo.MemberVO;
 
 import lombok.AllArgsConstructor;
@@ -121,6 +122,24 @@ public class MapServiceImpl implements MapService {
 	}
 
 
+
+	@Override
+	public void fileUpload(String imgname) {
+		mapper.fileUpload(imgname);
+		
+	}
+
+
+
+	@Override
+	public void detailInput(ImageVO imageVO) {
+		mapper.detailInput(imageVO);
+		
+	}
+
+
+
+	
 
 	
 

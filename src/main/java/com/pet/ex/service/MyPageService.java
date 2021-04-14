@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.pet.ex.page.Criteria;
 import com.pet.ex.vo.BoardVO;
+import com.pet.ex.vo.ImageVO;
 import com.pet.ex.vo.PayGoodsVO;
 import com.pet.ex.vo.PayVO;
 import com.pet.ex.vo.PointVO;
@@ -31,5 +32,11 @@ public interface MyPageService {
 	Integer orderListCount(int paystate_id, String member_id);
 
 	int getPaystateTotal(String member_id, String paystate_id);
+
+	void insertReview(BoardVO boardVO);
+
+	void insertImg(ImageVO imageVO);
+
+	void insertPoint(int pscore, int pointtype_id, String member_id);
 
 }

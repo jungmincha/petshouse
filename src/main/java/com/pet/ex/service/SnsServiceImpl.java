@@ -82,7 +82,14 @@ public class SnsServiceImpl implements SnsService {
 	@Override
 	public int counta(int board_id) {
 		log.info("counta()");
+		System.out.println(board_id);
 		return mapper.counta(board_id);
+	}
+
+	@Override
+	public List<ImageVO> getsnsList() {
+		log.info("getsnsList()");
+		return mapper.getsnsList();
 	}
 
 }

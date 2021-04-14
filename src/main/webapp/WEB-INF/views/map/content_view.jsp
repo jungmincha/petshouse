@@ -61,7 +61,52 @@ background-color:#dddddd;
 
 </style>
 
+<script type="text/javascript">
 
+window.onload =function(){
+	
+		
+	
+	console.log("${content_view.memberVO.nickname}"); //게시글에 입력된 닉네임
+	
+	console.log("${nickname}"); //현재 접속하고 있는 회원정보 닉네임 이전 페이지에서 principal.nickname 값을 받아와 줬다
+	
+	var contentnickname ="${content_view.memberVO.nickname}";
+	
+	var nickname = "${nickname}";
+	
+	 
+	 if(nickname !== contentnickname){//현재 접속된 닉네임과 입력된 닉네임이 불일치 하면  삭제버튼이 사라진다.
+		 
+		 $("#delete_button").hide();
+		
+		 $("#modify_button").hide();
+	 
+	 }
+	
+	
+}
+
+
+
+	function button_event() {
+		
+			
+		if (confirm("정말 삭제하시겠습니까?") == true) { //확인
+			location.href = '/map/delete?board_id=${content_view.board_id}&location=${location}&nickname=${nickname}&member_id=${member_id}'
+		} else { //취소
+			return;
+		}
+	}
+
+	function modify_event() {
+		if (confirm("수정하시겠습니까?") == true) { //확인
+			location.href = '/map/modify_view/${content_view.board_id}?location=${location}&nickname=${nickname}&member_id=${member_id}'
+		} else { //취소
+			return;
+		}
+	}
+</script>
 
 
 </head>
@@ -85,11 +130,12 @@ background-color:#dddddd;
         <h3>${location}</h3>
         <br>
                     <h4>${nickname}</h4>
-              
+                   <h4> ${hashtag}</h4>
+            
 <form action="/map/modify" method="get">
 <input id="location" type="hidden" name="location" value="${location}" /> 
-	<input id="member_id" type="hidden" name="member_id" value="${member_id}" /> 
-		<input id="nickname" type="hidden" name="nickname" value="${nickname}" />  
+<input type="hidden" name="member_id" value="<sec:authentication property="principal.member_id"/>">
+								 	<input type="hidden" id="nickname" name="nickname" value="<sec:authentication property="principal.nickname"/>"> 
 
     
 <div class="container" style="margin-bottom: 40px">
@@ -101,11 +147,16 @@ background-color:#dddddd;
 		</div>
 
 		<div style="float: right">
-			<button type="button" class="btn btn-warning"
+		
+		
+			<button id="modify_button" type="button" class="btn btn-warning"
 				onclick="modify_event();">수정</button>
 
-			<button type="button" class="btn btn-warning"
+			<button id="delete_button" type="button" class="btn btn-warning"
 				onclick="button_event();">삭제</button>
+				
+				
+				
 				
 				<a href ="/map/board?location=${location}&nickname=${nickname}&member_id=${member_id}">목록으로</a>
 				

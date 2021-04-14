@@ -262,7 +262,7 @@
 											<!-- <input type="hidden" name="location" value="">  -->
 											<sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
 										
-										<input type="hidden" name="member_id" value="<sec:authentication property="principal.member_id"/>">
+										 <input type="hidden" name="member_id" value="<sec:authentication property="principal.member_id"/>">
 								 	<input type="hidden" name="nickname" value="<sec:authentication property="principal.nickname"/>"> 
 						<input type="hidden" name="location" value=""/> 
 								 	

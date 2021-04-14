@@ -66,7 +66,7 @@
 	   position: fixed; 
 	   right: 5px; 
 	   font-size: 15px; 
-	   bottom: 500px;
+	 top: 300px;
 	   padding:10px;
 	}	
 </style>

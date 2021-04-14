@@ -1,25 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="sec"
-	uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
-<head>
 
+<head>
 <meta charset="UTF-8">
 <meta name="description" content="Fashi Template">
 <meta name="keywords" content="Fashi, unica, creative, html">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>Insert title here</title>
-<!-- Google Font -->
+<title>펫츠하우스</title>
+
 <link
 	href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap"
 	rel="stylesheet">
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+
 <!-- Css Styles -->
 <link rel="stylesheet" href="/resources/css/bootstrap.min.css"
 	type="text/css">
@@ -39,14 +36,33 @@
 	type="text/css">
 <link rel="stylesheet" href="/resources/css/style.css" type="text/css">
 
+<!-- bootstrap css cdn -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	type="text/css" />
+
+<!-- jquery cdn -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<link rel="stylesheet" href="/resources/css/select-style.css"
+	type="text/css">
+<link rel="stylesheet" href="/resources/js/select-index.js"
+	type="text/css">
+
 <style>
-p {
-	margin: 20px 0px;
+ 
+
+ .profile_box {
+		width: 36px;
+	height: 36px;
+	border-radius: 70%;
+	overflow: hidden;
+	margin : 10px;
 }
 
-.i {
-	width: 269px;
-	height: 269px;
+.profile {
+	width: 36px;
+	height: 36px;
 	object-fit: cover;
 }
 </style>
@@ -57,9 +73,9 @@ p {
 
 	<!-- Category Section Begin -->
 	<div class="container">
-		<h2>SNS</h2> 
-			<a class="btn btn-warning float-right" href="/commu/sns/write_view">게시글등록</a>
-		 
+		<h2>SNS</h2>
+		<a class="btn btn-warning float-right" href="/commu/sns/write_view">게시글등록</a>
+
 
 		<div class="row ">
 			<div class="col-sm-2">
@@ -90,124 +106,49 @@ p {
 		<!-- Category Section End -->
 
 
+
+		<div class="row">
 		
-		<div class="row">
+			<c:forEach items="${list}" var="sns">
+			 
+				<div class="card-feed  col-12 col-md-4 col-lg-3">
+					
+					<div class="user-Info row" style = "margin : 20px auto 0px 5px">
+						<div class="profile_box ">
+						  
+						<img src="/resources/img/member/profile/${sns.boardVO.memberVO.thumbnail}" name="profile" alt="" class="profile" /> 
+						 </div>
+						 <p>${sns.boardVO.memberVO.nickname }</p>&nbsp&nbsp<a href="#">팔로우</a> 
+						 <p><small>상태메시지</small></p>
+					 </div>
+							<div class="card">
+							 <a href="/commu/sns/${sns.boardVO.board_id}">
+								<img
+									src="/resources/img/member/sns/${sns.imgname }"
+									alt="" style = "height:300px;"class="card-img-top i" /></a>
+								<div class="card-body">
+								 
+										<div class="w3-border w3-center w3-padding">
 
-			<div class="card-feed__item-wrap col-12 col-md-4 col-lg-3">
-
-				<a href="#">팔로우</a>
-				<div class="card">
-					<img src="/resources/img/admin/goods/cat1.jpg" alt=""
-						class="card-img-top i" />
-					<div class="card-body">
-						<div>
-							<div class="w3-border w3-center w3-padding">
-
-								<i class="fa fa-heart" style="font-size: 16px; color: red"></i>
-								<span class="rec_count"></span>
+											<i class="fa fa-heart" style="font-size: 16px; color: red"></i>
+											<span class="rec_count"></span>
 
 
-								<button class="w3-button w3-black w3-round" id="rec_update">
-									<i class="fa fa-heart" style="font-size: 16px; color: red"></i>
-									&nbsp;<span class="rec_count"></span>
-								</button>
+											<button class="w3-button w3-black w3-round" id="rec_update">
+												<i class="fa fa-heart" style="font-size: 16px; color: red"></i>
+												&nbsp;<span class="rec_count"></span>
+											</button>
 
+										</div>
+									 
+
+
+									<p class="card-text">${sns.boardVO.content}</p>
+</div>
+								</div>
 							</div>
-						</div>
-
-
-						<h5 class="card-title">Lorem</h5>
-						<p class="card-text">Lorem ipsum dolor sit amet</p>
-
-					</div>
-				</div>
-			</div>
-			<div class="card-feed__item-wrap col-12 col-md-4 col-lg-3">
-				<a href="#">팔로우</a>
-				<div class="card">
-					<img src="/resources/img/admin/goods/cat2.jpg" alt=""
-						class="card-img-top i" />
-					<div class="card-body">
-						<h5 class="card-title">Lorem</h5>
-						<p class="card-text">Lorem ipsum dolor sit amet</p>
-
-					</div>
-				</div>
-			</div>
-			<div class="card-feed__item-wrap col-12 col-md-4 col-lg-3">
-				<a href="#">팔로우</a>
-				<div class="card">
-					<img src="/resources/img/admin/goods/cat4.jpg" alt=""
-						class="card-img-top i" />
-					<div class="card-body">
-						<h5 class="card-title">Lorem</h5>
-						<p class="card-text">Lorem ipsum dolor sit amet</p>
-
-					</div>
-				</div>
-			</div>
-			<div class="card-feed__item-wrap col-12 col-md-4 col-lg-3">
-				<a href="#">팔로우</a>
-				<div class="card">
-					<img src="/resources/img/admin/goods/부뚜냥.png" alt=""
-						class="card-img-top i" />
-					<div class="card-body">
-						<h5 class="card-title">Lorem</h5>
-						<p class="card-text">Lorem ipsum dolor sit amet</p>
-
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="card-feed__item-wrap col-12 col-md-4 col-lg-3">
-				<a href="#">팔로우</a>
-				<div class="card">
-					<img src="/resources/img/admin/goods/호호.jpg" alt=""
-						class="card-img-top i" />
-					<div class="card-body">
-						<h5 class="card-title">Lorem</h5>
-						<p class="card-text">Lorem ipsum dolor sit amet</p>
-
-					</div>
-				</div>
-			</div>
-			<div class="card-feed__item-wrap col-12 col-md-4 col-lg-3">
-				<a href="#">팔로우</a>
-				<div class="card">
-					<img src="/resources/img/admin/goods/cat1.jpg" alt=""
-						class="card-img-top i" />
-					<div class="card-body">
-						<h5 class="card-title">Lorem</h5>
-						<p class="card-text">Lorem ipsum dolor sit amet</p>
-
-					</div>
-				</div>
-			</div>
-			<div class="card-feed__item-wrap col-12 col-md-4 col-lg-3">
-				<a href="#">팔로우</a>
-				<div class="card">
-					<img src="/resources/img/admin/goods/cat1.jpg" alt=""
-						class="card-img-top i" />
-					<div class="card-body">
-						<h5 class="card-title">Lorem</h5>
-						<p class="card-text">Lorem ipsum dolor sit amet</p>
-
-					</div>
-				</div>
-			</div>
-			<div class="card-feed__item-wrap col-12 col-md-4 col-lg-3">
-				<a href="#">팔로우</a>
-				<div class="card">
-					<img src="/resources/img/admin/goods/cat2.jpg" alt=""
-						class="card-img-top i" />
-					<div class="card-body">
-						<h5 class="card-title">Lorem</h5>
-						<p class="card-text">Lorem ipsum dolor sit amet</p>
-
-					</div>
-				</div>
-			</div>
+						 
+			</c:forEach> 
 		</div>
 	</div>
 
@@ -221,10 +162,7 @@ p {
 
 
 
-
-
-
-	<script>
+	<!-- <script>
 		$(document)
 				.ready(
 						function() {
@@ -284,7 +222,7 @@ p {
 														});
 											});
 						});
-	</script>
+	</script> -->
 
 
 
@@ -292,27 +230,22 @@ p {
 
 
 
+	<!-- Footer -->
+	<div style="margin-top: 100px">
+		<%@ include file="/WEB-INF/views/include/footer.jsp"%>
+	</div>
 
-	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
+	<!-- Js Plugins -->
+	<script src="/resources/js/jquery-3.3.1.min.js"></script>
+	<script src="/resources/js/bootstrap.min.js"></script>
+	<script src="/resources/js/jquery-ui.min.js"></script>
+	<script src="/resources/js/jquery.countdown.min.js"></script>
+	<script src="/resources/js/jquery.nice-select.min.js"></script>
+	<script src="/resources/js/jquery.zoom.min.js"></script>
+	<script src="/resources/js/jquery.dd.min.js"></script>
+	<script src="/resources/js/jquery.slicknav.js"></script>
+	<script src="/resources/js/owl.carousel.min.js"></script>
+	<script src="/resources/js/main.js"></script>
 
 </body>
-
-
-<!-- Js Plugins -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-<script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-<script src="/resources/js/jquery-3.3.1.min.js"></script>
-<script src="/resources/js/bootstrap.min.js"></script>
-<script src="/resources/js/jquery-ui.min.js"></script>
-<script src="/resources/js/jquery.countdown.min.js"></script>
-<script src="/resources/js/jquery.nice-select.min.js"></script>
-<script src="/resources/js/jquery.zoom.min.js"></script>
-<script src="/resources/js/jquery.dd.min.js"></script>
-<script src="/resources/js/jquery.slicknav.js"></script>
-<script src="/resources/js/owl.carousel.min.js"></script>
-<script src="/resources/js/main.js"></script>
-
 </html>
