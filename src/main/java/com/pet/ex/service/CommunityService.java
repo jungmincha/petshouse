@@ -41,15 +41,6 @@ public interface CommunityService {
 	// 질문과 답변 검색 리스트 출력
 	public List<BoardVO> getQsearch(String keyword);
 
-	// 질문과 답변 댓글 리스트 출력
-	public List<BoardVO> listComment(int Board_id, Criteria cri);
-	
-	// 질문과 답변 작성 후 ajax로 삽입
-	public BoardVO getComment(int Board_id);
-
-	// 질문과 답변 댓글 작성하기
-	public void writeComment(BoardVO boardVO);
-
 	// 조회수 어쩔거임
 	public void hit(int board_id);
 
@@ -61,9 +52,6 @@ public interface CommunityService {
 
 	// 질문과 답변 글 삭제하기
 	public void delete(int bId);
-	
-	// 질문과 답변 댓글 작성
-	public void insertComment(BoardVO boardVO);
 
 	// 질문과 답변 동물에 해당하는 글
 	public List<BoardVO> getPetQna(int category_id);
@@ -81,9 +69,36 @@ public interface CommunityService {
 	public BoardVO  getQnaBoard_id();
 
 	public void QnaImgInput(ImageVO imageVO);
+	
+	
+	// 질문과 답변 댓글 리스트 출력
+	public List<BoardVO> listComment(int board_id, Criteria cri);
+	
+	// 질문과 답변 작성 후 ajax로 삽입
+	public BoardVO getComment(int Board_id);
 
+	// 질문과 답변 댓글 작성하기
+	public void writeComment(BoardVO boardVO);
+
+	// 질문과 답변 댓글 작성
+	public void insertComment(BoardVO boardVO);
+	//페이징
 	public List<BoardVO> getcommentsList(Criteria cri,int board_id);
+	
 
+	// 노하우 댓글 리스트 출력
+	public List<BoardVO> listTComment(int board_id, Criteria cri);
+	
+	// 노하우 작성 후 ajax로 삽입
+	public BoardVO getTComment(int board_id);
+
+	// 노하우 댓글 작성하기
+	public void writeTComment(BoardVO boardVO);
+	
+	// 노하우 댓글 작성
+	public void insertTComment(BoardVO boardVO);
+	
+	public List<BoardVO> getTCommentList(Criteria cri,int board_id);
 	
 
 }

@@ -89,25 +89,6 @@ public class CommunityServiceImpl implements CommunityService {
 		return mapper.getQsearch(keyword);
 	}
 
-	// 질문과 답변 댓글 가져오기
-	@Override
-	public List<BoardVO> listComment(int Board_id, Criteria cri) {
-		log.info("listComment()");
-		return mapper.listComment(Board_id, cri);
-	}
-
-	@Override
-	public BoardVO getComment(int Board_id) {
-		log.info("getComment()");
-		return mapper.getComment(Board_id);
-	}
-
-	// 질문과 답변 댓글 작성
-	@Override
-	public void writeComment(BoardVO boardVO) {
-		log.info("mapper.writeComment()호출");
-		mapper.writeComment(boardVO);
-	}
 
 	// 질문과 답변 조회수
 	@Override
@@ -143,13 +124,7 @@ public class CommunityServiceImpl implements CommunityService {
 		mapper.delete(board_id);
 	}
 	
-	// 질문과 답변 댓글 작성
-	@Override
-	public void insertComment(BoardVO boardVO) {
-		log.info("");
-		mapper.insertComment(boardVO);
 
-	}
 
 	//질문과 답변 동물에 해당하는 글
 	@Override
@@ -192,11 +167,76 @@ public class CommunityServiceImpl implements CommunityService {
 		mapper.QnaImgInput(imageVO);
 	}
 	
+	
+	// 질문과 답변 댓글 가져오기
+	@Override
+	public List<BoardVO> listComment(int Board_id, Criteria cri) {
+		log.info("listComment()");
+		return mapper.listComment(Board_id, cri);
+	}
+
+	@Override
+	public BoardVO getComment(int Board_id) {
+		log.info("getComment()");
+		return mapper.getComment(Board_id);
+	}
+
+	// 질문과 답변 댓글 작성
+	@Override
+	public void writeComment(BoardVO boardVO) {
+		log.info("mapper.writeComment()호출");
+		mapper.writeComment(boardVO);
+	}
+
+	
+	// 질문과 답변 댓글 작성
+	@Override
+	public void insertComment(BoardVO boardVO) {
+		log.info("");
+		mapper.insertComment(boardVO);
+
+	}
 	@Override
 	public List<BoardVO> getcommentsList(Criteria cri,int board_id) {
 		return mapper.getCommentsWithPaging(cri, board_id);
 	}
+	
+	
+	// 노하우 댓글 가져오기
+	@Override
+	public List<BoardVO> listTComment(int board_id, Criteria cri) {
+		log.info("listTComment()");
+		return mapper.listTComment(board_id, cri);
+	}
 
+	@Override
+	public BoardVO getTComment(int board_id) {
+		log.info("getTComment()");
+		return mapper.getTComment(board_id);
+	}
+
+	// 노하우 댓글 작성
+	@Override
+	public void writeTComment(BoardVO boardVO) {
+		log.info("mapper.writeTComment()호출");
+		mapper.writeTComment(boardVO);
+	}
+
+	
+	// 노하우 댓글 작성
+	@Override
+	public void insertTComment(BoardVO boardVO) {
+		log.info("insertTComment");
+		mapper.insertTComment(boardVO);
+
+	}
+	
+	//노하우
+	@Override
+	public List<BoardVO> getTCommentList(Criteria cri,int board_id) {
+		return mapper.getTCommentWithPaging(cri, board_id);
+	}
+	
 	
 
 }

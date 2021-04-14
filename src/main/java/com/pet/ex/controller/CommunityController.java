@@ -61,15 +61,15 @@ public class CommunityController {
 
 	// 노하우 특정 글 페이지 출력
 	@GetMapping("/tips_view")
-	public ModelAndView tips_view(BoardVO boardVO, ModelAndView mav) throws Exception {
+	public ModelAndView tips_view(BoardVO boardVO, Criteria cri, ModelAndView mav) throws Exception {
 		log.info("tips_view()실행");
 		mav.addObject("tips_view", communityService.getTipsview(boardVO.getBoard_id())); // 특정 글 출력
-		mav.addObject("comment", communityService.getComment(boardVO.getBoard_id()));
+		mav.addObject("tcomment", communityService.listTComment(boardVO.getBoard_id(), cri));
 		communityService.hit(boardVO.getBoard_id());
-		// communityService.hit(boardVO.getBoard_id()); 조회수어쩔거임
 		mav.setViewName("community/tips_view");
 		return mav;
 	}
+	
 
 	// 노하우 동물 글 페이지 출력
 	@GetMapping("/tips/pet")
@@ -109,7 +109,7 @@ public class CommunityController {
 	public ModelAndView twrite(MultipartHttpServletRequest multi, BoardVO boardVO, ModelAndView mav)
 			throws IllegalStateException, IOException {
 		log.info("twrite()실행");
-		communityService.writeTips(boardVO);	
+		communityService.writeTips(boardVO);
 
 		String path = multi.getSession().getServletContext().getRealPath("/static/img/tips");
 		path = path.replace("webapp", "resources");
@@ -194,6 +194,8 @@ public class CommunityController {
 		return list;
 	}
 
+	
+
 	// 질문과 답변 특정 글 페이지 출력
 	@GetMapping("/qna_view")
 	public ModelAndView qna_view(BoardVO boardVO, Criteria cri, ModelAndView mav) throws Exception {
@@ -204,6 +206,7 @@ public class CommunityController {
 		mav.setViewName("community/qna_view");
 		return mav;
 	}
+
 	// 질문과 답변 댓글 작성
 	@PostMapping("/qna_view/insert")
 	public BoardVO insertComment(BoardVO boardVO, @RequestParam("member_id") String member_id) {
@@ -246,11 +249,10 @@ public class CommunityController {
 
 	// 글 작성하기 질문과답변
 	@PostMapping("/qna")
-	public ModelAndView write(MultipartHttpServletRequest multi,ImageVO imageVO, BoardVO boardVO, ModelAndView mav)
+	public ModelAndView write(MultipartHttpServletRequest multi, ImageVO imageVO, BoardVO boardVO, ModelAndView mav)
 			throws IllegalStateException, IOException {
 		log.info("write()실행");
 		communityService.writeQna(boardVO);
-	
 
 		String path = multi.getSession().getServletContext().getRealPath("/static/img/qna");
 		path = path.replace("webapp", "resources");
@@ -262,29 +264,28 @@ public class CommunityController {
 		List<MultipartFile> mf = multi.getFiles("file");
 
 		for (int i = 0; i < mf.size(); i++) { // 파일명 중복 검사
-			
-			UUID uuid = UUID.randomUUID();			// 파일명 랜덤으로 변경
-			
-			String originalfileName = mf.get(i).getOriginalFilename();		  		
-  			String ext = FilenameUtils.getExtension(originalfileName);
-  			//저장 될 파일명
-  			String imgname=uuid+"."+ext; 
-		
+
+			UUID uuid = UUID.randomUUID(); // 파일명 랜덤으로 변경
+
+			String originalfileName = mf.get(i).getOriginalFilename();
+			String ext = FilenameUtils.getExtension(originalfileName);
+			// 저장 될 파일명
+			String imgname = uuid + "." + ext;
 
 			String savePath = path + "\\" + imgname; // 저장 될 파일 경로
-			
+
 			mf.get(i).transferTo(new File(savePath)); // 파일 저장
 			imageVO.setImgname(imgname);
 			BoardVO board = communityService.getQnaBoard_id();
 			imageVO.getBoardVO().setBoard_id(board.getBoard_id());
-			communityService.QnaImgInput(imageVO); 
+			communityService.QnaImgInput(imageVO);
 
-		}	
+		}
 		mav.setView(new RedirectView("/commu/qna", true));
 		return mav;
 	}
-	
-	//상품 더보기 
+
+	// 상품 더보기
 	@PostMapping("/morelist")
 	public Map<String, Object> tips(Criteria cri) {
 		log.info("morelist");
@@ -323,19 +324,40 @@ public class CommunityController {
 		mav.setView(new RedirectView("/commu/qna", true));
 		return mav;
 	}
+
+	// 댓글 더보기
+	@PostMapping("/cmorelist")
+	public Map<String, Object> comments(@RequestParam("board_id") int board_id, Criteria cri) {
+		log.info("commentsmorelist");
+		Map<String, Object> list = new HashMap<>();
+		List<BoardVO> comments = communityService.getcommentsList(cri, board_id);
+		list.put("comments", comments);
+		return list;
+	}
 	
 	// 댓글 더보기
-			@PostMapping("/cmorelist")
-			public Map<String, Object> comments(@RequestParam("board_id") int board_id,Criteria cri) {
-				log.info("commentsmorelist");
-				Map<String, Object> list = new HashMap<>();
-				List<BoardVO> comments = communityService.getcommentsList(cri, board_id);
-				list.put("comments", comments);
-				return list;
-			}
+	@PostMapping("/tmorelist")
+	public Map<String, Object> tcomment(@RequestParam("board_id") int board_id, Criteria cri) {
+		log.info("commentmorelist");
+		Map<String, Object> list = new HashMap<>();
+		List<BoardVO> tcomment = communityService.getTCommentList(cri, board_id);
+		list.put("tcomment", tcomment);
+		return list;
+	}
+	
+	// 노하우 댓글 작성
+	@PostMapping("/tips_view/insert")
+	public BoardVO insertTComment(BoardVO boardVO, @RequestParam("member_id") String member_id) {
+		MemberVO member = new MemberVO();
+		boardVO.setMemberVO(member);
+		boardVO.getMemberVO().setMember_id(member_id);
+		communityService.insertTComment(boardVO);
+		BoardVO tcomment = communityService.getTComment(boardVO.getPgroup());
+		System.out.println(tcomment);
+		return tcomment;
+	}
 
 
-
-
+	
 
 }

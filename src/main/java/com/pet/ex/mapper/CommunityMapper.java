@@ -54,9 +54,6 @@ public interface CommunityMapper {
 	// 질문과 답변 메인페이지 출력
 	public List<BoardVO> getListWithPaging(Criteria cri);
 
-	// 질문과 답변 댓글쓰기
-	public void writeComment(BoardVO boardVO);
-
 	// 페이징 처리용 토탈카운트,,,,
 	public int getTotalCount(Criteria cri);
 
@@ -65,15 +62,6 @@ public interface CommunityMapper {
 
 	// 질문과 답변 글 삭제하기
 	public void delete(int board_id);
-
-	// 질문과 답변 댓글 작성
-	public void insertComment(BoardVO boardVO);
-
-	// 질문과 답변 댓글 리스트 출력
-	public List<BoardVO> listComment(int board_id, Criteria cri);
-
-	// 질문과 답변 댓글 출력(ajax)
-	public BoardVO getComment(int Board_id);
 
 	// 질문과 답변 해당 동물의  글
 	public List<BoardVO> getPetQna(int category_id);
@@ -85,10 +73,42 @@ public interface CommunityMapper {
 
 	public void QnaImgInput(ImageVO imageVO);
 	
-	public List<BoardVO> getcommentsList(Criteria cri, int board_id);
+	
+	// 질문과 답변 댓글쓰기
+	public void writeComment(BoardVO boardVO);
+	
+	// 질문과 답변 댓글 작성
+	public void insertComment(BoardVO boardVO);
+
+	// 질문과 답변 댓글 리스트 출력
+	public List<BoardVO> listComment(int board_id, Criteria cri);
+
+	// 질문과 답변 댓글 출력(ajax)
+	public BoardVO getComment(int board_id);
 
 	public List<BoardVO> getCommentsWithPaging(Criteria cri, int board_id);
+	
+	//페이징용..
+	//public List<BoardVO> getcommentsList(Criteria cri, int board_id);
 
+	
+	
+	
+
+	// 노하우 댓글 작성하기
+	public void writeTComment(BoardVO boardVO);
+	// 노하우 댓글 작성
+	public void insertTComment(BoardVO boardVO);
+	
+	// 노하우 댓글 리스트 출력
+	public List<BoardVO> listTComment(int board_id, Criteria cri);
+	
+	// 노하우 작성 후 ajax로 삽입
+	public BoardVO getTComment(int board_id);
+
+	public List<BoardVO> getTCommentWithPaging(Criteria cri, int board_id);
+	
+	public List<BoardVO> getTCommentList(Criteria cri,int board_id);
 
 }
 

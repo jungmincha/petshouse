@@ -65,7 +65,6 @@
 			checkLogin();
 		});
 	});
-	
 </script>
 
 <script type="text/javascript">
@@ -87,20 +86,33 @@
 </script>
 <!-- 수정 삭제 경고창 end-->
 <style>
-a:link {text-decoration: none; color: #333333;}
-a:visited {text-decoration: none; color: #333333;}
-a:active {text-decoration: none; color: #333333;}
-a:hover {text-decoration:none;}
+a:link {
+	text-decoration: none;
+	color: #333333;
+}
+
+a:visited {
+	text-decoration: none;
+	color: #333333;
+}
+
+a:active {
+	text-decoration: none;
+	color: #333333;
+}
+
+a:hover {
+	text-decoration: none;
+}
 
 #hashtag {
 	font-size: 13px;
 	padding: 0.01px;
 }
-#hashtag:hover{
-background-color:#dddddd;
+
+#hashtag:hover {
+	background-color: #dddddd;
 }
-
-
 </style>
 </head>
 
@@ -111,12 +123,17 @@ background-color:#dddddd;
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
 
 
-<!-- content -->
+	<!-- content -->
 	<sec:authorize access="hasAnyRole('ROLE_USER','ROLE_ADMIN')">
 		<input type="hidden" id="member_id"
 			value="<sec:authentication property="principal.member_id"/>">
 	</sec:authorize>
-	
+
+	<sec:authorize access="hasAnyRole('ROLE_USER','ROLE_ADMIN')">
+		<input type="hidden" id="nickname"
+			value="<sec:authentication property="principal.nickname"/>">
+	</sec:authorize>
+
 	<div class="container" style="margin-bottom: 40px">
 		<div class="head">
 			<div style="margin-top: 45px; margin-bottom: 10px;">
@@ -126,10 +143,10 @@ background-color:#dddddd;
 		</div>
 
 		<div style="float: right">
-			<button type="button" class="btn btn-warning"
+			<button type="button" id="modify_button" class="btn btn-warning"
 				onclick="modify_event();">수정</button>
 
-			<button type="button" class="btn btn-warning"
+			<button type="button" id="delete_button" class="btn btn-warning"
 				onclick="button_event();">삭제</button>
 		</div>
 
@@ -139,16 +156,19 @@ background-color:#dddddd;
 				<hr>
 				<section style="margin-top: 60px; margin-bottom: 20px;">${qna_view.content}</section>
 				<form action="${pageContext.request.contextPath}/commu/qnatag"
-				method="post">
-				<ul class="pd-tags">
-					<c:set var="hashtag" value="${qna_view.hashtag}" />
-					<c:set var="tag" value="${fn:split(hashtag, ' ')}" />
-					
-					<c:forEach var="t" items="${tag}">
-					<button id="hashtag" name="keyword" value="${t}" class="btn btn-disabled" onclick="location.href='${pageContext.request.contextPath}/commu/qnatag'">${t}</button>
-					</c:forEach>
-					
-				</ul> </form> <span style="color: gray;">${qna_view.pdate}</span> <span
+					method="post">
+					<ul class="pd-tags">
+						<c:set var="hashtag" value="${qna_view.hashtag}" />
+						<c:set var="tag" value="${fn:split(hashtag, ' ')}" />
+
+						<c:forEach var="t" items="${tag}">
+							<button id="hashtag" name="keyword" value="${t}"
+								class="btn btn-disabled"
+								onclick="location.href='${pageContext.request.contextPath}/commu/qnatag'">${t}</button>
+						</c:forEach>
+
+					</ul>
+				</form> <span style="color: gray;">${qna_view.pdate}</span> <span
 				style="color: gray">조회수 ${qna_view.hit}</span>
 			</td>
 		</table>
@@ -159,10 +179,6 @@ background-color:#dddddd;
 	<div class="container">
 
 		<input type="hidden" id="pgroup" value="${qna_view.board_id }">
-		<sec:authorize access="hasAnyRole('ROLE_USER','ROLE_ADMIN')">
-			<input type="hidden" id="member_id"
-				value="<sec:authentication property="principal.member_id"/>">
-		</sec:authorize>
 		<div>
 			<div>
 				<span><strong>댓글 </strong></span>
@@ -172,8 +188,8 @@ background-color:#dddddd;
 
 					<td class="row"><textarea style="resize: none;"
 							class="form-control col-11" id="content" placeholder="댓글을 입력하세요"></textarea>
-						<button id="cw" class="col-1 btn btn-outline-secondary" onClick="getComment()">등록</button>
-					</td>
+						<button id="cw" class="col-1 btn btn-outline-secondary"
+							onClick="getComment()">등록</button></td>
 
 				</table>
 			</div>
@@ -201,21 +217,17 @@ background-color:#dddddd;
 			</div>
 		</div>
 	</div>
-	
-   <div class="later col-lg-12 text-center">
-            <button type="button" class="btn btn-warning" onClick="btnClick()">더보기</button>
-	        </div>
 
-
-	<div style="margin-top: 20px;">
-		<!-- Footer -->
-		<%@ include file="/WEB-INF/views/include/footer.jsp"%>
+	<div class="later col-lg-12 text-center">
+		<button type="button" class="btn btn-warning" onClick="btnClick()">더보기</button>
 	</div>
 
+
 	<script type="text/javascript">
+	
 		// 댓글 작성 및 ajax로 댓글 불러오기
 		function getComment() {
-	
+
 			var member_id = $("#member_id").val();
 			console.log(member_id);
 			var pgroup = $("#pgroup").val();
@@ -234,67 +246,93 @@ background-color:#dddddd;
 							+ "<div>" + data.content + "</div>" + "<div>"
 							+ data.pdate + "</div> <hr>"
 
-				
-					 $("#comment").prepend(html); 
-					document.getElementById("content").value='';
-		
-							
+					$("#comment").prepend(html);
+					document.getElementById("content").value = '';
+
 				}, //ajax 성공 시 end$
-			
-/* 
-				error : function(request, status, error) {
-					alert("code:" + request.status + "\n" + "message:"
-							+ request.responseText + "\n" + "error:" + error); */
 
-				// } // ajax 에러 시 end
+		
+			 error : function(request, status, error) {
+			 alert("code:" + request.status + "\n" + "message:"
+			 + request.responseText + "\n" + "error:" + error);
 
+			 } // ajax 에러 시 end
 			})
 
 		}
 		
+		
+		
+		//더보기
+		var pageNum = 1;
 
-	      var pageNum = 1;
-	     
-	      function btnClick(){
+		function btnClick() {
 
-	    	  pageNum += 1;
-	    	  console.log(pageNum);
-	    	  		  
-	    	  	$.ajax({
-	    	        type :"POST",
-	    	        url :"/commu/cmorelist",
-	    	        data : {
-	    	        	pageNum: pageNum, 
-	    	        	board_id : "${qna_view.board_id}"
-	    	        },
-	    	        success :function(data){
-	    	           console.log(data);
-	    	           var comments = data.comments;
-						
-	    	          html = " "
-	    	           for(var i in comments){
-	    	        	  html +="<div id='comments'>"
-	    						+"<div>"+ comments[i].memberVO.nickname+"</div>"
-	    						+"<div>"+ comments[i].content+"</div>"
-	    						+"<div>"+ comments[i].pdate+"</div>"
-	    						+"<hr>"
+			pageNum += 1;
+			console.log(pageNum);
 
+			$.ajax({
+				type : "POST",
+				url : "/commu/cmorelist",
+				data : {
+					pageNum : pageNum,
+					board_id : "${qna_view.board_id}"
+				},
+				success : function(data) {
+					console.log(data);
+					var comments = data.comments;
 
-	    				+"</div>"
-	    	           }
-	    	        
-	    	           
-	    	            $("#comment").append(html); 
-	    	          
-	    	        }, 	        
-	    	        //success end
-	    	        error : function(request, status, error) {
-						alert("code:" + request.status + "\n" + "message:"
-								+ request.responseText + "\n" + "error:" + error);
-					} // ajax 에러 시 end
-	    	    }); //ajax end	 
-	    	}; //click end	
+					html = " "
+					for ( var i in comments) {
+						html += "<div id='comments'>" + "<div>"
+								+ comments[i].memberVO.nickname + "</div>"
+								+ "<div>" + comments[i].content + "</div>"
+								+ "<div>" + comments[i].pdate + "</div>"
+								+ "<hr>"
+
+								+ "</div>"
+					}
+
+					$("#comment").append(html);
+
+				},
+				//success end
+				error : function(request, status, error) {
+					alert("code:" + request.status + "\n" + "message:"
+							+ request.responseText + "\n" + "error:" + error);
+				} // ajax 에러 시 end
+			}); //ajax end	 
+		}; //click end	
+		
+		
+
+		//수정 삭제버튼 띄우기   	
+		window.onload = function() {
+
+			console.log("${qna_view.memberVO.nickname}"); //게시글에 입력된 닉네임
+
+			console.log("${nickname}"); //현재 접속하고 있는 회원정보 닉네임 이전 페이지에서 principal.nickname 값을 받아와 줬다
+
+			var contentnickname = "${qna_view.memberVO.nickname}";
+
+			var nickname = $("#nickname").val();
+
+			if (nickname !== contentnickname) {//현재 접속된 닉네임과 입력된 닉네임이 불일치 하면  삭제버튼이 사라진다.
+
+				$("#delete_button").hide();
+
+				$("#modify_button").hide();
+
+			}
+
+		}
 	</script>
+
+	<div style="margin-top: 20px;">
+		<!-- Footer -->
+		<%@ include file="/WEB-INF/views/include/footer.jsp"%>
+	</div>
+
 	<!-- Js Plugins -->
 	<script src="/resources/js/jquery-3.3.1.min.js"></script>
 	<script src="/resources/js/bootstrap.min.js"></script>

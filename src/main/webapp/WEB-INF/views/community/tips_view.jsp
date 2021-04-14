@@ -15,24 +15,37 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>${tips_view.title}</title>
 
-<link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap"
+	rel="stylesheet">
 
 <!-- Css Styles -->
-<link rel="stylesheet" href="/resources/css/bootstrap.min.css" type="text/css">
-<link rel="stylesheet" href="/resources/css/font-awesome.min.css" type="text/css">
-<link rel="stylesheet" href="/resources/css/themify-icons.css" type="text/css">
-<link rel="stylesheet" href="/resources/css/elegant-icons.css" type="text/css">
-<link rel="stylesheet" href="/resources/css/owl.carousel.min.css" type="text/css">
-<link rel="stylesheet" href="/resources/css/nice-select.css" type="text/css">
-<link rel="stylesheet" href="/resources/css/jquery-ui.min.css" type="text/css">
-<link rel="stylesheet" href="/resources/css/slicknav.min.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/bootstrap.min.css"
+	type="text/css">
+<link rel="stylesheet" href="/resources/css/font-awesome.min.css"
+	type="text/css">
+<link rel="stylesheet" href="/resources/css/themify-icons.css"
+	type="text/css">
+<link rel="stylesheet" href="/resources/css/elegant-icons.css"
+	type="text/css">
+<link rel="stylesheet" href="/resources/css/owl.carousel.min.css"
+	type="text/css">
+<link rel="stylesheet" href="/resources/css/nice-select.css"
+	type="text/css">
+<link rel="stylesheet" href="/resources/css/jquery-ui.min.css"
+	type="text/css">
+<link rel="stylesheet" href="/resources/css/slicknav.min.css"
+	type="text/css">
 <link rel="stylesheet" href="/resources/css/style.css" type="text/css">
 
 <!-- bootstrap css cdn -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" type="text/css" />
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	type="text/css" />
 
 <!-- jquery cdn -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 <script>
 	//로그인 체크
@@ -50,26 +63,25 @@
 			checkLogin();
 		});
 	});
-	
 </script>
 
 <!-- 수정 삭제 경고창 -->
 <script type="text/javascript">
-		function button_event() {
-			if (confirm("정말 삭제하시겠습니까?") == true) { //확인
-				location.href = '${pageContext.request.contextPath}/commu/tdelete?board_id=${tips_view.board_id}'
-			} else { //취소
-				return;
-			}
+	function button_event() {
+		if (confirm("정말 삭제하시겠습니까?") == true) { //확인
+			location.href = '${pageContext.request.contextPath}/commu/tdelete?board_id=${tips_view.board_id}'
+		} else { //취소
+			return;
 		}
+	}
 
-		function modify_event() {
-			if (confirm("수정하시겠습니까?") == true) { //확인
-				location.href = '${pageContext.request.contextPath}/commu/tmodify_page?board_id=${tips_view.board_id}'
-			} else { //취소
-				return;
-			}
+	function modify_event() {
+		if (confirm("수정하시겠습니까?") == true) { //확인
+			location.href = '${pageContext.request.contextPath}/commu/tmodify_page?board_id=${tips_view.board_id}'
+		} else { //취소
+			return;
 		}
+	}
 </script>
 <!-- 수정 삭제 경고창 end-->
 <style>
@@ -96,16 +108,26 @@ a:hover {
 	font-size: 13px;
 	padding: 0.01px;
 }
-#hashtag:hover{
-background-color:#dddddd;
+
+#hashtag:hover {
+	background-color: #dddddd;
 }
 </style>
 </head>
 
-<body style="padding-top:180px">
+<body style="padding-top: 180px">
 
 	<!-- Header -->
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
+
+	<sec:authorize access="hasAnyRole('ROLE_USER','ROLE_ADMIN')">
+		<input type="hidden" id="nickname"
+			value="<sec:authentication property="principal.nickname"/>">
+	</sec:authorize>
+	<sec:authorize access="hasAnyRole('ROLE_USER','ROLE_ADMIN')">
+		<input type="hidden" id="member_id"
+			value="<sec:authentication property="principal.member_id"/>">
+	</sec:authorize>
 
 	<div class="container" style="margin-bottom: 40px">
 		<div class="head">
@@ -116,15 +138,14 @@ background-color:#dddddd;
 		</div>
 
 
+
 		<div style="float: right">
-			<button type="button" class="btn btn-warning" 
+			<button type="button" id="modify_button" class="btn btn-warning"
 				onclick="modify_event();">수정</button>
 
-			<button type="button" class="btn btn-warning"
+			<button type="button" id="delete_button" class="btn btn-warning"
 				onclick="button_event();">삭제</button>
 		</div>
-
-
 
 
 		<table>
@@ -133,31 +154,29 @@ background-color:#dddddd;
 				<hr>
 				<section style="margin-top: 40px; margin-bottom: 20px;">${tips_view.content}</section>
 				<form action="${pageContext.request.contextPath}/commu/tipstag"
-				method="post">
-				<ul class="pd-tags">
-					<c:set var="hashtag" value="${tips_view.hashtag}" />
-					<c:set var="tag" value="${fn:split(hashtag, ' ')}" />
-					
-					<c:forEach var="t" items="${tag}">
-					<button id="hashtag" name="keyword" value="${t}" class="btn btn-disabled" onclick="location.href='${pageContext.request.contextPath}/commu/tipstag'">${t}</button>
-					</c:forEach>
-					
-				</ul> </form>
-				<span style="color: gray">${tips_view.pdate}</span>  <span
+					method="post">
+					<ul class="pd-tags">
+						<c:set var="hashtag" value="${tips_view.hashtag}" />
+						<c:set var="tag" value="${fn:split(hashtag, ' ')}" />
+
+						<c:forEach var="t" items="${tag}">
+							<button id="hashtag" name="keyword" value="${t}"
+								class="btn btn-disabled"
+								onclick="location.href='${pageContext.request.contextPath}/commu/tipstag'">${t}</button>
+						</c:forEach>
+
+					</ul>
+				</form> <span style="color: gray">${tips_view.pdate}</span> <span
 				style="color: gray">조회수 ${tips_view.hit}</span>
 			</td>
 		</table>
-		
+
 	</div>
 
 
 	<div class="container">
 
 		<input type="hidden" id="pgroup" value="${tips_view.board_id }">
-		<sec:authorize access="hasAnyRole('ROLE_USER','ROLE_ADMIN')">
-			<input type="hidden" id="member_id"
-				value="<sec:authentication property="principal.member_id"/>">
-		</sec:authorize>
 		<div>
 			<div>
 				<span><strong>댓글 </strong></span>
@@ -167,42 +186,49 @@ background-color:#dddddd;
 
 					<td class="row"><textarea style="resize: none;"
 							class="form-control col-11" id="content" placeholder="댓글을 입력하세요"></textarea>
-						<button id="cw" class="col-1 btn btn-outline-secondary" onClick="getComment()">등록</button>
-					</td>
+						<button id="cw" class="col-1 btn btn-outline-secondary"
+							onClick="getComment()">등록</button></td>
 
 				</table>
 			</div>
 		</div>
 
-	<div class="container" style="margin-bottom: 10px;">
-		<table>
-			<c:forEach items="${comment}" var="cm">
-				<div>${cm.memberVO.nickname}</div>
-				<div>${cm.content}</div>
-				<div>${cm.pdate}</div>
+		<div class="container" style="margin-bottom: 10px;">
+		
+			<div id="tcomment">
 
-			</c:forEach>
+				<c:forEach items="${tcomment}" var="tcm">
+					<div>${tcm.memberVO.nickname}</div>
+					<div>${tcm.content}</div>
+					<div>${tcm.pdate}</div>
+					<hr>
+				</c:forEach>
 
-		</table>
-	</div>
-	
-	
-			<div class="container">
-				<form id="commentListForm" name="commentListForm" method="post">
-					<div id="commentList"></div>
-				</form>
-			</div>
+		</div>
+
+
+		<div class="container">
+			<form id="commentListForm" name="commentListForm" method="post">
+				<div id="TcommentList"></div>
+			</form>
 		</div>
 	</div>
-	
+	</div>
+
+	<div class="later col-lg-12 text-center">
+		<button type="button" class="btn btn-warning" onClick="btnClick()">더보기</button>
+	</div>
+
 	<script type="text/javascript">
+	
 		// 댓글 작성 및 ajax로 댓글 불러오기
 		function getComment() {
-	
+
 			var member_id = $("#member_id").val();
 			console.log(member_id);
 			var pgroup = $("#pgroup").val();
 			var content = $("#content").val();
+			console.log(content);
 			$.ajax({
 				url : "/commu/tips_view/insert",
 				type : "post",
@@ -212,27 +238,94 @@ background-color:#dddddd;
 					content : content
 				},
 				success : function(data) {
+					console.log(data);
 
 					html = "<div>" + data.memberVO.nickname + "</div>"
-							+ "<div>" + data.content + "</div>" + "<div>"
-							+ data.pdate + "</div> <hr>"
+							+ "<div>" + data.content + "</div>" 
+							+ "<div>"+ data.pdate + "</div> <hr>"
 
-					$("#comment").prepend(html);
-					// $("#content").empty();
-							
+					$("#tcomment").prepend(html);
+					document.getElementById("content").value = '';
+
+
 				}, //ajax 성공 시 end$
-			
-/* 
-				error : function(request, status, error) {
-					alert("code:" + request.status + "\n" + "message:"
-							+ request.responseText + "\n" + "error:" + error); */
 
-				// } // ajax 에러 시 end
+			 error : function(request, status, error) {
+			 alert("code:" + request.status + "\n" + "message:"
+			 + request.responseText + "\n" + "error:" + error); 
 
+			 } // ajax 에러 시 end
 			})
 		}
+		
+		
+		
+		//더보기
+		var pageNum = 1;
+
+		function btnClick() {
+
+			pageNum += 1;
+			console.log(pageNum);
+
+			$.ajax({
+				type : "POST",
+				url : "/commu/tmorelist",
+				data : {
+					pageNum : pageNum,
+					board_id : "${tips_view.board_id}"
+				},
+				success : function(data) {
+					console.log(data);
+					var tcomment = data.tcomment;
+
+					html = " "
+					for ( var i in tcomment) {
+						html += "<div id='tcomment'>" + "<div>"
+								+ tcomment[i].memberVO.nickname + "</div>"
+								+ "<div>" + tcomment[i].content + "</div>"
+								+ "<div>" + tcomment[i].pdate + "</div>"
+								+ "<hr>"
+
+								+ "</div>"
+					}
+
+					$("#tcomment").append(html);
+
+				},
+				//success end
+				error : function(request, status, error) {
+					alert("code:" + request.status + "\n" + "message:"
+							+ request.responseText + "\n" + "error:" + error);
+				} // ajax 에러 시 end
+			}); //ajax end	 
+		}; //click end	
+		
+				
+
+		//수정 삭제 버튼 띄우기
+		window.onload = function() {
+
+			console.log("${tips_view.memberVO.nickname}"); //게시글에 입력된 닉네임
+
+			console.log("${nickname}"); //현재 접속하고 있는 회원정보 닉네임 이전 페이지에서 principal.nickname 값을 받아와 줬다
+
+			var contentnickname = "${tips_view.memberVO.nickname}";
+
+			var nickname = $("#nickname").val();
+
+			if (nickname !== contentnickname) {//현재 접속된 닉네임과 입력된 닉네임이 불일치 하면  삭제버튼이 사라진다.
+
+				$("#delete_button").hide();
+
+				$("#modify_button").hide();
+
+			}
+
+		}
+
 	</script>
-	
+
 	<div style="margin-top: 20px;">
 		<!-- Footer -->
 		<%@ include file="/WEB-INF/views/include/footer.jsp"%>
