@@ -70,7 +70,7 @@ public interface CommunityMapper {
 	public void insertComment(BoardVO boardVO);
 
 	// 질문과 답변 댓글 리스트 출력
-	public List<BoardVO> listComment(int board_id);
+	public List<BoardVO> listComment(int board_id, Criteria cri);
 
 	// 질문과 답변 댓글 출력(ajax)
 	public BoardVO getComment(int Board_id);
@@ -84,6 +84,12 @@ public interface CommunityMapper {
 	public BoardVO getQnaBoard_id();
 
 	public void QnaImgInput(ImageVO imageVO);
+	
+	public List<BoardVO> getcommentsList(Criteria cri, int board_id);
+
+	public List<BoardVO> getCommentsWithPaging(Criteria cri, int board_id);
 
 
 }
+
+

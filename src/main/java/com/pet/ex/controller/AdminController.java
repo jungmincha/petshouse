@@ -506,8 +506,6 @@ public class AdminController {
 
 			String savePath = path + "\\" + imgname; // 저장 될 파일 경로
 
-		 
-
 			mf.get(i).transferTo(new File(savePath)); // 파일 저장
 			imageVO.setImgname(imgname);
 			BoardVO board = service.getNoticeBoard_id();

@@ -42,7 +42,7 @@ public interface CommunityService {
 	public List<BoardVO> getQsearch(String keyword);
 
 	// 질문과 답변 댓글 리스트 출력
-	public List<BoardVO> listComment(int Board_id);
+	public List<BoardVO> listComment(int Board_id, Criteria cri);
 	
 	// 질문과 답변 작성 후 ajax로 삽입
 	public BoardVO getComment(int Board_id);
@@ -81,6 +81,8 @@ public interface CommunityService {
 	public BoardVO  getQnaBoard_id();
 
 	public void QnaImgInput(ImageVO imageVO);
+
+	public List<BoardVO> getcommentsList(Criteria cri,int board_id);
 
 	
 

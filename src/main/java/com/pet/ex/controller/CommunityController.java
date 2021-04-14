@@ -196,15 +196,14 @@ public class CommunityController {
 
 	// 질문과 답변 특정 글 페이지 출력
 	@GetMapping("/qna_view")
-	public ModelAndView qna_view(BoardVO boardVO, ModelAndView mav) throws Exception {
+	public ModelAndView qna_view(BoardVO boardVO, Criteria cri, ModelAndView mav) throws Exception {
 		log.info("qna_view()실행");
 		mav.addObject("qna_view", communityService.getQnaview(boardVO.getBoard_id())); // 특정 글 출력
-		mav.addObject("comment", communityService.listComment(boardVO.getBoard_id()));
+		mav.addObject("comment", communityService.listComment(boardVO.getBoard_id(), cri));
 		communityService.hit(boardVO.getBoard_id());
 		mav.setViewName("community/qna_view");
 		return mav;
 	}
-
 	// 질문과 답변 댓글 작성
 	@PostMapping("/qna_view/insert")
 	public BoardVO insertComment(BoardVO boardVO, @RequestParam("member_id") String member_id) {
@@ -324,6 +323,19 @@ public class CommunityController {
 		mav.setView(new RedirectView("/commu/qna", true));
 		return mav;
 	}
+	
+	// 댓글 더보기
+			@PostMapping("/cmorelist")
+			public Map<String, Object> comments(@RequestParam("board_id") int board_id,Criteria cri) {
+				log.info("commentsmorelist");
+				Map<String, Object> list = new HashMap<>();
+				List<BoardVO> comments = communityService.getcommentsList(cri, board_id);
+				list.put("comments", comments);
+				return list;
+			}
+
+
+
 
 
 }

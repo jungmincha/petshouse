@@ -91,9 +91,9 @@ public class CommunityServiceImpl implements CommunityService {
 
 	// 질문과 답변 댓글 가져오기
 	@Override
-	public List<BoardVO> listComment(int Board_id) {
+	public List<BoardVO> listComment(int Board_id, Criteria cri) {
 		log.info("listComment()");
-		return mapper.listComment(Board_id);
+		return mapper.listComment(Board_id, cri);
 	}
 
 	@Override
@@ -191,5 +191,12 @@ public class CommunityServiceImpl implements CommunityService {
 		log.info("QnaImgInput");
 		mapper.QnaImgInput(imageVO);
 	}
+	
+	@Override
+	public List<BoardVO> getcommentsList(Criteria cri,int board_id) {
+		return mapper.getCommentsWithPaging(cri, board_id);
+	}
+
+	
 
 }

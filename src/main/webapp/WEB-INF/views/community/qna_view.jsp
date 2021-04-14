@@ -201,6 +201,10 @@ background-color:#dddddd;
 			</div>
 		</div>
 	</div>
+	
+   <div class="later col-lg-12 text-center">
+            <button type="button" class="btn btn-warning" onClick="btnClick()">더보기</button>
+	        </div>
 
 
 	<div style="margin-top: 20px;">
@@ -247,6 +251,49 @@ background-color:#dddddd;
 			})
 
 		}
+		
+
+	      var pageNum = 1;
+	     
+	      function btnClick(){
+
+	    	  pageNum += 1;
+	    	  console.log(pageNum);
+	    	  		  
+	    	  	$.ajax({
+	    	        type :"POST",
+	    	        url :"/commu/cmorelist",
+	    	        data : {
+	    	        	pageNum: pageNum, 
+	    	        	board_id : "${qna_view.board_id}"
+	    	        },
+	    	        success :function(data){
+	    	           console.log(data);
+	    	           var comments = data.comments;
+						
+	    	          html = " "
+	    	           for(var i in comments){
+	    	        	  html +="<div id='comments'>"
+	    						+"<div>"+ comments[i].memberVO.nickname+"</div>"
+	    						+"<div>"+ comments[i].content+"</div>"
+	    						+"<div>"+ comments[i].pdate+"</div>"
+	    						+"<hr>"
+
+
+	    				+"</div>"
+	    	           }
+	    	        
+	    	           
+	    	            $("#comment").append(html); 
+	    	          
+	    	        }, 	        
+	    	        //success end
+	    	        error : function(request, status, error) {
+						alert("code:" + request.status + "\n" + "message:"
+								+ request.responseText + "\n" + "error:" + error);
+					} // ajax 에러 시 end
+	    	    }); //ajax end	 
+	    	}; //click end	
 	</script>
 	<!-- Js Plugins -->
 	<script src="/resources/js/jquery-3.3.1.min.js"></script>
