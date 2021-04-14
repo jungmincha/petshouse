@@ -121,12 +121,12 @@
 						 <p><small>상태메시지</small></p>
 					 </div>
 							<div class="card">
-							 <a href="/commu/sns/${sns.boardVO.board_id}">
+							 <a href="/commu/sns/${sns.boardVO.board_id}"></a>
 								<img
 									src="/resources/img/member/sns/${sns.imgname }"
 									alt="" style = "height:300px;"class="card-img-top i" />
 								<div class="card-body">
-									<div>
+								 
 										<div class="w3-border w3-center w3-padding">
 
 											<i class="fa fa-heart" style="font-size: 16px; color: red"></i>
@@ -139,14 +139,14 @@
 											</button>
 
 										</div>
-									</div>
+									 
 
 
 									<p class="card-text">${sns.boardVO.content}</p>
-
+</div>
 								</div>
 							</div>
-						</div>
+						 
 			</c:forEach> 
 		</div>
 	</div>
