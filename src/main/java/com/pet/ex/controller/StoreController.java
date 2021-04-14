@@ -150,16 +150,14 @@ public class StoreController {
 	@PostMapping("/myPage/followview/{memberVO.member_id}")
 	public ModelAndView followview(FollowVO followVO, Authentication authentication, ModelAndView mav) {
 		log.info("follow");
-		//팔로우 하려는 계정
-		String member_id = followVO.getMemberVO().getMember_id();
 		//회원 본인 계정
 		String follower_id = authentication.getPrincipal().toString();	
 		followVO.setFollower_id(follower_id);
 		System.out.println(follower_id);
 
 		//팔로우&팔로잉 수 
-		mav.addObject("follower", service.getFollowertotal(member_id));
-		mav.addObject("following", service.getFolloingtotal(member_id));
+		mav.addObject("follower", service.getFollowertotal(followVO.getMemberVO().getMember_id()));
+		mav.addObject("following", service.getFolloingtotal(followVO.getMemberVO().getMember_id()));
 		//팔로우 유무 체크
 		mav.addObject("followcheck", service.isFollow(followVO));
 	
@@ -170,39 +168,41 @@ public class StoreController {
 	
 	//팔로우
 	@PostMapping("/myPage/follow/{memberVO.member_id}")
-	public ResponseEntity<String> follow(FollowVO followVO, Authentication authentication) {
+	public Map<String, Object> follow(FollowVO followVO, Authentication authentication) {
 		log.info("follow");
 		String follower_id = authentication.getPrincipal().toString();	
 		followVO.setFollower_id(follower_id);
 		System.out.println(follower_id);
 
-		ResponseEntity<String> entity = null;			
+		Map<String, Object> map = new HashMap<>();
 		try {	
 			service.follow(followVO);
-			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+			map.put("SUCCESS", HttpStatus.OK);
+			map.put("follower", service.getFollowertotal(followVO.getMemberVO().getMember_id()));
 		} catch (Exception e) {
 			e.printStackTrace();
-			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+			map.put("SUCCESS", HttpStatus.BAD_REQUEST);
 		}
-		return entity;
+		return map;
 	}
 	
 	//언팔로우
 	@PostMapping("/myPage/unfollow/{memberVO.member_id}")
-	public ResponseEntity<String> unfollow(FollowVO followVO, Authentication authentication) {
+	public Map<String, Object> unfollow(FollowVO followVO, Authentication authentication) {
 		log.info("unfollow");
 		String follower_id = authentication.getPrincipal().toString();	
 		followVO.setFollower_id(follower_id);
 		System.out.println(follower_id);
 		
-		ResponseEntity<String> entity = null;			
+		Map<String, Object> map = new HashMap<>();	
 		try {	
 			service.unfollow(followVO);
-			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+			map.put("SUCCESS", HttpStatus.OK);
+			map.put("follower", service.getFollowertotal(followVO.getMemberVO().getMember_id()));
 		} catch (Exception e) {
 			e.printStackTrace();
-			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+			map.put("SUCCESS", HttpStatus.BAD_REQUEST);
 		}
-		return entity;
+		return map;
 	}
 }

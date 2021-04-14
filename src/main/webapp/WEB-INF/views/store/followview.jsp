@@ -25,6 +25,7 @@
 <link rel="stylesheet" href="/resources/css/jquery-ui.min.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/slicknav.min.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/style.css" type="text/css">
+
 <!-- jquery cdn -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
@@ -54,7 +55,6 @@
 			<input type="hidden" id="follower" value="<sec:authentication property="principal.member_id" var="follower_id" />">		
 	</sec:authorize>
 
-	
 	<!-- Profile Section -->
      <div class="profile-info container">
       	<div class="row col-lg-12">
@@ -64,8 +64,8 @@
       	</div>
       	<div class="row col-lg-12">
       		<div class="profile-info_follow-state"> 		
-            	<a href="">팔로워<span>${follower}</span></a>
-            	<a href="">팔로잉<span>${following}</span></a>
+            	<a href="/store/myPage/followerlist/${member_info.member_id}" class="follower">팔로워<span>${follower}</span></a>
+            	<a href="/store/myPage/followinglist/${member_info.member_id}">팔로잉<span>${following}</span></a>
 	        </div>
 
 	        <!-- 본인 계정인 경우 수정 버튼 발생-->
@@ -102,17 +102,17 @@
 	   	var member_id = $('#member').val();  
 	   	console.log(member_id);
 	  	
+	   	//팔로우 요청
 	    function follow(){  		    	
 	    	$.ajax({
 	    		type :"POST",
-		        url :"/store/myPage/follow/" + member_id,
-		        
-		        success :function(result){
-		           console.log(result);
-		           if(result == "SUCCESS"){
-		        	  $('.follow').remove();
-		        	  $('.profile-info').append('<button type="button" class="unfollow btn-info" onclick="unfollow();">언팔로우</button>'); 
-		           }
+		        url :"/store/myPage/follow/" + member_id,     
+		        success :function(data){
+		           console.log(data);	
+		           $('.follower').empty();
+		           $('.follower').append('팔로워<span>' + data.follower + '</span></a>');            
+		           $('.follow').remove();	          
+		           $('.profile-info').append('<button type="button" class="unfollow btn-info" onclick="unfollow();">언팔로우</button>');               
 		        },
 		        error: function(e){
 			    	console.log(e);
@@ -120,18 +120,17 @@
 	   		});//ajax end
 		};//follow end
 	    
-		
-		 function unfollow(){  
+		//팔로우 취소
+		function unfollow(){  
 	    	$.ajax({
 	    		type :"POST",
 		        url :"/store/myPage/unfollow/" + member_id,
-
-		        success :function(result){
-		           console.log(result);
-		           if(result == "SUCCESS"){
-		              $('.unfollow').remove();
-		              $('.profile-info').append('<button type="button" class="follow btn-info" onclick="follow();">팔로우</button>'); 
-		           }
+		        success :function(data){
+		        	console.log(data);	
+		        	$('.follower').empty();
+			        $('.follower').append('팔로워<span>' + data.follower + '</span></a>');     
+		            $('.unfollow').remove();		           
+		            $('.profile-info').append('<button type="button" class="follow btn-info" onclick="follow();">팔로우</button>'); 
 		        },
 		        error: function(e){
 			    	console.log(e);
@@ -140,8 +139,8 @@
 		};//unfollow end
 	</script>
   	
-	<!-- top scroll -->
-	<div class="top" onclick="window.scrollTo(0,0);">top</div>	
+   <!-- top scroll -->
+   <div class="top" onclick="window.scrollTo(0,0);">top</div>	
 	
    <!-- Footer -->
    <%@ include file="/WEB-INF/views/include/footer.jsp"%>
