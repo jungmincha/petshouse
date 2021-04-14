@@ -13,6 +13,8 @@
 <meta name="keywords" content="Fashi, unica, creative, html">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="_csrf_parameter" content="${_csrf.parameterName}" />
+<meta name="_csrf_header" content="${_csrf.headerName}" />
 <title>주문배송내역</title>
 <!-- Google Font -->
 <link
@@ -37,6 +39,54 @@
 <link rel="stylesheet" href="/resources/css/slicknav.min.css"
 	type="text/css">
 <link rel="stylesheet" href="/resources/css/style.css" type="text/css">
+
+<!-- 헤더 부분 -->
+<sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
+	<input type="hidden" id="location_security" name="location_security"
+		value="<sec:authentication property="principal.location"/>">
+	<input type="hidden" id="member_id" name="member_id"
+		value="<sec:authentication property="principal.member_id"/>">
+	<input type="hidden" id="nickname" name="nickname"
+		value="<sec:authentication property="principal.nickname"/>">
+</sec:authorize>
+<script type="text/javascript"
+	src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+
+<!-- 헤더 끝 -->
+<script>
+
+    function cancelPay() {
+    	$.ajax({
+			url : "/myPage/orderList/payCancel/"+"6076f7a72386840022b1897e",
+			type : "post",
+			data :{
+				name : "김준성",
+				reason : "반품"
+				
+			},
+			success : function(data) {
+				
+			},
+			error : function(request, status, error){
+				
+				
+			}
+		
+		})
+		
+    }
+</script>
+<!-- Js Plugins -->
+<script src="/resources/js/jquery-3.3.1.min.js"></script>
+<script src="/resources/js/bootstrap.min.js"></script>
+<script src="/resources/js/jquery-ui.min.js"></script>
+<script src="/resources/js/jquery.countdown.min.js"></script>
+<script src="/resources/js/jquery.nice-select.min.js"></script>
+<script src="/resources/js/jquery.zoom.min.js"></script>
+<script src="/resources/js/jquery.dd.min.js"></script>
+<script src="/resources/js/jquery.slicknav.js"></script>
+<script src="/resources/js/owl.carousel.min.js"></script>
+<script src="/resources/js/main.js"></script>
 <style>
 .pimg {
 	width: 80px;
@@ -235,13 +285,129 @@
 }
 </style>
 </head>
+
+<!-- Page Preloder -->
+<div id="preloder">
+	<div class="loader"></div>
+</div>
+
+<!-- 헤더 -->
+<header class="header-section fixed-top bg-white">
+
+	<div class="container">
+		<div class="inner-header">
+			<div class="row">
+				<div class="col-lg-2 col-md-2">
+					<div class="logo">
+						<a href="/home"> <img src="/resources/img/logo.png" alt="">
+						</a>
+					</div>
+				</div>
+				<div class="col-lg-7 col-md-7">
+					<div class="advanced-search">
+						<button type="button" class="category-btn">All Categories</button>
+						<form action="#" class="input-group">
+							<input type="text" placeholder="What do you need?">
+							<button type="button">
+								<i class="ti-search"></i>
+							</button>
+						</form>
+					</div>
+				</div>
+				<div class="col-lg-3 text-right col-md-3">
+					<ul class="nav-right">
+						<li class="heart-icon"><a href="#"> <i
+								class="icon_heart_alt"></i>
+						</a></li>
+						<li class="cart-icon"><a href="/myPage/cart" id="cartCount">
+								<i class="icon_bag_alt"></i>
+						</a>
+							<div class="cart-hover">
+
+								<sec:authorize access="isAnonymous()">
+									<li class="heart-icon"><a href="/login/login"
+										class="login-panel"><i class="fa fa-user"></i>Login</a></li>
+								</sec:authorize>
+								<sec:authorize access="hasAnyRole('ROLE_USER','ROLE_ADMIN')">
+									<li class="heart-icon"><a href="/login/logout"
+										class="login-panel"><i class="fa fa-user"></i>Logout</a></li>
+
+								</sec:authorize>
+
+
+							</div></li>
+
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="nav-item">
+		<div class="container">
+			<div class="nav-depart">
+				<div class="depart-btn">
+					<i class="ti-menu"></i> <span>MY HOME</span>
+					<ul class="depart-hover">
+						<li class="active"><a href="#">프로필</a></li>
+						<li><a href="#">주문배송내역조회</a></li>
+						<li><a href="#">회원정보수정</a></li>
+					</ul>
+				</div>
+			</div>
+			<nav class="nav-menu mobile-menu">
+				<ul>
+					<li><a href="/store/home">Home</a></li>
+					<li><a href="/store/commu/home">커뮤니티</a>
+						<ul class="dropdown">
+
+							<li><a href="/commu/sns">SNS</a></li>
+							<li><a href="/commu/tips">노하우</a></li>
+							<li><a href="/commu/qna">질문과답변</a></li>
+
+							<li><a onclick="location_auth()" href="#">펫츠타운</a></li>
+
+						</ul></li>
+					<li><a href="/store/home">STORE</a>
+						<ul class="dropdown">
+							<li><a href="/admin/notice">공지사항</a></li>
+							<li><a href="/category/home">카테고리</a></li>
+							<li><a href="/store/best">베스트상품</a></li>
+							<li><a href="/store/event">이벤트</a></li>
+						</ul></li>
+
+					<li><a href="#">마이페이지</a>
+						<ul class="dropdown">
+							<li><a href="/myPage/orderList">주문배송내역</a></li>
+							<li><a href="#">포인트</a></li>
+							<li><a href="/myPage/updateMember">회원정보수정</a></li>
+						</ul></li>
+
+					<li><a href="/admin/home">관리자페이지</a>
+						<ul class="dropdown">
+
+							<li><a href="/admin/goods">상품관리</a></li>
+							<li><a href="/admin/member_list">회원관리</a></li>
+							<li><a href="#">통계</a></li>
+						</ul></li>
+
+				</ul>
+			</nav>
+
+		</div>
+	</div>
+
+</header>
+<!-- header 끝 -->
+
+<!-- jQuery CDN --->
+
 <body style="padding-top: 180px;">
 	<!-- 상단 버튼 -->
 	<div class="top" onclick="window.scrollTo(0,0);">top</div>
 
-	<!-- 헤더 include -->
-	<%@ include file="/WEB-INF/views/include/header.jsp"%>
+	<button onclick="cancelPay()">환불하기</button>
 
+	<!-- 본문 -->
 	<div class="container" id="orderList">
 		<div class="row">
 			<div class="col-lg-3"></div>
@@ -253,15 +419,12 @@
 
 		<div class="row">
 			<div class="col-lg-1"></div>
-
+			<a onclick="allOrder()" style="font-size: 22px">전체 <span
+				style="font-size: 22px">${payCounts[0]}</span></a>
 			<div class="col-lg-12">
 				<div class="jumbotron"
 					style="padding-top: 40px; padding-bottom: 70px;">
 					<div class="row ">
-						<div class="col-lg-2 text-center">
-							<a onclick="allOrder()" style="font-size: 22px">전체<br> <br>
-								<span style="font-size: 22px">${payCounts[0]}</span></a>
-						</div>
 						<div class="col-lg-2 text-center">
 							<a onclick="listOrder(1)" style="font-size: 22px">결제완료<br>
 								<br> <span style="font-size: 22px">${payCounts[1]}</span></a>
@@ -282,6 +445,10 @@
 							<a onclick="listOrder(5)" style="font-size: 22px">구매확정<br>
 								<br> <span style="font-size: 22px">${payCounts[5]}</span></a>
 						</div>
+						<div class="col-lg-2 text-center">
+							<a onclick="listOrder(6)" style="font-size: 22px">교환/환불/취소<br>
+								<br> <span style="font-size: 22px">0</span></a>
+						</div>
 					</div>
 
 				</div>
@@ -291,112 +458,180 @@
 		</div>
 
 	</div>
+	<!-- 본문 끝 -->
+
 	<!-- 배송조회 -->
-	<form action="http://info.sweettracker.co.kr/tracking/5" method="post"
-		name="deliverySelect">
+	<input type="hidden" class="form-control" id="t_key" name="t_key"
+		value="b6qZIhyVpYgicymScLeVNQ">
+	<input type="hidden" class="form-control" name="t_code" id="t_code"
+		placeholder="택배사 코드">
+	<input type="hidden" class="form-control" name="t_invoice"
+		id="t_invoice" placeholder="운송장 번호">
+	<!-- 배송조회 end -->
 
-		<input type="hidden" class="form-control" id="t_key" name="t_key"
-			value="b6qZIhyVpYgicymScLeVNQ"> <input type="hidden"
-			class="form-control" name="t_code" id="t_code" placeholder="택배사 코드">
-		<input type="hidden" class="form-control" name="t_invoice"
-			id="t_invoice" placeholder="운송장 번호">
+</body>
+<!-- 모달 시작 -->
+<div id="myModal" class="modal">
 
+	<!-- Modal content -->
+	<div class="modal-content"
+		style="width: 600px; height: 710px; padding-top: 110px">
+		<div class="close" style="font-size: 30px;">&times;</div>
+		<div style="text-align: center; font-weight: bold;">
+			<h4>리뷰 쓰기</h4>
+		</div>
 
-	</form>
+		<div class="container">
 
-	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
+			<form class=" needs-validation"
+				action="/myPage/orderList/review/insert" method="Post" name="review">
+				<input type="hidden" name="goodsVO.goods_id" id="goods_id" value="">
+				<input type="hidden" name="paystate_id" id="paystate_id" value="">
+				<div class="rbox">포토 리뷰 500P, 일반 리뷰 100P</div>
 
-	<!-- 모달 시작 -->
-	<div id="myModal" class="modal">
-
-		<!-- Modal content -->
-		<div class="modal-content" style="width: 600px; height: 710px;">
-			<div class="close" style="font-size: 30px;">&times;</div>
-			<div style="text-align: center; font-weight: bold;">
-				<h4>리뷰 쓰기</h4>
-			</div>
-
-			<div class="container">
-
-				<form class=" needs-validation"
-					action="/myPage/orderList/review/insert" method="Post"
-					name="review">
-					<input type="hidden" name="goodsVO.goods_id" id="goods_id" value="">
-					<input type="hidden" name="paystate_id" id="paystate_id" value="">
-					<div class="rbox">포토 리뷰 500P, 일반 리뷰 100P</div>
-
-					<!-- 상품사진, 상품명 -->
-					<div style="margin-top: 15px;">
-						<div class="pb-pic">
-							<img src="" id="pimg">
-						</div>
-						<div class="pb-text" style="line-height: 80px;">
-							<span id="goodsName"></span>
-						</div>
+				<!-- 상품사진, 상품명 -->
+				<div style="margin-top: 15px;">
+					<div class="pb-pic">
+						<img src="" id="pimg">
 					</div>
-
-					<!-- 별점 -->
-					<div class="rsub">별점 평가</div>
-					<div class="form-group row">
-						<div class="form-group">
-							<div class="rate">
-								<input type="radio" id="star5" name="ratescore" value="5"
-									required /> <label for="star5" title="text">5 stars</label> <input
-									type="radio" id="star4" name="ratescore" value="4" /> <label
-									for="star4" title="text">4 stars</label> <input type="radio"
-									id="star3" name="ratescore" value="3" /> <label for="star3"
-									title="text">3 stars</label> <input type="radio" id="star2"
-									name="ratescore" value="2" /> <label for="star2" title="text">2
-									stars</label> <input type="radio" id="star1" name="ratescore" value="1" />
-								<label for="star1" title="text">1 star</label>
-								<div class="invalid-feedback">없으면 공백 추가!</div>
-							</div>
-						</div>
+					<div class="pb-text" style="line-height: 80px;">
+						<span id="goodsName"></span>
 					</div>
+				</div>
 
-					<!-- 별점 end -->
-
-					<!-- 사진 등록 -->
-					<div class="rsub">
-						사진 등록 <span class="sub">(선택)</span>
-					</div>
-					<div class="form-group row">
-
-						<div id="preview"></div>
-
-						<div class="input-group col-12">
-							<div class="custom-file">
-								<input type="file" class="custom-file-input" id="image"
-									name="imgname" style="display: block;"> <label
-									class="custom-file-label" for="inputGroupFile02">사진을
-									등록해주세요 (최대 1장)</label>
-							</div>
-						</div>
-					</div>
-					<!-- 사진등록 end -->
-
-					<!-- 리뷰 작성 -->
-					<div>
-						<div class="rsub">리뷰 작성</div>
-						<div>
-							<textarea class="form-control" name="content"
-								style="margin: auto; width: 100%; height: 100px; resize: none;"
-								id="content" placeholder="리뷰를 등록해주세요." required></textarea>
+				<!-- 별점 -->
+				<div class="rsub">별점 평가</div>
+				<div class="form-group row">
+					<div class="form-group">
+						<div class="rate">
+							<input type="radio" id="star5" name="ratescore" value="5"
+								required /> <label for="star5" title="text">5 stars</label> <input
+								type="radio" id="star4" name="ratescore" value="4" /> <label
+								for="star4" title="text">4 stars</label> <input type="radio"
+								id="star3" name="ratescore" value="3" /> <label for="star3"
+								title="text">3 stars</label> <input type="radio" id="star2"
+								name="ratescore" value="2" /> <label for="star2" title="text">2
+								stars</label> <input type="radio" id="star1" name="ratescore" value="1" />
+							<label for="star1" title="text">1 star</label>
 							<div class="invalid-feedback">없으면 공백 추가!</div>
 						</div>
 					</div>
-					<!-- 리뷰 작성 end -->
+				</div>
 
-					<span>
-						<button type="submit" class="btn btn-warning"
-							style="margin: auto; width: 100%;">리뷰 등록</button>
-					</span>
-				</form>
+				<!-- 별점 end -->
+
+				<!-- 사진 등록 -->
+				<div class="rsub">
+					사진 등록 <span class="sub">(선택)</span>
+				</div>
+				<div class="form-group row">
+
+					<div id="preview"></div>
+
+					<div class="input-group col-12">
+						<div class="custom-file">
+							<input type="file" class="custom-file-input" id="image"
+								name="imgname" style="display: block;"> <label
+								class="custom-file-label" for="inputGroupFile02">사진을
+								등록해주세요 (최대 1장)</label>
+						</div>
+					</div>
+				</div>
+				<!-- 사진등록 end -->
+
+				<!-- 리뷰 작성 -->
+				<div>
+					<div class="rsub">리뷰 작성</div>
+					<div>
+						<textarea class="form-control" name="content"
+							style="margin: auto; width: 100%; height: 100px; resize: none;"
+							id="content" placeholder="리뷰를 등록해주세요." required></textarea>
+						<div class="invalid-feedback">없으면 공백 추가!</div>
+					</div>
+				</div>
+				<!-- 리뷰 작성 end -->
+
+				<span>
+					<button type="submit" class="btn btn-warning"
+						style="margin: auto; width: 100%;">리뷰 등록</button>
+				</span>
+			</form>
+		</div>
+	</div>
+</div>
+<!-- 모달 끝 -->
+<!-- Footer 시작 -->
+<footer class="footer-section">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-3">
+				<div class="footer-left">
+					<div class="footer-logo">
+						<a href="#"><img src="/resources/img/logo.png" alt=""></a>
+					</div>
+					<ul>
+						<li>Address: 60-49 Road 11378 New York</li>
+						<li>Phone: +65 11.188.888</li>
+						<li>Email: hello.colorlib@gmail.com</li>
+					</ul>
+
+				</div>
+			</div>
+			<div class="col-lg-2 offset-lg-1">
+				<div class="footer-widget">
+					<h5>Information</h5>
+					<ul>
+						<li><a href="#">About Us</a></li>
+						<li><a href="#">Checkout</a></li>
+						<li><a href="#">Contact</a></li>
+						<li><a href="#">Serivius</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-lg-2">
+				<div class="footer-widget">
+					<h5>My Account</h5>
+					<ul>
+						<li><a href="#">My Account</a></li>
+						<li><a href="#">Contact</a></li>
+						<li><a href="#">Shopping Cart</a></li>
+						<li><a href="#">Shop</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-lg-4">
+				<div class="newslatter-item">
+					<h5>Join Our Newsletter Now</h5>
+					<p>Get E-mail updates about our latest shop and special offers.</p>
+					<form action="#" class="subscribe-form">
+						<input type="text" placeholder="Enter Your Mail">
+						<button type="button">Subscribe</button>
+					</form>
+				</div>
 			</div>
 		</div>
 	</div>
-	<!-- 모달 끝 -->
-</body>
+	<div class="copyright-reserved">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="copyright-text">
+						Template is licensed under CC BY 3.0. Copyright &copy;
+						<script>
+								document.write(new Date().getFullYear());
+							</script>
+						<i class="fa fa-heart-o" aria-hidden="true"></i>
+					</div>
+					<div class="payment-pic">
+						<img src="/resources/img/payment-method.png" alt="">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</footer>
+
+<!-- footer 끝 -->
 <script>
 
 // 전체 오더리스트 조회
@@ -871,11 +1106,17 @@
 	modal.style.display = "none";
 	}
 	}  
+	
 	// 배송조회
 	function delivery(t_code,t_invoice){
-		$("#t_code").val(t_code);
-		$("t_invoice").val(t_invoice);
-		document.deliverySelect.submit();
+		$("#t_code").val(t_code); // 택배사 코드
+		$("#t_invoice").val(t_invoice); //운송장 번호
+		var _left = Math.ceil(( window.screen.width - 570 )/2);
+		var _top = Math.ceil(( window.screen.height - 420 )/2);
+		var pop = window.open("/popup/deliveryPopup.jsp", "pop",
+					"width=570,height=420, scrollbars=yes, resizable=yes, left="+_left+", top="+_top);
+		 
+
 	}
 	
 	// 시간 포맷 함수
@@ -885,19 +1126,54 @@
 	
 		return date; 
 	}
-	
-	
 </script>
-<!-- Js Plugins -->
-<script src="/resources/js/jquery-3.3.1.min.js"></script>
-<script src="/resources/js/bootstrap.min.js"></script>
-<script src="/resources/js/jquery-ui.min.js"></script>
-<script src="/resources/js/jquery.countdown.min.js"></script>
-<script src="/resources/js/jquery.nice-select.min.js"></script>
-<script src="/resources/js/jquery.zoom.min.js"></script>
-<script src="/resources/js/jquery.dd.min.js"></script>
-<script src="/resources/js/jquery.slicknav.js"></script>
-<script src="/resources/js/owl.carousel.min.js"></script>
-<script src="/resources/js/main.js"></script>
+<script>
+	//위치기반 인증 자바스크립트 함수
+	function location_auth() {
+
+		try {
+			var member_id = document.getElementById("member_id").value;
+		} catch (e) {
+			console.error(e);
+			alert("로그인 후 이용 가능합니다.");
+			location.href = "/login/login";
+		}
+
+		var location_security = document.getElementById("location_security").value;
+		var member_id = document.getElementById("member_id").value;
+		var nickname = document.getElementById("nickname").value;
+		//var location = document.getElementById("location").value; 
+		console.log(location_security);
+
+		if (location_security == null) {
+
+			location.href = "/map/home";
+
+		} else {
+
+			location.href = "/map/board?location=" + location_security
+					+ "&member_id=" + member_id + "&nickname=" + nickname;
+
+			console.log(location_security);
+			console.log(member_id);
+			console.log(nickname);
+
+		}
+
+	}
+	$(document).ready(function() {
+		console.log("실행")
+		var count = 0;
+		if (sessionStorage.getItem("cartList") != null) {
+			count = JSON.parse(sessionStorage.getItem("cartList")).length;
+		}
+
+		if (count > 0) {
+			html = "<span id='cartCount'>" + count + "</span>"
+			$("#cartCount").append(html)
+		}
+
+	})
+</script>
 
 </html>

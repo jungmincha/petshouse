@@ -40,6 +40,8 @@
 <link rel="stylesheet" href="/resources/css/style.css" type="text/css">
 <script type="text/javascript"
 	src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+<script src="https://cdn.bootpay.co.kr/js/bootpay-3.3.1.min.js"
+	type="application/javascript"></script>
 </head>
 <style>
 .pimg {
@@ -47,8 +49,9 @@
 	height: 40px;
 }
 </style>
+<%@ include file="/WEB-INF/views/include/header.jsp"%>
 <body style="padding-top: 100px">
-	<%@ include file="/WEB-INF/views/include/header.jsp"%>
+
 
 
 	<!-- Shopping Cart Section Begin -->
@@ -163,26 +166,8 @@
 								</div>
 								<br>
 							</div>
-							<div class="col-lg-12 ">
-								<div class="row">
-									<div class="col-lg-6">
-										<h5 style="font-weight: bold">결제 수단</h5>
-									</div>
 
-								</div>
 
-								<hr>
-							</div>
-							<div class="col-lg-12 ">
-								<div class="row">
-									<div class="col-lg-1">
-										<h5 style="font-weight: bold">결제 수단</h5>
-									</div>
-
-								</div>
-
-								<hr>
-							</div>
 						</div>
 					</div>
 					<div class="col-lg-4 ">
@@ -197,13 +182,13 @@
 									<input type="hidden" name="goodsName">
 									<input type="hidden" name="amount">
 									<input type="hidden" name="board_id">
-									<input type="hidden" name="iamport_id" id="iamport_id">
+									<input type="hidden" name="receipt_id" id="receipt_id">
 									<input type="hidden" name="psize">
 									<input type="hidden" name="pcolor">
 								</ul>
 
 								<div class="order-btn">
-									<button type="submit" onclick="payNow('card')"
+									<button type="submit" onclick="payNow()"
 										class="site-btn place-btn">Place Order</button>
 
 								</div>
@@ -216,10 +201,11 @@
 	</section>
 	<!-- Shopping Cart Section End -->
 
-	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
+
 
 
 </body>
+<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 <script type="text/javascript">
 	$(document)
 			.ready(
@@ -333,9 +319,8 @@
 		$("#earningPoint").val(innerPoint);
 	}
 	
-	// 아임포트
+	/* // 아임포트
 	IMP.init('imp29855153');
-
 	function payNow(method) {
 		event.preventDefault();
 		// 구매자정보
@@ -352,7 +337,7 @@
 		if (nameCount > 0) {
 			goodsName += " 외 " + nameCount + "개"
 		}
-
+		
 		IMP.request_pay({
 			pg : 'html5_inicis', // version 1.1.0부터 지원.
 			pay_method : method,
@@ -385,7 +370,111 @@
 			}
 			alert(msg);
 		});
+	} */
+	function payNow(method) {
+		event.preventDefault();
+		var email = "${member.member_id}";
+		var name = "${member.name}";
+		var tel = "0${member.tel}";
+		var address = "${member.address}";
+
+		//결제 정보
+		var lastTotal = $("#lastTotal").val();
+		var nameCount = this.form.goodsName.length - 2;
+		console.log(nameCount)
+		var goodsName = this.form.goodsName[1].value;
+		if (nameCount > 0) {
+			goodsName += " 외 " + nameCount + "개"
+		}
+	BootPay.request({
+		price: lastTotal, //실제 결제되는 가격
+		application_id: "6076c93a5b2948001d07b41b",
+		name: goodsName, //결제창에서 보여질 이름
+		pg: 'inicis',
+		method: 'card', //결제수단, 입력하지 않으면 결제수단 선택부터 화면이 시작합니다.
+		show_agree_window: 0, // 부트페이 정보 동의 창 보이기 여부
+		user_info: {
+			username: name,
+			email: email,
+			addr: address,
+			phone: tel
+		},
+		order_id: guid(), //고유 주문번호로, 생성하신 값을 보내주셔야 합니다.
+		extra: {
+		  
+			theme: 'purple', // [ red, purple(기본), custom ]
+			custom_background: '#00a086', // [ theme가 custom 일 때 background 색상 지정 가능 ]
+			custom_font_color: '#ffffff' // [ theme가 custom 일 때 font color 색상 지정 가능 ]
+		}
+	}).error(function (data) {
+		//결제 진행시 에러가 발생하면 수행됩니다.
+		console.log(data);
+	}).cancel(function (data) {
+		var msg = '결제에 실패하였습니다.';
+		msg += '에러내용 : '+data.message;
+		alert(msg);
+		console.log(data);
+	}).ready(function (data) {
+		// 가상계좌 입금 계좌번호가 발급되면 호출되는 함수입니다.
+		console.log(data);
+	}).confirm(function (data) {
+		//결제가 실행되기 전에 수행되며, 주로 재고를 확인하는 로직이 들어갑니다.
+		//주의 - 카드 수기결제일 경우 이 부분이 실행되지 않습니다.
+		console.log(data);
+		var enable = true; // 재고 수량 관리 로직 혹은 다른 처리
+		if (enable) {
+			BootPay.transactionConfirm(data); // 조건이 맞으면 승인 처리를 한다.
+		} else {
+			BootPay.removePaymentWindow(); // 조건이 맞지 않으면 결제 창을 닫고 결제를 승인하지 않는다.
+		}
+	}).close(function (data) {
+	    // 결제창이 닫힐때 수행됩니다. (성공,실패,취소에 상관없이 모두 수행됨)
+	 
+	}).done(function (data) {
+		//결제가 정상적으로 완료되면 수행됩니다
+		
+		// 유효성 체크
+		$.ajax({
+			url : "/myPage/orderList/payCheck/"+data.receipt_id,
+			type : "post",
+			success : function(verify) {
+				console.log(verify);
+				//카트 초기화 
+				var cartList = new Array();
+				sessionStorage.setItem("cartList", JSON.stringify(cartList));
+				
+				var msg = '결제가 완료되었습니다.';
+				msg += '영수증ID : ' + verify.data.receipt_id;
+				msg += '상점 거래ID : ' + verify.data.order_id;
+				msg += '결제 금액 : ' + verify.data.price;
+				$("#receipt_id").val(verify.data.receipt_id);
+				alert(msg);
+				document.form.submit();
+			},
+			error : function(request, status, error){
+				
+				//유효성 체크 실피시 결제취소
+				$.ajax({
+					url : "/myPage/orderList/payCancel/"+data.receipt_id,
+					type : "post",
+					success : function(verify) {
+						
+					},
+					error : function(request, status, error){
+						
+						
+					}
+				
+				})
+				
+			}
+		
+		})
+		
+		
+	});
 	}
+	
 	// 초기화
 	function reset(){
 		$('#deliveryname').val("");
@@ -432,6 +521,14 @@
 			lastTotal();
 	    }
 	})
+	
+	// 고유값 생성
+	function guid() {
+    function s4() {
+      return ((1 + Math.random()) * 0x10000 | 0).toString(16).substring(1);
+    }
+    return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+  }
 	
 	
 	

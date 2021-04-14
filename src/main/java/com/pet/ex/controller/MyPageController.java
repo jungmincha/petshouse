@@ -7,6 +7,11 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
+import org.apache.commons.io.IOUtils;
+import org.apache.http.HttpResponse;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.security.core.Authentication;
@@ -18,6 +23,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.pet.ex.bootPay.BootpayApi;
+import com.pet.ex.bootPay.model.Cancel;
 import com.pet.ex.page.Criteria;
 import com.pet.ex.page.PageVO;
 import com.pet.ex.service.MyPageService;
@@ -112,6 +119,7 @@ public class MyPageController {
 		payCounts.add(myPageService.orderListCount(5, member_id));
 		mav.addObject("payCounts", payCounts);
 		mav.setViewName("/myPage/orderList");
+
 		return mav;
 	}
 
@@ -188,4 +196,43 @@ public class MyPageController {
 		mav.setViewName("/myPage/orderList");
 		return mav;
 	}
+
+	@PostMapping("/orderList/payCheck/{receipt_id}")
+	public JSONObject payCheck(@PathVariable("receipt_id") String receipt_id, String name, String reason)
+			throws Exception {
+		BootpayApi api = new BootpayApi("6076c93a5b2948001d07b41e", "n1PS3ICdEr1e8ndCigcSJ7yDrKEYqI4SQWDjc9QZhOM=");
+		api.getAccessToken();
+		String str = null;
+		try {
+			HttpResponse res = api.verify(receipt_id);
+			str = IOUtils.toString(res.getEntity().getContent(), "UTF-8");
+			System.out.println(str);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		JSONParser parser = new JSONParser();
+		Object obj = parser.parse(str);
+		JSONObject jsonObj = (JSONObject) obj;
+
+		return jsonObj;
+	}
+
+	@PostMapping("/orderList/payCancel/{receipt_id}")
+	public void payCancel(@PathVariable("receipt_id") String receipt_id, String name, String reason) throws Exception {
+		BootpayApi api = new BootpayApi("6076c93a5b2948001d07b41e", "n1PS3ICdEr1e8ndCigcSJ7yDrKEYqI4SQWDjc9QZhOM=");
+		api.getAccessToken();
+		Cancel cancel = new Cancel();
+		cancel.receipt_id = receipt_id;
+		cancel.name = name;
+		cancel.reason = reason;
+
+		try {
+			HttpResponse res = api.cancel(cancel);
+			String str = IOUtils.toString(res.getEntity().getContent(), "UTF-8");
+			System.out.println(str);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 }
