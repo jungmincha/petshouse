@@ -240,8 +240,11 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Override
 	public void noticeDelete(int board_id) {
+		mapper.noticeImgDelete(board_id);
 		mapper.noticeDelete(board_id);
 	}
+	
+
 
 
 	@Override
@@ -286,4 +289,6 @@ public class AdminServiceImpl implements AdminService {
 
 		mapper.ImgModify(imageVO);
 	}
+
+
 }
