@@ -166,6 +166,9 @@ public class MapController {
 
 		 mav.addObject("member_id", member_id); 
 		 mav.addObject("comment", service.listComment(boardVO.getBoard_id()));
+		 
+		 	service.hit(boardVO.getBoard_id());
+		 
 		 System.out.println(member_id);
 			System.out.println(loc);
 			   System.out.println("===============================================================================");
@@ -445,17 +448,14 @@ public class MapController {
 			
 			
 			@RequestMapping("/map_view/delete")
-			public ResponseEntity<String> reply_delete(BoardVO boardVO ) {
+			public ResponseEntity<String> reply_delete(BoardVO boardVO) {
 
 				ResponseEntity<String> entity = null;
 				log.info("delete");
 
 				try {
 					
-					
-					
-				
-					
+						
 					service.deleteComment(boardVO);
 					System.out.println("=====================================================================================");
 						System.out.println(boardVO.getBoard_id());

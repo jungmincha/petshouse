@@ -45,6 +45,8 @@ public interface MapMapper {
 
 	public void deleteComment(BoardVO boardVO);
 
+	public void hit(int board_id);
+
 
 
 }

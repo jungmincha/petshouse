@@ -125,7 +125,7 @@ body::-webkit-scrollbar-track {
 	 <form  action="/map/write_view" method="get">  
           <input id="location" type="hidden" name="location" value="${location}" /> 
 	<input type="hidden" name="member_id" value="<sec:authentication property="principal.member_id"/>">
-								 	<input type="hidden" name="nickname" value="<sec:authentication property="principal.nickname"/>">  
+	<input type="hidden" name="nickname" value="<sec:authentication property="principal.nickname"/>">  
 	
 
                  

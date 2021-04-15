@@ -157,6 +157,14 @@ public class MapServiceImpl implements MapService {
 
 
 
+	@Override
+	public void hit(int board_id) {
+		mapper.hit(board_id);
+		
+	}
+
+
+
 	
 
 

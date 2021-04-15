@@ -65,7 +65,10 @@ background-color:#dddddd;
 
 window.onload =function(){
 	
-		
+	
+	
+
+
 	
 	console.log("${content_view.memberVO.nickname}"); //게시글에 입력된 닉네임
 	
@@ -82,14 +85,13 @@ window.onload =function(){
 		
 		 $("#modify_button").hide();
 	 
-		 
-		 $("#delete_reply_button").hide();
+		 $("#test").hide();
+		
 		 
 	 }
 	
 	
 }
-
 
 
 	function button_event() {
@@ -113,12 +115,54 @@ window.onload =function(){
 	
 	
 	
-	
-	
 </script>
 
 
+ <script type="text/javascript">
+		// 댓글 작성 및 ajax로 댓글 불러오기
+		function getComment() {
+			
+			var member_id = $("#member_id").val();
+			console.log(member_id);
+			var pgroup = $("#pgroup").val();
+			console.log(pgroup);
+			var content = $("#content").val();
+			
+			$.ajax({
+				url : "/map/map_view/insert",
+				type : "post",
+				data : {
+					member_id : member_id,
+					pgroup : pgroup,
+					content : content
+				},
+				success : function(data) {
 
+					html = 
+						
+						"<a class='a-del' style='float:right;' href='/map/map_view/delete?board_id="+data.board_id+"'><b>삭제</b></a>"
+						+
+						
+						" <div>" + data.memberVO.nickname + "</div>"
+							+ 
+							
+							"<div>" + data.content + "</div>" 
+							+ 
+							"<div>" + data.pdate + "</div>"
+							+
+							
+							"<hr>"
+							
+
+					
+					 $("#comment").prepend(html); 
+					document.getElementById("content").value='';
+							
+				}, 
+			})
+
+		}
+	</script>
 
 
 
@@ -145,45 +189,7 @@ window.onload =function(){
                     <h4>${nickname}</h4>
                    <h4> ${hashtag}</h4>
     
-    	${reply_id}
     
-         <%--    <!--// comments \\-->
-                            <ul id="listComment"  class="comment-list">
-                            
-                                <!-- prepend 자리 -->
-                               
-                               <c:if test="${empty listComment}">
-                           <p align="center">작성된 댓글이 없습니다</p>
-                        </c:if>
-                             
-                                <c:if test="${! empty listComment}">
-                                <c:set var="listComment" value="${listComment}" />
-                                <c:forEach var="vo" items="${listComment}">
-                                   
-                                   <li class="rlist">
-                                       <div class="thumb-list">
-                                          <figure><img id="introImg" class="usre_img" src="${pageContext.request.contextPath}/resources/users/user01_sm.png"></figure> 
-                                          <!--  <figure><img id="introImg" border="0"></figure> -->
-                                           <!-- 랜덤이미지? -->
-                                           <div class="text-holder">
-                                               <h6><c:out value="${vo.rid}"/></h6><!-- 작성자 -->
-                                               <div><c:out value="${vo.rdate}"/></div><!-- 작성일 -->
-                                               <p><c:out value="${vo.rcontent}"/></p><!-- 댓글내용 -->
-                                               <div class="charity-blog-social">
-                                                  <i class="fa fa-edit"></i><a class="a-updateView" href="${pageContext.request.contextPath}/board/shows/update" onClick="updateView(${vo.b_index},${vo.rid},${vo.rdate}, ${vo.rcontent})"><b>수정하기</b></a> &nbsp;
-                                                 <i class="fa fa-eraser"></i><a class="a-del" href="${pageContext.request.contextPath}/board/shows/delete"><b>삭제하기</b></a>
-                                              </div>
-                                               <br>
-                                           </div>
-                                       </div>
-                                   </li>
-                                   
-                                </c:forEach>
-                                </c:if>
-                            </ul>
-                            <!--// comments \\-->
-     --%>
-            
             
           
 <form action="/map/modify" method="get">
@@ -264,32 +270,36 @@ window.onload =function(){
 		</div>
 
 
-		<div class="container" style="margin-bottom: 10px;">
+		<div class="container" style="margin-bottom: 10px; " >
 		<c:forEach items="${comment}" var="dto">
 			<div id="comment">
+			<!-- 여기서부터 시큐리티 권한을준다 -->
+			<sec:authentication property="principal" var="pinfo" />
+			  <sec:authorize access="isAuthenticated()">	
+	
+				<!-- 현재 접속된 닉네임과 댓글보드에 저장된 닉네임을 비교해서 일치 하면 보이게 함 -->
+		<c:if test="${pinfo.nickname eq dto.memberVO.nickname}">
+			
+			<a class="a-del" style="float: right;" href="/map/map_view/delete?board_id=${dto.board_id}" ><b>삭제</b></a>
+			</c:if>
+			</sec:authorize>
+		
 				<div>${dto.memberVO.nickname}</div>
 				<div>${dto.content}</div>
 				<div>${dto.pdate}</div>
-				<a class="a-del" href="/map/map_view/delete?board_id=${dto.board_id}"><b>삭제하기</b></a>
 				<hr>
+
 			</div>
 		</c:forEach>
 	
-
-			
-
-
-
-
-
 			<div class="container">
 				<form id="commentListForm" name="commentListForm" method="post">
-			
-				
 					<div id="commentList"></div>
 				</form>
 			</div>
 		</div>
+		
+		
 	</div>
 	
       
@@ -312,14 +322,15 @@ window.onload =function(){
 	$(".a-del").click(function(event) { //id는 한번만 calss는 여러번 선택 가능.
 	
 	   //하나의 id는 한 문서에서 한 번만 사용이 가능(가장 마지막 혹은 처음게 선택). 하나의 class는 
-	 event.preventDefault(); 
-	 
+	
+	   event.preventDefault(); 
+	  
 	
 	   
 	   var tr = $(this).parent();//자바스크립트 클로저
 
 	   $.ajax({
-	      type : 'delete', //method
+	      type : 'post', //method
 	      url : $(this).attr("href"), //주소를 받아오는 것이 두 번째 포인트.
 	      cache : false,
 	      success : function(result) {
@@ -339,55 +350,7 @@ window.onload =function(){
    </script>
    
    
-   <script type="text/javascript">
-		// 댓글 작성 및 ajax로 댓글 불러오기
-		function getComment() {
-	
-	
-			
-			var member_id = $("#member_id").val();
-			console.log(member_id);
-			var pgroup = $("#pgroup").val();
-			console.log(pgroup);
-			var content = $("#content").val();
-			
-			
-			
-			
-			
-			$.ajax({
-				url : "/map/map_view/insert",
-				type : "post",
-				data : {
-					member_id : member_id,
-					pgroup : pgroup,
-					content : content
-				},
-				success : function(data) {
-
-					html = 
-					
-						
-						" <div>" + data.memberVO.nickname + "</div>"
-							+ 
-							
-							"<div>" + data.content + "</div>" 
-							+ 
-							"<div>" + data.pdate + "</div>"
-							+
-							"<a class='a-del' href='/map/map_view/delete?board_id="+data.board_id+"><b>삭제하기</b></a> <hr> "
-							
-							
-					 $("#comment").prepend(html); 
-					document.getElementById("content").value='';
-		
-					
-							
-				}, 
-			})
-
-		}
-	</script>
+  
    
    
 <script src="/resources/js/jquery-3.3.1.min.js"></script>

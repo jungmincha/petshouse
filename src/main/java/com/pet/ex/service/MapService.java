@@ -43,6 +43,9 @@ public interface MapService {
 	public void modify(BoardVO boardVO);
 
 	public void deleteComment(BoardVO boardVO);
+	
+	public void hit(int board_id);
+	
 
 	//public List<ImageVO> getImgList();
 

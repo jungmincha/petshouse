@@ -261,6 +261,14 @@
    ]]>
 	</select>
 
+<!--조회수-->
+	<select id="hit" resultType="int"> 
+ 	<![CDATA[ 
+ 	update board set hit = hit + 1 where board_id = #{board_id} 	
+ 	]]>
+	</select>
+	
+	
 	
 	
 <!-- <insert id="fileUpload">
