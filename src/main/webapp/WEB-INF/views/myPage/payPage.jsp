@@ -184,6 +184,7 @@
 									<input type="hidden" name="amount">
 									<input type="hidden" name="board_id">
 									<input type="hidden" name="receipt_id" id="receipt_id">
+									<input type="hidden" name="paydate" id="paydate">
 									<input type="hidden" name="psize">
 									<input type="hidden" name="pcolor">
 								</ul>
@@ -398,6 +399,7 @@
 					msg += '영수증ID : ' + verify.data.receipt_id;
 					msg += '상점 거래ID : ' + verify.data.order_id;
 					msg += '결제 금액 : ' + verify.data.price;
+					$("#paydate").val(verify.data.purchased_at)
 					$("#receipt_id").val(verify.data.receipt_id);
 					alert(msg);
 					document.form.submit();

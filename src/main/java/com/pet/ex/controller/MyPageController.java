@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -107,14 +106,14 @@ public class MyPageController {
 		return mav;
 	}
 
-	// 주문 배송 내역 조회
+	// 주문 리스트 조회
 	@GetMapping("/orderList")
 	public ModelAndView orderList(ModelAndView mav, Authentication authentication) {
 		String member_id = authentication.getPrincipal().toString();
 		List<Integer> payCounts = new ArrayList<Integer>();
 		payCounts.add(myPageService.getPayTotal(member_id));
 		for (int i = 1; i <= 8; i++) {
-			payCounts.add(myPageService.orderListCount(i, member_id));
+			payCounts.add(myPageService.getPaystateTotal(member_id, i));
 		}
 		mav.addObject("payCounts", payCounts);
 		mav.setViewName("/myPage/orderList");
@@ -122,7 +121,7 @@ public class MyPageController {
 		return mav;
 	}
 
-	// 전체 주문 리스트 조회
+	// 전체 주문 리스트 조회(ajax)
 	@GetMapping("/orderList/ajax")
 	public Map<String, Object> orderListAjax(Criteria cri, Authentication authentication) {
 		String member_id = authentication.getPrincipal().toString();
@@ -142,7 +141,7 @@ public class MyPageController {
 		return payAjax;
 	}
 
-	// paystate별 주문 리스트 조회
+	// paystate_id별 주문 리스트 조회(ajax)
 	@GetMapping("/orderList/ajax/{paystate_id}")
 	public Map<String, Object> orderList(Criteria cri, Authentication authentication,
 			@PathVariable("paystate_id") String paystate_id) {
@@ -151,7 +150,7 @@ public class MyPageController {
 		Map<String, Object> payAjax = new HashMap<String, Object>();
 
 		pay = myPageService.listPaystateOrder(cri, member_id, paystate_id);
-		int total = myPageService.getPaystateTotal(member_id, paystate_id);
+		int total = myPageService.getPaystateTotal(member_id, Integer.parseInt(paystate_id));
 
 		for (PayVO dto : pay) {
 			dto.setPayGoodsVO(myPageService.listPayGoods(dto.getPay_id()));
@@ -186,17 +185,15 @@ public class MyPageController {
 		// orderList페이지
 		List<Integer> payCounts = new ArrayList<Integer>();
 		payCounts.add(myPageService.getPayTotal(member_id));
-		payCounts.add(myPageService.orderListCount(1, member_id));
-		payCounts.add(myPageService.orderListCount(2, member_id));
-		payCounts.add(myPageService.orderListCount(3, member_id));
-		payCounts.add(myPageService.orderListCount(4, member_id));
-		payCounts.add(myPageService.orderListCount(5, member_id));
+		for (int i = 1; i <= 8; i++) {
+			payCounts.add(myPageService.getPaystateTotal(member_id, i));
+		}
 		mav.addObject("payCounts", payCounts);
 		mav.setViewName("/myPage/orderList");
 		return mav;
 	}
 
-	// 결제 유효성 체크
+	// 결제 유효성 체크(ajax)
 	@PostMapping("/orderList/payCheck/{receipt_id}")
 	public JSONObject payCheck(@PathVariable("receipt_id") String receipt_id, String name, String reason)
 			throws Exception {
@@ -217,7 +214,7 @@ public class MyPageController {
 		return jsonObj;
 	}
 
-	// 결제 취소
+	// 결제 취소(ajax)
 	@PostMapping("/orderList/payCancel/{receipt_id}")
 	public JSONObject payCancel(@PathVariable("receipt_id") String receipt_id, String name, String reason)
 			throws Exception {
@@ -246,7 +243,7 @@ public class MyPageController {
 		return jsonObj;
 	}
 
-	// 주문 상세 페이지
+	// 주문 상세 페이지(팝업창)
 	@GetMapping("/orderList/popup/{pay_id}")
 	public ModelAndView orderPopup(ModelAndView mav, @PathVariable("pay_id") String pay_id, String receipt_id)
 			throws Exception {

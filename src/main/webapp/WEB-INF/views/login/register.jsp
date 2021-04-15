@@ -14,11 +14,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>회원가입</title>
-<script src="https://code.jquery.com/jquery-3.3.1.js"
-	integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
-	crossorigin="anonymous">
-	
-</script>
+
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <!-- 부가적인 테마 -->
@@ -57,25 +53,12 @@
 	display: none;
 }
 </style>
-<script language="javascript">
-	function goPopup() {
-		// 주소검색을 수행할 팝업 페이지를 호출합니다.
-		// 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrLinkUrl.do)를 호출하게 됩니다.
-		var pop = window.open("/popup/jusoPopup.jsp", "pop",
-				"width=570,height=420, scrollbars=yes, resizable=yes");
+<script type="text/javascript">
 
-		// 모바일 웹인 경우, 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrMobileLinkUrl.do)를 호출하게 됩니다.
-		//var pop = window.open("/popup/jusoPopup.jsp","pop","scrollbars=yes, resizable=yes"); 
-	}
-
-	function jusoCallBack(roadFullAddr, zipNo) {
-		// 팝업페이지에서 주소입력한 정보를 받아서, 현 페이지에 정보를 등록합니다.	
-		$('#address').val("(" + zipNo + ")" + roadFullAddr);
-	}
 </script>
 </head>
 
-<body style="padding-top:128px">
+<body style="padding-top: 128px">
 	<!-- header -->
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
 
@@ -132,8 +115,8 @@
 								<div class="input-group mb-3">
 									<div class="input-group-prepend">
 										<input type="button" class="form-control" onClick="goPopup();"
-											value="주소검색" style="font-size: 10pt; background-color:#000000;color:#ffffff
-											; font-weight: bold" />
+											value="주소검색"
+											style="font-size: 10pt; background-color: #000000; color: #ffffff; font-weight: bold" />
 									</div>
 									<input class="form-control" type="text"
 										style="font-size: 13pt;" id="address" name="address" />
@@ -142,7 +125,8 @@
 
 							<div class="group-input">
 								<label class="control-label" for="category">관심사</label> <select
-									class="form-control" id="category" name="categoryVO.category_id">
+									class="form-control" id="category"
+									name="categoryVO.category_id">
 									<c:forEach items="${category}" var="category">
 
 										<option value="${category.category_id}">${category.categoryname }</option>
@@ -206,7 +190,7 @@
 												successState("#member_id");
 											} else {//정규표현식을 통과하지 못하면
 												$("#emailErr").show();
-											
+
 												errorState("#member_id");
 											}
 
@@ -258,6 +242,22 @@
 
 		$("#myForm button[type=submit]").attr("disabled", "disabled");
 	};
+	
+	// 도로명 주소 검색
+	function goPopup() {
+		// 주소검색을 수행할 팝업 페이지를 호출합니다.
+		// 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrLinkUrl.do)를 호출하게 됩니다.
+		var pop = window.open("/popup/jusoPopup.jsp", "pop",
+				"width=570,height=420, scrollbars=yes, resizable=yes");
+
+		// 모바일 웹인 경우, 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrMobileLinkUrl.do)를 호출하게 됩니다.
+		//var pop = window.open("/popup/jusoPopup.jsp","pop","scrollbars=yes, resizable=yes"); 
+	}
+
+	function jusoCallBack(roadFullAddr, zipNo) {
+		// 팝업페이지에서 주소입력한 정보를 받아서, 현 페이지에 정보를 등록합니다.	
+		$('#address').val("(" + zipNo + ")" + roadFullAddr);
+	}
 </script>
 
 <!-- Js Plugins -->

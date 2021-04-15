@@ -172,9 +172,9 @@
 	<insert id="insertPay" parameterType="PayVO">
 	<![CDATA[
 		INSERT INTO pay
-		(pay_id,payprice,usepoint,earningpoint,deliveryaddress,deliveryname,deliverytel,member_id,goodsprice ,receipt_id)
+		(pay_id,payprice,usepoint,earningpoint,deliveryaddress,deliveryname,deliverytel,member_id,goodsprice ,receipt_id,paydate)
 		values(pay_seq.nextval,#{payprice}, #{usepoint},
-		#{earningpoint},#{deliveryaddress},#{deliveryname},#{deliverytel},#{memberVO.member_id},#{goodsprice},#{receipt_id})
+		#{earningpoint},#{deliveryaddress},#{deliveryname},#{deliverytel},#{memberVO.member_id},#{goodsprice},#{receipt_id},#{paydate})
 	]]>
 	</insert>
 
@@ -219,6 +219,7 @@
 	]]>
 	</insert>
 
+	<!-- 주문 리스트 불러오기 -->
 	<select id="listOrder" resultMap="payvo">
 	<![CDATA[
 		select * from (
@@ -228,18 +229,22 @@
 	]]>
 	</select>
 
+	<!-- 총 결제 내역 갯수 가져오기 -->
 	<select id="getPayTotal" resultType="int">
 		<![CDATA[ select count(*) from pay where member_id = #{member_id} ]]>
 	</select>
 
+	<!-- 결제 상태별 갯수 가져오기 -->
 	<select id="getPaystateTotal" resultType="int">
 		<![CDATA[ select count(*) from pay where member_id = #{member_id} and paystate_id=#{paystate_id} ]]>
 	</select>
 
+	<!-- payGoods리스트 가져오기 -->
 	<select id="listPayGoods" resultMap="paygoodsvo">
 	<![CDATA[ select * from payGoods p, board b, goods g where p.board_id=b.board_id and pay_id=#{pay_id} and b.goods_id=g.goods_id ]]>
 	</select>
 
+	<!-- 결제 상태별 주문 리스트 -->
 	<select id="listPaystateOrder" resultMap="payvo">
 	<![CDATA[
 		select * from (
@@ -249,13 +254,7 @@
 	]]>
 	</select>
 
-	<select id="orderListCount" resultType="int">
-		<![CDATA[
-		select count(*) from pay
-		where member_id = #{member_id} and paystate_id=#{paystate_id}
-		]]>
-	</select>
-
+	<!-- 리뷰 작성 -->
 	<insert id="insertReview">
 		<![CDATA[
 		insert into board (board_id, content, ratescore, member_id, boardtype_id,pgroup, goods_id)
@@ -263,6 +262,7 @@
 		]]>
 	</insert>
 
+	<!-- 리뷰 이미지 저장 -->
 	<insert id="insertImg">
 		<![CDATA[
 		insert into image (img_id, imgname, goods_id)
@@ -270,6 +270,7 @@
 		]]>
 	</insert>
 
+	<!-- 리뷰 작성 후 포인트 저장 -->
 	<insert id="insertPoint">
 		<![CDATA[
 		insert into point (point_id, pscore, pointtype_id,member_id)
@@ -277,16 +278,18 @@
 		]]>
 	</insert>
 
+	<!-- 결제 취소 후 결제상태 변경 -->
 	<update id="updatePayCancel">
 	<![CDATA[
 		update pay set paystate_id = 6 where receipt_id=#{receipt_id}
 	]]>
 	</update>
 
+	<!-- 결제내역 가져오기 -->
 	<select id="getPay" resultMap="payvo">
 		<![CDATA[
 		select * from pay where pay_id=#{pay_id}
 		]]>
 	</select>
-	
+
 </mapper>

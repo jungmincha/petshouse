@@ -29,9 +29,7 @@ public interface MyPageService {
 
 	List<PayVO> listPaystateOrder(Criteria cri, String member_id, String paystate_id);
 
-	Integer orderListCount(int paystate_id, String member_id);
-
-	int getPaystateTotal(String member_id, String paystate_id);
+	int getPaystateTotal(String member_id, int paystate_id);
 
 	void insertReview(BoardVO boardVO);
 

@@ -664,38 +664,38 @@
 													+ "</span>"
 													switch (data.pay[i-1].paystateVO.paystate_id){
 														case 1 :
-														html += "</div> <div class='col-lg-3'  style='text-align: right;'><br><span>상품준비중</span><br><button onclick='payCancel(\""+data.pay[i-1].receipt_id+"\")'>결제취소</button></div> </div>"
+														html += "</div> <div class='col-lg-3'  style='text-align: right;'><span style='font-size: 20px'>상품준비중<br><span style='font-size: 20px'><button onclick='payCancel(\""+data.pay[i-1].receipt_id+"\")'>결제취소</button></span></div> </div>"
 															break;
 														case 2 :
-														html += "</div> <div class='col-lg-3'  style='text-align: right;'><br><span>배송준비중</span></div> </div>"
+														html += "</div> <div class='col-lg-3'  style='text-align: right;'><span style='font-size: 20px'><br>배송준비중</span></div> </div>"
 															break;
 														case 3 :
-															html += "</div> <div class='col-lg-3' style='text-align: right;'><br> <span style='font-size: 20px'><button onclick='delivery()'>배송조회</button></span>"
+															html += "</div> <div class='col-lg-3' style='text-align: right;'><span style='font-size: 20px'><br><button onclick='delivery()'>배송조회</button></span>"
 																+ "</div> </div>" 
 																break;
 														case 4 :
-															html += "</div> <div class='col-lg-3' style='text-align: right;'> <span style='font-size: 20px'><button onclick='delivery()'>배송조회</button></span><br>"
-																+ "<span style='font-size: 20px'><button>구매확정</button></span>"
+															html += "</div> <div class='col-lg-3' style='text-align: right;'> <span style='font-size: 20px'><button onclick='delivery()'>배송조회</button><br>"
+																+ "<button>구매확정</button></span>"
 																+ "</div> </div>"
 																break;
 														case 5 :
 															html += "</div> <div class='col-lg-3' style='text-align: right;'>"
-																+ "<br><span style='font-size: 20px'><button id='myBtn' onclick='modals("+data.pay[i - 1].payGoodsVO[0].boardVO.goodsVO.goods_id+" ,\""+data.pay[i - 1].payGoodsVO[0].boardVO.goodsVO.thumbnail+"\",\""+data.pay[i-1].payGoodsVO[0].boardVO.title+"\", "+data.pay[i-1].paystateVO.paystate_id+")'>리뷰 작성</button></span>"
+																+ "<span style='font-size: 20px'><br><button id='myBtn' onclick='modals("+data.pay[i - 1].payGoodsVO[0].boardVO.goodsVO.goods_id+" ,\""+data.pay[i - 1].payGoodsVO[0].boardVO.goodsVO.thumbnail+"\",\""+data.pay[i-1].payGoodsVO[0].boardVO.title+"\", "+data.pay[i-1].paystateVO.paystate_id+")'>리뷰 작성</button></span>"
 																+ "</div> </div>" 
 																break;
 														case 6 :
 															html += "</div> <div class='col-lg-3' style='text-align: right;'>"
-																+ "<br><span style='font-size: 20px'>취소된 결제</span>"
+																+ "<span style='font-size: 20px'><br>취소된 결제</span>"
 																+ "</div> </div>" 
 																break;
 														case 7 :
 															html += "</div> <div class='col-lg-3' style='text-align: right;'>"
-																+ "<br><span style='font-size: 20px'>교환처리</span><br><button onclick='delivery()'>배송조회</button> "
+																+ "<span style='font-size: 20px'>교환처리<br><button onclick='delivery()'>배송조회</button></span> "
 																+ "</div> </div>" 
 																break;
 														case 8 :
 															html += "</div> <div class='col-lg-3' style='text-align: right;'>"
-																+ "<br><span style='font-size: 20px'>환불처리</span>"
+																+ "<span style='font-size: 20px'><br>환불처리</span>"
 																+ "</div> </div>" 
 																break;
 														default :
@@ -784,39 +784,39 @@
 													+ data.pay[i - 1].payGoodsVO[0].amount
 													+ "</span>"
 													switch (data.pay[i-1].paystateVO.paystate_id){
-														case 1 :
-														html += "</div> <div class='col-lg-3'  style='text-align: right;'><br><span>상품준비중</span><br><button onclick='payCancel(\""+data.pay[i-1].receipt_id+"\")'>결제취소</button></div> </div>"
+													case 1 :
+														html += "</div> <div class='col-lg-3'  style='text-align: right;'><span style='font-size: 20px'>상품준비중<br><span style='font-size: 20px'><button onclick='payCancel(\""+data.pay[i-1].receipt_id+"\")'>결제취소</button></span></div> </div>"
 															break;
 														case 2 :
-														html += "</div> <div class='col-lg-3'  style='text-align: right;'><br><span>배송준비중</span></div> </div>"
+														html += "</div> <div class='col-lg-3'  style='text-align: right;'><span style='font-size: 20px'><br>배송준비중</span></div> </div>"
 															break;
 														case 3 :
-															html += "</div> <div class='col-lg-3' style='text-align: right;'><br> <span style='font-size: 20px'><button onclick='delivery()'>배송조회</button></span>"
+															html += "</div> <div class='col-lg-3' style='text-align: right;'><span style='font-size: 20px'><br><button onclick='delivery()'>배송조회</button></span>"
 																+ "</div> </div>" 
 																break;
 														case 4 :
-															html += "</div> <div class='col-lg-3' style='text-align: right;'> <span style='font-size: 20px'><button onclick='delivery()'>배송조회</button></span><br>"
-																+ "<span style='font-size: 20px'><button>구매확정</button></span>"
+															html += "</div> <div class='col-lg-3' style='text-align: right;'> <span style='font-size: 20px'><button onclick='delivery()'>배송조회</button><br>"
+																+ "<button>구매확정</button></span>"
 																+ "</div> </div>"
 																break;
 														case 5 :
 															html += "</div> <div class='col-lg-3' style='text-align: right;'>"
-																+ "<br><span style='font-size: 20px'><button id='myBtn' onclick='modals("+data.pay[i - 1].payGoodsVO[0].boardVO.goodsVO.goods_id+" ,\""+data.pay[i - 1].payGoodsVO[0].boardVO.goodsVO.thumbnail+"\",\""+data.pay[i-1].payGoodsVO[0].boardVO.title+"\" ,"+data.pay[i-1].paystateVO.paystate_id+")'>리뷰 작성</button></span>"
+																+ "<span style='font-size: 20px'><br><button id='myBtn' onclick='modals("+data.pay[i - 1].payGoodsVO[0].boardVO.goodsVO.goods_id+" ,\""+data.pay[i - 1].payGoodsVO[0].boardVO.goodsVO.thumbnail+"\",\""+data.pay[i-1].payGoodsVO[0].boardVO.title+"\", "+data.pay[i-1].paystateVO.paystate_id+")'>리뷰 작성</button></span>"
 																+ "</div> </div>" 
 																break;
 														case 6 :
 															html += "</div> <div class='col-lg-3' style='text-align: right;'>"
-																+ "<br><span style='font-size: 20px'>취소된 결제</span>"
+																+ "<span style='font-size: 20px'><br>취소된 결제</span>"
 																+ "</div> </div>" 
 																break;
 														case 7 :
 															html += "</div> <div class='col-lg-3' style='text-align: right;'>"
-																+ "<br><span style='font-size: 20px'>교환처리</span><br><button onclick='delivery()'>배송조회</button> "
+																+ "<span style='font-size: 20px'>교환처리<br><button onclick='delivery()'>배송조회</button></span> "
 																+ "</div> </div>" 
 																break;
 														case 8 :
 															html += "</div> <div class='col-lg-3' style='text-align: right;'>"
-																+ "<br><span style='font-size: 20px'>환불처리</span>"
+																+ "<span style='font-size: 20px'><br>환불처리</span>"
 																+ "</div> </div>" 
 																break;
 														default :
@@ -904,40 +904,39 @@
 									+ data.pay[i - 1].payGoodsVO[0].amount
 									+ "</span>"
 									switch (data.pay[i-1].paystateVO.paystate_id){
-										case 1 :
-										html += "</div> <div class='col-lg-3'  style='text-align: right;'><br><span>상품준비중</span><br><button onclick='payCancel(\""+data.pay[i-1].receipt_id+"\")'>결제취소</button></div> </div>"
+									case 1 :
+										html += "</div> <div class='col-lg-3'  style='text-align: right;'><span style='font-size: 20px'>상품준비중<br><span style='font-size: 20px'><button onclick='payCancel(\""+data.pay[i-1].receipt_id+"\")'>결제취소</button></span></div> </div>"
 											break;
 										case 2 :
-										html += "</div> <div class='col-lg-3'  style='text-align: right;'><br><span>배송준비중</span></div> </div>"
+										html += "</div> <div class='col-lg-3'  style='text-align: right;'><span style='font-size: 20px'><br>배송준비중</span></div> </div>"
 											break;
 										case 3 :
-											html += "</div> <div class='col-lg-3' style='text-align: right;'><br> <span style='font-size: 20px'><button onclick='delivery()'>배송조회</button></span>"
+											html += "</div> <div class='col-lg-3' style='text-align: right;'><span style='font-size: 20px'><br><button onclick='delivery()'>배송조회</button></span>"
 												+ "</div> </div>" 
 												break;
 										case 4 :
-											html += "</div> <div class='col-lg-3' style='text-align: right;'> <span style='font-size: 20px'><button onclick='delivery()'>배송조회</button></span><br>"
-												+ "<span style='font-size: 20px'><button>구매확정</button></span>"
+											html += "</div> <div class='col-lg-3' style='text-align: right;'> <span style='font-size: 20px'><button onclick='delivery()'>배송조회</button><br>"
+												+ "<button>구매확정</button></span>"
 												+ "</div> </div>"
 												break;
 										case 5 :
-											data.pay[i - 1].payGoodsVO[0].boardVO.goodsVO.thumbnail;
 											html += "</div> <div class='col-lg-3' style='text-align: right;'>"
-												+ "<br><span style='font-size: 20px'><button id='myBtn' onclick='modals("+data.pay[i - 1].payGoodsVO[0].boardVO.goodsVO.goods_id+" ,\""+data.pay[i - 1].payGoodsVO[0].boardVO.goodsVO.thumbnail+"\",\""+data.pay[i-1].payGoodsVO[0].boardVO.title+"\", "+data.pay[i-1].paystateVO.paystate_id+")'>리뷰 작성</button></span>"
+												+ "<span style='font-size: 20px'><br><button id='myBtn' onclick='modals("+data.pay[i - 1].payGoodsVO[0].boardVO.goodsVO.goods_id+" ,\""+data.pay[i - 1].payGoodsVO[0].boardVO.goodsVO.thumbnail+"\",\""+data.pay[i-1].payGoodsVO[0].boardVO.title+"\", "+data.pay[i-1].paystateVO.paystate_id+")'>리뷰 작성</button></span>"
 												+ "</div> </div>" 
 												break;
 										case 6 :
 											html += "</div> <div class='col-lg-3' style='text-align: right;'>"
-												+ "<br><span style='font-size: 20px'>취소된 결제</span>"
+												+ "<span style='font-size: 20px'><br>취소된 결제</span>"
 												+ "</div> </div>" 
 												break;
 										case 7 :
 											html += "</div> <div class='col-lg-3' style='text-align: right;'>"
-												+ "<br><span style='font-size: 20px'>교환처리</span><br><button onclick='delivery()'>배송조회</button> "
+												+ "<span style='font-size: 20px'>교환처리<br><button onclick='delivery()'>배송조회</button></span> "
 												+ "</div> </div>" 
 												break;
 										case 8 :
 											html += "</div> <div class='col-lg-3' style='text-align: right;'>"
-												+ "<br><span style='font-size: 20px'>환불처리</span>"
+												+ "<span style='font-size: 20px'><br>환불처리</span>"
 												+ "</div> </div>" 
 												break;
 										default :

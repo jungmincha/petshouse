@@ -40,24 +40,28 @@ public interface MyPageMapper {
 	// 주문 리스트 총합
 	public int getPayTotal(String member_id);
 
+	// payGoods리스트 가져오기
 	public List<PayGoodsVO> listPayGoods(int pay_id);
 
+	// 결제 상태별 주문 리스트
 	public List<PayVO> listPaystateOrder(Criteria cri, String member_id, String paystate_id);
 
-	public Integer allOrderListCount();
+	// 결제 상태별 갯수 가져오기
+	public int getPaystateTotal(String member_id, int paystate_id);
 
-	public Integer orderListCount(int paystate_id, String member_id);
-
-	public int getPaystateTotal(String member_id, String paystate_id);
-
+	// 리뷰 작성
 	public void insertReview(BoardVO boardVO);
 
+	// 리뷰 이미지 저장
 	public void insertImg(ImageVO imageVO);
 
+	// 리뷰 작성 후 포인트 저장
 	public void insertPoint(int pscore, int pointtype_id, String member_id);
 
+	// 결제 취소 후 결제상태 변경
 	public void updatePayCancel(String receipt_id);
 
+	// 결제내역 가져오기
 	public PayVO getPay(String pay_id);
 
 }

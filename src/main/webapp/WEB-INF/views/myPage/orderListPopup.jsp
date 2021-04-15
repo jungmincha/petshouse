@@ -59,15 +59,12 @@
 
 
 										<span>결제번호 / 결제일자</span>
-										<p>${pay.pay_id}/${payDetail.data.purchased_at}</p>
+										<p>${pay.pay_id}&nbsp;/&nbsp;${payDetail.data.purchased_at}</p>
 
 										<span><br>상태</span>
 
 										<p>
 											<c:choose>
-
-
-
 												<c:when test="${pay.paystateVO.paystate_id eq 1}">
 													<button onclick="">결제취소</button>
 												</c:when>
@@ -93,11 +90,6 @@
 												<c:when test="${pay.paystateVO.paystate_id  eq 8}">
 													환불처리
 												</c:when>
-												<c:otherwise>
-
-												</c:otherwise>
-
-
 											</c:choose>
 
 										</p>
