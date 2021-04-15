@@ -47,7 +47,7 @@
 
 <style>
     .instagram-photo{
-    	padding-top: 15px;
+    	padding-top: 30px;
     }
     
     .blog-quote, .knowhow, .sns, .category{
@@ -58,21 +58,29 @@
     	width: 280px;
     	height: 280px;
 	}
+
+	.profile_box {
+		width: 40px;
+		height: 40px;
+		border-radius: 70%;
+		overflow: hidden;
+		margin: 5px;
+	}
 	
-	.top {
-	   background-color: #e7ab3c;
-	   border-radius: 10px;
-	   cursor: pointer; 
-	   position: fixed; 
-	   right: 5px; 
-	   font-size: 15px; 
-	 top: 300px;
-	   padding:10px;
-	}	
+	.profile {
+		width: 40px;
+		height: 40px;
+		object-fit: cover;
+	}
+	
+	.sns{
+		padding-bottom: 60px;
+	}
+
 </style>
 </head>
 
-<body style="padding-top:180px">
+<body style="padding-top:200px">
    <!-- header -->
    <%@ include file="/WEB-INF/views/include/header.jsp"%>
    
@@ -119,7 +127,7 @@
    </div>
    <!-- Instagram Section End -->
         
-   <!-- SNS Section Begin -->
+   <!-- Popularity Section Begin -->
       <section class="blog-details spad">
         <div class="container">
             <div class="row">
@@ -150,15 +158,8 @@
                  </div>
               </div>
           </div> 
-          <!--    <div class="container">
-            	<div class="row">         
-                        <div class="blog-large-pic col-12 col-md-9">
-                            <img src="/resources/img/blog/blog-detail.jpg" alt="">
-                      	</div>
-                        <div class="blog-large col-12 col-md-3">
-                            <img src="/resources/img/blog/blog-detail.jpg" alt="" style="width:240px; height:368.44px;">
-                        </div> -->                 
-    <!-- SNS Section End -->
+     </section>             
+    <!-- Popularity Section End -->
 
      <!-- Category Section Begin -->
       <div class="container">
@@ -199,15 +200,17 @@
                   <a href="/store/commu/category/601?categoryName=기타 / 사료">
                      <img src="/resources/img/category/other.jpg"></a>
             </div>
+       	</div>
        </div>
       <!-- Category Section End -->
 
       <!-- Knowhow Section Begin -->
   		<section class="knowhow">	
+  		  <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="section-title">
-                        <h2>오늘의 노하우</h2>
+                        <h2>인기 노하우</h2>
                     </div>
                 </div>
             </div>
@@ -232,37 +235,41 @@
                         </div>  
                       </c:forEach>
                  </div>
-       		 <div class="sns col-lg-12"> 
-				<div class="section-title">
-			    	<h2>오늘의 인기사진</h2>
-				</div>		
-			</div>   
-	<!--<div class="col-lg-12 col-md-6"> 
-		    <div class="col-lg-11">  &nbsp; </div> 
-		      <div class="col-lg-1" style="float: left">       
-              <div>더보기 </div> 
-              </div>                           
-                </div>    -->	
-                
-			<c:forEach var="item" items="${knowhow}" begin="1" end="8" step="1" varStatus="status">
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="single-latest-blog">
-                         <a href="/store/commu/home"><img src="/resources/img/latest-1.jpg" alt=""></a>
-                        <div class="latest-text">
-                            <div class="tag-list"></div>                            
-                        </div>
-                    </div>
-                </div>
- 			</c:forEach>
+               </div>
+             </div>
+           </section>    
+         <!-- Knowhow Section End -->
+         
+         <!-- SNS Section Begin -->
+  		<section class="sns">	
+  		  <div class="container">
+           	 <div class="row">
+	       		 <div class="sns col-lg-12"> 
+					<div class="section-title">
+				    	<h2>인기 SNS</h2>
+					</div>		
+				</div> 
+			 </div>  
+             <div class="row">   
+				<c:forEach items="${sns}" var="sns">
+				<div class="col-12 col-lg-3 col-md-4 col-sm-6">
+					<div class="user-Info row" style="margin: 20px auto 0px 5px">
+						<div class="profile_box">
+							<img src="/resources/img/member/profile/${sns.boardVO.memberVO.thumbnail}">			
+						</div>
+						<p>${sns.boardVO.memberVO.nickname}</p>
+					</div>
+					<div>
+						<a href="/commu/sns/${sns.boardVO.board_id}"> 
+						 <img src="/resources/img/member/sns/${sns.imgname}" style="width:250px; height:250px;"/></a>		
+					</div>
+				</div>
+				</c:forEach>
+			 </div>
             </div>
 		</section>
-       </div>
-    </section>
-    <!-- Latest Blog Section End -->
-    
-    <!-- top scroll -->
-	<div class="top" onclick="window.scrollTo(0,0);">top</div>	
-	
+   		<!-- SNS Section End -->
+
    <!-- Footer -->
    <%@ include file="/WEB-INF/views/include/footer.jsp"%>
 

@@ -67,6 +67,7 @@
 </resultMap>
 
 <resultMap type="ImageVO" id="imagevo">
+	<result column="img_id" property="img_id" />
 	<result column="imgname" property="imgname" />
 	<collection property="boardVO" resultMap="boardvo" />
 	<collection property="goodsVO" resultMap="goodsvo" />
@@ -85,8 +86,10 @@
 <result property="tel" column="tel"/>
 <result property="address" column="address"/>
 <result property="trycount" column="trycount"/>
+<result column="thumbnail" property="thumbnail" />
 <result property="enable" column="enable"/>
 <result property="certify" column="certify"/>
+<result column="pdate" property="pdate" />
 <collection property="roleVO" resultMap="rolevo"/>
 <collection property="logintypeVO" resultMap="logintypevo"/>
 <collection property="categoryVO" resultMap="categoryvo"/>
@@ -200,17 +203,26 @@
 	<!-- 노하우 조회 -->
 	<select id="getKnowhow" resultType="BoardVO">
 		<![CDATA[
-	         select rownum as rnum, substr(content, 1, 10) as content, title, pdate, hit from board where boardtype_id=5 and rownum>= 1 order by plike desc
+	      select * from(
+	        select rownum as rnum, A.*from (
+	           select substr(content, 1, 10) as content, title, pdate, hit from board where boardtype_id=5 order by hit desc  
+	       ) A where rownum <= 10
+	      )where rnum > 0
 	   ]]>
 	</select>	
 	
 	<!-- sns 조회 -->
-	<select id="getSns" resultType="BoardVO">
+	<select id="getSns" resultMap="imagevo">
 		<![CDATA[
-	         select substr(content, 1, 10) as content, title, pdate, hit from board where boardtype_id=7 order by plike desc
+	        SELECT * FROM (
+			     SELECT ROWNUM AS RNUM, A.* FROM (
+      		      select i.imgname, m.nickname, m.thumbnail, b.board_id from image i, board b, member m where m.member_id = b.member_id 
+				 	and i.board_id=b.board_id and b.boardtype_id=2 and pstep=0 and img_id in( 
+ 					select  min(img_id) as img_id from image where board_id is not null group by board_id) order by b.pdate desc
+ 				)A WHERE ROWNUM <= 8
+			) WHERE RNUM > 0
 	   ]]>
 	</select>
-	
 	
 	<!-- 회원 정보 조회 -->
 	<select id="getMemberinfo" resultType="MemberVO">
@@ -240,6 +252,20 @@
 	   ]]>
 	</select> 
 	 
+	<!-- 팔로워 리스트 조회 -->
+	<select id="getFollowerlist" resultMap="followvo">
+		<![CDATA[
+	        select follower_id from follow where member_id=#{memberVO.member_id}
+	   ]]>
+	</select> 
+	
+	<!-- 팔로잉 리스트 조회 -->
+	<select id="getFollowinglist" resultMap="followvo">
+		<![CDATA[
+	        select member_id from follow where follower_id=#{memberVO.member_id}
+	   ]]>
+	</select>  
+	 
 	<!-- 팔로우 -->
 	<insert id="follow">
 		<![CDATA[
@@ -253,7 +279,4 @@
 	        delete from follow where member_id=#{memberVO.member_id} and follower_id=#{follower_id}
 	   ]]>
 	</select>  
-	 
-	 
-	 
 </mapper>

@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -153,14 +152,16 @@ public class StoreController {
 		//회원 본인 계정
 		String follower_id = authentication.getPrincipal().toString();	
 		followVO.setFollower_id(follower_id);
-		System.out.println(follower_id);
 
-		//팔로우&팔로잉 수 
+		//팔로워&팔로잉 수 
 		mav.addObject("follower", service.getFollowertotal(followVO.getMemberVO().getMember_id()));
 		mav.addObject("following", service.getFolloingtotal(followVO.getMemberVO().getMember_id()));
 		//팔로우 유무 체크
 		mav.addObject("followcheck", service.isFollow(followVO));
-	
+		//팔로워&팔로잉 리스트 
+		mav.addObject("followerlist", service.getFollowerlist(followVO));
+		mav.addObject("followinglist", service.getFollowinglist(followVO));
+		
 		mav.addObject("member_info", service.getMemberinfo());
 		mav.setViewName("store/followview");
 		return mav;
@@ -172,13 +173,16 @@ public class StoreController {
 		log.info("follow");
 		String follower_id = authentication.getPrincipal().toString();	
 		followVO.setFollower_id(follower_id);
-		System.out.println(follower_id);
 
 		Map<String, Object> map = new HashMap<>();
 		try {	
 			service.follow(followVO);
 			map.put("SUCCESS", HttpStatus.OK);
 			map.put("follower", service.getFollowertotal(followVO.getMemberVO().getMember_id()));
+	
+			List<FollowVO> followerlist = service.getFollowerlist(followVO);
+			map.put("followerlist", followerlist);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			map.put("SUCCESS", HttpStatus.BAD_REQUEST);
@@ -192,13 +196,16 @@ public class StoreController {
 		log.info("unfollow");
 		String follower_id = authentication.getPrincipal().toString();	
 		followVO.setFollower_id(follower_id);
-		System.out.println(follower_id);
 		
 		Map<String, Object> map = new HashMap<>();	
 		try {	
 			service.unfollow(followVO);
 			map.put("SUCCESS", HttpStatus.OK);
 			map.put("follower", service.getFollowertotal(followVO.getMemberVO().getMember_id()));
+			
+			List<FollowVO> followerlist = service.getFollowerlist(followVO);
+			map.put("followerlist", followerlist);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			map.put("SUCCESS", HttpStatus.BAD_REQUEST);

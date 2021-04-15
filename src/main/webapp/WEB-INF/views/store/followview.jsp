@@ -63,20 +63,76 @@
       		</div>
       	</div>
       	<div class="row col-lg-12">
-      		<div class="profile-info_follow-state"> 		
-            	<a href="/store/myPage/followerlist/${member_info.member_id}" class="follower">팔로워<span>${follower}</span></a>
-            	<a href="/store/myPage/followinglist/${member_info.member_id}">팔로잉<span>${following}</span></a>
+      		<div class="profile-info_follow-state">    		 	
+            	<a href="#followerModal" class="follower" data-toggle="modal">팔로워<span>${follower}</span></a>
+            	<a href="#followingModal" data-toggle="modal">팔로잉<span>${following}</span></a>
 	        </div>
-
+	        
+	       <!-- follower list Modal start -->
+	       <div class="modal" id="followerModal">
+	         <div class="modal-dialog">
+		      <div class="modal-content">
+		      
+		        <!-- Modal Header -->
+		        <div class="modal-header">
+		          <h4 class="modal-title">팔로워 회원 목록</h4>
+		          <button type="button" class="close" data-dismiss="modal">&times;</button>
+		        </div>
+		        
+		        <!-- Modal body -->
+		        <div class="followerlist modal-body">
+		          <c:forEach items="${followerlist}" var="followerlist">
+		          	<p>${followerlist.follower_id}</p>          	
+		          </c:forEach>
+		        </div>
+		        
+		        <!-- Modal footer -->
+		        <div class="modal-footer">
+		          <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+		        </div>
+		                
+		       </div>
+		     </div>
+		   </div>
+		   <!-- follower list Modal end -->
+		   
+		   <!-- following list Modal start -->
+	       <div class="modal" id="followingModal">
+	         <div class="modal-dialog">
+		      <div class="modal-content">
+		      
+		        <!-- Modal Header -->
+		        <div class="modal-header">
+		          <h4 class="modal-title">팔로잉 회원 목록</h4>
+		          <button type="button" class="close" data-dismiss="modal">&times;</button>
+		        </div>
+		        
+		        <!-- Modal body -->
+		        <div class="modal-body">
+		           <c:forEach items="${followinglist}" var="followinglist">
+		          	<p>${followinglist.memberVO.member_id}</p>          	
+		          </c:forEach>
+		        </div>
+		        
+		        <!-- Modal footer -->
+		        <div class="modal-footer">
+		          <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+		        </div>
+		                
+		       </div>
+		     </div>
+		   </div>
+		   <!-- following list Modal end -->
+  
 	        <!-- 본인 계정인 경우 수정 버튼 발생-->
 	        <c:if test="${member_info.member_id eq follower_id}">
 				<ul class="navbar-nav">
 					<li class="nav-item dropdown">
 					   <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown"> 내정보 </a>
 						<div class="dropdown-menu">
-							<a class="dropdown-item" href="/main/logout_processing">로그아웃</a>
+							<a class="dropdown-item" href="#">로그아웃</a>
 							<a class="dropdown-item" href="#">계정삭제</a> 
-							<a class="dropdown-item" href="/main/user/secret_user">계정공개범위</a>
+							<a class="dropdown-item" href="#">계정공개범위</a>
 						</div>
 					</li>
 				</ul>
@@ -103,14 +159,23 @@
 	   	console.log(member_id);
 	  	
 	   	//팔로우 요청
-	    function follow(){  		    	
+	    function follow(){  	         
 	    	$.ajax({
 	    		type :"POST",
 		        url :"/store/myPage/follow/" + member_id,     
 		        success :function(data){
 		           console.log(data);	
+		           var followerlist = data.followerlist;
+		          
+		           html = "";
+		           for(var i in followerlist){
+		        	   html += "<p>" + followerlist[i].follower_id + "</p>";
+		           }
+		           
 		           $('.follower').empty();
-		           $('.follower').append('팔로워<span>' + data.follower + '</span></a>');            
+		           $('.follower').append('팔로워<span>' + data.follower + '</span></a>');                 
+		           $('.followerlist').empty();
+		           $('.followerlist').append(html);
 		           $('.follow').remove();	          
 		           $('.profile-info').append('<button type="button" class="unfollow btn-info" onclick="unfollow();">언팔로우</button>');               
 		        },
@@ -127,8 +192,17 @@
 		        url :"/store/myPage/unfollow/" + member_id,
 		        success :function(data){
 		        	console.log(data);	
+		        	var followerlist = data.followerlist;
+			          
+		        	html = "";
+			        for(var i in followerlist){
+			        	html += "<p>" + followerlist[i].follower_id + "</p>";
+			        }    
+			           
 		        	$('.follower').empty();
-			        $('.follower').append('팔로워<span>' + data.follower + '</span></a>');     
+			        $('.follower').append('팔로워<span>' + data.follower + '</span></a>');  
+			        $('.followerlist').empty();
+			        $('.followerlist').append(html);
 		            $('.unfollow').remove();		           
 		            $('.profile-info').append('<button type="button" class="follow btn-info" onclick="follow();">팔로우</button>'); 
 		        },

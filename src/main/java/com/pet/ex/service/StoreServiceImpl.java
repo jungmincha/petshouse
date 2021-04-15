@@ -10,6 +10,7 @@ import com.pet.ex.page.Criteria;
 import com.pet.ex.vo.BoardVO;
 import com.pet.ex.vo.CategoryVO;
 import com.pet.ex.vo.FollowVO;
+import com.pet.ex.vo.ImageVO;
 import com.pet.ex.vo.MemberVO;
 import com.pet.ex.vo.PointVO;
 
@@ -70,7 +71,7 @@ public class StoreServiceImpl implements StoreService {
 
 	//커뮤니티 SNS 조회
 	@Override
-	public List<BoardVO> getSns() {
+	public List<ImageVO> getSns() {
 		log.info("getSns");
 		return mapper.getSns();
 	}
@@ -98,6 +99,18 @@ public class StoreServiceImpl implements StoreService {
 	public int isFollow(FollowVO followVO) {
 		log.info("isFollow");
 		return mapper.isFollow(followVO);
+	}
+	
+	@Override
+	public List<FollowVO> getFollowerlist(FollowVO followVO) {
+		log.info("getFollowerlist");
+		return mapper.getFollowerlist(followVO);
+	}
+
+	@Override
+	public List<FollowVO> getFollowinglist(FollowVO followVO) {
+		log.info("getFollowinglist");
+		return mapper.getFollowinglist(followVO);
 	}
 
 	@Override

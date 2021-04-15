@@ -6,6 +6,7 @@ import com.pet.ex.page.Criteria;
 import com.pet.ex.vo.BoardVO;
 import com.pet.ex.vo.CategoryVO;
 import com.pet.ex.vo.FollowVO;
+import com.pet.ex.vo.ImageVO;
 import com.pet.ex.vo.MemberVO;
 import com.pet.ex.vo.PointVO;
 
@@ -26,7 +27,7 @@ public interface StoreService {
 	public List<BoardVO> getKnowhow();
 	
 	//커뮤니티 SNS 조회
-	public List<BoardVO> getSns();
+	public List<ImageVO> getSns();
 
 	//회원 정보 조회
 	public MemberVO getMemberinfo();
@@ -39,6 +40,12 @@ public interface StoreService {
 
 	//팔로우 유무 체크
 	public int isFollow(FollowVO followVO);
+	
+	//팔로워 리스트 조회
+	public List<FollowVO> getFollowerlist(FollowVO followVO);
+
+	//팔로잉 리스트 조회
+	public List<FollowVO> getFollowinglist(FollowVO followVO);
 
 	//팔로우 
 	public void follow(FollowVO followVO);
