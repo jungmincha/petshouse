@@ -77,13 +77,13 @@ $(function() {
             <br>
             
             
-<form action="/map/write" method="post" enctype="multipart/form-data">
+<form action="/map/modify" method="post" enctype="multipart/form-data">
  <input id="location" type="hidden" name="location" value="${location}" /> 
 <%--   <input id="nicknamen" type="hidden" name="nickname" value="${nickname}" />  --%>
 <%--  <input id="member_id" type="hidden" name="member_id" value="${member_id}" />  --%>
 <input type="hidden" name="member_id" value="<sec:authentication property="principal.member_id"/>">
 								 
-    
+  <input id="board_id" type="hidden" name="board_id" value="${content_view.board_id}"/>    
 	<div class="row">
 				<select name="hashtag" id="hashtag" class=" form-control col-2" 
 					style="height: 38px; margin-left: 15px; margin-right: 10px;">

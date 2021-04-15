@@ -424,6 +424,12 @@
 	   ]]>
 	</delete>
 	
+	<delete id="noticeImgDelete" parameterType="boardvo">
+	   <![CDATA[
+	     	delete from image where board_id =#{board_id} 
+	   ]]>
+	</delete>
+	
 		<!--공지사항 특정글 출력 -->
 	<select id="getNoticeView" resultMap="boardvo">
    <![CDATA[

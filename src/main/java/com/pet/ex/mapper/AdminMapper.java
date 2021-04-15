@@ -104,6 +104,9 @@ public interface AdminMapper {
 	
 	//공지사항 삭제
 	public void noticeDelete(int board_id);
+	
+	//공지사항 삭제하기
+	public void noticeImgDelete(int board_id);
 
 	//공지사항 글 수정
 	public void nodify(BoardVO boardVO);
@@ -119,6 +122,8 @@ public interface AdminMapper {
 	public BoardVO getBoard1(int board_id);
 	
 	public void ImgModify(ImageVO imageVO);
+
+
 
 
 

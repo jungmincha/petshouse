@@ -8,8 +8,11 @@ import java.util.List;
 import java.util.UUID;
 
 import org.apache.commons.io.FilenameUtils;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,6 +29,7 @@ import com.pet.ex.page.PageVO;
 import com.pet.ex.service.CommunityService;
 import com.pet.ex.service.MapService;
 import com.pet.ex.vo.BoardVO;
+import com.pet.ex.vo.GoodsVO;
 import com.pet.ex.vo.ImageVO;
 import com.pet.ex.vo.MemberVO;
 
@@ -188,6 +192,8 @@ public class MapController {
 			  
 			   @RequestParam(value="nickname",required = false)String nickname,
 			   
+			
+			   
 			  // @RequestParam(value="original_location",required = false)String original_location, //원래 주소
 			  
 			  ModelAndView mav , BoardVO boardVO) {
@@ -198,11 +204,11 @@ public class MapController {
 	  mav.addObject("location", loc); 
 		 
 		 mav.addObject("member_id", member_id); 
-		 
+		 mav.addObject("content_view", service.content_view(boardVO.getBoard_id()));
 		 mav.addObject("nickname", nickname); 
 		 System.out.println(member_id);
 			System.out.println(loc);
-			   System.out.println("=========================================================================================================");
+			   
 	  mav.setViewName("map/modify_view");
 	  
 	 
@@ -261,7 +267,7 @@ public class MapController {
 			 mav.addObject("nickname", nickname); 
 				 System.out.println(member_id); 
 				 System.out.println(loc);
-				 
+		
 			
 				 
 					/*
@@ -312,12 +318,101 @@ public class MapController {
 		  
 		  
 		  
+		  @RequestMapping("/modify")//글작성 폼에서 정보수정(즉, update) 
+		  public ModelAndView modify(
+				  
+				  @RequestParam(value="location" ,required = false)String loc,
+					 
+				   @RequestParam(value="member_id",required = false)String member_id,
+				  
+				   @RequestParam(value="nickname",required = false)String nickname,
+				   
+				  
+				   
+				 //  @RequestParam(value="original_location",required = false)String original_location, //원래 주소
+				
+				  ModelAndView mav ,ImageVO imageVO, BoardVO boardVO, MemberVO memberVO, Criteria cri , MultipartHttpServletRequest multi)throws Exception 
+		  			
+		  { 
+			  log.info("modify"); 
+			  
+
+			  
+			 
+			  mav.addObject("list", service.getList(cri));
+				
+				int total = service.getTotal(cri);
+				
+				mav.addObject("pageMaker",  new PageVO(cri, total));
+			  
+				
+			  memberVO.setLocation(loc);
+			  
+				service.insertLoc(memberVO);
+				
+				 mav.addObject("location", loc); 
+				 
+			 mav.addObject("member_id", member_id); 
+			 mav.addObject("nickname", nickname); 
+		
+				 
+				  service.modify(boardVO);
+				 
+					/*
+					 * String path =
+					 * multi.getSession().getServletContext().getRealPath("/static/img/location");
+					 * 
+					 * path = path.replace("webapp", "resources");
+					 * 
+					 * File dir = new File(path); if (!dir.isDirectory()) { dir.mkdir(); }
+					 * 
+					 * List<MultipartFile> mf = multi.getFiles("file");
+					 * 
+					 * 
+					 * for (int i = 0; i < mf.size(); i++) { // 파일명 중복 검사
+					 * 
+					 * UUID uuid = UUID.randomUUID(); // 파일명 랜덤으로 변경
+					 * 
+					 * String originalfileName = mf.get(i).getOriginalFilename(); String ext =
+					 * FilenameUtils.getExtension(originalfileName); //저장 될 파일명 String
+					 * imgname=uuid+"."+ext;
+					 * 
+					 * 
+					 * String savePath = path + "\\" + imgname; // 저장 될 파일 경로
+					 * 
+					 * 
+					 * 
+					 * System.out.println(
+					 * "============================================================================="
+					 * ); System.out.println(savePath);
+					 * 
+					 * mf.get(i).transferTo(new File(savePath)); // 파일 저장
+					 * imageVO.setImgname(imgname);
+					 * imageVO.getBoardVO().setBoard_id(boardVO.getBoard_id()); System.out.println(
+					 * "============================================================================="
+					 * ); System.out.println(boardVO.getBoard_id());
+					 * 
+					 * service.detailInput(imageVO);
+					 * 
+					 * 
+					 * 
+					 * }
+					 */
+				
+			  mav.setViewName("redirect:board");
+			  return mav;
+			  
+		  }
+		  
+		  
+		  
+		  
 	
 		  
 		// 질문과 답변 댓글 작성
 		  
 			@PostMapping("/map_view/insert")
-			public BoardVO insertComment(BoardVO boardVO,
+			public BoardVO insertComment(BoardVO boardVO, Model model,
 					
 					  @RequestParam(value="location" ,required = false)String loc,
 					  
@@ -326,15 +421,87 @@ public class MapController {
 					  @RequestParam(value="nickname",required = false)String nickname,
 					 
 					
-					@RequestParam("member_id") String member_id) {
+					@RequestParam("member_id") String member_id)
+			
+			{
 				MemberVO member = new MemberVO();
 				boardVO.setMemberVO(member);
 				boardVO.getMemberVO().setMember_id(member_id);
 				service.insertComment(boardVO);
+				
+				
 				BoardVO comments = service.getComment(boardVO.getPgroup());
 				System.out.println(comments);
+				
+				System.out.println(boardVO.getBoard_id());
+				System.out.println("ddddddddddddddddddddddddddddddddddddddddddddddddreply");
+				
+				System.out.println(comments.getBoard_id());
+				
+				model.addAttribute("reply_id", comments.getBoard_id());
+				
 				return comments;
 			}
+			
+			
+			@RequestMapping("/map_view/delete")
+			public ResponseEntity<String> reply_delete(BoardVO boardVO ) {
+
+				ResponseEntity<String> entity = null;
+				log.info("delete");
+
+				try {
+					
+					
+					
+				
+					
+					service.deleteComment(boardVO);
+					System.out.println("=====================================================================================");
+						System.out.println(boardVO.getBoard_id());
+					entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+				} catch (Exception e) {
+					e.printStackTrace();
+
+					entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+				}
+
+				return entity;
+
+			}
+			
+			
+			
+			
+			
+			/*
+			 * @RequestMapping("/map_view/delete") public ModelAndView deleteComment(BoardVO
+			 * boardVO, ModelAndView mav,
+			 * 
+			 * @RequestParam(value="location" ,required = false)String loc,
+			 * 
+			 * 
+			 * 
+			 * @RequestParam(value="nickname",required = false)String nickname,
+			 * 
+			 * 
+			 * @RequestParam("member_id") String member_id)
+			 * 
+			 * {
+			 * 
+			 * service.deleteComment(boardVO);
+			 * 
+			 * BoardVO comments = service.getComment(boardVO.getPgroup());
+			 * System.out.println(comments);
+			 * 
+			 * System.out.println("ddddddddddddddddddddddddddddddddddddddddddddddddreply");
+			 * System.out.println(comments.getBoard_id()); System.out.println(
+			 * "================================================sss===================");
+			 * 
+			 * 
+			 * mav.setViewName("map/content_view"); return mav; }
+			 * 
+			 */
 		  
 		  
 		  
@@ -355,11 +522,7 @@ public class MapController {
 				   
 				   
 				  int board_id, String location, String member_id, String nickname, ModelAndView mav ,BoardVO boardVO, MemberVO memberVO) throws Exception{
-	      
-			  System.out.println(board_id);
-			  System.out.println(location);
-			  System.out.println(member_id);
-			  System.out.println(nickname);
+
 			  
 		      log.info("delete");
 		      service.inputDelete(board_id);

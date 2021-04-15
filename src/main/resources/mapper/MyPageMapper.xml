@@ -171,9 +171,9 @@
 	<insert id="insertPay" parameterType="PayVO">
 	<![CDATA[
 		INSERT INTO pay
-		(pay_id,payprice,usepoint,earningpoint,deliveryaddress,deliveryname,deliverytel,member_id, iamport_id)
+		(pay_id,payprice,usepoint,earningpoint,deliveryaddress,deliveryname,deliverytel,member_id, receipt_id)
 		values(pay_seq.nextval,#{payprice}, #{usepoint},
-		#{earningpoint},#{deliveryaddress},#{deliveryname},#{deliverytel},#{memberVO.member_id},#{iamport_id})
+		#{earningpoint},#{deliveryaddress},#{deliveryname},#{deliverytel},#{memberVO.member_id},#{receipt_id})
 	]]>
 	</insert>
 

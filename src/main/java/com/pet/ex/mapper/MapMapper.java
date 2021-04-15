@@ -41,6 +41,10 @@ public interface MapMapper {
 
 	public void detailInput(ImageVO imageVO);
 
+	public void modify(BoardVO boardVO);
+
+	public void deleteComment(BoardVO boardVO);
+
 
 
 }

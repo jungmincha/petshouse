@@ -231,7 +231,7 @@
 	<!-- 댓글 작성 후 ajax로 출력 -->
 	<select id="getComment" resultMap="boardvo">
    <![CDATA[
-	 select nickname, pgroup, content, pdate from (select m.nickname, pgroup, content, b.pdate from board b, member m where b.member_id=m.member_id and boardtype_id= 7 and pgroup = (select pgroup from board where board_id=#{board_id}) and pstep=1 order by b.pdate desc) where rownum=1
+	 select board_id,nickname, pgroup, content, pdate from (select board_id,m.nickname, pgroup, content, b.pdate from board b, member m where b.member_id=m.member_id and boardtype_id= 7 and pgroup = (select pgroup from board where board_id=#{board_id}) and pstep=1 order by b.pdate desc) where rownum=1
    ]]>
 	</select>
 	
@@ -246,7 +246,20 @@
 		]]>
 	</select>
 	
-	
+	<select id="modify">
+		<![CDATA[
+			update board set title=#{title},content=#{content} where board_id = #{board_id}
+		]]>
+	</select>
+
+
+<!-- 댓글삭제 -->
+
+<select id="deleteComment">
+   <![CDATA[
+    delete from board where board_id = #{board_id}
+   ]]>
+	</select>
 
 	
 	

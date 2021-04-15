@@ -438,6 +438,7 @@ public class AdminController {
 		log.info("delete");
 
 		try {
+
 			service.noticeDelete(boardVO.getBoard_id());
 
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
