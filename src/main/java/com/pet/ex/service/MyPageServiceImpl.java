@@ -116,4 +116,17 @@ public class MyPageServiceImpl implements MyPageService {
 		myPageMapper.insertPoint(pscore, pointtype_id, member_id);
 	}
 
+	@Override
+	public void updatePayCancel(String receipt_id) {
+		log.info("updatePayCancel()");
+		myPageMapper.updatePayCancel(receipt_id);
+
+	}
+
+	@Override
+	public PayVO getPay(String pay_id) {
+		log.info("getPay()");
+		return myPageMapper.getPay(pay_id);
+	}
+
 }

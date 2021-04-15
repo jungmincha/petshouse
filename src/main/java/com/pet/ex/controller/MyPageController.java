@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -112,11 +113,9 @@ public class MyPageController {
 		String member_id = authentication.getPrincipal().toString();
 		List<Integer> payCounts = new ArrayList<Integer>();
 		payCounts.add(myPageService.getPayTotal(member_id));
-		payCounts.add(myPageService.orderListCount(1, member_id));
-		payCounts.add(myPageService.orderListCount(2, member_id));
-		payCounts.add(myPageService.orderListCount(3, member_id));
-		payCounts.add(myPageService.orderListCount(4, member_id));
-		payCounts.add(myPageService.orderListCount(5, member_id));
+		for (int i = 1; i <= 8; i++) {
+			payCounts.add(myPageService.orderListCount(i, member_id));
+		}
 		mav.addObject("payCounts", payCounts);
 		mav.setViewName("/myPage/orderList");
 
@@ -150,8 +149,8 @@ public class MyPageController {
 		String member_id = authentication.getPrincipal().toString();
 		List<PayVO> pay = new ArrayList<PayVO>();
 		Map<String, Object> payAjax = new HashMap<String, Object>();
-		pay = myPageService.listPaystateOrder(cri, member_id, paystate_id);
 
+		pay = myPageService.listPaystateOrder(cri, member_id, paystate_id);
 		int total = myPageService.getPaystateTotal(member_id, paystate_id);
 
 		for (PayVO dto : pay) {
@@ -197,6 +196,7 @@ public class MyPageController {
 		return mav;
 	}
 
+	// 결제 유효성 체크
 	@PostMapping("/orderList/payCheck/{receipt_id}")
 	public JSONObject payCheck(@PathVariable("receipt_id") String receipt_id, String name, String reason)
 			throws Exception {
@@ -217,22 +217,58 @@ public class MyPageController {
 		return jsonObj;
 	}
 
+	// 결제 취소
 	@PostMapping("/orderList/payCancel/{receipt_id}")
-	public void payCancel(@PathVariable("receipt_id") String receipt_id, String name, String reason) throws Exception {
+	public JSONObject payCancel(@PathVariable("receipt_id") String receipt_id, String name, String reason)
+			throws Exception {
 		BootpayApi api = new BootpayApi("6076c93a5b2948001d07b41e", "n1PS3ICdEr1e8ndCigcSJ7yDrKEYqI4SQWDjc9QZhOM=");
 		api.getAccessToken();
 		Cancel cancel = new Cancel();
 		cancel.receipt_id = receipt_id;
 		cancel.name = name;
 		cancel.reason = reason;
-
+		String str = null;
 		try {
 			HttpResponse res = api.cancel(cancel);
-			String str = IOUtils.toString(res.getEntity().getContent(), "UTF-8");
+			str = IOUtils.toString(res.getEntity().getContent(), "UTF-8");
 			System.out.println(str);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		JSONParser parser = new JSONParser();
+		Object obj = parser.parse(str);
+		JSONObject jsonObj = (JSONObject) obj;
+
+		if (jsonObj.get("status").toString().equals("200")) {
+			System.out.println("취소 성공 - DB실행");
+			myPageService.updatePayCancel(receipt_id);
+		}
+		return jsonObj;
 	}
 
+	// 주문 상세 페이지
+	@GetMapping("/orderList/popup/{pay_id}")
+	public ModelAndView orderPopup(ModelAndView mav, @PathVariable("pay_id") String pay_id, String receipt_id)
+			throws Exception {
+		PayVO pay = myPageService.getPay(pay_id);
+
+		BootpayApi api = new BootpayApi("6076c93a5b2948001d07b41e", "n1PS3ICdEr1e8ndCigcSJ7yDrKEYqI4SQWDjc9QZhOM=");
+		api.getAccessToken();
+		String str = null;
+		try {
+			HttpResponse res = api.verify(receipt_id);
+			str = IOUtils.toString(res.getEntity().getContent(), "UTF-8");
+			System.out.println(str);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		JSONParser parser = new JSONParser();
+		Object obj = parser.parse(str);
+		JSONObject jsonObj = (JSONObject) obj;
+
+		mav.addObject("pay", pay);
+		mav.addObject("payDetail", jsonObj);
+		mav.setViewName("/myPage/orderListPopup");
+		return mav;
+	}
 }

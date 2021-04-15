@@ -56,4 +56,8 @@ public interface MyPageMapper {
 
 	public void insertPoint(int pscore, int pointtype_id, String member_id);
 
+	public void updatePayCancel(String receipt_id);
+
+	public PayVO getPay(String pay_id);
+
 }

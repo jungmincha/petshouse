@@ -13,8 +13,10 @@
 <meta name="keywords" content="Fashi, unica, creative, html">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
+<!-- csrf 처리 -->
 <meta name="_csrf_parameter" content="${_csrf.parameterName}" />
 <meta name="_csrf_header" content="${_csrf.headerName}" />
+
 <title>주문배송내역</title>
 <!-- Google Font -->
 <link
@@ -51,31 +53,8 @@
 </sec:authorize>
 <script type="text/javascript"
 	src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
-
 <!-- 헤더 끝 -->
-<script>
 
-    function cancelPay() {
-    	$.ajax({
-			url : "/myPage/orderList/payCancel/"+"6076f7a72386840022b1897e",
-			type : "post",
-			data :{
-				name : "김준성",
-				reason : "반품"
-				
-			},
-			success : function(data) {
-				
-			},
-			error : function(request, status, error){
-				
-				
-			}
-		
-		})
-		
-    }
-</script>
 <!-- Js Plugins -->
 <script src="/resources/js/jquery-3.3.1.min.js"></script>
 <script src="/resources/js/bootstrap.min.js"></script>
@@ -278,9 +257,9 @@
 	border-radius: 10px;
 	cursor: pointer;
 	position: fixed;
-	right: 5px;
+	right: 20px;
 	font-size: 15px;
-	bottom: 500px;
+	bottom: 80px;
 	padding: 10px;
 }
 </style>
@@ -294,6 +273,8 @@
 <!-- 헤더 -->
 <header class="header-section fixed-top bg-white">
 
+	<input type="hidden" id="memberName"
+		value="<sec:authentication property="principal.name"/>">
 	<div class="container">
 		<div class="inner-header">
 			<div class="row">
@@ -405,8 +386,6 @@
 	<!-- 상단 버튼 -->
 	<div class="top" onclick="window.scrollTo(0,0);">top</div>
 
-	<button onclick="cancelPay()">환불하기</button>
-
 	<!-- 본문 -->
 	<div class="container" id="orderList">
 		<div class="row">
@@ -447,7 +426,7 @@
 						</div>
 						<div class="col-lg-2 text-center">
 							<a onclick="listOrder(6)" style="font-size: 22px">교환/환불/취소<br>
-								<br> <span style="font-size: 22px">0</span></a>
+								<br> <span style="font-size: 22px">${payCounts[6] + payCounts[7] + payCounts[8]}</span></a>
 						</div>
 					</div>
 
@@ -630,7 +609,9 @@
 		</div>
 	</div>
 </footer>
-
+<form name="iniform" method="get">
+	<input type="hidden" name="receipt_id" id="popReceipt_id" value="">
+</form>
 <!-- footer 끝 -->
 <script>
 
@@ -668,7 +649,7 @@
 													}
 													html += " <div class='row'> <div class='col-lg-5'> <div class='pb-pic'>"
 													+ "<img src='/resources/img/admin/goods/"+data.pay[i-1].payGoodsVO[0].boardVO.goodsVO.thumbnail+"' class='pimg'> </div>"
-													+ "<div class='pb-text'> <a href='#'> <h5>"
+													+ "<div class='pb-text'> <a href='#' onclick='orderPopup("+data.pay[i-1].pay_id+", \""+data.pay[i-1].receipt_id+"\")'> <h5>"
 													+ data.pay[i - 1].pay_id
 													+ " / "
 													+ getFormatDate(data.pay[i - 1].paydate)
@@ -683,7 +664,7 @@
 													+ "</span>"
 													switch (data.pay[i-1].paystateVO.paystate_id){
 														case 1 :
-														html += "</div> <div class='col-lg-3'  style='text-align: right;'><br><span>상품준비중</span></div> </div>"
+														html += "</div> <div class='col-lg-3'  style='text-align: right;'><br><span>상품준비중</span><br><button onclick='payCancel(\""+data.pay[i-1].receipt_id+"\")'>결제취소</button></div> </div>"
 															break;
 														case 2 :
 														html += "</div> <div class='col-lg-3'  style='text-align: right;'><br><span>배송준비중</span></div> </div>"
@@ -700,6 +681,21 @@
 														case 5 :
 															html += "</div> <div class='col-lg-3' style='text-align: right;'>"
 																+ "<br><span style='font-size: 20px'><button id='myBtn' onclick='modals("+data.pay[i - 1].payGoodsVO[0].boardVO.goodsVO.goods_id+" ,\""+data.pay[i - 1].payGoodsVO[0].boardVO.goodsVO.thumbnail+"\",\""+data.pay[i-1].payGoodsVO[0].boardVO.title+"\", "+data.pay[i-1].paystateVO.paystate_id+")'>리뷰 작성</button></span>"
+																+ "</div> </div>" 
+																break;
+														case 6 :
+															html += "</div> <div class='col-lg-3' style='text-align: right;'>"
+																+ "<br><span style='font-size: 20px'>취소된 결제</span>"
+																+ "</div> </div>" 
+																break;
+														case 7 :
+															html += "</div> <div class='col-lg-3' style='text-align: right;'>"
+																+ "<br><span style='font-size: 20px'>교환처리</span><br><button onclick='delivery()'>배송조회</button> "
+																+ "</div> </div>" 
+																break;
+														case 8 :
+															html += "</div> <div class='col-lg-3' style='text-align: right;'>"
+																+ "<br><span style='font-size: 20px'>환불처리</span>"
 																+ "</div> </div>" 
 																break;
 														default :
@@ -774,7 +770,7 @@
 													}
 													html += " <div class='row'> <div class='col-lg-5'> <div class='pb-pic'>"
 													+ "<img src='/resources/img/admin/goods/"+data.pay[i-1].payGoodsVO[0].boardVO.goodsVO.thumbnail+"' class='pimg'> </div>"
-													+ "<div class='pb-text'> <a href='#'> <h5>"
+													+ "<div class='pb-text'> <a href='#' onclick='orderPopup("+data.pay[i-1].pay_id+",\""+data.pay[i-1].receipt_id+"\")'> <h5>"
 													+ data.pay[i - 1].pay_id
 													+ " / "
 													+ getFormatDate(data.pay[i - 1].paydate)
@@ -789,7 +785,7 @@
 													+ "</span>"
 													switch (data.pay[i-1].paystateVO.paystate_id){
 														case 1 :
-														html += "</div> <div class='col-lg-3'  style='text-align: right;'><br><span>상품준비중</span></div> </div>"
+														html += "</div> <div class='col-lg-3'  style='text-align: right;'><br><span>상품준비중</span><br><button onclick='payCancel(\""+data.pay[i-1].receipt_id+"\")'>결제취소</button></div> </div>"
 															break;
 														case 2 :
 														html += "</div> <div class='col-lg-3'  style='text-align: right;'><br><span>배송준비중</span></div> </div>"
@@ -806,6 +802,21 @@
 														case 5 :
 															html += "</div> <div class='col-lg-3' style='text-align: right;'>"
 																+ "<br><span style='font-size: 20px'><button id='myBtn' onclick='modals("+data.pay[i - 1].payGoodsVO[0].boardVO.goodsVO.goods_id+" ,\""+data.pay[i - 1].payGoodsVO[0].boardVO.goodsVO.thumbnail+"\",\""+data.pay[i-1].payGoodsVO[0].boardVO.title+"\" ,"+data.pay[i-1].paystateVO.paystate_id+")'>리뷰 작성</button></span>"
+																+ "</div> </div>" 
+																break;
+														case 6 :
+															html += "</div> <div class='col-lg-3' style='text-align: right;'>"
+																+ "<br><span style='font-size: 20px'>취소된 결제</span>"
+																+ "</div> </div>" 
+																break;
+														case 7 :
+															html += "</div> <div class='col-lg-3' style='text-align: right;'>"
+																+ "<br><span style='font-size: 20px'>교환처리</span><br><button onclick='delivery()'>배송조회</button> "
+																+ "</div> </div>" 
+																break;
+														case 8 :
+															html += "</div> <div class='col-lg-3' style='text-align: right;'>"
+																+ "<br><span style='font-size: 20px'>환불처리</span>"
 																+ "</div> </div>" 
 																break;
 														default :
@@ -879,7 +890,7 @@
 									}
 									html += " <div class='row'> <div class='col-lg-5'> <div class='pb-pic'>"
 									+ "<img src='/resources/img/admin/goods/"+data.pay[i-1].payGoodsVO[0].boardVO.goodsVO.thumbnail+"' class='pimg'> </div>"
-									+ "<div class='pb-text'> <a href='#'> <h5>"
+									+ "<div class='pb-text'> <a href='#' onclick='orderPopup("+data.pay[i-1].pay_id+",\""+data.pay[i-1].receipt_id+"\")'> <h5>"
 									+ data.pay[i - 1].pay_id
 									+ " / "
 									+ getFormatDate(data.pay[i - 1].paydate)
@@ -894,7 +905,7 @@
 									+ "</span>"
 									switch (data.pay[i-1].paystateVO.paystate_id){
 										case 1 :
-										html += "</div> <div class='col-lg-3'  style='text-align: right;'><br><span>상품준비중</span></div> </div>"
+										html += "</div> <div class='col-lg-3'  style='text-align: right;'><br><span>상품준비중</span><br><button onclick='payCancel(\""+data.pay[i-1].receipt_id+"\")'>결제취소</button></div> </div>"
 											break;
 										case 2 :
 										html += "</div> <div class='col-lg-3'  style='text-align: right;'><br><span>배송준비중</span></div> </div>"
@@ -912,6 +923,21 @@
 											data.pay[i - 1].payGoodsVO[0].boardVO.goodsVO.thumbnail;
 											html += "</div> <div class='col-lg-3' style='text-align: right;'>"
 												+ "<br><span style='font-size: 20px'><button id='myBtn' onclick='modals("+data.pay[i - 1].payGoodsVO[0].boardVO.goodsVO.goods_id+" ,\""+data.pay[i - 1].payGoodsVO[0].boardVO.goodsVO.thumbnail+"\",\""+data.pay[i-1].payGoodsVO[0].boardVO.title+"\", "+data.pay[i-1].paystateVO.paystate_id+")'>리뷰 작성</button></span>"
+												+ "</div> </div>" 
+												break;
+										case 6 :
+											html += "</div> <div class='col-lg-3' style='text-align: right;'>"
+												+ "<br><span style='font-size: 20px'>취소된 결제</span>"
+												+ "</div> </div>" 
+												break;
+										case 7 :
+											html += "</div> <div class='col-lg-3' style='text-align: right;'>"
+												+ "<br><span style='font-size: 20px'>교환처리</span><br><button onclick='delivery()'>배송조회</button> "
+												+ "</div> </div>" 
+												break;
+										case 8 :
+											html += "</div> <div class='col-lg-3' style='text-align: right;'>"
+												+ "<br><span style='font-size: 20px'>환불처리</span>"
 												+ "</div> </div>" 
 												break;
 										default :
@@ -1115,8 +1141,6 @@
 		var _top = Math.ceil(( window.screen.height - 420 )/2);
 		var pop = window.open("/popup/deliveryPopup.jsp", "pop",
 					"width=570,height=420, scrollbars=yes, resizable=yes, left="+_left+", top="+_top);
-		 
-
 	}
 	
 	// 시간 포맷 함수
@@ -1126,6 +1150,58 @@
 	
 		return date; 
 	}
+	// 카트 갯수 확인
+	$(document).ready(function() {
+		console.log("실행")
+		var count = 0;
+		if (sessionStorage.getItem("cartList") != null) {
+			count = JSON.parse(sessionStorage.getItem("cartList")).length;
+		}
+
+		if (count > 0) {
+			html = "<span id='cartCount'>" + count + "</span>"
+			$("#cartCount").append(html)
+		}
+
+	})
+	
+	// 주문상세정보 팝업
+	function orderPopup(pay_id,receipt_id){
+		event.preventDefault();
+		
+		var _left = Math.ceil(( window.screen.width - 800 )/2);
+		var _top = Math.ceil(( window.screen.height - 600 )/2);
+		window.open("", "pop",
+					"width=800,height=600, scrollbars=yes, resizable=yes, left="+_left+", top="+_top);
+		$("#popReceipt_id").val(receipt_id);
+		iniform.target="pop";
+		console.log(receipt_id);
+		iniform.action="/myPage/orderList/popup/"+pay_id;
+		iniform.submit();
+	}
+	// 결제 취소
+	function payCancel(receipt_id) {
+		console.log("실행");
+    	$.ajax({
+			url : "/myPage/orderList/payCancel/"+receipt_id,
+			type : "post",
+			data :{
+				name : $("#memberName").val(),
+				reason : "개인사유"
+				
+			},
+			success : function(data) {
+				alert("정상적으로 취소되었습니다.");
+				
+			},
+			error : function(request, status, error){
+				
+				
+			}
+		
+		})
+		
+    }
 </script>
 <script>
 	//위치기반 인증 자바스크립트 함수
@@ -1161,19 +1237,8 @@
 		}
 
 	}
-	$(document).ready(function() {
-		console.log("실행")
-		var count = 0;
-		if (sessionStorage.getItem("cartList") != null) {
-			count = JSON.parse(sessionStorage.getItem("cartList")).length;
-		}
-
-		if (count > 0) {
-			html = "<span id='cartCount'>" + count + "</span>"
-			$("#cartCount").append(html)
-		}
-
-	})
+	
+	
 </script>
 
 </html>

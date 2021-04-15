@@ -48,13 +48,8 @@
 
 <script type="text/javascript">
 // 시간 포맷 함수
-function getFormatDate(date) {
 
-	var date = date.substr(0, 19);
-	var date = date.split("T");
-	var date = date[0] + " " + date[1];
-	return date; 
-}
+ getFormatDate(data.pdate)
 </script>
 <!-- Js Plugins -->
 <script src="/resources/js/jquery-3.3.1.min.js"></script>

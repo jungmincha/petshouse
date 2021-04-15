@@ -114,4 +114,8 @@ public class PrincipalOauth2User implements OAuth2User {
 	public String getLocation() {
 		return member.getLocation();
 	}
+
+	public String getThumbnail() {
+		return member.getThumbnail();
+	}
 }

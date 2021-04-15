@@ -23,6 +23,7 @@ public class PayVO {
 	private String deliveryname;
 	private int deliverytel;
 	private String receipt_id;
+	private String goodsprice;
 
 	// 외래키
 	private PaystateVO paystateVO;

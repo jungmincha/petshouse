@@ -51,7 +51,8 @@
 </style>
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
 <body style="padding-top: 100px">
-
+	<input type="hidden" id="memberName"
+		value="<sec:authentication property="principal.name"/>">
 
 
 	<!-- Shopping Cart Section Begin -->
@@ -188,7 +189,7 @@
 								</ul>
 
 								<div class="order-btn">
-									<button type="submit" onclick="payNow()"
+									<button type="submit" onclick="payNow('card')"
 										class="site-btn place-btn">Place Order</button>
 
 								</div>
@@ -230,7 +231,7 @@
 									+ "<input type='hidden' name='board_id' value='"+ payGoods[i].board_id+"'></li>"
 
 						}
-						html += "<li class='total-price'>총 상품 금액 <span id='goodsTotal1'></span><input type='hidden' id='goodsTotal'></li>"
+						html += "<li class='total-price'>총 상품 금액 <span id='goodsprice1'></span><input type='hidden' name='goodsprice' id='goodsprice'></li>"
 								+ "<li class='fw-normal'>배송비  <span id='deliveryPay1'></span><input type='hidden' id='deliveryPay'></li>"
 								+ "<li class='fw-normal'>포인트 사용  <span id='payPoint1'></span><input type='hidden' id='payPoint' name='usepoint'></li>"
 								+ "<li class='total-price'>최종 결제 금액 <span id='lastTotal1'></span><input type='hidden' id='lastTotal' name='payprice'></li>"
@@ -245,8 +246,8 @@
 							total += parseInt(this.form.goodsSum[i].value);
 						}
 
-						$("#goodsTotal1").text(total + "원");
-						$("#goodsTotal").val(total);
+						$("#goodsprice1").text(total + "원");
+						$("#goodsprice").val(total);
 
 						// 배송비 계산
 						if (total < 30000) {
@@ -288,9 +289,9 @@
 	// 전체 포인트 사용
 	function usePoint() {
 		event.preventDefault();
-		var goodsTotal = parseInt($("#goodsTotal").val());
-		if("${point.sum}" > goodsTotal){
-		    $("#point").val(goodsTotal);
+		var goodsprice = parseInt($("#goodsprice").val());
+		if("${point.sum}" > goodsprice){
+		    $("#point").val(goodsprice);
 		    $('#payPoint').val("-" + $("#point").val());
 			$('#payPoint1').text("-" + $("#point").val() + "P");
 			lastTotal();
@@ -308,7 +309,7 @@
 	// 최종 결제 금액 계산
 	function lastTotal() {
 		var lastTotal = 0;
-		lastTotal = parseInt($("#goodsTotal").val())
+		lastTotal = parseInt($("#goodsprice").val())
 				+ parseInt($("#payPoint").val())
 				+ parseInt($("#deliveryPay").val());
 		$("#lastTotal").val(lastTotal)
@@ -319,58 +320,7 @@
 		$("#earningPoint").val(innerPoint);
 	}
 	
-	/* // 아임포트
-	IMP.init('imp29855153');
-	function payNow(method) {
-		event.preventDefault();
-		// 구매자정보
-		var email = "${member.member_id}";
-		var name = "${member.name}";
-		var tel = "0${member.tel}";
-		var address = "${member.address}";
-
-		//결제 정보
-		var lastTotal = $("#lastTotal").val();
-		var nameCount = this.form.goodsName.length - 2;
-		console.log(nameCount)
-		var goodsName = this.form.goodsName[1].value;
-		if (nameCount > 0) {
-			goodsName += " 외 " + nameCount + "개"
-		}
-		
-		IMP.request_pay({
-			pg : 'html5_inicis', // version 1.1.0부터 지원.
-			pay_method : method,
-			merchant_uid : 'merchant_' + new Date().getTime(),
-			name : goodsName, // 상품 이름
-			amount : lastTotal, //판매 가격
-			buyer_email : email, // 이메일
-			buyer_name : name, // 구매자 이름
-			buyer_tel : tel, // 구매자 번호
-			buyer_addr : address, // 구매자 주소
-			buyer_postcode : '123-456',
-			m_redirect_url : 'localhost:8383/myPage/payPage/paySuccess', // 리다이렉트 주소
-			company : '(주)캣버그' // 상호명
-		}, function(rsp) {
-			if (rsp.success) {
-				//카트 초기화 
-				var cartList = new Array();
-				sessionStorage.setItem("cartList", JSON.stringify(cartList));
-				
-				var msg = '결제가 완료되었습니다.';
-				msg += '고유ID : ' + rsp.imp_uid;
-				msg += '상점 거래ID : ' + rsp.merchant_uid;
-				msg += '결제 금액 : ' + rsp.paid_amount;
-				msg += '카드 승인번호 : ' + rsp.apply_num;
-				$("#iamport_id").val(rsp.imp_uid);
-				document.form.submit();
-			} else {
-				var msg = '결제에 실패하였습니다.';
-				msg += '에러내용 : ' + rsp.error_msg;
-			}
-			alert(msg);
-		});
-	} */
+	// 결제 모듈 실행
 	function payNow(method) {
 		event.preventDefault();
 		var email = "${member.member_id}";
@@ -391,7 +341,7 @@
 		application_id: "6076c93a5b2948001d07b41b",
 		name: goodsName, //결제창에서 보여질 이름
 		pg: 'inicis',
-		method: 'card', //결제수단, 입력하지 않으면 결제수단 선택부터 화면이 시작합니다.
+		method: method, //결제수단, 입력하지 않으면 결제수단 선택부터 화면이 시작합니다.
 		show_agree_window: 0, // 부트페이 정보 동의 창 보이기 여부
 		user_info: {
 			username: name,
@@ -438,34 +388,70 @@
 			url : "/myPage/orderList/payCheck/"+data.receipt_id,
 			type : "post",
 			success : function(verify) {
-				console.log(verify);
-				//카트 초기화 
-				var cartList = new Array();
-				sessionStorage.setItem("cartList", JSON.stringify(cartList));
+				if(verify.status=="200"){
+					console.log(verify);
+					//카트 초기화 
+					var cartList = new Array();
+					sessionStorage.setItem("cartList", JSON.stringify(cartList));
+					
+					var msg = '결제가 완료되었습니다.';
+					msg += '영수증ID : ' + verify.data.receipt_id;
+					msg += '상점 거래ID : ' + verify.data.order_id;
+					msg += '결제 금액 : ' + verify.data.price;
+					$("#receipt_id").val(verify.data.receipt_id);
+					alert(msg);
+					document.form.submit();
+				}
+				else{
+					//유효성 체크 실피시 결제취소
+					alert("결제가 정상적으로 진행되지 않았습니다. 결제를 취소합니다.");
+					$.ajax({
+						url : "/myPage/orderList/payCancel/"+data.receipt_id,
+						type : "post",
+						data :{
+							name : $("#memberName").val(),
+							reason : "개인사유"
+							
+						},
+						success : function(data) {
+							alert("정상적으로 취소되었습니다.");
+							
+						},
+						error : function(request, status, error){
+							
+							
+						}
+					
+					})
+					
+					
+				}
 				
-				var msg = '결제가 완료되었습니다.';
-				msg += '영수증ID : ' + verify.data.receipt_id;
-				msg += '상점 거래ID : ' + verify.data.order_id;
-				msg += '결제 금액 : ' + verify.data.price;
-				$("#receipt_id").val(verify.data.receipt_id);
-				alert(msg);
-				document.form.submit();
 			},
 			error : function(request, status, error){
 				
 				//유효성 체크 실피시 결제취소
-				$.ajax({
-					url : "/myPage/orderList/payCancel/"+data.receipt_id,
-					type : "post",
-					success : function(verify) {
-						
-					},
-					error : function(request, status, error){
-						
-						
-					}
+			
+    		$.ajax({
+				url : "/myPage/orderList/payCancel/"+data.receipt_id,
+			type : "post",
+			data :{
+				name : $("#memberName").val(),
+				reason : "개인사유"
 				
-				})
+			},
+			success : function(data) {
+				alert("정상적으로 취소되었습니다.");
+				
+			},
+			error : function(request, status, error){
+				
+				
+			}
+		
+		})
+		
+    
 				
 			}
 		
@@ -487,9 +473,9 @@
 
 		var val = $("#point").val();
 		var valInt = parseInt($("#point").val());
-		var goodsTotal = $("#goodsTotal").val();
+		var goodsprice = $("#goodsprice").val();
 		
-		if(valInt>goodsTotal){
+		if(valInt>goodsprice){
 			 alert("포인트 사용액이 상품금액보다 큽니다.");
 		     $("#point").val('');
 		     $('#payPoint').val('0');
@@ -528,8 +514,7 @@
       return ((1 + Math.random()) * 0x10000 | 0).toString(16).substring(1);
     }
     return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
-  }
-	
+	}
 	
 	
 </script>

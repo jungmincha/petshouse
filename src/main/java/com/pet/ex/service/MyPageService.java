@@ -39,4 +39,8 @@ public interface MyPageService {
 
 	void insertPoint(int pscore, int pointtype_id, String member_id);
 
+	void updatePayCancel(String receipt_id);
+
+	PayVO getPay(String pay_id);
+
 }

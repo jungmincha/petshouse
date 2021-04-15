@@ -105,7 +105,8 @@
 		<result column="deliveryaddress" property="deliveryaddress" />
 		<result column="deliveryname" property="deliveryname" />
 		<result column="deliverytel" property="deliverytel" />
-		<result column="iamport_id" property="iamport_id" />
+		<result column="receipt_id" property="receipt_id" />
+		<result column="goodsprice" property="goodsprice" />
 		<collection property="paystateVO" resultMap="paystatevo" />
 		<collection property="memberVO" resultMap="membervo" />
 	</resultMap>
@@ -171,9 +172,9 @@
 	<insert id="insertPay" parameterType="PayVO">
 	<![CDATA[
 		INSERT INTO pay
-		(pay_id,payprice,usepoint,earningpoint,deliveryaddress,deliveryname,deliverytel,member_id, receipt_id)
+		(pay_id,payprice,usepoint,earningpoint,deliveryaddress,deliveryname,deliverytel,member_id,goodsprice ,receipt_id)
 		values(pay_seq.nextval,#{payprice}, #{usepoint},
-		#{earningpoint},#{deliveryaddress},#{deliveryname},#{deliverytel},#{memberVO.member_id},#{receipt_id})
+		#{earningpoint},#{deliveryaddress},#{deliveryname},#{deliverytel},#{memberVO.member_id},#{goodsprice},#{receipt_id})
 	]]>
 	</insert>
 
@@ -275,5 +276,17 @@
 		values(point_seq.nextval,#{pscore},#{pointtype_id},#{member_id})
 		]]>
 	</insert>
+
+	<update id="updatePayCancel">
+	<![CDATA[
+		update pay set paystate_id = 6 where receipt_id=#{receipt_id}
+	]]>
+	</update>
+
+	<select id="getPay" resultMap="payvo">
+		<![CDATA[
+		select * from pay where pay_id=#{pay_id}
+		]]>
+	</select>
 	
 </mapper>
