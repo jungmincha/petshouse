@@ -67,8 +67,10 @@ public interface CommunityService {
 	
 	//qna 등록
 	public BoardVO  getQnaBoard_id();
+	
+	public BoardVO getTipsBoard_id();
 
-	public void QnaImgInput(ImageVO imageVO);
+	public void ImgInput(ImageVO imageVO);
 	
 	
 	// 질문과 답변 댓글 리스트 출력
@@ -99,6 +101,7 @@ public interface CommunityService {
 	public void insertTComment(BoardVO boardVO);
 	
 	public List<BoardVO> getTCommentList(Criteria cri,int board_id);
-	
+	public void deleteComment(BoardVO boardVO);
+
 
 }

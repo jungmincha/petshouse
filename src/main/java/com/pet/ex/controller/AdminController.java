@@ -453,12 +453,12 @@ public class AdminController {
 	}
 	
 	// 공지사항 수정 페이지
-		@RequestMapping("/notice/modify/{board_id}")
+		@GetMapping("/notice/modify/{board_id}")
 		public ModelAndView modify_page(@PathVariable("board_id") int board_id, BoardVO boardVO, ModelAndView mav) {
 			
 			boardVO = service.getBoardInfo1(board_id);
 
-			mav.addObject("board", service.getBoard1(boardVO.getBoard_id()));
+			mav.addObject("notice_view", service.getBoard1(boardVO.getBoard_id()));
 			log.info("modify_page()실행");
 
 			mav.addObject("img", service.getNoticeImg(board_id));
@@ -468,16 +468,6 @@ public class AdminController {
 			return mav;
 		}
 
-		/*
-		 * // 질문과 답변 글 수정 페이지
-		 * 
-		 * @GetMapping("/notice_modify_page") public ModelAndView
-		 * modify_page(@RequestParam("board_id") int board_id, BoardVO boardVO,
-		 * ModelAndView mav) throws Exception { log.info("notice_modify_page()실행");
-		 * mav.addObject("notice_view", service.getNotView(boardVO.getBoard_id()));
-		 * mav.setViewName("admin/notice_modify"); return mav; }
-		 */
-	
 	// 공지사항 수정 포스트
 	@PostMapping("/notice/update")
 	public RedirectView noticeModify(MultipartHttpServletRequest multi, BoardVO boardVO, ImageVO imageVO,ModelAndView mav)
@@ -491,7 +481,7 @@ public class AdminController {
 		if (!dir.isDirectory()) {
 			dir.mkdir();
 		}
-
+		
 		List<MultipartFile> mf = multi.getFiles("file");
 
 		for (int i = 0; i < mf.size(); i++) { // 파일명 중복 검사
@@ -512,22 +502,11 @@ public class AdminController {
 			BoardVO board = service.getNoticeBoard_id();
 			imageVO.getBoardVO().setBoard_id(board.getBoard_id());
 			service.ImgModify(imageVO);
-			
-	
-		}
 
-		
+		}
+		service.nodify(boardVO);
 		return new RedirectView("/admin/notice");
 
 	}
-
-	/*
-	 * // 질문과 답변 찐 글 수정하기
-	 * 
-	 * @PostMapping("/nodify") public ModelAndView nodify(BoardVO boardVO,
-	 * ModelAndView mav) throws Exception { log.info("nodify()실행");
-	 * service.nodify(boardVO); mav.setView(new RedirectView("/admin/notice",
-	 * true)); return mav; }
-	 */
 
 }

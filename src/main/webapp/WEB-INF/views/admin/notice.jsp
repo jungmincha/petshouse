@@ -102,26 +102,16 @@ a:hover {
 
 	<div class="container">
 	<div class="row">
-	<h3 style="margin-bottom:20px;">공지 사항 관리</h3>
-
-      
-      
-		<sec:authorize access="hasAnyRole('ROLE_ADMIN')">
-			<input type="hidden" id="member_id"
-				value="<sec:authentication property="principal.member_id"/>">
-		</sec:authorize>
+	<h3 style="margin-bottom:20px;">공지 사항 관리</h3>      
 		
 		<!-- 게시글 끌고오기 -->
-
-		
-		
-			<c:if test="${'admin@google.com' eq 'admin@google.com'}">                     
+           
             <div class="col-lg-12">
                 <button class="btn btn-outline-secondary col-sm-1" id="nw"
 			style="margin-left: 65px; float:right;  margin-bottom:20px;"
 			onclick="location.href='${pageContext.request.contextPath}notice/write'">공지 작성</button>
               </div>            
-         </c:if>
+     
 			
 
 				<table class="table">
@@ -132,9 +122,8 @@ a:hover {
 							<th>작성자</th>
 							<th>조회수</th>
 							<th>작성일</th>
-							<c:if test="${'admin@google.com' eq 'admin@google.com'}">    
 							<th>삭제</th>
-							   </c:if>
+						
 					</thead>
 					<c:forEach items="${notice}" var="nt">
 						<tbody id="noticeList">
@@ -149,9 +138,9 @@ a:hover {
 								<td><span>${nt.hit}</span></td>
 								<td><span style="font-size: 13px; color: gray;">
 								<fmt:formatDate value="${nt.pdate}" pattern="yyyy.MM.dd" /></span></td>
-									<c:if test="${'admin@google.com' eq 'admin@google.com'}"><td onclick="event.cancelBubble=true;"><a class="a-delete"
+								<td onclick="event.cancelBubble=true;"><a class="a-delete"
 									data-bid='${nt.board_id}' href="/admin/notice/${nt.board_id}">삭제</a></td>
-									   </c:if>
+								
 							</tr>
 						</tbody>
 					</c:forEach>
@@ -186,20 +175,7 @@ a:hover {
 		</div>
 	</div>
 	<!-- container end -->
-<!-- 	<script>
-	
-	var date =getFormatDate($('.pdate').val());
-	console.log($('.pdate').val());
-	
-	function getFormatDate(date) {
-	
-        var date = date.substr(0, 10);
-        
-        console.log(date);
-        return date; 
-     }
-	</script> -->
-	
+
 
 
 	<!-- Footer -->

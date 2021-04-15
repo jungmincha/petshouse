@@ -71,7 +71,7 @@ public interface CommunityMapper {
 	
 	public BoardVO getQnaBoard_id();
 
-	public void QnaImgInput(ImageVO imageVO);
+	public void ImgInput(ImageVO imageVO);
 	
 	
 	// 질문과 답변 댓글쓰기
@@ -91,10 +91,11 @@ public interface CommunityMapper {
 	//페이징용..
 	//public List<BoardVO> getcommentsList(Criteria cri, int board_id);
 
+	public BoardVO getTipsBoard_id();
 	
 	
-	
-
+	//댓삭
+	public void deleteComment(BoardVO boardVO);
 	// 노하우 댓글 작성하기
 	public void writeTComment(BoardVO boardVO);
 	// 노하우 댓글 작성

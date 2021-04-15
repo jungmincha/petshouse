@@ -71,7 +71,7 @@ textarea::-webkit-scrollbar-track {
 
 		<form action="${pageContext.request.contextPath}/admin/notice/update"
 			method="post" enctype="multipart/form-data">
-			<input type="hidden" name="board_id" value="${board.board_id}" />
+			<input type="hidden" name="board_id" value="${notice_view.board_id}" />
 			
 			
 								<div class="form-group row">
@@ -98,9 +98,9 @@ textarea::-webkit-scrollbar-track {
 							
 							
 						
-			<input type="text" class="form-control" style=" margin-bottom: 20px; width:628px;"  name="title"value="${board.title}" />	
+			<input type="text" class="form-control" style=" margin-bottom: 20px; width:628px;"  name="title"value="${notice_view.title}" />	
 			<textarea class="form-control col" name="content"
-				style="width: 770px; height: 400px; margin-bottom: 20px; resize: none;">${board.content}</textarea>
+				style="width: 770px; height: 400px; margin-bottom: 20px; resize: none;">${notice_view.content}</textarea>
 
 		<div style="margin-top:30px; float: right;">
 			<button type="submit" class="btn btn-warning"	

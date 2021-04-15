@@ -81,6 +81,7 @@
 			<script>
 				CKEDITOR.replace('editor4');
 			</script>
+			
 			<div class="form-group row">
 
 				<div class="col">

@@ -43,20 +43,6 @@
 <!-- jquery cdn -->
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<!-- <script>
-.addEventListener('keydown', function(e){
-	    const keyCode = e.keyCode;
-	    console.log('pushed key ' + e.key);
-
-	    if(keyCode == 32){ // Enter key
-	      document.dispatchEvent(new KeyboardEvent('keydown', {key: '#'}));
-	      // document.dispatchEvent(new KeyboardEvent('keyup', {key: 'e'}));
-	    } 
-	  })
-	});
-
-	
-</script> -->
 
 </head>
 

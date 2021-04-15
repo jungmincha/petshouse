@@ -113,6 +113,28 @@ a:hover {
 #hashtag:hover {
 	background-color: #dddddd;
 }
+
+.profile_box {
+	width: 30px;
+	height: 30px;
+	border-radius: 70%;
+	overflow: hidden;
+	margin : 5px;
+}
+
+.profile_box2 {
+	width: 80px;
+	height: 80px;
+	border-radius: 70%;
+	overflow: hidden;
+	margin : 5px;
+}
+
+.profile {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
 </style>
 </head>
 
@@ -152,7 +174,16 @@ a:hover {
 
 		<table>
 			<td>
-				<div style="font-size: 20px;">${qna_view.memberVO.nickname}</div>
+			
+			
+								 <div class="row user_info"> 
+								 
+ 								 <div class="profile_box"> <img src="/resources/img/member/profile/${qna_view.memberVO.thumbnail}"
+								name="profile" alt="" class="profile" /> &nbsp&nbsp</div>
+								<span class="nickname">  ${qna_view.memberVO.nickname} &nbsp&nbsp</span>
+							
+							     </div>
+		
 				<hr>
 				<section style="margin-top: 60px; margin-bottom: 20px;">${qna_view.content}</section>
 				<form action="${pageContext.request.contextPath}/commu/qnatag"
@@ -201,9 +232,13 @@ a:hover {
 			<div id="comment">
 
 				<c:forEach items="${comment}" var="dto">
-					<div>${dto.memberVO.nickname}</div>
+				<div class="row"><div class="profile_box">
+					<img src="/resources/img/member/profile/${dto.memberVO.thumbnail}"
+						name="profile" alt="" class="profile" /></div>${dto.memberVO.nickname}</div>
+
 					<div>${dto.content}</div>
 					<div>${dto.pdate}"</div>
+					<a class="a-del" href="/commu/qna_view/delete?board_id=${dto.board_id}"><b>삭제하기</b></a>
 					<hr>
 				</c:forEach>
 
@@ -226,9 +261,10 @@ a:hover {
 	<script type="text/javascript">
 	
 		// 댓글 작성 및 ajax로 댓글 불러오기
-		function getComment() {
+		function getComment(){
 
 			var member_id = $("#member_id").val();
+			var thumbnail = $("#thumbnail").val();
 			console.log(member_id);
 			var pgroup = $("#pgroup").val();
 			var content = $("#content").val();
@@ -238,13 +274,16 @@ a:hover {
 				data : {
 					member_id : member_id,
 					pgroup : pgroup,
-					content : content
+					content : content,
+					thumbnail : thumbnail
 				},
 				success : function(data) {
 
-					html = "<div>" + data.memberVO.nickname + "</div>"
+					html = "<div class='row'><div class='profile_box'><img src='/resources/img/member/profile/" + data.memberVO.thumbnail +"' class='profile'></div>" + data.memberVO.nickname + "</div>"
 							+ "<div>" + data.content + "</div>" + "<div>"
-							+ data.pdate + "</div> <hr>"
+							+ data.pdate + "</div>"
+							+"<a class='a-del' href='/commu/qna_view/delete?board_id="+data.board_id+"><b>삭제하기</b></a> <hr> "
+							+"<hr>"
 
 					$("#comment").prepend(html);
 					document.getElementById("content").value = '';

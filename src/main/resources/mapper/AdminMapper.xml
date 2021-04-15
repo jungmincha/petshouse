@@ -336,7 +336,7 @@
 		<![CDATA[
 		      SELECT * FROM (
               SELECT ROWNUM AS RNUM, A.* FROM (
-                select * from member order by pdate desc
+                select * from member order by member_id asc
              ) A WHERE ROWNUM <= #{pageNum} * #{amount}
          ) WHERE RNUM > (#{pageNum}-1) * #{amount}  		
 	   ]]>

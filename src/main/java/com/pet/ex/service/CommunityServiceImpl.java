@@ -161,10 +161,17 @@ public class CommunityServiceImpl implements CommunityService {
 		return mapper.getQnaBoard_id();
 	}
 
+	
 	@Override
-	public void QnaImgInput(ImageVO imageVO) {
-		log.info("QnaImgInput");
-		mapper.QnaImgInput(imageVO);
+	public BoardVO getTipsBoard_id() {
+		log.info("getTipsBoard_id");
+		return mapper.getTipsBoard_id();
+	}
+
+	@Override
+	public void ImgInput(ImageVO imageVO) {
+		log.info("ImgInput");
+		mapper.ImgInput(imageVO);
 	}
 	
 	
@@ -237,6 +244,11 @@ public class CommunityServiceImpl implements CommunityService {
 		return mapper.getTCommentWithPaging(cri, board_id);
 	}
 	
+	@Override
+	public void deleteComment(BoardVO boardVO) {
+		mapper.deleteComment(boardVO);
+		
+	}
 	
 
 }

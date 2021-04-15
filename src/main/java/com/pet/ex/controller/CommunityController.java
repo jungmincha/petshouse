@@ -106,7 +106,7 @@ public class CommunityController {
 
 	// 노하우 글 작성
 	@PostMapping("/tips")
-	public ModelAndView twrite(MultipartHttpServletRequest multi, BoardVO boardVO, ModelAndView mav)
+	public ModelAndView twrite(MultipartHttpServletRequest multi, BoardVO boardVO,ImageVO imageVO, ModelAndView mav)
 			throws IllegalStateException, IOException {
 		log.info("twrite()실행");
 		communityService.writeTips(boardVO);
@@ -120,20 +120,24 @@ public class CommunityController {
 
 		List<MultipartFile> mf = multi.getFiles("file");
 
-		if (mf.size() == 1 && mf.get(0).getOriginalFilename().equals("")) {
+		for (int i = 0; i < mf.size(); i++) { // 파일명 중복 검사
 
-		} else {
-			for (int i = 0; i < mf.size(); i++) { // 파일명 중복 검사
-				UUID uuid = UUID.randomUUID();
-				// 본래 파일명
-				String imgname = mf.get(i).getOriginalFilename();
+			UUID uuid = UUID.randomUUID(); // 파일명 랜덤으로 변경
 
-				String savePath = path + "\\" + imgname; // 저장 될 파일 경로
+			String originalfileName = mf.get(i).getOriginalFilename();
+			String ext = FilenameUtils.getExtension(originalfileName);
+			// 저장 될 파일명
+			String imgname = uuid + "." + ext;
 
-				mf.get(i).transferTo(new File(savePath)); // 파일 저장
+			String savePath = path + "\\" + imgname; // 저장 될 파일 경로
 
-				communityService.fileUpload(imgname);
-			}
+			mf.get(i).transferTo(new File(savePath)); // 파일 저장
+			imageVO.setImgname(imgname);
+			BoardVO board = communityService.getTipsBoard_id();
+			imageVO.getBoardVO().setBoard_id(board.getBoard_id());
+			communityService.ImgInput(imageVO);
+
+	
 		}
 		mav.setView(new RedirectView("/commu/tips", true));
 		return mav;
@@ -278,7 +282,7 @@ public class CommunityController {
 			imageVO.setImgname(imgname);
 			BoardVO board = communityService.getQnaBoard_id();
 			imageVO.getBoardVO().setBoard_id(board.getBoard_id());
-			communityService.QnaImgInput(imageVO);
+			communityService.ImgInput(imageVO);
 
 		}
 		mav.setView(new RedirectView("/commu/qna", true));
@@ -356,6 +360,28 @@ public class CommunityController {
 		System.out.println(tcomment);
 		return tcomment;
 	}
+	
+	@RequestMapping("/qna_view/delete")
+	public ResponseEntity<String> reply_delete(BoardVO boardVO ) {
+
+		ResponseEntity<String> entity = null;
+		log.info("delete");
+
+		try {
+
+		communityService.deleteComment(boardVO);
+		
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+
+		return entity;
+
+	}
+	
 
 
 	
