@@ -174,16 +174,24 @@ body {
 }
 
 .profile_box {
-	width: 40px;
-	height: 40px;
+	width: 30px;
+	height: 30px;
+	border-radius: 70%;
+	overflow: hidden;
+	margin : 5px;
+}
+
+.profile_box2 {
+	width: 80px;
+	height: 80px;
 	border-radius: 70%;
 	overflow: hidden;
 	margin : 5px;
 }
 
 .profile {
-	width: 40px;
-	height: 40px;
+	width: 100%;
+	height: 100%;
 	object-fit: cover;
 }
 
@@ -295,7 +303,7 @@ body {
 					
 					<div class="archive-posts">
 					<div class="row">
-				 <div class="profile_box">
+				 <div class="profile_box2">
 					<img src="/resources/img/member/profile/${sns.memberVO.thumbnail}"
 								name="profile" alt="" class="profile" /></div> 
 							<h4>${sns.memberVO.nickname}</h4>
@@ -420,7 +428,7 @@ function getFormatDate(pdate) {
 	</div>
 	
 		<script type="text/javascript">
-		// 댓글 작성 및 ajax로 댓글 불러오기
+		// 댓글 작성 및 ajax로 댓글 불러오기 프로필사진, 닉네임, 내용, 날짜 넘김
 		function getComment() {
 	
 			var member_id = $("#member_id").val();
@@ -439,8 +447,8 @@ function getFormatDate(pdate) {
 					thumbnail : thumbnail
 				},
 				success : function(data) {
-
-					html = "<div><img src=/resources/img/member/profile/" + data.memberVO.thumbnail +">" + data.memberVO.nickname + "</div>"
+							
+					html = "<div class='row'><div class='profile_box'><img src='/resources/img/member/profile/" + data.memberVO.thumbnail +"' class='profile'></div>" + data.memberVO.nickname + "</div>"
 							+ "<div>" + data.content + "</div>" + "<div>"
 							+ data.pdate + "</div> <hr>"
 

@@ -134,6 +134,8 @@
 									&nbsp;<span class="rec_count"></span>
 								</button>
 							</div>
+							
+							
 							<p class="card-text">${sns.boardVO.content}</p>
 						</div>
 					</div>

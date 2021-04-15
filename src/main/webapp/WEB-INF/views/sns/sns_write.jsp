@@ -24,8 +24,6 @@
 	font-stretch: extra-condensed;
 }
 
- 
-
 select {
 	width: 100px; /* 원하는 너비설정 */
 	padding: .4em .5em; /* 여백으로 높이 설정 */
@@ -72,11 +70,10 @@ select {
 	font-size: .9em;
 }
 
-.title{
-
-margin-bottom: 40px;
-
+.title {
+	margin-bottom: 40px;
 }
+
 .form-1 {
 	width: 1000px;
 }
@@ -87,7 +84,7 @@ label {
 </style>
 
 </head>
-<body style="padding-top: 180px; ">
+<body style="padding-top: 180px;">
 
 
 
@@ -97,89 +94,93 @@ label {
 
 
 	<!-- Page Content -->
-	<div class="container" style="width: 1100px; min-height:900px;">
+	<div class="container" style="width: 1100px; min-height: 900px;">
 		<div class="top" onclick="window.scrollTo(0,0);">top</div>
 		<div class="col-lg-12">
-			<form id="sns" name="sns" class="needs-validation" 	action="${pageContext.request.contextPath}/commu/sns/write"
-				enctype="multipart/form-data"	method="post">
-				
+			<form id="sns" name="sns" class="needs-validation"
+				action="${pageContext.request.contextPath}/commu/sns/write"
+				enctype="multipart/form-data" method="post">
+				<sec:authorize access="hasAnyRole('ROLE_USER','ROLE_ADMIN')">
+					<input type="hidden" id="member_id"
+						value="<sec:authentication property="principal.member_id"/>">
+				</sec:authorize>
 				<div class="title">
-				<h2>사진 올리기</h2> 
+					<h2>사진 올리기</h2>
 				</div>
-				
+
 				<div class="form-group row">
-				 <input type="submit" class="btn btn-warning " 
-						  style="position:fixed; top: 150px; right: 400px;  " value="sns등록">
+					<input type="submit" class="btn btn-warning "
+						style="position: fixed; top: 150px; right: 400px;" value="sns등록">
 				</div>
-								 
+
 				<div class="form-1">
-				<div class="form-group row">
-				<div class="col-sm-2">카테고리</div>
-					<div class="col-lg-6" >
-					<select class=" form-control" name="categoryVO.category_id"
-						style="height: 38px; width:100px;  vertical-align: middle; text-align-last: center" >
-						<option value="1">고양이</option>
-						<option value="2">강아지</option>
-						<option value="3">파충류</option>
-						<option value="4">조류</option>
-						<option value="5">어류</option>
-						<option value="6">기타</option>
-					</select>
-					
-						 
-					</div></div>
-					
-					
-						<div class="form-group row ">
-							<div class="col-sm-2">사진</div>
-							<div class="col-sm-8">
-								<div class="custom-file">
-									<input type="file" class="custom-file-input" id="btnAtt"
-									    multiple="multiple" name="btnAtt"
-										style="display: block;" required> <label
-										class="custom-file-label" for="inputGroupFile02">사진을
-										선택하세요.</label>
-								</div>
+					<div class="form-group row">
+						<div class="col-sm-2">카테고리</div>
+						<div class="col-lg-6">
+							<select class=" form-control" name="categoryVO.category_id"
+								style="height: 38px; width: 100px; vertical-align: middle; text-align-last: center">
+								<option value="1">고양이</option>
+								<option value="2">강아지</option>
+								<option value="3">파충류</option>
+								<option value="4">조류</option>
+								<option value="5">어류</option>
+								<option value="6">기타</option>
+							</select>
+
+
+						</div>
+					</div>
+
+
+					<div class="form-group row ">
+						<div class="col-sm-2">사진</div>
+						<div class="col-sm-8">
+							<div class="custom-file">
+								<input type="file" class="custom-file-input" id="btnAtt"
+									multiple="multiple" name="btnAtt" style="display: block;"
+									required> <label class="custom-file-label"
+									for="inputGroupFile02">사진을 선택하세요.</label>
 							</div>
 						</div>
+					</div>
 
 
 
-						<div class="form-group row">
-							<label class="col-sm-2"></label>
-							<div class="input-group col-lg-7 ">
-								<div id='image_preview '>
-									<div id='preview'
-										data-placeholder='이미지를 첨부 하려면 파일 선택 버튼을 클릭하거나 이미지를 드래그앤드롭 하세요 *최대 10장까지'></div>
-								</div>
+					<div class="form-group row">
+						<label class="col-sm-2"></label>
+						<div class="input-group col-lg-7 ">
+							<div id='image_preview '>
+								<div id='preview'
+									data-placeholder='이미지를 첨부 하려면 파일 선택 버튼을 클릭하거나 이미지를 드래그앤드롭 하세요 *최대 10장까지'></div>
 							</div>
 						</div>
+					</div>
 
 
 
-						<div class="form-group row">
-							<label class="col-sm-2">사진소개</label>
-							<div class="col-lg-8">
-								<textarea name="content" cols="40" rows="7"
-									class="form-control" placeholder="사진에 대해서 설명해주세요." required></textarea>
-							</div>
+					<div class="form-group row">
+						<label class="col-sm-2">사진소개</label>
+						<div class="col-lg-8">
+							<textarea name="content" cols="40" rows="7" class="form-control"
+								placeholder="사진에 대해서 설명해주세요." required></textarea>
 						</div>
+					</div>
 
-						<div class="form-group row">
-							<label class="col-sm-2">해시태그</label>
-							<div class="col-lg-8">
-								<input type="text" name="hashtag" class="form-control"
-									placeholder="해시태그를 입력해주세요." required>
-								 <small id="hashtagHelp"
-										class="form-text text-muted"> 예) #강아지 #고양이 </small>
-							</div>
+					<div class="form-group row">
+						<label class="col-sm-2">해시태그</label>
+						<div class="col-lg-8">
+							<input type="text" name="hashtag" class="form-control"
+								placeholder="해시태그를 입력해주세요." required> <small
+								id="hashtagHelp" class="form-text text-muted"> 예) #강아지
+								#고양이 </small>
 						</div>
+					</div>
 
 
 
- 
-							<!-- Modal -->
-							<!-- <div class="modal fade" id="Modal" tabindex="-1" role="dialog"
+
+					<!-- Modal -->
+					<!-- <div class="modal fade" id="Modal" tabindex="-1" role="dialog"
 									aria-labelledby="ModalLabel" aria-hidden="true">
 									<div class="modal-dialog" role="document">
 										<div class="modal-content">
@@ -201,11 +202,12 @@ label {
 									</div> -->
 
 
-						</div>
-						</form></div>
-		
+				</div>
+			</form>
 		</div>
-	
+
+	</div>
+
 
 
 
