@@ -161,17 +161,7 @@ body {
   background-color: #717171;
 }
 
-.top {
-	background-color: #e7ab3c;
-	border-radius: 10px;
-	cursor: pointer; 
-	position: fixed; 
-	right: 5px; 
-	font-size: 15px; 
-	bottom: 500px;
-	padding:10px;
  
-}
 
 .profile_box {
 	width: 30px;
@@ -251,7 +241,7 @@ body {
 				<div class="col-lg-8">
 				<input type="hidden" name="board_id" value="${board_id}">	
 				
-				<div class="top" onclick="window.scrollTo(0,0);">top</div> 	
+				
  						${sns.categoryVO.categoryname}
  						<c:forEach var="img" items="${img}">
 		   				<div class="mySlides">

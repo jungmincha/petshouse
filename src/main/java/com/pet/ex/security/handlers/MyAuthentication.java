@@ -36,7 +36,7 @@ public class MyAuthentication extends UsernamePasswordAuthenticationToken implem
 	}
 
 	@Override
-	public Object getPrincipal() {
+	public MemberVO getPrincipal() {
 		// TODO Auto-generated method stub
 		return member;
 	}

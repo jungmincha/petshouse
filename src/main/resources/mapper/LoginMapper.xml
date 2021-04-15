@@ -32,6 +32,7 @@
 		<result column="enable" property="enable" />
 		<result column="username" property="username" />
 		<result column="certify" property="certify" />
+		<result column="thumbnail" property="thumbnail" />
 		<result column="location" property="location" />
 
 		<collection property="roleVO" resultMap="rolevo"></collection>
@@ -51,6 +52,7 @@
 		, nickname
 		, tel
 		, address
+		, thumbnail
 		, trycount
 		, enable
 		,m.role_id

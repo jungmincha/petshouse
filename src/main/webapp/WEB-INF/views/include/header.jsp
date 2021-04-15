@@ -86,7 +86,36 @@
 </script>
 
 
+<style>
+.top_profile_box {
+	width: 40px;
+	height: 40px;
+	border-radius: 70%;
+	overflow: hidden;
+	
+	 
+}
 
+.top_profile {
+	width: 100%;
+	 
+	object-fit: cover;
+	 
+}
+
+.top {
+	background-color: #e7ab3c;
+	border-radius: 10px;
+	cursor: pointer; 
+	position: fixed; 
+	right: 20px;
+  	font-size: 15px;
+    bottom: 80px;
+	padding:10px;
+ 
+}
+
+</style>
 </head>
 
 <body>
@@ -98,7 +127,7 @@
 
 	<!-- Header Section Begin -->
 	<header class="header-section fixed-top bg-white">
-
+	
 		<div class="container">
 			<div class="inner-header">
 				<div class="row">
@@ -125,21 +154,25 @@
 							<li class="heart-icon"><a href="#"> <i
 									class="icon_heart_alt"></i>
 							</a></li>
-							<li class="cart-icon"><a href="/myPage/cart" id="cartCount">
-									<i class="icon_bag_alt"></i>
+							<li class="cart-icon">
+							<a href="/myPage/cart" id="cartCount"><i class="icon_bag_alt"></i>
 							</a>
 								<div class="cart-hover">
-
-									<sec:authorize access="isAnonymous()">
-										<li class="heart-icon"><a href="/login/login"
-											class="login-panel"><i class="fa fa-user"></i>Login</a></li>
+ 									<sec:authorize access="isAnonymous()">
+										<li class="heart-icon"><a href="/login/login" class="login-panel">Login</a></li>
 									</sec:authorize>
 									<sec:authorize access="hasAnyRole('ROLE_USER','ROLE_ADMIN')">
-										<li class="heart-icon"><a href="/login/logout"
-											class="login-panel"><i class="fa fa-user"></i>Logout</a></li>
-
+										<li>
+											<a href="/login/logout"class="login-panel" style="color : black">Logout</a>
+										<li class="heart-icon ">
+										 <div class="top_profile_box ">
+										 <a href="/commu/myHome">
+											<img class="top_profile"   src="/resources/img/member/profile/<sec:authentication  property="principal.thumbnail"/>"></a></div>
+										
+											</li> 
+											
 									</sec:authorize>
-
+									
 
 								</div></li>
 
@@ -181,7 +214,7 @@
 								<li><a href="/store/event">이벤트</a></li>
 							</ul></li>
 
-						<li><a href="#">마이페이지</a>
+						<li><a href="/commu/myHome">마이페이지</a>
 							<ul class="dropdown">
 								<li><a href="/myPage/orderList">주문배송내역</a></li>
 								<li><a href="#">포인트</a></li>
@@ -201,7 +234,7 @@
 
 			</div>
 		</div>
-
+	<div class="top" onclick="window.scrollTo(0,0);">top</div> 	
 	</header>
 	<!-- Header End -->
 
