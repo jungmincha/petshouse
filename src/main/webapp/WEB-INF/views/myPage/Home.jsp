@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -55,31 +57,32 @@
 			<form id="myPage" name="myPage"
 				action="${pageContext.request.contextPath}/commu/thumbnail"
 				method="post">
-				<sec:authorize access="hasAnyRole('ROLE_USER','ROLE_ADMIN')">
-					<input type="hidden" id="member_id"
-						value="<sec:authentication property="principal.member_id"/>">
-				</sec:authorize>
+			<sec:authorize access="hasAnyRole('ROLE_USER','ROLE_ADMIN')">
+			<input type="hidden" id="member_id"
+				value="<sec:authentication property="principal.member_id"/>">
+		</sec:authorize>
+				
 
 				<div class="col-lg-3">
 					<div class="user-profile__container">
 						<div class="user-profile__profile-image box"
 							style="background: #BDBDBD;">
-							<img src="/resources/img/member/profile/${user.thumbnail}"
-								name="profile" alt="" class="profile" />
+							<img src="/resources/img/member/profile/<sec:authentication  property="principal.thumbnail"/>" 
+								 class="profile" />
 						</div>
 
 						<div class="profile-info">
 							<div class="profile-info__name">
-								<h3>${user.nickname}</h3>
+								<h3><sec:authentication property="principal.nickname"/></h3>
 							</div>
 							<div class="profile-info__follow-state row"
 								style="text-align: center;">
 								<div class="profile-info__follow-state__text">
-									<a href="#">팔로워 <span class="highlight">0</span></a>
+									<a href="#">팔로워</a> <span class="highlight">0</span>
 								</div>
 								<div class="profile-info__follow-state__vertical-bar"></div>
 								<div class="profile-info__follow-state__text">
-									<a href="#">팔로잉 <span class="highlight">0</span></a>
+									<a href="#">팔로잉 </a><span class="highlight">0</span>
 								</div>
 							</div>
 							<div class="profile-info__actions">
@@ -88,7 +91,7 @@
 						</div>
 					</div>
 				</div>
-
+			 
 			</form>
 		</div>
 	</div>

@@ -118,7 +118,7 @@
 								name="profile" alt="" class="profile" />
 						</div>
 						<p>${sns.boardVO.memberVO.nickname }</p>
-						&nbsp&nbsp<a href="#">팔로우</a>
+						&nbsp&nbsp<a href="/commu/myHome/${sns.boardVO.memberVO.nickname}">팔로우</a>
 						<p>
 							<small>상태메시지</small>
 						</p>

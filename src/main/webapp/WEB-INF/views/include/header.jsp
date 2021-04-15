@@ -166,7 +166,7 @@
 											<a href="/login/logout"class="login-panel" style="color : black">Logout</a>
 										<li class="heart-icon ">
 										 <div class="top_profile_box ">
-										 <a href="/commu/myHome">
+										 <a href="/commu/myHome/<sec:authentication property="principal.nickname"/>">
 											<img class="top_profile"   src="/resources/img/member/profile/<sec:authentication  property="principal.thumbnail"/>"></a></div>
 										
 											</li> 
@@ -213,13 +213,13 @@
 								<li><a href="/store/best">베스트상품</a></li>
 								<li><a href="/store/event">이벤트</a></li>
 							</ul></li>
-
-						<li><a href="/commu/myHome">마이페이지</a>
+		
+						<li><sec:authorize access="hasAnyRole('ROLE_USER','ROLE_ADMIN')"><a href="/commu/myHome/<sec:authentication property="principal.nickname"/>">마이페이지</a>
 							<ul class="dropdown">
 								<li><a href="/myPage/orderList">주문배송내역</a></li>
 								<li><a href="#">포인트</a></li>
 								<li><a href="/myPage/updateMember">회원정보수정</a></li>
-							</ul></li>
+							</ul></sec:authorize></li>
 
 						<li><a href="/admin/home">관리자페이지</a>
 							<ul class="dropdown">

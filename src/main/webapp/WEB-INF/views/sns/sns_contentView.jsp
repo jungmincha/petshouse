@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec"
@@ -271,7 +272,8 @@ body {
  								 <div class="profile_box"> <img src="/resources/img/member/profile/${sns.memberVO.thumbnail}"
 								name="profile" alt="" class="profile" /> &nbsp&nbsp</div>
 								<span class="nickname">  ${sns.memberVO.nickname} &nbsp&nbsp</span>
-								<span class="pdate">  ${sns.pdate}&nbsp&nbsp</span>
+								<span class="pdate"><fmt:formatDate var="formatRegDate" value="${sns.pdate}"
+                                    pattern="yyyy.MM.dd" />${formatRegDate} &nbsp&nbsp</span>
 								<span style="color: gray"> 조회수 ${sns.hit}</span>
 							     </div>
 							 
@@ -351,10 +353,12 @@ body {
 
 				<c:forEach items="${comment}" var="m">
 					<div class="row"><div class="profile_box">
+					
 					<img src="/resources/img/member/profile/${m.memberVO.thumbnail}"
 								name="profile" alt="" class="profile" /></div>${m.memberVO.nickname}</div>
 					<div>${m.content}</div>
-					<div>${m.pdate}"</div>
+					<div><fmt:formatDate var="formatRegDate" value="${m.pdate}"
+                                    pattern="yyyy.MM.dd" />${formatRegDate}</div>
 					<hr>
 				</c:forEach>
 
@@ -403,13 +407,7 @@ function showSlides(n) {
 }
 
  
-function getFormatDate(pdate) {
-
-	   var date = date.substr(0, 17);
-	   var date = date.split("T");
-	   var date = date[0] + " " + date[1];
-	   return pdate; 
-	}
+ 
 	</script> 
 	 
 	 
@@ -440,7 +438,7 @@ function getFormatDate(pdate) {
 							
 					html = "<div class='row'><div class='profile_box'><img src='/resources/img/member/profile/" + data.memberVO.thumbnail +"' class='profile'></div>" + data.memberVO.nickname + "</div>"
 							+ "<div>" + data.content + "</div>" + "<div>"
-							+ data.pdate + "</div> <hr>"
+							+ timeForToday(data.pdate) + "</div> <hr>"
 
 					$("#comment").prepend(html);
 							document.getElementById("content").value=''; 	
@@ -458,7 +456,39 @@ function getFormatDate(pdate) {
 			})
 		}
 	</script>
- 
+ <script type="text/javascript">
+// 시간 포맷 함수
+/*   function getFormatDate(date) {
+
+	var date = date.substr(0, 19);
+	var date = date.split("T");
+	var date = date[0] + " " + date[1];
+	return date; 
+}   */
+
+function timeForToday(value) {
+    const today = new Timestamp();
+    const timeValue = value;
+
+    const betweenTime = Math.floor((today.getTime() - timeValue.getTime()) / 1000 / 60);
+    if (betweenTime < 1) return '방금전';
+    if (betweenTime < 60) {
+        return `${betweenTime}분전`;
+    }
+
+    const betweenTimeHour = Math.floor(betweenTime / 60);
+    if (betweenTimeHour < 24) {
+        return `${betweenTimeHour}시간전`;
+    }
+
+    const betweenTimeDay = Math.floor(betweenTime / 60 / 24);
+    if (betweenTimeDay < 365) {
+        return `${betweenTimeDay}일전`;
+    }
+
+    return `${Math.floor(betweenTimeDay / 365)}년전`;
+}
+</script>
 </body>
 
 

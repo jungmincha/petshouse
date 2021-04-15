@@ -101,7 +101,7 @@ label {
 				action="${pageContext.request.contextPath}/commu/sns/write"
 				enctype="multipart/form-data" method="post">
 				<sec:authorize access="hasAnyRole('ROLE_USER','ROLE_ADMIN')">
-					<input type="hidden" id="member_id"
+					<input type="hidden" id="member_id" name="memberVO.member_id"
 						value="<sec:authentication property="principal.member_id"/>">
 				</sec:authorize>
 				<div class="title">
