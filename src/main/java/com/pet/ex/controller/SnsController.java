@@ -167,19 +167,5 @@ public class SnsController {
 		return comments;
 	}
 
- 
-	
-	@GetMapping("/myHome/{nickname}")
-	public ModelAndView myPageHome(ModelAndView mav) throws Exception {
-
-		log.info("ex");
-		 
-		mav.setViewName("myPage/Home");
-
-		return mav;
-	}
-	
- 
-	
 
 }

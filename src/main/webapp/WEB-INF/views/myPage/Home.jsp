@@ -38,6 +38,11 @@
 	height: 100%;
 	object-fit: cover;
 }
+
+.follow-state{
+
+	text-align: center;
+}
 </Style>
 
 </head>
@@ -57,41 +62,38 @@
 			<form id="myPage" name="myPage"
 				action="${pageContext.request.contextPath}/commu/thumbnail"
 				method="post">
-			<sec:authorize access="hasAnyRole('ROLE_USER','ROLE_ADMIN')">
-			<input type="hidden" id="member_id"
-				value="<sec:authentication property="principal.member_id"/>">
-		</sec:authorize>
-				
+				<sec:authorize access="hasAnyRole('ROLE_USER','ROLE_ADMIN')">
+					<input type="hidden" id="member_id"
+						value="<sec:authentication property="principal.member_id"/>">
+				</sec:authorize>
+
 
 				<div class="col-lg-3">
 					<div class="user-profile__container">
+
 						<div class="user-profile__profile-image box"
 							style="background: #BDBDBD;">
-							<img src="/resources/img/member/profile/<sec:authentication  property="principal.thumbnail"/>" 
-								 class="profile" />
+							<img src="/resources/img/member/profile/${user.thumbnail}"
+								class="profile" />
 						</div>
 
 						<div class="profile-info">
 							<div class="profile-info__name">
-								<h3><sec:authentication property="principal.nickname"/></h3>
+								<h3>${user.nickname}</h3>
 							</div>
-							<div class="profile-info__follow-state row"
-								style="text-align: center;">
-								<div class="profile-info__follow-state__text">
-									<a href="#">팔로워</a> <span class="highlight">0</span>
-								</div>
-								<div class="profile-info__follow-state__vertical-bar"></div>
-								<div class="profile-info__follow-state__text">
-									<a href="#">팔로잉 </a><span class="highlight">0</span>
-								</div>
+							<div class="follow-state row" style = "padding-left : 70px;">
+
+								<a href="#">팔로워&nbsp&nbsp</a> <span class="highlight">0&nbsp&nbsp</span> 
+								<a href="#">팔로잉&nbsp&nbsp</a><span class="highlight">0</span>
+
 							</div>
-							<div class="profile-info__actions">
-								<a class="btn btn-warning" href="/users/735918/edit">설정</a>
+							<div class="profile-info__actions" style = "padding-top : 100px;">
+								<a class="btn btn-warning" href=" ">설정</a>
 							</div>
 						</div>
 					</div>
 				</div>
-			 
+
 			</form>
 		</div>
 	</div>

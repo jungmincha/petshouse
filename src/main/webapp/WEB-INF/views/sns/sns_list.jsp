@@ -111,17 +111,14 @@
 				<div class="card-feed  col-12 col-md-4 col-lg-3">
 
 					<div class="user-Info row" style="margin: 20px auto 0px 5px">
-						<div class="profile_box ">
-
-							<img
-								src="/resources/img/member/profile/${sns.boardVO.memberVO.thumbnail}"
+							
+						
+						<div class="profile_box "><a href="/myPage/${sns.boardVO.memberVO.nickname}" style="color:black">
+						<img src="/resources/img/member/profile/${sns.boardVO.memberVO.thumbnail}"
 								name="profile" alt="" class="profile" />
 						</div>
-						<p>${sns.boardVO.memberVO.nickname }</p>
-						&nbsp&nbsp<a href="/commu/myHome/${sns.boardVO.memberVO.nickname}">팔로우</a>
-						<p>
-							<small>상태메시지</small>
-						</p>
+						${sns.boardVO.memberVO.nickname} ＊ 팔로우</a>
+						
 					</div>
 					<div class="card">
 						<a href="/commu/sns/${sns.boardVO.board_id}"> <img

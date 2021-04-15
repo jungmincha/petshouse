@@ -294,12 +294,11 @@ body {
 					<div class="sidebar-section"    >
 					
 					<div class="archive-posts">
-					<div class="row">
+					<div class="row"><a href="/myPage/${sns.boardVO.memberVO.nickname}" style="color:black">
 				 <div class="profile_box2">
 					<img src="/resources/img/member/profile/${sns.memberVO.thumbnail}"
 								name="profile" alt="" class="profile" /></div> 
-							<h4>${sns.memberVO.nickname}</h4>
-							&nbsp&nbsp&nbsp<a href="#">팔로우</a>
+							<h4>${sns.memberVO.nickname}</h4></a>
 					</div>	
 	  
 						</div><br><br>
@@ -353,9 +352,9 @@ body {
 
 				<c:forEach items="${comment}" var="m">
 					<div class="row"><div class="profile_box">
-					
+					<a href="/myPage/${sns.boardVO.memberVO.nickname}" style="color:black">
 					<img src="/resources/img/member/profile/${m.memberVO.thumbnail}"
-								name="profile" alt="" class="profile" /></div>${m.memberVO.nickname}</div>
+								name="profile" alt="" class="profile" /></div>${m.memberVO.nickname}</a></div>
 					<div>${m.content}</div>
 					<div><fmt:formatDate var="formatRegDate" value="${m.pdate}"
                                     pattern="yyyy.MM.dd" />${formatRegDate}</div>
