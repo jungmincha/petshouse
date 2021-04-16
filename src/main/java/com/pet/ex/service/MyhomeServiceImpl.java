@@ -28,6 +28,12 @@ public class MyhomeServiceImpl implements MyhomeService {
 		return mapper.getUser(nickname);
 	}
 
+	@Override
+	public void memberModify(MemberVO memberVO) {
+		 
+		 mapper.memberModify(memberVO);
+	}
+
 	
 	
 	
@@ -37,13 +43,7 @@ public class MyhomeServiceImpl implements MyhomeService {
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	
 	

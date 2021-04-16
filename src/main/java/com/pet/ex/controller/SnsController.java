@@ -179,19 +179,6 @@ public class SnsController {
 	}
 
  
-	
-	@GetMapping("/myHome")
-	public ModelAndView myPageHome(MemberVO memberVO, @RequestParam("member_id") String member_id, ModelAndView mav) throws Exception {
-
-		log.info("ex");
-		
-		mav.addObject("user", service.getMemberInfo(memberVO.getMember_id()));
-		mav.setViewName("myPage/myPageHome");
-
-		return mav;
-	}
-	
- 
-	
+	 
 
 }

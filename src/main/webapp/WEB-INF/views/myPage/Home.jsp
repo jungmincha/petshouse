@@ -88,7 +88,7 @@
 
 							</div>
 							<div class="profile-info__actions" style = "padding-top : 100px;">
-								<a class="btn btn-warning" href=" ">설정</a>
+								<a class="btn btn-warning" href="/myPage/view" style="color:black">설정</a>
 							</div>
 						</div>
 					</div>

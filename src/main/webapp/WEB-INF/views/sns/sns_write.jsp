@@ -53,16 +53,7 @@ select {
 	border-radius: 10px;
 }
 
-.top {
-	background-color: #e7ab3c;
-	border-radius: 10px;
-	cursor: pointer;
-	position: fixed;
-	right: 5px;
-	font-size: 15px;
-	bottom: 500px;
-	padding: 10px;
-}
+ 
 
 #preview:empty:before {
 	content: attr(data-placeholder);
@@ -95,7 +86,7 @@ label {
 
 	<!-- Page Content -->
 	<div class="container" style="width: 1100px; min-height: 900px;">
-		<div class="top" onclick="window.scrollTo(0,0);">top</div>
+		 
 		<div class="col-lg-12">
 			<form id="sns" name="sns" class="needs-validation"
 				action="${pageContext.request.contextPath}/commu/sns/write"

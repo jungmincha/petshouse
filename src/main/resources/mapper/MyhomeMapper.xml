@@ -22,7 +22,12 @@
    		 ]]>
 	</select>
 
- 
+
+	<update id="memberModify" parameterType="membervo">
+		<![CDATA[
+	    	update member set thumbnail = #{thumbnail}  where member_id = #{member_id} 
+		]]>
+	</update>
 
 
 
@@ -42,12 +47,7 @@
 
 
 
-
-
-
-
-
-<!-- 연희 -->	
+	<!-- 연희 -->
 
 
 

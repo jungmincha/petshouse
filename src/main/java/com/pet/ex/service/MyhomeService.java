@@ -7,11 +7,11 @@ public interface MyhomeService {
 	public MemberVO getNicknameInfo(String nickname);
 	
 
-	public MemberVO getUser(String nickname); 	
+	public MemberVO getUser(String nickname);
 
-	
-	
-	
+
+	public void memberModify(MemberVO memberVO); 	
+
 	
 	
 	
