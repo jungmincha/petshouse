@@ -146,9 +146,9 @@ public class StoreController {
 	}	
 
 	//팔로우 상세 보기
-	@PostMapping("/myPage/followview/{memberVO.member_id}")
+	@PostMapping("/myPage/followview/{nickname}")
 	public ModelAndView followview(FollowVO followVO, Authentication authentication, ModelAndView mav) {
-		log.info("follow");
+		log.info("followview");
 		//회원 본인 계정
 		String follower_id = authentication.getPrincipal().toString();	
 		followVO.setFollower_id(follower_id);

@@ -12,7 +12,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
 <title>storehome</title>
 
-<!-- bootstrap css cdn -->
+<!-- bootstrap css cdn --<!-- > -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" type="text/css" />
 
 <!-- Css Styles -->
