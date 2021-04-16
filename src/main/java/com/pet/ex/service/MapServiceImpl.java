@@ -165,6 +165,14 @@ public class MapServiceImpl implements MapService {
 
 
 
+	@Override
+	public void insertplike(BoardVO boardVO) {
+		mapper.insertplike(boardVO);
+		
+	}
+
+
+
 	
 
 

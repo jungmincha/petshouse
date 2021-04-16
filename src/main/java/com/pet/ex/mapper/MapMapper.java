@@ -47,6 +47,8 @@ public interface MapMapper {
 
 	public void hit(int board_id);
 
+	public void insertplike(BoardVO boardVO);
+
 
 
 }

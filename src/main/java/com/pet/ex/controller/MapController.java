@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -324,15 +325,11 @@ public class MapController {
 		  @RequestMapping("/modify")//글작성 폼에서 정보수정(즉, update) 
 		  public ModelAndView modify(
 				  
-				  @RequestParam(value="location" ,required = false)String loc,
-					 
-				   @RequestParam(value="member_id",required = false)String member_id,
-				  
-				   @RequestParam(value="nickname",required = false)String nickname,
+				
 				   
-				  
+				  String location, String member_id, String nickname,
 				   
-				 //  @RequestParam(value="original_location",required = false)String original_location, //원래 주소
+			
 				
 				  ModelAndView mav ,ImageVO imageVO, BoardVO boardVO, MemberVO memberVO, Criteria cri , MultipartHttpServletRequest multi)throws Exception 
 		  			
@@ -349,11 +346,11 @@ public class MapController {
 				mav.addObject("pageMaker",  new PageVO(cri, total));
 			  
 				
-			  memberVO.setLocation(loc);
+			  memberVO.setLocation(location);
 			  
 				service.insertLoc(memberVO);
 				
-				 mav.addObject("location", loc); 
+				 mav.addObject("location", location); 
 				 
 			 mav.addObject("member_id", member_id); 
 			 mav.addObject("nickname", nickname); 
@@ -572,6 +569,36 @@ public class MapController {
 				log.info("hashtag...");
 				return list;
 			}
+		  
+		  
+		  @GetMapping("/plike")
+			public ResponseEntity<String>  plike(BoardVO boardVO ) {
+
+				ResponseEntity<String> entity = null;
+				log.info("plike");
+
+				try {
+					
+						
+					service.insertplike(boardVO);
+					
+					System.out.println("success~~~");
+						System.out.println(boardVO.getBoard_id());
+						
+					entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+				} catch (Exception e) {
+					e.printStackTrace();
+
+					entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+				}
+
+			
+				
+				return entity;
+
+			}
+		  
+		  
 		  
 		  
 		

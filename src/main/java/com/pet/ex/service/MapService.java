@@ -45,6 +45,10 @@ public interface MapService {
 	public void deleteComment(BoardVO boardVO);
 	
 	public void hit(int board_id);
+
+	public void insertplike(BoardVO boardVO);
+
+	
 	
 
 	//public List<ImageVO> getImgList();

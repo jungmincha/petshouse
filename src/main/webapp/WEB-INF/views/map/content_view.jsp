@@ -61,61 +61,7 @@ background-color:#dddddd;
 
 </style>
 
-<script type="text/javascript">
 
-window.onload =function(){
-	
-	
-	
-
-
-	
-	console.log("${content_view.memberVO.nickname}"); //게시글에 입력된 닉네임
-	
-	console.log("${nickname}"); //현재 접속하고 있는 회원정보 닉네임 이전 페이지에서 principal.nickname 값을 받아와 줬다
-	
-	var contentnickname ="${content_view.memberVO.nickname}";
-	
-	var nickname = "${nickname}";
-	
-	 
-	 if(nickname !== contentnickname){//현재 접속된 닉네임과 입력된 닉네임이 불일치 하면  삭제버튼이 사라진다.
-		 
-		 $("#delete_button").hide();
-		
-		 $("#modify_button").hide();
-	 
-		 $("#test").hide();
-		
-		 
-	 }
-	
-	
-}
-
-
-	function button_event() {
-		
-			
-		if (confirm("정말 삭제하시겠습니까?") == true) { //확인
-			location.href = '/map/delete?board_id=${content_view.board_id}&location=${location}&nickname=${nickname}&member_id=${member_id}'
-		} else { //취소
-			return;
-		}
-	}
-
-	function modify_event() {
-		if (confirm("수정하시겠습니까?") == true) { //확인
-			location.href = '/map/modify_view/${content_view.board_id}?location=${location}&nickname=${nickname}&member_id=${member_id}'
-		} else { //취소
-			return;
-		}
-	}
-	
-	
-	
-	
-</script>
 
 
  <script type="text/javascript">
@@ -140,6 +86,9 @@ window.onload =function(){
 
 					html = 
 						
+						
+						"<div id='comment'>"
+						+
 						"<a class='a-del' style='float:right;' href='/map/map_view/delete?board_id="+data.board_id+"'><b>삭제</b></a>"
 						+
 						
@@ -152,7 +101,8 @@ window.onload =function(){
 							+
 							
 							"<hr>"
-							
+							+
+							"</div>"
 
 					
 					 $("#comment").prepend(html); 
@@ -162,6 +112,27 @@ window.onload =function(){
 			})
 
 		}
+		
+		
+		function button_event() {
+			
+			
+			if (confirm("정말 삭제하시겠습니까?") == true) { //확인
+				location.href = '/map/delete?board_id=${content_view.board_id}&location=${location}&nickname=${nickname}&member_id=${member_id}'
+			} else { //취소
+				return;
+			}
+		}
+
+		function modify_event() {
+			if (confirm("수정하시겠습니까?") == true) { //확인
+				location.href = '/map/modify_view/${content_view.board_id}?location=${location}&nickname=${nickname}&member_id=${member_id}'
+			} else { //취소
+				return;
+			}
+		}
+		
+		
 	</script>
 
 
@@ -196,7 +167,7 @@ window.onload =function(){
 
 <input id="location" type="hidden" name="location" value="${location}" /> 
 <input type="hidden" name="member_id" value="<sec:authentication property="principal.member_id"/>">
-								 	<input type="hidden" id="nickname" name="nickname" value="<sec:authentication property="principal.nickname"/>"> 
+<input type="hidden" id="nickname" name="nickname" value="<sec:authentication property="principal.nickname"/>"> 
 
     
 <div class="container" style="margin-bottom: 40px">
@@ -208,15 +179,19 @@ window.onload =function(){
 		</div>
 
 		<div style="float: right">
-		
+		<sec:authentication property="principal" var="buttonhidden" />
+			  <sec:authorize access="isAuthenticated()">	
+	
+				<!-- 현재 접속된 닉네임과 댓글보드에 저장된 닉네임을 비교해서 일치 하면 보이게 함 -->
+		<c:if test="${buttonhidden.nickname eq content_view.memberVO.nickname}">
 		
 			<button id="modify_button" type="button" class="btn btn-warning"
 				onclick="modify_event();">수정</button>
 
 			<button id="delete_button" type="button" class="btn btn-warning"
 				onclick="button_event();">삭제</button>
-				
-			
+				</c:if>
+			</sec:authorize>
 				
 				
 				<a href ="/map/board?location=${location}&nickname=${nickname}&member_id=${member_id}">목록으로</a>
@@ -330,7 +305,7 @@ window.onload =function(){
 	   var tr = $(this).parent();//자바스크립트 클로저
 
 	   $.ajax({
-	      type : 'post', //method
+	      type : 'delete', //method
 	      url : $(this).attr("href"), //주소를 받아오는 것이 두 번째 포인트.
 	      cache : false,
 	      success : function(result) {

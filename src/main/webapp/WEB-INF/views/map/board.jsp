@@ -22,6 +22,38 @@ $(function() {
 
 });
 
+
+
+
+
+$(".plike_submit").click(function(event) { //id는 한번만 calss는 여러번 선택 가능.
+	
+	   //하나의 id는 한 문서에서 한 번만 사용이 가능(가장 마지막 혹은 처음게 선택). 하나의 class는 
+	console.log("test");
+	   event.preventDefault(); 
+	  
+	
+	 
+
+
+	   $.ajax({
+	      type : 'get', //method
+	      url : $(this).attr("href"),
+	      cache : false,
+	      success : function(result) {
+	         console.log("result: " + result);
+	         if (result == "SUCCESS") {
+	   
+	           
+	         }
+	      },
+	      errer : function(e) {
+	         console.log(e);
+	      }
+	   }); //end of ajax
+	 }); // 삭제 종료
+	
+
 </script>
 
 <style>
@@ -148,9 +180,8 @@ body::-webkit-scrollbar-track {
 				style="margin-left: 65px;" type="submit">글 작성</button>
 		</div>
                        
-                 
-                 
-                 
+                      </form>
+                
       
                 
                 <br/>
@@ -166,6 +197,19 @@ body::-webkit-scrollbar-track {
 									<span>${list.memberVO.nickname}</span>
 									<span style="font-size: 13px; color: gray;">${list.pdate}</span>
 									<span style="font-size: 13px; color: gray;"> 조회수 ${list.hit}</span>
+									</a>
+									<span style="font-size: 13px; color: gray;"> 
+									
+									<a id="plike_submit" href="/map/plike?board_id=${list.board_id}"
+												class="plike_submit">좋아요 ${list.plike}</a>
+									
+									
+									
+									
+									
+									
+									
+									</span>
 									<c:set var="hashtag" value="${list.hashtag}" />
 									<c:set var="tag" value="${fn:split(hashtag, ' ')}" />
 									<c:forEach var="t" items="${tag}">
@@ -178,14 +222,14 @@ body::-webkit-scrollbar-track {
 
 								</ul>
 							
-					</a></td>
+					</td>
 				</tbody>
 			</c:forEach>
 		</table>
                 
                   
    
-      </form>
+ 
            <!-- 페이징 -->
 		<div class="ul">
 			<ul class="pagination justify-content-center"

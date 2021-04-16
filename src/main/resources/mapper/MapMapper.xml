@@ -150,7 +150,7 @@
 			
 		 SELECT * FROM (
 			     SELECT ROWNUM AS RNUM, A.* FROM (
-			     	select b.board_id, b.title, b.content, b.pdate,b.hit, b.pgroup,b.pstep, b.pindent,b.hashtag, b.location, m.member_id, m.nickname, b.boardtype_id 
+			     	select b.board_id, b.title, b.content, b.pdate,b.hit, b.plike, b.pgroup,b.pstep, b.pindent,b.hashtag, b.location, m.member_id, m.nickname, b.boardtype_id 
 			     	from  board b , member m
 					where b.member_id = m.member_id
 					
@@ -270,7 +270,25 @@
 	
 	
 	
+
+
+	<select id="insertplike"> 
+ 	<![CDATA[ 
+ 	update board set plike = plike + 1 where board_id = #{board_id} 	
+ 	]]>
+ 	
+ 	 
+ 	
+ 	
+	</select>
+
+
+
 	
+	
+
+	
+
 <!-- <insert id="fileUpload">
 	 <![CDATA[
     INSERT INTO
