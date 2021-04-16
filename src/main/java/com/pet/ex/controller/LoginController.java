@@ -65,6 +65,26 @@ public class LoginController {
 		return canUse;
 	}
 
+	// 닉네임 중복체크 실행(ajax)
+	@PostMapping("/register/nicknameCheck")
+	public String nicknameCheck(@RequestParam String nickname) throws Exception {
+		log.info("/register/nicknameCheck");
+		MemberVO member = securityService.getMemberByNickname(nickname);
+
+		String canUse = member != null ? "" : "Y";
+		return canUse;
+	}
+
+	// 전화번호 중복체크 실행(ajax)
+	@PostMapping("/register/telCheck")
+	public String telCheck(@RequestParam int tel) throws Exception {
+		log.info("/register/telCheck");
+		System.out.println(tel);
+		MemberVO member = securityService.getMemberByTel(tel);
+		String canUse = member != null ? "" : "Y";
+		return canUse;
+	}
+
 	// 비밀번호 재발급
 	@RequestMapping("/findPw")
 	public ModelAndView findpw(ModelAndView mav) {

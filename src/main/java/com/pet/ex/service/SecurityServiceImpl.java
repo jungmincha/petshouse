@@ -99,4 +99,17 @@ public class SecurityServiceImpl implements SecurityService {
 		return loginMapper.updateResetTryCount(id);
 	}
 
+	// 회원 정보 조회 (닉네임)
+	@Override
+	public MemberVO getMemberByNickname(String nickname) {
+		log.info("getMemberByNickname()");
+		return loginMapper.getMemberByNickname(nickname);
+	}
+
+	@Override
+	public MemberVO getMemberByTel(int tel) {
+		log.info("getMemberByTel()");
+		return loginMapper.getMemberByTel(tel);
+	}
+
 }

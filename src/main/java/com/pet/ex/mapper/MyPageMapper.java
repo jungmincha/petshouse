@@ -53,7 +53,7 @@ public interface MyPageMapper {
 	public void insertReview(BoardVO boardVO);
 
 	// 리뷰 이미지 저장
-	public void insertImg(ImageVO imageVO);
+	public void insertImg(ImageVO imageVO, int board_id);
 
 	// 리뷰 작성 후 포인트 저장
 	public void insertPoint(int pscore, int pointtype_id, String member_id);
@@ -63,5 +63,8 @@ public interface MyPageMapper {
 
 	// 결제내역 가져오기
 	public PayVO getPay(String pay_id);
+
+	// 가장 최신의 리뷰 가져오기
+	public BoardVO getReview();
 
 }

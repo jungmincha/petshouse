@@ -265,8 +265,8 @@
 	<!-- 리뷰 이미지 저장 -->
 	<insert id="insertImg">
 		<![CDATA[
-		insert into image (img_id, imgname, goods_id)
-		values(image_seq.nextval,#{imgname},#{goodsVO.goods_id})
+		insert into image (img_id, imgname, board_id)
+		values(image_seq.nextval,#{imageVO.imgname},#{board_id})
 		]]>
 	</insert>
 
@@ -292,4 +292,10 @@
 		]]>
 	</select>
 
+	<select id="getReview" resultMap="boardvo">
+		<![CDATA[
+		select * from (select * from board where boardtype_id = 8 order
+		by pdate desc) where rownum=1
+		]]>
+	</select>
 </mapper>

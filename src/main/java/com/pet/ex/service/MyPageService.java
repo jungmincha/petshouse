@@ -33,12 +33,14 @@ public interface MyPageService {
 
 	void insertReview(BoardVO boardVO);
 
-	void insertImg(ImageVO imageVO);
+	void insertImg(ImageVO imageVO, int board_id);
 
 	void insertPoint(int pscore, int pointtype_id, String member_id);
 
 	void updatePayCancel(String receipt_id);
 
 	PayVO getPay(String pay_id);
+
+	BoardVO getReview();
 
 }

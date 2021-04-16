@@ -22,4 +22,10 @@ public interface SecurityService extends UserDetailsService {
 	// 로그인 성공시 비밀번호 틀린횟수 초기화
 	int updateResetTryCount(String id);
 
+	// 멤버조회 (닉네임)
+	MemberVO getMemberByNickname(String nickname);
+
+	// 멤버조회 (전화번호)
+	MemberVO getMemberByTel(int tel);
+
 }

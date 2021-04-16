@@ -8,7 +8,7 @@ import java.util.List;
  */
 public class LMS {
 	public String sp;
-	public List<String> rps = new ArrayList();
+	public List<String> rps = new ArrayList<String>();
 	public String msg;
 	public String sj;
 }

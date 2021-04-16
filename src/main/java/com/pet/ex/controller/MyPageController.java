@@ -170,14 +170,14 @@ public class MyPageController {
 
 		boardVO.getMemberVO().setMember_id(member_id);
 		myPageService.insertReview(boardVO);
-		System.out.println(imageVO.getImgname());
 		if (imageVO.getImgname().equals(" ")) {
-			myPageService.insertImg(imageVO);
-			myPageService.insertPoint(500, 5, member_id);
-
-		} else {
 			myPageService.insertPoint(100, 4, member_id);
+		} else {
 
+			System.out.println("이미지 삽입");
+			BoardVO board = myPageService.getReview();
+			myPageService.insertImg(imageVO, board.getBoard_id());
+			myPageService.insertPoint(500, 5, member_id);
 		}
 
 		mav.addObject("paystate", paystate_id);
@@ -185,9 +185,11 @@ public class MyPageController {
 		// orderList페이지
 		List<Integer> payCounts = new ArrayList<Integer>();
 		payCounts.add(myPageService.getPayTotal(member_id));
+
 		for (int i = 1; i <= 8; i++) {
 			payCounts.add(myPageService.getPaystateTotal(member_id, i));
 		}
+
 		mav.addObject("payCounts", payCounts);
 		mav.setViewName("/myPage/orderList");
 		return mav;
@@ -255,7 +257,6 @@ public class MyPageController {
 		try {
 			HttpResponse res = api.verify(receipt_id);
 			str = IOUtils.toString(res.getEntity().getContent(), "UTF-8");
-			System.out.println(str);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -266,6 +267,14 @@ public class MyPageController {
 		mav.addObject("pay", pay);
 		mav.addObject("payDetail", jsonObj);
 		mav.setViewName("/myPage/orderListPopup");
+		return mav;
+	}
+
+	// 회원 정보 수정 페이지 이동
+	@GetMapping("/updateMember")
+	public ModelAndView updateMember(ModelAndView mav) {
+
+		mav.setViewName("/myPage/updateMember");
 		return mav;
 	}
 }

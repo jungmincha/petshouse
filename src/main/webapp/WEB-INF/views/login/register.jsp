@@ -54,7 +54,7 @@
 }
 </style>
 <script type="text/javascript">
-
+	
 </script>
 </head>
 
@@ -103,12 +103,14 @@
 							<div class="group-input">
 								<label class="control-label" for="nickname">닉네임</label> <input
 									class="form-control" type="text" name="nickname" id="nickname"
-									style="font-size: 13pt" />
+									style="font-size: 13pt" /><span id="nicknameError"
+									class="help-block" style="font-size: 10pt">중복된 닉네임 입니다.</span>
 							</div>
 							<div class="group-input">
 								<label class="control-label" for="tel">전화번호</label> <input
 									class="form-control" type="text" name="tel" id="tel"
-									style="font-size: 13pt" />
+									style="font-size: 13pt" /><span id="telError"
+									class="help-block" style="font-size: 10pt">중복된 전화번호 입니다.</span>
 							</div>
 							<div class="group-input">
 								<label class="control-label" for="address">주소</label>
@@ -138,7 +140,7 @@
 							<input type="hidden" name="logintypeVO.logintype_id" value="1">
 							<input type="hidden" name="roleVO.role_id" value="1">
 							<button type="submit" class="site-btn register-btn"
-								style="font-size: 15pt">가입완료</button>
+								style="font-size: 15pt" onclick="check()">가입완료</button>
 						</form>
 						<br>
 						<div class="switch-login">
@@ -186,11 +188,9 @@
 											// 성공한 상태로 바꾸는 함수 호출
 											if (reg.test(id)) {//정규표현식을 통과 한다면
 												$("#emailErr").hide();
-
 												successState("#member_id");
 											} else {//정규표현식을 통과하지 못하면
 												$("#emailErr").show();
-
 												errorState("#member_id");
 											}
 
@@ -226,6 +226,74 @@
 		}
 	});
 
+	// 닉네임 체크
+	$("#nickname").keyup(function() {
+		//입력한 문자열을 읽어온다.
+
+		var nickname = $(this).val();
+
+		//ajax 요청을 해서 서버에 전송한다.
+		$.ajax({
+			method : "post",
+			url : "/login/register/nicknameCheck",
+			data : {
+				nickname : nickname
+			},
+			success : function(data) {
+				console.log(data);
+
+				if (data) {
+					$("#nicknameError").hide();
+					successState("#nickname");
+
+				} else {
+					$("#nicknameError").show();
+					errorState("#nickname");
+				}
+			}
+		});
+	});
+
+	// 전화번호 중복 조회
+	$("#tel").keyup(function() {
+		//입력한 문자열을 읽어온다.
+
+		var tel = $(this).val();
+
+		//ajax 요청을 해서 서버에 전송한다.
+		$.ajax({
+			method : "post",
+			url : "/login/register/telCheck",
+			data : {
+				tel : tel
+			},
+			success : function(data) {
+				console.log(data);
+
+				if (data) {
+					$("#telError").hide();
+					successState("#tel");
+
+				} else {
+					$("#telError").show();
+					errorState("#tel");
+				}
+			}
+		});
+	});
+
+	// 공백 체크
+	function check() {
+		event.preventDefault();
+		console.log($(".has-error").length > 0);
+		if ($(".has-error").length > 0) {
+			alert("공백이 있습니다.");
+		} else {
+			$("#myForm").submit();
+		}
+
+	}
+
 	// 성공 상태로 바꾸는 함수
 	function successState(sel) {
 		$(sel).parent().removeClass("has-error").addClass("has-success").find(
@@ -242,7 +310,7 @@
 
 		$("#myForm button[type=submit]").attr("disabled", "disabled");
 	};
-	
+
 	// 도로명 주소 검색
 	function goPopup() {
 		// 주소검색을 수행할 팝업 페이지를 호출합니다.

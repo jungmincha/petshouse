@@ -156,4 +156,71 @@
 			  ]]>
 	</update>
 
+	<!-- 회원정보조회 (닉네임) -->
+	<select id="getMemberByNickname" parameterType="String"
+		resultMap="membervo">
+		<![CDATA[
+		SELECT
+		member_id
+		, member_id as username
+		, password
+		, name
+		, nickname
+		, tel
+		, address
+		, thumbnail
+		, trycount
+		, enable
+		,m.role_id
+		, rolename
+		,m.logintype_id
+		, logintypename
+		,m.category_id
+		, categoryname
+		,certify
+		,location
+		FROM
+		MEMBER
+		m, role r , logintype
+		l ,category c
+		WHERE m.nickname = #{nickname} and
+		m.role_id=r.role_id and
+		m.logintype_id=l.logintype_id and
+		m.category_id=c.category_id
+		]]>
+	</select>
+
+	<!-- 회원정보조회 (전화번호) -->
+	<select id="getMemberByTel" parameterType="int"
+		resultMap="membervo">
+		<![CDATA[
+		SELECT
+		member_id
+		, member_id as username
+		, password
+		, name
+		, nickname
+		, tel
+		, address
+		, thumbnail
+		, trycount
+		, enable
+		,m.role_id
+		, rolename
+		,m.logintype_id
+		, logintypename
+		,m.category_id
+		, categoryname
+		,certify
+		,location
+		FROM
+		MEMBER
+		m, role r , logintype
+		l ,category c
+		WHERE m.tel = #{tel} and
+		m.role_id=r.role_id and
+		m.logintype_id=l.logintype_id and
+		m.category_id=c.category_id
+		]]>
+	</select>
 </mapper>

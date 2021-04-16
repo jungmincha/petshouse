@@ -94,28 +94,28 @@ public class MyPageServiceImpl implements MyPageService {
 		return myPageMapper.getPaystateTotal(member_id, paystate_id);
 
 	}
-	
+
 	// 리뷰 작성
 	@Override
 	public void insertReview(BoardVO boardVO) {
 		log.info("insertReview()");
 		myPageMapper.insertReview(boardVO);
 	}
-	
+
 	// 리뷰 이미지 저장
 	@Override
-	public void insertImg(ImageVO imageVO) {
+	public void insertImg(ImageVO imageVO, int board_id) {
 		log.info("insertImg()");
-		myPageMapper.insertImg(imageVO);
+		myPageMapper.insertImg(imageVO, board_id);
 	}
 
-	// 리뷰 후 포인트 저장
+	// 리뷰 작성 후 포인트 저장
 	@Override
 	public void insertPoint(int pscore, int pointtype_id, String member_id) {
 		log.info("insertPoint()");
 		myPageMapper.insertPoint(pscore, pointtype_id, member_id);
 	}
-	
+
 	// 결제 취소 후 결제상태 변경
 	@Override
 	public void updatePayCancel(String receipt_id) {
@@ -123,12 +123,18 @@ public class MyPageServiceImpl implements MyPageService {
 		myPageMapper.updatePayCancel(receipt_id);
 
 	}
-	
+
 	// 결제내역 가져오기
 	@Override
 	public PayVO getPay(String pay_id) {
 		log.info("getPay()");
 		return myPageMapper.getPay(pay_id);
+	}
+
+	@Override
+	public BoardVO getReview() {
+		log.info("getReview()");
+		return myPageMapper.getReview();
 	}
 
 }

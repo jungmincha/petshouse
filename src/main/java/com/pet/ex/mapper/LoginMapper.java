@@ -31,4 +31,10 @@ public interface LoginMapper {
 	// 이메일 인증 성공시 certify 'Y'로 update
 	public void updateCertify(MemberVO member);
 
+	// 회원정보 조회 (닉네임)
+	public MemberVO getMemberByNickname(String nickname);
+
+	// 회원정보 조회 (전화번호)
+	public MemberVO getMemberByTel(int tel);
+
 }
