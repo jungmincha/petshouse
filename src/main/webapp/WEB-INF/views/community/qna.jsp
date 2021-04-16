@@ -294,13 +294,13 @@ body::-webkit-scrollbar-track {
 
 										}, //ajax 성공 시 end
 
-										error : function(request, status, error) {
+										/* error : function(request, status, error) {
 											alert("code:" + request.status
 													+ "\n" + "message:"
 													+ request.responseText
 													+ "\n" + "error:" + error);
 
-										} // ajax 에러 시 end
+										} // ajax 에러 시 end */
 
 									})
 						})

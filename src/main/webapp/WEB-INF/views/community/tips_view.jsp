@@ -112,6 +112,29 @@ a:hover {
 #hashtag:hover {
 	background-color: #dddddd;
 }
+
+
+.profile_box {
+	width: 30px;
+	height: 30px;
+	border-radius: 70%;
+	overflow: hidden;
+	margin : 5px;
+}
+
+.profile_box2 {
+	width: 80px;
+	height: 80px;
+	border-radius: 70%;
+	overflow: hidden;
+	margin : 5px;
+}
+
+.profile {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
 </style>
 </head>
 
@@ -150,7 +173,13 @@ a:hover {
 
 		<table>
 			<td>
-				<div style="font-size: 20px;">${tips_view.memberVO.nickname}</div>
+				<div class="row user_info"> 
+								 
+ 								 <div class="profile_box"> <img src="/resources/img/member/profile/${tips_view.memberVO.thumbnail}"
+								name="profile" alt="" class="profile" /> &nbsp&nbsp</div>
+								<span class="nickname" style="padding:8px;">  ${tips_view.memberVO.nickname} &nbsp&nbsp</span>
+							
+							     </div></div>
 				<hr>
 				<section style="margin-top: 40px; margin-bottom: 20px;">${tips_view.content}</section>
 				<form action="${pageContext.request.contextPath}/commu/tipstag"
@@ -198,9 +227,11 @@ a:hover {
 			<div id="tcomment">
 
 				<c:forEach items="${tcomment}" var="tcm">
-					<div>${tcm.memberVO.nickname}</div>
-					<div>${tcm.content}</div>
-					<div>${tcm.pdate}</div>
+					<div class="row"><div class="profile_box">
+					<img src="/resources/img/member/profile/${tcm.memberVO.thumbnail}"
+						name="profile" alt="" class="profile" /></div><div style="padding:8px;">${tcm.memberVO.nickname}</div></div>
+					<div style="padding-left:32px;">${tcm.content}</div>
+					<div style="padding-left:32px;">${tcm.pdate}</div>
 					<hr>
 				</c:forEach>
 
@@ -225,6 +256,7 @@ a:hover {
 		function getComment() {
 
 			var member_id = $("#member_id").val();
+			var thumbnail = $("#thumbnail").val();
 			console.log(member_id);
 			var pgroup = $("#pgroup").val();
 			var content = $("#content").val();
@@ -235,14 +267,17 @@ a:hover {
 				data : {
 					member_id : member_id,
 					pgroup : pgroup,
-					content : content
+					content : content,
+					thumbnail : thumbnail
 				},
 				success : function(data) {
 					console.log(data);
 
-					html = "<div>" + data.memberVO.nickname + "</div>"
-							+ "<div>" + data.content + "</div>" 
-							+ "<div>"+ data.pdate + "</div> <hr>"
+					html = "<div class='row'><div class='profile_box'><img src='/resources/img/member/profile/" + data.memberVO.thumbnail +"' class='profile'></div><div style='padding:8px;'>" + data.memberVO.nickname + "</div></div>"
+					+ "<div style='padding-left:32px;'>" + data.content + "</div>" + "<div style='padding-left:32px;'>"
+					+ data.pdate + "</div>"
+					+"<a class='a-del' href='/commu/tips_view/delete?board_id="+data.board_id+"><b>삭제하기</b></a> <hr> "
+					+"<hr>"
 
 					$("#tcomment").prepend(html);
 					document.getElementById("content").value = '';
@@ -282,12 +317,14 @@ a:hover {
 					html = " "
 					for ( var i in tcomment) {
 						html += "<div id='tcomment'>" + "<div>"
-								+ tcomment[i].memberVO.nickname + "</div>"
-								+ "<div>" + tcomment[i].content + "</div>"
-								+ "<div>" + tcomment[i].pdate + "</div>"
-								+ "<hr>"
+						+"<div class='row'><div class='profile_box'>"
+						+"<img src='/resources/img/member/profile/"+tcomment[i].memberVO.thumbnail+"'name='profile' alt='' class='profile' />"
+						+"</div><div style='padding:8px;'>"+tcomment[i].memberVO.nickname+"</div></div>"
+						+ "<div style='padding-left:32px;'>" + tcomment[i].content + "</div>"
+						+ "<div style='padding-left:32px;'>" + tcomment[i].pdate + "</div>"
+						+ "<hr>"
 
-								+ "</div>"
+						+ "</div>"
 					}
 
 					$("#tcomment").append(html);

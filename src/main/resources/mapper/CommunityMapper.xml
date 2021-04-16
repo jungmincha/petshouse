@@ -160,7 +160,7 @@
 	<select id="getTipsRate" resultMap="boardvo">
    <![CDATA[
   
-			select b.board_id, b.title, b.content, b.pdate,b.hit, b.pgroup,b.pstep, b.pindent,b.hashtag, m.member_id, m.nickname, b.boardtype_id, c.category_id, c.categoryname 
+			select b.board_id, b.title, b.content, b.pdate,b.hit, m.thumbnail,b.pgroup,b.pstep, b.pindent,b.hashtag, m.member_id, m.nickname, b.boardtype_id, c.category_id, c.categoryname 
 			from  board b , member m, category c
 			where b.member_id = m.member_id
 			and b.category_id =  c.category_id
@@ -182,7 +182,7 @@
 	<!-- 노하우 특정글 출력 -->
 	<select id="getTipsview" resultMap="boardvo">
    <![CDATA[
-		select b.board_id, b.title, b.content, b.pdate,b.hit, b.pgroup,b.pstep, b.pindent,b.hashtag, m.member_id, m.nickname, b.boardtype_id 
+		select b.board_id, b.title, b.content, b.pdate,b.hit,m.thumbnail, b.pgroup,b.pstep, b.pindent,b.hashtag, m.member_id, m.nickname, b.boardtype_id 
 		from board b, member m
 		where b.member_id= m.member_id
 		and b.board_id=#{board_id}
@@ -224,7 +224,7 @@
 	<!-- 노하우 카테고리에 해당하는 글 끌고오기 -->
 	<select id="getPetTips" resultMap="boardvo"> 
  	<![CDATA[
-			select b.board_id, b.title, b.content, b.pdate,b.hit, b.pgroup, b.pstep, b.category_id, b.pindent,b.hashtag, m.member_id, m.nickname, b.boardtype_id, c.category_id, c.categoryname
+			select b.board_id, b.title, b.content, m.thumbnail,b.pdate,b.hit, b.pgroup, b.pstep, b.category_id, b.pindent,b.hashtag, m.member_id, m.nickname, b.boardtype_id, c.category_id, c.categoryname
 			from  board b , member m, category c
 			where b.member_id = m.member_id
 			and b.category_id =  c.category_id
@@ -293,7 +293,7 @@
 	<!-- 질문과답변 검색 -->
 	<select id="getQsearch" resultMap="boardvo">
    <![CDATA[
-   		select * from board where content like '%'||#{keyword}||'%' and boardtype_id='4' or title like '%'||#{keyword}||'%' and boardtype_id='4' order by pdate desc
+   		select * from board where content like '%'||#{keyword}||'%' and boardtype_id='4' and pstep='0' or title like '%'||#{keyword}||'%' and boardtype_id='4' order by pdate desc
    ]]>
 	</select>
 	
@@ -424,7 +424,7 @@
 	<![CDATA[		
 		SELECT * FROM (
 			     SELECT ROWNUM AS RNUM, A.* FROM (
-			       select b.content, m.member_id, m.nickname, b.pdate from board b, member m where b.member_id=m.member_id and boardtype_id= 5 and pgroup = 
+			       select b.content, m.member_id, m.thumbnail,m.nickname, b.pdate from board b, member m where b.member_id=m.member_id and boardtype_id= 5 and pgroup = 
 			       (select pgroup from board where board_id=#{board_id}) and pstep=1 order by b.pdate desc
 			    ) A WHERE ROWNUM <= #{cri.pageNum} * 5
 			) WHERE RNUM > (#{cri.pageNum}-1) *5
@@ -444,7 +444,7 @@
    <![CDATA[
 	 	SELECT * FROM (
 			     SELECT ROWNUM AS RNUM, A.* FROM (
-			       select b.content, m.member_id, m.nickname, b.pdate from board b, member m where b.member_id=m.member_id and boardtype_id= 5 and pgroup = 
+			       select b.content, m.member_id, m.nickname, m.thumbnail,b.pdate from board b, member m where b.member_id=m.member_id and boardtype_id= 5 and pgroup = 
 			       (select pgroup from board where board_id=#{board_id}) and pstep=1 order by b.pdate desc
 			    ) A WHERE ROWNUM <= #{cri.pageNum} * 5
 			) WHERE RNUM > (#{cri.pageNum} - 1) * 5  
@@ -454,7 +454,7 @@
 	<!-- 노하우 댓글 작성 후 ajax로 출력 -->
 	<select id="getTComment" resultMap="boardvo">
    <![CDATA[
-	 select nickname, pgroup, content, pdate from (select m.nickname, pgroup, content, b.pdate from board b, member m where b.member_id=m.member_id and boardtype_id= 5 and pgroup = (select pgroup from board where board_id=#{board_id}) and pstep=1 order by b.pdate desc) where rownum=1
+	 select nickname, pgroup,thumbnail, content, pdate from (select m.nickname, m.thumbnail,pgroup, content, b.pdate from board b, member m where b.member_id=m.member_id and boardtype_id= 5 and pgroup = (select pgroup from board where board_id=#{board_id}) and pstep=1 order by b.pdate desc) where rownum=1
    ]]>
 	</select>
 	

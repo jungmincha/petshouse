@@ -180,7 +180,7 @@ a:hover {
 								 
  								 <div class="profile_box"> <img src="/resources/img/member/profile/${qna_view.memberVO.thumbnail}"
 								name="profile" alt="" class="profile" /> &nbsp&nbsp</div>
-								<span class="nickname">  ${qna_view.memberVO.nickname} &nbsp&nbsp</span>
+								<span class="nickname" style="padding:8px;">  ${qna_view.memberVO.nickname} &nbsp&nbsp</span>
 							
 							     </div>
 		
@@ -234,10 +234,9 @@ a:hover {
 				<c:forEach items="${comment}" var="dto">
 				<div class="row"><div class="profile_box">
 					<img src="/resources/img/member/profile/${dto.memberVO.thumbnail}"
-						name="profile" alt="" class="profile" /></div>${dto.memberVO.nickname}</div>
-
-					<div>${dto.content}</div>
-					<div>${dto.pdate}"</div>
+						name="profile" alt="" class="profile" /></div><div style="padding:8px;">${dto.memberVO.nickname}</div></div>
+					<div style="padding-left:32px;">${dto.content}</div>
+					<div style="padding-left:32px;">${dto.pdate}"</div>
 					<a class="a-del" href="/commu/qna_view/delete?board_id=${dto.board_id}"><b>삭제하기</b></a>
 					<hr>
 				</c:forEach>
@@ -279,8 +278,8 @@ a:hover {
 				},
 				success : function(data) {
 
-					html = "<div class='row'><div class='profile_box'><img src='/resources/img/member/profile/" + data.memberVO.thumbnail +"' class='profile'></div>" + data.memberVO.nickname + "</div>"
-							+ "<div>" + data.content + "</div>" + "<div>"
+					html = "<div class='row'><div class='profile_box'><img src='/resources/img/member/profile/" + data.memberVO.thumbnail +"' class='profile'></div><div style='padding:8px;'>" + data.memberVO.nickname + "</div></div>"
+							+ "<div style='padding-left:32px;'>" + data.content + "</div>" + "<div style='padding-left:32px;'>"
 							+ data.pdate + "</div>"
 							+"<a class='a-del' href='/commu/qna_view/delete?board_id="+data.board_id+"><b>삭제하기</b></a> <hr> "
 							+"<hr>"
@@ -324,14 +323,17 @@ a:hover {
 					html = " "
 					for ( var i in comments) {
 						html += "<div id='comments'>" + "<div>"
-								+ comments[i].memberVO.nickname + "</div>"
-								+ "<div>" + comments[i].content + "</div>"
-								+ "<div>" + comments[i].pdate + "</div>"
+								+"<div class='row'><div class='profile_box'>"
+								+"<img src='/resources/img/member/profile/"+comments[i].memberVO.thumbnail+"'name='profile' alt='' class='profile' />"
+								+"</div><div style='padding:8px;'>"+comments[i].memberVO.nickname+"</div></div>"
+								+ "<div style='padding-left:32px;'>" + comments[i].content + "</div>"
+								+ "<div style='padding-left:32px;'>" + comments[i].pdate + "</div>"
 								+ "<hr>"
 
 								+ "</div>"
 					}
-
+					
+	
 					$("#comment").append(html);
 
 				},

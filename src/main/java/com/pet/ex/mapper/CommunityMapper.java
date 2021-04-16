@@ -87,15 +87,13 @@ public interface CommunityMapper {
 	public BoardVO getComment(int board_id);
 
 	public List<BoardVO> getCommentsWithPaging(Criteria cri, int board_id);
-	
-	//페이징용..
-	//public List<BoardVO> getcommentsList(Criteria cri, int board_id);
 
 	public BoardVO getTipsBoard_id();
 	
 	
 	//댓삭
 	public void deleteComment(BoardVO boardVO);
+	
 	// 노하우 댓글 작성하기
 	public void writeTComment(BoardVO boardVO);
 	// 노하우 댓글 작성
@@ -109,6 +107,7 @@ public interface CommunityMapper {
 
 	public List<BoardVO> getTCommentWithPaging(Criteria cri, int board_id);
 	
+	//더보기
 	public List<BoardVO> getTCommentList(Criteria cri,int board_id);
 
 }

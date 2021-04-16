@@ -296,7 +296,7 @@ public class AdminController {
 
 	// 상품게시글 상세조회
 	@GetMapping("/goods_detail/{board_id}")
-	public ModelAndView board_view(@PathVariable("board_id") int board_id, BoardVO boardVO, GoodsVO goodsVO,
+	public ModelAndView board_view(@PathVariable("board_id") int board_id, BoardVO boardVO,
 			CategoryVO categoryVO, StockVO stockVO, ModelAndView mav) throws Exception {
 
 		boardVO = service.getboardInfo(board_id);

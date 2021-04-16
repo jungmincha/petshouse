@@ -60,8 +60,6 @@
 				value="<sec:authentication property='principal.member_id'/>">
 			<h2 style="margin-top: 30px;">질문하기</h2>
 
-			<input type="file" name="file" multiple="multiple" />
-
 			<div class="row">
 				<select class=" form-control col-2" name="categoryVO.category_id"
 					style="height: 38px; margin-left: 15px; margin-right: 10px;">
@@ -90,7 +88,7 @@
 			</div>
 			
 			<div class="form-group row ">
-							<div class="col-sm-2">사진</div>
+						
 							<div class="col-sm-8">
 								<div class="custom-file">
 									<input type="file" class="custom-file-input" id="btnAtt"
@@ -104,7 +102,7 @@
 						
 						
 						<div class="form-group row">
-							<label class="col-sm-2"></label>
+							<label class="col-sm-6"></label>
 							<div class="input-group col-lg-7 ">
 								<div id='image_preview '>
 									<div id='preview'

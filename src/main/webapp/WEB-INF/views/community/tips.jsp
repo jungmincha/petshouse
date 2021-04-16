@@ -92,7 +92,7 @@
 					<li class="active">인기 노하우</li>
 				</ul>
 			</div>
-			<div class="product-slider owl-carousel" id="box">
+			<div class="product-slider owl-carousel" id="box"">
 
 				<c:forEach items="${rate}" var="rate">
 					<c:if test="${rate.rnum le 10}">
@@ -252,13 +252,13 @@
 
 										}, //ajax 성공 시 end
 
-										error : function(request, status, error) {
+									/* 	error : function(request, status, error) {
 											alert("code:" + request.status
 													+ "\n" + "message:"
 													+ request.responseText
 													+ "\n" + "error:" + error);
 
-										} // ajax 에러 시 end
+										} // ajax 에러 시 end */
 
 									})
 						})
