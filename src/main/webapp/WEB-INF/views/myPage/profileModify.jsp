@@ -44,8 +44,7 @@
 	<div class="container" style="text-align: center;">
 		<form action="${pageContext.request.contextPath}/myPage/modify"
 			method="post" enctype="multipart/form-data">
-			<input type="hidden" name="thumbnail" id="thumbnail"
-				value="<sec:authentication  property="principal.thumbnail"/>">
+			
 				<input type="hidden" name="member_id" id="member_id"
 				value="<sec:authentication  property="principal.member_id"/>">
 				
