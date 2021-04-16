@@ -60,7 +60,6 @@ public class LoginController {
 	public String idCheck(@RequestParam String inputId) throws Exception {
 		log.info("/register/idCheck");
 		MemberVO member = securityService.getMember(inputId);
-
 		String canUse = member != null ? "" : "Y";
 		return canUse;
 	}
@@ -79,7 +78,6 @@ public class LoginController {
 	@PostMapping("/register/telCheck")
 	public String telCheck(@RequestParam int tel) throws Exception {
 		log.info("/register/telCheck");
-		System.out.println(tel);
 		MemberVO member = securityService.getMemberByTel(tel);
 		String canUse = member != null ? "" : "Y";
 		return canUse;

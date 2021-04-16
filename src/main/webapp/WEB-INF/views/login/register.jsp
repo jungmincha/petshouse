@@ -121,7 +121,7 @@
 											style="font-size: 10pt; background-color: #000000; color: #ffffff; font-weight: bold" />
 									</div>
 									<input class="form-control" type="text"
-										style="font-size: 13pt;" id="address" name="address" />
+										style="font-size: 13pt;" id="address" name="address" readonly />
 								</div>
 							</div>
 
@@ -285,11 +285,26 @@
 	// 공백 체크
 	function check() {
 		event.preventDefault();
-		console.log($(".has-error").length > 0);
-		if ($(".has-error").length > 0) {
-			alert("공백이 있습니다.");
+
+		if ($("#member_id").val() == "") {
+			alert("이메일을 입력하세요.");
+		} else if ($("#password").val() == "") {
+			alert("비밀번호를 입력하세요.");
+		} else if ($("#rePwd").val() == "") {
+			alert("비밀번호 재확인을 입력하세요.");
+		} else if ($("#name").val() == "") {
+			alert("이름을 입력하세요.");
+		} else if ($("#nickname").val() == "") {
+			alert("닉네임을 입력하세요.");
+		} else if ($("#tel").val() == "") {
+			alert("전화번호를 입력하세요.");
+		} else if ($("#address").val() == "") {
+			alert("주소를 입력하세요.");
+		} else if ($(".has-error").length > 0) {
+			alert("잘못입력하셨습니다. 수정 필요 : " + $(".has-error").length + "개");
 		} else {
 			$("#myForm").submit();
+			alert("회원가입에 성공했습니다. 로그인해주세요")
 		}
 
 	}
@@ -300,7 +315,7 @@
 				".glyphicon").removeClass("glyphicon-remove").addClass(
 				"glyphicon-ok").show();
 
-		$("#myForm button[type=submit]").removeAttr("disabled");
+		//$("#myForm button[type=submit]").removeAttr("disabled");
 	};
 	// 에러 상태로 바꾸는 함수
 	function errorState(sel) {
@@ -308,7 +323,7 @@
 				".glyphicon").removeClass("glyphicon-ok").addClass(
 				"glyphicon-remove").show();
 
-		$("#myForm button[type=submit]").attr("disabled", "disabled");
+		//$("#myForm button[type=submit]").attr("disabled", "disabled");
 	};
 
 	// 도로명 주소 검색

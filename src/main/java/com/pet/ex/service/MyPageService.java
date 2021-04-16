@@ -5,6 +5,7 @@ import java.util.List;
 import com.pet.ex.page.Criteria;
 import com.pet.ex.vo.BoardVO;
 import com.pet.ex.vo.ImageVO;
+import com.pet.ex.vo.MemberVO;
 import com.pet.ex.vo.PayGoodsVO;
 import com.pet.ex.vo.PayVO;
 import com.pet.ex.vo.PointVO;
@@ -42,5 +43,7 @@ public interface MyPageService {
 	PayVO getPay(String pay_id);
 
 	BoardVO getReview();
+
+	void updateMember(MemberVO member);
 
 }

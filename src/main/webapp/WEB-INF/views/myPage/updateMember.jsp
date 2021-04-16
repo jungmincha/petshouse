@@ -13,7 +13,7 @@
 <meta name="keywords" content="Fashi, unica, creative, html">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>회원가입</title>
+<title>회원정보수정</title>
 
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
@@ -69,17 +69,18 @@
 			<div class="row">
 				<div class="col-lg-6 offset-lg-3">
 					<div class="register-form">
-						<h2>회원 정보 수정</h2>
+						<h2>회원정보 수정</h2>
 
-						<form action="/login/register/insert" method="post" id="myForm">
+						<form action="/myPage/updateMember/insert" method="post" id="myForm">
+
 							<div class="group-input">
 								<label class="control-label" for="member_id">이메일</label> <input
-									class="form-control" type="text"
-									value="<sec:authentication property="principal.member_id"/>"
-									style="font-size: 13pt" readonly />
+									class="form-control" type="text" name="member_id"
+									id="member_id" style="font-size: 13pt" readonly
+									value="<sec:authentication property="principal.member_id"/>" />
 							</div>
 
-							<div class="group-input ">
+							<div class="group-input">
 								<label class="control-label" for="pwd">비밀번호</label> <input
 									class="form-control" type="password" name="password"
 									id="password" style="font-size: 13pt" /> <span id="pwdRegErr"
@@ -96,20 +97,23 @@
 
 							<div class="group-input">
 								<label class="control-label" for="name">이름</label> <input
-									class="form-control" type="text" readonly
-									value="<sec:authentication property="principal.name"/>"
-									style="font-size: 13pt" />
+									class="form-control" type="text" name="name" id="name"
+									style="font-size: 13pt" readonly
+									value="<sec:authentication property="principal.name"/>" />
 							</div>
 
 							<div class="group-input">
 								<label class="control-label" for="nickname">닉네임</label> <input
-									class="form-control" type="text" name="nickname" id="nickname"
-									style="font-size: 13pt" />
+									class="form-control" type="text" name="nickname" id="nicknames"
+									style="font-size: 13pt" value="<sec:authentication property="principal.nickname"/>"/><span id="nicknameError"
+									class="help-block" style="font-size: 10pt">중복된 닉네임 입니다.</span>
 							</div>
+
 							<div class="group-input">
 								<label class="control-label" for="tel">전화번호</label> <input
 									class="form-control" type="text" name="tel" id="tel"
-									style="font-size: 13pt" />
+									style="font-size: 13pt" value="0<sec:authentication property="principal.tel"/>"/><span id="telError"
+									class="help-block" style="font-size: 10pt">중복된 전화번호 입니다.</span>
 							</div>
 							<div class="group-input">
 								<label class="control-label" for="address">주소</label>
@@ -120,14 +124,14 @@
 											style="font-size: 10pt; background-color: #000000; color: #ffffff; font-weight: bold" />
 									</div>
 									<input class="form-control" type="text"
-										style="font-size: 13pt;" id="address" name="address" />
+										style="font-size: 13pt;" id="address" name="address" readonly value="<sec:authentication property="principal.address"/>"/>
 								</div>
 							</div>
 
 							<div class="group-input">
 								<label class="control-label" for="category">관심사</label> <select
 									class="form-control" id="category"
-									name="categoryVO.category_id">
+									name="categoryVO.category_id" >
 									<c:forEach items="${category}" var="category">
 
 										<option value="${category.category_id}">${category.categoryname }</option>
@@ -139,13 +143,10 @@
 							<input type="hidden" name="logintypeVO.logintype_id" value="1">
 							<input type="hidden" name="roleVO.role_id" value="1">
 							<button type="submit" class="site-btn register-btn"
-								style="font-size: 15pt">가입완료</button>
+								style="font-size: 15pt" onclick="check()">수정완료</button>
 						</form>
 						<br>
-						<div class="switch-login">
-							<span style="font-size: 11pt">이미 아이디가 있으신가요?&nbsp; </span> <a
-								href="/login/login" class="or-login" style="font-size: 11pt">로그인</a>
-						</div>
+
 
 					</div>
 				</div>
@@ -156,53 +157,16 @@
 
 	<!-- Footer -->
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
-
+	<input id="checkNic" type="hidden"
+		value="<sec:authentication
+			property='principal.nickname' />">
+	<input id="checkTel" type="hidden"
+		value="<sec:authentication
+			property='principal.tel' />">
 </body>
-
 <script>
-	//아이디 입력란에 keyup 이벤트가 일어 났을때 실행할 함수 등록 
-	$("#member_id")
-			.keyup(
-					function() {
-						//입력한 문자열을 읽어온다.
-
-						var id = $(this).val();
-
-						//ajax 요청을 해서 서버에 전송한다.
-						$
-								.ajax({
-									method : "post",
-									url : "/login/register/idCheck",
-									data : {
-										inputId : id
-									},
-									success : function(data) {
-										console.log(data);
-
-										if (data) {//사용 가능한 아이디 라면 
-											$("#overlapErr").hide();
-
-											var reg = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
-											// 성공한 상태로 바꾸는 함수 호출
-											if (reg.test(id)) {//정규표현식을 통과 한다면
-												$("#emailErr").hide();
-
-												successState("#member_id");
-											} else {//정규표현식을 통과하지 못하면
-												$("#emailErr").show();
-
-												errorState("#member_id");
-											}
-
-										} else {//사용 가능한 아이디가 아니라면 
-											$("#overlapErr").show();
-											errorState("#member_id");
-										}
-									}
-								});
-					});
 	$("#password").keyup(function() {
+		console.log("")
 		var pwd = $(this).val();
 		// 비밀번호 검증할 정규 표현식
 		var reg = /^.{8,}$/;
@@ -214,6 +178,7 @@
 			errorState("#password");
 		}
 	});
+
 	$("#rePwd").keyup(function() {
 		var rePwd = $(this).val();
 		var pwd = $("#password").val();
@@ -227,21 +192,114 @@
 		}
 	});
 
+	// 닉네임 체크
+	$("#nicknames").keyup(function() {
+		//입력한 문자열을 읽어온다.
+
+		var nickname = $(this).val();
+		if (nickname == $("#checkNic").val()) {
+			$("#nicknameError").hide();
+			successState("#nickname");
+		} else {
+			//ajax 요청을 해서 서버에 전송한다.
+			$.ajax({
+				method : "post",
+				url : "/login/register/nicknameCheck",
+				data : {
+					nickname : nickname
+				},
+				success : function(data) {
+					console.log(data);
+
+					if (data) {
+						$("#nicknameError").hide();
+						successState("#nicknames");
+
+					} else {
+
+						$("#nicknameError").show();
+						errorState("#nicknames");
+					}
+				}
+			});
+		}
+
+	});
+
+	// 전화번호 중복 조회
+	$("#tel").keyup(function() {
+		//입력한 문자열을 읽어온다.
+
+		var tel = $(this).val();
+		if (tel == $("#checkTel").val()) {
+			$("#telError").hide();
+			successState("#tel");
+		} else {
+			$.ajax({
+				method : "post",
+				url : "/login/register/telCheck",
+				data : {
+					tel : tel
+				},
+				success : function(data) {
+					console.log(data);
+
+					if (data) {
+						$("#telError").hide();
+						successState("#tel");
+
+					} else {
+						$("#telError").show();
+						errorState("#tel");
+					}
+				}
+			});
+
+		}
+
+		//ajax 요청을 해서 서버에 전송한다.
+
+	});
+
+	// 공백 체크
+	function check() {
+		event.preventDefault();
+
+		 if ($("#password").val() == "") {
+			alert("비밀번호를 입력하세요.");
+		} else if ($("#rePwd").val() == "") {
+			alert("비밀번호 재확인을 입력하세요.");
+		} else if ($("#nickname").val() == "") {
+			alert("닉네임을 입력하세요.");
+		} else if ($("#tel").val() == "") {
+			alert("전화번호를 입력하세요.");
+		} else if ($("#address").val() == "") {
+			alert("주소를 입력하세요.");
+		} else if ($(".has-error").length > 0) {
+			alert("잘못입력하셨습니다. 수정 필요 : " + $(".has-error").length + "개");
+		} else {
+			$("#myForm").submit();
+			alert("정상적으로 수정되었습니다.")
+		}
+
+	}
+
 	// 성공 상태로 바꾸는 함수
 	function successState(sel) {
 		$(sel).parent().removeClass("has-error").addClass("has-success").find(
 				".glyphicon").removeClass("glyphicon-remove").addClass(
 				"glyphicon-ok").show();
 
-		$("#myForm button[type=submit]").removeAttr("disabled");
+		//$("#myForm button[type=submit]").removeAttr("disabled");
 	};
+
 	// 에러 상태로 바꾸는 함수
 	function errorState(sel) {
 		$(sel).parent().removeClass("has-success").addClass("has-error").find(
 				".glyphicon").removeClass("glyphicon-ok").addClass(
 				"glyphicon-remove").show();
 
-		$("#myForm button[type=submit]").attr("disabled", "disabled");
+		//$("#myForm button[type=submit]").attr("disabled", "disabled");
 	};
 
 	// 도로명 주소 검색

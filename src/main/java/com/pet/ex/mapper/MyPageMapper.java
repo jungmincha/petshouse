@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.pet.ex.page.Criteria;
 import com.pet.ex.vo.BoardVO;
 import com.pet.ex.vo.ImageVO;
+import com.pet.ex.vo.MemberVO;
 import com.pet.ex.vo.PayGoodsVO;
 import com.pet.ex.vo.PayVO;
 import com.pet.ex.vo.PointVO;
@@ -64,7 +65,10 @@ public interface MyPageMapper {
 	// 결제내역 가져오기
 	public PayVO getPay(String pay_id);
 
-	// 가장 최신의 리뷰 가져오기
+	// 가장 최신의 리뷰게시물 1개 가져오기
 	public BoardVO getReview();
+
+	// 회원 정보 수정
+	public void updateMember(MemberVO member);
 
 }

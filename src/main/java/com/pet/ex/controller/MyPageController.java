@@ -27,10 +27,12 @@ import com.pet.ex.bootPay.BootpayApi;
 import com.pet.ex.bootPay.model.Cancel;
 import com.pet.ex.page.Criteria;
 import com.pet.ex.page.PageVO;
+import com.pet.ex.service.LoginService;
 import com.pet.ex.service.MyPageService;
 import com.pet.ex.service.SecurityService;
 import com.pet.ex.vo.BoardVO;
 import com.pet.ex.vo.ImageVO;
+import com.pet.ex.vo.MemberVO;
 import com.pet.ex.vo.PayGoodsVO;
 import com.pet.ex.vo.PayVO;
 
@@ -46,6 +48,9 @@ public class MyPageController {
 
 	@Autowired
 	private SecurityService securityService;
+
+	@Autowired
+	private LoginService loginservice;
 
 	// 장바구니 목록 페이지 이동
 	@GetMapping("/cart")
@@ -133,9 +138,7 @@ public class MyPageController {
 
 		for (PayVO dto : pay) {
 			dto.setPayGoodsVO(myPageService.listPayGoods(dto.getPay_id()));
-
 		}
-
 		payAjax.put("pay", pay);
 		payAjax.put("pageMaker", new PageVO(cri, total));
 		return payAjax;
@@ -173,8 +176,6 @@ public class MyPageController {
 		if (imageVO.getImgname().equals(" ")) {
 			myPageService.insertPoint(100, 4, member_id);
 		} else {
-
-			System.out.println("이미지 삽입");
 			BoardVO board = myPageService.getReview();
 			myPageService.insertImg(imageVO, board.getBoard_id());
 			myPageService.insertPoint(500, 5, member_id);
@@ -272,9 +273,20 @@ public class MyPageController {
 
 	// 회원 정보 수정 페이지 이동
 	@GetMapping("/updateMember")
-	public ModelAndView updateMember(ModelAndView mav) {
-
+	public ModelAndView updateMember_view(ModelAndView mav) {
+		log.info("/myPage/updateMember");
+		mav.addObject("category", loginservice.listCategory());
 		mav.setViewName("/myPage/updateMember");
+		return mav;
+	}
+
+	@PostMapping("/updateMember/insert")
+	public ModelAndView updateMemeber(ModelAndView mav, MemberVO member) {
+
+		System.out.println(member.getMember_id());
+		log.info("/myPage/updateMember/insert");
+		myPageService.updateMember(member);
+		mav.setViewName("redirect:/store/home");
 		return mav;
 	}
 }

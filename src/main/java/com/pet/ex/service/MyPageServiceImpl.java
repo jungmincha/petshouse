@@ -3,12 +3,14 @@ package com.pet.ex.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.pet.ex.mapper.MyPageMapper;
 import com.pet.ex.page.Criteria;
 import com.pet.ex.vo.BoardVO;
 import com.pet.ex.vo.ImageVO;
+import com.pet.ex.vo.MemberVO;
 import com.pet.ex.vo.PayGoodsVO;
 import com.pet.ex.vo.PayVO;
 import com.pet.ex.vo.PointVO;
@@ -21,6 +23,9 @@ public class MyPageServiceImpl implements MyPageService {
 
 	@Autowired
 	private MyPageMapper myPageMapper;
+
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	// 장바구니 목록 상품 가져오기
 	@Override
@@ -131,10 +136,22 @@ public class MyPageServiceImpl implements MyPageService {
 		return myPageMapper.getPay(pay_id);
 	}
 
+	// 가장 최신의 리뷰게시물 1개 가져오기
 	@Override
 	public BoardVO getReview() {
 		log.info("getReview()");
 		return myPageMapper.getReview();
+	}
+
+	// 회원 정보 수정
+	@Override
+	public void updateMember(MemberVO member) {
+		log.info("updateMember()");
+		String password = member.getPassword();
+		String encodedPassword = passwordEncoder.encode(password);
+		member.setPassword(encodedPassword);
+		myPageMapper.updateMember(member);
+
 	}
 
 }
