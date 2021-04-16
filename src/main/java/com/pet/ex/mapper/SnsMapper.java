@@ -29,7 +29,7 @@ public interface SnsMapper {
 
 	public BoardVO getComment(int board_id);
 
-	public List<BoardVO> listComment(int board_id);
+	public List<BoardVO> listComment(int board_id, Criteria cri);
 
 	public void hit(int board_id);
 
@@ -40,6 +40,8 @@ public interface SnsMapper {
 	public int getSnstotal(Criteria cri);
 
 	public MemberVO getMemberInfo(String member_id);
+	
+	public List<BoardVO> getCommentsWithPaging(Criteria cri, int board_id);
 
 
 

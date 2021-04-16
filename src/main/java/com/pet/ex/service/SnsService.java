@@ -32,7 +32,7 @@ public interface SnsService {
 
 	public BoardVO getComment(int Board_id);
 
-	public List<BoardVO> listComment(int Board_id);
+	public List<BoardVO> listComment(int Board_id, Criteria cri);
 
 	//조회수
 	public void hit(int board_id);
@@ -45,6 +45,9 @@ public interface SnsService {
 	public int getSnstotal(Criteria cri);
 
 	public MemberVO getMemberInfo(String member_id);
+	
+	//페이징
+	public List<BoardVO> getcommentsList(Criteria cri,int board_id);
  
 
 }

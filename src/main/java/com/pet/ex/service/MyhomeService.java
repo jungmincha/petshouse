@@ -9,4 +9,43 @@ public interface MyhomeService {
 
 	public MemberVO getUser(String nickname); 	
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//연희
 }

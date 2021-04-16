@@ -111,14 +111,17 @@
 				<div class="card-feed  col-12 col-md-4 col-lg-3">
 
 					<div class="user-Info row" style="margin: 20px auto 0px 5px">
-							
-						
-						<div class="profile_box "><a href="/myPage/${sns.boardVO.memberVO.nickname}" style="color:black">
-						<img src="/resources/img/member/profile/${sns.boardVO.memberVO.thumbnail}"
+						<div class="profile_box ">
+							<a href="/myPage/${sns.boardVO.memberVO.nickname}" style="color:black">
+							<img
+								src="/resources/img/member/profile/${sns.boardVO.memberVO.thumbnail}"
 								name="profile" alt="" class="profile" />
 						</div>
-						${sns.boardVO.memberVO.nickname} ＊ 팔로우</a>
-						
+						<p>${sns.boardVO.memberVO.nickname }</p></a>
+						 
+						<p>
+							<small>&nbsp&nbsp//&nbsp상태메시지</small>
+						</p>
 					</div>
 					<div class="card">
 						<a href="/commu/sns/${sns.boardVO.board_id}"> <img
@@ -155,7 +158,7 @@
     	  		  
     	  	$.ajax({
     	        type :"POST",
-    	        url :"/commu/sns/morelist",
+    	        url :"/commu/smorelist",
     	        data : {
     	        	pageNum: pageNum 
     	        },
@@ -166,16 +169,22 @@
     	          html = " "
     	           for(var i in sns){
     	        	  html +="<div class='card-feed  col-12 col-md-4 col-lg-3'>"
-    	        	  		+"<div class='user-Info row' style='margin:20px auto 0px 5px'>
-    	        	  		+"<div class='profile_box'>
-    	        	  		+ "<img src='/resources/img/member/profile/" + ${sns.boardVO.memberVO.thumbnail}+"' name='profile' alt='' class='profile' /></div>"
-							 +"<p>" + sns[i].boardVO.memberVO.nickname + "'<p>"
-							 +"<a href='#'>팔로우</a><p><small>상태메시지</small></p></div>"
-							 +"<div class='card'>
-  							 +"<a href='/commu/sns/" + ${sns.boardVO.board_id} +"'>"   	          	
-	       	          		 +"<img src='/resources/img/member/sns/" + ${sns.imgname} + "'>"
-	       	          		 +"</div>"
-     							+"</div>"
+    	        	 	 +"<div class='user-Info row' style='margin: 20px auto 0px 5px'>"
+    	        	 	 +"<div class='profile_box'>"
+    	        	 	 +"<img src='/resources/img/member/profile/"+sns[i].boardVO.memberVO.thumbnail+"'name='profile' alt='' class='profile' /></div>"
+    	        	 	 +"<p>"+sns[i].boardVO.memberVO.nickname +"</p>"
+    	        	 	 +"&nbsp&nbsp<a href='#'>팔로우</a>"
+    	        	 	 +"<p><small>상태메시지</small></p></div>"
+    	        	 	 +"<div class='card'>"
+    	        		+"<a href='/commu/sns/"+sns[i].boardVO.board_id+"'> "
+    	        		+"<img src='/resources/img/member/sns/"+sns[i].imgname +"' alt='' style='height: 300px;' class='card-img-top i' /></a>"
+    	        		+"<div class='card-body'>"
+    	        		+"<div class='w3-border w3-center w3-padding'>"
+    	        	 	+"<button class='w3-button w3-black w3-round' id='rec_update'>"
+    	        	 	+"<i class='fa fa-heart' style='font-size: 16px; color: red'></i>"
+    	        	  	+"&nbsp;<span class='rec_count'></span></button></div>"
+    	        	  	+"<p class='card-text'>"+sns[i].boardVO.content+"</p>"
+    	        	  	+"</div></div></div>"
     	           }
     	        
     	           
@@ -190,17 +199,6 @@
     	    }); //ajax end	 
     	}; //click end	
 	</script>
-
-
-
-
-
-
-
-
-
-
-
 
 	<!-- Footer -->
 	<div style="margin-top: 100px">

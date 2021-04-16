@@ -28,4 +28,29 @@ public class MyhomeServiceImpl implements MyhomeService {
 		return mapper.getUser(nickname);
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+//연희	
+	
+	
+	
+	
+	
 }

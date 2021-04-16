@@ -52,8 +52,9 @@ public class SnsController {
 		return mav;
 	}
 	
-	@PostMapping("/sns/morelist")
-	public Map<String, Object> snsMorelist(Criteria cri) {
+	//sns 더보기
+	@PostMapping("/smorelist")
+	public Map<String, Object> sns(Criteria cri) {
 		log.info("morelist");
 		Map<String, Object> list = new HashMap<>();
 		List<ImageVO> sns = service.getsnsList(cri);
@@ -61,6 +62,16 @@ public class SnsController {
 		return list;
 	}
 	
+
+	// sns 댓글 더보기
+	@PostMapping("/scmorelist")
+	public Map<String, Object> comment(@RequestParam("board_id") int board_id, Criteria cri) {
+		log.info("commentsmorelist");
+		Map<String, Object> list = new HashMap<>();
+		List<BoardVO> comment = service.getcommentsList(cri, board_id);
+		list.put("comment", comment);
+		return list;
+	}
 	@RequestMapping("/sns/modify_view")
 	public ModelAndView modify_view(@PathVariable("board_id") int board_id, BoardVO boardVO, ModelAndView mav) throws Exception {
 		boardVO = service.getBoardInfo(board_id);
@@ -130,14 +141,14 @@ public class SnsController {
 	}
 
 	@GetMapping("/sns/{board_id}")
-	public ModelAndView contentView(@PathVariable("board_id") int board_id, BoardVO boardVO, ModelAndView mav)
+	public ModelAndView contentView(@PathVariable("board_id") int board_id, BoardVO boardVO,Criteria cri, ModelAndView mav)
 			throws Exception {
 
 		boardVO = service.getBoardInfo(board_id);
 
 		log.info("SNS_View");
 
-		mav.addObject("comment", service.listComment(boardVO.getBoard_id()));
+		mav.addObject("comment", service.listComment(boardVO.getBoard_id(),cri));
 		log.info("SNS_View");
 
 		int count = service.counta(board_id);
@@ -167,5 +178,20 @@ public class SnsController {
 		return comments;
 	}
 
+ 
+	
+	@GetMapping("/myHome")
+	public ModelAndView myPageHome(MemberVO memberVO, @RequestParam("member_id") String member_id, ModelAndView mav) throws Exception {
+
+		log.info("ex");
+		
+		mav.addObject("user", service.getMemberInfo(memberVO.getMember_id()));
+		mav.setViewName("myPage/myPageHome");
+
+		return mav;
+	}
+	
+ 
+	
 
 }

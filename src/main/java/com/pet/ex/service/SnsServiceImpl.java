@@ -70,9 +70,9 @@ public class SnsServiceImpl implements SnsService {
 	}
 
 	@Override
-	public List<BoardVO> listComment(int Board_id) {
+	public List<BoardVO> listComment(int Board_id, Criteria cri) {
 		log.info("listComment()");
-		return mapper.listComment(Board_id);
+		return mapper.listComment(Board_id,cri);
 	}
 
 	@Override
@@ -104,6 +104,11 @@ public class SnsServiceImpl implements SnsService {
 	public MemberVO getMemberInfo(String member_id) {
 	 
 		return mapper.getMemberInfo(member_id);
+	}
+	
+	@Override
+	public List<BoardVO> getcommentsList(Criteria cri,int board_id) {
+		return mapper.getCommentsWithPaging(cri, board_id);
 	}
 
 }

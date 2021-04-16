@@ -24,6 +24,36 @@
 
  
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 연희 -->	
+
+
+
+
+
+
 	<resultMap type="BoardtypeVO" id="boardtypevo">
 		<result column="boardtype_id" property="boardtype_id" />
 		<result column="boardtypename" property="boardtypename" />

@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
@@ -269,10 +270,10 @@ body {
 							 
 								 <div class="row user_info"> 
 								 
- 								 <div class="profile_box"> <img src="/resources/img/member/profile/${sns.memberVO.thumbnail}"
+ 								 <div class="profile_box"> <a href="/myPage/${sns.memberVO.nickname}" style="color:black"><img src="/resources/img/member/profile/${sns.memberVO.thumbnail}"
 								name="profile" alt="" class="profile" /> &nbsp&nbsp</div>
-								<span class="nickname">  ${sns.memberVO.nickname} &nbsp&nbsp</span>
-								<span class="pdate"><fmt:formatDate var="formatRegDate" value="${sns.pdate}"
+								<span class="nickname">  ${sns.memberVO.nickname} &nbsp&nbsp</span></a>
+								<span class="pdate"> <fmt:formatDate var="formatRegDate" value="${sns.pdate}"
                                     pattern="yyyy.MM.dd" />${formatRegDate} &nbsp&nbsp</span>
 								<span style="color: gray"> 조회수 ${sns.hit}</span>
 							     </div>
@@ -294,11 +295,12 @@ body {
 					<div class="sidebar-section"    >
 					
 					<div class="archive-posts">
-					<div class="row"><a href="/myPage/${sns.boardVO.memberVO.nickname}" style="color:black">
-				 <div class="profile_box2">
+					<div class="row">
+				 <div class="profile_box2"><a href="/myPage/${sns.memberVO.nickname}" style="color:black">
 					<img src="/resources/img/member/profile/${sns.memberVO.thumbnail}"
 								name="profile" alt="" class="profile" /></div> 
 							<h4>${sns.memberVO.nickname}</h4></a>
+		 
 					</div>	
 	  
 						</div><br><br>
@@ -351,13 +353,12 @@ body {
 			<div id="comment" style = "width : 800px;">
 
 				<c:forEach items="${comment}" var="m">
-					<div class="row"><div class="profile_box">
-					<a href="/myPage/${sns.boardVO.memberVO.nickname}" style="color:black">
+					<div class="row"><div class="profile_box"><a href="/myPage/${sns.memberVO.nickname}" style="color:black">
 					<img src="/resources/img/member/profile/${m.memberVO.thumbnail}"
 								name="profile" alt="" class="profile" /></div>${m.memberVO.nickname}</a></div>
 					<div>${m.content}</div>
 					<div><fmt:formatDate var="formatRegDate" value="${m.pdate}"
-                                    pattern="yyyy.MM.dd" />${formatRegDate}</div>
+                                    pattern="yyyy.MM.dd" />${formatRegDate}"</div>
 					<hr>
 				</c:forEach>
 
@@ -371,7 +372,9 @@ body {
 			</div>
 		</div>
 	</div>
-
+<div class="later col-lg-12 text-center">
+		<button type="button" class="btn btn-warning" onClick="btnClick()">더보기</button>
+	</div>
  
  
  
@@ -406,7 +409,13 @@ function showSlides(n) {
 }
 
  
- 
+function getFormatDate(pdate) {
+
+	   var date = date.substr(0, 17);
+	   var date = date.split("T");
+	   var date = date[0] + " " + date[1];
+	   return pdate; 
+	}
 	</script> 
 	 
 	 
@@ -437,7 +446,7 @@ function showSlides(n) {
 							
 					html = "<div class='row'><div class='profile_box'><img src='/resources/img/member/profile/" + data.memberVO.thumbnail +"' class='profile'></div>" + data.memberVO.nickname + "</div>"
 							+ "<div>" + data.content + "</div>" + "<div>"
-							+ timeForToday(data.pdate) + "</div> <hr>"
+							+ getFormatDate(data.pdate) + "</div> <hr>"
 
 					$("#comment").prepend(html);
 							document.getElementById("content").value=''; 	
@@ -454,40 +463,52 @@ function showSlides(n) {
 
 			})
 		}
+		
+
+		//더보기
+		var pageNum = 1;
+
+		function btnClick() {
+
+			pageNum += 1;
+			console.log(pageNum);
+
+			$.ajax({
+				type : "POST",
+				url : "/commu/scmorelist",
+				data : {
+					pageNum : pageNum,
+					board_id : "${sns.board_id}"
+				},
+				success : function(data) {
+					console.log(data);
+					var comment = data.comment;
+
+					html = " "
+					for ( var i in comment) {
+						html += "<div id='comment'style = 'width : 800px;'>"
+						+"<div class='row'><div class='profile_box'>"
+						+"<img src='/resources/img/member/profile/"+comment[i].memberVO.thumbnail+"' name='profile' alt='' class='profile' /></div>"
+						+comment[i].memberVO.nickname+"</div>"
+						+"<div>"+comment[i].content+"</div>"
+						+"<div>"+comment[i].pdate+"</div>"
+						+"<hr>"
+						+ "</div>"
+					}
+
+					$("#comment").append(html);
+
+				},
+				//success end
+				error : function(request, status, error) {
+					alert("code:" + request.status + "\n" + "message:"
+							+ request.responseText + "\n" + "error:" + error);
+				} // ajax 에러 시 end
+			}); //ajax end	 
+		}; //click end	
+		
 	</script>
- <script type="text/javascript">
-// 시간 포맷 함수
-/*   function getFormatDate(date) {
-
-	var date = date.substr(0, 19);
-	var date = date.split("T");
-	var date = date[0] + " " + date[1];
-	return date; 
-}   */
-
-function timeForToday(value) {
-    const today = new Timestamp();
-    const timeValue = value;
-
-    const betweenTime = Math.floor((today.getTime() - timeValue.getTime()) / 1000 / 60);
-    if (betweenTime < 1) return '방금전';
-    if (betweenTime < 60) {
-        return `${betweenTime}분전`;
-    }
-
-    const betweenTimeHour = Math.floor(betweenTime / 60);
-    if (betweenTimeHour < 24) {
-        return `${betweenTimeHour}시간전`;
-    }
-
-    const betweenTimeDay = Math.floor(betweenTime / 60 / 24);
-    if (betweenTimeDay < 365) {
-        return `${betweenTimeDay}일전`;
-    }
-
-    return `${Math.floor(betweenTimeDay / 365)}년전`;
-}
-</script>
+ 
 </body>
 
 
