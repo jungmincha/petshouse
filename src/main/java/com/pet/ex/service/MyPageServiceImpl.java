@@ -126,7 +126,6 @@ public class MyPageServiceImpl implements MyPageService {
 	public void updatePayCancel(String receipt_id) {
 		log.info("updatePayCancel()");
 		myPageMapper.updatePayCancel(receipt_id);
-
 	}
 
 	// 결제내역 가져오기

@@ -183,7 +183,7 @@ public class MyPageController {
 		// myPageService.insertPoint(100, 4, member_id);
 		// } else {
 		BoardVO board = myPageService.getReview();
-		String path = multi.getSession().getServletContext().getRealPath("/static/img/review");
+		String path = multi.getSession().getServletContext().getRealPath("/static/img/member/review");
 		path = path.replace("webapp", "resources");
 		File dir = new File(path);
 		if (!dir.isDirectory()) {
