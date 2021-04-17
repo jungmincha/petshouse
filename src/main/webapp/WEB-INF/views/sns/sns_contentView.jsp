@@ -188,6 +188,8 @@ body {
 }
 
  
+
+ 
 </style>
 <script>
 	//로그인 체크
@@ -272,7 +274,8 @@ body {
 								 
  								 <div class="profile_box"> <a href="/myPage/${sns.memberVO.nickname}" style="color:black"><img src="/resources/img/member/profile/${sns.memberVO.thumbnail}"
 								name="profile" alt="" class="profile" /> &nbsp&nbsp</div>
-								<span class="nickname">  ${sns.memberVO.nickname} &nbsp&nbsp</span></a>
+								<span class="nickname" style="padding:5px">  ${sns.memberVO.nickname} &nbsp&nbsp</span></a>
+								
 								<span class="pdate"> <fmt:formatDate var="formatRegDate" value="${sns.pdate}"
                                     pattern="yyyy.MM.dd" />${formatRegDate} &nbsp&nbsp</span>
 								<span style="color: gray"> 조회수 ${sns.hit}</span>
@@ -291,19 +294,21 @@ body {
 						    </div>
 						 
 				 
-				<div class="col-lg-3">
-					<div class="sidebar-section"    >
-					
-					<div class="archive-posts">
-					<div class="row">
-				 <div class="profile_box2"><a href="/myPage/${sns.memberVO.nickname}" style="color:black">
-					<img src="/resources/img/member/profile/${sns.memberVO.thumbnail}"
-								name="profile" alt="" class="profile" /></div> 
-							<h4>${sns.memberVO.nickname}</h4></a>
-		 
-					</div>	
-	  
-						</div><br><br>
+				    
+            <div class="col-lg-3">
+               <div class="sidebar-section"    >
+               
+               
+            <div class="archive-posts">
+               <div class="row">
+             <div class="row"><div class="profile_box2"><a href="/myPage/${sns.memberVO.nickname}">
+               <img src="/resources/img/member/profile/${sns.memberVO.thumbnail}"
+                  name="profile" alt="" class="profile" /></a></div>
+                  <h4 style="padding:30px; ">${sns.memberVO.nickname}</h4></div>
+       
+               </div>   
+               </div>
+						 <br><br>
 						
 						<div class="recent-posts">
 							<h4>Recent Posts</h4>
@@ -355,7 +360,7 @@ body {
 				<c:forEach items="${comment}" var="m">
 					<div class="row"><div class="profile_box"><a href="/myPage/${sns.memberVO.nickname}" style="color:black">
 					<img src="/resources/img/member/profile/${m.memberVO.thumbnail}"
-								name="profile" alt="" class="profile" /></div>${m.memberVO.nickname}</a></div>
+								name="profile" alt="" class="profile" /></div><div style="padding:5px">${m.memberVO.nickname}</div></a></div>
 					<div>${m.content}</div>
 					<div><fmt:formatDate var="formatRegDate" value="${m.pdate}"
                                     pattern="yyyy.MM.dd" />${formatRegDate}"</div>

@@ -63,6 +63,12 @@
 	height: 40px;
 	object-fit: cover;
 }
+
+.i{
+	box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.4);
+	 border-radius: 10px;
+	 
+}
 </style>
 </head>
 <body style="padding-top: 170px">
@@ -108,7 +114,7 @@
 			<div id="snslist" class = row text-center"> 
 			<c:forEach items="${list}" var="sns">
 
-				<div class="card-feed  col-12 col-md-4 col-lg-3">
+				<div class="card-feed  col-12 col-md-4 col-lg-3" >
 
 					<div class="user-Info row" style="margin: 20px auto 0px 5px">
 						<div class="profile_box ">
@@ -124,9 +130,10 @@
 						</p>
 					</div>
 					<div class="card">
+					<div class="shot">
 						<a href="/commu/sns/${sns.boardVO.board_id}"> <img
 							src="/resources/img/member/sns/${sns.imgname }" alt=""
-							style="height: 300px;" class="card-img-top i" /></a>
+							style="height: 300px;" class="card-img-top i" /></a></div>
 						<div class="card-body">
 							<div class="w3-border w3-center w3-padding">
 							  <button class="w3-button w3-black w3-round" id="rec_update">
