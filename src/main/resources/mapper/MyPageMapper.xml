@@ -292,6 +292,7 @@
 		]]>
 	</select>
 
+	<!-- 가장 최신의 리뷰 게시물 가져오기 -->
 	<select id="getReview" resultMap="boardvo">
 		<![CDATA[
 		select * from (select * from board where boardtype_id = 8 order
@@ -302,12 +303,13 @@
 	<!-- 회원 정보 수정 -->
 	<update id="updateMember" parameterType="MemberVO">
 			<![CDATA[
-		update member set password=#{password}
-		,nickname=#{nickname}
-		,tel=#{tel}
-		,address=#{address}
-		,category_id=#{categoryVO.category_id}
-		where member_id=#{member_id}
+		update member set password = #{password}
+		,nickname = #{nickname}
+		,tel = #{tel}
+		,address = #{address}
+		,category_id = #{categoryVO.category_id}
+		,thumbnail = #{thumbnail}
+		where member_id = #{member_id}
 			]]>
 	</update>
 </mapper>

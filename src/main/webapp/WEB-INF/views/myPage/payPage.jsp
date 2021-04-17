@@ -73,7 +73,7 @@
 										<h5 style="font-weight: bold">주문자</h5>
 									</div>
 									<div class="col-lg-6 text-right">
-										<span>정보 수정</span>
+										<a href="/myPage/updateMember"><span>정보 수정</span></a>
 									</div>
 								</div>
 								<hr>

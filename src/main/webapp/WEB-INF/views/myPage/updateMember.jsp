@@ -52,6 +52,31 @@
 #myForm .glyphicon {
 	display: none;
 }
+
+#preview-image {
+	width: 40px;
+	height: 40px;
+	border-radius: 70%;
+	overflow: hidden;
+}
+
+.filebox {
+	padding-left: 170px;
+}
+
+.filebox label {
+	display: inline-block;
+	padding: .5em .75em;
+	color: #999;
+	font-size: inherit;
+	line-height: normal;
+	vertical-align: middle;
+	background-color: #fdfdfd;
+	cursor: pointer;
+	border: 1px solid #ebebeb;
+	border-bottom-color: #e2e2e2;
+	border-radius: .25em;
+}
 </style>
 <script type="text/javascript">
 	
@@ -71,8 +96,27 @@
 					<div class="register-form">
 						<h2>회원정보 수정</h2>
 
-						<form action="/myPage/updateMember/insert" method="post" id="myForm">
+						<form action="/myPage/updateMember/insert" method="post"
+							id="myForm" enctype="multipart/form-data">
+							<div class="filebox">
 
+
+								<img style="width: 200px; height: 200px;" id="preview-image"
+									name="preview-image" class="profile_box"
+									src="/resources/img/member/profile/<sec:authentication  property="principal.thumbnail"/>">
+
+									<br><br>
+								 <label for="thumbnail"
+									style="font-size: 20px; text-align: center">프로필 이미지 수정</label>
+
+								<div class="custom-file">
+									<input type="file" class="custom-file-input" id="thumbnail"
+										name="file" multiple="multiple" style="display: block;">
+								</div>
+
+
+
+							</div>
 							<div class="group-input">
 								<label class="control-label" for="member_id">이메일</label> <input
 									class="form-control" type="text" name="member_id"
@@ -105,15 +149,19 @@
 							<div class="group-input">
 								<label class="control-label" for="nickname">닉네임</label> <input
 									class="form-control" type="text" name="nickname" id="nicknames"
-									style="font-size: 13pt" value="<sec:authentication property="principal.nickname"/>"/><span id="nicknameError"
-									class="help-block" style="font-size: 10pt">중복된 닉네임 입니다.</span>
+									style="font-size: 13pt"
+									value="<sec:authentication property="principal.nickname"/>" /><span
+									id="nicknameError" class="help-block" style="font-size: 10pt">중복된
+									닉네임 입니다.</span>
 							</div>
 
 							<div class="group-input">
 								<label class="control-label" for="tel">전화번호</label> <input
 									class="form-control" type="text" name="tel" id="tel"
-									style="font-size: 13pt" value="0<sec:authentication property="principal.tel"/>"/><span id="telError"
-									class="help-block" style="font-size: 10pt">중복된 전화번호 입니다.</span>
+									style="font-size: 13pt"
+									value="0<sec:authentication property="principal.tel"/>" /><span
+									id="telError" class="help-block" style="font-size: 10pt">중복된
+									전화번호 입니다.</span>
 							</div>
 							<div class="group-input">
 								<label class="control-label" for="address">주소</label>
@@ -124,14 +172,15 @@
 											style="font-size: 10pt; background-color: #000000; color: #ffffff; font-weight: bold" />
 									</div>
 									<input class="form-control" type="text"
-										style="font-size: 13pt;" id="address" name="address" readonly value="<sec:authentication property="principal.address"/>"/>
+										style="font-size: 13pt;" id="address" name="address" readonly
+										value="<sec:authentication property="principal.address"/>" />
 								</div>
 							</div>
 
 							<div class="group-input">
 								<label class="control-label" for="category">관심사</label> <select
 									class="form-control" id="category"
-									name="categoryVO.category_id" >
+									name="categoryVO.category_id">
 									<c:forEach items="${category}" var="category">
 
 										<option value="${category.category_id}">${category.categoryname }</option>
@@ -265,7 +314,7 @@
 	function check() {
 		event.preventDefault();
 
-		 if ($("#password").val() == "") {
+		if ($("#password").val() == "") {
 			alert("비밀번호를 입력하세요.");
 		} else if ($("#rePwd").val() == "") {
 			alert("비밀번호 재확인을 입력하세요.");
@@ -279,7 +328,7 @@
 			alert("잘못입력하셨습니다. 수정 필요 : " + $(".has-error").length + "개");
 		} else {
 			$("#myForm").submit();
-			alert("정상적으로 수정되었습니다.")
+			alert("정상적으로 수정되었습니다.다시 로그인해주세요.")
 		}
 
 	}
@@ -317,6 +366,36 @@
 		// 팝업페이지에서 주소입력한 정보를 받아서, 현 페이지에 정보를 등록합니다.	
 		$('#address').val("(" + zipNo + ")" + roadFullAddr);
 	}
+	
+	// 이미지 업로드
+	function readImage(input) {
+	    // 인풋 태그에 파일이 있는 경우
+	    if(input.files && input.files[0]) {
+	        // 이미지 파일인지 검사 (생략)
+	        // FileReader 인스턴스 생성
+	        const reader = new FileReader()
+	        // 이미지가 로드가 된 경우
+	        reader.onload = e => {
+	            const previewImage = document.getElementById("preview-image")
+	            previewImage.src = e.target.result
+	        }
+	        // reader가 이미지 읽도록 하기
+	        reader.readAsDataURL(input.files[0])
+	    }
+	}
+	// input file에 change 이벤트 부여
+	const thumbnail = document.getElementById("thumbnail")
+	thumbnail.addEventListener("change", e => {
+	    readImage(e.target)
+	})
+	
+	 $("#thumbnail").change(function(){
+	 if(this.files && this.files[0]) {
+	  var reader = new FileReader;
+	
+	 reader.readAsDataURL(this.files[0]);
+	}
+	}); 
 </script>
 
 <!-- Js Plugins -->

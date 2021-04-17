@@ -1,13 +1,17 @@
 package com.pet.ex.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpResponse;
 import org.json.simple.JSONObject;
@@ -21,6 +25,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.pet.ex.bootPay.BootpayApi;
@@ -166,20 +172,38 @@ public class MyPageController {
 
 	// 리뷰 작성
 	@PostMapping("/orderList/review/insert")
-	public ModelAndView insertReview(Authentication authentication, ModelAndView mav, BoardVO boardVO, ImageVO imageVO,
-			String paystate_id) {
+	public ModelAndView insertReview(MultipartHttpServletRequest multi, Authentication authentication, ModelAndView mav,
+			BoardVO boardVO, ImageVO imageVO, String paystate_id) throws IllegalStateException, IOException {
 		log.info("myPage/orderList/review/insert");
 		String member_id = authentication.getPrincipal().toString();
 
 		boardVO.getMemberVO().setMember_id(member_id);
 		myPageService.insertReview(boardVO);
-		if (imageVO.getImgname().equals(" ")) {
-			myPageService.insertPoint(100, 4, member_id);
-		} else {
-			BoardVO board = myPageService.getReview();
-			myPageService.insertImg(imageVO, board.getBoard_id());
-			myPageService.insertPoint(500, 5, member_id);
+		// if (imageVO.getImgname().equals(" ")) {
+		// myPageService.insertPoint(100, 4, member_id);
+		// } else {
+		BoardVO board = myPageService.getReview();
+		String path = multi.getSession().getServletContext().getRealPath("/static/img/review");
+		path = path.replace("webapp", "resources");
+		File dir = new File(path);
+		if (!dir.isDirectory()) {
+			dir.mkdir();
 		}
+		List<MultipartFile> mf = multi.getFiles("file");
+		for (int i = 0; i < mf.size(); i++) { // 파일명 중복 검사
+			UUID uuid = UUID.randomUUID();
+			// 본래 파일명
+			String originalfileName = mf.get(i).getOriginalFilename();
+			String ext = FilenameUtils.getExtension(originalfileName);
+			String thumbnail = uuid + "." + ext;
+			String savePath = path + "\\" + thumbnail; // 저장 될 파일 경로
+			mf.get(i).transferTo(new File(savePath)); // 파일 저장
+			imageVO.setImgname(thumbnail);
+		}
+
+		myPageService.insertImg(imageVO, board.getBoard_id());
+		myPageService.insertPoint(500, 5, member_id);
+		// }
 
 		mav.addObject("paystate", paystate_id);
 
@@ -280,13 +304,39 @@ public class MyPageController {
 		return mav;
 	}
 
+	// 회원정보수정 내역 업데이트
 	@PostMapping("/updateMember/insert")
-	public ModelAndView updateMemeber(ModelAndView mav, MemberVO member) {
-
-		System.out.println(member.getMember_id());
+	public ModelAndView updateMemeber(MultipartHttpServletRequest multi, ModelAndView mav, MemberVO member,
+			ImageVO imageVO) throws IllegalStateException, IOException {
 		log.info("/myPage/updateMember/insert");
+		String path = multi.getSession().getServletContext().getRealPath("/static/img/member/profile");
+		path = path.replace("webapp", "resources");
+		File dir = new File(path);
+		if (!dir.isDirectory()) {
+			dir.mkdir();
+		}
+		List<MultipartFile> mf = multi.getFiles("file");
+		for (int i = 0; i < mf.size(); i++) { // 파일명 중복 검사
+			UUID uuid = UUID.randomUUID();
+			// 본래 파일명
+			String originalfileName = mf.get(i).getOriginalFilename();
+			String ext = FilenameUtils.getExtension(originalfileName);
+			String thumbnail = uuid + "." + ext;
+			String savePath = path + "\\" + thumbnail; // 저장 될 파일 경로
+			mf.get(i).transferTo(new File(savePath)); // 파일 저장
+			member.setThumbnail(thumbnail);
+		}
 		myPageService.updateMember(member);
-		mav.setViewName("redirect:/store/home");
+		mav.setViewName("redirect:/login/logout");
+		return mav;
+	}
+
+	// 포인트 내역 페이지 이동
+	@GetMapping("/pointList")
+	public ModelAndView pointList(ModelAndView mav, Authentication authentication) {
+		String id = authentication.getPrincipal().toString();
+
+		mav.setViewName("/myPage/pointList");
 		return mav;
 	}
 }

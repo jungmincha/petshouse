@@ -151,7 +151,6 @@ public class MyPageServiceImpl implements MyPageService {
 		String encodedPassword = passwordEncoder.encode(password);
 		member.setPassword(encodedPassword);
 		myPageMapper.updateMember(member);
-
 	}
 
 }

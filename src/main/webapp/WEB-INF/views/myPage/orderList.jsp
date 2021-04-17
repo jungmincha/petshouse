@@ -388,13 +388,7 @@
 
 	<!-- 본문 -->
 	<div class="container" id="orderList">
-		<div class="row">
-			<div class="col-lg-3"></div>
-			<div class="col-lg-6">
-				<div class="jumbotron"></div>
-			</div>
-			<div class="col-lg-3"></div>
-		</div>
+
 
 		<div class="row">
 			<div class="col-lg-1"></div>
@@ -463,7 +457,7 @@
 		<div class="container">
 
 			<form class=" needs-validation"
-				action="/myPage/orderList/review/insert" method="Post" name="review">
+				action="/myPage/orderList/review/insert" method="Post" name="review" enctype="multipart/form-data">
 				<input type="hidden" name="goodsVO.goods_id" id="goods_id" value="">
 				<input type="hidden" name="paystate_id" id="paystate_id" value="">
 				<div class="rbox">포토 리뷰 500P, 일반 리뷰 100P</div>
@@ -510,7 +504,7 @@
 					<div class="input-group col-12">
 						<div class="custom-file">
 							<input type="file" class="custom-file-input" id="image"
-								name="imgname" style="display: block;"> <label
+								name="file" style="display: block;" multiple="multiple"> <label
 								class="custom-file-label" for="inputGroupFile02">사진을
 								등록해주세요 (최대 1장)</label>
 						</div>

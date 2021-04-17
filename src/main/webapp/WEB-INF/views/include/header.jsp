@@ -92,29 +92,23 @@
 	height: 40px;
 	border-radius: 70%;
 	overflow: hidden;
-	
-	 
 }
 
 .top_profile {
 	width: 100%;
-	 
 	object-fit: cover;
-	 
 }
 
 .top {
 	background-color: #e7ab3c;
 	border-radius: 10px;
-	cursor: pointer; 
-	position: fixed; 
+	cursor: pointer;
+	position: fixed;
 	right: 20px;
-  	font-size: 15px;
-    bottom: 80px;
-	padding:10px;
- 
+	font-size: 15px;
+	bottom: 80px;
+	padding: 10px;
 }
-
 </style>
 </head>
 
@@ -127,7 +121,7 @@
 
 	<!-- Header Section Begin -->
 	<header class="header-section fixed-top bg-white">
-	
+
 		<div class="container">
 			<div class="inner-header">
 				<div class="row">
@@ -154,25 +148,29 @@
 							<li class="heart-icon"><a href="#"> <i
 									class="icon_heart_alt"></i>
 							</a></li>
-							<li class="cart-icon">
-							<a href="/myPage/cart" id="cartCount"><i class="icon_bag_alt"></i>
-							</a>
+							<li class="cart-icon"><a href="/myPage/cart" id="cartCount"><i
+									class="icon_bag_alt"></i> </a>
 								<div class="cart-hover">
- 									<sec:authorize access="isAnonymous()">
-										<li class="heart-icon"><a href="/login/login" class="login-panel">Login</a></li>
+									<sec:authorize access="isAnonymous()">
+										<li class="heart-icon"><a href="/login/login"
+											class="login-panel">Login</a></li>
 									</sec:authorize>
 									<sec:authorize access="hasAnyRole('ROLE_USER','ROLE_ADMIN')">
-										<li>
-											<a href="/login/logout"class="login-panel" style="color : black">Logout</a>
+										<li><a href="/login/logout" class="login-panel"
+											style="color: black">Logout</a>
 										<li class="heart-icon ">
-										 <div class="top_profile_box ">
-										 <a href="/myPage/<sec:authentication property="principal.nickname"/>">
-											<img class="top_profile"   src="/resources/img/member/profile/<sec:authentication  property="principal.thumbnail"/>"></a></div>
-										
-											</li> 
-											
+											<div class="top_profile_box ">
+												<a
+													href="/myPage/<sec:authentication property="principal.nickname"/>">
+													<img class="top_profile"
+													src="/resources/img/member/profile/<sec:authentication  property="principal.thumbnail"/>">
+												</a>
+											</div>
+
+										</li>
+
 									</sec:authorize>
-									
+
 
 								</div></li>
 
@@ -213,13 +211,17 @@
 								<li><a href="/store/best">베스트상품</a></li>
 								<li><a href="/store/event">이벤트</a></li>
 							</ul></li>
-		
-						<li><sec:authorize access="hasAnyRole('ROLE_USER','ROLE_ADMIN')"><a href="/myPage/<sec:authentication property="principal.nickname"/>">마이페이지</a>
-							<ul class="dropdown">
-								<li><a href="/myPage/orderList">주문배송내역</a></li>
-								<li><a href="#">포인트</a></li>
-								<li><a href="/myPage/updateMember">회원정보수정</a></li>
-							</ul></sec:authorize></li>
+
+						<li><sec:authorize
+								access="hasAnyRole('ROLE_USER','ROLE_ADMIN')">
+								<a
+									href="/myPage/<sec:authentication property="principal.nickname"/>">마이페이지</a>
+								<ul class="dropdown">
+									<li><a href="/myPage/orderList">주문배송내역</a></li>
+									<li><a href="/myPage/pointList">포인트</a></li>
+									<li><a href="/myPage/updateMember">회원정보수정</a></li>
+								</ul>
+							</sec:authorize></li>
 
 						<li><a href="/admin/home">관리자페이지</a>
 							<ul class="dropdown">
@@ -234,24 +236,14 @@
 
 			</div>
 		</div>
-	<div class="top" onclick="window.scrollTo(0,0);">top</div> 	
+		<!-- 상단 버튼 -->
+		<div class="top" onclick="window.scrollTo(0,0);">top</div>
 	</header>
 	<!-- Header End -->
 
 
-	<!-- Breadcrumb Section Begin -->
 
-	<!-- Js Plugins -->
-	<script src="/resources/js/jquery-3.3.1.min.js"></script>
-	<script src="/resources/js/bootstrap.min.js"></script>
-	<script src="/resources/js/jquery-ui.min.js"></script>
-	<script src="/resources/js/jquery.countdown.min.js"></script>
-	<script src="/resources/js/jquery.nice-select.min.js"></script>
-	<script src="/resources/js/jquery.zoom.min.js"></script>
-	<script src="/resources/js/jquery.dd.min.js"></script>
-	<script src="/resources/js/jquery.slicknav.js"></script>
-	<script src="/resources/js/owl.carousel.min.js"></script>
-	<script src="/resources/js/main.js"></script>
+
 </body>
 <script>
 	$(document).ready(function() {
@@ -267,4 +259,15 @@
 
 	})
 </script>
+<!-- Js Plugins -->
+<script src="/resources/js/jquery-3.3.1.min.js"></script>
+<script src="/resources/js/bootstrap.min.js"></script>
+<script src="/resources/js/jquery-ui.min.js"></script>
+<script src="/resources/js/jquery.countdown.min.js"></script>
+<script src="/resources/js/jquery.nice-select.min.js"></script>
+<script src="/resources/js/jquery.zoom.min.js"></script>
+<script src="/resources/js/jquery.dd.min.js"></script>
+<script src="/resources/js/jquery.slicknav.js"></script>
+<script src="/resources/js/owl.carousel.min.js"></script>
+<script src="/resources/js/main.js"></script>
 </html>
