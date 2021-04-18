@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
@@ -184,7 +185,7 @@ body::-webkit-scrollbar-track {
 			</select> <span class="col-sm-9"></span>
 			<button class="btn btn-outline-secondary col-sm-1 " id="qw"
 				style="margin-left: 65px;"
-				onclick="location.href='${pageContext.request.contextPath}qna_write'">질문 작성</button>
+				onclick="location.href='${pageContext.request.contextPath}qna/write'">질문 작성</button>
 		</div>
 
 		<!-- 게시글 끌고오기 -->
@@ -192,14 +193,13 @@ body::-webkit-scrollbar-track {
 		<table class="table">
 			<c:forEach items="${qna}" var="qna">
 				<tbody id="qnaList">
-					<td><a
-						href="${pageContext.request.contextPath}/commu/qna_view?board_id=${qna.board_id}">
+					<td><a href="/commu/qna/${qna.board_id}">
 							<form action="${pageContext.request.contextPath}/commu/qnatag" method="post">
 								<div style="font-weight: bold; font-size: 18px;">${qna.title}</div>
 								<ul class="pd-tags">
 									<div>${qna.content}</div>
-									<span>${qna.memberVO.nickname}</span>
-									<span style="font-size: 13px; color: gray;">${qna.pdate}</span>
+									<span>${qna.memberVO.nickname}</span>		
+									<span style="font-size: 13px; color: gray;"><fmt:formatDate value="${qna.pdate}" pattern="yyyy.MM.dd" /></span>
 									<span style="font-size: 13px; color: gray;"> 조회수 ${qna.hit}</span>
 									<c:set var="hashtag" value="${qna.hashtag}" />
 									<c:set var="tag" value="${fn:split(hashtag, ' ')}" />

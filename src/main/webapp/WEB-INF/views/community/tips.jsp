@@ -135,7 +135,7 @@
 
 			<button class="btn btn-outline-secondary col-lg-2" id="tw"
 				style="margin-left: 42px"
-				onclick="location.href='${pageContext.request.contextPath}tips_write'">노하우
+				onclick="location.href='${pageContext.request.contextPath}tips/write'">노하우
 				작성</button>
 		</div>
 
@@ -144,11 +144,10 @@
 
 			<c:forEach items="${tips}" var="tp">
 				<div class="product-item col-sm-3">
-					<a
-						href="${pageContext.request.contextPath}/commu/tips_view?board_id=${tp.board_id}">
+							<a href="/commu/tips/${tp.board_id}">
 						<div class="pi-pic">
-							<img src="/resources/img/qna/201489577_128.jpg" alt=""
-								style="border-radius: 5px; height: 150px;">
+					<%-- 		<img src="/resources/img/tips/${tp.imgname}" alt=""
+								style="border-radius: 5px; height: 150px;"> --%>
 						</div>
 						<div class="pi-text" style="text-align: left; padding-top: 5px;">
 							<h6 style="font-size: 15px; font-weight: bold;">${tp.title}</h6></div>

@@ -517,16 +517,20 @@
 	</select>
 	 -->
 
-		<!-- 글에 대한 댓글 출력 -->
-	<select id="ReviewList" resultMap="boardvo">
+    <!--리뷰 출력 -->
+   <select id="getReviewList" resultMap="boardvo">
    <![CDATA[
-	 	SELECT * FROM (
-			     SELECT ROWNUM AS RNUM, A.* FROM (
-			       select * from board where boardtype_id= 8 and goods_id = #{goodsVO.goods_id}
-			      order by pdate desc
-			    ) A WHERE ROWNUM <= #{cri.pageNum} * 5
-			) WHERE RNUM > (#{cri.pageNum} - 1) * 5  
+                select * from  image i, board b, member m where b.goods_id= i.goods_id and m.member_id=b.member_id  and b.boardtype_id= 8 and b.goods_id = #{goodsVO.goods_id}
+               order by b.pdate desc
+         
    ]]>
-	</select>
+   </select>
+   
+   <!--리뷰 이미지   -->
+   <select id="getReviewImg" resultMap="imagevo">
+      <![CDATA[
+      select * from board b, image i  where b.goods_id = i.goods_id and b.board_id=#{boardVO.board_id} and  b.boardtype_id=8
+      ]]>
+   </select>
 
 </mapper>

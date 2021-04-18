@@ -308,6 +308,9 @@ public class AdminController {
 		mav.addObject("cateBoard", service.getcateBoard());
 		mav.addObject("one", service.getRateone(boardVO.getGoodsVO().getGoods_id()));
 		mav.addObject("goods", service.getBoard(boardVO.getBoard_id()));
+		
+		mav.addObject("review", service.getReviewList(boardVO.getGoodsVO().getGoods_id()));
+		mav.addObject("reviewImg", service.getReviewImg(boardVO.getBoard_id()));
 
 		mav.setViewName("admin/goods_detail");
 
@@ -363,12 +366,12 @@ public class AdminController {
 		mav.addObject("notice", service.getNoticeList(cri));
 		int total = service.getNoticeTotal(cri);
 		mav.addObject("pageMaker", new PageVO(cri, total));
-		mav.setViewName("admin/notice"); // 파일경로
+		mav.setViewName("admin/notice"); 
 		return mav;
 
 	}
 
-	// 공지사항 특정 글 페이지 출력    완료
+	// 공지사항 특정 글 페이지 출력
 	@GetMapping("/notice/{board_id}")
 	public ModelAndView notice_view(@PathVariable("board_id") int board_id, BoardVO boardVO, ModelAndView mav)
 			throws Exception {
@@ -430,28 +433,39 @@ public class AdminController {
 		return mav;
 	}
 
-	// 공지사항 삭제
-	@DeleteMapping("/notice/{board_id}")
-	public ResponseEntity<String> noticeDelete(BoardVO boardVO, Model model) {
-
-		ResponseEntity<String> entity = null;
-		log.info("delete");
-
-		try {
-
-			service.noticeDelete(boardVO.getBoard_id());
-
-			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
-		} catch (Exception e) {
-			e.printStackTrace();
-
-			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
-		}
-
-		return entity;
-
+	/*
+	 * // 공지사항 삭제
+	 * 
+	 * @DeleteMapping("/notice/{board_id}") public ResponseEntity<String>
+	 * noticeDelete(BoardVO boardVO, Model model) {
+	 * 
+	 * ResponseEntity<String> entity = null; log.info("delete");
+	 * 
+	 * try {
+	 * 
+	 * service.noticeDelete(boardVO.getBoard_id());
+	 * 
+	 * entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK); } catch
+	 * (Exception e) { e.printStackTrace();
+	 * 
+	 * entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+	 * }
+	 * 
+	 * return entity;
+	 * 
+	 * }
+	 */
+	//  글 삭제하기
+	@GetMapping("/ndelete")
+	public ModelAndView ndelete(@RequestParam("board_id") int board_id, Criteria cri, ModelAndView mav)
+			throws Exception {
+		log.info("ndelete()실행");
+		mav.addObject("notice", service.getNoticeList(cri));
+		mav.addObject("img", service.getImg(board_id));
+		service.noticeDelete(board_id);
+		mav.setView(new RedirectView("/admin/notice", true));
+		return mav;
 	}
-	
 	// 공지사항 수정 페이지
 		@GetMapping("/notice/modify/{board_id}")
 		public ModelAndView modify_page(@PathVariable("board_id") int board_id, BoardVO boardVO, ModelAndView mav) {

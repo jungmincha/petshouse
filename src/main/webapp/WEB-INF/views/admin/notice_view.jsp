@@ -69,6 +69,14 @@ a:hover {
 </style>
 
 <script type="text/javascript">
+
+function button_event() {
+	if (confirm("정말 삭제하시겠습니까?") == true) { //확인
+		location.href = '${pageContext.request.contextPath}/admin/ndelete?board_id=${notice_view.board_id}'
+	} else { //취소
+		return;
+	}
+}
 		function modify_event() {
 			if (confirm("수정하시겠습니까?") == true) { //확인
 				location.href = '${pageContext.request.contextPath}/admin/notice/modify/${notice_view.board_id}'
@@ -85,6 +93,15 @@ a:hover {
 
 	<!-- Header -->
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
+		<sec:authorize access="hasAnyRole('ROLE_USER','ROLE_ADMIN')">
+		<input type="hidden" id="member_id"
+			value="<sec:authentication property="principal.member_id"/>">
+	</sec:authorize>
+	
+		<sec:authorize access="hasAnyRole('ROLE_USER','ROLE_ADMIN')">
+		<input type="hidden" id="nickname"
+			value="<sec:authentication property="principal.nickname"/>">
+	</sec:authorize>
 
 
 	<div class="container" style="margin-bottom: 40px">
@@ -97,10 +114,17 @@ a:hover {
 				style="font-weight: bold; margin-bottom: 10px;">${notice_view.title}</h3>
 		</div>
 		
-		<div style="float: right">
-			<button type="button" class="btn btn-warning"
+			<!-- 관리자에게만 버튼 띄우기 -->
+			<sec:authorize access="hasAnyRole('ROLE_ADMIN')">
+			<div style="float: right">
+				<button type="button" id="modify_button" class="btn btn-secondary"
 				onclick="modify_event();">수정</button>
-		</div>
+
+			<button type="button" id="delete_button" class="btn btn-secondary"
+				onclick="button_event();">삭제</button>
+				</div>
+			</sec:authorize>
+
 		
 		<table>
 			<td>

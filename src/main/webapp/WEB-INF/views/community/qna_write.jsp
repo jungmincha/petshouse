@@ -11,7 +11,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>질문과 답변 글 작성 페이지</title>
-
+<script src="/resources/ckeditor/ckeditor.js"></script>
 <link
 	href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap"
 	rel="stylesheet">
@@ -53,7 +53,7 @@
 
 	<div class="container" style="width: 800px;">
 
-		<form action="${pageContext.request.contextPath}/commu/qna"
+		<form action="${pageContext.request.contextPath}/commu/qna/write"
 			enctype="multipart/form-data" method="post">
 
 			<input type="hidden" class="form-control" name="memberVO.member_id"
@@ -73,10 +73,15 @@
 				<input type="text" class="form-control" name="title"
 					placeholder="제목" style="margin-bottom: 20px; width: 628px;">
 			</div>
-			<textarea class="form-control col" name="content" placeholder="내용"
-				style="width: 770px; height: 400px; margin-bottom: 20px; resize: none;"></textarea>
+			<!-- <textarea class="form-control col" name="content" placeholder="내용"
+				style="width: 770px; height: 400px; margin-bottom: 20px; resize: none;"></textarea> -->
 
+		<textarea id="editor4" name="content"></textarea>
 
+			<script>
+				CKEDITOR.replace('editor4');
+			</script>
+			
 
 			<div class="form-group row">
 
@@ -87,12 +92,12 @@
 				</div>
 			</div>
 			
-			<div class="form-group row ">
+		<!-- 	<div class="form-group row ">
 						
 							<div class="col-sm-8">
 								<div class="custom-file">
-									<input type="file" class="custom-file-input" id="btnAtt"
-									    multiple="multiple" name="btnAtt"
+									<input type="file" class="custom-file-input" id="file"
+									    multiple="multiple" name="file"
 										style="display: block;" required> <label
 										class="custom-file-label" for="inputGroupFile02">사진을
 										선택하세요.</label>
@@ -110,13 +115,11 @@
 								</div>
 							</div>
 						</div>
-						
+						 -->
 
 		<div style="margin-top:30px; float: right;">
-			<button type="submit" class="btn btn-warning"
-				onclick="location.href='${pageContext.request.contextPath}/commu/qna'">질문
-				등록</button>
-			<a class="btn btn-warning"  href="qna">취소</a>
+			<button type="submit" class="btn btn-warning">질문 등록</button>
+			<a class="btn btn-warning" href="/commu/qna">취소</a>
 		</div>
 		
 		</form>
@@ -227,7 +230,7 @@
       return div
     }
   }
-)('preview', 'btnAtt')
+)('preview', 'file')
 
 </script>
 

@@ -110,7 +110,8 @@ public interface AdminService {
 	
 	public void ImgModify(ImageVO imageVO);
 
-
+	   public List<BoardVO> getReviewList(int goods_id);
+	   public ImageVO getReviewImg(int board_id);
 
 	
  

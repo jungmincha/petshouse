@@ -133,14 +133,14 @@
 					</div>
 					<div class="col-lg-7 col-md-7">
 						<div class="advanced-search">
-							<button type="button" class="category-btn">All
-								Categories</button>
-							<form action="#" class="input-group">
-								<input type="text" placeholder="What do you need?">
-								<button type="button">
+						<button type="button" class="category-btn">All Categories</button>
+							<form action="${pageContext.request.contextPath}/search" class="input-group" method="post">
+								<input type="text" name="keyword" placeholder="펫츠하우스 통합검색">
+								<button type="submit">
 									<i class="ti-search"></i>
 								</button>
 							</form>
+			
 						</div>
 					</div>
 					<div class="col-lg-3 text-right col-md-3">

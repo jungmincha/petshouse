@@ -65,54 +65,35 @@ a:hover {
 	text-decoration: none;
 }
 </style>
-<script>
-	$(document).ready(function() {
-		$('.a-delete').click(function(event) {
 
-			event.preventDefault();
 
-			var trObj = $(this).parent().parent();
-
-			$.ajax({
-				type : "DELETE",
-				url : $(this).attr("href"),
-				cache : false,
-				success : function(result) {
-					console.log(result);
-					if (result == "SUCCESS") {
-						//getList();
-						$(trObj).remove();
-
-					}
-				},
-				error : function(e) {
-					console.log(e);
-				}
-			})
-
-		});
-	});
-</script>
 </head>
 
 <body style="padding-top: 180px">
 
 	<!-- Header -->
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
+	
+<sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
+	<input type="hidden" id="member_id" name="member_id"
+		value="<sec:authentication property="principal.member_id"/>">
+	<input type="hidden" id="nickname" name="nickname"
+		value="<sec:authentication property="principal.nickname"/>">
+</sec:authorize>
 
 	<div class="container">
 	<div class="row">
-	<h3 style="margin-bottom:20px;">공지 사항 관리</h3>      
+	<h3 style="margin-bottom:20px;">공지 사항</h3>      
 		
-		<!-- 게시글 끌고오기 -->
-           
-            <div class="col-lg-12">
-                <button class="btn btn-outline-secondary col-sm-1" id="nw"
-			style="margin-left: 65px; float:right;  margin-bottom:20px;"
-			onclick="location.href='${pageContext.request.contextPath}notice/write'">공지 작성</button>
-              </div>            
-     
-			
+		
+  			<!-- 관리자에게만 작성버튼 띄우기 -->
+			<sec:authorize access="hasAnyRole('ROLE_ADMIN')">
+				<div class="col-lg-12">
+					<button class="btn btn-outline-secondary col-sm-1" id="nw"
+						style="margin-left: 65px; float:right;  margin-bottom:20px;"
+						onclick="location.href='${pageContext.request.contextPath}notice/write'">공지 작성</button>
+			 	</div> 
+			</sec:authorize>
 
 				<table class="table">
 					<thead>
@@ -122,14 +103,13 @@ a:hover {
 							<th>작성자</th>
 							<th>조회수</th>
 							<th>작성일</th>
-							<th>삭제</th>
 						
 					</thead>
 					<c:forEach items="${notice}" var="nt">
 						<tbody id="noticeList">
 							<tr>
 
-								<td><span>${nt.board_id}</span></td>
+								<td><span>${nt.rnum}</span></td>
 								<td><a
 									href="${pageContext.request.contextPath}/admin/notice/${nt.board_id}">
 										<div style="font-weight: bold; font-size: 18px;">${nt.title}</div>
@@ -138,8 +118,7 @@ a:hover {
 								<td><span>${nt.hit}</span></td>
 								<td><span style="font-size: 13px; color: gray;">
 								<fmt:formatDate value="${nt.pdate}" pattern="yyyy.MM.dd" /></span></td>
-								<td onclick="event.cancelBubble=true;"><a class="a-delete"
-									data-bid='${nt.board_id}' href="/admin/notice/${nt.board_id}">삭제</a></td>
+						
 								
 							</tr>
 						</tbody>
@@ -175,8 +154,6 @@ a:hover {
 		</div>
 	</div>
 	<!-- container end -->
-
-
 
 	<!-- Footer -->
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>

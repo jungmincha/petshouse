@@ -53,14 +53,13 @@
 
 	<div class="container" style="width: 800px;">
 
-		<form action="${pageContext.request.contextPath}/commu/tips"
+		<form action="${pageContext.request.contextPath}/commu/tips/write"
 			enctype="multipart/form-data" method="post">
 
 			<input type="hidden" class="form-control" name="memberVO.member_id"
 				value="<sec:authentication property='principal.member_id'/>">
 			<h2 style="margin-top: 30px;">노하우</h2>
 
-			<input type="file" name="file" multiple="multiple" />
 
 			<div class="row">
 				<select class=" form-control col-2" name="categoryVO.category_id"
@@ -92,10 +91,8 @@
 			</div>
 
 			<div style="margin-top: 30px; float: right;">
-				<button type="submit" class="btn btn-warning"
-					onclick="location.href='${pageContext.request.contextPath}/commu/tips'">노하우
-					등록</button>
-				<a class="btn btn-warning" href="tips">취소</a>
+				<button type="submit" class="btn btn-warning">노하우 등록</button>
+				<a class="btn btn-warning" href="/commu/tips">취소</a>
 			</div>
 		</form>
 	</div>

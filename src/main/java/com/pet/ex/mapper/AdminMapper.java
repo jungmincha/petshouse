@@ -122,16 +122,10 @@ public interface AdminMapper {
 	public BoardVO getBoard1(int board_id);
 	
 	public void ImgModify(ImageVO imageVO);
-	/*
-	 * public List<BoardVO> getReviewList(int goods_id, Criteria cri);
-	 * 
-	 * public ImageVO getReviewImg(int board_id); public List<BoardVO>
-	 * ReviewList(int goods_id, Criteria cri); //리뷰 페이징 처리 public List<BoardVO>
-	 * getReviewWithPaging(int goods_id,Criteria cri);
-	 */
 
-	// 노하우 댓글 리스트 출력
-	public List<BoardVO> ReviewList(int goods_id, Criteria cri);
+	   public List<BoardVO> getReviewList(int goods_id);
+
+	   public ImageVO getReviewImg(int board_id);
 
 
 

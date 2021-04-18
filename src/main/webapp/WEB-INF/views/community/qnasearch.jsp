@@ -111,8 +111,7 @@ background-color:#dddddd;
 		<table class="table">
 			<c:forEach items="${qsearch}" var="qs">
 				<tbody>
-					<td><a
-						href="${pageContext.request.contextPath}/commu/qna_view?board_id=${qs.board_id}">
+					<td><a href="/commu/qna/${qs.board_id}">
 							<form action="${pageContext.request.contextPath}/commu/qnatag" method="post">
 								<div style="font-weight: bold; font-size: 18px;">${qs.title}</div>
 								<ul class="pd-tags">
@@ -135,7 +134,7 @@ background-color:#dddddd;
 				</tbody>
 			</c:forEach>
 		</table>
-		
+		</div>
 	<!-- Footer -->
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 </body>

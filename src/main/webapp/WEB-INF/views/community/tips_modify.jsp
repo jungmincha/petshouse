@@ -43,7 +43,7 @@
 
 	<div class="container" style="width: 800px;">
 	
-		<form action="${pageContext.request.contextPath}/commu/tmodify" method="post">
+		<form action="${pageContext.request.contextPath}/commu/tmodify" method="post" enctype="multipart/form-data">
 
 			<input type="hidden" name="board_id" value="${tips_view.board_id}" />
 			<input class="form-control" type="text" style=" margin-bottom: 20px;" name="title" value="${tips_view.title}" />

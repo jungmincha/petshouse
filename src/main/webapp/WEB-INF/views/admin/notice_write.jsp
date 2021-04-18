@@ -11,7 +11,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>공지사항</title>
-
+<script src="/resources/ckeditor/ckeditor.js"></script>
 <link
 	href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap"
 	rel="stylesheet">
@@ -86,8 +86,13 @@ a:hover {
 
 				<input type="text" class="form-control" name="title"
 					placeholder="제목" style="margin-bottom: 20px;">
+	
+		<textarea id="editor4" name="content"></textarea>
+		<script>
+				CKEDITOR.replace('editor4');
+		</script>
 		
-			<textarea class="form-control col" name="content" placeholder="내용"
+		<!-- 	<textarea class="form-control col" name="content" placeholder="내용"
 				style="width: 770px; height: 400px; margin-bottom: 20px; resize: none;"></textarea>
 
 
@@ -112,7 +117,7 @@ a:hover {
 										data-placeholder='이미지를 첨부 하려면 파일 선택 버튼을 클릭하거나 이미지를 드래그앤드롭 하세요 *최대 10장까지'></div>
 								</div>
 							</div>
-						</div>
+						</div> -->
 						
 		<div style="margin-top:30px; float: right;">
 			<button type="submit" class="btn btn-warning"

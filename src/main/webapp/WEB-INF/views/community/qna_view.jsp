@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!-- 추가함 -->
@@ -119,7 +120,7 @@ a:hover {
 	height: 30px;
 	border-radius: 70%;
 	overflow: hidden;
-	margin : 5px;
+	margin: 5px;
 }
 
 .profile_box2 {
@@ -127,7 +128,7 @@ a:hover {
 	height: 80px;
 	border-radius: 70%;
 	overflow: hidden;
-	margin : 5px;
+	margin: 5px;
 }
 
 .profile {
@@ -159,32 +160,39 @@ a:hover {
 	<div class="container" style="margin-bottom: 40px">
 		<div class="head">
 			<div style="margin-top: 45px; margin-bottom: 10px;">
-				<a class="qna-subtitle" href="qna">질문과 답변</a>
+				<a class="qna-subtitle" href="/commu/qna">질문과 답변</a>
 			</div>
 			<h3 class="qnatitle" style="font-weight: bold; margin-bottom: 10px;">${qna_view.title}</h3>
 		</div>
 
 		<div style="float: right">
-			<button type="button" id="modify_button" class="btn btn-warning"
+			<button type="button" id="modify_button" class="btn btn-secondary"
 				onclick="modify_event();">수정</button>
 
-			<button type="button" id="delete_button" class="btn btn-warning"
+			<button type="button" id="delete_button" class="btn btn-secondary"
 				onclick="button_event();">삭제</button>
 		</div>
 
 		<table>
 			<td>
-			
-			
-								 <div class="row user_info"> 
-								 
- 								 <div class="profile_box"> <img src="/resources/img/member/profile/${qna_view.memberVO.thumbnail}"
-								name="profile" alt="" class="profile" /> &nbsp&nbsp</div>
-								<span class="nickname" style="padding:8px;">  ${qna_view.memberVO.nickname} &nbsp&nbsp</span>
-							
-							     </div>
-		
-				<hr>
+
+
+				<div class="row user_info">
+
+					<div class="profile_box"  style="margin-left:16px;">
+						<a href="/myPage/${qna_view.memberVO.nickname}"><img
+							src="/resources/img/member/profile/${qna_view.memberVO.thumbnail}"
+							name="profile" alt="" class="profile" /> &nbsp&nbsp</a>
+					</div>
+					<span class="nickname" style="padding: 6px;">
+						<b>${qna_view.memberVO.nickname}</b> &nbsp&nbsp</span>
+
+				</div>
+
+				<hr> <c:forEach var="img" items="${img}">
+					<img src="/resources/img/qna/${img.imgname}">
+
+				</c:forEach>
 				<section style="margin-top: 60px; margin-bottom: 20px;">${qna_view.content}</section>
 				<form action="${pageContext.request.contextPath}/commu/qnatag"
 					method="post">
@@ -199,7 +207,8 @@ a:hover {
 						</c:forEach>
 
 					</ul>
-				</form> <span style="color: gray;">${qna_view.pdate}</span> <span
+				</form> <span style="color: gray;"><fmt:formatDate
+						value="${qna_view.pdate}" pattern="yyyy.MM.dd" /></span> <span
 				style="color: gray">조회수 ${qna_view.hit}</span>
 			</td>
 		</table>
@@ -209,21 +218,20 @@ a:hover {
 
 	<div class="container">
 
-		<input type="hidden" id="pgroup" value="${qna_view.board_id }">
+		<input type="hidden" id="pgroup" value="${qna_view.board_id}">
 		<div>
 			<div>
-				<span><strong>댓글 </strong></span>
+				<strong> 댓글 ${qcount}</strong>
+				<br><br>
 			</div>
-			<div>
-				<table class="table" style="margin-bottom: 50px;">
-
-					<td class="row"><textarea style="resize: none;"
-							class="form-control col-11" id="content" placeholder="댓글을 입력하세요"></textarea>
+			<div class="table" style="margin-bottom: 50px;">
+			
+				<div class="row"><textarea style="resize: none; margin-left:60px;"
+							class="form-control col-10" id="content" placeholder="댓글을 입력하세요"></textarea>
 						<button id="cw" class="col-1 btn btn-outline-secondary"
-							onClick="getComment()">등록</button></td>
-
-				</table>
+							onClick="getComment()">등록</button>
 			</div>
+		</div>
 		</div>
 
 
@@ -232,12 +240,18 @@ a:hover {
 			<div id="comment">
 
 				<c:forEach items="${comment}" var="dto">
-				<div class="row"><div class="profile_box">
-					<img src="/resources/img/member/profile/${dto.memberVO.thumbnail}"
-						name="profile" alt="" class="profile" /></div><div style="padding:8px;">${dto.memberVO.nickname}</div></div>
-					<div style="padding-left:32px;">${dto.content}</div>
-					<div style="padding-left:32px;">${dto.pdate}"</div>
-					<a class="a-del" href="/commu/qna_view/delete?board_id=${dto.board_id}"><b>삭제하기</b></a>
+					<div class="row">
+						<div class="profile_box">
+							<a href="/myPage/${dto.memberVO.nickname}"> <img
+								src="/resources/img/member/profile/${dto.memberVO.thumbnail}"
+								name="profile" alt="" class="profile" /></a>
+						</div>
+						<div style="padding: 8px;"><b>${dto.memberVO.nickname}</b></div>
+					</div>
+					<div style="padding-left: 32px;">${dto.content}</div>
+					<div style="padding-left: 32px;">${dto.pdate}"</div>
+					<%-- 		<a class="a-del"
+						href="/commu/qna_view/delete?board_id=${dto.board_id}"><b>삭제하기</b></a> --%>
 					<hr>
 				</c:forEach>
 
@@ -258,49 +272,55 @@ a:hover {
 
 
 	<script type="text/javascript">
-	
 		// 댓글 작성 및 ajax로 댓글 불러오기
-		function getComment(){
+		function getComment() {
 
 			var member_id = $("#member_id").val();
 			var thumbnail = $("#thumbnail").val();
 			console.log(member_id);
 			var pgroup = $("#pgroup").val();
 			var content = $("#content").val();
-			$.ajax({
-				url : "/commu/qna_view/insert",
-				type : "post",
-				data : {
-					member_id : member_id,
-					pgroup : pgroup,
-					content : content,
-					thumbnail : thumbnail
-				},
-				success : function(data) {
+			$
+					.ajax({
+						url : "/commu/qna_view/insert",
+						type : "post",
+						data : {
+							member_id : member_id,
+							pgroup : pgroup,
+							content : content,
+							thumbnail : thumbnail
+						},
+						success : function(data) {
 
-					html = "<div class='row'><div class='profile_box'><img src='/resources/img/member/profile/" + data.memberVO.thumbnail +"' class='profile'></div><div style='padding:8px;'>" + data.memberVO.nickname + "</div></div>"
-							+ "<div style='padding-left:32px;'>" + data.content + "</div>" + "<div style='padding-left:32px;'>"
-							+ data.pdate + "</div>"
-							+"<a class='a-del' href='/commu/qna_view/delete?board_id="+data.board_id+"><b>삭제하기</b></a> <hr> "
-							+"<hr>"
+							html = "<div class='row'><div class='profile_box'><a href='/myPage/"+data.memberVO.nickname+"'><img src='/resources/img/member/profile/" + data.memberVO.thumbnail +"' class='profile'></a></div><div style='padding:8px;'><b>"
+									+ data.memberVO.nickname
+									+ "</b></div></div>"
+									+ "<div style='padding-left:32px;'>"
+									+ data.content
+									+ "</div>"
+									+ "<div style='padding-left:32px;'>"
+									+ data.pdate
+									+ "</div>"
+									+ "<a class='a-del' href='/commu/qna_view/delete?board_id="
+									+ data.board_id
+									+ "><b>삭제하기</b></a> <hr> "
+									+ "<hr>"
 
-					$("#comment").prepend(html);
-					document.getElementById("content").value = '';
+							$("#comment").prepend(html);
+							document.getElementById("content").value = '';
 
-				}, //ajax 성공 시 end$
+						}, //ajax 성공 시 end$
 
-		
-			 error : function(request, status, error) {
-			 alert("code:" + request.status + "\n" + "message:"
-			 + request.responseText + "\n" + "error:" + error);
+					/* 
+						 error : function(request, status, error) {
+						 alert("code:" + request.status + "\n" + "message:"
+						 + request.responseText + "\n" + "error:" + error);
 
-			 } // ajax 에러 시 end
-			})
+						 } // ajax 에러 시 end */
+					})
 
 		}
-		
-		
-		
+
 		//더보기
 		var pageNum = 1;
 
@@ -309,43 +329,45 @@ a:hover {
 			pageNum += 1;
 			console.log(pageNum);
 
-			$.ajax({
-				type : "POST",
-				url : "/commu/cmorelist",
-				data : {
-					pageNum : pageNum,
-					board_id : "${qna_view.board_id}"
-				},
-				success : function(data) {
-					console.log(data);
-					var comments = data.comments;
+			$
+					.ajax({
+						type : "POST",
+						url : "/commu/cmorelist",
+						data : {
+							pageNum : pageNum,
+							board_id : "${qna_view.board_id}"
+						},
+						success : function(data) {
+							console.log(data);
+							var comments = data.comments;
 
-					html = " "
-					for ( var i in comments) {
-						html += "<div id='comments'>" + "<div>"
-								+"<div class='row'><div class='profile_box'>"
-								+"<img src='/resources/img/member/profile/"+comments[i].memberVO.thumbnail+"'name='profile' alt='' class='profile' />"
-								+"</div><div style='padding:8px;'>"+comments[i].memberVO.nickname+"</div></div>"
-								+ "<div style='padding-left:32px;'>" + comments[i].content + "</div>"
-								+ "<div style='padding-left:32px;'>" + comments[i].pdate + "</div>"
-								+ "<hr>"
+							html = " "
+							for ( var i in comments) {
+								html += "<div id='comments'>"
+										+ "<div>"
+										+ "<div class='row'><div class='profile_box'>"
+										+ "<a href='/myPage/"+comments[i].memberVO.nickname+"'><img src='/resources/img/member/profile/"+comments[i].memberVO.thumbnail+"'name='profile' alt='' class='profile' />"
+										+ "</a></div><div style='padding:8px;'><b>"
+										+ comments[i].memberVO.nickname
+										+ "</b></div></div>"
+										+ "<div style='padding-left:32px;'>"
+										+ comments[i].content + "</div>"
+										+ "<div style='padding-left:32px;'>"
+										+ comments[i].pdate + "</div>" + "<hr>"
 
-								+ "</div>"
-					}
-					
-	
-					$("#comment").append(html);
+										+ "</div>"
+							}
 
-				},
-				//success end
-				error : function(request, status, error) {
-					alert("code:" + request.status + "\n" + "message:"
-							+ request.responseText + "\n" + "error:" + error);
-				} // ajax 에러 시 end
-			}); //ajax end	 
+							$("#comment").append(html);
+
+						},
+					/* 	//success end
+						error : function(request, status, error) {
+							alert("code:" + request.status + "\n" + "message:"
+									+ request.responseText + "\n" + "error:" + error);
+						} // ajax 에러 시 end */
+					}); //ajax end	 
 		}; //click end	
-		
-		
 
 		//수정 삭제버튼 띄우기   	
 		window.onload = function() {

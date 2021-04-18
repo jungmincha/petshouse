@@ -11,7 +11,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>${notice_view.title}수정하기</title>
-
+<script src="/resources/ckeditor/ckeditor.js"></script>
 <link
 	href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap"
 	rel="stylesheet">
@@ -72,9 +72,13 @@ textarea::-webkit-scrollbar-track {
 		<form action="${pageContext.request.contextPath}/admin/notice/update"
 			method="post" enctype="multipart/form-data">
 			<input type="hidden" name="board_id" value="${notice_view.board_id}" />
-			
-			
-								<div class="form-group row">
+			<input type="text" class="form-control" style=" margin-bottom: 20px;"  name="title"value="${notice_view.title}" />
+				<textarea id="editor4" name="content">${notice_view.content}</textarea>
+
+			<script>
+				CKEDITOR.replace('editor4');
+			</script>
+			<!-- 					<div class="form-group row">
 								<label class="col-sm-3" for="detail_img">상품상세사진</label>
 								<div class="input-group col-sm-9">
 									<div class="custom-file">
@@ -94,13 +98,13 @@ textarea::-webkit-scrollbar-track {
 
 									<div id="preview"></div>
 								</div>
-							</div>
+							</div> -->
 							
 							
 						
-			<input type="text" class="form-control" style=" margin-bottom: 20px; width:628px;"  name="title"value="${notice_view.title}" />	
-			<textarea class="form-control col" name="content"
-				style="width: 770px; height: 400px; margin-bottom: 20px; resize: none;">${notice_view.content}</textarea>
+				
+		<%-- 	<textarea class="form-control col" name="content"
+				style="width: 770px; height: 400px; margin-bottom: 20px; resize: none;">${notice_view.content}</textarea> --%>
 
 		<div style="margin-top:30px; float: right;">
 			<button type="submit" class="btn btn-warning"	

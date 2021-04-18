@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -47,29 +48,36 @@ public class CommunityController {
 	@Autowired
 	private CommunityService communityService;
 
-	// 노하우 메인 페이지 리스트 출력 (검색, 글쓰기,사진업로드, 페이징, 댓글, 수정, 삭제, 조회 필요함)
+	// 노하우 메인 페이지
 	@RequestMapping("/tips")
 	public ModelAndView tips(Criteria cri, ModelAndView mav) {
 		mav.addObject("tips", communityService.getTipsList(cri));
-		mav.addObject("rate", communityService.getTipsRate());
-		int total = communityService.getTiptal(cri);
-		mav.addObject("pageMaker", new PageVO(cri, total));
-		mav.setViewName("community/tips"); // 파일경로
+		mav.addObject("rate", communityService.getTipsRate()); // 인기 노하우 슬라이드
+		mav.setViewName("community/tips");
 		return mav;
-
 	}
 
 	// 노하우 특정 글 페이지 출력
-	@GetMapping("/tips_view")
-	public ModelAndView tips_view(BoardVO boardVO, Criteria cri, ModelAndView mav) throws Exception {
+	@GetMapping("/tips/{board_id}")
+	public ModelAndView tips_view(@PathVariable("board_id") int board_id, BoardVO boardVO, Criteria cri,
+			ModelAndView mav) throws Exception {
+
+		boardVO = communityService.getBoardInfo(board_id);
+
 		log.info("tips_view()실행");
-		mav.addObject("tips_view", communityService.getTipsview(boardVO.getBoard_id())); // 특정 글 출력
+
 		mav.addObject("tcomment", communityService.listTComment(boardVO.getBoard_id(), cri));
+
+		int count = communityService.counta(board_id);
+
+		mav.addObject("tips_view", communityService.getBoard(boardVO.getBoard_id()));
+		mav.addObject("img", communityService.getImg(board_id));
+		mav.addObject("count", count);
 		communityService.hit(boardVO.getBoard_id());
 		mav.setViewName("community/tips_view");
+
 		return mav;
 	}
-	
 
 	// 노하우 동물 글 페이지 출력
 	@GetMapping("/tips/pet")
@@ -86,18 +94,8 @@ public class CommunityController {
 		return list;
 	}
 
-	// 노하우 글 검색
-	@PostMapping("/tipssearch")
-	public ModelAndView tsearch(@RequestParam("keyword") String keyword, ModelAndView mav, BoardVO boardVO)
-			throws Exception {
-		log.info("tsearch()실행");
-		mav.addObject("tsearch", communityService.getTsearch(keyword));
-		mav.setViewName("/community/tipssearch");
-		return mav;
-	}
-
 	// 노하우 글쓰기 페이지
-	@GetMapping("/tips_write")
+	@GetMapping("/tips/write")
 	public ModelAndView tips_write(ModelAndView mav) throws Exception {
 		log.info("tips_write()실행");
 		mav.setViewName("community/tips_write");
@@ -105,8 +103,8 @@ public class CommunityController {
 	}
 
 	// 노하우 글 작성
-	@PostMapping("/tips")
-	public ModelAndView twrite(MultipartHttpServletRequest multi, BoardVO boardVO,ImageVO imageVO, ModelAndView mav)
+	@PostMapping("/tips/write")
+	public ModelAndView write(MultipartHttpServletRequest multi, BoardVO boardVO, ImageVO imageVO, ModelAndView mav)
 			throws IllegalStateException, IOException {
 		log.info("twrite()실행");
 		communityService.writeTips(boardVO);
@@ -137,7 +135,6 @@ public class CommunityController {
 			imageVO.getBoardVO().setBoard_id(board.getBoard_id());
 			communityService.ImgInput(imageVO);
 
-	
 		}
 		mav.setView(new RedirectView("/commu/tips", true));
 		return mav;
@@ -148,7 +145,8 @@ public class CommunityController {
 	public ModelAndView tmodify_page(@RequestParam("board_id") int board_id, BoardVO boardVO, ModelAndView mav)
 			throws Exception {
 		log.info("tmodify_page()실행");
-		mav.addObject("tips_view", communityService.getTipsview(boardVO.getBoard_id()));
+		mav.addObject("tips_view", communityService.getBoard(boardVO.getBoard_id()));
+		mav.addObject("img", communityService.getImg(board_id));
 		mav.setViewName("community/tips_modify");
 		return mav;
 	}
@@ -168,20 +166,71 @@ public class CommunityController {
 			throws Exception {
 		log.info("tdelete()실행");
 		mav.addObject("tips", communityService.getTipsList(cri));
+		mav.addObject("img", communityService.getImg(board_id));
 		communityService.tdelete(board_id);
 		mav.setView(new RedirectView("/commu/tips", true));
 		return mav;
 	}
 
-	// 질문과 답변 메인 페이지 리스트 출력
+	// 노하우 댓글 작성
+	@PostMapping("/tips_view/insert")
+	public BoardVO insertTComment(BoardVO boardVO, @RequestParam("member_id") String member_id) {
+		MemberVO member = new MemberVO();
+		boardVO.setMemberVO(member);
+		boardVO.getMemberVO().setMember_id(member_id);
+		communityService.insertTComment(boardVO);
+		BoardVO tcomment = communityService.getTComment(boardVO.getPgroup());
+		System.out.println(tcomment);
+		return tcomment;
+	}
+	
+	
+	// 댓글 더보기
+	@PostMapping("/tmorelist")
+	public Map<String, Object> tcomment(@RequestParam("board_id") int board_id, Criteria cri) {
+		log.info("commentmorelist");
+		Map<String, Object> list = new HashMap<>();
+		List<BoardVO> tcomment = communityService.getTCommentList(cri, board_id);
+		list.put("tcomment", tcomment);
+		return list;
+	}
+
+
+	// 노하우 더보기
+	@PostMapping("/morelist")
+	public Map<String, Object> tips(Criteria cri) {
+		log.info("morelist");
+		Map<String, Object> list = new HashMap<>();
+		List<BoardVO> tips = communityService.getTipsList(cri);
+		list.put("tips", tips);
+		return list;
+	}
+
+	// 질문과 답변 메인 페이지
 	@RequestMapping("/qna")
 	public ModelAndView qna(Criteria cri, ModelAndView mav) {
 		mav.addObject("qna", communityService.getQnaList(cri));
 		int total = communityService.getTotal(cri);
 		mav.addObject("pageMaker", new PageVO(cri, total));
-		mav.setViewName("community/qna"); // 파일경로
+		mav.setViewName("community/qna");
 		return mav;
 
+	}
+
+	// 질문과 답변 특정 글 페이지
+	@GetMapping("/qna/{board_id}")
+	public ModelAndView qna_view(@PathVariable("board_id") int board_id, BoardVO boardVO, Criteria cri,
+			ModelAndView mav) throws Exception {
+		boardVO = communityService.getQnaInfo(board_id);
+		log.info("qna_view()실행");
+		mav.addObject("qna_view", communityService.getQnaBoard(boardVO.getBoard_id()));
+		mav.addObject("comment", communityService.listComment(boardVO.getBoard_id(), cri));
+		mav.addObject("img", communityService.getImg(board_id));
+		int count = communityService.qcount(board_id);
+		mav.addObject("qcount", count);
+		communityService.hit(boardVO.getBoard_id());
+		mav.setViewName("community/qna_view");
+		return mav;
 	}
 
 	// 질문과 답변 동물 글 페이지 출력
@@ -197,54 +246,9 @@ public class CommunityController {
 		log.info("qna_pet()실행");
 		return list;
 	}
-
 	
-
-	// 질문과 답변 특정 글 페이지 출력
-	@GetMapping("/qna_view")
-	public ModelAndView qna_view(BoardVO boardVO, Criteria cri, ModelAndView mav) throws Exception {
-		log.info("qna_view()실행");
-		mav.addObject("qna_view", communityService.getQnaview(boardVO.getBoard_id())); // 특정 글 출력
-		mav.addObject("comment", communityService.listComment(boardVO.getBoard_id(), cri));
-		communityService.hit(boardVO.getBoard_id());
-		mav.setViewName("community/qna_view");
-		return mav;
-	}
-
-	// 질문과 답변 댓글 작성
-	@PostMapping("/qna_view/insert")
-	public BoardVO insertComment(BoardVO boardVO, @RequestParam("member_id") String member_id) {
-		MemberVO member = new MemberVO();
-		boardVO.setMemberVO(member);
-		boardVO.getMemberVO().setMember_id(member_id);
-		communityService.insertComment(boardVO);
-		BoardVO comments = communityService.getComment(boardVO.getPgroup());
-		System.out.println(comments);
-		return comments;
-	}
-
-	// 질문과 답변 글 검색
-	@PostMapping("/qnasearch")
-	public ModelAndView qsearch(@RequestParam("keyword") String keyword, ModelAndView mav, BoardVO boardVO)
-			throws Exception {
-		log.info("qsearch()실행");
-		mav.addObject("qsearch", communityService.getQsearch(keyword));
-		mav.setViewName("/community/qnasearch");
-		return mav;
-	}
-
-	// 질문과 답변 태그 검색
-	@PostMapping("/qnatag")
-	public ModelAndView qtag(@RequestParam("keyword") String keyword, ModelAndView mav, BoardVO boardVO)
-			throws Exception {
-		log.info("qtag()실행");
-		mav.addObject("qtag", communityService.getQtag(keyword));
-		mav.setViewName("/community/qnatag");
-		return mav;
-	}
-
 	// 질문과 답변 글쓰기 페이지
-	@GetMapping("/qna_write")
+	@GetMapping("/qna/write")
 	public ModelAndView qna_write(ModelAndView mav) throws Exception {
 		log.info("qna_write()실행");
 		mav.setViewName("community/qna_write");
@@ -252,7 +256,7 @@ public class CommunityController {
 	}
 
 	// 글 작성하기 질문과답변
-	@PostMapping("/qna")
+	@PostMapping("/qna/write")
 	public ModelAndView write(MultipartHttpServletRequest multi, ImageVO imageVO, BoardVO boardVO, ModelAndView mav)
 			throws IllegalStateException, IOException {
 		log.info("write()실행");
@@ -289,14 +293,24 @@ public class CommunityController {
 		return mav;
 	}
 
-	// 상품 더보기
-	@PostMapping("/morelist")
-	public Map<String, Object> tips(Criteria cri) {
-		log.info("morelist");
-		Map<String, Object> list = new HashMap<>();
-		List<BoardVO> tips = communityService.getTipsList(cri);
-		list.put("tips", tips);
-		return list;
+	// 질문과 답변 글 검색
+	@PostMapping("/qnasearch")
+	public ModelAndView qsearch(@RequestParam("keyword") String keyword, ModelAndView mav, BoardVO boardVO)
+			throws Exception {
+		log.info("qsearch()실행");
+		mav.addObject("qsearch", communityService.getQsearch(keyword));
+		mav.setViewName("/community/qnasearch");
+		return mav;
+	}
+
+	// 질문과 답변 태그 검색
+	@PostMapping("/qnatag")
+	public ModelAndView qtag(@RequestParam("keyword") String keyword, ModelAndView mav, BoardVO boardVO)
+			throws Exception {
+		log.info("qtag()실행");
+		mav.addObject("qtag", communityService.getQtag(keyword));
+		mav.setViewName("/community/qnatag");
+		return mav;
 	}
 
 	// 질문과 답변 글 수정 페이지
@@ -304,12 +318,12 @@ public class CommunityController {
 	public ModelAndView modify_page(@RequestParam("board_id") int board_id, BoardVO boardVO, ModelAndView mav)
 			throws Exception {
 		log.info("modify_page()실행");
-		mav.addObject("qna_view", communityService.getQnaview(boardVO.getBoard_id()));
+		mav.addObject("qna_view", communityService.getQnaBoard(boardVO.getBoard_id()));
 		mav.setViewName("community/qna_modify");
 		return mav;
 	}
 
-	// 질문과 답변 찐 글 수정하기
+	// 질문과 답변 글 수정하기
 	@PostMapping("/modify")
 	public ModelAndView modify(BoardVO boardVO, ModelAndView mav) throws Exception {
 		log.info("modify()실행");
@@ -318,16 +332,19 @@ public class CommunityController {
 		return mav;
 	}
 
-	// 질문과 답변 글 삭제하기
-	@GetMapping("/delete")
-	public ModelAndView delete(@RequestParam("board_id") int board_id, Criteria cri, ModelAndView mav)
-			throws Exception {
-		log.info("delete()실행");
-		mav.addObject("qna", communityService.getQnaList(cri));
-		communityService.delete(board_id);
-		mav.setView(new RedirectView("/commu/qna", true));
-		return mav;
+	
+	// 질문과 답변 댓글 작성
+	@PostMapping("/qna_view/insert")
+	public BoardVO insertComment(BoardVO boardVO, @RequestParam("member_id") String member_id) {
+		MemberVO member = new MemberVO();
+		boardVO.setMemberVO(member);
+		boardVO.getMemberVO().setMember_id(member_id);
+		communityService.insertComment(boardVO);
+		BoardVO comments = communityService.getComment(boardVO.getPgroup());
+		System.out.println(comments);
+		return comments;
 	}
+
 
 	// 댓글 더보기
 	@PostMapping("/cmorelist")
@@ -339,38 +356,32 @@ public class CommunityController {
 		return list;
 	}
 	
-	// 댓글 더보기
-	@PostMapping("/tmorelist")
-	public Map<String, Object> tcomment(@RequestParam("board_id") int board_id, Criteria cri) {
-		log.info("commentmorelist");
-		Map<String, Object> list = new HashMap<>();
-		List<BoardVO> tcomment = communityService.getTCommentList(cri, board_id);
-		list.put("tcomment", tcomment);
-		return list;
+
+	// 질문과 답변 글 삭제하기  이미지 따로 첨부한건 안돼..
+	@GetMapping("/delete")
+	public ModelAndView delete(@RequestParam("board_id") int board_id, Criteria cri, ModelAndView mav)
+			throws Exception {
+		log.info("delete()실행");
+		mav.addObject("img", communityService.getImg(board_id));
+		mav.addObject("qna", communityService.getQnaList(cri));
+
+		communityService.delete(board_id);
+		mav.setView(new RedirectView("/commu/qna", true));
+		return mav;
 	}
 	
-	// 노하우 댓글 작성
-	@PostMapping("/tips_view/insert")
-	public BoardVO insertTComment(BoardVO boardVO, @RequestParam("member_id") String member_id) {
-		MemberVO member = new MemberVO();
-		boardVO.setMemberVO(member);
-		boardVO.getMemberVO().setMember_id(member_id);
-		communityService.insertTComment(boardVO);
-		BoardVO tcomment = communityService.getTComment(boardVO.getPgroup());
-		System.out.println(tcomment);
-		return tcomment;
-	}
-	
+
+	// 질문과 답변 댓글 삭제  안돼...
 	@RequestMapping("/qna_view/delete")
-	public ResponseEntity<String> reply_delete(BoardVO boardVO ) {
+	public ResponseEntity<String> reply_delete(BoardVO boardVO) {
 
 		ResponseEntity<String> entity = null;
 		log.info("delete");
 
 		try {
 
-		communityService.deleteComment(boardVO);
-		
+			communityService.deleteComment(boardVO);
+
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -382,8 +393,15 @@ public class CommunityController {
 
 	}
 	
+	/*
+	 * // 노하우 글 검색
+	 * 
+	 * @PostMapping("/tipssearch") public ModelAndView
+	 * tsearch(@RequestParam("keyword") String keyword, ModelAndView mav, BoardVO
+	 * boardVO) throws Exception { log.info("tsearch()실행"); mav.addObject("tsearch",
+	 * communityService.getTsearch(keyword));
+	 * mav.setViewName("/community/tipssearch"); return mav; }
+	 */
 
-
-	
 
 }

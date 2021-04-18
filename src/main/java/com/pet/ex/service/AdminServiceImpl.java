@@ -290,22 +290,19 @@ public class AdminServiceImpl implements AdminService {
 		mapper.ImgModify(imageVO);
 	}
 
-	/*
-	 * @Override public List<BoardVO> getReviewList(int goods_id, Criteria cri) {
-	 * log.info("getReviewList()"); return mapper.getReviewList(goods_id, cri); }
-	 * 
-	 * @Override public ImageVO getReviewImg(int board_id) {
-	 * log.info("getReviewImg"); return mapper.getReviewImg(board_id); }
-	 * 
-	 * @Override public List<BoardVO> ReviewList(int goods_id,Criteria cri) { return
-	 * mapper.getReviewWithPaging(goods_id,cri); }
-	 */
-	
-	// 질문과 답변 댓글 가져오기
-	@Override
-	public List<BoardVO> ReviewList(int goods_id, Criteria cri) {
-		log.info("ReviewList()");
-		return mapper.ReviewList(goods_id, cri);
-	}
+	   // 질문과 답변 댓글 가져오기
+	   @Override
+	   public List<BoardVO> getReviewList(int goods_id) {
+	      log.info("getReviewList()");
+	      return mapper.getReviewList(goods_id);
+	   }
+
+	   // 질문과 답변 댓글 가져오기
+	   @Override
+	   public ImageVO getReviewImg(int board_id) {
+	      log.info("getReviewImg()");
+	      return mapper.getReviewImg(board_id);
+	   }
+	   
 
 }

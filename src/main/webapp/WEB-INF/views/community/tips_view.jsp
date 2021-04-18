@@ -155,7 +155,7 @@ a:hover {
 	<div class="container" style="margin-bottom: 40px">
 		<div class="head">
 			<div style="margin-top: 45px; margin-bottom: 10px;">
-				<a class="tips-subtitle" href="tips">노하우</a>
+				<a class="tips-subtitle" href="/commu/tips">노하우</a>
 			</div>
 			<h3 class="tipstitle" style="font-weight: bold; margin-bottom: 10px;">${tips_view.title}</h3>
 		</div>
@@ -175,11 +175,11 @@ a:hover {
 			<td>
 				<div class="row user_info"> 
 								 
- 								 <div class="profile_box"> <img src="/resources/img/member/profile/${tips_view.memberVO.thumbnail}"
-								name="profile" alt="" class="profile" /> &nbsp&nbsp</div>
-								<span class="nickname" style="padding:8px;">  ${tips_view.memberVO.nickname} &nbsp&nbsp</span>
+ 								 <div class="profile_box" style="margin-left:16px;"> <a href="/myPage/${tips_view.memberVO.nickname}"><img src="/resources/img/member/profile/${tips_view.memberVO.thumbnail}"
+								name="profile" alt="" class="profile" /> &nbsp&nbsp</a></div>
+								<span class="nickname" style="padding:6px;"> <b> ${tips_view.memberVO.nickname} &nbsp&nbsp</b></span>
 							
-							     </div></div>
+							     </div>
 				<hr>
 				<section style="margin-top: 40px; margin-bottom: 20px;">${tips_view.content}</section>
 				<form action="${pageContext.request.contextPath}/commu/tipstag"
@@ -208,28 +208,32 @@ a:hover {
 		<input type="hidden" id="pgroup" value="${tips_view.board_id }">
 		<div>
 			<div>
-				<span><strong>댓글 </strong></span>
+				<strong> 댓글 ${count}</strong>
+				<br><br>
 			</div>
 			<div>
-				<table class="table" style="margin-bottom: 50px;">
+				<div class="table" style="margin-bottom: 50px;">
 
-					<td class="row"><textarea style="resize: none;"
-							class="form-control col-11" id="content" placeholder="댓글을 입력하세요"></textarea>
+					<div class="row"><textarea style="resize: none; margin-left:60px;"
+							class="form-control col-10" id="content" placeholder="댓글을 입력하세요"></textarea>
 						<button id="cw" class="col-1 btn btn-outline-secondary"
-							onClick="getComment()">등록</button></td>
+							onClick="getComment()">등록</button>
 
-				</table>
+				</div>
 			</div>
-		</div>
+			</div>
+			</div>
+	
 
 		<div class="container" style="margin-bottom: 10px;">
 		
 			<div id="tcomment">
 
 				<c:forEach items="${tcomment}" var="tcm">
-					<div class="row"><div class="profile_box">
+					<div class="row"><div class="profile_box"><a href="/myPage/${tcm.memberVO.nickname}">
 					<img src="/resources/img/member/profile/${tcm.memberVO.thumbnail}"
-						name="profile" alt="" class="profile" /></div><div style="padding:8px;">${tcm.memberVO.nickname}</div></div>
+						name="profile" alt="" class="profile" /></a></div>
+						<div style="padding:8px;"><b>${tcm.memberVO.nickname}</b></div></div>
 					<div style="padding-left:32px;">${tcm.content}</div>
 					<div style="padding-left:32px;">${tcm.pdate}</div>
 					<hr>
@@ -238,6 +242,9 @@ a:hover {
 		</div>
 
 
+
+
+               
 		<div class="container">
 			<form id="commentListForm" name="commentListForm" method="post">
 				<div id="TcommentList"></div>
@@ -273,7 +280,7 @@ a:hover {
 				success : function(data) {
 					console.log(data);
 
-					html = "<div class='row'><div class='profile_box'><img src='/resources/img/member/profile/" + data.memberVO.thumbnail +"' class='profile'></div><div style='padding:8px;'>" + data.memberVO.nickname + "</div></div>"
+					html = "<div class='row'><div class='profile_box'><a href='/myPage/ "+data.memberVO.nickname+"'><img src='/resources/img/member/profile/" + data.memberVO.thumbnail +"' class='profile'></a></div><div style='padding:8px;'><b>" + data.memberVO.nickname + "</b></div></div>"
 					+ "<div style='padding-left:32px;'>" + data.content + "</div>" + "<div style='padding-left:32px;'>"
 					+ data.pdate + "</div>"
 					+"<a class='a-del' href='/commu/tips_view/delete?board_id="+data.board_id+"><b>삭제하기</b></a> <hr> "
@@ -284,12 +291,12 @@ a:hover {
 
 
 				}, //ajax 성공 시 end$
-
+/* 
 			 error : function(request, status, error) {
 			 alert("code:" + request.status + "\n" + "message:"
 			 + request.responseText + "\n" + "error:" + error); 
 
-			 } // ajax 에러 시 end
+			 } // ajax 에러 시 end */
 			})
 		}
 		
@@ -318,8 +325,8 @@ a:hover {
 					for ( var i in tcomment) {
 						html += "<div id='tcomment'>" + "<div>"
 						+"<div class='row'><div class='profile_box'>"
-						+"<img src='/resources/img/member/profile/"+tcomment[i].memberVO.thumbnail+"'name='profile' alt='' class='profile' />"
-						+"</div><div style='padding:8px;'>"+tcomment[i].memberVO.nickname+"</div></div>"
+						+"<a href='/myPage/ "+tcomment[i].memberVO.nickname+"'><img src='/resources/img/member/profile/"+tcomment[i].memberVO.thumbnail+"'name='profile' alt='' class='profile' />"
+						+"</a></div><div style='padding:8px;'><b>"+tcomment[i].memberVO.nickname+"</b></div></div>"
 						+ "<div style='padding-left:32px;'>" + tcomment[i].content + "</div>"
 						+ "<div style='padding-left:32px;'>" + tcomment[i].pdate + "</div>"
 						+ "<hr>"
@@ -330,11 +337,11 @@ a:hover {
 					$("#tcomment").append(html);
 
 				},
-				//success end
+				/* //success end
 				error : function(request, status, error) {
 					alert("code:" + request.status + "\n" + "message:"
 							+ request.responseText + "\n" + "error:" + error);
-				} // ajax 에러 시 end
+				} // ajax 에러 시 end */
 			}); //ajax end	 
 		}; //click end	
 		
