@@ -33,16 +33,36 @@
 	type="text/css">
 <link rel="stylesheet" href="/resources/css/nice-select.css"
 	type="text/css">
-<link rel="stylesheet" href="/resources/css/jquery-ui.min.css"
-	type="text/css">
 <link rel="stylesheet" href="/resources/css/slicknav.min.css"
 	type="text/css">
 <link rel="stylesheet" href="/resources/css/style.css" type="text/css">
 <!-- 날짜 선택 -->
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.38.0/js/tempusdominus-bootstrap-4.min.js"></script>
 <link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.38.0/css/tempusdominus-bootstrap-4.min.css" />
+	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+	$(function() {
+		$("#datepicker").datepicker();
+		$("#datepicker2").datepicker();
+	});
+	$.datepicker.setDefaults({
+		dateFormat : 'yy-mm-dd',
+		prevText : '이전 달',
+		nextText : '다음 달',
+		monthNames : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월',
+				'10월', '11월', '12월' ],
+		monthNamesShort : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월',
+				'9월', '10월', '11월', '12월' ],
+		dayNames : [ '일', '월', '화', '수', '목', '금', '토' ],
+		dayNamesShort : [ '일', '월', '화', '수', '목', '금', '토' ],
+		dayNamesMin : [ '일', '월', '화', '수', '목', '금', '토' ],
+		showMonthAfterYear : true,
+		yearSuffix : '년'
+	});
+</script>
 <style>
 table {
 	margin-left: auto;
@@ -60,6 +80,7 @@ table th {
 </style>
 </head>
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
+
 <body style="padding-top: 180px">
 
 	<div class="container">
@@ -67,39 +88,16 @@ table th {
 			<h2>포인트 사용내역</h2>
 			<div class="row">
 
-				<div class="col-md-6">
+				<div class="col-md-8">
 					기간별 조회
 					<button>1주일</button>
 					<button>1개월</button>
-					<div class="form-group">
-						<div class="input-group date" id="datetimepicker1"
-							data-target-input="nearest">
-							<input type="text" class="form-control datetimepicker-input"
-								data-target="#datetimepicker1" value="01/11/2020">
-							<div class="input-group-append" data-target="#datetimepicker1"
-								data-toggle="datetimepicker">
-								<div class="input-group-text">
-									<i class="fa fa-calendar"></i>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="form-group">
-						<div class="input-group date" id="datetimepicker2"
-							data-target-input="nearest">
-							<input type="text" class="form-control datetimepicker-input"
-								data-target="#datetimepicker2" value="01/15/2020">
-							<div class="input-group-append" data-target="#datetimepicker2"
-								data-toggle="datetimepicker">
-								<div class="input-group-text">
-									<i class="fa fa-calendar"></i>
-								</div>
-							</div>
-						</div>
-					</div>
 
+					<span> Date: <input type="text" id="datepicker"> <input
+						type="text" id="datepicker2">
+					</span>
 				</div>
-				<div class="col-md-6 text-right">
+				<div class="col-md-4 text-right">
 					<h4>사용가능 포인트 : ${pointSum.sum} P</h4>
 				</div>
 			</div>
@@ -143,35 +141,13 @@ table th {
 
 		</div>
 	</div>
-	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
+
 </body>
 
-<script>
-	$(function() {
-		$('#datetimepicker1').datetimepicker({
-			format : 'L'
-		});
-		$('#datetimepicker2').datetimepicker({
-			format : 'L',
-			useCurrent : false
-		});
-		$("#datetimepicker1").on("change.datetimepicker", function(e) {
-			$('#datetimepicker2').datetimepicker('minDate', e.date);
-		});
-		$("#datetimepicker2").on("change.datetimepicker", function(e) {
-			$('#datetimepicker1').datetimepicker('maxDate', e.date);
-		});
-	});
-</script>
+<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 <!-- Js Plugins -->
-<script src="/resources/js/jquery-3.3.1.min.js"></script>
+
 <script src="/resources/js/bootstrap.min.js"></script>
-<script src="/resources/js/jquery-ui.min.js"></script>
-<script src="/resources/js/jquery.countdown.min.js"></script>
-<script src="/resources/js/jquery.nice-select.min.js"></script>
-<script src="/resources/js/jquery.zoom.min.js"></script>
-<script src="/resources/js/jquery.dd.min.js"></script>
-<script src="/resources/js/jquery.slicknav.js"></script>
 <script src="/resources/js/owl.carousel.min.js"></script>
 <script src="/resources/js/main.js"></script>
 

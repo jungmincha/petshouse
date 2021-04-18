@@ -35,11 +35,15 @@
 	type="text/css">
 <link rel="stylesheet" href="/resources/css/nice-select.css"
 	type="text/css">
-<link rel="stylesheet" href="/resources/css/jquery-ui.min.css"
-	type="text/css">
 <link rel="stylesheet" href="/resources/css/slicknav.min.css"
 	type="text/css">
 <link rel="stylesheet" href="/resources/css/style.css" type="text/css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
 	<input type="hidden" id="location_security" name="location_security"
 		value="<sec:authentication property="principal.location"/>">
@@ -133,14 +137,16 @@
 					</div>
 					<div class="col-lg-7 col-md-7">
 						<div class="advanced-search">
-						<button type="button" class="category-btn">All Categories</button>
-							<form action="${pageContext.request.contextPath}/search" class="input-group" method="post">
+							<button type="button" class="category-btn">All
+								Categories</button>
+							<form action="${pageContext.request.contextPath}/search"
+								class="input-group" method="post">
 								<input type="text" name="keyword" placeholder="펫츠하우스 통합검색">
 								<button type="submit">
 									<i class="ti-search"></i>
 								</button>
 							</form>
-			
+
 						</div>
 					</div>
 					<div class="col-lg-3 text-right col-md-3">
@@ -260,14 +266,7 @@
 	})
 </script>
 <!-- Js Plugins -->
-<script src="/resources/js/jquery-3.3.1.min.js"></script>
 <script src="/resources/js/bootstrap.min.js"></script>
-<script src="/resources/js/jquery-ui.min.js"></script>
-<script src="/resources/js/jquery.countdown.min.js"></script>
-<script src="/resources/js/jquery.nice-select.min.js"></script>
-<script src="/resources/js/jquery.zoom.min.js"></script>
-<script src="/resources/js/jquery.dd.min.js"></script>
-<script src="/resources/js/jquery.slicknav.js"></script>
 <script src="/resources/js/owl.carousel.min.js"></script>
 <script src="/resources/js/main.js"></script>
 </html>

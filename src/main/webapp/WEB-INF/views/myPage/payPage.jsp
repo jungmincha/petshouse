@@ -324,7 +324,7 @@
 	// 결제 모듈 실행
 	function payNow(method) {
 		event.preventDefault();
-		if($("#point").val() <1000){
+		if($("#point").val() <1000 && $("#point").val() >0 ){
 			alert("1000포인트 이상부터 사용가능합니다.")
 			return;
 		}
