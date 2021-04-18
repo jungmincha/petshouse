@@ -1,5 +1,7 @@
 package com.pet.ex.page;
 
+import com.pet.ex.vo.BoardVO;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -14,6 +16,7 @@ public class Criteria {
 
 	// 외래키
 	private String location;
+	
 
 	public Criteria() {
 		this(1, 10);
