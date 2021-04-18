@@ -16,13 +16,7 @@
 
 
 <style>
-.table_center {
-	display: table;
-	margin: 50px auto;
-	width: 1000px;
-	font-size: 15px;
-	font-stretch: extra-condensed;
-}
+ 
 
 select {
 	width: 100px; /* 원하는 너비설정 */

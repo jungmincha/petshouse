@@ -43,6 +43,17 @@ public interface SnsMapper {
 	
 	public List<BoardVO> getCommentsWithPaging(Criteria cri, int board_id);
 
+	public void deleteComment(BoardVO boardVO);
+
+	public void modifySns(BoardVO boardVO);
+
+	public void deleteImg(int board_id);
+
+	public void deleteBoard(int board_id);
+
+	/*
+	 * public List<ImageVO> getUserboard(String nickname);
+	 */
 
 
 }

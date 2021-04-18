@@ -49,5 +49,13 @@ public interface SnsService {
 	//페이징
 	public List<BoardVO> getcommentsList(Criteria cri,int board_id);
  
+	public void deleteComment(BoardVO boardVO);
+
+	public void modifySns(BoardVO boardVO);
+
+	public void deleteSns(int board_id);
+
+	/* public List<ImageVO> getUserboard(String nickname); */
+ 
 
 }

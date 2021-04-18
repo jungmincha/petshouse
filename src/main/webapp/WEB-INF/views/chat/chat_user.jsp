@@ -27,6 +27,10 @@
 		height: 500px;
 		overflow: scroll;
 	}
+	
+	.inputTable{
+	margin : 5px;
+	}
 </style>
 <script type="text/javascript">
 	var ws;
@@ -148,11 +152,11 @@
 			</div>
 			<div class="col-md-12" id="chating">
 			</div>
-			<div class="col-md-12" id="yourMsg">
+			<div class="col-md-10" id="yourMsg">
 				<table class="inputTable">
 					<tr>
-						<th>${username}님의 메시지</th>
-						<th><input id="chatting" placeholder="보내실 메시지를 입력하세요."></th>
+						<th>메시지</th>
+						<th><input id="chatting" style="width:380px;" placeholder="보내실 메시지를 입력하세요."></th>
 						<th><button onclick="send()" id="sendBtn">보내기</button></th>
 					</tr>
 				</table>
