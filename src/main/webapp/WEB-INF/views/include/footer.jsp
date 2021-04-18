@@ -12,11 +12,6 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>펫츠하우스</title>
 
-<!-- Google Font -->
-<link
-	href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap"
-	rel="stylesheet">
-
 <!-- Css Styles -->
 <link rel="stylesheet" href="/resources/css/bootstrap.min.css"
 	type="text/css">
@@ -33,16 +28,10 @@
 <link rel="stylesheet" href="/resources/css/slicknav.min.css"
 	type="text/css">
 <link rel="stylesheet" href="/resources/css/style.css" type="text/css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<link rel="stylesheet"
-	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<link rel="stylesheet" href="/resources/demos/style.css">
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 </head>
 
 <body>
-
 	<!-- Footer Section Begin -->
 	<footer class="footer-section">
 		<div class="container">
@@ -115,12 +104,5 @@
 		</div>
 	</footer>
 	<!-- Footer Section End -->
-
-
 </body>
-<!-- Js Plugins -->
-
-<script src="/resources/js/bootstrap.min.js"></script>
-<script src="/resources/js/owl.carousel.min.js"></script>
-
 </html>

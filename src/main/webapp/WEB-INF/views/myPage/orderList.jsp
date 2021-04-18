@@ -36,11 +36,15 @@
 	type="text/css">
 <link rel="stylesheet" href="/resources/css/nice-select.css"
 	type="text/css">
-<link rel="stylesheet" href="/resources/css/jquery-ui.min.css"
-	type="text/css">
+
 <link rel="stylesheet" href="/resources/css/slicknav.min.css"
 	type="text/css">
 <link rel="stylesheet" href="/resources/css/style.css" type="text/css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <!-- 헤더 부분 -->
 <sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
@@ -51,19 +55,16 @@
 	<input type="hidden" id="nickname" name="nickname"
 		value="<sec:authentication property="principal.nickname"/>">
 </sec:authorize>
-<script type="text/javascript"
-	src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+
 <!-- 헤더 끝 -->
 
 <!-- Js Plugins -->
-<script src="/resources/js/jquery-3.3.1.min.js"></script>
-<script src="/resources/js/bootstrap.min.js"></script>
-<script src="/resources/js/jquery-ui.min.js"></script>
 <script src="/resources/js/jquery.countdown.min.js"></script>
 <script src="/resources/js/jquery.nice-select.min.js"></script>
 <script src="/resources/js/jquery.zoom.min.js"></script>
 <script src="/resources/js/jquery.dd.min.js"></script>
 <script src="/resources/js/jquery.slicknav.js"></script>
+<script src="/resources/js/bootstrap.min.js"></script>
 <script src="/resources/js/owl.carousel.min.js"></script>
 <script src="/resources/js/main.js"></script>
 <style>

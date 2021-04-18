@@ -42,7 +42,6 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<link rel="stylesheet" href="/resources/demos/style.css">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
 	<input type="hidden" id="location_security" name="location_security"
@@ -266,6 +265,11 @@
 	})
 </script>
 <!-- Js Plugins -->
+<script src="/resources/js/jquery.countdown.min.js"></script>
+<script src="/resources/js/jquery.nice-select.min.js"></script>
+<script src="/resources/js/jquery.zoom.min.js"></script>
+<script src="/resources/js/jquery.dd.min.js"></script>
+<script src="/resources/js/jquery.slicknav.js"></script>
 <script src="/resources/js/bootstrap.min.js"></script>
 <script src="/resources/js/owl.carousel.min.js"></script>
 <script src="/resources/js/main.js"></script>

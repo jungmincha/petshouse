@@ -37,31 +37,33 @@
 	type="text/css">
 <link rel="stylesheet" href="/resources/css/style.css" type="text/css">
 <!-- 날짜 선택 -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<link rel="stylesheet" href="/resources/demos/style.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
 	$(function() {
 		$("#datepicker").datepicker();
 		$("#datepicker2").datepicker();
 	});
-	$.datepicker.setDefaults({
-		dateFormat : 'yy-mm-dd',
-		prevText : '이전 달',
-		nextText : '다음 달',
-		monthNames : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월',
-				'10월', '11월', '12월' ],
-		monthNamesShort : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월',
-				'9월', '10월', '11월', '12월' ],
-		dayNames : [ '일', '월', '화', '수', '목', '금', '토' ],
-		dayNamesShort : [ '일', '월', '화', '수', '목', '금', '토' ],
-		dayNamesMin : [ '일', '월', '화', '수', '목', '금', '토' ],
-		showMonthAfterYear : true,
-		yearSuffix : '년'
-	});
+	$(document).ready(
+			function() {
+				$.datepicker.setDefaults({
+					dateFormat : 'yy-mm-dd',
+					prevText : '이전 달',
+					nextText : '다음 달',
+					monthNames : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월',
+							'8월', '9월', '10월', '11월', '12월' ],
+					monthNamesShort : [ '1월', '2월', '3월', '4월', '5월', '6월',
+							'7월', '8월', '9월', '10월', '11월', '12월' ],
+					dayNames : [ '일', '월', '화', '수', '목', '금', '토' ],
+					dayNamesShort : [ '일', '월', '화', '수', '목', '금', '토' ],
+					dayNamesMin : [ '일', '월', '화', '수', '목', '금', '토' ],
+					showMonthAfterYear : true,
+					yearSuffix : '년'
+				});
+			})
 </script>
 <style>
 table {
@@ -148,6 +150,11 @@ table th {
 <!-- Js Plugins -->
 
 <script src="/resources/js/bootstrap.min.js"></script>
+<script src="/resources/js/jquery.countdown.min.js"></script>
+<script src="/resources/js/jquery.nice-select.min.js"></script>
+<script src="/resources/js/jquery.zoom.min.js"></script>
+<script src="/resources/js/jquery.dd.min.js"></script>
+<script src="/resources/js/jquery.slicknav.js"></script>
 <script src="/resources/js/owl.carousel.min.js"></script>
 <script src="/resources/js/main.js"></script>
 
