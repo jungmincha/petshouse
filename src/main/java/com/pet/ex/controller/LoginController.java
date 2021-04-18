@@ -1,9 +1,14 @@
 package com.pet.ex.controller;
 
+import java.io.File;
+import java.util.List;
+import java.util.UUID;
+
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,6 +18,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.pet.ex.service.EmailService;
@@ -93,10 +100,34 @@ public class LoginController {
 
 	// 회원가입 작성 후 INSERT
 	@PostMapping("/register/insert")
-	public ModelAndView setInsertMember(MemberVO member, ModelAndView mav) throws Exception {
+	public ModelAndView setInsertMember(MultipartHttpServletRequest multi, MemberVO member, ModelAndView mav)
+			throws Exception {
 		log.info("/login/register/insert");
+		if (multi.getFile("file").getOriginalFilename().equals("")) {
+			member.setThumbnail("profile.jpg");
+		} else {
+			String path = multi.getSession().getServletContext().getRealPath("/static/img/member/profile");
+			path = path.replace("webapp", "resources");
+			File dir = new File(path);
+			if (!dir.isDirectory()) {
+				dir.mkdir();
+			}
+			List<MultipartFile> mf = multi.getFiles("file");
+			for (int i = 0; i < mf.size(); i++) { // 파일명 중복 검사
+				UUID uuid = UUID.randomUUID();
+				// 본래 파일명
+				String originalfileName = mf.get(i).getOriginalFilename();
+				String ext = FilenameUtils.getExtension(originalfileName);
+				String thumbnail = uuid + "." + ext;
+				String savePath = path + "\\" + thumbnail; // 저장 될 파일 경로
+				mf.get(i).transferTo(new File(savePath)); // 파일 저장
+				member.setThumbnail(thumbnail);
+			}
+
+		}
 		if (securityService.insertMember(member) > 0) {
-			mav.setViewName("/login/login");
+			securityService.insertRegisterPoint(member.getMember_id());
+			mav.setViewName("redirect:/login/logout");
 			return mav;
 		} else {
 			mav.setViewName("/login/register");

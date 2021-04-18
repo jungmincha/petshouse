@@ -96,7 +96,6 @@ public class MyPageController {
 		String[] psizes = request.getParameterValues("psize");
 		String[] pcolors = request.getParameterValues("pcolor");
 		myPageService.insertPay(pay);
-
 		// 해당아이디의 최신 결제내역을 가져옴
 		PayVO payVO = myPageService.getPay_id(pay.getMemberVO().getMember_id());
 
@@ -179,31 +178,33 @@ public class MyPageController {
 
 		boardVO.getMemberVO().setMember_id(member_id);
 		myPageService.insertReview(boardVO);
-		// if (imageVO.getImgname().equals(" ")) {
-		// myPageService.insertPoint(100, 4, member_id);
-		// } else {
-		BoardVO board = myPageService.getReview();
-		String path = multi.getSession().getServletContext().getRealPath("/static/img/member/review");
-		path = path.replace("webapp", "resources");
-		File dir = new File(path);
-		if (!dir.isDirectory()) {
-			dir.mkdir();
-		}
-		List<MultipartFile> mf = multi.getFiles("file");
-		for (int i = 0; i < mf.size(); i++) { // 파일명 중복 검사
-			UUID uuid = UUID.randomUUID();
-			// 본래 파일명
-			String originalfileName = mf.get(i).getOriginalFilename();
-			String ext = FilenameUtils.getExtension(originalfileName);
-			String thumbnail = uuid + "." + ext;
-			String savePath = path + "\\" + thumbnail; // 저장 될 파일 경로
-			mf.get(i).transferTo(new File(savePath)); // 파일 저장
-			imageVO.setImgname(thumbnail);
-		}
+		if (multi.getFile("file").getOriginalFilename().equals(" ")) {
+			myPageService.insertPoint(100, 4, member_id);
+		} else {
+			BoardVO board = myPageService.getReview();
+			String path = multi.getSession().getServletContext().getRealPath("/static/img/member/review");
+			path = path.replace("webapp", "resources");
+			File dir = new File(path);
 
-		myPageService.insertImg(imageVO, board.getBoard_id());
-		myPageService.insertPoint(500, 5, member_id);
-		// }
+			if (!dir.isDirectory()) {
+				dir.mkdir();
+			}
+			List<MultipartFile> mf = multi.getFiles("file");
+
+			for (int i = 0; i < mf.size(); i++) { // 파일명 중복 검사
+				UUID uuid = UUID.randomUUID();
+				// 본래 파일명
+				String originalfileName = mf.get(i).getOriginalFilename();
+				String ext = FilenameUtils.getExtension(originalfileName);
+				String thumbnail = uuid + "." + ext;
+				String savePath = path + "\\" + thumbnail; // 저장 될 파일 경로
+				mf.get(i).transferTo(new File(savePath)); // 파일 저장
+				imageVO.setImgname(thumbnail);
+			}
+
+			myPageService.insertImg(imageVO, board.getBoard_id());
+			myPageService.insertPoint(500, 5, member_id);
+		}
 
 		mav.addObject("paystate", paystate_id);
 
@@ -309,33 +310,49 @@ public class MyPageController {
 	public ModelAndView updateMemeber(MultipartHttpServletRequest multi, ModelAndView mav, MemberVO member,
 			ImageVO imageVO) throws IllegalStateException, IOException {
 		log.info("/myPage/updateMember/insert");
-		String path = multi.getSession().getServletContext().getRealPath("/static/img/member/profile");
-		path = path.replace("webapp", "resources");
-		File dir = new File(path);
-		if (!dir.isDirectory()) {
-			dir.mkdir();
-		}
-		List<MultipartFile> mf = multi.getFiles("file");
-		for (int i = 0; i < mf.size(); i++) { // 파일명 중복 검사
-			UUID uuid = UUID.randomUUID();
-			// 본래 파일명
-			String originalfileName = mf.get(i).getOriginalFilename();
-			String ext = FilenameUtils.getExtension(originalfileName);
-			String thumbnail = uuid + "." + ext;
-			String savePath = path + "\\" + thumbnail; // 저장 될 파일 경로
-			mf.get(i).transferTo(new File(savePath)); // 파일 저장
-			member.setThumbnail(thumbnail);
+		if (multi.getFile("file").getOriginalFilename().equals("")) {
+			member.setThumbnail("profile.jpg");
+		} else {
+			String path = multi.getSession().getServletContext().getRealPath("/static/img/member/profile");
+			path = path.replace("webapp", "resources");
+			File dir = new File(path);
+			if (!dir.isDirectory()) {
+				dir.mkdir();
+			}
+			List<MultipartFile> mf = multi.getFiles("file");
+			for (int i = 0; i < mf.size(); i++) { // 파일명 중복 검사
+				UUID uuid = UUID.randomUUID();
+				// 본래 파일명
+				String originalfileName = mf.get(i).getOriginalFilename();
+				String ext = FilenameUtils.getExtension(originalfileName);
+				String thumbnail = uuid + "." + ext;
+				String savePath = path + "\\" + thumbnail; // 저장 될 파일 경로
+				mf.get(i).transferTo(new File(savePath)); // 파일 저장
+				member.setThumbnail(thumbnail);
+			}
+
 		}
 		myPageService.updateMember(member);
 		mav.setViewName("redirect:/login/logout");
 		return mav;
 	}
 
+	// 회원 탈퇴
+	@GetMapping("/updateMember/delete")
+	public String deleteMember(Authentication authentication) {
+		String member_id = authentication.getPrincipal().toString();
+		System.out.println("실행");
+		myPageService.deleteMember(member_id);
+
+		return "삭제완료";
+	}
+
 	// 포인트 내역 페이지 이동
 	@GetMapping("/pointList")
 	public ModelAndView pointList(ModelAndView mav, Authentication authentication) {
-		String id = authentication.getPrincipal().toString();
-
+		String member_id = authentication.getPrincipal().toString();
+		mav.addObject("pointList", myPageService.getPointList(member_id));
+		mav.addObject("pointSum", myPageService.getPoint(member_id));
 		mav.setViewName("/myPage/pointList");
 		return mav;
 	}

@@ -3,6 +3,7 @@ package com.pet.ex.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -146,10 +147,30 @@ public class MyPageServiceImpl implements MyPageService {
 	@Override
 	public void updateMember(MemberVO member) {
 		log.info("updateMember()");
-		String password = member.getPassword();
-		String encodedPassword = passwordEncoder.encode(password);
-		member.setPassword(encodedPassword);
-		myPageMapper.updateMember(member);
+		System.out.println(!member.getPassword().equals(""));
+		if (!member.getPassword().equals("")) {
+			String password = member.getPassword();
+			String encodedPassword = passwordEncoder.encode(password);
+			member.setPassword(encodedPassword);
+			myPageMapper.updateMember(member);
+		} else {
+			myPageMapper.updateMemberNoPw(member);
+		}
+
+	}
+
+	// 포인트 리스트
+	@Override
+	public List<PointVO> getPointList(String member_id) {
+		log.info("getPointList()");
+		return myPageMapper.getPointList(member_id);
+	}
+
+	// 회원 탈퇴
+	@Override
+	public void deleteMember(String member_id) {
+		log.info("getPointList()");
+		myPageMapper.deleteMember(member_id);
 	}
 
 }

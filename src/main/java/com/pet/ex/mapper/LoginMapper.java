@@ -36,5 +36,8 @@ public interface LoginMapper {
 
 	// 회원정보 조회 (전화번호)
 	public MemberVO getMemberByTel(int tel);
+	
+	// 회원가입 후 포인트 지급
+	public void insertRegisterPoint(String member_id);
 
 }

@@ -46,4 +46,8 @@ public interface MyPageService {
 
 	void updateMember(MemberVO member);
 
+	List<PointVO> getPointList(String member_id);
+
+	void deleteMember(String member_id);
+
 }

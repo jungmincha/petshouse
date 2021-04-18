@@ -112,6 +112,7 @@
 		,logintype_id
 		,category_id
 		,certify
+		,thumbnail
 		)
 		VALUES
 		(
@@ -125,6 +126,7 @@
 		,#{logintypeVO.logintype_id}
 		,#{categoryVO.category_id}
 		,#{certify}
+		,#{thumbnail}
 		)
 			]]>
 	</insert>
@@ -223,4 +225,11 @@
 		m.category_id=c.category_id
 		]]>
 	</select>
+
+	<insert id="insertRegisterPoint">
+		<![CDATA[
+		insert into point (point_id,pscore,pointtype_id,member_id)
+		values(point_seq.nextval,5000,1,#{member_id})
+		]]>
+	</insert>
 </mapper>

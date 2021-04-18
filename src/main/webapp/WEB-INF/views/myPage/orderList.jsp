@@ -457,7 +457,8 @@
 		<div class="container">
 
 			<form class=" needs-validation"
-				action="/myPage/orderList/review/insert" method="Post" name="review" enctype="multipart/form-data">
+				action="/myPage/orderList/review/insert" method="Post" name="review"
+				enctype="multipart/form-data">
 				<input type="hidden" name="goodsVO.goods_id" id="goods_id" value="">
 				<input type="hidden" name="paystate_id" id="paystate_id" value="">
 				<div class="rbox">포토 리뷰 500P, 일반 리뷰 100P</div>
@@ -504,8 +505,8 @@
 					<div class="input-group col-12">
 						<div class="custom-file">
 							<input type="file" class="custom-file-input" id="image"
-								name="file" style="display: block;" multiple="multiple"> <label
-								class="custom-file-label" for="inputGroupFile02">사진을
+								name="file" style="display: block;" multiple="multiple">
+							<label class="custom-file-label" for="inputGroupFile02">사진을
 								등록해주세요 (최대 1장)</label>
 						</div>
 					</div>
@@ -664,11 +665,11 @@
 														html += "</div> <div class='col-lg-3'  style='text-align: right;'><span style='font-size: 20px'><br>배송준비중</span></div> </div>"
 															break;
 														case 3 :
-															html += "</div> <div class='col-lg-3' style='text-align: right;'><span style='font-size: 20px'><br><button onclick='delivery()'>배송조회</button></span>"
+															html += "</div> <div class='col-lg-3' style='text-align: right;'><span style='font-size: 20px'><br><button onclick='delivery("+data.pay[i-1].t_key+","+data.pay[i-1].t_invoice+")'>배송조회</button></span>"
 																+ "</div> </div>" 
 																break;
 														case 4 :
-															html += "</div> <div class='col-lg-3' style='text-align: right;'> <span style='font-size: 20px'><button onclick='delivery()'>배송조회</button><br>"
+															html += "</div> <div class='col-lg-3' style='text-align: right;'> <span style='font-size: 20px'><button onclick='delivery("+data.pay[i-1].t_key+","+data.pay[i-1].t_invoice+")'>배송조회</button><br>"
 																+ "<button>구매확정</button></span>"
 																+ "</div> </div>"
 																break;
@@ -684,7 +685,7 @@
 																break;
 														case 7 :
 															html += "</div> <div class='col-lg-3' style='text-align: right;'>"
-																+ "<span style='font-size: 20px'>교환처리<br><button onclick='delivery()'>배송조회</button></span> "
+																+ "<span style='font-size: 20px'>교환처리<br><button onclick='delivery("+data.pay[i-1].t_key+","+data.pay[i-1].t_invoice+")'>배송조회</button></span> "
 																+ "</div> </div>" 
 																break;
 														case 8 :
@@ -785,11 +786,11 @@
 														html += "</div> <div class='col-lg-3'  style='text-align: right;'><span style='font-size: 20px'><br>배송준비중</span></div> </div>"
 															break;
 														case 3 :
-															html += "</div> <div class='col-lg-3' style='text-align: right;'><span style='font-size: 20px'><br><button onclick='delivery()'>배송조회</button></span>"
+															html += "</div> <div class='col-lg-3' style='text-align: right;'><span style='font-size: 20px'><br><button onclick='delivery("+data.pay[i-1].t_key+","+data.pay[i-1].t_invoice+")'>배송조회</button></span>"
 																+ "</div> </div>" 
 																break;
 														case 4 :
-															html += "</div> <div class='col-lg-3' style='text-align: right;'> <span style='font-size: 20px'><button onclick='delivery()'>배송조회</button><br>"
+															html += "</div> <div class='col-lg-3' style='text-align: right;'> <span style='font-size: 20px'><button onclick='delivery("+data.pay[i-1].t_key+","+data.pay[i-1].t_invoice+")'>배송조회</button><br>"
 																+ "<button>구매확정</button></span>"
 																+ "</div> </div>"
 																break;
@@ -805,7 +806,7 @@
 																break;
 														case 7 :
 															html += "</div> <div class='col-lg-3' style='text-align: right;'>"
-																+ "<span style='font-size: 20px'>교환처리<br><button onclick='delivery()'>배송조회</button></span> "
+																+ "<span style='font-size: 20px'>교환처리<br><button onclick='delivery("+data.pay[i-1].t_key+","+data.pay[i-1].t_invoice+")'>배송조회</button></span> "
 																+ "</div> </div>" 
 																break;
 														case 8 :
@@ -905,11 +906,11 @@
 										html += "</div> <div class='col-lg-3'  style='text-align: right;'><span style='font-size: 20px'><br>배송준비중</span></div> </div>"
 											break;
 										case 3 :
-											html += "</div> <div class='col-lg-3' style='text-align: right;'><span style='font-size: 20px'><br><button onclick='delivery()'>배송조회</button></span>"
+											html += "</div> <div class='col-lg-3' style='text-align: right;'><span style='font-size: 20px'><br><button onclick='delivery("+data.pay[i-1].t_key+","+data.pay[i-1].t_invoice+")'>배송조회</button></span>"
 												+ "</div> </div>" 
 												break;
 										case 4 :
-											html += "</div> <div class='col-lg-3' style='text-align: right;'> <span style='font-size: 20px'><button onclick='delivery()'>배송조회</button><br>"
+											html += "</div> <div class='col-lg-3' style='text-align: right;'> <span style='font-size: 20px'><button onclick='delivery("+data.pay[i-1].t_key+","+data.pay[i-1].t_invoice+")'>배송조회</button><br>"
 												+ "<button>구매확정</button></span>"
 												+ "</div> </div>"
 												break;
@@ -925,7 +926,7 @@
 												break;
 										case 7 :
 											html += "</div> <div class='col-lg-3' style='text-align: right;'>"
-												+ "<span style='font-size: 20px'>교환처리<br><button onclick='delivery()'>배송조회</button></span> "
+												+ "<span style='font-size: 20px'>교환처리<br><button onclick='delivery("+data.pay[i-1].t_key+","+data.pay[i-1].t_invoice+")'>배송조회</button></span> "
 												+ "</div> </div>" 
 												break;
 										case 8 :
@@ -1128,6 +1129,8 @@
 	
 	// 배송조회
 	function delivery(t_code,t_invoice){
+		console.log(t_code);
+		console.log(t_invoice);
 		$("#t_code").val(t_code); // 택배사 코드
 		$("#t_invoice").val(t_invoice); //운송장 번호
 		var _left = Math.ceil(( window.screen.width - 570 )/2);

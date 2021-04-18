@@ -52,10 +52,29 @@
 #myForm .glyphicon {
 	display: none;
 }
+
+.filebox {
+	padding-left: 170px;
+}
+
+.filebox label {
+	display: inline-block;
+	padding: .5em .75em;
+	color: #999;
+	font-size: inherit;
+	line-height: normal;
+	vertical-align: middle;
+	background-color: #fdfdfd;
+	cursor: pointer;
+	border: 1px solid #ebebeb;
+	border-bottom-color: #e2e2e2;
+	border-radius: .25em;
+}
+.filebox img{
+ border-radius: 70%;
+}
+
 </style>
-<script type="text/javascript">
-	
-</script>
 </head>
 
 <body style="padding-top: 128px">
@@ -71,8 +90,20 @@
 					<div class="register-form">
 						<h2>회원가입</h2>
 
-						<form action="/login/register/insert" method="post" id="myForm">
+						<form action="/login/register/insert" method="post" id="myForm"
+							enctype="multipart/form-data">
+							<div class="filebox">
 
+								<img style="width: 200px; height: 200px;" id="preview-image"
+									name="preview-image" class="profile_box"> <br> <br>
+								<label for="thumbnail"
+									style="font-size: 20px; text-align: center">프로필 이미지 선택</label>
+
+								<div class="custom-file">
+									<input type="file" class="custom-file-input" id="thumbnail"
+										name="file" multiple="multiple" style="display: block;">
+								</div>
+							</div>
 							<div class="group-input">
 								<label class="control-label" for="member_id">이메일</label> <input
 									class="form-control" type="text" name="member_id"
@@ -128,7 +159,7 @@
 							<div class="group-input">
 								<label class="control-label" for="category">관심사</label> <select
 									class="form-control" id="category"
-									name="categoryVO.category_id">
+									name="categoryVO.category_id" style="font-size: 16px">
 									<c:forEach items="${category}" var="category">
 
 										<option value="${category.category_id}">${category.categoryname }</option>
@@ -341,6 +372,36 @@
 		// 팝업페이지에서 주소입력한 정보를 받아서, 현 페이지에 정보를 등록합니다.	
 		$('#address').val("(" + zipNo + ")" + roadFullAddr);
 	}
+	
+	// 이미지 업로드
+	function readImage(input) {
+	    // 인풋 태그에 파일이 있는 경우
+	    if(input.files && input.files[0]) {
+	        // 이미지 파일인지 검사 (생략)
+	        // FileReader 인스턴스 생성
+	        const reader = new FileReader()
+	        // 이미지가 로드가 된 경우
+	        reader.onload = e => {
+	            const previewImage = document.getElementById("preview-image")
+	            previewImage.src = e.target.result
+	        }
+	        // reader가 이미지 읽도록 하기
+	        reader.readAsDataURL(input.files[0])
+	    }
+	}
+	// input file에 change 이벤트 부여
+	const thumbnail = document.getElementById("thumbnail")
+	thumbnail.addEventListener("change", e => {
+	    readImage(e.target)
+	})
+	
+	 $("#thumbnail").change(function(){
+	 if(this.files && this.files[0]) {
+	  var reader = new FileReader;
+	
+	 reader.readAsDataURL(this.files[0]);
+	}
+	}); 
 </script>
 
 <!-- Js Plugins -->

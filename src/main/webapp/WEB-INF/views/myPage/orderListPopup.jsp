@@ -142,18 +142,13 @@
 										<p class="pi">
 
 											<c:choose>
-
-
-
 												<c:when
 													test="${payDetail.data.payment_data.card_quota eq 00}">
-        일시불
-    </c:when>
+													        일시불
+													    </c:when>
 												<c:otherwise>
-       ${payDetail.data.payment_data.card_quota}개월
-    </c:otherwise>
-
-
+     														  ${payDetail.data.payment_data.card_quota}개월
+   														 </c:otherwise>
 											</c:choose>
 										</p>
 

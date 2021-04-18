@@ -71,4 +71,13 @@ public interface MyPageMapper {
 	// 회원 정보 수정
 	public void updateMember(MemberVO member);
 
+	// 포인트 리스트
+	public List<PointVO> getPointList(String member_id);
+
+	// 회원 탈퇴
+	public void deleteMember(String member_id);
+	
+	// 회원 정보 수정 (비번포함x)
+	public void updateMemberNoPw(MemberVO member);
+
 }

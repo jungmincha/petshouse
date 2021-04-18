@@ -324,6 +324,11 @@
 	// 결제 모듈 실행
 	function payNow(method) {
 		event.preventDefault();
+		if($("#point").val() <1000){
+			alert("1000포인트 이상부터 사용가능합니다.")
+			return;
+		}
+		
 		var email = "${member.member_id}";
 		var name = "${member.name}";
 		var tel = "0${member.tel}";

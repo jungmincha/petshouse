@@ -112,4 +112,10 @@ public class SecurityServiceImpl implements SecurityService {
 		return loginMapper.getMemberByTel(tel);
 	}
 
+	@Override
+	public void insertRegisterPoint(String member_id) {
+		log.info("insertRegisterPoint()");
+		loginMapper.insertRegisterPoint(member_id);
+	}
+
 }

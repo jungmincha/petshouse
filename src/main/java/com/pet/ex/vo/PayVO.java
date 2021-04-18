@@ -24,6 +24,8 @@ public class PayVO {
 	private int deliverytel;
 	private String receipt_id;
 	private String goodsprice;
+	private String t_key;
+	private String t_invoice;
 
 	// 외래키
 	private PaystateVO paystateVO;

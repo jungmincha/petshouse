@@ -107,6 +107,8 @@
 		<result column="deliverytel" property="deliverytel" />
 		<result column="receipt_id" property="receipt_id" />
 		<result column="goodsprice" property="goodsprice" />
+		<result column="t_key" property="t_key" />
+		<result column="t_invoice" property="t_invoice" />
 		<collection property="paystateVO" resultMap="paystatevo" />
 		<collection property="memberVO" resultMap="membervo" />
 	</resultMap>
@@ -152,45 +154,45 @@
 
 	<!-- 장바구니에 담긴 상품목록 가져오기 -->
 	<select id="getBoard" parameterType="String" resultMap="boardvo">
-<![CDATA[
+		<![CDATA[
 		select *
 		from board b, goods g where board_id=#{board_id} and
 		b.goods_id=g.goods_id
-	 ]]>
+		 ]]>
 	</select>
 
 	<!-- 사용가능한 포인트 가져옴 -->
 	<select id="getPoint" parameterType="String" resultMap="pointvo">
-<![CDATA[
+		<![CDATA[
 		select
 		member_id, sum(pscore) from point where member_id=#{member_id} group
 		by member_id
-	 ]]>
+		 ]]>
 	</select>
 
 	<!-- 결제 후 결제 정보 저장 -->
 	<insert id="insertPay" parameterType="PayVO">
-	<![CDATA[
+		<![CDATA[
 		INSERT INTO pay
 		(pay_id,payprice,usepoint,earningpoint,deliveryaddress,deliveryname,deliverytel,member_id,goodsprice ,receipt_id,paydate)
 		values(pay_seq.nextval,#{payprice}, #{usepoint},
 		#{earningpoint},#{deliveryaddress},#{deliveryname},#{deliverytel},#{memberVO.member_id},#{goodsprice},#{receipt_id},#{paydate})
-	]]>
+		]]>
 	</insert>
 
 	<!-- 최신 결제정보를 가져옴(1개) -->
 	<select id="getPay_id" parameterType="String" resultMap="payvo">
-	<![CDATA[
+		<![CDATA[
 		select *
 		from (select * from pay where member_id=#{memberVO.member_id} order
 		by
 		paydate desc) where rownum=1
-	]]>
+		]]>
 	</select>
 
 	<!-- 결제 후 payGoods에 정보 저장 -->
 	<insert id="insertPayGoods" parameterType="PayGoodsVO">
-	<![CDATA[
+		<![CDATA[
 		INSERT INTO payGoods(
 		pay_id,
 		board_id,amount,psize,pcolor
@@ -201,32 +203,34 @@
 		,#{boardVO.board_id},#{amount},#{psize},#{pcolor}
 
 		)
-	]]>
+		]]>
 	</insert>
+
 	<!-- 결제 후 포인트 사용내역 저장 -->
 	<insert id="insertUsePoint" parameterType="PayVO">
-	<![CDATA[
-		insert into point (point_id,pscore, pointtype_id, member_id)
-		values(point_seq.nextval,#{usepoint},3,#{memberVO.member_id})
-	]]>
+		<![CDATA[
+		insert into point (point_id,pscore, pointtype_id, member_id,pdate)
+		values(point_seq.nextval,#{usepoint},3,#{memberVO.member_id},#{paydate})
+		]]>
 	</insert>
 
 	<!-- 결제 후 포인트 적립내역 저장 -->
 	<insert id="insertEarningPoint" parameterType="PayVO">
-	<![CDATA[
-		insert into point (point_id,pscore, pointtype_id, member_id)
-		values(point_seq.nextval,#{earningpoint},2,#{memberVO.member_id})
-	]]>
+		<![CDATA[
+		insert into point (point_id,pscore, pointtype_id, member_id,pdate)
+		values(point_seq.nextval,#{earningpoint},2,#{memberVO.member_id},#{paydate})
+		]]>
 	</insert>
 
 	<!-- 주문 리스트 불러오기 -->
 	<select id="listOrder" resultMap="payvo">
-	<![CDATA[
+		<![CDATA[
 		select * from (
-    select rownum rnum, a.* 
-         from (select * from pay order by paydate desc) a where rownum <= #{cri.pageNum} * #{cri.amount} and member_id=#{member_id}
-   ) where rnum > (#{cri.pageNum}-1) * #{cri.amount}
-	]]>
+		select rownum rnum, a.*
+		from (select * from pay order by paydate desc) a where rownum <=
+		#{cri.pageNum} * #{cri.amount} and member_id=#{member_id}
+		) where rnum > (#{cri.pageNum}-1) * #{cri.amount}
+		]]>
 	</select>
 
 	<!-- 총 결제 내역 갯수 가져오기 -->
@@ -241,17 +245,19 @@
 
 	<!-- payGoods리스트 가져오기 -->
 	<select id="listPayGoods" resultMap="paygoodsvo">
-	<![CDATA[ select * from payGoods p, board b, goods g where p.board_id=b.board_id and pay_id=#{pay_id} and b.goods_id=g.goods_id ]]>
+		<![CDATA[ select * from payGoods p, board b, goods g where p.board_id=b.board_id and pay_id=#{pay_id} and b.goods_id=g.goods_id ]]>
 	</select>
 
 	<!-- 결제 상태별 주문 리스트 -->
 	<select id="listPaystateOrder" resultMap="payvo">
-	<![CDATA[
+		<![CDATA[
 		select * from (
-    select rownum rnum, a.* 
-         from (select * from pay order by paydate desc) a where rownum <= #{cri.pageNum} * #{cri.amount} and member_id=#{member_id} and paystate_id=#{paystate_id}
-   ) where rnum > (#{cri.pageNum}-1) * #{cri.amount}
-	]]>
+		select rownum rnum, a.*
+		from (select * from pay order by paydate desc) a where rownum <=
+		#{cri.pageNum} * #{cri.amount} and member_id=#{member_id} and
+		paystate_id=#{paystate_id}
+		) where rnum > (#{cri.pageNum}-1) * #{cri.amount}
+		]]>
 	</select>
 
 	<!-- 리뷰 작성 -->
@@ -280,9 +286,9 @@
 
 	<!-- 결제 취소 후 결제상태 변경 -->
 	<update id="updatePayCancel">
-	<![CDATA[
+		<![CDATA[
 		update pay set paystate_id = 6 where receipt_id=#{receipt_id}
-	]]>
+		]]>
 	</update>
 
 	<!-- 결제내역 가져오기 -->
@@ -302,7 +308,7 @@
 
 	<!-- 회원 정보 수정 -->
 	<update id="updateMember" parameterType="MemberVO">
-			<![CDATA[
+		<![CDATA[
 		update member set password = #{password}
 		,nickname = #{nickname}
 		,tel = #{tel}
@@ -310,6 +316,41 @@
 		,category_id = #{categoryVO.category_id}
 		,thumbnail = #{thumbnail}
 		where member_id = #{member_id}
-			]]>
+		]]>
 	</update>
+
+	<!-- 회원 정보 수정(비번 포함 x) -->
+	<update id="updateMemberNoPw" parameterType="MemberVO">
+		<![CDATA[
+		update member set 
+		nickname = #{nickname}
+		,tel = #{tel}
+		,address = #{address}
+		,category_id = #{categoryVO.category_id}
+		,thumbnail = #{thumbnail}
+		where member_id = #{member_id}
+		]]>
+	</update>
+
+	<!-- 포인트 리스트 -->
+	<select id="getPointList" resultMap="pointvo">
+		<![CDATA[
+		select * from point p, pointtype t where member_id=#{member_id} and p.pointtype_id=t.pointtype_id order by pdate desc
+		]]>
+	</select>
+
+	<delete id="deleteMember">
+	<![CDATA[
+		BEGIN
+		delete from paygoods where pay_id=(select pay_id from pay where member_id=#{member_id});
+		delete from pay where member_id=#{member_id};
+		delete from image where board_id in (select board_id from board where member_id=#{member_id});
+		delete from tag where board_id in (select board_id from board where member_id=#{member_id});
+		delete from board where member_id=#{member_id};
+		delete from follow where member_id=#{member_id};
+		delete from point where member_id=#{member_id};
+		delete from member where member_id=#{member_id};
+		END;
+		]]>
+	</delete>
 </mapper>

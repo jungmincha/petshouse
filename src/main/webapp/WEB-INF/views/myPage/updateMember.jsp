@@ -105,8 +105,7 @@
 									name="preview-image" class="profile_box"
 									src="/resources/img/member/profile/<sec:authentication  property="principal.thumbnail"/>">
 
-									<br><br>
-								 <label for="thumbnail"
+								<br> <br> <label for="thumbnail"
 									style="font-size: 20px; text-align: center">프로필 이미지 수정</label>
 
 								<div class="custom-file">
@@ -176,14 +175,24 @@
 										value="<sec:authentication property="principal.address"/>" />
 								</div>
 							</div>
-
+							<sec:authentication property="principal.categoryVO.category_id"
+								var="check" />
 							<div class="group-input">
 								<label class="control-label" for="category">관심사</label> <select
 									class="form-control" id="category"
-									name="categoryVO.category_id">
-									<c:forEach items="${category}" var="category">
+									name="categoryVO.category_id" style="font-size: 16px">
 
-										<option value="${category.category_id}">${category.categoryname }</option>
+									<c:forEach items="${category}" var="category">
+										<c:choose>
+											<c:when test="${category.category_id eq check}">
+												<option selected="selected" value="${category.category_id}">${category.categoryname }</option>
+											</c:when>
+
+											<c:otherwise>
+												<option value="${category.category_id}">${category.categoryname }</option>
+											</c:otherwise>
+										</c:choose>
+
 									</c:forEach>
 
 								</select>
@@ -193,6 +202,12 @@
 							<input type="hidden" name="roleVO.role_id" value="1">
 							<button type="submit" class="site-btn register-btn"
 								style="font-size: 15pt" onclick="check()">수정완료</button>
+							<br> <br>
+							<hr>
+							<br>
+							<button type="submit" class="site-btn register-btn"
+								style="font-size: 15pt; background-color: red"
+								onclick="deleteMember()">회원탈퇴</button>
 						</form>
 						<br>
 
@@ -214,6 +229,22 @@
 			property='principal.tel' />">
 </body>
 <script>
+function deleteMember(){
+	event.preventDefault();
+	if(confirm("회원이 작성한 게시물과 회원의 모든 정보가 삭제됩니다. 정말 탈퇴하시겠습니까? ") ==true){
+		alert("탈퇴 실행")
+		$.ajax({
+			method : "get",
+			url : "/myPage/updateMember/delete",
+			success : function(data) {
+				alert("회원탈퇴가 정상적으로 완료되었습니다. 로그인 창으로 이동합니다.");
+				window.location.href = '/login/logout';
+			}
+		});
+	}
+	
+	
+}
 	$("#password").keyup(function() {
 		console.log("")
 		var pwd = $(this).val();
@@ -248,7 +279,7 @@
 		var nickname = $(this).val();
 		if (nickname == $("#checkNic").val()) {
 			$("#nicknameError").hide();
-			successState("#nickname");
+			successState("#nicknames");
 		} else {
 			//ajax 요청을 해서 서버에 전송한다.
 			$.ajax({
@@ -314,11 +345,7 @@
 	function check() {
 		event.preventDefault();
 
-		if ($("#password").val() == "") {
-			alert("비밀번호를 입력하세요.");
-		} else if ($("#rePwd").val() == "") {
-			alert("비밀번호 재확인을 입력하세요.");
-		} else if ($("#nickname").val() == "") {
+		if ($("#nicknames").val() == "") {
 			alert("닉네임을 입력하세요.");
 		} else if ($("#tel").val() == "") {
 			alert("전화번호를 입력하세요.");
