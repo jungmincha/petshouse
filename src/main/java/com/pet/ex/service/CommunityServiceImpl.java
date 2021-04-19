@@ -256,13 +256,16 @@ public class CommunityServiceImpl implements CommunityService {
 
 
 	@Override
+	public void deleteTipsComment(BoardVO boardVO) {
+		
+		mapper.deleteComment(boardVO);
+	}
+
+	@Override
 	public void ImgDelete(int board_id) {
 		mapper.ImgDelete(board_id);
 		
 	}
-
-
-
 	/*
 	 * // 노하우 댓글 작성
 	 * 
