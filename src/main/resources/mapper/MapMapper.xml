@@ -150,7 +150,7 @@
 			
 		 SELECT * FROM (
 			     SELECT ROWNUM AS RNUM, A.* FROM (
-			     	select b.board_id, b.title, b.content, b.pdate,b.hit, b.plike, b.pgroup,b.pstep, b.pindent,b.hashtag, b.location, m.member_id, m.nickname, b.boardtype_id 
+			     	select b.board_id, b.title, b.content, b.pdate,b.hit,b.pgroup,b.pstep, b.plike, b.pindent,b.hashtag, b.location, m.thumbnail, m.member_id, m.nickname, b.boardtype_id 
 			     	from  board b , member m
 					where b.member_id = m.member_id
 					
@@ -178,8 +178,8 @@
 
 	<insert id="write" parameterType="boardvo">
    <![CDATA[
-      insert into board (board_id, title, pdate, content, plike, hit, hashtag, pgroup, pstep, pindent, member_id,  boardtype_id ,location)   
-       values (board_seq.nextval ,#{title}, sysdate, #{content} ,#{plike},#{hit},#{hashtag},board_seq.currval,#{pstep},#{pindent},#{memberVO.member_id} ,7 ,#{memberVO.location})
+      insert into board (board_id, title, pdate, content, hit, hashtag, pgroup, pstep, pindent, member_id,  boardtype_id ,location)   
+       values (board_seq.nextval ,#{title}, sysdate, #{content} ,#{hit},#{hashtag},board_seq.currval,#{pstep},#{pindent},#{memberVO.member_id} ,7 ,#{memberVO.location})
    ]]>
 	</insert>
 
@@ -221,19 +221,33 @@
 	]]>
 	</insert>
 
+
+
 	<!-- 글에 대한 댓글 출력 -->
 	<select id="listComment" resultMap="boardvo">
    <![CDATA[
-	  select * from board b, member m where b.member_id=m.member_id and boardtype_id= 7 and pgroup = (select pgroup from board where board_id=#{board_id}) and pstep=1 order by b.pdate desc
+	  select * from board b, member m 
+	  where b.member_id=m.member_id 
+	  and boardtype_id= 7 
+	  and pgroup = (select pgroup from board 
+	  where board_id=#{board_id}) and pstep=1 order by b.pdate desc
    ]]>
 	</select>
+	
+	
+	
+	
 
 	<!-- 댓글 작성 후 ajax로 출력 -->
 	<select id="getComment" resultMap="boardvo">
    <![CDATA[
-	 select board_id,nickname, pgroup, content, pdate from (select board_id,m.nickname, pgroup, content, b.pdate from board b, member m where b.member_id=m.member_id and boardtype_id= 7 and pgroup = (select pgroup from board where board_id=#{board_id}) and pstep=1 order by b.pdate desc) where rownum=1
+	 select board_id,nickname, thumbnail, pgroup, content, pdate from (select board_id,m.nickname, m.thumbnail,pgroup, content, b.pdate from board b, member m where b.member_id=m.member_id and boardtype_id= 7 and pgroup = (select pgroup from board where board_id=#{board_id}) and pstep=1 order by b.pdate desc) where rownum=1
    ]]>
 	</select>
+	
+	
+	
+	
 	
 	<select id="getHashtag" resultMap="boardvo"> 
  	<![CDATA[
@@ -272,20 +286,94 @@
 	
 
 
-	<select id="insertplike"> 
- 	<![CDATA[ 
- 	update board set plike = plike + 1 where board_id = #{board_id} 	
- 	]]>
- 	
- 	 
- 	
- 	
+	
+	
+	<insert id="detailInput">
+	 <![CDATA[
+    INSERT INTO IMAGE(img_id, imgname,board_id) VALUES (image_seq.nextval, #{imgname} , board_seq.currval)
+	 ]]>
+	</insert>
+	
+	
+	<select id="imageupload" resultMap="imagevo">
+   <![CDATA[
+     select imgname from image
+   ]]>
+	</select>
+	
+	
+	
+	
+	<!-- 좋아요 수 조회 -->
+	<select id="getLiketotal" resultType="int">
+		<![CDATA[
+	      select count(*) from plike where board_id = #{board_id}
+	   ]]>
+	</select>
+	
+	
+	<!-- 좋아요 유무 체크 -->
+	<select id="isLike" resultType="int">
+		<![CDATA[
+	        select count(*) from plike where board_id=#{board_id} and member_id=#{member_id}
+	   ]]>
+	</select> 
+
+	
+	<!-- 좋아요 리스트 조회 -->
+	<select id="getLikelist" resultType="PlikeVO">
+		<![CDATA[
+	        select member_id from plike where board_id=#{board_id}
+	   ]]>
+	</select> 
+	
+	
+	<!-- 좋아요 -->
+	<insert id="like">
+		<![CDATA[
+	        insert into plike values(plike_seq.nextval, #{board_id}, #{member_id})
+	   ]]>
+	</insert>
+	
+	<!-- 좋아요 취소-->
+	<select id="likecancel">
+		<![CDATA[
+	         delete from plike where board_id=#{board_id} and member_id=#{member_id}
+	   ]]>
+	</select>  
+	
+	
+	<!-- 회원 정보 조회 -->
+	<select id="getMemberinfo" resultType="MemberVO">
+		<![CDATA[
+	         select * from member where member_id= #{member_id}
+	   ]]>
+	</select>
+	
+	
+	
+	<!-- 전체 좋아요 출력-->
+	<select id="getLikeprint" resultType="PlikeVO">
+		<![CDATA[
+	       	select board_id ,count(*) as count from plike group by board_id
+	   ]]>
+	</select>
+	
+<!-- plike board테이블에 입력-->
+<select id="insertplike">
+   <![CDATA[
+      update board set plike = plike+1 WHERE board_id=#{board_id}
+   ]]>
 	</select>
 
 
+<!-- plike board테이블에 삭제-->
+<select id="deleteplike">
+   <![CDATA[
+      update board set plike = plike-1 WHERE board_id=#{board_id}
+   ]]>
+	</select>
 
-	
-	
 
 	
 

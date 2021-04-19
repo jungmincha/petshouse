@@ -1,6 +1,7 @@
 package com.pet.ex.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -11,6 +12,7 @@ import com.pet.ex.page.PageVO;
 import com.pet.ex.vo.BoardVO;
 import com.pet.ex.vo.ImageVO;
 import com.pet.ex.vo.MemberVO;
+import com.pet.ex.vo.PlikeVO;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -40,9 +42,7 @@ public class MapServiceImpl implements MapService {
 
 	@Override
 	public void write(BoardVO boardVO) {
-		
-		
-		
+			
 	mapper.write(boardVO);
 		
 	}
@@ -167,8 +167,85 @@ public class MapServiceImpl implements MapService {
 
 	@Override
 	public void insertplike(BoardVO boardVO) {
+	
 		mapper.insertplike(boardVO);
 		
+	}
+
+
+
+	@Override
+	public void deleteplike(BoardVO boardVO) {
+		mapper.deleteplike(boardVO);
+		
+	}
+
+
+
+
+
+
+
+	@Override
+	public List<ImageVO> imageupload(ImageVO imageVO) {
+	
+		return mapper.imageupload(imageVO);
+	}
+
+
+//좋아요수 조회
+	@Override
+	public int getLiketotal(int board_id) {
+		
+		return mapper.getLiketotal(board_id);
+	}
+
+
+//좋아요 유무 체크
+	@Override
+	public int isLike(PlikeVO plikeVO) {
+	
+		return mapper.isLike(plikeVO);
+	}
+
+
+//좋아요 리스트 조회
+	@Override
+	public List<PlikeVO> getLikelist(PlikeVO plikeVO) {
+	
+		return mapper.getLikelist(plikeVO);
+	}
+
+
+	//좋아요
+	@Override
+	public void like(PlikeVO plikeVO) {
+		mapper.like(plikeVO);
+		
+	}
+
+
+	//좋아요 취소
+	@Override
+	public void likecancel(PlikeVO plikeVO) {
+		mapper.likecancel(plikeVO);
+		
+	}
+
+
+	//회원정보 조회
+	@Override
+	public MemberVO getMemberinfo() {
+		// TODO Auto-generated method stub
+		return mapper.getMemberinfo();
+	}
+
+
+	//좋아요 수 전체 출력
+	@Override
+	public List<PlikeVO> getLikeprint() {
+		
+		return mapper.getLikeprint();
 	}
 
 

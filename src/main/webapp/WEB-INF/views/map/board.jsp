@@ -9,7 +9,24 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-<script src="http://code.jquery.com/jquery-1.11.0.js"></script>
+<!-- bootstrap css cdn -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" type="text/css" />
+
+<!-- Css Styles -->
+<link rel="stylesheet" href="/resources/css/bootstrap.min.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/font-awesome.min.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/themify-icons.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/elegant-icons.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/owl.carousel.min.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/nice-select.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/jquery-ui.min.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/slicknav.min.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/style.css" type="text/css">
+
+<!-- jquery cdn -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
 <script>
 
 $(function() {
@@ -24,35 +41,6 @@ $(function() {
 
 
 
-
-
-$(".plike_submit").click(function(event) { //id는 한번만 calss는 여러번 선택 가능.
-	
-	   //하나의 id는 한 문서에서 한 번만 사용이 가능(가장 마지막 혹은 처음게 선택). 하나의 class는 
-	console.log("test");
-	   event.preventDefault(); 
-	  
-	
-	 
-
-
-	   $.ajax({
-	      type : 'get', //method
-	      url : $(this).attr("href"),
-	      cache : false,
-	      success : function(result) {
-	         console.log("result: " + result);
-	         if (result == "SUCCESS") {
-	   
-	           
-	         }
-	      },
-	      errer : function(e) {
-	         console.log(e);
-	      }
-	   }); //end of ajax
-	 }); // 삭제 종료
-	
 
 </script>
 
@@ -132,7 +120,8 @@ body::-webkit-scrollbar-track {
 
   <!-- header -->
    <%@ include file="/WEB-INF/views/include/header.jsp"%>
-   
+       <!-- Login Check -->
+  
    
 
     <!-- Contact Section Begin -->
@@ -141,30 +130,29 @@ body::-webkit-scrollbar-track {
             <div class="row">
                 <div class="col-lg-12">
                 
-               
-                <select  id="sel" style="border:none; font-size:22px;">
+          <!-- 위치 다시 선정하기 -->     
+      <select  id="sel" style="border:none; font-size:22px;">
  		<option value='${location}' selected>${location}</option>
    		 <option value="relocaion" >위치 다시 설정하기</option>
-    
 			</select>
-                
                <br>
-                 <br>
+               <br>
                
-
-<h4>${nickname}</h4>
- <br>
-	 <form  action="/map/write_view" method="get">  
-          <input id="location" type="hidden" name="location" value="${location}" /> 
-	<input type="hidden" name="member_id" value="<sec:authentication property="principal.member_id"/>">
+			<!-- 사용자 닉네임 -->
+			<h4>${nickname}</h4>
+		    <br>
+		    
+		    <!-- 글작성 폼 -->
+	 <form action="/map/write_view" method="get">  
+	 <!-- 전달할 값들 -->
+    <input id="location" type="hidden" name="location" value="${location}" /> 
+ <input type="hidden" id="member_id" name="member_id" value="<sec:authentication property="principal.member_id"/>"> 
 	<input type="hidden" name="nickname" value="<sec:authentication property="principal.nickname"/>">  
 	
 
-                 
-                 <div class=" row" style="padding-bottom: 30px;">
-
+                 <!-- 커뮤니티 카테고리별 분류 셀렉트 BOX -->
+            <div class=" row" style="padding-bottom: 30px;">
 			<select  name="hashtag" id="hashtag" class="form-control col-sm-1"
-				
 				style="margin-left: 15px; text-align-last: center; font-size:18px;">
 
 				<option value="우리동네질문">우리동네질문</option>
@@ -174,42 +162,83 @@ body::-webkit-scrollbar-track {
 				<option value="취미생활">취미생활</option>
 				<option value="여행">여행</option>
 				<option value="기타">기타</option>
-			</select> <span class="col-sm-9"></span>
-			
-			<button class="btn btn-outline-secondary col-sm-1" id="qw"
+				
+				</select> <span class="col-sm-9"></span>
+				
+				<button class="btn btn-outline-secondary col-sm-1" id="qw"
 				style="margin-left: 65px;" type="submit">글 작성</button>
-		</div>
-                       
+				</div>
                       </form>
                 
-      
-                
                 <br/>
-                
+         
+        
+    
+       
+       
+       
+       
+                                    <%--  <c:set var="doneLoop" value="false"/>
+                                    <c:set var="attachMentCount"  value="${attachMentCount}" />
+                                    <c:set var="i" value="1" />
+                                    
+                                    <c:forEach var="attachment" items="${attachment}">
+                                       ${attachment.path }
+                                       <c:set var="i" value="${i+1}" />
+                                       
+                                       ${vo.b_index},${attachment.b_index}
+                                       
+                                       
+                                       <c:if test="${doneLoop ne true}"><!--doneloop가 false면 반복 멈춤 -->
+                                          <c:choose>
+                                             <c:when test="${vo.b_index eq attachment.b_index }">
+                                                <img alt="" src="${attachment.path }">
+                                                <img src="${pageContext.request.contextPath}${attachment.path}">
+                                                <c:set var="doneLoop" value="true"/>
+                                             </c:when>
+                                             
+                                             <c:when test="${i+1 > attachMentCount }">                                             
+                                                <img id="introImg"  class="boardShow_img" src="${pageContext.request.contextPath}/resources/board_thumbnail/bslist07.png">
+                                                <c:set var="doneLoop" value="true"/>
+                                             </c:when>                                             
+                                          </c:choose>                                       
+                                       </c:if>                                                                                                                                                                                                                                                                           
+                                    </c:forEach>      --%>                            
+            
+         
+         
+         
+         
+         
+         
+         
+         
+                 <!--게시판 글 출력 FOREACH문 -->
                 <table class="table">
-			<c:forEach items="${list}" var="list">
+				<c:forEach items="${list}" var="list">
+
+			
+			  <input id="board_id" type="hidden" name="board_id" value="${list.board_id}" /> 
 				<tbody id="mapList">
 					<td><a href="/map/board/${list.board_id}?location=${location}&nickname=${nickname}&member_id=${member_id}">
 							
-								<div style="font-weight: bold; font-size: 18px;">${list.title}</div>
-								<ul class="pd-tags">
+						<div style="font-weight: bold; font-size: 18px;">${list.title}</div>
+						<ul class="pd-tags">
+						<!-- 이미지 아직 수정중... -->
+						<!-- <div><img src="/resources/img/location/03b07835-4297-4230-b22e-7da930cff0c2.PNG"></div> -->
+						
 									<div>${list.content}</div>
 									<span>${list.memberVO.nickname}</span>
+								
 									<span style="font-size: 13px; color: gray;">${list.pdate}</span>
 									<span style="font-size: 13px; color: gray;"> 조회수 ${list.hit}</span>
+									<span style="font-size: 13px; color: gray;"> 좋아요 ${list.plike}</span>
+								
 									</a>
-									<span style="font-size: 13px; color: gray;"> 
-									
-									<a id="plike_submit" href="/map/plike?board_id=${list.board_id}"
-												class="plike_submit">좋아요 ${list.plike}</a>
 									
 									
 									
-									
-									
-									
-									
-									</span>
+									<!-- 해시태그 -->
 									<c:set var="hashtag" value="${list.hashtag}" />
 									<c:set var="tag" value="${fn:split(hashtag, ' ')}" />
 									<c:forEach var="t" items="${tag}">
@@ -221,11 +250,11 @@ body::-webkit-scrollbar-track {
 
 
 								</ul>
-							
-					</td>
-				</tbody>
-			</c:forEach>
-		</table>
+								</td>
+								</tbody>
+								</c:forEach>
+						
+								</table>
                 
                   
    

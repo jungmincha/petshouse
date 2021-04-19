@@ -1,6 +1,7 @@
 package com.pet.ex.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -9,6 +10,7 @@ import com.pet.ex.page.PageVO;
 import com.pet.ex.vo.BoardVO;
 import com.pet.ex.vo.ImageVO;
 import com.pet.ex.vo.MemberVO;
+import com.pet.ex.vo.PlikeVO;
 
 @Mapper
 public interface MapMapper {
@@ -48,6 +50,28 @@ public interface MapMapper {
 	public void hit(int board_id);
 
 	public void insertplike(BoardVO boardVO);
+
+	public void deleteplike(BoardVO boardVO);
+
+	
+	
+
+	public List<ImageVO> imageupload(ImageVO imageVO);
+	
+	//좋야요 수
+	public int getLiketotal(int board_id);
+	//좋아요 유무
+	public int isLike(PlikeVO plikeVO);
+	//좋아요 리스트
+	public List<PlikeVO> getLikelist(PlikeVO plikeVO);
+	//좋아요
+	public void like(PlikeVO plikeVO);
+	//회원정보 조회
+	public MemberVO getMemberinfo();
+	//좋아요 취소
+	public void likecancel(PlikeVO plikeVO);
+
+	public List<PlikeVO> getLikeprint();
 
 
 

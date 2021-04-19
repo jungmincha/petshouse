@@ -77,6 +77,7 @@ background-color:#dddddd;
 			$.ajax({
 				url : "/map/map_view/insert",
 				type : "post",
+				
 				data : {
 					member_id : member_id,
 					pgroup : pgroup,
@@ -89,7 +90,7 @@ background-color:#dddddd;
 						
 						"<div id='comment'>"
 						+
-						"<a class='a-del' style='float:right;' href='/map/map_view/delete?board_id="+data.board_id+"'><b>삭제</b></a>"
+						"<a class='a-del' style='float:right;' href='/map/map_view/delete/"+data.board_id+"'><b>삭제</b></a>"
 						+
 						
 						" <div>" + data.memberVO.nickname + "</div>"
@@ -107,7 +108,29 @@ background-color:#dddddd;
 					
 					 $("#comment").prepend(html); 
 					document.getElementById("content").value='';
-							
+					// 댓글 삭제
+					$(".a-del").click(function(event) { //id는 한번만 calss는 여러번 선택 가능
+						event.preventDefault(); 
+					   	console.log("삭제버튼 클릭")
+						var tr = $(this).parent();
+
+						$.ajax({
+							type : 'DELETE', //method
+							url : $(this).attr("href"), 
+							cache : false,
+
+							success : function(result) {
+								console.log("result: " + result);
+							if (result == "SUCCESS") {
+					            $(tr).remove();
+					            alert("삭제되었습니다.");
+					         }
+					      },
+					      errer : function(e) {
+					         console.log(e);
+					      }
+					   }); //end of ajax
+					 }); // 삭제 종료	
 				}, 
 			})
 
@@ -133,6 +156,13 @@ background-color:#dddddd;
 		}
 		
 		
+		   
+	
+		   	
+		
+		
+		
+		
 	</script>
 
 
@@ -150,167 +180,273 @@ background-color:#dddddd;
     <!-- Map Section Begin -->
 
     <!-- Contact Section Begin -->
-    <section class="contact-section spad">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
+	<section class="contact-section spad">
+ 		<div class="container">
+			<div class="row">
+   				<div class="col-lg-12">
               
-        <h3>${location}</h3>
-        <br>
+					<h3>${location}</h3>
+					<br>
                     <h4>${nickname}</h4>
-                   <h4> ${hashtag}</h4>
+ 					<%-- <h4> ${hashtag}</h4> --%>
     
-    
-            
-          
-<form action="/map/modify" method="get">
+					<!-- 좋아요 구현 -->
+													
+					<!-- Profile Section -->
+     				<div class="profile-info container">
+      					<div class="row col-lg-12">
+      						<div class="profile-info_name">
+      							<input type="hidden" id="board_id" value="${board_id}"/>
+      						</div>
+      					</div>
+      					
+      					<div class="row col-lg-12">
+      						<div class="profile-info_follow-state">    		 	
+            					<a href="#likeModal" class="like_amount" data-toggle="modal"><span>좋아요${like_amount}</span></a>
+	        				</div>
 
-<input id="location" type="hidden" name="location" value="${location}" /> 
-<input type="hidden" name="member_id" value="<sec:authentication property="principal.member_id"/>">
-<input type="hidden" id="nickname" name="nickname" value="<sec:authentication property="principal.nickname"/>"> 
-
-    
-<div class="container" style="margin-bottom: 40px">
-		<div class="head">
-			<div style="margin-top: 45px; margin-bottom: 10px;">
-				<a class="qna-subtitle" href="qna">펫츠타운</a>
-			</div>
-			<h3 class="qnatitle" style="font-weight: bold; margin-bottom: 10px;">${content_view.title}</h3>
-		</div>
-
-		<div style="float: right">
-		<sec:authentication property="principal" var="buttonhidden" />
-			  <sec:authorize access="isAuthenticated()">	
-	
-				<!-- 현재 접속된 닉네임과 댓글보드에 저장된 닉네임을 비교해서 일치 하면 보이게 함 -->
-		<c:if test="${buttonhidden.nickname eq content_view.memberVO.nickname}">
+							<!-- likelist Modal start -->
+							<div class="modal" id="likeModal">
+								<div class="modal-dialog">
+									<div class="modal-content">
+		      
+			       						<!-- Modal Header -->
+										<div class="modal-header">
+			          						<h4 class="modal-title">좋아요한 회원 목록</h4>
+			          						<button type="button" class="close" data-dismiss="modal">&times;</button>
+			        					</div>
+			        
+			        					<!-- Modal body -->
+			       						<div class="likelist modal-body">
+			          						<c:forEach items="${likelist}" var="likelist">
+			          							<p>${likelist.member_id}</p>          	
+			          						</c:forEach>
+			        					</div>
+			        
+			        					<!-- Modal footer -->
+			        					<div class="modal-footer">
+			          						<button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+			       						</div>
+		                
+									</div> 	<!-- modal-content end -->														
+								</div>
+							</div>
+							<!-- like list Modal end -->
 		
-			<button id="modify_button" type="button" class="btn btn-warning"
-				onclick="modify_event();">수정</button>
-
-			<button id="delete_button" type="button" class="btn btn-warning"
-				onclick="button_event();">삭제</button>
-				</c:if>
-			</sec:authorize>
-				
-				
-				<a href ="/map/board?location=${location}&nickname=${nickname}&member_id=${member_id}">목록으로</a>
-				
-		</div>
-
-		<table>
-			<td>
-				<div style="font-size: 20px;">${content_view.memberVO.nickname}</div>
-				<hr>
-				<section style="margin-top: 60px; margin-bottom: 20px;">${content_view.content}</section>
-				
-				 <span style="color: gray;">${content_view.pdate}</span> <span
-				style="color: gray">조회수 ${content_view.hit}</span>
-			</td>
-		</table>
+							<!-- 본인이 좋아요 누른 게시글이 아닌 경우 좋아요 버튼 발생 이미 눌렀던 경우는 좋아요 취소버튼 발생하게 구현해야 할것!-->
+							<c:if test="${likecheck == 0}">	 			
+							<div class="col-lg-12">
+		        				<a href="javascript:void(0);" class="like" style="cursor:hand;" onclick="like();"><img src="/resources/img/location/before_like.png" style="width:25px;"></a>
+			       			</div>	   
+		  					</c:if>	
+		  						
+							<c:if test="${likecheck != 0}">					
+							<div class="col-lg-12">
+								<a href="javascript:void(0);" class="likecancel" style="cursor:hand;" onclick="likecancel();"><img src="/resources/img/location/after_like.png" style="width:25px;"></a>
+							</div>	   
+							</c:if>	 
+					
+							
+      					</div> <!-- row col-lg-12 end -->
+      				</div> <!-- profile-info end -->
+					<!-- Profile Section -->
+				  	
+					<script type="text/javascript">
+				  	 
+					//좋아요 요청
+				    function like(){  	
+				    	var board_id = $('#pgroup').val();  
+					 	// var member_id = $('#member_id').val();  
+					 
+						console.log(board_id);
+						// console.log(member_id);
+							
+				    	$.ajax({
+				    		type :"POST",
+					        url :"/map/like/" + board_id,   
+					        success :function(data){
+					           console.log(data);	
+					           console.log(data.like_amount)
+					           var likelist = data.likelist;
+					          
+					           html = "";
+					           
+					           for(var i in likelist){
+					        	   html += "<p>" + likelist[i].member_id + "</p>";
+					           }
+					           
+					           $('.like_amount').empty();
+					           $('.like_amount').append('좋아요<span>' + data.like_amount + '</span></a>');                 
+					           $('.likelist').empty();
+					           $('.likelist').append(html);
+					           $('.like').remove();	          
+					           $('.profile-info').append('<a href="javascript:void(0);" class="likecancel" style="cursor:hand;" onclick="likecancel();"><img src="/resources/img/location/after_like.png" style="width:25px;"></a>');               
+					        },
+					        error: function(e){
+						    	console.log(e);
+						    }
+				   		});//ajax end
+					};//like end
+					    
+					//좋아요 취소
+					function likecancel(){  
+						var board_id = $('#pgroup').val();
+						// var member_id = $('#member_id').val();
+					
+					   	console.log(board_id);
+						// console.log(member_id);
+					   	
+				    	$.ajax({
+				    		type :"DELETE",
+					        url :"/map/likecancel/" + board_id,
+							success :function(data){
+								console.log(data);	
+					        	console.log(data.like_amount)
+					        	var likelist = data.likelist;
+						          
+					        	html = "";//꼭 써줘야 할것!
+					        	
+								for(var i in likelist){
+									html += "<p>" + likelist[i].member_id + "</p>";
+					         	}
+						           
+								$('.like_amount').empty();
+								$('.like_amount').append('좋아요<span>' + data.like_amount + '</span></a>');                 
+								$('.likelist').empty();
+						        $('.likelist').append(html);
+					            $('.likecancel').remove();		           
+					            $('.profile-info').append('<a href="javascript:void(0);" class="like" style="cursor:hand;" onclick="like();"><img src="/resources/img/location/before_like.png" style="width:25px;"></a>'); 
+					        },
+					        error: function(e){
+						    	console.log(e);
+						    }
+				   		});//ajax end
+					};//likecancel end
+						
+					</script>
 		
-			
-
-	</div>
-       
-        
-<%-- 
- <a href = "/map/delete/${content_view.board_id}">삭제</a>&nbsp;&nbsp;<input type="submit" value="수정">  </td>
- --%>
-  
-</form>      
-     
+					<form action="/map/modify" method="get">
+						<input id="location" type="hidden" name="location" value="${location}"/> 
+						<input type="hidden" name="member_id" value="<sec:authentication property="principal.member_id"/>">
+						<input type="hidden" id="nickname" name="nickname" value="<sec:authentication property="principal.nickname"/>"> 
+						
+						<div class="container" style="margin-bottom: 40px">
+							<div class="head">
+								<div style="margin-top: 45px; margin-bottom: 10px;">
+									<a class="qna-subtitle" href="qna">펫츠타운</a>
+								</div>
+							<h3 class="qnatitle" style="font-weight: bold; margin-bottom: 10px;">${content_view.title}</h3>
+							</div>
+						
+							<div style="float: right">
+							
+								<sec:authentication property="principal" var="buttonhidden" />
+								<sec:authorize access="isAuthenticated()">	
+								<!-- 현재 접속된 닉네임과 댓글보드에 저장된 닉네임을 비교해서 일치 하면 보이게 함 -->
+								<c:if test="${buttonhidden.nickname eq content_view.memberVO.nickname}">
+									<button id="modify_button" type="button" class="btn btn-warning" onclick="modify_event();">수정</button>
+									<button id="delete_button" type="button" class="btn btn-warning" onclick="button_event();">삭제</button>
+								</c:if>
+								</sec:authorize>
+								
+								<a href ="/map/board?location=${location}&nickname=${nickname}&member_id=${member_id}">목록으로</a>
+								
+							</div>
+				
+							<table>
+								<tr>
+								<td>
+									<div style="font-size: 20px;">${content_view.memberVO.nickname}</div>
+									<hr>
+									<section style="margin-top: 60px; margin-bottom: 20px;">
+										${content_view.content}
+									</section>
+									
+									<span style="color: gray;">${content_view.pdate}</span> 
+									<span style="color: gray">조회수 ${content_view.hit}</span>
+								</td>
+								</tr>
+							</table>
+						</div> <!-- container end -->
+					</form>      
+    
+    
+					<!-- 댓글  -->   	
+					<div class="container">
+						
+						<!-- 댓글작성 -->
+						<input type="hidden" id="pgroup" value="${content_view.board_id}">
+						<sec:authorize access="hasAnyRole('ROLE_USER','ROLE_ADMIN')">
+						<input type="hidden" id="member_id" value="<sec:authentication property="principal.member_id"/>">
+						</sec:authorize>
+						<div>
+							<div>
+								<span><strong>댓글 </strong></span>
+							</div>
+							<div>
+							<table class="table" style="margin-bottom: 50px;">
+								<tr>
+								<td class="row">
+									<textarea style="resize: none;" class="form-control col-11" id="content" placeholder="댓글을 입력하세요"></textarea>
+									<button id="cw" class="col-1 btn btn-outline-secondary" onClick="getComment()">등록</button>
+								</td>
+								</tr>
+							</table>
+							</div>
+						</div>
+						<!-- 댓글작성 -->
+						
+						<!-- 댓글 리스트  -->
+						<div class="container" style="margin-bottom: 10px; " >
+							<c:forEach items="${comment}" var="dto">
+								<div id="comment">
+								
+									<!-- 여기서부터 시큐리티 권한을준다 -->
+									<sec:authentication property="principal" var="pinfo" />
+									<sec:authorize access="isAuthenticated()">	
+							
+									<!-- 현재 접속된 닉네임과 댓글보드에 저장된 닉네임을 비교해서 일치 하면 보이게 함 -->
+									<c:if test="${pinfo.nickname eq dto.memberVO.nickname}">
+										<a class="a-del" style="float: right;" href="${pageContext.request.contextPath}/map/map_view/delete/${dto.board_id}" ><b>삭제</b></a>
+									</c:if>
+									</sec:authorize>
+									<div class="profile_box">
+										<img src="/resources/img/member/profile/${dto.memberVO.thumbnail}" name="profile" alt="" class="profile" />
+									</div>
+									<div>${dto.memberVO.nickname}</div>
+									<div>${dto.content}</div>
+									<div>${dto.pdate}</div>
+									<hr>
+								</div>
+							</c:forEach>
+						</div>
+					</div>
+					<!-- 댓글  -->
       
-      <div class="container">
-		
-		<input type="hidden" id="pgroup" value="${content_view.board_id}">
-		<sec:authorize access="hasAnyRole('ROLE_USER','ROLE_ADMIN')">
-			<input type="hidden" id="member_id"
-				value="<sec:authentication property="principal.member_id"/>">
-		</sec:authorize>
-		<div>
-			<div>
-				<span><strong>댓글 </strong></span>
-			</div>
-			<div>
-				<table class="table" style="margin-bottom: 50px;">
-
-					<td class="row"><textarea style="resize: none;"
-							class="form-control col-11" id="content" placeholder="댓글을 입력하세요"></textarea>
-						<button id="cw" class="col-1 btn btn-outline-secondary" onClick="getComment()">등록</button>
-					</td>
-
-				</table>
+				</div>           
 			</div>
 		</div>
-
-
-		<div class="container" style="margin-bottom: 10px; " >
-		<c:forEach items="${comment}" var="dto">
-			<div id="comment">
-			<!-- 여기서부터 시큐리티 권한을준다 -->
-			<sec:authentication property="principal" var="pinfo" />
-			  <sec:authorize access="isAuthenticated()">	
-	
-				<!-- 현재 접속된 닉네임과 댓글보드에 저장된 닉네임을 비교해서 일치 하면 보이게 함 -->
-		<c:if test="${pinfo.nickname eq dto.memberVO.nickname}">
-			
-			<a class="a-del" style="float: right;" href="/map/map_view/delete?board_id=${dto.board_id}" ><b>삭제</b></a>
-			</c:if>
-			</sec:authorize>
-		
-				<div>${dto.memberVO.nickname}</div>
-				<div>${dto.content}</div>
-				<div>${dto.pdate}</div>
-				<hr>
-
-			</div>
-		</c:forEach>
-	
-			<div class="container">
-				<form id="commentListForm" name="commentListForm" method="post">
-					<div id="commentList"></div>
-				</form>
-			</div>
-		</div>
-		
-		
-	</div>
-	
-      
-        </div>           
-               
-            </div>
-            
-            
-            
-            
-        </div>
-    </section>
+	</section>
   
    <!-- Footer -->
    <%@ include file="/WEB-INF/views/include/footer.jsp"%>  
-   
+   <!-- Footer -->
    
    <script type="text/javascript">
-// 댓글 삭제
-	$(".a-del").click(function(event) { //id는 한번만 calss는 여러번 선택 가능.
-	
-	   //하나의 id는 한 문서에서 한 번만 사용이 가능(가장 마지막 혹은 처음게 선택). 하나의 class는 
-	
-	   event.preventDefault(); 
-	  
-	
-	   
-	   var tr = $(this).parent();//자바스크립트 클로저
+	// 댓글 삭제
+	$(".a-del").click(function(event) { //id는 한번만 calss는 여러번 선택 가능
+		event.preventDefault(); 
+	   	console.log("삭제버튼 클릭")
+		var tr = $(this).parent();
 
-	   $.ajax({
-	      type : 'delete', //method
-	      url : $(this).attr("href"), //주소를 받아오는 것이 두 번째 포인트.
-	      cache : false,
-	      success : function(result) {
-	         console.log("result: " + result);
-	         if (result == "SUCCESS") {
+		$.ajax({
+			type : 'DELETE', //method
+			url : $(this).attr("href"), 
+			cache : false,
+
+			success : function(result) {
+				console.log("result: " + result);
+			if (result == "SUCCESS") {
 	            $(tr).remove();
 	            alert("삭제되었습니다.");
 	         }
@@ -320,15 +456,10 @@ background-color:#dddddd;
 	      }
 	   }); //end of ajax
 	 }); // 삭제 종료
-	
    
    </script>
    
-   
-  
-   
-   
-<script src="/resources/js/jquery-3.3.1.min.js"></script>
+	<script src="/resources/js/jquery-3.3.1.min.js"></script>
 	<script src="/resources/js/bootstrap.min.js"></script>
 	<script src="/resources/js/jquery-ui.min.js"></script>
 	<script src="/resources/js/jquery.countdown.min.js"></script>
@@ -339,8 +470,5 @@ background-color:#dddddd;
 	<script src="/resources/js/owl.carousel.min.js"></script>
 	<script src="/resources/js/main.js"></script>
 
-    
-    
-    
 </body>
 </html>
