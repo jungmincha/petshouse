@@ -58,12 +58,13 @@ public class Myhomecontroller {
 		mav.addObject("followerlist", service.getFollowerlist(followVO));
 		mav.addObject("followinglist", service.getFollowinglist(followVO));
 			
+		//회원 정보 및 작성한 게시글 출력
 		mav.addObject("member", service.getMemberInfo(memberVO.getNickname()));
 		mav.addObject("sns", service.getSnslist(memberVO.getMember_id()));
-		mav.addObject("snscount", service.getSnscount(memberVO.getMember_id()));
 		mav.addObject("knowhow", service.getKnowhowlist(memberVO.getMember_id()));
-		mav.addObject("qna", service.getQnalist(memberVO.getMember_id()));
 		mav.addObject("review", service.getReviewlist(memberVO, cri));
+		mav.addObject("goodsscore", service.getGoodsscore());
+		mav.addObject("qna", service.getQnalist(memberVO, cri));
 		
 		mav.setViewName("myPage/Home");
 
@@ -127,15 +128,14 @@ public class Myhomecontroller {
 		return map;
 	}	
 
-	// 프로필사진수정하기
+	//프로필 사진 수정
 	@GetMapping("/view")
 	public ModelAndView member_modify_View(ModelAndView mav) throws Exception {
-
 		mav.setViewName("myPage/profileModify");
-
 		return mav;
 	}
 
+	//회원 정보 수정
 	@PostMapping("/modify")
 	public ModelAndView profile_modify(MultipartHttpServletRequest multi, MemberVO memberVO, ModelAndView mav)
 			throws IllegalStateException, IOException {
@@ -157,7 +157,6 @@ public class Myhomecontroller {
 			mf.get(i).transferTo(new File(savePath)); // 파일 저장
 			memberVO.setThumbnail(thumbnail);
 		}
-
 		service.memberModify(memberVO);
 		mav.setView(new RedirectView("view", true));
 

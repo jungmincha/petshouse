@@ -49,11 +49,13 @@ public interface MyhomeMapper {
 	//본인이 작성한 노하우 조회
 	public List<BoardVO> getKnowhowlist(String member_id);
 
-	//본인이 작성한 질답 조회
-	public List<BoardVO> getQnalist(String member_id);
-
 	//본인이 작성한 리뷰 조회
 	public List<BoardVO> getReviewlist(MemberVO memberVO, Criteria cri);
+	
+	//상품에 대한 리뷰 점수 평균
+	public List<BoardVO> getGoodsscore();
 
-	public int getSnscount(String member_id);	
+	//본인이 작성한 질답 조회
+	public List<BoardVO> getQnalist(MemberVO memberVO, Criteria cri);
+
 }

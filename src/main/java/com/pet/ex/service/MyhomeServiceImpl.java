@@ -105,13 +105,6 @@ public class MyhomeServiceImpl implements MyhomeService {
 		return mapper.getKnowhowlist(member_id);
 	}
 
-	//본인이 작성한 질답 조회
-	@Override
-	public List<BoardVO> getQnalist(String member_id) {
-		log.info("getQnalist");
-		return mapper.getQnalist(member_id);
-	}
-
 	//본인이 작성한 리뷰 조회
 	@Override
 	public List<BoardVO> getReviewlist(MemberVO memberVO, Criteria cri) {
@@ -119,10 +112,19 @@ public class MyhomeServiceImpl implements MyhomeService {
 		cri.setAmount(100);
 		return mapper.getReviewlist(memberVO, cri);
 	}
-
+	
+	//상품에 대한 리뷰 점수 평균
 	@Override
-	public int getSnscount(String member_id) {
-		
-		return mapper.getSnscount(member_id);
+	public List<BoardVO> getGoodsscore() {
+		log.info("getGoodsscore");
+		return mapper.getGoodsscore();
+	}
+	
+	//본인이 작성한 질답 조회
+	@Override
+	public List<BoardVO> getQnalist(MemberVO memberVO, Criteria cri){
+		log.info("getQnalist");
+		cri.setAmount(100);
+		return mapper.getQnalist(memberVO, cri);
 	}
 }

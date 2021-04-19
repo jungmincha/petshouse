@@ -1,8 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="sec"
-	uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,34 +14,95 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
+<script>
+   $(document).ready(function() {
+      $.fn.generateStars = function() {
+         return this.each(function(i, e) {
+            $(e).html($('<span/>').width($(e).text() * 16));
+         });
+      };
+
+      // 숫자 평점을 별로 변환하도록 호출하는 함수
+      $('.star-prototype').generateStars();
+   });
+</script>
+
 <Style>
-.user-profile__container {
-	border-radius: 4px;
-	border: 1px solid #dadce0;
-	text-align: center;
-	min-height: 400px;
-	margin: 10px auto;
-}
+	.user-profile__container {
+		border-radius: 4px;
+		border: 1px solid #dadce0;
+		text-align: center;
+		min-height: 400px;
+		margin: 20px auto;
+	}
+	
+	.sns_container, .review_container, .qna_container, .knowhow_container {
+		border-radius: 4px;
+		border: 1px solid #dadce0;
+		text-align: center;
+		min-height: 200px;	
+	}
+	
+	.sns_container div, .review_container div, .qna_container div, .knowhow_container div{
+		height:200px; 
+		line-height:200px;
+	}
 
-.box {
-	width: 130px;
-	height: 130px;
-	border-radius: 70%;
-	overflow: hidden;
-	margin: 10px auto;
-}
+	.box {
+		width: 130px;
+		height: 130px;
+		border-radius: 70%;
+		overflow: hidden;
+		margin: 10px auto;
+	}
+	
+	.profile {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+	
+	.sns, .knowhow, .qna, .review{
+		padding-top: 20px;
+		padding-left: 20px;
+		padding-bottom: 50px;
+	}
+	
+	.sns img, .knowhow img, .qna img, .review img{
+		width:250px; 
+		height:250px;
+		border-radius: 8px;
+	}
+	
+	a:link {
+		text-decoration: none;
+		color: #333333;
+	}
+	
+	a:visited {
+		text-decoration: none;
+		color: #333333;
+	}
+	
+	a:active {
+		text-decoration: none;
+		color: #333333;
+	}
+	
+	a:hover {
+		text-decoration: none;
+	}
 
-.profile {
-	width: 100%;
-	height: 100%;
-	object-fit: cover;
-}
-
-.sns, .knowhow, .qna, .review{
-	padding-top: 20px;
-	padding-left: 20px;
-	padding-bottom: 50px;
-}
+	span.star-prototype, span.star-prototype>*, span.star, span.star>* {
+	   height: 16px;
+	   background: url(http://i.imgur.com/YsyS5y8.png) 0 -16px repeat-x;
+	   display: inline-block;
+	}
+	
+	span.star-prototype>*, span.star>* {
+	   background-position: 0 0;
+	   max-width: 80px;
+	}
 
 </Style>
 
@@ -153,68 +214,130 @@
 				<!-- profile Content End-->
 				
 				<div class="col-lg-9 wrap--profile">	
+					<!-- SNS 게시글 조회 -->
 					<div class="sns row">
-						<div class="col-12"> 
-							<h4 style="padding-bottom:10px;">SNS &nbsp;<strong>${snscount}</strong></h4>
-						</div>	
-						<c:forEach items="${sns}" var="sns">
-							<div class="col-lg-4 wrap--profile">	
-								<a href="/commu/sns/${sns.boardVO.board_id}"> 
-								<img src="/resources/img/member/sns/${sns.imgname}" style="width:250px; height:250px;"/></a>									
-								<h4 style="padding-top:10px;">${sns.boardVO.content}</h4>
+						<c:if test="${empty sns}">
+							<div class="col-12"> 
+								<span style="font-size:20px;font-weight: bold;">SNS (${fn:length(sns)})</span><hr />		
 							</div>
-						</c:forEach>
-					</div>
-				
-					<div class="knowhow row">
-						<div class="col-12"> 
-							<h4 style="padding-bottom:10px;">노하우 &nbsp;<strong>${snscount}</strong></h4>
-						</div>	
-						<c:forEach items="${sns}" var="sns">
-							<div class="col-lg-4 wrap--profile">	
-								<a href="/commu/sns/${sns.boardVO.board_id}"> 
-								<img src="/resources/img/member/sns/${sns.imgname}" style="width:250px; height:250px;"/></a>									
-								<h4 style="padding-top:10px;">${sns.boardVO.content}</h4>
-							</div>
-						</c:forEach>
-					</div>	
-					
-					<div class="qna row">
-						<div class="col-12"> 
-							<h4 style="padding-bottom:10px;">질문과답변 &nbsp;<strong>${snscount}</strong></h4>
-						</div>	
-						<c:forEach items="${sns}" var="sns">
-							<div class="col-lg-4 wrap--profile">	
-								<a href="/commu/sns/${sns.boardVO.board_id}"> 
-								<img src="/resources/img/member/sns/${sns.imgname}" style="width:250px; height:250px;"/></a>									
-								<h4 style="padding-top:10px;">${sns.boardVO.content}</h4>
-							</div>
-						</c:forEach>
-					</div>
-					
-					<div class="review row">
-						<div class="col-12"> 
-							<c:forEach items="${review}" var="review">
-								<c:if test="${review.rnum le 3}">
-									<h4 style="padding-bottom:10px;">리뷰 &nbsp;<strong>${review.rnum}</strong></h4>
-								</c:if>
-							</c:forEach>
-						</div>	
-						<c:forEach items="${review}" var="review">
-						<c:if test="${review.rnum le 3}">
-							<div class="col-lg-4 wrap--profile">	
-								<a href="#"> 
-								<img src="/resources/img/member/sns/${review.imgname}" style="width:250px; height:250px;"/></a>									
-								<h4 style="padding-top:10px;">작성일자 ${review.boardVO.pdate}</h4>
-								<h4 style="padding-top:10px;">${review.boardVO.content}</h4>
+							<div class="col-12 sns_container">
+								<div>SNS를 작성해주세요</div>
 							</div>
 						</c:if>
-						</c:forEach>
+						<c:if test="${not empty sns}">							
+							<div class="col-12"> 
+								<span style="font-size:20px;font-weight: bold;">SNS (${fn:length(sns)})</span> <span style="float:right">더보기</span><hr />			
+							</div>	
+							<c:forEach items="${sns}" var="sns">
+								<div class="col-lg-4 col-md-4 col-sm-4 wrap--profile text-center">	
+									<a href="/commu/sns/${sns.boardVO.board_id}"> 
+									<img src="/resources/img/member/sns/${sns.imgname}" /></a>									
+									<h6 style="padding-top:10px;">${sns.boardVO.content}</h6>
+								</div>
+							</c:forEach>
+						</c:if>
+					</div>
+				
+					<!-- 노하우 게시글 조회 -->
+					<div class="knowhow row">		
+						<c:if test="${empty sns}">
+							<div class="col-12"> 
+								<span style="font-size:20px;font-weight: bold;">노하우 (${snscount})</span><hr />		
+							</div>
+							<div class="col-12 knowhow_container">
+								<div>노하우를 작성해주세요</div>
+							</div>
+						</c:if>
+						<c:if test="${not empty sns}">							
+							<div class="col-12"> 
+								<span style="font-size:20px;font-weight: bold;">노하우 (${fn:length(sns)})</span> <span style="float:right">더보기</span><hr />			
+							</div>	
+							<c:forEach items="${sns}" var="sns">
+								<div class="col-lg-4 col-md-4 col-sm-4 wrap--profile text-center">	
+									<a href="/commu/sns/${sns.boardVO.board_id}"> 
+									<img src="/resources/img/member/sns/${sns.imgname}" /></a>									
+									<h6 style="padding-top:10px;">${sns.boardVO.content}</h6>
+								</div>
+							</c:forEach>
+						</c:if>
 					</div>	
+					
+					<!-- 리뷰 게시글 조회 -->
+					<div class="review row">
+						<c:if test="${empty review}">
+							<div class="col-12"> 
+								<span style="font-size:20px;font-weight: bold;">리뷰 (${fn:length(review)})</span><hr />							
+							</div>	
+							<div class="col-12 review_container">
+								<div>리뷰를 작성해주세요</div>
+							</div>
+						</c:if>
+						<c:if test="${not empty review}">
+							<div class="col-12"> 
+								<span style="font-size:20px;font-weight: bold;">리뷰 (${fn:length(review)})</span> <span style="float:right">더보기</span><hr />							
+							</div>	
+							<c:forEach items="${review}" var="review">
+								<c:if test="${review.rnum le 3}">
+									<div class="col-lg-4 col-md-4 col-sm-4 wrap--profile text-center">	
+										<a href="#"> 
+										<img src="/resources/img/admin/goods/${review.goodsVO.thumbnail}"/></a>														
+										<h6 style="padding-top:10px;">${review.goodsVO.goodsname}</h6>
+										
+										 <c:forEach items="${goodsscore}" var="rate">
+		                             		 <c:if test="${rate.goodsVO.goods_id eq review.goodsVO.goods_id}">
+				                                 <span class="star-prototype"> ${rate.avgscore}</span>
+		                                		 &nbsp; <span>리뷰 ${rate.count}</span>
+		                               	  	 </c:if>
+	                                 	</c:forEach>
+									</div>
+								</c:if>
+							</c:forEach>	
+						</c:if>	
+					</div>	
+					
+					<!-- Q&A 게시글 조회 -->
+					<div class="qna row">
+						<c:if test="${empty qna}">
+							<div class="col-12"> 
+								<span style="font-size:20px;font-weight: bold;">질문과답변 (${fn:length(qna)})</span><hr />							
+							</div>	
+							<div class="col-12 qna_container">
+								<div>질문과답변을 작성해주세요</div>
+							</div>
+						</c:if>
+						<c:if test="${not empty qna}">
+							<div class="col-12"> 
+								<span style="font-size:20px;font-weight: bold;">질문과답변 (${fn:length(qna)})</span> <span style="float:right">더보기</span><hr />			
+							</div>	
+							<div class="col-12"> 
+								<c:forEach items="${qna}" var="qna">
+									<c:if test="${qna.rnum le 5}">
+										<form action="${pageContext.request.contextPath}/commu/qnatag" method="post">
+											<a href="/commu/qna/${qna.board_id}">
+												<div style="font-weight: normal; font-size: 18px;">${qna.title}</div>
+												<ul class="pd-tags">
+													<div>${qna.content}</div>									
+														<span style="font-size: 15px; color: gray;">${qna.pdate}</span>
+														<span style="font-size: 15px; color: gray;">조회수 ${qna.hit}</span>
+														
+														<c:set var="hashtag" value="${qna.hashtag}" />
+														<c:set var="tag" value="${fn:split(hashtag, ' ')}" />
+														<c:forEach var="tag" items="${tag}">
+															<span><button id="hashtag" name="keyword" class="btn btn-disabled" style="" value="${tag}"
+																	onclick="location.href='${pageContext.request.contextPath}/commu/qnatag'">${tag}</button></span>
+														</c:forEach>
+												</ul>
+											</a>
+										</form>
+										<hr />	
+									</c:if>
+								</c:forEach>
+							</div>	
+						</c:if>			
+					</div>
+					</div>
 				</div>
-		</div>
-	</div>	
-	
+			</div>
 	<script>
 	   	var nickname = $('#member').val();  
 	   	console.log(nickname);
@@ -291,7 +414,5 @@
 <script src="/resources/js/jquery.slicknav.js"></script>
 <script src="/resources/js/owl.carousel.min.js"></script>
 <script src="/resources/js/main.js"></script>
-
-</html>				
-				
-				
+</html>												
+														

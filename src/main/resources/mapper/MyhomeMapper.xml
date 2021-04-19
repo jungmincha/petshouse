@@ -94,31 +94,36 @@
 	   ]]>
 	</select> 
 	
-	<!-- 본인이 작성한 질답 조회 -->
-	<select id="getQnalist" resultMap="boardvo">
-		<![CDATA[
-	        select * from image i, board b where i.board_id=b.board_id and boardtype_id=4 and b.member_id=#{memberVO.member_id}
-	   ]]>
-	</select> 
-	
 	<!-- 본인이 작성한 리뷰 조회 -->
-	<select id="getReviewlist" resultMap="imagevo">
+	<select id="getReviewlist" resultMap="boardvo">
 		<![CDATA[
 	      	select * from(
 		        select rownum as rnum, A.*from (
-		           select i.imgname, b.content, b.pdate from image i, board b where i.board_id=b.board_id and b.boardtype_id=8 and b.member_id=#{memberVO.member_id} order by b.pdate desc
+		           	select g.thumbnail, g.goods_id, g.goodsname from board b, goods g where b.goods_id=g.goods_id and b.member_id=#{memberVO.member_id} and b.boardtype_id=8 order by b.pdate desc
 		       ) A where rownum <= #{cri.pageNum} * #{cri.amount}
 	       )where rnum > (#{cri.pageNum}-1) * #{cri.amount} 
 	   ]]>
 	</select> 
-	 
 	
-	<!-- 본인이 작성한 SNS 조회 -->
-	<select id="getSnscount" resultType="int">
+	<!-- 상품에 대한 리뷰 점수 평균 -->
+	<select id="getGoodsscore" resultMap="boardvo">
 		<![CDATA[
-	        select count(*) from image i, board b where i.board_id=b.board_id and boardtype_id=2 and b.member_id=#{memberVO.member_id}
+	       select round(avg(ratescore),1) as avgscore, count(*) as count, goods_id from board where boardtype_id=8 group by goods_id
 	   ]]>
 	</select>
+	
+	<!-- 본인이 작성한 질답 조회 -->
+	<select id="getQnalist" resultType="BoardVO">
+		<![CDATA[     
+			select * from(
+			   select rownum as rnum, A.*from (     
+	         	  select * from board where boardtype_id=4 and member_id=#{memberVO.member_id} order by pdate desc
+	          ) A where rownum <= #{cri.pageNum} * #{cri.amount}
+		    )where rnum > (#{cri.pageNum}-1) * #{cri.amount} 
+	   ]]>
+	</select> 
+	
+	 
 
 	<resultMap type="BoardtypeVO" id="boardtypevo">
 		<result column="boardtype_id" property="boardtype_id" />

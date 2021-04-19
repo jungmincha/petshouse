@@ -169,7 +169,7 @@
 	<!-- 베스트 상품에 대한 별점 평균 -->
 	<select id="getBestrate" resultMap="boardvo">
 		<![CDATA[
-	        select * from(
+	      select * from(
 	        select rownum as rnum, A.*from (
 	           select round(avg(ratescore),1) as avgscore, count(*) as count, goods_id from board where boardtype_id=8 and category_id=#{category_id} group by goods_id order by count(*) desc
 	       ) A where rownum <= 20
