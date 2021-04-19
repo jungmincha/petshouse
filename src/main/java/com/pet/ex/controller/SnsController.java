@@ -138,7 +138,7 @@ public class SnsController {
 	}
 
 	@GetMapping("/sns/{board_id}")
-	public ModelAndView contentView(@PathVariable("board_id") int board_id, BoardVO boardVO,Criteria cri, ModelAndView mav)
+	public ModelAndView contentView(@PathVariable("board_id") int board_id, BoardVO boardVO, MemberVO memberVO, Criteria cri, ModelAndView mav)
 			throws Exception {
 
 		boardVO = service.getBoardInfo(board_id);
@@ -149,10 +149,10 @@ public class SnsController {
 		log.info("SNS_View");
 
 		int count = service.counta(board_id);
-		/*
-		 * mav.addObject("user",
-		 * service.getUserboard(boardVO.getMemberVO().getNickname()));
-		 */
+		String nickname = service.getNickname(board_id);
+		System.out.println(nickname);
+		mav.addObject("user",  service.getUserboard(nickname));
+		 
 		mav.addObject("sns", service.getBoard(boardVO.getBoard_id()));
 		mav.addObject("img", service.getImg(board_id));
 		mav.addObject("count", count);

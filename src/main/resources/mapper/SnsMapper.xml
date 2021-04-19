@@ -88,15 +88,15 @@
 	</select>
 	
 	
-	<!--   <select id="getUserboard" resultMap="imagevo">
+	  <select id="getUserboard" resultMap="imagevo">
 
 		 <![CDATA[ 
 		 		select * from (select rownum as rnum, A.* from(select i.imgname, m.nickname, b.board_id from image i, board b, member m 
- 				where m.member_id = b.member_id and m.nickname = #{boardVO.memberVO.nickname} and i.board_id=b.board_id and b.boardtype_id=2 and pstep=0 and img_id in( 
+ 				where m.member_id = b.member_id and m.nickname = #{nickname} and i.board_id=b.board_id and b.boardtype_id=2 and pstep=0 and img_id in( 
  					select  min(img_id) as img_id from image where board_id is not null group by board_id) order by b.pdate desc) A
                    ) Where rnum <=4
 		]]>
-	</select>  -->
+	</select>  
 	 
 	
 	<!-- sns 총갯수 -->
@@ -169,6 +169,12 @@
 			    ) A WHERE ROWNUM <= #{cri.pageNum} * 5
 			) WHERE RNUM > (#{cri.pageNum}-1) *5
 		]]>
+	</select>
+	
+	<select id="getNickname" resultType="String">
+		<![CDATA[
+	         select nickname from member m, board b where m.member_id=b.member_id and b.board_id=#{boardVO.board_id}
+	  	 ]]>
 	</select>
 
 

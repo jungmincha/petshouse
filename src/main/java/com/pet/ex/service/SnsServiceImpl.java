@@ -72,7 +72,7 @@ public class SnsServiceImpl implements SnsService {
 	@Override
 	public List<BoardVO> listComment(int Board_id, Criteria cri) {
 		log.info("listComment()");
-		return mapper.listComment(Board_id,cri);
+		return mapper.listComment(Board_id, cri);
 	}
 
 	@Override
@@ -94,7 +94,7 @@ public class SnsServiceImpl implements SnsService {
 		cri.setAmount(8);
 		return mapper.getsnsList(cri);
 	}
-	
+
 	@Override
 	public int getSnstotal(Criteria cri) {
 		return mapper.getSnstotal(cri);
@@ -102,43 +102,49 @@ public class SnsServiceImpl implements SnsService {
 
 	@Override
 	public MemberVO getMemberInfo(String member_id) {
-	 
+
 		return mapper.getMemberInfo(member_id);
 	}
-	
-	//댓글리스트
+
+	// 댓글리스트
 	@Override
-	public List<BoardVO> getcommentsList(Criteria cri,int board_id) {
+	public List<BoardVO> getcommentsList(Criteria cri, int board_id) {
 		return mapper.getCommentsWithPaging(cri, board_id);
 	}
- 
-	//댓글삭제
+
+	// 댓글삭제
 	@Override
 	public void deleteComment(BoardVO boardVO) {
-		 
+
 		mapper.deleteComment(boardVO);
 	}
 
-	//SNS수정
+	// SNS수정
 	@Override
 	public void modifySns(BoardVO boardVO) {
-		 
+
 		mapper.modifySns(boardVO);
 	}
-	
-	//SNS삭제
+
+	// SNS삭제
 	@Override
 	public void deleteSns(int board_id) {
-	 
+
 		mapper.deleteImg(board_id);
 		mapper.deleteBoard(board_id);
-		
+
 	}
 
-	/*
-	 * @Override public List<ImageVO> getUserboard(String nickname) {
-	 * 
-	 * return mapper.getUserboard(nickname); }
-	 */
+	@Override
+	public List<ImageVO> getUserboard(String nickname) {
+
+		return mapper.getUserboard(nickname);
+	}
+
+	@Override
+	public String getNickname(int board_id) {
+		
+		return mapper.getNickname(board_id);
+	}
 
 }

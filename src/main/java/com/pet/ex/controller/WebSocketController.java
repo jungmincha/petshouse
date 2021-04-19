@@ -57,7 +57,8 @@ public class WebSocketController {
 	
 	@PostMapping("/room")
 	public Set<String> creatRomm(@AuthenticationPrincipal MyAuthentication myAuthentication) {
-		String username = myAuthentication.getUsername();
+		String username = myAuthentication.getMember().getNickname();
+		log.info(username + "==============================");
 		roomList.add(username);
 		
 		return roomList;

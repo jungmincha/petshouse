@@ -34,7 +34,7 @@
 </style>
 <script type="text/javascript">
 	var ws;
-	var username = "${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.username}";
+	var username = "${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.nickname}";
 	
 	function wsOpen() {
 		ws = new WebSocket("ws://" + location.host + "/chatting/" + username);
@@ -51,9 +51,10 @@
 			$("#chating").append("<p class='others'>점심/ 12:00~13:00</p>");
 			$("#chating").append("<p class='others'>휴무/ 토,일,공휴일</p>");
 			$("#chating").append("<p class='others'>문의사항을 선택하시거나 번호를 입력해주세요.</p>");
-			$("#chating").append("<button type='button' onclick='typing(this)'>1.여행 문의</button>");
-			$("#chating").append("<button type='button' onclick='typing(this)'>2.상품 문의</button>");
-			$("#chating").append("<button type='button' onclick='typing(this);connect();'>3.상담원 연결</button>");
+			$("#chating").append("<button type='button' onclick='typing(this)'>1.상품 문의</button>");
+			$("#chating").append("<button type='button' onclick='typing(this)'>2.배송 문의</button>");
+			$("#chating").append("<button type='button' onclick='typing(this)'>3.교환/환불 문의</button>");
+			$("#chating").append("<button type='button' onclick='typing(this);connect();'>4.상담원 연결</button>");
 		}
 	
 		ws.onmessage = function(data) {

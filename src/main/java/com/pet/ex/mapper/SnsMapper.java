@@ -51,9 +51,9 @@ public interface SnsMapper {
 
 	public void deleteBoard(int board_id);
 
-	/*
-	 * public List<ImageVO> getUserboard(String nickname);
-	 */
-
+	
+	  public List<ImageVO> getUserboard(String nickname);
+	 
+	public String getNickname(int board_id);
 
 }

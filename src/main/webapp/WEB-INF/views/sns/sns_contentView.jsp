@@ -16,7 +16,7 @@
 <meta name="keywords" content="Fashi, unica, creative, html">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>Insert title here</title>
+<title>${sns.content}</title>
 <!-- Google Font -->
 <link
 	href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap"
@@ -174,6 +174,17 @@ body {
 	height: 100%;
 	object-fit: cover;
 }
+
+.recent{
+	width: 130px;
+	height:130px;
+	border-radius: 10px;
+	margin : 3px;
+	}
+	
+
+ 
+	
 </style>
 <script>
 	//로그인 체크
@@ -207,7 +218,7 @@ body {
 				<div class="row">
 					<div class="col-lg-8">
 						<input type="hidden" name="board_id" value="${board_id}">
-						<input type="hidden" name="nickname" value="${sns.memberVO.nickname}">
+						<input type="hidden" name="boardVO.memberVO.nickname" value="${sns.memberVO.nickname}">
 						<div style="float: right">
 
 
@@ -272,7 +283,7 @@ body {
 	
 
 
-	<div class="col-lg-3">
+	<div class="col-lg-4">
 		<div class="sidebar-section">
 
 
@@ -295,12 +306,13 @@ body {
 			<br>
 			<br>
 
-			<div class="recent-posts">
+			<div class="recent-posts" >
 				<h4>Recent Posts</h4>
 				<ul>
+						
 						<c:forEach var="user" items="${user}">
- 
-						<img src="/resources/img/member/sns/${user.imgname}">
+ 						<a href="/commu/sns/${user.boardVO.board_id}">
+						<img src="/resources/img/member/sns/${user.imgname}" class="recent"></a>
  					    </c:forEach>
 					
 				</ul>
@@ -361,7 +373,7 @@ body {
 		<c:forEach items="${comment}" var="m">
 			<div id="comment" style="width: 800px;">
 
-				
+			 
 				<!-- 여기서부터 시큐리티 권한을준다 -->
 			    <sec:authentication property="principal" var="pinfo" />
 			    <sec:authorize access="isAuthenticated()">	
@@ -370,15 +382,15 @@ body {
 			<c:if test="${pinfo.nickname eq m.memberVO.nickname}">
 		
 			<a class="a-del" style="float: right;"  href="/commu/comment/delete?board_id=${m.board_id}"><b>삭제</b></a>
-			</c:if>
-			</sec:authorize>
+			</c:if> 
+			</sec:authorize> 
 					<div class="row">
 						<div class="profile_box">
-							<a href="/myPage/${sns.memberVO.nickname}" style="color:black;">
+							<a href="/myPage/${m.memberVO.nickname}">
 								<img src="/resources/img/member/profile/${m.memberVO.thumbnail}"
 								name="profile" alt="" class="profile" />
 						</div>
-						<div style="padding: 5px">${m.memberVO.nickname}</div></a></div>
+						<div style="padding: 5px; color:black;"><b>${m.memberVO.nickname}</b></div></a></div>
 						<div style="padding-left:40px;">${m.content}</div>
 						<div style="padding-left:40px;"><fmt:formatDate var="formatRegDate" value="${m.pdate}" pattern="yyyy.MM.dd" />${formatRegDate}"</div>
 					    <hr></div>
@@ -444,6 +456,15 @@ body {
 	</script>
 
 
+<script type="text/javascript">
+	function getFormatDate(pdate) {
+
+			var date = date.substr(0, 17);
+			var date = date.split("T");
+			var date = date[0] + " " + date[1];
+			return pdate;
+		}
+	</script>
 	<script type="text/javascript">
 	function button_event() {
 		if (confirm("정말 삭제하시겠습니까?") == true) { //확인
@@ -484,32 +505,32 @@ body {
 						},
 						success : function(data) {
 
-							html = "<div class='row'><div class='profile_box'><img src='/resources/img/member/profile/" + data.memberVO.thumbnail +"' class='profile'></div>"
-									+ data.memberVO.nickname
-									+ "</div>"
-									+ "<div style='padding-left:32px;'>"
-									+ data.content
-									+ "</div>"
-									+ "<div style='padding-left:32px;'>"
-									+ getFormatDate(data.pdate)
-									+ "</div>"
-									+"<a class='a-del' style='float: right;'  href='/commu/comment/delete?board_id="+data.board_id+"><b>삭제</b></a>"
-									+"<hr>"
-
-									$("#comment").prepend(html);
+							html = "<div class='row'><div class='profile_box'><a href='/myPage/"+data.memberVO.nickname+"'><img src='/resources/img/member/profile/" + data.memberVO.thumbnail +"' class='profile'></div><div style='padding:8px; color:black;'><b>"
+							+ data.memberVO.nickname
+							+ "</b></a></div></div>"
+							+ "<div style='padding-left:32px;'>"
+							+ data.content
+							+ "</div>"
+							+ "<div style='padding-left:32px;'>"
+						  	+ data.pdate
+							+ "</div>"  
+						
+							+ "<hr>"
+								 
+						  	$("#comment").prepend(html);
 							document.getElementById("content").value = '';
 
 						}, //ajax 성공 시 end$
 
-				
-					 error : function(request, status, error) {
-					 alert("code:" + request.status + "\n" + "message:"
-					 + request.responseText + "\n" + "error:" + error);
+						/* 
+							 error : function(request, status, error) {
+							 alert("code:" + request.status + "\n" + "message:"
+							 + request.responseText + "\n" + "error:" + error);
 
-					 } // ajax 에러 시 end
-					})
+							 } // ajax 에러 시 end */
+						})
 
-				}
+			}
 		 
 		// 댓글 삭제
 			$(".a-del").click(function(event) { //id는 한번만 calss는 여러번 선택 가능.

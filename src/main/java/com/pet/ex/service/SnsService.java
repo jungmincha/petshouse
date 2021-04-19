@@ -55,7 +55,9 @@ public interface SnsService {
 
 	public void deleteSns(int board_id);
 
-	/* public List<ImageVO> getUserboard(String nickname); */
+	 public List<ImageVO> getUserboard(String nickname); 
+	 
+	 public String getNickname(int board_id); 
  
 
 }

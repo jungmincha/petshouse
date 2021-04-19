@@ -78,6 +78,17 @@
     text-shadow: 0 0 4px rgb(0 0 0 / 50%);
 }
 
+.count2{
+	position: absolute;
+    bottom: 10px;
+    right: 10px;
+    font-size: 13px;
+    color: #fff;
+    text-shadow: 0 0 4px rgb(0 0 0 / 50%);
+
+
+}
+
 
 </style>
 <script>
@@ -212,7 +223,7 @@
     	        		+"<a href='/commu/sns/"+sns[i].boardVO.board_id+"'> "
     	        		+"<img src='/resources/img/member/sns/"+sns[i].imgname +"' alt='' style='height: 300px;' class='card-img-top i' />"
     	        		
-    	        		+"<span class='count'>조회수 "+ sns[i].boardVO.hit + "</span></a></div>"
+    	        		+"<span class='count2'>조회수 "+ sns[i].boardVO.hit + "</span></a></div>"
     	        		+"<div class='card-body'>좋아요//댓글수"
     	        		 
     	        	  	+"</div></div></div>"
