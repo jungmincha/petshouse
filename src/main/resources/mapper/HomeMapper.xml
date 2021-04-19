@@ -148,7 +148,7 @@
 
 	<!-- select * from goods where goodsname like '%'||#{keyword}||'%' order by price desc -->
 	<!-- 상품 검색 -->
-	<select id="getGsearch" resultMap="goodsvo">
+	<select id="getGsearch" resultMap="boardvo">
    <![CDATA[
    		   select  g.goods_id, g.goodsname, TO_CHAR(g.price,'99,999') as price, b.board_id, g.thumbnail from board b, 
 		goods g where b.goods_id=g.goods_id and b.boardtype_id=3 and goodsname like '%'||#{keyword}||'%' order by price desc
@@ -168,6 +168,49 @@
    <![CDATA[
    		select * from board where content like '%'||#{keyword}||'%' and boardtype_id='5' or title like '%'||#{keyword}||'%' and boardtype_id='5'
    ]]>
+	</select>
+	
+	<!-- 노하우 검색 -->
+	<select id="getMoreGoods" resultMap="boardvo">
+   <![CDATA[
+   SELECT * FROM (
+			     SELECT ROWNUM AS RNUM, A.* FROM (
+   		select  g.goods_id, g.goodsname, TO_CHAR(g.price,'99,999') as price, b.board_id, g.thumbnail from board b, 
+		goods g where b.goods_id=g.goods_id and b.boardtype_id=3 and goodsname like '%'||#{keyword}||'%' order by price desc
+  	    ) A WHERE ROWNUM <= #{cri.pageNum} * 8
+			) WHERE RNUM > (#{cri.pageNum}-1) * 8
+   ]]>
+	</select>
+	
+	<!-- 질문과답변 검색 -->
+	<select id="getMoreQna" resultMap="boardvo">
+   <![CDATA[
+    SELECT * FROM (
+			     SELECT ROWNUM AS RNUM, A.* FROM (
+   		select * from board where content like '%'||#{keyword}||'%' and boardtype_id='4' and pstep='0' or title like '%'||#{keyword}||'%' and boardtype_id='4' order by pdate desc
+       ) A WHERE ROWNUM <= #{cri.pageNum} * 8
+			) WHERE RNUM > (#{cri.pageNum}-1) * 8
+   ]]>
+	</select>
+	
+	<!-- 노하우 검색 -->
+	<select id="getMoreTips" resultMap="boardvo">
+   <![CDATA[
+    SELECT * FROM (
+			     SELECT ROWNUM AS RNUM, A.* FROM (
+   		select * from board where content like '%'||#{keyword}||'%' and boardtype_id='5' or title like '%'||#{keyword}||'%' and boardtype_id='5'
+      ) A WHERE ROWNUM <= #{cri.pageNum} * 8
+			) WHERE RNUM > (#{cri.pageNum}-1) * 8
+   ]]>
+	</select>
+	
+	<!--질문과 답변 더보기 토탈카운트 페이징 처리하려고 데려옴.. -->
+	<select id="getTotal" resultType="int">
+		<![CDATA[	
+		select count(*) from board 
+		where 
+		content like '%'||#{keyword}||'%' and boardtype_id='4' and pstep='0' or title like '%'||#{keyword}||'%' and boardtype_id='4' order by pdate desc
+		]]>
 	</select>
 	
 	

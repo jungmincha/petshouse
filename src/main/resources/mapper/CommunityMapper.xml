@@ -409,8 +409,16 @@
 		]]>
 	</delete>
 
-	<!-- 댓글 삭제 안돼.. -->
-	<select id="deleteComment">
+
+ 	
+		<delete id="ImgDelete">
+		<![CDATA[
+			delete from image where board_id = #{boardVO.board_id} 
+		]]>
+	</delete>
+	
+	<!-- 댓글 삭제 안돼.. -->	
+ 	<select id="deleteComment">
   		<![CDATA[
     delete from board where board_id = #{board_id}
    ]]>

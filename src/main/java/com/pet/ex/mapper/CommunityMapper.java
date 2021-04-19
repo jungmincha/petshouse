@@ -114,6 +114,8 @@ public interface CommunityMapper {
 	
 	//질문과 답변 댓글 페이징
 	public List<BoardVO> getCommentsWithPaging(Criteria cri, int board_id);
+	
+	public void ImgDelete(int board_id);
 
 	
 	// 노하우 댓글 작성하기

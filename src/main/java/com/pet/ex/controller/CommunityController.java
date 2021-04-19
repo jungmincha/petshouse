@@ -1,12 +1,18 @@
 package com.pet.ex.controller;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -302,6 +308,7 @@ public class CommunityController {
 		mav.setViewName("/community/qnasearch");
 		return mav;
 	}
+	
 
 	// 질문과 답변 태그 검색
 	@PostMapping("/qnatag")
@@ -359,13 +366,12 @@ public class CommunityController {
 
 	// 질문과 답변 글 삭제하기  이미지 따로 첨부한건 안돼..
 	@GetMapping("/delete")
-	public ModelAndView delete(@RequestParam("board_id") int board_id, Criteria cri, ModelAndView mav)
+	public ModelAndView delete(@RequestParam("board_id") int board_id, ModelAndView mav)
 			throws Exception {
 		log.info("delete()실행");
-		mav.addObject("img", communityService.getImg(board_id));
-		mav.addObject("qna", communityService.getQnaList(cri));
-
+		communityService.ImgDelete(board_id);
 		communityService.delete(board_id);
+		
 		mav.setView(new RedirectView("/commu/qna", true));
 		return mav;
 	}
@@ -426,5 +432,52 @@ public class CommunityController {
 	 * mav.setViewName("/community/tipssearch"); return mav; }
 	 */
 
-
+	/*
+	 * // ck 에디터에서 파일 업로드
+	 * 
+	 * @PostMapping("/admin/goods/ckUpload") public void
+	 * postCKEditorImgUpload(HttpServletRequest req, HttpServletResponse
+	 * res, @RequestParam MultipartFile upload) throws Exception {
+	 * log.info("post CKEditor img upload");
+	 * 
+	 * String uploadPath =
+	 * req.getSession().getServletContext().getRealPath("/").concat("img/");
+	 * System.out.println("uploadPath  : "+uploadPath); // 랜덤 문자 생성 UUID uid =
+	 * UUID.randomUUID();
+	 * 
+	 * OutputStream out = null; PrintWriter printWriter = null;
+	 * 
+	 * // 인코딩 res.setCharacterEncoding("utf-8");
+	 * res.setContentType("application/json");
+	 * 
+	 * try {
+	 * 
+	 * String fileName = upload.getOriginalFilename(); // 파일 이름 가져오기 byte[] bytes =
+	 * upload.getBytes();
+	 * 
+	 * // 업로드 경로 String ckUploadPath = uploadPath + File.separator + "tips" +
+	 * File.separator + uid + "_" +fileName;
+	 * 
+	 * out = new FileOutputStream(new File(ckUploadPath)); out.write(bytes);
+	 * out.flush(); // out에 저장된 데이터를 전송하고 초기화
+	 * 
+	 * //String callback = req.getParameter("CKEditorFuncNum"); printWriter =
+	 * res.getWriter(); String fileUrl = "/ckUpload/" + uid + "_" +fileName; // 작성화면
+	 * // 업로드시 메시지 출력 // JsonObject json = new JsonObject(); //
+	 * json.addProperty("uploaded", 1); // json.addProperty("fileName", fileName);
+	 * // json.addProperty("url", fileUrl); // printWriter.println(json);
+	 * printWriter.println("{\"filename\" : \""
+	 * +fileName+"\", \"uploaded\" : 1, \"url\":\""+fileUrl+"\"}");
+	 * 
+	 * printWriter.flush();
+	 * System.out.println("test url : "+req.getSession().getServletContext().
+	 * getRealPath("/img/tips")); System.out.println("url : "+fileUrl);
+	 * System.out.println("ckUploadPath : "+ckUploadPath); } catch (IOException e) {
+	 * e.printStackTrace(); } finally { try { if(out != null) { out.close(); }
+	 * if(printWriter != null) { printWriter.close(); } } catch(IOException e) {
+	 * e.printStackTrace(); } }
+	 * 
+	 * return; }
+	 * 
+	 */
 }
