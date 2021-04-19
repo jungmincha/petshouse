@@ -92,7 +92,7 @@
 				</div>
 			</div>
 			
-		<!-- 	<div class="form-group row ">
+		 	<div class="form-group row ">
 						
 							<div class="col-sm-8">
 								<div class="custom-file">
@@ -115,7 +115,7 @@
 								</div>
 							</div>
 						</div>
-						 -->
+						
 
 		<div style="margin-top:30px; float: right;">
 			<button type="submit" class="btn btn-warning">질문 등록</button>

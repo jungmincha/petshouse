@@ -139,7 +139,7 @@
 							<button type="button" class="category-btn">All
 								Categories</button>
 							<form action="${pageContext.request.contextPath}/search"
-								class="input-group" method="post">
+								class="input-group" method="get">
 								<input type="text" name="keyword" placeholder="펫츠하우스 통합검색">
 								<button type="submit">
 									<i class="ti-search"></i>

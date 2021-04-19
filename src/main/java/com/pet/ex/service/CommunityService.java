@@ -96,6 +96,10 @@ public interface CommunityService {
 	public void insertTComment(BoardVO boardVO);	
 	public List<BoardVO> getTCommentList(Criteria cri,int board_id);
 
+	public void ImgDelete(int board_id);
+
+
+
 
 	// 노하우 댓글 작성하기
 	//public void writeTComment(BoardVO boardVO);

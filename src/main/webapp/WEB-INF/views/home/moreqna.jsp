@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 
@@ -11,7 +11,7 @@
 <meta name="keywords" content="Fashi, unica, creative, html">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>공지사항</title>
+<title>펫츠하우스</title>
 
 <link
 	href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap"
@@ -44,8 +44,20 @@
 <!-- jquery cdn -->
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<link rel="stylesheet" href="/resources/css/select-style.css"
+	type="text/css">
+<link rel="stylesheet" href="/resources/js/select-index.js"
+	type="text/css">
 
 <style>
+#hashtag {
+	font-size: 13px;
+	padding: 0.01px;
+}
+#hashtag:hover{
+background-color:#dddddd;
+}
+
 a:link {
 	text-decoration: none;
 	color: #333333;
@@ -65,76 +77,55 @@ a:hover {
 	text-decoration: none;
 }
 </style>
+<script>
 
-
+</script>
 </head>
 
 <body style="padding-top: 180px">
 
 	<!-- Header -->
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
-	
-<sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
-	<input type="hidden" id="member_id" name="member_id"
-		value="<sec:authentication property="principal.member_id"/>">
-	<input type="hidden" id="nickname" name="nickname"
-		value="<sec:authentication property="principal.nickname"/>">
-</sec:authorize>
-
 	<div class="container">
-	<div class="row">
-	<h3 style="margin-bottom:20px;">공지 사항</h3>      
+
 		
+		<input type="hidden" name="keyword" value="${param.keyword}">
 		
-  			<!-- 관리자에게만 작성버튼 띄우기 -->
-			<sec:authorize access="hasAnyRole('ROLE_ADMIN')">
-				<div class="col-lg-12">
-					<button class="btn btn-outline-secondary col-sm-1" id="nw"
-						style="margin-left: 65px; float:right;  margin-bottom:20px;"
-						onclick="location.href='${pageContext.request.contextPath}notice/write'">공지 작성</button>
-			 	</div> 
-			</sec:authorize>
+						<div id="table">
 
-				<table class="table">
-					<thead>
-						<tr>
-							<th>번호</th>
-							<th>제목</th>
-							<th>작성자</th>
-							<th>조회수</th>
-							<th>작성일</th>
+							<c:forEach items="${moreqna}" var="mq">
+								<a href="/commu/qna/${mq.board_id}">
+									<form action="${pageContext.request.contextPath}/commu/qnatag"
+										method="post">
+										<div style="font-weight: normal; font-size: 18px;">${mq.title}</div>
+										<ul class="pd-tags">
+											<div>${mq.content}</div>
+											<span>${mq.memberVO.nickname}</span>
+											<span style="font-size: 13px; color: gray;">${mq.pdate}</span>
+											<span style="font-size: 13px; color: gray;"> 조회수
+												${mq.hit}</span>
+											<c:set var="hashtag" value="${mq.hashtag}" />
+											<c:set var="tag" value="${fn:split(hashtag, ' ')}" />
+											<c:forEach var="t" items="${tag}">
+												<span><button id="hashtag" name="keyword"
+														class="btn btn-disabled" style="" value="${t}"
+														onclick="location.href='${pageContext.request.contextPath}/commu/qnatag'">${t}</button></span>
+											</c:forEach>
+
+										</ul>
+									</form>
+								</a>
+								<hr>
+							</c:forEach>
+
+						</div>
 						
-					</thead>
-					<c:forEach items="${notice}" var="nt">
-						<tbody id="noticeList">
-							<tr>
-								<td><span>${nt.rnum}</span></td>
-								<td><a
-									href="${pageContext.request.contextPath}/admin/notice/${nt.board_id}">
-										<div style="font-weight: bold; font-size: 18px;">${nt.title}</div>
-								</a></td>
-								<td><span>${nt.memberVO.nickname}</span></td>
-								<td><span>${nt.hit}</span></td>
-								<td><span style="font-size: 13px; color: gray;">
-								<fmt:formatDate value="${nt.pdate}" pattern="yyyy.MM.dd" /></span></td>
-						
-								
-							</tr>
-						</tbody>
-					</c:forEach>
-				</table>
-
-			</div>
-		</div>
-
-
-		<!-- 페이징 -->
-		<div class="ul">
+						<div class="ul">
 			<ul class="pagination justify-content-center"
 				style="padding-bottom: 50px; padding-top: 50px;">
 				<c:if test="${pageMaker.prev}">
 					<li class="page-item"><a class="page-link"
-						href="notice${pageMaker.makeQuery(pageMaker.startPage - 1) }">
+						href="moreqna${pageMaker.makeQuery(pageMaker.startPage - 1) }">
 							Previous</a></li>
 				</c:if>
 
@@ -142,17 +133,17 @@ a:hover {
 					end="${pageMaker.endPage }" var="idx">
 					<c:out value="${pageMaker.cri.pageNum == idx?'':''}" />
 					<li class="page-item"><a class="page-link"
-						href="notice${pageMaker.makeQuery(idx)}">${idx}</a></li>
+						href="moreqna${pageMaker.makeQuery(idx)}">${idx}</a></li>
 				</c:forEach>
 
 				<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
 					<li class="page-item"><a class="page-link"
-						href="notice${pageMaker.makeQuery(pageMaker.endPage +1) }">Next</a></li>
+						href="moreqna${pageMaker.makeQuery(pageMaker.endPage +1) }">Next</a></li>
 				</c:if>
 			</ul>
 		</div>
 	</div>
-	<!-- container end -->
+
 
 	<!-- Footer -->
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>

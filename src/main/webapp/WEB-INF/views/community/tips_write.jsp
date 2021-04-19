@@ -11,7 +11,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>펫츠하우스</title>
-<script src="/resources/ckeditor/ckeditor.js"></script>
+<script src="//cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
 <link
 	href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap"
 	rel="stylesheet">
@@ -75,12 +75,22 @@
 					placeholder="제목을 입력해주세요 최대(30자)" style="margin-bottom: 20px; width: 628px;">
 			</div>
 
-			<textarea id="editor4" name="content"></textarea>
+			<textarea id="text" name="content"></textarea>
 
-			<script>
-				CKEDITOR.replace('editor4');
-			</script>
 			
+			<!-- CKeditor -->
+					<script type="text/javascript">
+						 var ckeditor_config = {
+							   resize_enaleb : false,
+							   enterMode : CKEDITOR.ENTER_BR,
+							   shiftEnterMode : CKEDITOR.ENTER_P,
+							  
+							   filebrowserUploadUrl :  '<c:url value="${pageContext.request.contextPath}/admin/goods/ckUpload" />'
+								 
+							 }; 
+ 						CKEDITOR.replace('text', ckeditor_config 
+						);
+					</script>
 			<div class="form-group row">
 
 				<div class="col">
