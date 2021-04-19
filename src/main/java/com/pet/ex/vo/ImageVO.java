@@ -20,4 +20,7 @@ public class ImageVO {
 	// 외래키
 	private BoardVO boardVO;
 	private GoodsVO goodsVO;
+	
+	// 순서대로 정렬
+	private int rnum;
 }

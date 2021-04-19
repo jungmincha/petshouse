@@ -4,149 +4,149 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pet.ex.mapper.StoreMapper">
 
-<resultMap id="boardtypevo" type="BoardtypeVO">
-<result property="boardtype_id" column="boardtype_id"/>
-<result property="boardtypename" column="boardtypename"/>
-</resultMap>
-
-<resultMap id="boardvo" type="BoardVO">
-<result property="board_id" column="board_id"/>
-<result property="title" column="title"/>
-<result property="content" column="content"/>
-<result property="pdate" column="pdate"/>
-<result property="plike" column="plike"/>
-<result property="hit" column="hit"/>
-<result property="hashtag" column="hashtag"/>
-<result property="pgroup" column="pgroup"/>
-<result property="pstep" column="pstep"/>
-<result property="pindent" column="pindent"/>
-<result property="ratescore" column="ratescore"/>
-<result property="avgscore" column="avgscore"/>
-<result property="count" column="count"/>
-<result property="rnum" column="rnum"/>
-<collection property="memberVO" resultMap="membervo"/>
-<collection property="boardtypeVO" resultMap="boardtypevo"/>
-<collection property="goodsVO" resultMap="goodsvo"/>
-<collection property="categoryVO" resultMap="categoryvo"/>
-</resultMap>
-
-<resultMap id="cartvo" type="CartVO">
-<result property="cart_id" column="cart_id"/>
-<result property="orderstate" column="orderstate"/>
-<result property="amount" column="amount"/>
-<collection property="memberVO" resultMap="membervo"/>
-<collection property="goodsVO" resultMap="goodsvo"/>
-<collection property="payVO" resultMap="payvo"/>
-</resultMap>
-
-<resultMap id="categoryvo" type="CategoryVO">
-<result property="category_id" column="category_id"/>
-<result property="categoryname" column="categoryname"/>
-<result property="code" column="code"/>
-<result property="sortnumber" column="sortnumber"/>
-</resultMap>
-
-<resultMap id="followvo" type="FollowVO">
-<result property="follow_id" column="follow_id"/>
-<result property="follower_id" column="follower_id"/>
-<collection property="memberVO" resultMap="membervo"/>
-</resultMap>
-
-<resultMap id="goodsvo" type="GoodsVO">
-<result property="goods_id" column="goods_id"/>
-<result property="goodsname" column="goodsname"/>
-<result property="price" column="price"/>
-<result property="description" column="description"/>
-<result property="psize" column="psize"/>
-<result property="pcolor" column="pcolor"/>
-<result property="thumbnail" column="thumbnail"/>
-<result property="image3d" column="image3d"/>
-<result property="count" column="count"/>
-<collection property="stockVO" resultMap="stockvo"/>
-<collection property="categoryVO" resultMap="categoryvo"/>
-</resultMap>
-
-<resultMap type="ImageVO" id="imagevo">
-	<result column="img_id" property="img_id" />
-	<result column="imgname" property="imgname" />
-	<collection property="boardVO" resultMap="boardvo" />
-	<collection property="goodsVO" resultMap="goodsvo" />
-</resultMap>
-
-<resultMap id="logintypevo" type="LogintypeVO">
-<result property="logintype_id" column="logintype_id"/>
-<result property="logintypename" column="logintypename"/>
-</resultMap>
-
-<resultMap id="membervo" type="MemberVO">
-<result property="member_id" column="member_id"/>
-<result property="password" column="password"/>
-<result property="name" column="name"/>
-<result property="nickname" column="nickname"/>
-<result property="tel" column="tel"/>
-<result property="address" column="address"/>
-<result property="trycount" column="trycount"/>
-<result column="thumbnail" property="thumbnail" />
-<result property="enable" column="enable"/>
-<result property="certify" column="certify"/>
-<result column="pdate" property="pdate" />
-<collection property="roleVO" resultMap="rolevo"/>
-<collection property="logintypeVO" resultMap="logintypevo"/>
-<collection property="categoryVO" resultMap="categoryvo"/>
-</resultMap>
-
-<resultMap id="paymentvo" type="PaymentVO">
-<result property="payment_id" column="payment_id"/>
-<result property="paymentname" column="paymentname"/>
-</resultMap>
-
-<resultMap id="paystatevo" type="PaystateVO">
-<result property="paystate_id" column="paystate_id"/>
-<result property="paystatename" column="paystatename"/>
-</resultMap>
-
-<resultMap id="payvo" type="PayVO">
-<result property="pay_id" column="pay_id"/>
-<result property="payprice" column="paypice"/>
-<result property="usepoint" column="usepoint"/>
-<result property="earningpoint" column="earningpoint"/>
-<result property="paydate" column="paydate"/>
-<result property="deliveryaddress" column="deliveryaddress"/>
-<result property="deliveryname" column="deliveryname"/>
-<result property="deliverytel" column="deliverytel"/>
-<collection property="PaymentVO" resultMap="paymentvo"/>
-<collection property="PaystateVO" resultMap="paystatevo"/>
-</resultMap>
-
-<resultMap id="pointtypevo" type="PointtypeVO">
-<result property="pointtype_id" column="pointtype_id"/>
-<result property="pointtypename" column="pointtypename"/>
-</resultMap>
-
-<resultMap id="pointvo" type="PointVO">
-<result property="point_id" column="point_id"/>
-<result property="pscore" column="pscore"/>
-<result property="point_id" column="pdate_id"/>
-<collection property="PointtypeVO" resultMap="pointtypevo"/>
-<collection property="MemberVO" resultMap="membervo"/>
-</resultMap>
-
-<resultMap id="rolevo" type="RoleVO">
-<result property="role_id" column="role_id"/>
-<result property="rolename" column="rolename"/>
-</resultMap>
-
-<resultMap id="stockvo" type="StockVO">
-<result property="stock_id" column="stock_id"/>
-<result property="stockname" column="stockname"/>
-</resultMap>
-
-<resultMap id="tagvo" type="TagVO">
-<result property="tag_id" column="tag_id"/>
-<result property="goodsname" column="goodsname"/>
-<result property="goodspath" column="goodspath"/>
-<collection property="boardVO" resultMap="boardvo"/>
-</resultMap>
+	<resultMap id="boardtypevo" type="BoardtypeVO">
+		<result property="boardtype_id" column="boardtype_id"/>
+		<result property="boardtypename" column="boardtypename"/>
+	</resultMap>
+	
+	<resultMap id="boardvo" type="BoardVO">
+		<result property="board_id" column="board_id"/>
+		<result property="title" column="title"/>
+		<result property="content" column="content"/>
+		<result property="pdate" column="pdate"/>
+		<result property="plike" column="plike"/>
+		<result property="hit" column="hit"/>
+		<result property="hashtag" column="hashtag"/>
+		<result property="pgroup" column="pgroup"/>
+		<result property="pstep" column="pstep"/>
+		<result property="pindent" column="pindent"/>
+		<result property="ratescore" column="ratescore"/>
+		<result property="avgscore" column="avgscore"/>
+		<result property="count" column="count"/>
+		<result property="rnum" column="rnum"/>
+		<collection property="memberVO" resultMap="membervo"/>
+		<collection property="boardtypeVO" resultMap="boardtypevo"/>
+		<collection property="goodsVO" resultMap="goodsvo"/>
+		<collection property="categoryVO" resultMap="categoryvo"/>
+	</resultMap>
+	
+	<resultMap id="cartvo" type="CartVO">
+		<result property="cart_id" column="cart_id"/>
+		<result property="orderstate" column="orderstate"/>
+		<result property="amount" column="amount"/>
+		<collection property="memberVO" resultMap="membervo"/>
+		<collection property="goodsVO" resultMap="goodsvo"/>
+		<collection property="payVO" resultMap="payvo"/>
+	</resultMap>
+	
+	<resultMap id="categoryvo" type="CategoryVO">
+		<result property="category_id" column="category_id"/>
+		<result property="categoryname" column="categoryname"/>
+		<result property="code" column="code"/>
+		<result property="sortnumber" column="sortnumber"/>
+	</resultMap>
+	
+	<resultMap id="followvo" type="FollowVO">
+		<result property="follow_id" column="follow_id"/>
+		<result property="follower_id" column="follower_id"/>
+		<collection property="memberVO" resultMap="membervo"/>
+	</resultMap>
+	
+	<resultMap id="goodsvo" type="GoodsVO">
+		<result property="goods_id" column="goods_id"/>
+		<result property="goodsname" column="goodsname"/>
+		<result property="price" column="price"/>
+		<result property="description" column="description"/>
+		<result property="psize" column="psize"/>
+		<result property="pcolor" column="pcolor"/>
+		<result property="thumbnail" column="thumbnail"/>
+		<result property="image3d" column="image3d"/>
+		<result property="count" column="count"/>
+		<collection property="stockVO" resultMap="stockvo"/>
+		<collection property="categoryVO" resultMap="categoryvo"/>
+	</resultMap>
+	
+	<resultMap type="ImageVO" id="imagevo">
+		<result column="img_id" property="img_id" />
+		<result column="imgname" property="imgname" />
+		<collection property="boardVO" resultMap="boardvo" />
+		<collection property="goodsVO" resultMap="goodsvo" />
+	</resultMap>
+	
+	<resultMap id="logintypevo" type="LogintypeVO">
+		<result property="logintype_id" column="logintype_id"/>
+		<result property="logintypename" column="logintypename"/>
+	</resultMap>
+	
+	<resultMap id="membervo" type="MemberVO">
+		<result property="member_id" column="member_id"/>
+		<result property="password" column="password"/>
+		<result property="name" column="name"/>
+		<result property="nickname" column="nickname"/>
+		<result property="tel" column="tel"/>
+		<result property="address" column="address"/>
+		<result property="trycount" column="trycount"/>
+		<result column="thumbnail" property="thumbnail" />
+		<result property="enable" column="enable"/>
+		<result property="certify" column="certify"/>
+		<result column="pdate" property="pdate" />
+		<collection property="roleVO" resultMap="rolevo"/>
+		<collection property="logintypeVO" resultMap="logintypevo"/>
+		<collection property="categoryVO" resultMap="categoryvo"/>
+	</resultMap>
+	
+	<resultMap id="paymentvo" type="PaymentVO">
+		<result property="payment_id" column="payment_id"/>
+		<result property="paymentname" column="paymentname"/>
+	</resultMap>
+	
+	<resultMap id="paystatevo" type="PaystateVO">
+		<result property="paystate_id" column="paystate_id"/>
+		<result property="paystatename" column="paystatename"/>
+	</resultMap>
+	
+	<resultMap id="payvo" type="PayVO">
+		<result property="pay_id" column="pay_id"/>
+		<result property="payprice" column="paypice"/>
+		<result property="usepoint" column="usepoint"/>
+		<result property="earningpoint" column="earningpoint"/>
+		<result property="paydate" column="paydate"/>
+		<result property="deliveryaddress" column="deliveryaddress"/>
+		<result property="deliveryname" column="deliveryname"/>
+		<result property="deliverytel" column="deliverytel"/>
+		<collection property="PaymentVO" resultMap="paymentvo"/>
+		<collection property="PaystateVO" resultMap="paystatevo"/>
+	</resultMap>
+	
+	<resultMap id="pointtypevo" type="PointtypeVO">
+		<result property="pointtype_id" column="pointtype_id"/>
+		<result property="pointtypename" column="pointtypename"/>
+	</resultMap>
+	
+	<resultMap id="pointvo" type="PointVO">
+		<result property="point_id" column="point_id"/>
+		<result property="pscore" column="pscore"/>
+		<result property="point_id" column="pdate_id"/>
+		<collection property="PointtypeVO" resultMap="pointtypevo"/>
+		<collection property="MemberVO" resultMap="membervo"/>
+	</resultMap>
+	
+	<resultMap id="rolevo" type="RoleVO">
+		<result property="role_id" column="role_id"/>
+		<result property="rolename" column="rolename"/>
+	</resultMap>
+	
+	<resultMap id="stockvo" type="StockVO">
+		<result property="stock_id" column="stock_id"/>
+		<result property="stockname" column="stockname"/>
+	</resultMap>
+	
+	<resultMap id="tagvo" type="TagVO">
+		<result property="tag_id" column="tag_id"/>
+		<result property="goodsname" column="goodsname"/>
+		<result property="goodspath" column="goodspath"/>
+		<collection property="boardVO" resultMap="boardvo"/>
+	</resultMap>
 	
 	<!-- 상품에 대한 별점 평균/ 페이징 처리 -->
 	<select id="getStorerate" resultMap="boardvo">
@@ -214,69 +214,13 @@
 	<!-- sns 조회 -->
 	<select id="getSns" resultMap="imagevo">
 		<![CDATA[
-	        SELECT * FROM (
-			     SELECT ROWNUM AS RNUM, A.* FROM (
+	       select * from(
+			    select rownum as rnum, A.*from (
       		      select i.imgname, m.nickname, m.thumbnail, b.board_id from image i, board b, member m where m.member_id = b.member_id 
 				 	and i.board_id=b.board_id and b.boardtype_id=2 and pstep=0 and img_id in( 
  					select  min(img_id) as img_id from image where board_id is not null group by board_id) order by b.pdate desc
- 				)A WHERE ROWNUM <= 8
-			) WHERE RNUM > 0
+ 				 ) A where rownum <= 8
+			)where rnum > 0
 	   ]]>
 	</select>
-	
-	<!-- 회원 정보 조회 -->
-	<select id="getMemberinfo" resultType="MemberVO">
-		<![CDATA[
-	         select * from member where member_id='doriya0830@gmail.com'
-	   ]]>
-	</select>
-	
-	<!-- 팔로워 수 조회 -->
-	<select id="getFollowertotal" resultType="int">
-		<![CDATA[
-	        select count(*) from follow where member_id=#{memberVO.member_id}
-	   ]]>
-	</select>
-	
-	<!-- 팔로잉 수 조회 -->
-	<select id="getFolloingtotal" resultType="int">
-		<![CDATA[
-	       select count(*) from follow where follower_id=#{memberVO.member_id}
-	   ]]>
-	</select>
-	 
-	<!-- 팔로우 유무 체크 -->
-	<select id="isFollow" resultType="int">
-		<![CDATA[
-	        select count(*) from follow where member_id=#{memberVO.member_id} and follower_id=#{follower_id}
-	   ]]>
-	</select> 
-	 
-	<!-- 팔로워 리스트 조회 -->
-	<select id="getFollowerlist" resultMap="followvo">
-		<![CDATA[
-	        select follower_id from follow where member_id=#{memberVO.member_id}
-	   ]]>
-	</select> 
-	
-	<!-- 팔로잉 리스트 조회 -->
-	<select id="getFollowinglist" resultMap="followvo">
-		<![CDATA[
-	        select member_id from follow where follower_id=#{memberVO.member_id}
-	   ]]>
-	</select>  
-	 
-	<!-- 팔로우 -->
-	<insert id="follow">
-		<![CDATA[
-	        insert into follow values(follow_seq.nextval, #{memberVO.member_id}, #{follower_id})
-	   ]]>
-	</insert>
-	 
-	<!-- 언팔로우 -->
-	<select id="unfollow">
-		<![CDATA[
-	        delete from follow where member_id=#{memberVO.member_id} and follower_id=#{follower_id}
-	   ]]>
-	</select>  
 </mapper>

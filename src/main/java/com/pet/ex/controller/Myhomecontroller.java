@@ -2,11 +2,15 @@ package com.pet.ex.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,8 +22,9 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.pet.ex.page.Criteria;
 import com.pet.ex.service.MyhomeService;
-
+import com.pet.ex.vo.FollowVO;
 import com.pet.ex.vo.MemberVO;
 
 import lombok.extern.slf4j.Slf4j;
@@ -31,20 +36,96 @@ public class Myhomecontroller {
 
 	@Autowired
 	private MyhomeService service;
-
+	
+	//팔로우 기능
 	@GetMapping("/{nickname}")
-	public ModelAndView myPageHome(@PathVariable("nickname") String nickname, MemberVO memberVO, ModelAndView mav)
-			throws Exception {
-
-		memberVO = service.getNicknameInfo(nickname);
-		log.info("nickname");
-
-		mav.addObject("user", service.getUser(memberVO.getNickname()));
-
+	public ModelAndView myPageHome(Criteria cri, MemberVO memberVO, FollowVO followVO, Authentication authentication, ModelAndView mav) throws Exception {
+		log.info("myPageHome");
+		//팔로우하려는 회원 계정
+		memberVO = service.getMemberInfo(memberVO.getNickname());
+		followVO.setMemberVO(memberVO);
+ 
+		//회원 본인 계정
+		String follower_id = authentication.getPrincipal().toString();	
+		followVO.setFollower_id(service.getFollowernick(follower_id));
+		
+		//팔로워&팔로잉 수  
+		mav.addObject("follower", service.getFollowertotal(followVO.getMemberVO().getMember_id()));
+		mav.addObject("following", service.getFolloingtotal(followVO.getMemberVO().getNickname()));
+		//팔로우 유무 체크
+		mav.addObject("followcheck", service.isFollow(followVO));
+		//팔로워&팔로잉 리스트 
+		mav.addObject("followerlist", service.getFollowerlist(followVO));
+		mav.addObject("followinglist", service.getFollowinglist(followVO));
+			
+		mav.addObject("member", service.getMemberInfo(memberVO.getNickname()));
+		mav.addObject("sns", service.getSnslist(memberVO.getMember_id()));
+		mav.addObject("snscount", service.getSnscount(memberVO.getMember_id()));
+		mav.addObject("knowhow", service.getKnowhowlist(memberVO.getMember_id()));
+		mav.addObject("qna", service.getQnalist(memberVO.getMember_id()));
+		mav.addObject("review", service.getReviewlist(memberVO, cri));
+		
 		mav.setViewName("myPage/Home");
 
 		return mav;
 	}
+	
+	//팔로우
+	@PostMapping("/follow/{nickname}")
+	public Map<String, Object> follow(MemberVO memberVO, FollowVO followVO, Authentication authentication) {
+		log.info("follow");
+		memberVO = service.getMemberInfo(memberVO.getNickname());
+		followVO.setMemberVO(memberVO);
+		
+		//System.out.println(memberVO.getNickname());
+		String follower_id = authentication.getPrincipal().toString();	
+		followVO.setFollower_id(service.getFollowernick(follower_id));
+		System.out.println(service.getFollowernick(follower_id));
+
+		Map<String, Object> map = new HashMap<>();
+		try {	
+			service.follow(followVO);
+			map.put("SUCCESS", HttpStatus.OK);
+			map.put("follower", service.getFollowertotal(followVO.getMemberVO().getMember_id()));
+		
+			List<FollowVO> followerlist = service.getFollowerlist(followVO);
+			map.put("followerlist", followerlist);
+				
+		} catch (Exception e) {
+			e.printStackTrace();
+			map.put("SUCCESS", HttpStatus.BAD_REQUEST);
+		}
+		return map;
+	}
+		
+	//언팔로우
+	@PostMapping("/unfollow/{nickname}")
+	public Map<String, Object> unfollow(MemberVO memberVO, FollowVO followVO, Authentication authentication) {
+		log.info("unfollow");
+		memberVO = service.getMemberInfo(memberVO.getNickname());
+		followVO.setMemberVO(memberVO);
+		System.out.println(followVO.getMemberVO().getMember_id()); 
+		
+		//System.out.println(memberVO.getNickname());
+		String follower_id = authentication.getPrincipal().toString();	
+		followVO.setFollower_id(service.getFollowernick(follower_id));
+		System.out.println(service.getFollowernick(follower_id));
+			
+		Map<String, Object> map = new HashMap<>();	
+		try {	
+			service.unfollow(followVO);
+			map.put("SUCCESS", HttpStatus.OK);
+			map.put("follower", service.getFollowertotal(followVO.getMemberVO().getMember_id()));
+				
+			//List<FollowVO> followerlist = service.getFollowerlist(followVO);
+			map.put("followerlist", service.getFollowerlist(followVO));
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			map.put("SUCCESS", HttpStatus.BAD_REQUEST);
+		}
+		return map;
+	}	
 
 	// 프로필사진수정하기
 	@GetMapping("/view")
@@ -82,21 +163,4 @@ public class Myhomecontroller {
 
 		return mav;
 	}
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	// 연희
-
 }
