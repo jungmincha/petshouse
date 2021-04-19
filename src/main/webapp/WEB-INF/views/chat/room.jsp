@@ -9,7 +9,7 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
-<title>register</title>
+<title>채팅목록</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -21,17 +21,17 @@
 		.container{
 			width: 500px;
 			margin: 0 auto;
-			padding: 25px
+			padding: 5px;
 		}
 		.container h1{
 			text-align: left;
 			padding: 5px 5px 5px 15px;
-			color: #FFBB00;
-			border-left: 3px solid #FFBB00;
+			color: #E6A55A;
+			border-left: 3px solid #E6A55A;
 			margin-bottom: 20px;
 		}
 		.roomContainer{
-			background-color: #F6F6F6;
+			background-color: #E6A55A; 
 			width: 500px;
 			height: 500px;
 			overflow: auto;
@@ -40,15 +40,15 @@
 			border: none;
 		}
 		.roomList th{
-			border: 1px solid #FFBB00;
+			border: 1px solid #E6A55A;
 			background-color: #fff;
-			color: #FFBB00;
+			color: #E6A55A;
 		}
 		.roomList td{
-			border: 1px solid #FFBB00;
+			border: 1px solid #E6A55A;
 			background-color: #fff;
 			text-align: left;
-			color: #FFBB00;
+			color: #E6A55A;
 		}
 		.roomList .num{
 			width: 75px;
@@ -62,7 +62,7 @@
 			text-align: center;
 		}
 		button{
-			background-color: #FFBB00;
+			background-color: #E6A55A;
 			font-size: 14px;
 			color: #000;
 			border: 1px solid #000;
@@ -162,7 +162,7 @@
  
 
 </head>
-<body style="padding-top: 180px;">
+<body style="padding-top: 50px;">
 
 
 

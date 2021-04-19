@@ -11,7 +11,7 @@
 <meta name="keywords" content="Fashi, unica, creative, html">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>펫츠하우스</title>
+<title>SNS</title>
 
 <link
 	href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap"
@@ -67,18 +67,47 @@
 .i{
 	box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.4);
 	 border-radius: 10px;
-	 
+	
 }
+.count{
+	position: absolute;
+    bottom: 80px;
+    right: 30px;
+    font-size: 13px;
+    color: #fff;
+    text-shadow: 0 0 4px rgb(0 0 0 / 50%);
+}
+
+
 </style>
+<script>
+	//로그인 체크
+	$(document).ready(function() {
+		var member_id = $("#member_id").val();
+
+		function checkLogin() {
+			if (member_id == undefined) {
+				alert("로그인 후 글을 작성해주세요.");
+				location.href = '/login/login';
+			}
+		}
+		$('#login').click(function() {
+			checkLogin();
+		});
+		
+	});
+</script>
+
 </head>
 <body style="padding-top: 170px">
 
+	<!-- Header -->
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
 
 	<!-- Category Section Begin -->
 	<div class="container">
 		<h2>SNS</h2>
-		<a class="btn btn-warning float-right" href="/commu/sns/write_view">게시글등록</a>
+		<a class="btn btn-outline-secondary col-sm-2 float-right"  id = "login" onclick="location.href='${pageContext.request.contextPath}sns/write_view'">게시글등록</a>
 
 
 		<div class="row ">
@@ -110,42 +139,39 @@
 		<!-- Category Section End -->
 
 
+		<sec:authorize access="hasAnyRole('ROLE_USER','ROLE_ADMIN')">
+		<input type="hidden" id="member_id"
+			value="<sec:authentication property="principal.member_id"/>">
+	</sec:authorize>
+	
  
-			<div id="snslist" class = row text-center"> 
+			<div id="snslist" class = "row text-center"> 
 			<c:forEach items="${list}" var="sns">
 
-				<div class="card-feed  col-12 col-md-4 col-lg-3" >
+				<div class=" col-12 col-md-4 col-lg-3" >
 
 					<div class="user-Info row" style="margin: 20px auto 0px 5px">
 						<div class="profile_box ">
-							<a href="/myPage/${sns.boardVO.memberVO.nickname}" style="color:black">
+							
 							<img
 								src="/resources/img/member/profile/${sns.boardVO.memberVO.thumbnail}"
 								name="profile" alt="" class="profile" />
 						</div>
-						<p>${sns.boardVO.memberVO.nickname }</p></a>
+						<div style="padding:7px"> ${sns.boardVO.memberVO.nickname } </div>
+					<a href="/myPage/${sns.boardVO.memberVO.nickname}" style="padding:7px;"> 팔로우</a>
 						 
-						<p>
-							<small>&nbsp&nbsp//&nbsp상태메시지</small>
-						</p>
+		
 					</div>
-					<div class="card">
+					 
 					<div class="shot">
 						<a href="/commu/sns/${sns.boardVO.board_id}"> <img
 							src="/resources/img/member/sns/${sns.imgname }" alt=""
-							style="height: 300px;" class="card-img-top i" /></a></div>
+							style="height: 300px;" class="card-img-top i" /><span class="count">조회수 ${sns.boardVO.hit}</span></a></div>
 						<div class="card-body">
-							<div class="w3-border w3-center w3-padding">
-							  <button class="w3-button w3-black w3-round" id="rec_update">
-									<i class="fa fa-heart" style="font-size: 16px; color: red"></i>
-									&nbsp;<span class="rec_count"></span>
-								</button>
-							</div>
-							
-							
-							<p class="card-text">${sns.boardVO.content}</p>
+							 
+							좋아요//댓글수
 						</div>
-					</div>
+					 
 				</div>
 			</c:forEach>
 		</div>
@@ -179,18 +205,16 @@
     	        	 	 +"<div class='user-Info row' style='margin: 20px auto 0px 5px'>"
     	        	 	 +"<div class='profile_box'>"
     	        	 	 +"<img src='/resources/img/member/profile/"+sns[i].boardVO.memberVO.thumbnail+"'name='profile' alt='' class='profile' /></div>"
-    	        	 	 +"<p>"+sns[i].boardVO.memberVO.nickname +"</p>"
-    	        	 	 +"&nbsp&nbsp<a href='#'>팔로우</a>"
-    	        	 	 +"<p><small>상태메시지</small></p></div>"
+    	        	 	 +"<p style='padding:5px;'>"+sns[i].boardVO.memberVO.nickname +"</p>"
+    	        	 	 +"<a href='/myPage/" + sns[i].boardVO.memberVO.nickname + "' style='padding:6px'>팔로우</a>"
+    	        	 	 +"</div>"
     	        	 	 +"<div class='card'>"
     	        		+"<a href='/commu/sns/"+sns[i].boardVO.board_id+"'> "
-    	        		+"<img src='/resources/img/member/sns/"+sns[i].imgname +"' alt='' style='height: 300px;' class='card-img-top i' /></a>"
-    	        		+"<div class='card-body'>"
-    	        		+"<div class='w3-border w3-center w3-padding'>"
-    	        	 	+"<button class='w3-button w3-black w3-round' id='rec_update'>"
-    	        	 	+"<i class='fa fa-heart' style='font-size: 16px; color: red'></i>"
-    	        	  	+"&nbsp;<span class='rec_count'></span></button></div>"
-    	        	  	+"<p class='card-text'>"+sns[i].boardVO.content+"</p>"
+    	        		+"<img src='/resources/img/member/sns/"+sns[i].imgname +"' alt='' style='height: 300px;' class='card-img-top i' />"
+    	        		
+    	        		+"<span class='count'>조회수 "+ sns[i].boardVO.hit + "</span></a></div>"
+    	        		+"<div class='card-body'>좋아요//댓글수"
+    	        		 
     	        	  	+"</div></div></div>"
     	           }
     	        

@@ -53,19 +53,51 @@
 	</select>
 
 
+	<!-- sns 수정 -->
+	<select id="modifySns">
+		<![CDATA[
+			update board set content=#{content}, hashtag=#{hashtag}, category_id=#{categoryVO.category_id} where board_id = #{board_id}
+		]]>
+	</select>
+	
+	<!-- SNS 게시글 삭제(이미지,게시글) -->
+	<delete id="deleteImg" parameterType="imagevo">
+	   <![CDATA[
+	     	delete from image where board_id = #{board_id} 
+	   ]]>
+	</delete>
+
+	<delete id="deleteBoard" parameterType="boardvo">
+	   <![CDATA[
+	     	delete from board where board_id = #{board_id}
+	   ]]>
+	</delete>
+
 	<!-- sns리스트 - 한개의 이미지만 가져와서 리스트로 뿌림 -->
 	<select id="getsnsList" resultMap="imagevo">
 
 		 <![CDATA[ 
 		 		SELECT * FROM (
 			     SELECT ROWNUM AS RNUM, A.* FROM (
-      		      select i.imgname, m.nickname,  m.thumbnail, b.board_id, b.content from image i, board b, member m where m.member_id = b.member_id 
+      		      select i.imgname, m.nickname,  m.thumbnail, b.hit, b.board_id, b.content from image i, board b, member m where m.member_id = b.member_id 
 				 	and i.board_id=b.board_id and b.boardtype_id=2 and pstep=0 and img_id in( 
  					select  min(img_id) as img_id from image where board_id is not null group by board_id) order by b.pdate desc
  				)A WHERE ROWNUM <= #{pageNum} * #{amount}
 			) WHERE RNUM > (#{pageNum}-1) * #{amount}  
 		]]>
 	</select>
+	
+	
+	<!--   <select id="getUserboard" resultMap="imagevo">
+
+		 <![CDATA[ 
+		 		select * from (select rownum as rnum, A.* from(select i.imgname, m.nickname, b.board_id from image i, board b, member m 
+ 				where m.member_id = b.member_id and m.nickname = #{boardVO.memberVO.nickname} and i.board_id=b.board_id and b.boardtype_id=2 and pstep=0 and img_id in( 
+ 					select  min(img_id) as img_id from image where board_id is not null group by board_id) order by b.pdate desc) A
+                   ) Where rnum <=4
+		]]>
+	</select>  -->
+	 
 	
 	<!-- sns 총갯수 -->
 	<select id="getSnstotal" resultType="int">
@@ -79,7 +111,7 @@
    <![CDATA[
 	SELECT * FROM (
 			     SELECT ROWNUM AS RNUM, A.* FROM (
-			       select b.content, m.member_id, m.nickname,m.thumbnail, b.pdate from board b, member m where b.member_id=m.member_id and boardtype_id= 2 and pgroup = 
+			       select b.board_id, b.content, m.member_id, m.nickname,m.thumbnail, b.pdate from board b, member m where b.member_id=m.member_id and boardtype_id= 2 and pgroup = 
 			       (select pgroup from board where board_id=#{board_id}) and pstep=1 order by b.pdate desc
 			    ) A WHERE ROWNUM <= #{cri.pageNum} * 5
 			) WHERE RNUM > (#{cri.pageNum} - 1) * 5  
@@ -95,7 +127,7 @@
 	<!-- 댓글 작성 후 ajax로 출력 -->
 	<select id="getComment" resultMap="boardvo">
    <![CDATA[
-	 select nickname, pgroup, content, pdate, thumbnail from (select m.nickname, b.pgroup, b.content, b.pdate, m.thumbnail from board b, member m where b.member_id=m.member_id and boardtype_id= 2 and pgroup = (select pgroup from board where board_id=#{board_id}) and pstep=1 order by b.pdate desc) where rownum=1
+	 select board_id, nickname, pgroup, content, pdate, thumbnail from (select b.board_id, m.nickname, b.pgroup, b.content, b.pdate, m.thumbnail from board b, member m where b.member_id=m.member_id and boardtype_id= 2 and pgroup = (select pgroup from board where board_id=#{board_id}) and pstep=1 order by b.pdate desc) where rownum=1
    ]]>
 	</select>
 
@@ -111,6 +143,13 @@
 		values (board_seq.nextval,#{content}, #{pgroup}, 1, #{memberVO.member_id}, 2)
 	]]>
 	</insert>
+	
+	<!-- 댓글삭제 -->
+	<select id="deleteComment">
+   <![CDATA[
+    delete from board where board_id = #{board_id}
+   ]]>
+	</select>
 
 
 

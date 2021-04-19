@@ -9,7 +9,7 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
-<title>register</title>
+<title>${username}님의 채팅방</title>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <script
@@ -31,6 +31,17 @@
 	.chating .others{
 		text-align: left;
 	}
+	
+	#chating {
+		height: 500px;
+		overflow: scroll;
+		background-color: 	#E6A55A	;
+	}
+	
+	.inputTable{
+	margin : 5px;
+	}	 
+	
 </style>
  
 <script type="text/javascript">
@@ -102,17 +113,17 @@
 	<!-- Page Content -->
  
 	<div id="container" class="container">
-		<h3>${username}의 채팅방</h3>
+		<h5>${username}님의 채팅방</h5>
 		<input type="hidden" id="sessionId" value="">
 		<input type="hidden" id="username" value="${username}">
 		
-		<div id="chating" class="chating" style="height:500px;   ">
+		<div id="chating" class="chating col-md-12">
 		</div>
 		<div id="yourMsg">
-			<table class="inputTable">
+			<table class="inputTable col-md-12">
 				<tr>
 					<th>메시지</th>
-					<th><input id="chatting" placeholder="보내실 메시지를 입력하세요."></th> 
+					<th><input id="chatting" style="width:250px;" placeholder="보내실 메시지를 입력하세요."></th> 
 					<th><button  onclick="send()" id="sendBtn">보내기</button></th>
 				</tr>
 			</table>

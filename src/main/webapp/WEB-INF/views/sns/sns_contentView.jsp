@@ -56,121 +56,109 @@ p {
 }
 
 body {
-  font-family: Arial;
-  margin: 0;
-  
+	font-family: Arial;
+	margin: 0;
 }
 
-.sidebar-section{
-	position : relative;
-	min-height : 100%;
-	padding-left:40px;
-	margin-left:20px;
-	border-left : 1px solid #ededed;
- 	 
- 
+.sidebar-section {
+	position: relative;
+	min-height: 100%;
+	padding-left: 40px;
+	margin-left: 20px;
+	border-left: 1px solid #ededed;
 }
+
 * {
-  box-sizing: border-box;
+	box-sizing: border-box;
 }
-
- 
 
 /* Position the image container (needed to position the left and right arrows) */
 .container {
-  position: relative;
+	position: relative;
 }
 
 /* Hide the images by default */
 .mySlides {
-  display: none;
-  width:730px;
-  margin : 10px auto;
+	display: none;
+	width: 780px;
+	margin: 10px auto;
 }
 
 /* Add a pointer when hovering over the thumbnail images */
 .cursor {
-  cursor: pointer;
+	cursor: pointer;
 }
 
 /* Next & previous buttons */
-.prev,
-.next {
-  cursor: pointer;
-  position: absolute;
-  top: 40%;
-  width: auto;
-  padding: 40px;
-  margin-top: -50px;
-  color: white;
-  font-weight: bold;
-  font-size: 20px;
-  border-radius: 0 3px 3px 0;
-  user-select: none;
-  -webkit-user-select: none;
+.prev, .next {
+	cursor: pointer;
+	position: absolute;
+	top: 40%;
+	width: auto;
+	padding: 40px;
+	margin-top: -50px;
+	color: white;
+	font-weight: bold;
+	font-size: 20px;
+	border-radius: 0 3px 3px 0;
+	user-select: none;
+	-webkit-user-select: none;
 }
 
 /* Position the "next button" to the right */
 .next {
-  right: 0;
-  border-radius: 3px 0 0 3px;
+	right: 0;
+	border-radius: 3px 0 0 3px;
 }
 
 /* On hover, add a black background color with a little bit see-through */
-.prev:hover,
-.next:hover {
-  background-color: rgba(0, 0, 0, 0.8);
+.prev:hover, .next:hover {
+	background-color: rgba(0, 0, 0, 0.8);
 }
 
-
-
-
 .row:after {
-  content: "";
-  display: table;
-  clear: both;
+	content: "";
+	display: table;
+	clear: both;
 }
 
 /* Six columns side by side */
 .column {
-  float: left;
-  width: 16.66%;
+	float: left;
+	width: 16.66%;
 }
 
 /* Add a transparency effect for thumnbail images */
 .demo {
-  opacity: 0.6;
+	opacity: 0.6;
 }
 
-.active,
-.demo:hover {
-  opacity: 1;
+.active, .demo:hover {
+	opacity: 1;
 }
 
 /* The dots/bullets/indicators */
 .dot {
-  cursor: pointer;
-  height: 15px;
-  width: 15px;
-  margin: 0 2px;
-  background-color: #bbb;
-  border-radius: 50%;
-  display: inline-block;
-  transition: background-color 0.6s ease;
+	cursor: pointer;
+	height: 15px;
+	width: 15px;
+	margin: 0 2px;
+	background-color: #bbb;
+	border-radius: 50%;
+	display: inline-block;
+	transition: background-color 0.6s ease;
 }
 
 .active, .dot:hover {
-  background-color: #717171;
+	background-color: #717171;
 }
-
- 
 
 .profile_box {
 	width: 30px;
 	height: 30px;
 	border-radius: 70%;
 	overflow: hidden;
-	margin : 5px;
+	margin: 5px;
 }
 
 .profile_box2 {
@@ -178,7 +166,7 @@ body {
 	height: 80px;
 	border-radius: 70%;
 	overflow: hidden;
-	margin : 5px;
+	margin: 5px;
 }
 
 .profile {
@@ -186,10 +174,6 @@ body {
 	height: 100%;
 	object-fit: cover;
 }
-
- 
-
- 
 </style>
 <script>
 	//로그인 체크
@@ -207,164 +191,197 @@ body {
 			checkLogin();
 		});
 	});
-	
-	
 </script>
-<script type="text/javascript">
-	function button_event() {
-		if (confirm("정말 삭제하시겠습니까?") == true) { //확인
-			location.href = '${pageContext.request.contextPath}/commu/delete?board_id=${qna_view.board_id}'
-		} else { //취소
-			return;
-		}
-	}
 
-	function modify_event() {
-		if (confirm("수정하시겠습니까?") == true) { //확인
-			location.href = '${pageContext.request.contextPath}/commu/modify_page?board_id=${qna_view.board_id}'
-		} else { //취소
-			return;
-		}
-	}
-</script>
 </head>
 <body style="padding-top: 200px">
 
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
-	
-	
-<sec:authorize access="hasAnyRole('ROLE_USER','ROLE_ADMIN')">
-		<input type="hidden" id="member_id"
-			value="<sec:authentication property="principal.member_id"/>">
-	</sec:authorize>
-	
-	
- <div class="mt-150 mb-150">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-8">
-				<input type="hidden" name="board_id" value="${board_id}">	
-				
-				
- 						${sns.categoryVO.categoryname}
- 						<c:forEach var="img" items="${img}">
-		   				<div class="mySlides">
-		   			 
-						 <img src="/resources/img/member/sns/${img.imgname}" style="width:70%; height:70%;">
-						</div>
-						</c:forEach>
- 				 <div style="text-align:center">
- 				 <span class="dot" onclick="currentSlide(1)"></span> 
-  					<span class="dot" onclick="currentSlide(2)"></span> 
-  					<span class="dot" onclick="currentSlide(3)"></span> 
- 
-  					<span class="dot" onclick="currentSlide(4)"></span> 
- 					 <span class="dot" onclick="currentSlide(5)"></span>
-					</div>  
-   
-    
- 					 <a class="prev" onclick="plusSlides(-1)">❮</a>
-  					<a class="next" onclick="plusSlides(1)">❯</a>
 
-    
- 
-	
-							 
-								 <div class="row user_info"> 
-								 
- 								 <div class="profile_box"> <a href="/myPage/${sns.memberVO.nickname}" style="color:black"><img src="/resources/img/member/profile/${sns.memberVO.thumbnail}"
-								name="profile" alt="" class="profile" /> &nbsp&nbsp</div>
-								<span class="nickname" style="padding:5px">  ${sns.memberVO.nickname} &nbsp&nbsp</span></a>
+	<form action="commu/sns/modify" method="get">
+		<%-- <input type="hidden" name="member_id"
+			value="<sec:authentication property="principal.member_id"/>"> --%>
+		  
+		<div class="mt-150 mb-150">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-8">
+						<input type="hidden" name="board_id" value="${board_id}">
+						<input type="hidden" name="nickname" value="${sns.memberVO.nickname}">
+						<div style="float: right">
+
+
+							<a href="/commu/sns">목록으로</a>
+
+						</div>
+
+						<h4>${sns.categoryVO.categoryname}</h4>
+						<c:forEach var="img" items="${img}">
+							<div class="mySlides">
+
+								<img src="/resources/img/member/sns/${img.imgname}"
+									style=" width: 780px;height:450px;object-fit: cover; border-radius: 10px;">
+							</div>
+						</c:forEach>
+						<div style="text-align: center">
+							<span class="dot" onclick="currentSlide(1)"></span> <span
+								class="dot" onclick="currentSlide(2)"></span> <span class="dot"
+								onclick="currentSlide(3)"></span> <span class="dot"
+								onclick="currentSlide(4)"></span> <span class="dot"
+								onclick="currentSlide(5)"></span>
+						</div>
+
+
+						<a class="prev" onclick="plusSlides(-1)">❮</a> <a class="next"
+							onclick="plusSlides(1)">❯</a>
+
+
+
+
+
+						<div class="row user_info">
+
+							<div class="profile_box">
+								<a href="/myPage/${sns.memberVO.nickname}" style="color: black"><img
+									src="/resources/img/member/profile/${sns.memberVO.thumbnail}"
+									name="profile" alt="" class="profile" /> 
+							</div>
+							<p class="nickname" style="padding-top: 7px; font-size:15px;">
+								${sns.memberVO.nickname} &nbsp&nbsp</p></a> 
 								
-								<span class="pdate"> <fmt:formatDate var="formatRegDate" value="${sns.pdate}"
-                                    pattern="yyyy.MM.dd" />${formatRegDate} &nbsp&nbsp</span>
-								<span style="color: gray"> 조회수 ${sns.hit}</span>
-							     </div>
-							 
-							<p>${sns.content}</p>
-							
- 							<c:set var="hashtag" value="${sns.hashtag}" /> 
- 							<c:set var="tag" value="${fn:split(hashtag, ' ')}" /> 
- 							<c:forEach var="t" items="${tag}">
+						</div>
+						
+					
+						<p>${sns.content}</p>
+
+						<c:set var="hashtag" value="${sns.hashtag}" />
+						<c:set var="tag" value="${fn:split(hashtag, ' ')}" />
+						<c:forEach var="t" items="${tag}">
 
 							<a href="xxx">${t}</a>
 
-							</c:forEach>
-						 
-						    </div>
-						 
-				 
-				    
-            <div class="col-lg-3">
-               <div class="sidebar-section"    >
-               
-               
-            <div class="archive-posts">
-               <div class="row">
-             <div class="row"><div class="profile_box2"><a href="/myPage/${sns.memberVO.nickname}">
-               <img src="/resources/img/member/profile/${sns.memberVO.thumbnail}"
-                  name="profile" alt="" class="profile" /></a></div>
-                  <h4 style="padding:30px; ">${sns.memberVO.nickname}</h4></div>
-       
-               </div>   
-               </div>
-						 <br><br>
-						
-						<div class="recent-posts">
-							<h4>Recent Posts</h4>
-							<ul>
-								 
-								<li><a href="single-news.html">Fall in love with the fresh orange</a></li>
-								<li><a href="single-news.html">Why the berries always look delecious</a></li>
-							</ul>
-						</div><br><br>
-						
-						
-					</div>
-				</div></div>
-			</div>
-	 </div>
- 
+						</c:forEach>
 
-<div class="container" style="margin-top:100px;">
+	<div style="float: right">
+								<span class="pdate">
+								<fmt:formatDate var="formatRegDate" value="${sns.pdate}"
+									pattern="yyyy.MM.dd" />${formatRegDate} &nbsp&nbsp </span> 
+							<span style="color: gray"> 조회수 ${sns.hit}</span></div>
+
+					</div>
+	
+
+
+	<div class="col-lg-3">
+		<div class="sidebar-section">
+
+
+			<div class="archive-posts">
+				<div class="row">
+					<div class="row">
+						<div class="profile_box2">
+							<img
+								src="/resources/img/member/profile/${sns.memberVO.thumbnail}"
+								name="profile" alt="" class="profile" />
+						</div>
+						<h4 style="padding-top: 30px;">${sns.memberVO.nickname}</h4>
+						<a href="/myPage/${sns.memberVO.nickname}"  style="padding-top:35px;"> &nbsp 팔로우
+						</a>
+					</div>
+
+
+				</div>
+			</div>
+			<br>
+			<br>
+
+			<div class="recent-posts">
+				<h4>Recent Posts</h4>
+				<ul>
+						<c:forEach var="user" items="${user}">
+ 
+						<img src="/resources/img/member/sns/${user.imgname}">
+ 					    </c:forEach>
+					
+				</ul>
+			</div>
+			<br>
+			<br>
+
+			<div style="float: right">
+				<sec:authentication property="principal" var="buttonhidden" />
+				<sec:authorize access="isAuthenticated()">
+
+					<!-- 현재 접속된 닉네임과 댓글보드에 저장된 닉네임을 비교해서 일치 하면 보이게 함 -->
+					<c:if test="${buttonhidden.nickname eq sns.memberVO.nickname}">
+
+						<button id="modify_button" type="button" class="btn btn-warning"
+							onclick="modify_event();">수정</button>
+
+						<button id="delete_button" type="button" class="btn btn-warning"
+							onclick="button_event();">삭제</button>
+					</c:if>
+				</sec:authorize>
+
+
+
+			</div>
+		</div>
+	</div>
+	</div>
+	</div>
+	</div>
+</form>
+
+	<div class="container" style="margin-top: 100px;">
 
 		<input type="hidden" id="pgroup" value="${sns.board_id}">
-		<sec:authorize access="hasAnyRole('ROLE_USER','ROLE_ADMIN')">
-			<input type="hidden" id="member_id"
-				value="<sec:authentication property="principal.member_id"/>">
-		</sec:authorize>
+		
 		<div>
 			<div>
-				<h4><strong>댓글&nbsp(${count})</strong></h4>
+				<h4>
+					<strong>댓글&nbsp(${count})</strong>
+				</h4>
 			</div>
 			<div>
-			<div id = "inputContent" style = "width : 1000px;">
-				<table class="table" style="margin: 10px; ">
-					<td class="row">
-					
-					<textarea style="resize: none;"
-							class="form-control col-7" id="content" placeholder="댓글을 입력하세요"></textarea>
-						<button class="col-1 btn btn-warning"   onClick="getComment()">등록</button>
-						
+				<div id="inputContent">
+					<table class="table" style="margin: 10px;">
+						<td class="row"><textarea style="resize: none;"
+							class="form-control col-8" id="content" placeholder="댓글을 입력하세요"></textarea>
+						<button id="cw" class="col-1 btn btn-outline-secondary" onClick="getComment()">등록</button>
 					</td>
 
-				</table>
-			</div></div>
+					</table>
+				</div>
+			</div>
 		</div>
 
 
 		<div class="container">
+		<c:forEach items="${comment}" var="m">
+			<div id="comment" style="width: 800px;">
 
-			<div id="comment" style = "width : 800px;">
-
-				<c:forEach items="${comment}" var="m">
-					<div class="row"><div class="profile_box"><a href="/myPage/${sns.memberVO.nickname}" style="color:black">
-					<img src="/resources/img/member/profile/${m.memberVO.thumbnail}"
-								name="profile" alt="" class="profile" /></div><div style="padding:5px">${m.memberVO.nickname}</div></a></div>
-					<div>${m.content}</div>
-					<div><fmt:formatDate var="formatRegDate" value="${m.pdate}"
-                                    pattern="yyyy.MM.dd" />${formatRegDate}"</div>
-					<hr>
+				
+				<!-- 여기서부터 시큐리티 권한을준다 -->
+			    <sec:authentication property="principal" var="pinfo" />
+			    <sec:authorize access="isAuthenticated()">	
+	
+				<!-- 현재 접속된 닉네임과 댓글보드에 저장된 닉네임을 비교해서 일치 하면 보이게 함 -->
+			<c:if test="${pinfo.nickname eq m.memberVO.nickname}">
+		
+			<a class="a-del" style="float: right;"  href="/commu/comment/delete?board_id=${m.board_id}"><b>삭제</b></a>
+			</c:if>
+			</sec:authorize>
+					<div class="row">
+						<div class="profile_box">
+							<a href="/myPage/${sns.memberVO.nickname}" style="color:black;">
+								<img src="/resources/img/member/profile/${m.memberVO.thumbnail}"
+								name="profile" alt="" class="profile" />
+						</div>
+						<div style="padding: 5px">${m.memberVO.nickname}</div></a></div>
+						<div style="padding-left:40px;">${m.content}</div>
+						<div style="padding-left:40px;"><fmt:formatDate var="formatRegDate" value="${m.pdate}" pattern="yyyy.MM.dd" />${formatRegDate}"</div>
+					    <hr></div>
 				</c:forEach>
 
 			</div>
@@ -376,99 +393,152 @@ body {
 				</form>
 			</div>
 		</div>
-	</div>
-<div class="later col-lg-12 text-center">
+
+	<div class="later col-lg-12 text-center">
 		<button type="button" class="btn btn-warning" onClick="btnClick()">더보기</button>
 	</div>
- 
- 
- 
- <script type="text/javascript">
-	 var slideIndex = 1;
-showSlides(slideIndex);
 
-function plusSlides(n) {
-  showSlides(slideIndex += n);
-}
 
-function currentSlide(n) {
-  showSlides(slideIndex = n);
-}
 
-function showSlides(n) {
-  var i;
-  var slides = document.getElementsByClassName("mySlides");
-  var dots = document.getElementsByClassName("demo");
-  var captionText = document.getElementById("caption");
-  if (n > slides.length) {slideIndex = 1}
-  if (n < 1) {slideIndex = slides.length}
-  for (i = 0; i < slides.length; i++) {
-      slides[i].style.display = "none";
-  }
-  for (i = 0; i < dots.length; i++) {
-      dots[i].className = dots[i].className.replace(" active", "");
-  }
-  slides[slideIndex-1].style.display = "block";
-  dots[slideIndex-1].className += " active";
-  captionText.innerHTML = dots[slideIndex-1].alt;
-}
+	<script type="text/javascript">
+		var slideIndex = 1;
+		showSlides(slideIndex);
 
- 
-function getFormatDate(pdate) {
+		function plusSlides(n) {
+			showSlides(slideIndex += n);
+		}
 
-	   var date = date.substr(0, 17);
-	   var date = date.split("T");
-	   var date = date[0] + " " + date[1];
-	   return pdate; 
+		function currentSlide(n) {
+			showSlides(slideIndex = n);
+		}
+
+		function showSlides(n) {
+			var i;
+			var slides = document.getElementsByClassName("mySlides");
+			var dots = document.getElementsByClassName("demo");
+			var captionText = document.getElementById("caption");
+			if (n > slides.length) {
+				slideIndex = 1
+			}
+			if (n < 1) {
+				slideIndex = slides.length
+			}
+			for (i = 0; i < slides.length; i++) {
+				slides[i].style.display = "none";
+			}
+			for (i = 0; i < dots.length; i++) {
+				dots[i].className = dots[i].className.replace(" active", "");
+			}
+			slides[slideIndex - 1].style.display = "block";
+			dots[slideIndex - 1].className += " active";
+			captionText.innerHTML = dots[slideIndex - 1].alt;
+		}
+
+		function getFormatDate(pdate) {
+
+			var date = date.substr(0, 17);
+			var date = date.split("T");
+			var date = date[0] + " " + date[1];
+			return pdate;
+		}
+	</script>
+
+
+	<script type="text/javascript">
+	function button_event() {
+		if (confirm("정말 삭제하시겠습니까?") == true) { //확인
+			location.href = '${pageContext.request.contextPath}/commu/sns/delete?board_id=${sns.board_id}'
+		} else { //취소
+			return;
+		}
 	}
-	</script> 
-	 
-	 
-	<div style="margin-top: 500px;">
-	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
-	</div>
-	
-		<script type="text/javascript">
+
+	function modify_event() {
+		if (confirm("수정하시겠습니까?") == true) { //확인
+			location.href = '${pageContext.request.contextPath}/commu/sns/modify_view?board_id=${sns.board_id}'
+		} else { //취소
+			return;
+		}
+	}
+</script>
+
+	<script type="text/javascript">
 		// 댓글 작성 및 ajax로 댓글 불러오기 프로필사진, 닉네임, 내용, 날짜 넘김
 		function getComment() {
-	
+
 			var member_id = $("#member_id").val();
 			var thumbnail = $("#thumbnail").val();
 			console.log(member_id);
 			var pgroup = $("#pgroup").val();
 			var content = $("#content").val();
+
+			$
+					.ajax({
+						url : "/commu/sns/comment",
+						type : "post",
+						data : {
+							member_id : member_id,
+							pgroup : pgroup,
+							content : content,
+							thumbnail : thumbnail
+						},
+						success : function(data) {
+
+							html = "<div class='row'><div class='profile_box'><img src='/resources/img/member/profile/" + data.memberVO.thumbnail +"' class='profile'></div>"
+									+ data.memberVO.nickname
+									+ "</div>"
+									+ "<div style='padding-left:32px;'>"
+									+ data.content
+									+ "</div>"
+									+ "<div style='padding-left:32px;'>"
+									+ getFormatDate(data.pdate)
+									+ "</div>"
+									+"<a class='a-del' style='float: right;'  href='/commu/comment/delete?board_id="+data.board_id+"><b>삭제</b></a>"
+									+"<hr>"
+
+									$("#comment").prepend(html);
+							document.getElementById("content").value = '';
+
+						}, //ajax 성공 시 end$
+
+				
+					 error : function(request, status, error) {
+					 alert("code:" + request.status + "\n" + "message:"
+					 + request.responseText + "\n" + "error:" + error);
+
+					 } // ajax 에러 시 end
+					})
+
+				}
+		 
+		// 댓글 삭제
+			$(".a-del").click(function(event) { //id는 한번만 calss는 여러번 선택 가능.
 			
-			$.ajax({
-				url : "/commu/sns/comment",
-				type : "post",
-				data : {
-					member_id : member_id,
-					pgroup : pgroup,
-					content : content,
-					thumbnail : thumbnail
-				},
-				success : function(data) {
-							
-					html = "<div class='row'><div class='profile_box'><img src='/resources/img/member/profile/" + data.memberVO.thumbnail +"' class='profile'></div>" + data.memberVO.nickname + "</div>"
-							+ "<div>" + data.content + "</div>" + "<div>"
-							+ getFormatDate(data.pdate) + "</div> <hr>"
-
-					$("#comment").prepend(html);
-							document.getElementById("content").value=''; 	
-					// $("#content").empty();
-							
-				}, //ajax 성공 시 end$
+			   //하나의 id는 한 문서에서 한 번만 사용이 가능(가장 마지막 혹은 처음게 선택). 하나의 class는 
 			
-/* 
-				error : function(request, status, error) {
-					alert("code:" + request.status + "\n" + "message:"
-							+ request.responseText + "\n" + "error:" + error); */
+			   event.preventDefault(); 
+			  
+			
+			   var tr = $(this).parent();//자바스크립트 클로저
 
-				// } // ajax 에러 시 end
-
-			})
-		}
-		
+			   $.ajax({
+			      type : 'delete', //method
+			      url : $(this).attr("href"), //주소를 받아오는 것이 두 번째 포인트.
+			      cache : false,
+			      success : function(result) {
+			         console.log("result: " + result);
+			         if (result == "SUCCESS") {
+			            $(tr).remove();
+			            alert("삭제되었습니다.");
+			         }
+			      },
+			      errer : function(e) {
+			         console.log(e);
+			      }
+			   }); //end of ajax
+			 }); // 삭제 종료
+			
+		       
 
 		//더보기
 		var pageNum = 1;
@@ -478,42 +548,51 @@ function getFormatDate(pdate) {
 			pageNum += 1;
 			console.log(pageNum);
 
-			$.ajax({
-				type : "POST",
-				url : "/commu/scmorelist",
-				data : {
-					pageNum : pageNum,
-					board_id : "${sns.board_id}"
-				},
-				success : function(data) {
-					console.log(data);
-					var comment = data.comment;
+			$
+					.ajax({
+						type : "POST",
+						url : "/commu/scmorelist",
+						data : {
+							pageNum : pageNum,
+							board_id : "${sns.board_id}"
+						},
+						success : function(data) {
+							console.log(data);
+							var comment = data.comment;
 
-					html = " "
-					for ( var i in comment) {
-						html += "<div id='comment'style = 'width : 800px;'>"
-						+"<div class='row'><div class='profile_box'>"
-						+"<img src='/resources/img/member/profile/"+comment[i].memberVO.thumbnail+"' name='profile' alt='' class='profile' /></div>"
-						+comment[i].memberVO.nickname+"</div>"
-						+"<div>"+comment[i].content+"</div>"
-						+"<div>"+comment[i].pdate+"</div>"
-						+"<hr>"
-						+ "</div>"
-					}
+							html = " "
+							for ( var i in comment) {
+								html += "<div id='comment'style = 'width : 800px;'>"
+										+ "<div class='row'><div class='profile_box'>"
+										+ "<img src='/resources/img/member/profile/"+comment[i].memberVO.thumbnail+"' name='profile' alt='' class='profile' /></div>"
+										+ comment[i].memberVO.nickname
+										+ "</div>"
+										+ "<div>"
+										+ comment[i].content
+										+ "</div>"
+										+ "<div>"
+										+ comment[i].pdate
+										+ "</div>"
+										+ "<hr>" + "</div>"
+							}
 
-					$("#comment").append(html);
+							$("#comment").append(html);
 
-				},
-				//success end
-				error : function(request, status, error) {
-					alert("code:" + request.status + "\n" + "message:"
-							+ request.responseText + "\n" + "error:" + error);
-				} // ajax 에러 시 end
-			}); //ajax end	 
-		}; //click end	
-		
+						},
+						//success end
+						error : function(request, status, error) {
+							alert("code:" + request.status + "\n" + "message:"
+									+ request.responseText + "\n" + "error:"
+									+ error);
+						} // ajax 에러 시 end
+					}); //ajax end	 
+		}; //click end
 	</script>
- 
+
+<div style="margin-top: 500px;">
+		<%@ include file="/WEB-INF/views/include/footer.jsp"%>
+	</div>
+
 </body>
 
 

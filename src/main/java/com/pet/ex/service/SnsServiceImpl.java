@@ -106,9 +106,39 @@ public class SnsServiceImpl implements SnsService {
 		return mapper.getMemberInfo(member_id);
 	}
 	
+	//댓글리스트
 	@Override
 	public List<BoardVO> getcommentsList(Criteria cri,int board_id) {
 		return mapper.getCommentsWithPaging(cri, board_id);
 	}
+ 
+	//댓글삭제
+	@Override
+	public void deleteComment(BoardVO boardVO) {
+		 
+		mapper.deleteComment(boardVO);
+	}
+
+	//SNS수정
+	@Override
+	public void modifySns(BoardVO boardVO) {
+		 
+		mapper.modifySns(boardVO);
+	}
+	
+	//SNS삭제
+	@Override
+	public void deleteSns(int board_id) {
+	 
+		mapper.deleteImg(board_id);
+		mapper.deleteBoard(board_id);
+		
+	}
+
+	/*
+	 * @Override public List<ImageVO> getUserboard(String nickname) {
+	 * 
+	 * return mapper.getUserboard(nickname); }
+	 */
 
 }

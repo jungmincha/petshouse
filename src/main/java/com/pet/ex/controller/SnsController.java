@@ -9,6 +9,10 @@ import java.util.UUID;
 
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,7 +28,7 @@ import com.pet.ex.page.Criteria;
 import com.pet.ex.page.PageVO;
 import com.pet.ex.service.SnsService;
 import com.pet.ex.vo.BoardVO;
- 
+import com.pet.ex.vo.GoodsVO;
 import com.pet.ex.vo.ImageVO;
 import com.pet.ex.vo.MemberVO;
 
@@ -41,12 +45,12 @@ public class SnsController {
 
 	// sns홈
 	@RequestMapping("/sns")
-	public ModelAndView SNS(Criteria cri, ModelAndView mav) throws Exception {
+	public ModelAndView SNS(Criteria cri, BoardVO boardVO, ModelAndView mav) throws Exception {
 
 		log.info("sns");
 		
 		mav.addObject("list", service.getsnsList(cri));
-		
+		 
 		mav.setViewName("sns/sns_list");
 
 		return mav;
@@ -72,18 +76,11 @@ public class SnsController {
 		list.put("comment", comment);
 		return list;
 	}
-	@RequestMapping("/sns/modify_view")
-	public ModelAndView modify_view(@PathVariable("board_id") int board_id, BoardVO boardVO, ModelAndView mav) throws Exception {
-		boardVO = service.getBoardInfo(board_id);
-		log.info("modify_view");
-		
-		mav.addObject("sns", service.getBoard(boardVO.getBoard_id()));
-		mav.addObject("img", service.getImg(board_id));
-		
-		mav.setViewName("sns/sns_modify");
+	
 
-		return mav;
-	}
+	
+	
+	
 
 	// sns 등록창
 	@GetMapping("/sns/write_view")
@@ -152,7 +149,10 @@ public class SnsController {
 		log.info("SNS_View");
 
 		int count = service.counta(board_id);
-		
+		/*
+		 * mav.addObject("user",
+		 * service.getUserboard(boardVO.getMemberVO().getNickname()));
+		 */
 		mav.addObject("sns", service.getBoard(boardVO.getBoard_id()));
 		mav.addObject("img", service.getImg(board_id));
 		mav.addObject("count", count);
@@ -164,6 +164,41 @@ public class SnsController {
 
 		return mav;
 	}
+	
+	// sns 수정페이지
+	@GetMapping("/sns/modify_view")
+	public ModelAndView modify_view(@RequestParam("board_id") int board_id, BoardVO boardVO, ModelAndView mav) throws Exception {
+		
+		 
+		log.info("modify_view");
+		
+		mav.addObject("sns", service.getBoard(boardVO.getBoard_id()));
+		mav.addObject("img", service.getImg(board_id));
+		
+		mav.setViewName("sns/sns_modify");
+
+		return mav;
+	}
+	
+	// sns 수정
+	@PostMapping("/sns/modify")
+	public ModelAndView modifySNS(BoardVO boardVO, ModelAndView mav) throws Exception {
+		log.info("sns_modify");
+		service.modifySns(boardVO);
+		mav.setView(new RedirectView("/commu/sns", true));
+		return mav;
+	}
+	
+	// sns 삭제하기
+	@GetMapping("/sns/delete")
+		public ModelAndView deleteSNS(@RequestParam("board_id") int board_id, Criteria cri, ModelAndView mav)
+				throws Exception {
+			log.info("delete()실행");
+			
+			service.deleteSns(board_id);
+			mav.setView(new RedirectView("/commu/sns", true));
+			return mav;
+		}
 
 	// sns 댓글 작성
 	@PostMapping("/sns/comment")
@@ -177,6 +212,28 @@ public class SnsController {
 		System.out.println(comments);
 		return comments;
 	}
+	
+	//댓글 삭제하기
+		@RequestMapping("/comment/delete")
+		public ResponseEntity<String> deleteComment(BoardVO boardVO) {
+
+			ResponseEntity<String> entity = null;
+			log.info("delete");
+
+			try {
+				service.deleteComment(boardVO);
+				System.out.println("===========");
+				
+				entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+			} catch (Exception e) {
+				e.printStackTrace();
+
+				entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+			}
+
+			return entity;
+
+		}
 
  
 	 

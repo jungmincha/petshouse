@@ -9,33 +9,13 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
-<title>register</title>
+<title></title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
 
 <style>
-.table_center {
-	display: table;
-	margin: 50px auto;
-	width: 1000px;
-	font-size: 15px;
-	font-stretch: extra-condensed;
-}
-
-select {
-	width: 100px; /* 원하는 너비설정 */
-	padding: .4em .5em; /* 여백으로 높이 설정 */
-	font-family: inherit; /* 폰트 상속 */
-	background: url('이미지 경로') no-repeat 95% 50%;
-	/* 네이티브 화살표를 커스텀 화살표로 대체 */
-	border-radius: 5px; /* iOS 둥근모서리 제거 */
-	-webkit-appearance: none; /* 네이티브 외형 감추기 */
-	-moz-appearance: none;
-	appearance: none;
-}
-
 .box {
 	margin: 50px auto;
 	width: 500px;
@@ -51,17 +31,6 @@ select {
 	padding: 10px;
 	background-color: #f5f5f5;
 	border-radius: 10px;
-}
-
-.top {
-	background-color: #e7ab3c;
-	border-radius: 10px;
-	cursor: pointer;
-	position: fixed;
-	right: 5px;
-	font-size: 15px;
-	bottom: 500px;
-	padding: 10px;
 }
 
 #preview:empty:before {
@@ -81,6 +50,12 @@ select {
 label {
 	text-align: cente;
 }
+
+.userImg {
+	width: 120px;
+	height: 150px;
+	z-index: none;
+}
 </style>
 
 </head>
@@ -95,20 +70,19 @@ label {
 
 	<!-- Page Content -->
 	<div class="container" style="width: 1100px; min-height: 900px;">
-		<div class="top" onclick="window.scrollTo(0,0);">top</div>
+
 		<div class="col-lg-12">
-			<form id="modify" name="modify" class="needs-validation"
-				action="${pageContext.request.contextPath}/commu/sns/modify_view"
-				enctype="multipart/form-data" method="post">
+			<form action="${pageContext.request.contextPath}/commu/sns/modify"
+				method="post">
 				<input type="hidden" name="board_id" value="${sns.board_id}">
 
 				<div class="title">
-					<h2>사진 올리기</h2>
+					<h2>SNS 수정하기</h2>
 				</div>
 
 				<div class="form-group row">
 					<input type="submit" class="btn btn-warning "
-						style="position: fixed; top: 150px; right: 400px;" value="sns등록">
+						style="position: fixed; top: 200px; right: 300px;" value="sns수정">
 				</div>
 
 
@@ -117,7 +91,7 @@ label {
 					<div class="col-lg-6">
 						<select class=" form-control" name="categoryVO.category_id"
 							style="height: 38px; width: 100px; vertical-align: middle; text-align-last: center">
-							<option value="">${sns.categoryVO.categoryname}</option>
+							<option value="${sns.categoryVO.category_id}">${sns.categoryVO.categoryname}</option>
 							<option value="1">고양이</option>
 							<option value="2">강아지</option>
 							<option value="3">파충류</option>
@@ -131,17 +105,6 @@ label {
 				</div>
 
 
-				<div class="form-group row ">
-					<div class="col-sm-2">사진</div>
-					<div class="col-sm-8">
-						<div class="custom-file">
-							<input type="file" class="custom-file-input" id="btnAtt"
-								multiple="multiple" name="btnAtt" style="display: block;"
-								required> <label class="custom-file-label"
-								for="inputGroupFile02">사진을 선택하세요.</label>
-						</div>
-					</div>
-				</div>
 
 
 
@@ -150,34 +113,32 @@ label {
 					<div class="input-group col-lg-7 ">
 						<div id='image_preview '>
 							<div id='preview'>
-								<c:forEach items="${list}" var="sns"> 
-									<img src="/resources/img/member/sns/${sns.imgname}" alt="" />
+								<c:forEach items="${img}" var="sns">
+									<img src="/resources/img/member/sns/${sns.imgname}"
+										class="userImg" alt="" />
 								</c:forEach>
 							</div>
 						</div>
 					</div>
+				</div>
 
 
-
-					<div class="form-group row">
-						<label class="col-sm-2">사진소개</label>
-						<div class="col-lg-8">
-							<textarea name="content" cols="40" rows="7" class="form-control"
-								placeholder="사진에 대해서 설명해주세요." required>${sns.content}</textarea>
-						</div>
+				<div class="form-group row">
+					<label class="col-sm-2">사진소개</label>
+					<div class="col-lg-8">
+						<textarea name="content" cols="40" rows="7" class="form-control"
+							placeholder="사진에 대해서 설명해주세요." required>${sns.content}</textarea>
 					</div>
+				</div>
 
-					<div class="form-group row">
-						<label class="col-sm-2">해시태그</label>
-						<div class="col-lg-8">
-							<input type="text" name="hashtag" class="form-control"
-								placeholder="해시태그를 입력해주세요." value="${sns.hashtag}" required>
-							<small id="hashtagHelp" class="form-text text-muted"> 예)
-								#강아지 #고양이 </small>
-						</div>
+				<div class="form-group row">
+					<label class="col-sm-2">해시태그</label>
+					<div class="col-lg-8">
+						<input type="text" name="hashtag" class="form-control"
+							placeholder="해시태그를 입력해주세요." value="${sns.hashtag}" required>
+						<small id="hashtagHelp" class="form-text text-muted"> 예)
+							#강아지 #고양이 </small>
 					</div>
-
-
 				</div>
 			</form>
 		</div>
@@ -188,7 +149,6 @@ label {
 
 
 	<script>
-	
 		(function() {
 			'use strict'
 
@@ -207,118 +167,8 @@ label {
 				}, false)
 			})
 		})();
-
-		 
 	</script>
 
-	<script>
- 
-	 
-	
-	
-			
-( /* preview : 이미지들이 들어갈 위치 id, btn : file tag id */
-  imageView = function imageView(preview, btn){
-
-    var attZone = document.getElementById(preview);
-    var btnAtt = document.getElementById(btn)
-    var sel_files = [];
-    
-    // 이미지와 체크 박스를 감싸고 있는 div 속성
-    var div_style = 'display:inline-block;position:relative;'
-                  + 'width:121px;height:150px;margin:3px; ;z-index:1';
-    // 미리보기 이미지 속성
-    var img_style = 'width:100%;height:100%;z-index:none';
-    // 이미지안에 표시되는 체크박스의 속성
-   
-    var chk_style = 'position:absolute;font-size:13px;'
-        + 'right:0px;top:0px;z-index:999;opacity:.8;';
-        
-    btnAtt.onchange = function(e){
-      var files = e.target.files;
-      var fileArr = Array.prototype.slice.call(files)
-      for(f of fileArr){
-        imageLoader(f);
-      }
-    }  
-    
-  
-    // 탐색기에서 드래그앤 드롭 사용
-    attZone.addEventListener('dragenter', function(e){
-      e.preventDefault();
-      e.stopPropagation();
-    }, false)
-    
-    attZone.addEventListener('dragover', function(e){
-      e.preventDefault();
-      e.stopPropagation();
-      
-    }, false)
-  
-    attZone.addEventListener('drop', function(e){
-      var files = {};
-      e.preventDefault();
-      e.stopPropagation();
-      var dt = e.dataTransfer;
-      files = dt.files;
-      for(f of files){
-        imageLoader(f);
-      }
-      
-    }, false)
-    
-
-    
-    /*첨부된 이미리들을 배열에 넣고 미리보기 */
-    imageLoader = function(file){
-      sel_files.push(file);
-      var reader = new FileReader();
-      reader.onload = function(ee){
-        let img = document.createElement('img')
-        img.setAttribute('style', img_style)
-        img.src = ee.target.result;
-        attZone.appendChild(makeDiv(img, file));
-      }
-      
-      reader.readAsDataURL(file);
-    }
-    
-    /*첨부된 파일이 있는 경우 checkbox와 함께 attZone에 추가할 div를 만들어 반환 */
-    makeDiv = function(img, file){
-      var div = document.createElement('div')
-      div.setAttribute('style', div_style)
-      
-      var btn = document.createElement('input')
-      btn.setAttribute('type', 'button')
-      btn.setAttribute('value', 'X')
-      btn.setAttribute('delFile', file.name);
-      btn.setAttribute('style', chk_style);
-      btn.onclick = function(ev){
-        var ele = ev.srcElement;
-        var delFile = ele.getAttribute('delFile');
-        for(var i=0 ;i<sel_files.length; i++){
-          if(delFile== sel_files[i].name){
-            sel_files.splice(i, 1);      
-          }
-        }
-        
-        dt = new DataTransfer();
-        for(f in sel_files) {
-          var file = sel_files[f];
-          dt.items.add(file);
-        }
-        btnAtt.files = dt.files;
-        var p = ele.parentNode;
-        attZone.removeChild(p)
-      }
-      div.appendChild(img)
-      div.appendChild(btn)
-      return div
-    }
-  }
-)('preview', 'btnAtt')
-
-</script>
 
 	<!-- Footer -->
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
