@@ -74,10 +74,16 @@ public interface MyPageMapper {
 	// 포인트 리스트
 	public List<PointVO> getPointList(String member_id);
 
+	// 포인트 리스트(날짜)
+	public List<PointVO> getPointListByDate(String member_id, String startDate, String endDate, Criteria cri);
+
 	// 회원 탈퇴
 	public void deleteMember(String member_id);
-	
+
 	// 회원 정보 수정 (비번포함x)
 	public void updateMemberNoPw(MemberVO member);
+	
+	// 포인트 토탈 계산(날짜별)
+	public int getPointTotalByDate(String member_id, String startDate, String endDate);
 
 }

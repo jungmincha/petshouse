@@ -339,6 +339,18 @@
 		]]>
 	</select>
 
+	<!-- 포인트 리스트(날짜) -->
+	<select id="getPointListByDate" resultMap="pointvo">
+		<![CDATA[
+		select * from (
+		select rownum rnum, a.*
+		from (select point_id,pscore,pdate,p.pointtype_id , member_id,pointtypename from point p, pointtype t where member_id=#{member_id} and p.pointtype_id=t.pointtype_id and pdate between #{startDate} and TO_DATE(#{endDate}) + 0.99999  order by pdate desc) a where rownum <=
+		#{cri.pageNum} * #{cri.amount}
+		) where rnum > (#{cri.pageNum}-1) * #{cri.amount}
+		]]>
+	</select>
+
+	<!-- 회원 탈퇴 -->
 	<delete id="deleteMember">
 	<![CDATA[
 		BEGIN
@@ -353,4 +365,9 @@
 		END;
 		]]>
 	</delete>
+	<select id="getPointTotalByDate" resultType="int">
+		<![CDATA[
+		select count(*) from point p, pointtype t where member_id=#{member_id} and p.pointtype_id=t.pointtype_id and pdate between #{startDate} and TO_DATE(#{endDate}) + 0.99999  
+		]]>
+	</select>
 </mapper>

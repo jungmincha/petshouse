@@ -107,20 +107,20 @@
 
 								<br> <br> <label for="thumbnail"
 									style="font-size: 20px; text-align: center">프로필 이미지 수정</label>
-
+								<label onclick="defaultImage()"
+									style="font-size: 20px; text-align: center">기본 이미지로 변경</label>
 								<div class="custom-file">
 									<input type="file" class="custom-file-input" id="thumbnail"
-										name="file" multiple="multiple" style="display: block;">
+										name="file" multiple="multiple" style="display: block;"
+										value="123">
 								</div>
-
-
 
 							</div>
 							<div class="group-input">
 								<label class="control-label" for="member_id">이메일</label> <input
 									class="form-control" type="text" name="member_id"
 									id="member_id" style="font-size: 13pt" readonly
-									value="<sec:authentication property="principal.member_id"/>" />
+									value="" />
 							</div>
 
 							<div class="group-input">
@@ -413,6 +413,7 @@ function deleteMember(){
 	// input file에 change 이벤트 부여
 	const thumbnail = document.getElementById("thumbnail")
 	thumbnail.addEventListener("change", e => {
+		
 	    readImage(e.target)
 	})
 	
@@ -423,6 +424,9 @@ function deleteMember(){
 	 reader.readAsDataURL(this.files[0]);
 	}
 	}); 
+	function defaultImage(){
+		$("#thumbnail").val("profile.jpg");
+	}
 </script>
 
 <!-- Js Plugins -->

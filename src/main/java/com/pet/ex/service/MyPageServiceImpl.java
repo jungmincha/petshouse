@@ -166,11 +166,24 @@ public class MyPageServiceImpl implements MyPageService {
 		return myPageMapper.getPointList(member_id);
 	}
 
+	// 포인트 리스트 (날짜)
+	@Override
+	public List<PointVO> getPointList(String member_id, String startDate, String endDate, Criteria cri) {
+		log.info("getPointList()");
+		return myPageMapper.getPointListByDate(member_id, startDate, endDate, cri);
+	}
+
 	// 회원 탈퇴
 	@Override
 	public void deleteMember(String member_id) {
 		log.info("getPointList()");
 		myPageMapper.deleteMember(member_id);
+	}
+
+	@Override
+	public int getPointTotalByDate(String member_id, String startDate, String endDate, Criteria cri) {
+		log.info("getPointTotalByDate()");
+		return myPageMapper.getPointTotalByDate(member_id, startDate, endDate);
 	}
 
 }

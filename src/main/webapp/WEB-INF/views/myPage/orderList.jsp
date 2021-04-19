@@ -1,3 +1,4 @@
+<%@page import="java.sql.Date"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
@@ -16,7 +17,45 @@
 <!-- csrf 처리 -->
 <meta name="_csrf_parameter" content="${_csrf.parameterName}" />
 <meta name="_csrf_header" content="${_csrf.headerName}" />
+<%!private static class TIME_MAXIMUM {
+		public static final int SEC = 60;
+		public static final int MIN = 60;
+		public static final int HOUR = 24;
+		public static final int DAY = 30;
+		public static final int MONTH = 12;
+	}
 
+	public String calculateTime(Date date) {
+
+		long curTime = System.currentTimeMillis();
+		long regTime = date.getTime();
+		long diffTime = (curTime - regTime) / 1000;
+
+		String msg = null;
+
+		if (diffTime < TIME_MAXIMUM.SEC) {
+			// sec
+			msg = diffTime + "초전";
+		} else if ((diffTime /= TIME_MAXIMUM.SEC) < TIME_MAXIMUM.MIN) {
+			// min
+			System.out.println(diffTime);
+
+			msg = diffTime + "분전";
+		} else if ((diffTime /= TIME_MAXIMUM.MIN) < TIME_MAXIMUM.HOUR) {
+			// hour
+			msg = (diffTime) + "시간전";
+		} else if ((diffTime /= TIME_MAXIMUM.HOUR) < TIME_MAXIMUM.DAY) {
+			// day
+			msg = (diffTime) + "일전";
+		} else if ((diffTime /= TIME_MAXIMUM.DAY) < TIME_MAXIMUM.MONTH) {
+			// day
+			msg = (diffTime) + "달전";
+		} else {
+			msg = (diffTime) + "년전";
+		}
+
+		return msg;
+	}%>
 <title>주문배송내역</title>
 <!-- Google Font -->
 <link
@@ -969,7 +1008,7 @@
 						+"<li class='page-item'> <a class='page-link' onclick='listOrder("+paystate+","+(data.pageMaker.startPage-1)+","+data.pageMaker.amount+")"'>«</a></li> </c:if>"
 						for(var i = data.pageMaker.startPage; i<=data.pageMaker.endPage;i++){
 						html += "<li class='page-item'> <a class='page-link' onclick='listOrder("+paystate+","+i+","+data.pageMaker.cri.amount+")'>"+i+"</a></li> "	}
-						html += "<c:if test='${"+data.pageMaker.next +"&&"+ data.pageMaker.endPage+"> 0}'> <li class='page-item'> <a class='page-link' onclick='allOrder("+(data.pageMaker.endPage+1)+","+data.pageMaker.amount+")"'> »</a></li> </c:if></ul></div>"
+						html += "<c:if test='${"+data.pageMaker.next +"&&"+ data.pageMaker.endPage+"> 0}'> <li class='page-item'> <a class='page-link' onclick='listOrder("+paystate+","+(data.pageMaker.endPage+1)+","+data.pageMaker.amount+")"'> »</a></li> </c:if></ul></div>"
 						$("#orderList").append(html);
 					}, //ajax 성공 시 
 					error : function(request, status, error) {

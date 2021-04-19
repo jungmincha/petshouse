@@ -48,6 +48,10 @@ public interface MyPageService {
 
 	List<PointVO> getPointList(String member_id);
 
+	List<PointVO> getPointList(String member_id, String startDate, String endDate, Criteria cri);
+
 	void deleteMember(String member_id);
+
+	int getPointTotalByDate(String member_id, String startDate, String endDate, Criteria cri);
 
 }

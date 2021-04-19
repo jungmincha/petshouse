@@ -63,6 +63,7 @@
 					showMonthAfterYear : true,
 					yearSuffix : '년'
 				});
+
 			})
 </script>
 <style>
@@ -89,15 +90,14 @@ table th {
 		<div class="blog-details-inner">
 			<h2>포인트 사용내역</h2>
 			<div class="row">
-
 				<div class="col-md-8">
-					기간별 조회
-					<button>1주일</button>
-					<button>1개월</button>
 
-					<span> Date: <input type="text" id="datepicker"> <input
-						type="text" id="datepicker2">
+					<span> 날짜조회 : <input type="text" id="datepicker"
+						style="width: 100px" value=""> ~ <input type="text"
+						id="datepicker2" style="width: 100px" value="">
+						<button class='btn btn-info' onclick="getPointList(1,10)">조회하기</button>
 					</span>
+
 				</div>
 				<div class="col-md-4 text-right">
 					<h4>사용가능 포인트 : ${pointSum.sum} P</h4>
@@ -115,29 +115,11 @@ table th {
 								<th>포인트</th>
 							</tr>
 						</thead>
-						<tbody>
-							<c:forEach items="${pointList}" var="pointVO">
-								<tr>
-									<td><fmt:formatDate value="${pointVO.pdate}"
-											pattern="yyyy-MM-dd" /></td>
-									<td>${pointVO.pointtypeVO.pointtypename }</td>
-
-									<c:choose>
-										<c:when test="${pointVO.pscore < 0 }">
-											<td style="color: red;">${pointVO.pscore}</td>
-										</c:when>
-										<c:otherwise>
-											<td>${pointVO.pscore}</td>
-										</c:otherwise>
-									</c:choose>
-
-
-								</tr>
-
-							</c:forEach>
+						<tbody id="pointList">
 
 						</tbody>
 					</table>
+					<div class="container" id="page"></div>
 				</div>
 			</div>
 
@@ -145,7 +127,123 @@ table th {
 	</div>
 
 </body>
+<script type="text/javascript">
+	function getPointList(pageNum, amount) {
+		$("#pointList").empty();
+		$("#page").empty();		
+		var startDate = $("#datepicker").val();
+		var endDate = $("#datepicker2").val();
+		console.log(startDate);
+		console.log(endDate);
 
+		$.ajax({
+			url : "/myPage/pointList/ajax",
+			type : "get",
+			data : {
+				startDate : startDate,
+				endDate : endDate,
+				pageNum : pageNum,
+				amount : amount
+			},
+			success : function(data) {
+				console.log(data);
+			
+				html = "";
+				for (var i = 0; i < data.pointList.length; i++) {
+					html += "<tr>" + "<td>" + transferTime(data.pointList[i].pdate)
+							+ "</td>" + "<td>"
+							+ data.pointList[i].pointtypeVO.pointtypename + "</td>"
+					if (data.pointList[i].pscore < 0) {
+						html += "<td style='color: red;'>" + data.pointList[i].pscore
+								+ "</td>"
+					} else {
+						html += "<td>" + data.pointList[i].pscore + "</td>"
+					}
+					html += "</tr>"
+				}
+				html2 = "<ul class='pagination'  style='justify-content: center;'><c:if test='"+data.pageMaker.prev+"'>"
+				+"<li class='page-item'> <a class='page-link' onclick='getPointList("+(data.pageMaker.startPage-1)+","+data.pageMaker.amount+")"'>«</a></li> </c:if>"
+				for(var i = data.pageMaker.startPage; i<=data.pageMaker.endPage;i++){
+				html2 += "<li class='page-item'> <a class='page-link' onclick='getPointList("+i+","+data.pageMaker.cri.amount+")'>"+i+"</a></li> "	}
+				html2 += "<c:if test='${"+data.pageMaker.next +"&&"+ data.pageMaker.endPage+"> 0}'> <li class='page-item'> <a class='page-link' onclick='getPointList("+(data.pageMaker.endPage+1)+","+data.pageMaker.amount+")"'> »</a></li> </c:if></ul>"
+				$("#page").append(html2);
+				$("#pointList").append(html);
+			}, //ajax 성공 시 end
+
+			error : function(request, status, error) {
+				alert("code:" + request.status + "\n" + "message:"
+						+ request.responseText + "\n" + "error:" + error);
+
+			} // ajax 에러 시 end
+
+		});// 장바구니 목록 함수 end
+	}
+	
+	$(document).ready(function() {
+		
+		let today = new Date();
+		let year = today.getFullYear();
+		let month = today.getMonth() + 1;
+		let date = today.getDate();
+		today = year + '-' + month + '-' + date;
+		var lastMonth = year + '-' + (month-1) + '-' + date;
+		$("#datepicker").val(lastMonth);
+		$("#datepicker2").val(today);
+		getPointList(1,10);
+		
+	})
+	function getFormatDate(date) {
+
+		var date = date.substr(0, 19);
+		var date = date.split("T");
+		var date = date[0] + " " + date[1];
+		return date;
+	}
+
+	function transferTime(times){
+		 var now = new Date();
+		 var setTime = new Date(times);
+		 
+	
+		 var sc = 1000;
+
+		 var today = new Date(setTime.getFullYear(),setTime.getMonth(),setTime.getDate(),setTime.getHours(),setTime.getMinutes(),setTime.getSeconds());
+		 
+		 //지나간 초
+		 var pastSecond = parseInt((now-today)/sc,10);
+	
+		 var date;
+		 var hour;
+		 var min;
+		 var str = "";
+
+		 var restSecond = 0;
+		 if(pastSecond > 86400){
+		  date = parseInt(pastSecond / 86400,10);
+		  restSecond = pastSecond % 86400;
+		  str = date + "일 ";
+
+		   hour = parseInt(restSecond / 3600,10);
+		   restSecond = restSecond % 3600;
+		   str = str + hour + "시간 전";
+		
+		 }else if(pastSecond > 3600){
+		  hour = parseInt(pastSecond / 3600,10);
+		  restSecond = pastSecond % 3600;
+		  str = str + hour + "시간 전";
+		
+		 }else if(pastSecond > 60){
+		  min = parseInt(pastSecond / 60,10);
+		  restSecond = pastSecond % 60;
+		  str = str + min + "분 전";
+		 }else{
+		  str = pastSecond + "초 전";
+		 }
+
+		 return str;
+		}
+	
+</script>
 <%@ include file="/WEB-INF/views/include/footer.jsp"%>
 <!-- Js Plugins -->
 

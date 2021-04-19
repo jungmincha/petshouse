@@ -41,6 +41,7 @@ import com.pet.ex.vo.ImageVO;
 import com.pet.ex.vo.MemberVO;
 import com.pet.ex.vo.PayGoodsVO;
 import com.pet.ex.vo.PayVO;
+import com.pet.ex.vo.PointVO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -310,6 +311,7 @@ public class MyPageController {
 	public ModelAndView updateMemeber(MultipartHttpServletRequest multi, ModelAndView mav, MemberVO member,
 			ImageVO imageVO) throws IllegalStateException, IOException {
 		log.info("/myPage/updateMember/insert");
+		System.out.println(multi.getFile("file").getOriginalFilename());
 		if (multi.getFile("file").getOriginalFilename().equals("")) {
 			member.setThumbnail("profile.jpg");
 		} else {
@@ -343,7 +345,6 @@ public class MyPageController {
 		String member_id = authentication.getPrincipal().toString();
 		System.out.println("실행");
 		myPageService.deleteMember(member_id);
-
 		return "삭제완료";
 	}
 
@@ -351,9 +352,30 @@ public class MyPageController {
 	@GetMapping("/pointList")
 	public ModelAndView pointList(ModelAndView mav, Authentication authentication) {
 		String member_id = authentication.getPrincipal().toString();
-		mav.addObject("pointList", myPageService.getPointList(member_id));
 		mav.addObject("pointSum", myPageService.getPoint(member_id));
 		mav.setViewName("/myPage/pointList");
+		return mav;
+	}
+
+	// 포인트 리스트 가져오기(ajax)
+	@GetMapping("/pointList/ajax")
+	public Map<String, Object> pointListAjax(Authentication authentication, String startDate, String endDate,
+			Criteria cri) {
+		String member_id = authentication.getPrincipal().toString();
+		Map<String, Object> pointAjax = new HashMap<String, Object>();
+		int total = myPageService.getPointTotalByDate(member_id, startDate, endDate, cri);
+		List<PointVO> pointList = new ArrayList<PointVO>();
+		pointList = myPageService.getPointList(member_id, startDate, endDate, cri);
+
+		pointAjax.put("pointList", pointList);
+		pointAjax.put("pageMaker", new PageVO(cri, total));
+		return pointAjax;
+	}
+
+	@GetMapping("/imgTest")
+	public ModelAndView imgTest(ModelAndView mav) {
+		mav.addObject("test", myPageService.getPointList("eril1024@gmail.com"));
+		mav.setViewName("/myPage/imageTagTest");
 		return mav;
 	}
 }
