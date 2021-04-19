@@ -236,10 +236,21 @@ a:hover {
 
 
 		<div class="container" style="margin-bottom: 10px;">
-
+		<c:forEach items="${comment}" var="dto">
 			<div id="comment">
+				
+				<!-- 여기서부터 시큐리티 권한을준다 -->
+			    <sec:authentication property="principal" var="pinfo" />
+			    <sec:authorize access="isAuthenticated()">	
+	
+				<!-- 현재 접속된 닉네임과 댓글보드에 저장된 닉네임을 비교해서 일치 하면 보이게 함 -->
+			<c:if test="${pinfo.nickname eq dto.memberVO.nickname}">
+		
+			<a class="a-del" style="float: right;"  href="/commu/qna_view/delete?board_id=${dto.board_id}"><b>삭제</b></a>
+			</c:if> 
+			</sec:authorize> 
 
-				<c:forEach items="${comment}" var="dto">
+				
 					<div class="row">
 						<div class="profile_box">
 							<a href="/myPage/${dto.memberVO.nickname}"> <img
@@ -249,13 +260,11 @@ a:hover {
 						<div style="padding: 8px;"><b>${dto.memberVO.nickname}</b></div>
 					</div>
 					<div style="padding-left: 32px;">${dto.content}</div>
-					<div style="padding-left: 32px;">${dto.pdate}"</div>
-					<%-- 		<a class="a-del"
-						href="/commu/qna_view/delete?board_id=${dto.board_id}"><b>삭제하기</b></a> --%>
+					<div style="padding-left: 32px;"><fmt:formatDate var="formatRegDate" value="${dto.pdate}" pattern="yyyy.MM.dd" />${formatRegDate}"</div>
 					<hr>
-				</c:forEach>
+				
 
-			</div>
+			</div></c:forEach></div>
 
 
 			<div class="container">
@@ -353,7 +362,7 @@ a:hover {
 										+ "<div style='padding-left:32px;'>"
 										+ comments[i].content + "</div>"
 										+ "<div style='padding-left:32px;'>"
-										+ comments[i].pdate + "</div>" + "<hr>"
+										+ comments[i].pdate + "<hr></div>"
 
 										+ "</div>"
 							}
@@ -369,6 +378,38 @@ a:hover {
 					}); //ajax end	 
 		}; //click end	
 
+		
+		
+		// 댓글 삭제
+		$(".a-del").click(function(event) { //id는 한번만 calss는 여러번 선택 가능.
+		
+		   //하나의 id는 한 문서에서 한 번만 사용이 가능(가장 마지막 혹은 처음게 선택). 하나의 class는 
+		
+		   event.preventDefault(); 
+		  
+		
+		   var tr = $(this).parent();//자바스크립트 클로저
+
+		   $.ajax({
+		      type : 'delete', //method
+		      url : $(this).attr("href"), //주소를 받아오는 것이 두 번째 포인트.
+		      cache : false,
+		      success : function(result) {
+		         console.log("result: " + result);
+		         if (result == "SUCCESS") {
+		            $(tr).remove();
+		            alert("삭제되었습니다.");
+		         }
+		      },
+		      errer : function(e) {
+		         console.log(e);
+		      }
+		   }); //end of ajax
+		 }); // 삭제 종료
+		
+		 
+		 
+		 
 		//수정 삭제버튼 띄우기   	
 		window.onload = function() {
 

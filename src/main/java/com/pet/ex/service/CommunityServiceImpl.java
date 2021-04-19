@@ -254,6 +254,13 @@ public class CommunityServiceImpl implements CommunityService {
 		mapper.hit(board_id);
 	}
 
+
+	@Override
+	public void deleteTipsComment(BoardVO boardVO) {
+		
+		mapper.deleteComment(boardVO);
+	}
+
 	/*
 	 * // 노하우 댓글 작성
 	 * 
