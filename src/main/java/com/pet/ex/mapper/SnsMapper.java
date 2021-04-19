@@ -9,6 +9,7 @@ import com.pet.ex.vo.BoardVO;
 
 import com.pet.ex.vo.ImageVO;
 import com.pet.ex.vo.MemberVO;
+import com.pet.ex.vo.PlikeVO;
 
 @Mapper
 public interface SnsMapper {
@@ -55,5 +56,20 @@ public interface SnsMapper {
 	  public List<ImageVO> getUserboard(String nickname);
 	 
 	public String getNickname(int board_id);
+	
+	//좋아요 수 
+	public int getLiketotal(int board_id);
+	//좋아요 유무 체크
+	public int isLike(PlikeVO plikeVO);
+	//좋아요 리스트 
+	public List<PlikeVO> getLikelist(PlikeVO plikeVO);
+	//좋아요 요청
+	public void like(PlikeVO plikeVO);
+	//board테이블의 plike 숫자 증가
+	public void insertplike(BoardVO boardVO);
+	//좋아요 취소
+	public void likecancel(PlikeVO plikeVO);
+	//board테이블의 plike 숫자 감소
+	public void deleteplike(BoardVO boardVO);
 
 }

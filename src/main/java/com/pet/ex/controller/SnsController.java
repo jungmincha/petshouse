@@ -11,6 +11,7 @@ import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,11 +27,13 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.pet.ex.page.Criteria;
 import com.pet.ex.page.PageVO;
+import com.pet.ex.security.handlers.MyAuthentication;
 import com.pet.ex.service.SnsService;
 import com.pet.ex.vo.BoardVO;
 import com.pet.ex.vo.GoodsVO;
 import com.pet.ex.vo.ImageVO;
 import com.pet.ex.vo.MemberVO;
+import com.pet.ex.vo.PlikeVO;
 
 import lombok.extern.slf4j.Slf4j;
  
@@ -138,7 +141,7 @@ public class SnsController {
 	}
 
 	@GetMapping("/sns/{board_id}")
-	public ModelAndView contentView(@PathVariable("board_id") int board_id, BoardVO boardVO, MemberVO memberVO, Criteria cri, ModelAndView mav)
+	public ModelAndView contentView(@PathVariable("board_id") int board_id, PlikeVO plikeVO ,BoardVO boardVO, MemberVO memberVO, Criteria cri, ModelAndView mav)
 			throws Exception {
 
 		boardVO = service.getBoardInfo(board_id);
@@ -150,12 +153,37 @@ public class SnsController {
 
 		int count = service.counta(board_id);
 		String nickname = service.getNickname(board_id);
+	
+		
+	
+		System.out.println("000000-------------------------------dddd-------------44444444444ooooooooooooooooo");
 		System.out.println(nickname);
+	
 		mav.addObject("user",  service.getUserboard(nickname));
 		 
 		mav.addObject("sns", service.getBoard(boardVO.getBoard_id()));
 		mav.addObject("img", service.getImg(board_id));
 		mav.addObject("count", count);
+		
+		//좋아요 start
+		//좋아요 출력
+	
+		
+		MemberVO member = new MemberVO();
+		plikeVO.setMemberVO(member);
+		plikeVO.getMemberVO().setMember_id(nickname);
+		BoardVO board = new BoardVO();
+		plikeVO.setBoardVO(board);
+		plikeVO.getBoardVO().setBoard_id(boardVO.getBoard_id());
+		
+		//좋아요 수 
+		mav.addObject("like_amount", service.getLiketotal(plikeVO.getBoardVO().getBoard_id()));
+		//좋아요 유무 체크
+		mav.addObject("likecheck", service.isLike(plikeVO));
+		//좋아요 리스트 
+		mav.addObject("likelist", service.getLikelist(plikeVO));
+		
+		//좋아요 end
 	 
 		System.out.println(count);
 		service.hit(boardVO.getBoard_id());
@@ -236,6 +264,83 @@ public class SnsController {
 		}
 
  
-	 
+		//좋아요 기능 -START-
+		//좋아요 입력
+			@PostMapping("/sns/like/{board_id}")
+			public Map<String, Object> like(@PathVariable("board_id") int board_id  , MyAuthentication myAuthentication ,PlikeVO plikeVO, BoardVO boardVO ,MemberVO memberVO ) {
+				log.info("LIKE");
+				
+				
+				System.out.println("===================================================");
+				//현재 접속 아이디
+				String pre_nickname= myAuthentication.getMember().getNickname();
+				//resultmap에 vo 담아주는 거
+				MemberVO member = new MemberVO();
+				plikeVO.setMemberVO(member);
+				plikeVO.getMemberVO().setMember_id(pre_nickname);
+				//plikeVO.getMemberVO().setNickname(nickname);
+				BoardVO board = new BoardVO();
+				plikeVO.setBoardVO(board);
+				plikeVO.getBoardVO().setBoard_id(boardVO.getBoard_id());
+		
+				//plikeVO.setMember_id(member_id);
+			
+				Map<String, Object> map = new HashMap<>();
+				try {	
+					service.like(plikeVO);
+					map.put("SUCCESS", HttpStatus.OK);
+					map.put("like_amount", service.getLiketotal(plikeVO.getBoardVO().getBoard_id()));
+			
+					List<PlikeVO> likelist =  service.getLikelist(plikeVO);
+					map.put("likelist", likelist);
+					
+					//BOARD테이블의 plike 숫자 증가
+					service.insertplike(boardVO);
+				
+					System.out.println("=====================ssss==============================================================");
+				
+				} catch (Exception e) {
+					e.printStackTrace();
+					map.put("SUCCESS", HttpStatus.BAD_REQUEST);
+				}
+				return map;
+			}
+			
+			//좋아요 취소
+			@DeleteMapping("/sns/likecancel/{board_id}")
+			public Map<String, Object> likecancel(@PathVariable("board_id") int board_id, MyAuthentication myAuthentication ,PlikeVO plikeVO, BoardVO boardVO , MemberVO memberVO) {
+				log.info("likecancel");
+				//현재 접속 아이디
+				String pre_nickname= myAuthentication.getMember().getNickname();
+			
+				//resultmap에 vo 담아주는 거
+				MemberVO member = new MemberVO();
+				plikeVO.setMemberVO(member);
+				plikeVO.getMemberVO().setMember_id(pre_nickname);
+				//plikeVO.getMemberVO().setMember_id(nickname);
+				BoardVO board = new BoardVO();
+				plikeVO.setBoardVO(board);
+				plikeVO.getBoardVO().setBoard_id(boardVO.getBoard_id());
+			
+				//plikeVO.setMember_id(member_id);
+			
+				Map<String, Object> map = new HashMap<>();	
+				try {	
+					service.likecancel(plikeVO);
+					map.put("SUCCESS", HttpStatus.OK);
+					map.put("like_amount", service.getLiketotal(plikeVO.getBoardVO().getBoard_id()));
+					
+					List<PlikeVO> likelist = service.getLikelist(plikeVO);
+					map.put("likelist", likelist);
+					//BOARD테이블의 plike 숫자 감소
+					service.deleteplike(boardVO);
+				} catch (Exception e) {
+					e.printStackTrace();
+					map.put("SUCCESS", HttpStatus.BAD_REQUEST);
+				}
+				return map;
+			}
+		
+			//좋아요 기능 -END-
 
 }

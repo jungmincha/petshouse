@@ -143,6 +143,14 @@
 		<result column="goodspath" property="goodspath" />
 		<collection property="boardVO" resultMap="boardvo" />
 	</resultMap>
+	
+	<resultMap type="PlikeVO" id="plikevo">
+		<result column="plike_id" property="plike_id" />
+		<result column="count" property="count" />
+		<collection property="memberVO" resultMap="membervo" />
+		<collection property="boardVO" resultMap="boardvo" />
+	</resultMap>
+	
 
 
 	<select id="getList" resultMap="boardvo"> 
@@ -172,8 +180,11 @@
 
 
 	<select id="getTotal" resultType="int">
-    <![CDATA[  select count(*) from board  
-     ]]>
+    <![CDATA[	
+		select count(*) from board 
+		where 
+		boardtype_id= 7 and pstep=0
+		]]>
 	</select>
 
 	<insert id="write" parameterType="boardvo">
@@ -307,7 +318,7 @@
 	<!-- 좋아요 수 조회 -->
 	<select id="getLiketotal" resultType="int">
 		<![CDATA[
-	      select count(*) from plike where board_id = #{board_id}
+	      select count(*) from plike where board_id = #{boardVO.board_id}
 	   ]]>
 	</select>
 	
@@ -315,15 +326,15 @@
 	<!-- 좋아요 유무 체크 -->
 	<select id="isLike" resultType="int">
 		<![CDATA[
-	        select count(*) from plike where board_id=#{board_id} and member_id=#{member_id}
+	        select count(*) from plike where board_id=#{boardVO.board_id} and member_id=#{memberVO.member_id}
 	   ]]>
 	</select> 
 
 	
 	<!-- 좋아요 리스트 조회 -->
-	<select id="getLikelist" resultType="PlikeVO">
+	<select id="getLikelist" resultMap="plikevo">
 		<![CDATA[
-	        select member_id from plike where board_id=#{board_id}
+	        select member_id from plike where board_id=#{boardVO.board_id}
 	   ]]>
 	</select> 
 	
@@ -331,29 +342,22 @@
 	<!-- 좋아요 -->
 	<insert id="like">
 		<![CDATA[
-	        insert into plike values(plike_seq.nextval, #{board_id}, #{member_id})
+	        insert into plike values(plike_seq.nextval, #{boardVO.board_id}, #{memberVO.member_id})
 	   ]]>
 	</insert>
 	
 	<!-- 좋아요 취소-->
 	<select id="likecancel">
 		<![CDATA[
-	         delete from plike where board_id=#{board_id} and member_id=#{member_id}
+	         delete from plike where board_id=#{boardVO.board_id} and member_id=#{memberVO.member_id}
 	   ]]>
 	</select>  
 	
 	
-	<!-- 회원 정보 조회 -->
-	<select id="getMemberinfo" resultType="MemberVO">
-		<![CDATA[
-	         select * from member where member_id= #{member_id}
-	   ]]>
-	</select>
-	
 	
 	
 	<!-- 전체 좋아요 출력-->
-	<select id="getLikeprint" resultType="PlikeVO">
+	<select id="getLikeprint" resultMap="plikevo">
 		<![CDATA[
 	       	select board_id ,count(*) as count from plike group by board_id
 	   ]]>
@@ -374,7 +378,12 @@
    ]]>
 	</select>
 
-
+<!-- 회원 정보 조회 -->
+	<select id="getMemberinfo" resultType="MemberVO">
+		<![CDATA[
+	         select * from member where member_id= #{member_id}
+	   ]]>
+	</select>
 	
 
 <!-- <insert id="fileUpload">

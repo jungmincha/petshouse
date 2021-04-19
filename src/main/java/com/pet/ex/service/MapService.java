@@ -50,10 +50,7 @@ public interface MapService {
 	
 	public void hit(int board_id);
 
-	public void insertplike(BoardVO boardVO);
-
-	public void deleteplike(BoardVO boardVO);
-
+	
 	
 
 	public List<ImageVO> imageupload(ImageVO imageVO);
@@ -73,6 +70,11 @@ public interface MapService {
 	public MemberVO getMemberinfo();
 
 	public List<PlikeVO> getLikeprint();
+
+	//좋아요 board 테이블에 추가
+	public void insertplike(BoardVO boardVO);
+	//좋아요 board 테이블에 삭제
+	public void deleteplike(BoardVO boardVO);
 
 	
 
