@@ -106,6 +106,28 @@
    }
 </script>
 <style>
+
+.profile_box {
+	width: 30px;
+	height: 30px;
+	border-radius: 70%;
+	overflow: hidden;
+	margin: 5px;
+}
+
+.profile_box2 {
+	width: 80px;
+	height: 80px;
+	border-radius: 70%;
+	overflow: hidden;
+	margin: 5px;
+}
+
+.profile {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
 .tab-item {
    width: 1000;
 }
@@ -517,16 +539,22 @@ h2 {
 
                                           <div class="avatar-text">
                                              <div class="at-rating">
-
+ 
+                         <div class="profile_box">
+							<a href="/myPage/${review.memberVO.nickname}"> 
+							<img src="/resources/img/member/profile/${review.memberVO.thumbnail}"
+								name="profile" alt="" class="profile" /></a>
+								<span style="padding: 8px;"><b>${review.memberVO.nickname}</b></span>
+						</div>
+						
                                                 <span class="star-prototype" value="${review.ratescore}">${review.ratescore}
                                                 </span>
 
                                              </div>
-                                             <h5>
-                                                <p style="margin-bottom: 0;">${review.memberVO.nickname}</p>
+                                            
                                                <p style="font-size: 10px"><fmt:formatDate value="${review.pdate}" pattern="yyyy.MM.dd" /></p>
                                                 
-                                             </h5>
+                                         
                                              <div class="at-reply">
                                                 <p>${review.content}</p>
                                              </div>
