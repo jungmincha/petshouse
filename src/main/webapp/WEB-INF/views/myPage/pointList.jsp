@@ -133,8 +133,6 @@ table th {
 		$("#page").empty();		
 		var startDate = $("#datepicker").val();
 		var endDate = $("#datepicker2").val();
-		console.log(startDate);
-		console.log(endDate);
 
 		$.ajax({
 			url : "/myPage/pointList/ajax",
@@ -150,7 +148,7 @@ table th {
 			
 				html = "";
 				for (var i = 0; i < data.pointList.length; i++) {
-					html += "<tr>" + "<td>" + transferTime(data.pointList[i].pdate)
+					html += "<tr>" + "<td>" +  getFormatDate(data.pointList[i].pdate)
 							+ "</td>" + "<td>"
 							+ data.pointList[i].pointtypeVO.pointtypename + "</td>"
 					if (data.pointList[i].pscore < 0) {
@@ -176,7 +174,7 @@ table th {
 
 			} // ajax 에러 시 end
 
-		});// 장바구니 목록 함수 end
+		});// end
 	}
 	
 	$(document).ready(function() {
@@ -192,56 +190,17 @@ table th {
 		getPointList(1,10);
 		
 	})
-	function getFormatDate(date) {
+	function getFormatDate(times) {
+		var setTime = new Date(times);
 
-		var date = date.substr(0, 19);
-		var date = date.split("T");
-		var date = date[0] + " " + date[1];
-		return date;
+		var returnDate = setTime.getFullYear()+"-"+ (setTime.getMonth()+1)+"-"+setTime.getDate();
+		//var date = date.substr(0, 19);
+		//var date = date.split("T");
+		//var date = date[0] + " " + date[1];
+		return returnDate;
 	}
 
-	function transferTime(times){
-		 var now = new Date();
-		 var setTime = new Date(times);
-		 
 	
-		 var sc = 1000;
-
-		 var today = new Date(setTime.getFullYear(),setTime.getMonth(),setTime.getDate(),setTime.getHours(),setTime.getMinutes(),setTime.getSeconds());
-		 
-		 //지나간 초
-		 var pastSecond = parseInt((now-today)/sc,10);
-	
-		 var date;
-		 var hour;
-		 var min;
-		 var str = "";
-
-		 var restSecond = 0;
-		 if(pastSecond > 86400){
-		  date = parseInt(pastSecond / 86400,10);
-		  restSecond = pastSecond % 86400;
-		  str = date + "일 ";
-
-		   hour = parseInt(restSecond / 3600,10);
-		   restSecond = restSecond % 3600;
-		   str = str + hour + "시간 전";
-		
-		 }else if(pastSecond > 3600){
-		  hour = parseInt(pastSecond / 3600,10);
-		  restSecond = pastSecond % 3600;
-		  str = str + hour + "시간 전";
-		
-		 }else if(pastSecond > 60){
-		  min = parseInt(pastSecond / 60,10);
-		  restSecond = pastSecond % 60;
-		  str = str + min + "분 전";
-		 }else{
-		  str = pastSecond + "초 전";
-		 }
-
-		 return str;
-		}
 	
 </script>
 <%@ include file="/WEB-INF/views/include/footer.jsp"%>

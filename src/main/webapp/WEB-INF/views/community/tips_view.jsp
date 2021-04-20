@@ -237,22 +237,26 @@ a:hover {
 
 						<!-- 현재 접속된 닉네임과 댓글보드에 저장된 닉네임을 비교해서 일치 하면 보이게 함 -->
 						<c:if test="${pinfo.nickname eq tcm.memberVO.nickname}">
-							<a class="a-del" style="float: right;"
+							<a class="a-del2" style="float: right;"
 								href="/commu/tips/comment/delete/${tcm.board_id}"><b>삭제</b></a>
 						</c:if>
 					</sec:authorize>
 					<div class="row">
-						<div class="profile_box"> <a href="/myPage/${tcm.memberVO.nickname}"> 
-						<img src="/resources/img/member/profile/${tcm.memberVO.thumbnail}" name="profile" alt="" class="profile" /></a>
+						<div class="profile_box">
+							<a href="/myPage/${tcm.memberVO.nickname}"> <img
+								src="/resources/img/member/profile/${tcm.memberVO.thumbnail}"
+								name="profile" alt="" class="profile" /></a>
 						</div>
-						<div style="padding-top:10px; padding-left:10px;"><b>${tcm.memberVO.nickname}</b></div>
+						<div style="padding-top: 10px; padding-left: 10px;">
+							<b>${tcm.memberVO.nickname}</b>
+						</div>
 					</div>
-					<div style="padding-left:60px;">${tcm.content}</div>
-					<div style="padding-left:60px;">${tcm.pdate}</div>
-					<hr></div>
-			</c:forEach>
-				<div id="tcommentmore">
+					<div style="padding-left: 60px;">${tcm.content}</div>
+					<div style="padding-left: 60px;">${tcm.pdate}</div>
+					<hr>
 				</div>
+			</c:forEach>
+			<div id="tcommentmore"></div>
 		</div>
 
 
@@ -264,7 +268,6 @@ a:hover {
 				<div id="TcommentList"></div>
 			</form>
 		</div>
-	</div>
 	</div>
 
 	<div class="later col-lg-12 text-center">
@@ -294,21 +297,26 @@ a:hover {
 						success : function(data) {
 							console.log(data);
 
-							html = "<a class='a-del' style='float:right;' href='/commu/tips/comment/delete/" + data.board_id + "'><b>삭제</b></a>"
+							html = "<div ><a class='a-del' style='float:right;' href='/commu/tips/comment/delete/" + data.board_id + "'><b>삭제</b></a>"
 									+ "<div class='row'>"
 									+ "<div class='profile_box'>"
 									+ "<a href='/myPage/ " + data.memberVO.nickname + "'>"
 									+ "<img src='/resources/img/member/profile/" + data.memberVO.thumbnail + "' class='profile'></div>"
-									+ "<div style='padding-top:10px; padding-left:10px;'><b>" + data.memberVO.nickname + "</a></div></div></b>"
-									+ "<div style='padding-left:60px;'>" + data.content + "</div>"
-									+ "<div style='padding-left:60px;'>" + data.pdate + "</div><hr>"
+									+ "<div style='padding-top:10px; padding-left:10px;'><b>"
+									+ data.memberVO.nickname
+									+ "</a></div></div></b>"
+									+ "<div style='padding-left:60px;'>"
+									+ data.content
+									+ "</div>"
+									+ "<div style='padding-left:60px;'>"
+									+ data.pdate + "</div><hr></div>"
 
 							$("#tcomment").prepend(html);
 							document.getElementById("content").value = '';
 							// 댓글 삭제
 							$(".a-del").click(function(event) { //id는 한번만 calss는 여러번 선택 가능
 								event.preventDefault();
-								console.log("삭제버튼 클릭")
+								console.log("삭제버튼 클릭");
 								var tr = $(this).parent();
 
 								$.ajax({
@@ -323,7 +331,7 @@ a:hover {
 											alert("삭제되었습니다.");
 										}
 									},
-									errer : function(e) {
+									error : function(e) {
 										console.log(e);
 									}
 								}); //end of ajax
@@ -332,9 +340,8 @@ a:hover {
 					})
 
 		}
-
 		// 댓글 삭제
-		$(".a-del").click(function(event) { //id는 한번만 calss는 여러번 선택 가능.
+		$(".a-del2").click(function(event) { //id는 한번만 calss는 여러번 선택 가능.
 
 			//하나의 id는 한 문서에서 한 번만 사용이 가능(가장 마지막 혹은 처음게 선택). 하나의 class는 
 
@@ -350,10 +357,10 @@ a:hover {
 					console.log("result: " + result);
 					if (result == "SUCCESS") {
 						$(tr).remove();
-						alert("삭제되었습니다.");
+						alert("삭제되었습니다1.");
 					}
 				},
-				errer : function(e) {
+				error : function(e) {
 					console.log(e);
 				}
 			}); //end of ajax
@@ -381,8 +388,14 @@ a:hover {
 
 							html = " "
 							for ( var i in tcomment) {
-								html +=  "<a class='a-del' style='float:right;' href='/commu/tips/comment/delete/" + tcomment[i].board_id + "'><b>삭제</b></a>"
-										+ "<div class='row'>"
+								html += "<div>"
+								if ("${pinfo.nickname}" == tcomment[i].memberVO.nickname) {
+									html += "<a class='a-del' style='float:right;' href='/commu/tips/comment/delete/" + tcomment[i].board_id + "'><b>삭제</b></a>"
+								} else {
+									html += "<a style='float:right; visibility:hidden;'>여백</a>"
+								}
+
+								html += "<div class='row'>"
 										+ "<div class='profile_box'>"
 										+ "<a href='/myPage/ "+tcomment[i].memberVO.nickname+"'>"
 										+ "<img src='/resources/img/member/profile/"+tcomment[i].memberVO.thumbnail+"'name='profile' alt='' class='profile' />"
@@ -392,16 +405,17 @@ a:hover {
 										+ "<div style='padding-left:60px;'>"
 										+ tcomment[i].content + "</div>"
 										+ "<div style='padding-left:60px;'>"
-										+ tcomment[i].pdate + "</div><hr>"
- 
+										+ tcomment[i].pdate
+										+ "</div><hr></div>"
+
 							}
 
 							$("#tcommentmore").append(html);
-							 
+
 							// 댓글 삭제
 							$(".a-del").click(function(event) { //id는 한번만 calss는 여러번 선택 가능
 								event.preventDefault();
-								console.log("삭제버튼 클릭")
+								console.log("삭제버튼 클릭");
 								var tr = $(this).parent();
 
 								$.ajax({
@@ -425,7 +439,6 @@ a:hover {
 					})
 
 		}
-						 
 
 		//수정 삭제 버튼 띄우기
 		window.onload = function() {

@@ -92,7 +92,7 @@
 						<div class="col-sm-8">
 							<div class="custom-file">
 								<input type="file" class="custom-file-input" id="btnAtt"
-									multiple="multiple" name="btnAtt" style="display: block;"
+									multiple="multiple" name="file" style="display: block;"
 									required> <label class="custom-file-label"
 									for="inputGroupFile02">사진을 선택하세요.</label>
 							</div>
@@ -172,7 +172,7 @@
   imageView = function imageView(preview, btn){
 
     var attZone = document.getElementById(preview);
-    var btnAtt = document.getElementById(btn)
+    var btnAtt = document.getElementById(btnAtt)
     var sel_files = [];
     
     // 이미지와 체크 박스를 감싸고 있는 div 속성

@@ -28,26 +28,20 @@ img {
 		<span class="tests"> ${dto.pdate } </span>
 		<br>
 	</c:forEach>
+	
 </body>
 <script>
 	$(".tests").each(function() {
-		console.log($(this).text());
 		var times = transferTime($(this).text());
-		console.log(times);
 		$(this).text(times);
 	});
 
 	function transferTime(times) {
-
 		var now = new Date();
-		var setTime = new Date(times);
 
 		var sc = 1000;
 
-		var today = new Date(setTime.getFullYear(), setTime.getMonth(), setTime
-				.getDate(), setTime.getHours(), setTime.getMinutes(), setTime
-				.getSeconds());
-
+		var today = new Date(times);
 		//지나간 초
 		var pastSecond = parseInt((now - today) / sc, 10);
 

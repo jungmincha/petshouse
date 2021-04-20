@@ -313,7 +313,8 @@ public class MyPageController {
 		log.info("/myPage/updateMember/insert");
 		System.out.println(multi.getFile("file").getOriginalFilename());
 		if (multi.getFile("file").getOriginalFilename().equals("")) {
-			member.setThumbnail("profile.jpg");
+
+			myPageService.updateMember(member);
 		} else {
 			String path = multi.getSession().getServletContext().getRealPath("/static/img/member/profile");
 			path = path.replace("webapp", "resources");
@@ -332,9 +333,9 @@ public class MyPageController {
 				mf.get(i).transferTo(new File(savePath)); // 파일 저장
 				member.setThumbnail(thumbnail);
 			}
-
+			myPageService.updateMember(member);
 		}
-		myPageService.updateMember(member);
+
 		mav.setViewName("redirect:/login/logout");
 		return mav;
 	}

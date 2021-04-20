@@ -107,20 +107,20 @@
 
 								<br> <br> <label for="thumbnail"
 									style="font-size: 20px; text-align: center">프로필 이미지 수정</label>
-								<label onclick="defaultImage()"
-									style="font-size: 20px; text-align: center">기본 이미지로 변경</label>
+								<label style="font-size: 20px; text-align: center"
+									onclick="defaultImage()">기본 이미지로 변경</label>
 								<div class="custom-file">
 									<input type="file" class="custom-file-input" id="thumbnail"
-										name="file" multiple="multiple" style="display: block;"
-										value="123">
+										name="file" multiple="multiple" style="display: block;">
 								</div>
-
+								<input type="hidden" name="thumbnail" id="thumbnail2"
+									value="<sec:authentication  property="principal.thumbnail"/>">
 							</div>
 							<div class="group-input">
 								<label class="control-label" for="member_id">이메일</label> <input
 									class="form-control" type="text" name="member_id"
 									id="member_id" style="font-size: 13pt" readonly
-									value="" />
+									value="<sec:authentication  property="principal.member_id"/>" />
 							</div>
 
 							<div class="group-input">
@@ -404,9 +404,12 @@ function deleteMember(){
 	        // 이미지가 로드가 된 경우
 	        reader.onload = e => {
 	            const previewImage = document.getElementById("preview-image")
+	            
 	            previewImage.src = e.target.result
+	          
 	        }
 	        // reader가 이미지 읽도록 하기
+	       
 	        reader.readAsDataURL(input.files[0])
 	    }
 	}
@@ -417,18 +420,22 @@ function deleteMember(){
 	    readImage(e.target)
 	})
 	
-	 $("#thumbnail").change(function(){
+	/*  $("#thumbnail").change(function(){
 	 if(this.files && this.files[0]) {
 	  var reader = new FileReader;
-	
+	console.log(this.files[0]);
 	 reader.readAsDataURL(this.files[0]);
 	}
-	}); 
+	});  */
 	function defaultImage(){
-		$("#thumbnail").val("profile.jpg");
+		 const previewImage = document.getElementById("preview-image");
+         previewImage.src = "/resources/img/member/profile/profile.jpg";
+         input[type=file] init.
+         $("#filename").val("");
+         $()
+		
 	}
 </script>
-
 <!-- Js Plugins -->
 <script src="/resources/js/jquery-3.3.1.min.js"></script>
 <script src="/resources/js/bootstrap.min.js"></script>
