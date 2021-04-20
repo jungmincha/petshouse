@@ -292,9 +292,9 @@ public class AdminServiceImpl implements AdminService {
 
 	   // 질문과 답변 댓글 가져오기
 	   @Override
-	   public List<BoardVO> getReviewList(int goods_id) {
+	   public List<BoardVO> getReviewList(BoardVO boardVO, Criteria cri) {
 	      log.info("getReviewList()");
-	      return mapper.getReviewList(goods_id);
+	      return mapper.getReviewList(boardVO,cri);
 	   }
 
 	   // 질문과 답변 댓글 가져오기

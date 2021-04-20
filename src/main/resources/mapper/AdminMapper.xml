@@ -520,9 +520,13 @@
 
     <!--리뷰 출력 -->
    <select id="getReviewList" resultMap="boardvo">
-   <![CDATA[
-                select * from  image i, board b, member m where b.goods_id= i.goods_id and m.member_id=b.member_id  and b.boardtype_id= 8 and b.goods_id = #{goodsVO.goods_id}
+   <![CDATA[		SELECT * FROM (
+			     SELECT ROWNUM AS RNUM, A.* FROM (
+               select b.title, b.content,b.ratescore,b.pdate, m.nickname, m.member_id,b.goods_id 
+                from  board b, member m where m.member_id=b.member_id  and b.boardtype_id= 8 and b.goods_id = #{boardVO.goodsVO.goods_id}
                order by b.pdate desc
+               			    ) A WHERE ROWNUM <= #{cri.pageNum} * #{cri.amount}
+			) WHERE RNUM > (#{cri.pageNum}-1) * #{cri.amount}  
          
    ]]>
    </select>
