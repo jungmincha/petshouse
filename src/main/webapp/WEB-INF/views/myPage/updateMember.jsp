@@ -430,9 +430,8 @@ function deleteMember(){
 	function defaultImage(){
 		 const previewImage = document.getElementById("preview-image");
          previewImage.src = "/resources/img/member/profile/profile.jpg";
-         input[type=file] init.
-         $("#filename").val("");
-         $()
+         $("#thumbnail").val("");
+         
 		
 	}
 </script>

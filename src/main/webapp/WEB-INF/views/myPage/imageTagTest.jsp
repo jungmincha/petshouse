@@ -35,7 +35,7 @@ img {
 		var times = transferTime($(this).text());
 		$(this).text(times);
 	});
-
+	
 	function transferTime(times) {
 		var now = new Date();
 

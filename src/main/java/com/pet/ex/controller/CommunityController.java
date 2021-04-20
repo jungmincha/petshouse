@@ -188,18 +188,17 @@ public class CommunityController {
 		System.out.println(tcomment);
 		return tcomment;
 	}
-	
-	
+
 	// 댓글 더보기
 	@PostMapping("/tmorelist")
 	public Map<String, Object> tcomment(@RequestParam("board_id") int board_id, Criteria cri) {
 		log.info("commentmorelist");
 		Map<String, Object> list = new HashMap<>();
-		List<BoardVO> tcomment = communityService.getTCommentList(cri, board_id);
+		List<BoardVO> tcomment = communityService.getTCommentList(board_id, cri);
 		list.put("tcomment", tcomment);
+		list.put("commentTotal", communityService.counta(board_id));
 		return list;
 	}
-
 
 	// 노하우 더보기
 	@PostMapping("/morelist")
@@ -251,7 +250,7 @@ public class CommunityController {
 		log.info("qna_pet()실행");
 		return list;
 	}
-	
+
 	// 질문과 답변 글쓰기 페이지
 	@GetMapping("/qna/write")
 	public ModelAndView qna_write(ModelAndView mav) throws Exception {
@@ -307,7 +306,6 @@ public class CommunityController {
 		mav.setViewName("/community/qnasearch");
 		return mav;
 	}
-	
 
 	// 질문과 답변 태그 검색
 	@PostMapping("/qnatag")
@@ -338,7 +336,6 @@ public class CommunityController {
 		return mav;
 	}
 
-	
 	// 질문과 답변 댓글 작성
 	@PostMapping("/qna_view/insert")
 	public BoardVO insertComment(BoardVO boardVO, @RequestParam("member_id") String member_id) {
@@ -351,7 +348,6 @@ public class CommunityController {
 		return comments;
 	}
 
-
 	// 댓글 더보기
 	@PostMapping("/cmorelist")
 	public Map<String, Object> comments(@RequestParam("board_id") int board_id, Criteria cri) {
@@ -361,22 +357,19 @@ public class CommunityController {
 		list.put("comments", comments);
 		return list;
 	}
-	
 
-	// 질문과 답변 글 삭제하기  이미지 따로 첨부한건 안돼..
+	// 질문과 답변 글 삭제하기 이미지 따로 첨부한건 안돼..
 	@GetMapping("/delete")
-	public ModelAndView delete(@RequestParam("board_id") int board_id, ModelAndView mav)
-			throws Exception {
+	public ModelAndView delete(@RequestParam("board_id") int board_id, ModelAndView mav) throws Exception {
 		log.info("delete()실행");
 		communityService.ImgDelete(board_id);
 		communityService.delete(board_id);
-		
+
 		mav.setView(new RedirectView("/commu/qna", true));
 		return mav;
 	}
-	
 
-	// 질문과 답변 댓글 삭제  안돼...
+	// 질문과 답변 댓글 삭제 안돼...
 	@DeleteMapping("/qna/comment/delete/{board_id}")
 	public ResponseEntity<String> reply_delete(BoardVO boardVO) {
 
@@ -397,29 +390,28 @@ public class CommunityController {
 		return entity;
 
 	}
-	
-	
-	//노하우 댓글 삭제
-		@DeleteMapping("/tips/comment/delete/{board_id}")
-		public ResponseEntity<String> deleteTipsComment(BoardVO boardVO) {
 
-			ResponseEntity<String> entity = null;
-			log.info("delete");
+	// 노하우 댓글 삭제
+	@DeleteMapping("/tips/comment/delete/{board_id}")
+	public ResponseEntity<String> deleteTipsComment(BoardVO boardVO) {
 
-			try {
+		ResponseEntity<String> entity = null;
+		log.info("delete");
 
-				communityService.deleteTipsComment(boardVO);
-				System.out.println("===========");
-				entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
-			} catch (Exception e) {
-				e.printStackTrace();
+		try {
 
-				entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
-			}
+			communityService.deleteTipsComment(boardVO);
+			System.out.println("===========");
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
 
-			return entity;
-
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
+
+		return entity;
+
+	}
 	/*
 	 * // 노하우 글 검색
 	 * 

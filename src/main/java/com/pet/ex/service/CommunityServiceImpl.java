@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import com.pet.ex.mapper.CommunityMapper;
 import com.pet.ex.page.Criteria;
 import com.pet.ex.vo.BoardVO;
-import com.pet.ex.vo.GoodsVO;
 import com.pet.ex.vo.ImageVO;
 
 import lombok.AllArgsConstructor;
@@ -20,18 +19,17 @@ public class CommunityServiceImpl implements CommunityService {
 
 	public CommunityMapper mapper;
 
-
 	@Override
 	public void deleteQnaComment(BoardVO boardVO) {
-		
-		mapper.deleteComment(boardVO);
-	}
-	@Override
-	public void deleteTipsComment(BoardVO boardVO) {
-		
+
 		mapper.deleteComment(boardVO);
 	}
 
+	@Override
+	public void deleteTipsComment(BoardVO boardVO) {
+
+		mapper.deleteComment(boardVO);
+	}
 
 	@Override
 	public BoardVO getBoardInfo(int board_id) {
@@ -71,28 +69,26 @@ public class CommunityServiceImpl implements CommunityService {
 		log.info("mapper.writeTips()호출");
 		mapper.writeTips(boardVO);
 	}
-	
+
 	// 노하우 동물에 해당하는 글
 	@Override
 	public List<ImageVO> getPetTips(int category_id) {
 		log.info("mapper.getPetTips()");
 		return mapper.getPetTips(category_id);
 	}
-	
+
 	// 노하우 인기 게시글
 	@Override
 	public List<ImageVO> getTipsRate() {
 		log.info("mapper.getTipsRate()");
 		return mapper.getTipsRate();
 	}
-	
 
 	@Override
 	public BoardVO getTipsBoard_id() {
 		log.info("getTipsBoard_id");
 		return mapper.getTipsBoard_id();
 	}
-
 
 	// 노하우 글 수정
 	@Override
@@ -131,19 +127,16 @@ public class CommunityServiceImpl implements CommunityService {
 
 	// 노하우 댓
 	@Override
-	public List<BoardVO> getTCommentList(Criteria cri, int board_id) {
-		return mapper.getTCommentWithPaging(cri, board_id);
+	public List<BoardVO> getTCommentList(int board_id, Criteria cri) {
+		return mapper.getTCommentWithPaging(board_id, cri);
 	}
 
-	
-	
 	// 질문과 답변 메인 리스트 출력
 	@Override
 	public List<BoardVO> getQnaList(Criteria cri) {
 		log.info("getQnaList(cri)");
 		return mapper.getListWithPaging(cri);
 	}
-
 
 	// 질문과 답변 페이징 처리용 토탈카운트
 	@Override
@@ -172,7 +165,7 @@ public class CommunityServiceImpl implements CommunityService {
 		log.info("mapper.delete()호출");
 		mapper.delete(board_id);
 	}
-	
+
 	@Override
 	public BoardVO getQnaInfo(int board_id) {
 
@@ -244,30 +237,25 @@ public class CommunityServiceImpl implements CommunityService {
 	public List<BoardVO> getcommentsList(Criteria cri, int board_id) {
 		return mapper.getCommentsWithPaging(cri, board_id);
 	}
-	
-	
-	
+
 	@Override
 	public void ImgInput(ImageVO imageVO) {
 		log.info("ImgInput");
 		mapper.ImgInput(imageVO);
 	}
-	
+
 	// 조회수
 	@Override
 	public void hit(int board_id) {
 		mapper.hit(board_id);
 	}
 
-
-	 
-
 	@Override
 	public void ImgDelete(int board_id) {
 		mapper.ImgDelete(board_id);
-		
+
 	}
- 
+
 	/*
 	 * // 노하우 댓글 작성
 	 * 

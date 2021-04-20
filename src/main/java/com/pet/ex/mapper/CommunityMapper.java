@@ -11,24 +11,24 @@ import com.pet.ex.vo.ImageVO;
 
 @Mapper
 public interface CommunityMapper {
-	
-	//댓글 삭제
+
+	// 댓글 삭제
 	public void deleteComment(BoardVO boardVO);
 
-	
 	public List<ImageVO> getImg(int board_id);
-	
+
 	// 조회수 어쩔거임
 	public void hit(int board_id);
-	//이미지 삽입
+
+	// 이미지 삽입
 	public void ImgInput(ImageVO imageVO);
 
-	
-	//노하우	특정글
+	// 노하우 특정글
 	public BoardVO getboardInfo(int board_id);
-	public BoardVO getBoard(int board_id);	
-	
-	//댓글 카운트
+
+	public BoardVO getBoard(int board_id);
+
+	// 댓글 카운트
 	public int counta(int board_id);
 
 	// 노하우 페이징 처리 리스트 출력
@@ -36,11 +36,11 @@ public interface CommunityMapper {
 
 	// 노하우 진짜 글쓰기
 	public void writeTips(BoardVO boardVO);
-	
-	//노하우 해당 동물의 글
+
+	// 노하우 해당 동물의 글
 	public List<ImageVO> getPetTips(int category_id);
 
-	//노하우 인기 게시글
+	// 노하우 인기 게시글
 	public List<ImageVO> getTipsRate();
 
 	// 노하우 글 수정하기
@@ -48,36 +48,34 @@ public interface CommunityMapper {
 
 	// 노하우 글 삭제하기
 	public void tdelete(int board_id);
-	
-	//노하우 사진 때문에
+
+	// 노하우 사진 때문에
 	public BoardVO getTipsBoard_id();
 
 	// 노하우 댓글 작성
 	public void insertTComment(BoardVO boardVO);
-	
+
 	// 노하우 댓글 리스트 출력
 	public List<BoardVO> listTComment(int board_id, Criteria cri);
-	
+
 	// 노하우 작성 후 ajax로 삽입
 	public BoardVO getTComment(int board_id);
 
-	public List<BoardVO> getTCommentWithPaging(Criteria cri, int board_id);
-	
-	//더보기
-	public List<BoardVO> getTCommentList(Criteria cri,int board_id);
-	
-	
-	
-	
-	//질문과 답변 특정글
+	public List<BoardVO> getTCommentWithPaging(int board_id, Criteria cri);
+
+	// 더보기
+	public List<BoardVO> getTCommentList(Criteria cri, int board_id);
+
+	// 질문과 답변 특정글
 	public BoardVO getQnaInfo(int board_id);
+
 	public BoardVO getQnaBoard(int board_id);
-	
-	//댓글 카운트
+
+	// 댓글 카운트
 	public int qcount(int board_id);
-	
+
 	// 질문과 답변 글 검색
-	public List<BoardVO> getQsearch(String keyword);	
+	public List<BoardVO> getQsearch(String keyword);
 
 	// 질문과 답변 진짜 글쓰기
 	public void writeQna(BoardVO boardVO);
@@ -94,15 +92,15 @@ public interface CommunityMapper {
 	// 질문과 답변 글 삭제하기
 	public void delete(int board_id);
 
-	// 질문과 답변 해당 동물의  글
+	// 질문과 답변 해당 동물의 글
 	public List<BoardVO> getPetQna(int category_id);
 
 	// 질문과 답변 태그
 	public List<BoardVO> getQtag(String keyword);
-		
-	//질문과 답변 사진 때문에
+
+	// 질문과 답변 사진 때문에
 	public BoardVO getQnaBoard_id();
-	
+
 	// 질문과 답변 댓글 작성
 	public void insertComment(BoardVO boardVO);
 
@@ -111,24 +109,21 @@ public interface CommunityMapper {
 
 	// 질문과 답변 댓글 출력(ajax)
 	public BoardVO getComment(int board_id);
-	
-	//질문과 답변 댓글 페이징
+
+	// 질문과 답변 댓글 페이징
 	public List<BoardVO> getCommentsWithPaging(Criteria cri, int board_id);
-	
+
 	public void ImgDelete(int board_id);
 
-	
 	// 노하우 댓글 작성하기
-	//public void writeTComment(BoardVO boardVO);
+	// public void writeTComment(BoardVO boardVO);
 	// 질문과 답변 댓글쓰기
-	//public void writeComment(BoardVO boardVO);
+	// public void writeComment(BoardVO boardVO);
 	// 노하우 특정 글 페이지
-	//public BoardVO getTipsview(int board_id);
+	// public BoardVO getTipsview(int board_id);
 	// 질문과 답변 특정 글 페이지
-	//public BoardVO getQnaview(int board_id);
+	// public BoardVO getQnaview(int board_id);
 	// 노하우 글 검색
-	//public List<BoardVO> getTsearch(String keyword);
+	// public List<BoardVO> getTsearch(String keyword);
 
 }
-
-

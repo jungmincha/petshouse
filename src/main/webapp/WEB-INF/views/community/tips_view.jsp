@@ -152,12 +152,13 @@ a:hover {
 			value="<sec:authentication property="principal.member_id"/>">
 	</sec:authorize>
 
-	<div class="container" >
+	<div class="container">
 		<div class="head">
-		<c:forEach var="img" items="${img}">
-					<img style="height:500px; width:1200px;"src="/resources/img/tips/${img.imgname}">
+			<c:forEach var="img" items="${img}">
+				<img style="height: 500px; width: 1200px;"
+					src="/resources/img/tips/${img.imgname}">
 
-				</c:forEach>
+			</c:forEach>
 			<div style="margin-top: 45px; margin-bottom: 10px;">
 				<a class="tips-subtitle" href="/commu/tips">노하우</a>
 			</div>
@@ -189,7 +190,7 @@ a:hover {
 
 				</div>
 				<hr>
-				
+
 				<section style="margin-top: 40px; margin-bottom: 20px;">${tips_view.content}</section>
 				<form action="${pageContext.request.contextPath}/commu/tipstag"
 					method="post">
@@ -218,7 +219,7 @@ a:hover {
 		<input type="hidden" id="pgroup" value="${tips_view.board_id }">
 		<div>
 			<div>
-				<strong> 댓글 ${count}</strong> <br> <br>
+				<strong id="count"> 댓글 ${count}</strong> <br> <br>
 			</div>
 			<div>
 				<div class="table" style="margin-bottom: 50px;">
@@ -234,36 +235,9 @@ a:hover {
 			</div>
 		</div>
 
-
+		<sec:authentication property="principal" var="pinfo" />
 		<div class="container" style="margin-bottom: 10px;">
-			<c:forEach items="${tcomment}" var="tcm">
-				<div id="tcomment">
-					<!-- 여기서부터 시큐리티 권한을준다 -->
-					<sec:authentication property="principal" var="pinfo" />
-					<sec:authorize access="isAuthenticated()">
-
-						<!-- 현재 접속된 닉네임과 댓글보드에 저장된 닉네임을 비교해서 일치 하면 보이게 함 -->
-						<c:if test="${pinfo.nickname eq tcm.memberVO.nickname}">
-							<a class="a-del2" style="float: right;"
-								href="/commu/tips/comment/delete/${tcm.board_id}"><b>삭제</b></a>
-						</c:if>
-					</sec:authorize>
-					<div class="row">
-						<div class="profile_box">
-							<a href="/myPage/${tcm.memberVO.nickname}"> <img
-								src="/resources/img/member/profile/${tcm.memberVO.thumbnail}"
-								name="profile" alt="" class="profile" /></a>
-						</div>
-						<div style="padding-top: 10px; padding-left: 10px;">
-							<b>${tcm.memberVO.nickname}</b>
-						</div>
-					</div>
-					<div style="padding-left: 60px;">${tcm.content}</div>
-					<div style="padding-left: 60px;">${tcm.pdate}</div>
-					<hr>
-				</div>
-			</c:forEach>
-			<div id="tcommentmore"></div>
+			<div id="tcomment"></div>
 		</div>
 
 
@@ -271,125 +245,41 @@ a:hover {
 
 
 		<div class="container">
-			<form id="commentListForm" name="commentListForm" method="post">
-				<div id="TcommentList"></div>
-			</form>
+
+			<div class="later col-lg-12 text-center" id="page"></div>
 		</div>
 	</div>
 
-	<div class="later col-lg-12 text-center">
-		<button type="button" class="btn btn-warning" onClick="btnClick()">더보기</button>
-	</div>
+
 
 	<script type="text/javascript">
-		// 댓글 작성 및 ajax로 댓글 불러오기
-		function getComment() {
+		//timerID = setTimeout("getListComment()", 3);
+		var start = 0;
+		$(document).ready(function() {
+			getListComment();
 
-			var member_id = $("#member_id").val();
-			var thumbnail = $("#thumbnail").val();
-			console.log(member_id);
-			var pgroup = $("#pgroup").val();
-			var content = $("#content").val();
-			console.log(content);
-			$
-					.ajax({
-						url : "/commu/tips_view/insert",
-						type : "post",
-						data : {
-							member_id : member_id,
-							pgroup : pgroup,
-							content : content,
-							thumbnail : thumbnail
-						},
-						success : function(data) {
-							console.log(data);
+		})
 
-							html = "<div ><a class='a-del' style='float:right;' href='/commu/tips/comment/delete/" + data.board_id + "'><b>삭제</b></a>"
-									+ "<div class='row'>"
-									+ "<div class='profile_box'>"
-									+ "<a href='/myPage/ " + data.memberVO.nickname + "'>"
-									+ "<img src='/resources/img/member/profile/" + data.memberVO.thumbnail + "' class='profile'></div>"
-									+ "<div style='padding-top:10px; padding-left:10px;'><b>"
-									+ data.memberVO.nickname
-									+ "</a></div></div></b>"
-									+ "<div style='padding-left:60px;'>"
-									+ data.content
-									+ "</div>"
-									+ "<div style='padding-left:60px;'>"
-									+ data.pdate + "</div><hr></div>"
+		function getListComment(type) {
+			if (type == 2) {
 
-							$("#tcomment").prepend(html);
-							document.getElementById("content").value = '';
-							// 댓글 삭제
-							$(".a-del").click(function(event) { //id는 한번만 calss는 여러번 선택 가능
-								event.preventDefault();
-								console.log("삭제버튼 클릭");
-								var tr = $(this).parent();
-
-								$.ajax({
-									type : 'DELETE', //method
-									url : $(this).attr("href"),
-									cache : false,
-
-									success : function(result) {
-										console.log("result: " + result);
-										if (result == "SUCCESS") {
-											$(tr).remove();
-											alert("삭제되었습니다.");
-										}
-									},
-									error : function(e) {
-										console.log(e);
-									}
-								}); //end of ajax
-							}); // 삭제 종료	
-						},
-					})
-
-		}
-		// 댓글 삭제
-		$(".a-del2").click(function(event) { //id는 한번만 calss는 여러번 선택 가능.
-
-			//하나의 id는 한 문서에서 한 번만 사용이 가능(가장 마지막 혹은 처음게 선택). 하나의 class는 
-
-			event.preventDefault();
-
-			var tr = $(this).parent();//자바스크립트 클로저
-
-			$.ajax({
-				type : 'DELETE', //method
-				url : $(this).attr("href"), //주소를 받아오는 것이 두 번째 포인트.
-				cache : false,
-				success : function(result) {
-					console.log("result: " + result);
-					if (result == "SUCCESS") {
-						$(tr).remove();
-						alert("삭제되었습니다1.");
-					}
-				},
-				error : function(e) {
-					console.log(e);
-				}
-			}); //end of ajax
-		}); // 삭제 종료
-
-		//더보기
-		var pageNum = 1;
-
-		function btnClick() {
-
-			pageNum += 1;
-			console.log(pageNum);
-
+			} else {
+				start += 5;
+			}
+			console.log(start)
+			$("#tcomment").empty();
+			$("#page").empty();
+			console.log("실행");
 			$
 					.ajax({
 						type : "POST",
 						url : "/commu/tmorelist",
 						data : {
-							pageNum : pageNum,
+							amount : start,
 							board_id : "${tips_view.board_id}"
 						},
 						success : function(data) {
+
 							console.log(data);
 							var tcomment = data.tcomment;
 
@@ -404,48 +294,83 @@ a:hover {
 
 								html += "<div class='row'>"
 										+ "<div class='profile_box'>"
-										+ "<a href='/myPage/ "+tcomment[i].memberVO.nickname+"'>"
+										+ "<a href='/myPage/"+tcomment[i].memberVO.nickname+"'>"
 										+ "<img src='/resources/img/member/profile/"+tcomment[i].memberVO.thumbnail+"'name='profile' alt='' class='profile' />"
-										+ "</div><div style='padding-top:10px; padding-left:10px;'><b>"
+										+ "</a></div><div style='padding-top:10px; padding-left:10px;'><b>"
+										+ "<a href='/myPage/"+tcomment[i].memberVO.nickname+"'>"
 										+ tcomment[i].memberVO.nickname
-										+ "</b></a></div></div>"
+										+ "</a></b></div></div>"
 										+ "<div style='padding-left:60px;'>"
 										+ tcomment[i].content + "</div>"
 										+ "<div style='padding-left:60px;'>"
-										+ tcomment[i].pdate
+										+ transferTime(tcomment[i].pdate)
 										+ "</div><hr></div>"
 
 							}
+							$("#count").text("댓글 " + data.commentTotal + "개");
+							$("#tcomment").append(html);
+							if (data.tcomment.length < data.commentTotal) {
+								html2 = "<button type='button' class='btn btn-warning' onClick='getListComment()'>더보기</button>"
 
-							$("#tcommentmore").append(html);
+								$("#page").append(html2);
 
-							// 댓글 삭제
-							$(".a-del").click(function(event) { //id는 한번만 calss는 여러번 선택 가능
-								event.preventDefault();
-								console.log("삭제버튼 클릭");
-								var tr = $(this).parent();
+							} else {
 
-								$.ajax({
-									type : 'DELETE', //method
-									url : $(this).attr("href"),
-									cache : false,
+							}
 
-									success : function(result) {
-										console.log("result: " + result);
-										if (result == "SUCCESS") {
-											$(tr).remove();
-											alert("삭제되었습니다.");
-										}
-									},
-									errer : function(e) {
-										console.log(e);
-									}
-								}); //end of ajax
-							}); // 삭제 종료	
 						},
-					})
+					});
+		}
+		// 댓글 작성 및 ajax로 댓글 불러오기
+		function getComment() {
+
+			var member_id = $("#member_id").val();
+			var thumbnail = $("#thumbnail").val();
+			console.log(member_id);
+			var pgroup = $("#pgroup").val();
+			var content = $("#content").val();
+			console.log(content);
+			$.ajax({
+				url : "/commu/tips_view/insert",
+				type : "post",
+				data : {
+					member_id : member_id,
+					pgroup : pgroup,
+					content : content,
+					thumbnail : thumbnail
+				},
+				success : function(data) {
+
+					document.getElementById("content").value = '';
+					getListComment(2);
+				},
+			})
 
 		}
+		// 댓글 삭제
+		$(document).on('click', '.a-del', function() {
+			//id는 한번만 calss는 여러번 선택 가능.
+
+			//하나의 id는 한 문서에서 한 번만 사용이 가능(가장 마지막 혹은 처음게 선택). 하나의 class는 
+
+			event.preventDefault();
+
+			$.ajax({
+				type : 'DELETE', //method
+				url : $(this).attr("href"), //주소를 받아오는 것이 두 번째 포인트.
+				cache : false,
+				success : function(result) {
+					console.log("result: " + result);
+					if (result == "SUCCESS") {
+						alert("삭제되었습니다.");
+						getListComment(2);
+					}
+				},
+				error : function(e) {
+					console.log(e)
+				}
+			}); //end of ajax
+		}); // 삭제 종료
 
 		//수정 삭제 버튼 띄우기
 		window.onload = function() {
@@ -466,6 +391,44 @@ a:hover {
 
 			}
 
+		}
+		function transferTime(times) {
+			var now = new Date();
+
+			var sc = 1000;
+			var today = new Date(times);
+			//지나간 초
+			var pastSecond = parseInt((now - today) / sc, 10);
+
+			var date;
+			var hour;
+			var min;
+			var str = "";
+
+			var restSecond = 0;
+			if (pastSecond > 86400) {
+				date = parseInt(pastSecond / 86400, 10);
+				restSecond = pastSecond % 86400;
+				str = date + "일 ";
+
+				hour = parseInt(restSecond / 3600, 10);
+				restSecond = restSecond % 3600;
+				str = str + hour + "시간 전";
+
+			} else if (pastSecond > 3600) {
+				hour = parseInt(pastSecond / 3600, 10);
+				restSecond = pastSecond % 3600;
+				str = str + hour + "시간 전";
+
+			} else if (pastSecond > 60) {
+				min = parseInt(pastSecond / 60, 10);
+				restSecond = pastSecond % 60;
+				str = str + min + "분 전";
+			} else {
+				str = pastSecond + "초 전";
+			}
+
+			return str;
 		}
 	</script>
 
