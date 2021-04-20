@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -132,9 +133,10 @@
             </div>
   		  <!-- Category End -->   
   		  
-            <!-- Goods -->
-             <div class="cate row">
+          <!-- Goods -->
+          <div class="cate row">
            <c:forEach items="${rate}" var="rate">
+           <input type="hidden" class="code" name="categoryVO.code" value="${rate.categoryVO.code}">
                 <div class="col-lg-3 col-sm-6">
                     <div class="product-item">
                     
@@ -160,6 +162,70 @@
                     </div>     
                 </div>
                </c:forEach> 
-            </div>      
+            </div>  
+            
+             <c:if test="${fn:length(rate) == 8}">
+		          <div class="col-lg-12 text-center">
+		          	  <button type="button" class="btn btn-warning" onClick="btnClick()">더보기</button>
+			      </div>   
+		     </c:if> 
+	      
+	 <!-- 더보기 페이징 처리 -->
+     <script>
+      var pageNum = 1;
+     
+      function btnClick(){ 
+    	 var code = $('.code').val();
+    	 console.log(code);  
+    	  
+    	 var url = "/store/best/morelist/"+ code;
+    	 console.log(url);
+    	 pageNum += 1;
+    	  		  
+    	  	$.ajax({
+    	        type :"POST",
+    	        url :url,
+    	        data : {
+    	        	pageNum: pageNum,
+    	        	code: code
+    	        },
+    	        success :function(data){
+    	           console.log(data);
+    	           var rate = data.rate;
+    	           var goods = data.goods;
+					
+    	          html = "";
+    	           for(var i in rate){
+    	        	  html += "<div class='col-lg-3 col-sm-6'> <div class='product-item'>  <div class='pi-pic'>";
+    	        	for(var j in goods){
+	       	          	if(goods[j].goodsVO.goods_id == rate[i].goodsVO.goods_id){
+	       	          	html +="<a href='/admin/goods_detail/" + goods[j].board_id + "'><img src='/resources/img/admin/goods/"+goods[j].goodsVO.thumbnail + "'>"
+	       	          	  	 + "<div class='sale'>Best" + rate[i].rnum + "</div>"       
+		       	          	 + "</div> <div class='pi-text'> <div class='catagory-name'> </div>"
+		       	         	 + "<a href='/admin/goods_detail/" + goods[j].board_id + "'> <h5>" + goods[j].goodsVO.goodsname + "</h5></a>"
+		       	         	 + "<div class='product-price'>" + goods[j].goodsVO.price + "원</div>"
+		       	        	 + "<span class='star-prototype'> <span class='star' style='width:"+(rate[i].avgscore*16)+"px'> </span>" + "</span>"       	         	
+		       	         	 + "<span> &nbsp; 리뷰" + rate[i].count + "</span> </div> </div> </div> </div>";       	          	       	          	
+	       	          	}//if end 
+    	        	}//goods foreach end      	   
+    	           } //bestrate foreach end
+    	           
+    	           if(rate.length == 8){
+		        		html += "<div class='btn col-lg-12 text-center'>"  
+		            		 + "<button type='button' class='btn btn-warning' onClick='btnClick()'>더보기</button> </div>";			      
+		        	}
+	    
+	   	           	$('.btn').remove();
+	   	            $('.cate').append(html); 
+   	          
+    	        }, 	        
+    	        //success end
+    	        error : function(request, status, error) {
+					alert("code:" + request.status + "\n" + "message:"
+							+ request.responseText + "\n" + "error:" + error);
+				} // ajax 에러 시 end
+    	    }); //ajax end	 
+    	}; //click end	
+      </script>
 	</body>
 </html>

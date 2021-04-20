@@ -76,6 +76,10 @@
 	.sns{
 		padding-bottom: 60px;
 	}
+	
+	.tag-item{
+		padding-top: 20px;
+	}
 
 </style>
 </head>
@@ -87,40 +91,40 @@
    <!-- Instagram Section Begin -->
    <div class="container">
    	 <div class="instagram-photo col-lg-12">
-       	<div class="insta-item set-bg" data-setbg="/resources/img/commuhome/cat.jpg">
-            <div class="inside-text">
-                <i class="ti-instagram"></i>
-                <h5><a href="#">Cat</a></h5>
-            </div>
-        </div>
+	       	<div class="insta-item set-bg" data-setbg="/resources/img/commuhome/cat.jpg">
+	            <div class="inside-text">
+	                <i class="ti-instagram"></i>
+	                <h5><a href="/search?keyword=고양이">Cat</a></h5>
+	            </div>
+	        </div>
         <div class="insta-item set-bg" data-setbg="/resources/img/commuhome/dog.jpg">
             <div class="inside-text">
                 <i class="ti-instagram"></i>
-                <h5><a href="#">Dog</a></h5>
+                <h5><a href="/search?keyword=강아지">Dog</a></h5>
             </div>
         </div>
         <div class="insta-item set-bg" data-setbg="/resources/img/commuhome/reptile2.jpg">
             <div class="inside-text">
                 <i class="ti-instagram"></i>
-                <h5><a href="#">Reptile</a></h5>
+                <h5><a href="/search?keyword=파충류">Reptile</a></h5>
             </div>
         </div>
         <div class="insta-item set-bg" data-setbg="/resources/img/commuhome/bird1.jpg">
             <div class="inside-text">
                 <i class="ti-instagram"></i>
-                <h5><a href="#">Bird</a></h5>
+                <h5><a href="/search?keyword=새">Bird</a></h5>
             </div>
         </div>
         <div class="insta-item set-bg" data-setbg="/resources/img/commuhome/fish.jpg">
             <div class="inside-text">
                 <i class="ti-instagram"></i>
-                <h5><a href="#">Fish</a></h5>
+                <h5><a href="/search?keyword=물고기">Fish</a></h5>
             </div>
         </div>
         <div class="insta-item set-bg" data-setbg="/resources/img/commuhome/rabbit.jpg">
             <div class="inside-text">
                 <i class="ti-instagram"></i>
-                <h5><a href="#">Other</a></h5>
+                <h5><a href="/search?keyword=기타">Other</a></h5>
             </div>
         </div>
     </div>
@@ -214,7 +218,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row text-center">
                  <div class="product-slider owl-carousel">
                      <c:forEach items="${knowhow}" var="knowhow">                   
                      	<div class="product-item">
@@ -225,12 +229,12 @@
                         <div class="latest-text">
                         	<div class="tag-list">
                             	<div class="tag-item">
-                                    <i class="fa fa-calendar-o"></i> &nbsp;<fmt:formatDate value="${knowhow.pdate}" pattern="yyyy.MM.dd" />
-                                    &nbsp;조회수 ${knowhow.hit}                        
+                                    <i class="fa fa-calendar-o"></i> &nbsp;<fmt:formatDate value="${knowhow.pdate}" pattern="yy.MM.dd" />
+                                     &nbsp;&nbsp;조회수 ${knowhow.hit}                        
                                 </div>                     
                             </div>
-	                        <a href="#"><h5>${knowhow.title}</h5></a>
-	                        <p>${knowhow.content}</p>
+	                        <a href="#"><p style="padding-top:10px;"><span style="font-size:20px;">${knowhow.title}</span></p></a>
+	                        <!-- <p>${knowhow.content}</p> -->
                         </div>
                         </div>  
                       </c:forEach>
@@ -255,7 +259,7 @@
 				<div class="col-12 col-lg-3 col-md-4 col-sm-6">
 					<div class="user-Info row" style="margin: 20px auto 0px 5px">
 						<div class="profile_box">
-							<img src="/resources/img/member/profile/${sns.boardVO.memberVO.thumbnail}">			
+							<img src="/resources/img/member/profile/${sns.boardVO.memberVO.thumbnail}" class="profile">		
 						</div>
 						<p>${sns.boardVO.memberVO.nickname}</p>
 					</div>

@@ -39,9 +39,10 @@ public class StoreServiceImpl implements StoreService {
 	}
 	
 	@Override
-	public List<BoardVO> getBestrate(int category_id) {
+	public List<BoardVO> getBestrate(BoardVO boardVO, Criteria cri) {
 		log.info("getBestrate");
-		return mapper.getBestrate(category_id);
+		cri.setAmount(8);
+		return mapper.getBestrate(boardVO, cri);
 	}
 
 	@Override

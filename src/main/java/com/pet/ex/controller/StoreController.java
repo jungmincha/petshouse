@@ -7,7 +7,6 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,7 +22,6 @@ import com.pet.ex.service.StoreService;
 
 import com.pet.ex.vo.BoardVO;
 import com.pet.ex.vo.CategoryVO;
-import com.pet.ex.vo.FollowVO;
 import com.pet.ex.vo.MemberVO;
 import com.pet.ex.vo.PointVO;
 
@@ -51,7 +49,7 @@ public class StoreController {
 	
 	//상품 더보기 
 	@PostMapping("/morelist")
-	public Map<String, Object> storehome(Criteria cri) {
+	public Map<String, Object> morelist(Criteria cri) {
 		log.info("morelist");
 		Map<String, Object> list = new HashMap<>();
 		List<BoardVO> rate = service.getStorerate(cri);
@@ -71,14 +69,26 @@ public class StoreController {
 		return mav;
 	}
 	
-	//베스트 카테고리별 정렬
-	@PostMapping("/best/{categoryVO.category_id}")
-	public ModelAndView best(@PathVariable("categoryVO.category_id") int category_id, BoardVO boardVO, ModelAndView mav) {
+	//besthome 카테고리별 정렬
+	@PostMapping("/best/{categoryVO.code}")
+	public ModelAndView best(BoardVO boardVO, Criteria cri, ModelAndView mav) {
 		log.info("beststore");
-		mav.addObject("rate", service.getBestrate(boardVO.getCategoryVO().getCategory_id()));
+		mav.addObject("rate", service.getBestrate(boardVO, cri));
 		mav.addObject("goods", service.getGoodsinfo());		
 		mav.setViewName("store/bestcate");	
 		return mav;	
+	}
+	
+	//besthome 카테고리별 상품 더보기 
+	@PostMapping("/best/morelist/{categoryVO.code}")
+	public Map<String, Object> bestmorelist(BoardVO boardVO, Criteria cri) {
+		log.info("bestmorelist");		
+		Map<String, Object> list = new HashMap<>();
+		List<BoardVO> goods = service.getGoodsinfo();
+		List<BoardVO> rate = service.getBestrate(boardVO, cri);
+		list.put("rate", rate);
+		list.put("goods", goods);
+		return list;
 	}
 	
 	//이벤트 페이지 이동
@@ -126,7 +136,7 @@ public class StoreController {
 	
 	//커뮤에서 카테고리 이동
 	@GetMapping("/commu/category/{category_id}")
-	public ModelAndView commuhome(ModelAndView mav, CategoryVO category, String categoryName) {
+	public ModelAndView commuhome(CategoryVO category, String categoryName, ModelAndView mav) {
 	   log.info(categoryName);
 	   mav.addObject("category_id", category.getCategory_id());
 	   mav.addObject("categoryName", categoryName);

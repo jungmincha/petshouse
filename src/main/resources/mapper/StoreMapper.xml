@@ -151,9 +151,9 @@
 	<!-- 상품에 대한 별점 평균/ 페이징 처리 -->
 	<select id="getStorerate" resultMap="boardvo">
 		<![CDATA[
-	        select * from(
+	       select * from(
 		        select rownum as rnum, A.*from (
-		           select round(avg(ratescore),1) as avgscore, count(*) as count, goods_id from board where boardtype_id=8 group by goods_id order by count(*) desc
+		       		select round(avg(ratescore),1) as avgscore, count(*) as count, g.goods_id from board b, goods g where b.goods_id=g.goods_id and b.boardtype_id=8 group by g.goods_id order by count(*) desc
 		       ) A where rownum <= #{pageNum} * #{amount}
 	       )where rnum > (#{pageNum}-1) * #{amount} 
 	   ]]>
@@ -171,9 +171,9 @@
 		<![CDATA[
 	      select * from(
 	        select rownum as rnum, A.*from (
-	           select round(avg(ratescore),1) as avgscore, count(*) as count, goods_id from board where boardtype_id=8 and category_id=#{category_id} group by goods_id order by count(*) desc
-	       ) A where rownum <= 20
-	      )where rnum > 0
+	            select round(avg(ratescore),1) as avgscore, count(*) as count, g.goods_id, c.code from board b, goods g, category c where b.goods_id=g.goods_id and g.category_id=c.category_id and c.code=#{boardVO.categoryVO.code} and b.boardtype_id=8 group by g.goods_id, c.code order by count(*) desc
+	       ) A where rownum <= #{cri.pageNum} * #{cri.amount}
+	      )where rnum > (#{cri.pageNum}-1) * #{cri.amount} 
 	   ]]>
 	</select>
 	
@@ -205,7 +205,7 @@
 		<![CDATA[
 	      select * from(
 	        select rownum as rnum, A.*from (
-	           select substr(content, 1, 10) as content, title, pdate, hit from board where boardtype_id=5 order by hit desc  
+	           select substr(content, 1, 10) as content, substr(title, 1, 17) as title, pdate, hit from board where boardtype_id=5 order by hit desc  
 	       ) A where rownum <= 10
 	      )where rnum > 0
 	   ]]>

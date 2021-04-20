@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -41,9 +42,9 @@
     
     function fire_ajax_submit(id) {
     	console.log(id);
-    	var category_id = id;	
+    	var code = id;	
 		var form = {
-				category_id: category_id
+				code: code
 		};   
     	var url = "/store/best/"+id;
     		
@@ -153,7 +154,7 @@
   		  
             <!-- Goods -->
              <div class="cate row">
-           		<c:forEach items="${rate}" var="rate">
+           		<c:forEach items="${rate}" var="rate">          		
                 <div class="col-lg-3 col-sm-6">
                     <div class="product-item">
                         <div class="pi-pic">			   
@@ -181,9 +182,11 @@
                 </c:forEach>
             </div>
             
-            <div class="col-lg-12 text-center">
-            <button type="button" class="btn btn-warning" onClick="btnClick()">더보기</button>
-	        </div>
+	          <c:if test="${fn:length(rate) == 8}">
+	            <div class="btn col-lg-12 text-center">  
+	            	<button type="button" class="btn btn-warning" onClick="btnClick()">더보기</button>
+		        </div>
+		       </c:if>
 	       </div>
 	     </div>
 	  </section>
@@ -191,12 +194,12 @@
  
       <!-- 더보기 페이징 처리 -->
      <script>
-      var pageNum = 1;
+     var pageNum = 1;
      
       function btnClick(){
     	  pageNum += 1;
     	  console.log(pageNum);
-    	  		  
+    	   	  		  
     	  	$.ajax({
     	        type :"POST",
     	        url :"/store/morelist",
@@ -219,16 +222,22 @@
 		       	         	 + "<a href='/admin/goods_detail/" + goods[j].board_id + "'> <h5>" + goods[j].goodsVO.goodsname + "</h5></a>"
 		       	         	 + "<div class='product-price'>" + goods[j].goodsVO.price + "원</div>"
 		       	        	 + "<span class='star-prototype'> <span class='star' style='width:"+(rate[i].avgscore*16)+"px'> </span>" + "</span>"       	         	
-		       	         	 + "<span> &nbsp; 리뷰" + rate[i].count + "</span> </div> </div> </div> </div>";       	          	       	          	
+		       	         	 + "<span> &nbsp; 리뷰" + rate[i].count + "</span> </div> </div> </div> </div>";       	          	       	          	  	          		
 	       	          	}//if end 
-    	        	}//goods foreach end      	   
-    	           } //bestrate foreach end
+    	        	  }//goods foreach end   	  	
+    	            } //bestrate foreach end
     	           
-    	            $(".cate").append(html); 
+	   	        	if(rate.length == 8){
+		        		html += "<div class='btn col-lg-12 text-center'>"  
+		            		 + "<button type='button' class='btn btn-warning' onClick='btnClick()'>더보기</button> </div>";			      
+		        	}
+     
+    	           	$('.btn').remove();
+    	            $('.cate').append(html); 
     	          
-    	        }, 	        
-    	        //success end
-    	        error : function(request, status, error) {
+    	        }, //success end       
+    	        
+    	         error : function(request, status, error) {
 					alert("code:" + request.status + "\n" + "message:"
 							+ request.responseText + "\n" + "error:" + error);
 				} // ajax 에러 시 end

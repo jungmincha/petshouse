@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -324,9 +325,13 @@
                   </div>
                </c:forEach>                      
             </div>
-            <div class="col-lg-12 text-center">
-            <button type="button" class="btn btn-warning" onClick="btnClick()">더보기</button>
-	        </div>
+             
+              <c:if test="${fn:length(rate) == 8}">
+	            <div class="col-lg-12 text-center">
+	            	<button type="button" class="btn btn-warning" onClick="btnClick()">더보기</button>
+		        </div>
+		      </c:if>
+	    
            </section> 
          <!-- Best Item End -->
 		</div>
@@ -367,7 +372,13 @@
     	        	}//goods foreach end      	   
     	           } //bestrate foreach end
     	           
-    	            $(".cate").append(html); 
+    	           if(rate.length == 8){
+		        		html += "<div class='btn col-lg-12 text-center'>"  
+		            		 + "<button type='button' class='btn btn-warning' onClick='btnClick()'>더보기</button> </div>";			      
+		        	}
+    	           
+    	           $('.btn').remove();
+    	           $(".cate").append(html); 
     	          
     	        }, 	        
     	        //success end
