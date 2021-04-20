@@ -30,7 +30,7 @@ public class BoardVO {
 	private int pindent;
 	private int ratescore;
 	private String location;
-	private String thumbnail;
+
 	// 외래키
 	private MemberVO memberVO;
 	private BoardtypeVO boardtypeVO;

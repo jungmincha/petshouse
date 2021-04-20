@@ -178,7 +178,7 @@ public class MyPageController {
 		String member_id = authentication.getPrincipal().toString();
 
 		boardVO.getMemberVO().setMember_id(member_id);
-		myPageService.insertReview(boardVO);
+
 		if (multi.getFile("file").getOriginalFilename().equals(" ")) {
 			myPageService.insertPoint(100, 4, member_id);
 		} else {
@@ -200,10 +200,9 @@ public class MyPageController {
 				String thumbnail = uuid + "." + ext;
 				String savePath = path + "\\" + thumbnail; // 저장 될 파일 경로
 				mf.get(i).transferTo(new File(savePath)); // 파일 저장
-				imageVO.setImgname(thumbnail);
+				boardVO.setTitle(thumbnail);
 			}
-
-			myPageService.insertImg(imageVO, board.getBoard_id());
+			myPageService.insertReview(boardVO);
 			myPageService.insertPoint(500, 5, member_id);
 		}
 
