@@ -341,9 +341,7 @@ body {
 
 			</div>
 			
-			          			<c:forEach items="${likelist}" var="likelist">
-			          							<p>${likelist.memberVO.nickname}</p>          	
-			          						</c:forEach>				       	
+			          		
 			          						
 			
 			<!-- 좋아요 구현 -->

@@ -315,7 +315,9 @@
 	
 	
 	
-	<!-- 좋아요 수 조회 -->
+	<!-- 좋아요 mapper start -->
+	
+		<!-- 좋아요 수 조회 -->
 	<select id="getLiketotal" resultType="int">
 		<![CDATA[
 	      select count(*) from plike where board_id = #{boardVO.board_id}
@@ -334,7 +336,8 @@
 	<!-- 좋아요 리스트 조회 -->
 	<select id="getLikelist" resultMap="plikevo">
 		<![CDATA[
-	        select member_id from plike where board_id=#{boardVO.board_id}
+		select member_id from plike where board_id=#{boardVO.board_id}
+	        
 	   ]]>
 	</select> 
 	
@@ -352,9 +355,6 @@
 	         delete from plike where board_id=#{boardVO.board_id} and member_id=#{memberVO.member_id}
 	   ]]>
 	</select>  
-	
-	
-	
 	
 	<!-- 전체 좋아요 출력-->
 	<select id="getLikeprint" resultMap="plikevo">
@@ -377,6 +377,9 @@
       update board set plike = plike-1 WHERE board_id=#{board_id}
    ]]>
 	</select>
+	
+	
+	<!-- 좋아요 mapper end -->
 
 <!-- 회원 정보 조회 -->
 	<select id="getMemberinfo" resultType="MemberVO">

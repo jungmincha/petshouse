@@ -141,10 +141,12 @@ public class SnsController {
 	}
 
 	@GetMapping("/sns/{board_id}")
-	public ModelAndView contentView(@PathVariable("board_id") int board_id, PlikeVO plikeVO ,BoardVO boardVO, MemberVO memberVO, Criteria cri, ModelAndView mav)
+	public ModelAndView contentView(@PathVariable("board_id") int board_id,  MyAuthentication myAuthentication ,PlikeVO plikeVO ,BoardVO boardVO, MemberVO memberVO, Criteria cri, ModelAndView mav)
 			throws Exception {
 
 		boardVO = service.getBoardInfo(board_id);
+		//현재 접속 아이디
+		String pre_nickname= myAuthentication.getMember().getNickname();
 
 		log.info("SNS_View");
 
@@ -171,7 +173,7 @@ public class SnsController {
 		
 		MemberVO member = new MemberVO();
 		plikeVO.setMemberVO(member);
-		plikeVO.getMemberVO().setMember_id(nickname);
+		plikeVO.getMemberVO().setMember_id(pre_nickname);
 		BoardVO board = new BoardVO();
 		plikeVO.setBoardVO(board);
 		plikeVO.getBoardVO().setBoard_id(boardVO.getBoard_id());
@@ -271,14 +273,15 @@ public class SnsController {
 				log.info("LIKE");
 				
 				
-				System.out.println("===================================================");
+			
 				//현재 접속 아이디
 				String pre_nickname= myAuthentication.getMember().getNickname();
 				//resultmap에 vo 담아주는 거
 				MemberVO member = new MemberVO();
 				plikeVO.setMemberVO(member);
 				plikeVO.getMemberVO().setMember_id(pre_nickname);
-				//plikeVO.getMemberVO().setNickname(nickname);
+				
+			
 				BoardVO board = new BoardVO();
 				plikeVO.setBoardVO(board);
 				plikeVO.getBoardVO().setBoard_id(boardVO.getBoard_id());
@@ -317,12 +320,12 @@ public class SnsController {
 				MemberVO member = new MemberVO();
 				plikeVO.setMemberVO(member);
 				plikeVO.getMemberVO().setMember_id(pre_nickname);
-				//plikeVO.getMemberVO().setMember_id(nickname);
+	
 				BoardVO board = new BoardVO();
 				plikeVO.setBoardVO(board);
 				plikeVO.getBoardVO().setBoard_id(boardVO.getBoard_id());
 			
-				//plikeVO.setMember_id(member_id);
+	
 			
 				Map<String, Object> map = new HashMap<>();	
 				try {	
