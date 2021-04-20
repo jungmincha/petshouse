@@ -17,6 +17,7 @@ import com.pet.ex.page.PageVO;
 import com.pet.ex.service.HomeService;
 import com.pet.ex.vo.BoardVO;
 import com.pet.ex.vo.GoodsVO;
+import com.pet.ex.vo.ImageVO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -38,12 +39,12 @@ public class HomeController {
 
 	// 글 검색
 	@GetMapping("/search")
-	public ModelAndView search(@RequestParam("keyword") String keyword, ModelAndView mav, BoardVO boardVO)
+	public ModelAndView search(@RequestParam("keyword") String keyword, ModelAndView mav,Criteria cri)
 			throws Exception {
 		log.info("search()실행");
-		mav.addObject("gsearch", service.getGsearch(keyword));
-		mav.addObject("tsearch", service.getTsearch(keyword));
-		mav.addObject("qsearch", service.getQsearch(keyword));
+		mav.addObject("moregoods", service.getMoreGoods(keyword, cri));
+		mav.addObject("moreqna", service.getMoreQna(keyword,cri));
+		mav.addObject("moretips", service.getMoreTips(keyword,cri));
 		mav.setViewName("/home/search");
 		return mav;
 	}
@@ -75,15 +76,13 @@ public class HomeController {
 		log.info("moreqna()실행");
 		System.out.println(keyword);
 		mav.addObject("moreqna", service.getMoreQna(keyword,cri));
-		int total = service.getTotal(cri);
-		mav.addObject("pageMaker", new PageVO(cri, total));
 		mav.setViewName("/home/moreqna");
 		return mav;
 	}
 
 
 	@GetMapping("/moretips")
-	public ModelAndView moretips(@RequestParam("keyword") String keyword, ModelAndView mav, BoardVO boardVO, Criteria cri)
+	public ModelAndView moretips(@RequestParam("keyword") String keyword, ModelAndView mav,Criteria cri)
 			throws Exception {
 		log.info("moretips()실행");
 		System.out.println(keyword);
@@ -97,7 +96,7 @@ public class HomeController {
 	public Map<String, Object> tipslist(@RequestParam("keyword") String keyword, Criteria cri) {
 		log.info("morelist");
 		Map<String, Object> list = new HashMap<>();
-		List<BoardVO> tipslist = service.getMoreTips(keyword, cri);
+		List<ImageVO> tipslist = service.getMoreTips(keyword, cri);
 		list.put("tipslist", tipslist);
 		return list;
 	}

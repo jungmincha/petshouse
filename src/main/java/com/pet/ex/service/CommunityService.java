@@ -62,7 +62,7 @@ public interface CommunityService {
 
 
 	// 노하우 메인 페이지
-	public List<BoardVO> getTipsList(Criteria cri);
+	public List<ImageVO> getTipsList(Criteria cri);
 	
     //댓글수
 	public int counta(int board_id);
@@ -81,10 +81,10 @@ public interface CommunityService {
 	public BoardVO getBoard(int board_id);
 
 	//노하우 
-	public List<BoardVO> getPetTips(int category_id);
+	public List<ImageVO> getPetTips(int category_id);
 
 	//노하우 상단 인기 게시글
-	public List<BoardVO> getTipsRate();
+	public List<ImageVO> getTipsRate();
 
 	public BoardVO getTipsBoard_id();
 	// 노하우 댓글 리스트

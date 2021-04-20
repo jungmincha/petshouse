@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!-- 추가함 -->
 <!DOCTYPE html>
@@ -151,8 +152,12 @@ a:hover {
 			value="<sec:authentication property="principal.member_id"/>">
 	</sec:authorize>
 
-	<div class="container" style="margin-bottom: 40px">
+	<div class="container" >
 		<div class="head">
+		<c:forEach var="img" items="${img}">
+					<img style="height:500px; width:1200px;"src="/resources/img/tips/${img.imgname}">
+
+				</c:forEach>
 			<div style="margin-top: 45px; margin-bottom: 10px;">
 				<a class="tips-subtitle" href="/commu/tips">노하우</a>
 			</div>
@@ -184,6 +189,7 @@ a:hover {
 
 				</div>
 				<hr>
+				
 				<section style="margin-top: 40px; margin-bottom: 20px;">${tips_view.content}</section>
 				<form action="${pageContext.request.contextPath}/commu/tipstag"
 					method="post">
@@ -198,7 +204,8 @@ a:hover {
 						</c:forEach>
 
 					</ul>
-				</form> <span style="color: gray">${tips_view.pdate}</span> <span
+				</form> <span style="color: gray"><fmt:formatDate
+						value="${tips_view.pdate}" pattern="yyyy.MM.dd" /></span> <span
 				style="color: gray">조회수 ${tips_view.hit}</span>
 			</td>
 		</table>

@@ -87,9 +87,9 @@ public class CommunityController {
 
 	// 노하우 동물 글 페이지 출력
 	@GetMapping("/tips/pet")
-	public List<BoardVO> tips_pet(int category_id, Criteria cri) throws Exception {
+	public List<ImageVO> tips_pet(int category_id, Criteria cri) throws Exception {
 
-		List<BoardVO> list = new ArrayList<BoardVO>();
+		List<ImageVO> list = new ArrayList<ImageVO>();
 		if (category_id == 0) {
 			list = communityService.getTipsList(cri);
 		} else {
@@ -171,8 +171,7 @@ public class CommunityController {
 	public ModelAndView tdelete(@RequestParam("board_id") int board_id, Criteria cri, ModelAndView mav)
 			throws Exception {
 		log.info("tdelete()실행");
-		mav.addObject("tips", communityService.getTipsList(cri));
-		mav.addObject("img", communityService.getImg(board_id));
+		communityService.ImgDelete(board_id);
 		communityService.tdelete(board_id);
 		mav.setView(new RedirectView("/commu/tips", true));
 		return mav;
@@ -207,7 +206,7 @@ public class CommunityController {
 	public Map<String, Object> tips(Criteria cri) {
 		log.info("morelist");
 		Map<String, Object> list = new HashMap<>();
-		List<BoardVO> tips = communityService.getTipsList(cri);
+		List<ImageVO> tips = communityService.getTipsList(cri);
 		list.put("tips", tips);
 		return list;
 	}

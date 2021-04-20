@@ -95,20 +95,19 @@
 			<div class="product-slider owl-carousel" id="box"">
 
 				<c:forEach items="${rate}" var="rate">
-					<c:if test="${rate.rnum le 10}">
+					<c:if test="${rate.boardVO.rnum le 10}">
 						<div class="product-item">
 							<div class="pi-pic">
 
 								<div class="product-item">
-									<a
-										href="${pageContext.request.contextPath}/commu/tips_view?board_id=${rate.board_id}">
-										<img src="/resources/img/qna/201489577_128.jpg" alt=""
-										style="border-radius: 5px; height: 150px;">
-										<h6 style="font-size: 15px; font-weight: bold;">${rate.title}</h6>
+									<a href="/commu/tips/${rate.boardVO.board_id}">
+										<img src="/resources/img/tips/${rate.imgname}" alt=""
+								style="border-radius: 5px; height: 150px;">
+										<h6 style="font-size: 15px; font-weight: bold;">${rate.boardVO.title}</h6>
 									</a>
-									<div style="font-size: 14px;">${rate.memberVO.nickname}</div>
+									<div style="font-size: 14px;">${rate.boardVO.memberVO.nickname}</div>
 									<div style="font-size: 13px; color: gray;">조회수
-										${rate.hit}</div>
+										${rate.boardVO.hit}</div>
 								</div>
 							</div>
 						</div>
@@ -144,16 +143,16 @@
 
 			<c:forEach items="${tips}" var="tp">
 				<div class="product-item col-sm-3">
-							<a href="/commu/tips/${tp.board_id}">
+							<a href="/commu/tips/${tp.boardVO.board_id}">
 						<div class="pi-pic">
-					<%-- 		<img src="/resources/img/tips/${tp.imgname}" alt=""
-								style="border-radius: 5px; height: 150px;"> --%>
+				<img src="/resources/img/tips/${tp.imgname}" alt=""
+								style="border-radius: 5px; height: 150px;">
 						</div>
 						<div class="pi-text" style="text-align: left; padding-top: 5px;">
-							<h6 style="font-size: 15px; font-weight: bold;">${tp.title}</h6></div>
+							<h6 style="font-size: 15px; font-weight: bold;">${tp.boardVO.title}</h6></div>
 					</a>
-					<div style="font-size: 14px;text-align: left;">${tp.memberVO.nickname}</div>
-					<div style="font-size: 13px; color: gray;text-align: left;">조회수 ${tp.hit}</div>
+					<div style="font-size: 14px;text-align: left;">${tp.boardVO.memberVO.nickname}</div>
+					<div style="font-size: 13px; color: gray;text-align: left;">조회수 ${tp.boardVO.hit}</div>
 				</div></c:forEach>
 		</div>
 		
@@ -189,13 +188,13 @@
     	          html = " "
     	           for(var i in tips){
     	        	  html +="<div class='product-item col-sm-3'>"
-							 +"<a href='${pageContext.request.contextPath}/commu/tips_view?board_id=" + tips[i].board_id+"'>"
+							 +"<a href='/commu/tips/"+tips[i].boardVO.board_id+"'>"
 							 +"<div class='pi-pic'>"
-							 +"<img src='/resources/img/qna/201489577_128.jpg' alt='' style='border-radius: 5px; height: 150px;'></div>"   	          	
+							 +"<img src='/resources/img/tips/"+tips[i].imgname+"' alt=''style='border-radius: 5px; height: 150px;'></div>"   	          	
 	       	          		 +"<div class='pi-text' style='text-align: left; padding-top: 5px;'>"
-	       	          		 +"<h6 style='font-size: 15px; font-weight: bold;'>"+tips[i].title+"</h6></div></a>"
-	       	          		 +"<div style='font-size: 14px;text-align: left;'>"+tips[i].memberVO.nickname+"</div>"
-	     					+"<div style='font-size: 13px; color: gray;text-align: left;'>조회수"+ tips[i].hit+"</div>"
+	       	          		 +"<h6 style='font-size: 15px; font-weight: bold;'>"+tips[i].boardVO.title+"</h6></div></a>"
+	       	          		 +"<div style='font-size: 14px;text-align: left;'>"+tips[i].boardVO.memberVO.nickname+"</div>"
+	     					+"<div style='font-size: 13px; color: gray;text-align: left;'>조회수"+ tips[i].boardVO.hit+"</div>"
 	     					+"</div>"
     	           }
     	        
@@ -233,15 +232,15 @@
 											for (var i = 1; i <= data.length; i++) {
 
 												html +="<div class='product-item col-sm-3'>"
-													+"<a href='${pageContext.request.contextPath}/commu/tips_view?board_id="+data[i - 1].board_id+"'>"
+													 +"<a href='/commu/tips/"+data[i - 1].boardVO.board_id+"'>"
 													+"<div class='pi-pic'>"
-													+"<img src='/resources/img/qna/201489577_128.jpg' alt='' style='border-radius: 5px; height: 150px;'>"
+													+"<img src='/resources/img/tips/"+data[i - 1].imgname+"' alt=''style='border-radius: 5px; height: 150px;'>"
 													+"</div>"
 													+"<div class='pi-text' style='text-align: left; padding-top: 5px;'>"
-													+"<h6 style='font-size: 15px; font-weight: bold;'>"+data[i - 1].title+"</h6></div>"
+													+"<h6 style='font-size: 15px; font-weight: bold;'>"+data[i - 1].boardVO.title+"</h6></div>"
 													+"</a>"
-													+"<div style='font-size: 14px;text-align: left;'>"+data[i - 1].memberVO.nickname+"</div>"
-													+"<div style='font-size: 13px; color: gray;text-align: left;'>조회수"+data[i - 1].hit+"</div>"
+													+"<div style='font-size: 14px;text-align: left;'>"+data[i - 1].boardVO.memberVO.nickname+"</div>"
+													+"<div style='font-size: 13px; color: gray;text-align: left;'>조회수"+data[i - 1].boardVO.hit+"</div>"
 													+"</div>"
 				     					
 									     					

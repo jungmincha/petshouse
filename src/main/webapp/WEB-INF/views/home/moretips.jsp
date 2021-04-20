@@ -97,19 +97,19 @@ a:hover {
 
 							<c:forEach items="${moretips}" var="mt">
 								<div class="product-item col-sm-3">
-									<a href="/commu/tips/${mt.board_id}">
+									<a href="/commu/tips/${mt.boardVO.board_id}">
 										<div class="pi-pic">
-											<%-- 		<img src="/resources/img/tips/${tp.imgname}" alt=""
-								style="border-radius: 5px; height: 150px;"> --%>
+										<img src="/resources/img/tips/${mt.imgname}" alt=""
+								style="border-radius: 5px; height: 150px;">
 										</div>
 										<div class="pi-text"
 											style="text-align: left; padding-top: 5px;">
-											<h6 style="font-size: 15px; font-weight: bold;">${mt.title}</h6>
+											<h6 style="font-size: 15px; font-weight: bold;">${mt.boardVO.title}</h6>
 										</div>
 									</a>
-									<div style="font-size: 14px; text-align: left;">${mt.memberVO.nickname}</div>
+									<div style="font-size: 14px; text-align: left;">${mt.boardVO.memberVO.nickname}</div>
 									<div style="font-size: 13px; color: gray; text-align: left;">조회수
-										${mt.hit}</div>
+										${mt.boardVO.hit}</div>
 								</div>
 							</c:forEach>
 
@@ -141,12 +141,12 @@ a:hover {
     	          html = " "
     	           for(var i in tipslist){
     	        	  html  +="<div class='product-item col-sm-3'>"
-    	        	  +"<a href='/commu/tips/"+tipslist[i].board_id+"'>"
-    	        	  +"<div class='pi-pic'></div>"
+    	        	  +"<a href='/commu/tips/"+tipslist[i].boardVO.board_id+"'>"
+    	        	  +"<div class='pi-pic'><img src='/resources/img/tips/"+tipslist[i].imgname+"' alt=''style='border-radius: 5px; height: 150px;'></div>"   	          	
     	        	  +"<div class='pi-text' style='text-align: left; padding-top: 5px;'>"
-    	        	  +"<h6 style='font-size: 15px; font-weight: bold;'>"+tipslist[i].title+"</h6></div></a>"
-    	        	  +"<div style='font-size: 14px; text-align: left;'>"+tipslist[i].memberVO.nickname+"</div>"
-    	        	  +"<div style='font-size: 13px; color: gray; text-align: left;'>조회수"+tipslist[i].hit+"</div></div>"
+    	        	  +"<h6 style='font-size: 15px; font-weight: bold;'>"+tipslist[i].boardVO.title+"</h6></div></a>"
+    	        	  +"<div style='font-size: 14px; text-align: left;'>"+tipslist[i].boardVO.memberVO.nickname+"</div>"
+    	        	  +"<div style='font-size: 13px; color: gray; text-align: left;'>조회수"+tipslist[i].boardVO.hit+"</div></div>"
     	           }
     	           
     	            $("#table").append(html); 

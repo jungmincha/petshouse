@@ -109,7 +109,7 @@ a:hover {
 
 		<div id="table" class="row text-center"
 			style="margin-top: 20px; margin-left: 5px;">
-			<c:forEach items="${gsearch}" var="gs">
+			<c:forEach items="${moregoods}" var="gs">
 				<div class="product-item col-sm-3">
 					<div class="pi-pic">
 						<a href="/admin/goods_detail/${gs.board_id}"> <img
@@ -137,20 +137,20 @@ a:hover {
 		<div id="table" class="row text-center"
 			style="margin-top: 20px; margin-left: 5px;">
 
-			<c:forEach items="${tsearch}" var="ts">
+			<c:forEach items="${moretips}" var="ts">
 				<div class="product-item col-sm-3">
-					<a href="/commu/tips/${ts.board_id}">
+					<a href="/commu/tips/${ts.boardVO.board_id}">
 						<div class="pi-pic">
-							<%-- 		<img src="/resources/img/tips/${tp.imgname}" alt=""
-								style="border-radius: 5px; height: 150px;"> --%>
+						<img src="/resources/img/tips/${ts.imgname}" alt=""
+								style="border-radius: 5px; height: 150px;">
 						</div>
 						<div class="pi-text" style="text-align: left; padding-top: 5px;">
-							<h6 style="font-size: 15px; font-weight: bold;">${ts.title}</h6>
+							<h6 style="font-size: 15px; font-weight: bold;">${ts.boardVO.title}</h6>
 						</div>
 					</a>
-					<div style="font-size: 14px; text-align: left;">${ts.memberVO.nickname}</div>
+					<div style="font-size: 14px; text-align: left;">${ts.boardVO.memberVO.nickname}</div>
 					<div style="font-size: 13px; color: gray; text-align: left;">조회수
-						${ts.hit}</div>
+						${ts.boardVO.hit}</div>
 				</div>
 			</c:forEach>
 		</div>
@@ -167,7 +167,7 @@ a:hover {
 
 
 		<div>
-			<c:forEach items="${qsearch}" var="qs">
+			<c:forEach items="${moreqna}" var="qs">
 				<a href="/commu/qna/${qs.board_id}">
 					<form action="${pageContext.request.contextPath}/commu/qnatag"
 						method="post">

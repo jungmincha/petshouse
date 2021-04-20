@@ -60,7 +60,7 @@ public class CommunityServiceImpl implements CommunityService {
 
 	// 노하우 메인페이지 리스트 출력
 	@Override
-	public List<BoardVO> getTipsList(Criteria cri) {
+	public List<ImageVO> getTipsList(Criteria cri) {
 		log.info("mapper.getTipsList()");
 		return mapper.getTipsList(cri);
 	}
@@ -74,14 +74,14 @@ public class CommunityServiceImpl implements CommunityService {
 	
 	// 노하우 동물에 해당하는 글
 	@Override
-	public List<BoardVO> getPetTips(int category_id) {
+	public List<ImageVO> getPetTips(int category_id) {
 		log.info("mapper.getPetTips()");
 		return mapper.getPetTips(category_id);
 	}
 	
 	// 노하우 인기 게시글
 	@Override
-	public List<BoardVO> getTipsRate() {
+	public List<ImageVO> getTipsRate() {
 		log.info("mapper.getTipsRate()");
 		return mapper.getTipsRate();
 	}

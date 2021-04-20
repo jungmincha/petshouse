@@ -112,6 +112,9 @@ body::-webkit-scrollbar-track {
     border-radius: 10px;
     box-shadow: inset 0px 0px 5px white;
   }
+  
+ #content {overflow: hidden; text-overflow: ellipsis; }
+
  
 </style>
 
@@ -197,7 +200,7 @@ body::-webkit-scrollbar-track {
 							<form action="${pageContext.request.contextPath}/commu/qnatag" method="post">
 								<div style="font-weight: bold; font-size: 18px;">${qna.title}</div>
 								<ul class="pd-tags">
-									<div>${qna.content}</div>
+									<div id="content">${qna.content}</div>
 									<span>${qna.memberVO.nickname}</span>		
 									<span style="font-size: 13px; color: gray;"><fmt:formatDate value="${qna.pdate}" pattern="yyyy.MM.dd" /></span>
 									<span style="font-size: 13px; color: gray;"> 조회수 ${qna.hit}</span>
@@ -267,10 +270,7 @@ body::-webkit-scrollbar-track {
 											for (var i = 1; i <= data.length; i++) {
 
 												html += "<tbody id='qnaList'><td>"
-														+ "<a href='${pageContext.request.contextPath}/commu/qna_view?board_id="
-														+ data[i - 1].board_id
-														+ "'>"
-														
+														+ "<a href='/commu/qna/"+data[i - 1].board_id+"'>"
 														+ "<div style='font-weight: bold; font-size: 18px;'>"
 														+ data[i - 1].title
 														+ "</div>"

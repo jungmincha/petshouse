@@ -32,16 +32,16 @@ public interface CommunityMapper {
 	public int counta(int board_id);
 
 	// 노하우 페이징 처리 리스트 출력
-	public List<BoardVO> getTipsList(Criteria cri);
+	public List<ImageVO> getTipsList(Criteria cri);
 
 	// 노하우 진짜 글쓰기
 	public void writeTips(BoardVO boardVO);
 	
 	//노하우 해당 동물의 글
-	public List<BoardVO> getPetTips(int category_id);
+	public List<ImageVO> getPetTips(int category_id);
 
 	//노하우 인기 게시글
-	public List<BoardVO> getTipsRate();
+	public List<ImageVO> getTipsRate();
 
 	// 노하우 글 수정하기
 	public void tmodify(BoardVO boardVO);

@@ -98,7 +98,7 @@
 								<div class="custom-file">
 									<input type="file" class="custom-file-input" id="file"
 									    multiple="multiple" name="file"
-										style="display: block;" required> <label
+										style="display: block;"> <label
 										class="custom-file-label" for="inputGroupFile02">사진을
 										선택하세요.</label>
 								</div>
@@ -126,11 +126,7 @@
 	</div>
 
 <script>
- 
-	 
-	
-	
-			
+ 		
 ( /* preview : 이미지들이 들어갈 위치 id, btn : file tag id */
   imageView = function imageView(preview, btn){
 
