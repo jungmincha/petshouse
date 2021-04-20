@@ -113,13 +113,12 @@ a:hover {
 	background-color: #dddddd;
 }
 
-
 .profile_box {
-	width: 30px;
-	height: 30px;
+	width: 40px;
+	height: 40px;
 	border-radius: 70%;
 	overflow: hidden;
-	margin : 5px;
+	margin: 5px;
 }
 
 .profile_box2 {
@@ -127,7 +126,7 @@ a:hover {
 	height: 80px;
 	border-radius: 70%;
 	overflow: hidden;
-	margin : 5px;
+	margin: 5px;
 }
 
 .profile {
@@ -173,13 +172,17 @@ a:hover {
 
 		<table>
 			<td>
-				<div class="row user_info"> 
-								 
- 								 <div class="profile_box" style="margin-left:16px;"> <a href="/myPage/${tips_view.memberVO.nickname}"><img src="/resources/img/member/profile/${tips_view.memberVO.thumbnail}"
-								name="profile" alt="" class="profile" /> &nbsp&nbsp</a></div>
-								<span class="nickname" style="padding:6px;"> <b> ${tips_view.memberVO.nickname} &nbsp&nbsp</b></span>
-							
-							     </div>
+				<div class="row user_info">
+
+					<div class="profile_box" style="margin-left: 16px;">
+						<a href="/myPage/${tips_view.memberVO.nickname}"><img
+							src="/resources/img/member/profile/${tips_view.memberVO.thumbnail}"
+							name="profile" alt="" class="profile" /> &nbsp&nbsp</a>
+					</div>
+					<span class="nickname" style="padding: 6px;"> <b>
+							${tips_view.memberVO.nickname} &nbsp&nbsp</b></span>
+
+				</div>
 				<hr>
 				<section style="margin-top: 40px; margin-bottom: 20px;">${tips_view.content}</section>
 				<form action="${pageContext.request.contextPath}/commu/tipstag"
@@ -208,43 +211,54 @@ a:hover {
 		<input type="hidden" id="pgroup" value="${tips_view.board_id }">
 		<div>
 			<div>
-				<strong> 댓글 ${count}</strong>
-				<br><br>
+				<strong> 댓글 ${count}</strong> <br> <br>
 			</div>
 			<div>
 				<div class="table" style="margin-bottom: 50px;">
 
-					<div class="row"><textarea style="resize: none; margin-left:60px;"
+					<div class="row">
+						<textarea style="resize: none; margin-left: 60px;"
 							class="form-control col-10" id="content" placeholder="댓글을 입력하세요"></textarea>
 						<button id="cw" class="col-1 btn btn-outline-secondary"
 							onClick="getComment()">등록</button>
 
+					</div>
 				</div>
 			</div>
-			</div>
-			</div>
-	
+		</div>
+
 
 		<div class="container" style="margin-bottom: 10px;">
-		
-			<div id="tcomment">
+			<c:forEach items="${tcomment}" var="tcm">
+				<div id="tcomment">
+					<!-- 여기서부터 시큐리티 권한을준다 -->
+					<sec:authentication property="principal" var="pinfo" />
+					<sec:authorize access="isAuthenticated()">
 
-				<c:forEach items="${tcomment}" var="tcm">
-					<div class="row"><div class="profile_box"><a href="/myPage/${tcm.memberVO.nickname}">
-					<img src="/resources/img/member/profile/${tcm.memberVO.thumbnail}"
-						name="profile" alt="" class="profile" /></a></div>
-						<div style="padding:8px;"><b>${tcm.memberVO.nickname}</b></div></div>
-					<div style="padding-left:32px;">${tcm.content}</div>
-					<div style="padding-left:32px;">${tcm.pdate}</div>
-					<hr>
-				</c:forEach>
-
+						<!-- 현재 접속된 닉네임과 댓글보드에 저장된 닉네임을 비교해서 일치 하면 보이게 함 -->
+						<c:if test="${pinfo.nickname eq tcm.memberVO.nickname}">
+							<a class="a-del" style="float: right;"
+								href="/commu/tips/comment/delete/${tcm.board_id}"><b>삭제</b></a>
+						</c:if>
+					</sec:authorize>
+					<div class="row">
+						<div class="profile_box"> <a href="/myPage/${tcm.memberVO.nickname}"> 
+						<img src="/resources/img/member/profile/${tcm.memberVO.thumbnail}" name="profile" alt="" class="profile" /></a>
+						</div>
+						<div style="padding-top:10px; padding-left:10px;"><b>${tcm.memberVO.nickname}</b></div>
+					</div>
+					<div style="padding-left:60px;">${tcm.content}</div>
+					<div style="padding-left:60px;">${tcm.pdate}</div>
+					<hr></div>
+			</c:forEach>
+				<div id="tcommentmore">
+				</div>
 		</div>
 
 
 
 
-               
+
 		<div class="container">
 			<form id="commentListForm" name="commentListForm" method="post">
 				<div id="TcommentList"></div>
@@ -258,7 +272,6 @@ a:hover {
 	</div>
 
 	<script type="text/javascript">
-	
 		// 댓글 작성 및 ajax로 댓글 불러오기
 		function getComment() {
 
@@ -268,40 +281,84 @@ a:hover {
 			var pgroup = $("#pgroup").val();
 			var content = $("#content").val();
 			console.log(content);
-			$.ajax({
-				url : "/commu/tips_view/insert",
-				type : "post",
-				data : {
-					member_id : member_id,
-					pgroup : pgroup,
-					content : content,
-					thumbnail : thumbnail
-				},
-				success : function(data) {
-					console.log(data);
+			$
+					.ajax({
+						url : "/commu/tips_view/insert",
+						type : "post",
+						data : {
+							member_id : member_id,
+							pgroup : pgroup,
+							content : content,
+							thumbnail : thumbnail
+						},
+						success : function(data) {
+							console.log(data);
 
-					html = "<div class='row'><div class='profile_box'><a href='/myPage/ "+data.memberVO.nickname+"'><img src='/resources/img/member/profile/" + data.memberVO.thumbnail +"' class='profile'></a></div><div style='padding:8px;'><b>" + data.memberVO.nickname + "</b></div></div>"
-					+ "<div style='padding-left:32px;'>" + data.content + "</div>" + "<div style='padding-left:32px;'>"
-					+ data.pdate + "</div>"
-					+"<a class='a-del' href='/commu/tips_view/delete?board_id="+data.board_id+"><b>삭제하기</b></a> <hr> "
-					+"<hr>"
+							html = "<a class='a-del' style='float:right;' href='/commu/tips/comment/delete/" + data.board_id + "'><b>삭제</b></a>"
+									+ "<div class='row'>"
+									+ "<div class='profile_box'>"
+									+ "<a href='/myPage/ " + data.memberVO.nickname + "'>"
+									+ "<img src='/resources/img/member/profile/" + data.memberVO.thumbnail + "' class='profile'></div>"
+									+ "<div style='padding-top:10px; padding-left:10px;'><b>" + data.memberVO.nickname + "</a></div></div></b>"
+									+ "<div style='padding-left:60px;'>" + data.content + "</div>"
+									+ "<div style='padding-left:60px;'>" + data.pdate + "</div><hr>"
 
-					$("#tcomment").prepend(html);
-					document.getElementById("content").value = '';
+							$("#tcomment").prepend(html);
+							document.getElementById("content").value = '';
+							// 댓글 삭제
+							$(".a-del").click(function(event) { //id는 한번만 calss는 여러번 선택 가능
+								event.preventDefault();
+								console.log("삭제버튼 클릭")
+								var tr = $(this).parent();
 
+								$.ajax({
+									type : 'DELETE', //method
+									url : $(this).attr("href"),
+									cache : false,
 
-				}, //ajax 성공 시 end$
-/* 
-			 error : function(request, status, error) {
-			 alert("code:" + request.status + "\n" + "message:"
-			 + request.responseText + "\n" + "error:" + error); 
+									success : function(result) {
+										console.log("result: " + result);
+										if (result == "SUCCESS") {
+											$(tr).remove();
+											alert("삭제되었습니다.");
+										}
+									},
+									errer : function(e) {
+										console.log(e);
+									}
+								}); //end of ajax
+							}); // 삭제 종료	
+						},
+					})
 
-			 } // ajax 에러 시 end */
-			})
 		}
-		
-		
-		
+
+		// 댓글 삭제
+		$(".a-del").click(function(event) { //id는 한번만 calss는 여러번 선택 가능.
+
+			//하나의 id는 한 문서에서 한 번만 사용이 가능(가장 마지막 혹은 처음게 선택). 하나의 class는 
+
+			event.preventDefault();
+
+			var tr = $(this).parent();//자바스크립트 클로저
+
+			$.ajax({
+				type : 'DELETE', //method
+				url : $(this).attr("href"), //주소를 받아오는 것이 두 번째 포인트.
+				cache : false,
+				success : function(result) {
+					console.log("result: " + result);
+					if (result == "SUCCESS") {
+						$(tr).remove();
+						alert("삭제되었습니다.");
+					}
+				},
+				errer : function(e) {
+					console.log(e);
+				}
+			}); //end of ajax
+		}); // 삭제 종료
+
 		//더보기
 		var pageNum = 1;
 
@@ -310,42 +367,65 @@ a:hover {
 			pageNum += 1;
 			console.log(pageNum);
 
-			$.ajax({
-				type : "POST",
-				url : "/commu/tmorelist",
-				data : {
-					pageNum : pageNum,
-					board_id : "${tips_view.board_id}"
-				},
-				success : function(data) {
-					console.log(data);
-					var tcomment = data.tcomment;
+			$
+					.ajax({
+						type : "POST",
+						url : "/commu/tmorelist",
+						data : {
+							pageNum : pageNum,
+							board_id : "${tips_view.board_id}"
+						},
+						success : function(data) {
+							console.log(data);
+							var tcomment = data.tcomment;
 
-					html = " "
-					for ( var i in tcomment) {
-						html += "<div id='tcomment'>" + "<div>"
-						+"<div class='row'><div class='profile_box'>"
-						+"<a href='/myPage/ "+tcomment[i].memberVO.nickname+"'><img src='/resources/img/member/profile/"+tcomment[i].memberVO.thumbnail+"'name='profile' alt='' class='profile' />"
-						+"</a></div><div style='padding:8px;'><b>"+tcomment[i].memberVO.nickname+"</b></div></div>"
-						+ "<div style='padding-left:32px;'>" + tcomment[i].content + "</div>"
-						+ "<div style='padding-left:32px;'>" + tcomment[i].pdate + "</div>"
-						+ "<hr>"
+							html = " "
+							for ( var i in tcomment) {
+								html +=  "<a class='a-del' style='float:right;' href='/commu/tips/comment/delete/" + tcomment[i].board_id + "'><b>삭제</b></a>"
+										+ "<div class='row'>"
+										+ "<div class='profile_box'>"
+										+ "<a href='/myPage/ "+tcomment[i].memberVO.nickname+"'>"
+										+ "<img src='/resources/img/member/profile/"+tcomment[i].memberVO.thumbnail+"'name='profile' alt='' class='profile' />"
+										+ "</div><div style='padding-top:10px; padding-left:10px;'><b>"
+										+ tcomment[i].memberVO.nickname
+										+ "</b></a></div></div>"
+										+ "<div style='padding-left:60px;'>"
+										+ tcomment[i].content + "</div>"
+										+ "<div style='padding-left:60px;'>"
+										+ tcomment[i].pdate + "</div><hr>"
+ 
+							}
 
-						+ "</div>"
-					}
+							$("#tcommentmore").append(html);
+							 
+							// 댓글 삭제
+							$(".a-del").click(function(event) { //id는 한번만 calss는 여러번 선택 가능
+								event.preventDefault();
+								console.log("삭제버튼 클릭")
+								var tr = $(this).parent();
 
-					$("#tcomment").append(html);
+								$.ajax({
+									type : 'DELETE', //method
+									url : $(this).attr("href"),
+									cache : false,
 
-				},
-				/* //success end
-				error : function(request, status, error) {
-					alert("code:" + request.status + "\n" + "message:"
-							+ request.responseText + "\n" + "error:" + error);
-				} // ajax 에러 시 end */
-			}); //ajax end	 
-		}; //click end	
-		
-				
+									success : function(result) {
+										console.log("result: " + result);
+										if (result == "SUCCESS") {
+											$(tr).remove();
+											alert("삭제되었습니다.");
+										}
+									},
+									errer : function(e) {
+										console.log(e);
+									}
+								}); //end of ajax
+							}); // 삭제 종료	
+						},
+					})
+
+		}
+						 
 
 		//수정 삭제 버튼 띄우기
 		window.onload = function() {
@@ -367,7 +447,6 @@ a:hover {
 			}
 
 		}
-
 	</script>
 
 	<div style="margin-top: 20px;">

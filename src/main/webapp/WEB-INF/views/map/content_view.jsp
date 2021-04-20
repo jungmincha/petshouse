@@ -88,8 +88,7 @@ background-color:#dddddd;
 					html = 
 						
 						
-						"<div id='comment'>"
-						+
+						
 						"<a class='a-del' style='float:right;' href='/map/map_view/delete/"+data.board_id+"'><b>삭제</b></a>"
 						+
 						
@@ -102,8 +101,7 @@ background-color:#dddddd;
 							+
 							
 							"<hr>"
-							+
-							"</div>"
+							
 
 					
 					 $("#comment").prepend(html); 
@@ -136,7 +134,32 @@ background-color:#dddddd;
 
 		}
 		
-		
+		// 댓글 삭제
+		$(".a-del").click(function(event) { //id는 한번만 calss는 여러번 선택 가능.
+
+			//하나의 id는 한 문서에서 한 번만 사용이 가능(가장 마지막 혹은 처음게 선택). 하나의 class는 
+
+			event.preventDefault();
+
+			var tr = $(this).parent();//자바스크립트 클로저
+
+			$.ajax({
+				type : 'DELETE', //method
+				url : $(this).attr("href"), //주소를 받아오는 것이 두 번째 포인트.
+				cache : false,
+				success : function(result) {
+					console.log("result: " + result);
+					if (result == "SUCCESS") {
+						$(tr).remove();
+						alert("삭제되었습니다.");
+					}
+				},
+				errer : function(e) {
+					console.log(e);
+				}
+			}); //end of ajax
+		}); // 삭제 종료
+
 		function button_event() {
 			
 			

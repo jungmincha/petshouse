@@ -12,7 +12,7 @@ import com.pet.ex.vo.ImageVO;
 @Mapper
 public interface CommunityMapper {
 	
-	//댓글 삭제가 안돼..
+	//댓글 삭제
 	public void deleteComment(BoardVO boardVO);
 
 	

@@ -9,9 +9,7 @@ import com.pet.ex.vo.ImageVO;
 
 public interface CommunityService {
 
-	//댓삭이 안돼...
-	public void deleteComment(BoardVO boardVO);
-
+	 
 	public List<ImageVO> getImg(int board_id);
 	// 조회수
 	public void hit(int board_id);
@@ -97,8 +95,8 @@ public interface CommunityService {
 	public List<BoardVO> getTCommentList(Criteria cri,int board_id);
 
 
+	public void deleteQnaComment(BoardVO boardVO);
 	public void deleteTipsComment(BoardVO boardVO);
-
 
 	public void ImgDelete(int board_id);
  

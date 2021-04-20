@@ -378,7 +378,7 @@ public class CommunityController {
 	
 
 	// 질문과 답변 댓글 삭제  안돼...
-	@RequestMapping("/qna_view/delete")
+	@DeleteMapping("/qna/comment/delete/{board_id}")
 	public ResponseEntity<String> reply_delete(BoardVO boardVO) {
 
 		ResponseEntity<String> entity = null;
@@ -386,7 +386,7 @@ public class CommunityController {
 
 		try {
 
-			communityService.deleteComment(boardVO);
+			communityService.deleteQnaComment(boardVO);
 
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 		} catch (Exception e) {
@@ -399,6 +399,28 @@ public class CommunityController {
 
 	}
 	
+	
+	//노하우 댓글 삭제
+		@DeleteMapping("/tips/comment/delete/{board_id}")
+		public ResponseEntity<String> deleteTipsComment(BoardVO boardVO) {
+
+			ResponseEntity<String> entity = null;
+			log.info("delete");
+
+			try {
+
+				communityService.deleteTipsComment(boardVO);
+				System.out.println("===========");
+				entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+			} catch (Exception e) {
+				e.printStackTrace();
+
+				entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+			}
+
+			return entity;
+
+		}
 	/*
 	 * // 노하우 글 검색
 	 * 
