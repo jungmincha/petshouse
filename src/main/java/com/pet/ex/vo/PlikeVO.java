@@ -14,13 +14,13 @@ import lombok.Setter;
 public class PlikeVO {
 
 	private int plike_id; //기본키
-	
+	private int count; //전체 좋아요 수 파악
 
 	// 외래키
-	private String member_id;
-	private int board_id;
+	private MemberVO memberVO;
+	private BoardVO boardVO;
 	
-	private int count; //전체 좋아요 수 파악
+
 
 
 }

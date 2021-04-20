@@ -180,7 +180,7 @@
 							style="height: 300px;" class="card-img-top i" /><span class="count">조회수 ${sns.boardVO.hit}</span></a></div>
 						<div class="card-body">
 							 
-							좋아요//댓글수
+							좋아요${sns.boardVO.plike}//댓글수
 						</div>
 					 
 				</div>

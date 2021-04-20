@@ -79,7 +79,7 @@
 		 <![CDATA[ 
 		 		SELECT * FROM (
 			     SELECT ROWNUM AS RNUM, A.* FROM (
-      		      select i.imgname, m.nickname,  m.thumbnail, b.hit, b.board_id, b.content from image i, board b, member m where m.member_id = b.member_id 
+      		      select i.imgname, m.nickname,  m.thumbnail, b.hit, b.plike, b.board_id, b.content from image i, board b, member m where m.member_id = b.member_id 
 				 	and i.board_id=b.board_id and b.boardtype_id=2 and pstep=0 and img_id in( 
  					select  min(img_id) as img_id from image where board_id is not null group by board_id) order by b.pdate desc
  				)A WHERE ROWNUM <= #{pageNum} * #{amount}
@@ -176,6 +176,74 @@
 	         select nickname from member m, board b where m.member_id=b.member_id and b.board_id=#{boardVO.board_id}
 	  	 ]]>
 	</select>
+	
+	
+	<!-- 좋아요 mapper start -->
+	
+		<!-- 좋아요 수 조회 -->
+	<select id="getLiketotal" resultType="int">
+		<![CDATA[
+	      select count(*) from plike where board_id = #{boardVO.board_id}
+	   ]]>
+	</select>
+	
+	
+	<!-- 좋아요 유무 체크 -->
+	<select id="isLike" resultType="int">
+		<![CDATA[
+	        select count(*) from plike where board_id=#{boardVO.board_id} and member_id=#{memberVO.member_id}
+	   ]]>
+	</select> 
+
+	
+	<!-- 좋아요 리스트 조회 -->
+	<select id="getLikelist" resultMap="plikevo">
+		<![CDATA[
+		select member_id from plike where board_id=#{boardVO.board_id}
+	        
+	   ]]>
+	</select> 
+	
+	
+	<!-- 좋아요 -->
+	<insert id="like">
+		<![CDATA[
+	        insert into plike values(plike_seq.nextval, #{boardVO.board_id}, #{memberVO.member_id})
+	   ]]>
+	</insert>
+	
+	<!-- 좋아요 취소-->
+	<select id="likecancel">
+		<![CDATA[
+	         delete from plike where board_id=#{boardVO.board_id} and member_id=#{memberVO.member_id}
+	   ]]>
+	</select>  
+	
+	<!-- 전체 좋아요 출력-->
+	<select id="getLikeprint" resultMap="plikevo">
+		<![CDATA[
+	       	select board_id ,count(*) as count from plike group by board_id
+	   ]]>
+	</select>
+	
+<!-- plike board테이블에 입력-->
+<select id="insertplike">
+   <![CDATA[
+      update board set plike = plike+1 WHERE board_id=#{board_id}
+   ]]>
+	</select>
+
+
+<!-- plike board테이블에 삭제-->
+<select id="deleteplike">
+   <![CDATA[
+      update board set plike = plike-1 WHERE board_id=#{board_id}
+   ]]>
+	</select>
+	
+	
+	<!-- 좋아요 mapper end -->
+	
 
 
 
@@ -322,5 +390,14 @@
 		<result column="goodspath" property="goodspath" />
 		<collection property="boardVO" resultMap="boardvo" />
 	</resultMap>
+
+<!-- 좋아요 resultmap -->
+<resultMap type="PlikeVO" id="plikevo">
+		<result column="plike_id" property="plike_id" />
+		<result column="count" property="count" />
+		<collection property="memberVO" resultMap="membervo" />
+		<collection property="boardVO" resultMap="boardvo" />
+	</resultMap>
+
 
 </mapper>

@@ -9,6 +9,7 @@ import com.pet.ex.page.Criteria;
 import com.pet.ex.vo.BoardVO;
 import com.pet.ex.vo.ImageVO;
 import com.pet.ex.vo.MemberVO;
+import com.pet.ex.vo.PlikeVO;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -146,5 +147,54 @@ public class SnsServiceImpl implements SnsService {
 		
 		return mapper.getNickname(board_id);
 	}
+
+	//좋아요 수 
+	@Override
+	public int getLiketotal(int board_id) {
+		
+		return mapper.getLiketotal(board_id);
+	}
+	//좋아요 유무 체크
+	@Override
+	public int isLike(PlikeVO plikeVO) {
+		
+		return mapper.isLike(plikeVO);
+	}
+	
+	//좋아요 요청 
+	@Override
+	public void like(PlikeVO plikeVO) {
+
+		mapper.like(plikeVO);
+		
+	}
+	//board테이블의 plike 숫자 증가
+	@Override
+	public void insertplike(BoardVO boardVO) {
+
+		mapper.insertplike(boardVO);
+		
+	}
+	//좋아요 취소
+	@Override
+	public void likecancel(PlikeVO plikeVO) {
+
+		mapper.likecancel(plikeVO);
+		
+	}
+	//board테이블의 plike 숫자 감소
+	@Override
+	public void deleteplike(BoardVO boardVO) {
+
+		mapper.deleteplike(boardVO);
+		
+	}
+
+	//좋아요 리스트 출력
+		@Override
+		public List<PlikeVO> getLikelist(PlikeVO plikeVO) {
+			
+			return mapper.getLikelist(plikeVO);
+		}
 
 }

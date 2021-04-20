@@ -265,7 +265,7 @@ body::-webkit-scrollbar-track {
 				style="padding-bottom: 50px; padding-top: 50px;">
 				<c:if test="${pageMaker.prev}">
 					<li class="page-item"><a class="page-link"
-						href="board${pageMaker.makeQuery(pageMaker.startPage - 1) }">
+						href="board?location=${location}&nickname=${nickname}&member_id=${member_id}${pageMaker.makeQuery(pageMaker.startPage - 1) }">
 							Previous</a></li>
 				</c:if>
 
@@ -273,12 +273,12 @@ body::-webkit-scrollbar-track {
 					end="${pageMaker.endPage }" var="idx">
 					<c:out value="${pageMaker.cri.pageNum == idx?'':''}" />
 					<li class="page-item"><a class="page-link"
-						href="board${pageMaker.makeQuery(idx)}">${idx}</a></li>
+						href="board?location=${location}&nickname=${nickname}&member_id=${member_id}${pageMaker.makeQuery(idx)}">${idx}</a></li>
 				</c:forEach>
 
 				<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
 					<li class="page-item"><a class="page-link"
-						href="board${pageMaker.makeQuery(pageMaker.endPage +1) }">Next</a></li>
+						href="board?location=${location}&nickname=${nickname}&member_id=${member_id}${pageMaker.makeQuery(pageMaker.endPage +1) }">Next</a></li>
 				</c:if>
 			</ul>
 		</div>
@@ -291,7 +291,7 @@ body::-webkit-scrollbar-track {
     </section>
     
     <script type="text/javascript">
-		// 해당 동물의 글을 끌고올거야
+	
 		$('#hashtag')
 				.change(
 						function() {

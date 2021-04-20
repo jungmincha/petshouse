@@ -17,6 +17,7 @@ import org.apache.commons.io.FilenameUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -36,6 +37,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.pet.ex.page.Criteria;
 import com.pet.ex.page.PageVO;
+import com.pet.ex.security.handlers.MyAuthentication;
 import com.pet.ex.service.CommunityService;
 import com.pet.ex.service.MapService;
 import com.pet.ex.vo.BoardVO;
@@ -70,9 +72,14 @@ public class MapController {
 	// 펫츠타운 메인페이지
 	@RequestMapping("/board")
 	public ModelAndView board(String location, String nickname, ModelAndView mav, Criteria cri, 
-			MemberVO memberVO, BoardVO boardVO , ImageVO imageVO , PlikeVO plikeVO , String member_id) {
+			MemberVO memberVO, BoardVO boardVO , ImageVO imageVO , PlikeVO plikeVO , String member_id,
+			Authentication authentication
 			
-		memberVO.setLocation(location); // 명ㄷ동 받아옴
+			) {
+			
+	
+		
+		memberVO.setLocation(location); // 명동 받아옴
 		
 		// insert 현재위치
 		service.insertLoc(memberVO); // 홍제 2동 삽입된
@@ -120,8 +127,9 @@ public class MapController {
 	@GetMapping("/board/{board_id}")
 	public ModelAndView content_view(String location, String member_id, String nickname,
 
-			ModelAndView mav, BoardVO boardVO , ImageVO imageVO , PlikeVO plikeVO) {
-
+			ModelAndView mav, BoardVO boardVO , ImageVO imageVO , MemberVO memberVO ,PlikeVO plikeVO, Authentication authentication) {
+	
+		
 		mav.addObject("location", location);
 		mav.addObject("member_id", member_id);
 		mav.addObject("nickname", nickname);
@@ -135,15 +143,29 @@ public class MapController {
 		//게시물 내용 출력
 		mav.addObject("content_view", service.content_view(boardVO.getBoard_id()));	
 		
+		
+		
 		//좋아요 기능 구현 -START-
-		plikeVO.setMember_id(member_id);
+	//	plikeVO.setMember_id(member_id);
+		//resultmap에 vo 담아주는 거
+		MemberVO member = new MemberVO();
+		plikeVO.setMemberVO(member);
+		plikeVO.getMemberVO().setMember_id(member_id);
+		
+		
+		BoardVO board = new BoardVO();
+		plikeVO.setBoardVO(board);
+		plikeVO.getBoardVO().setBoard_id(boardVO.getBoard_id());
+		
 		//좋아요 수 
-		mav.addObject("like_amount", service.getLiketotal(plikeVO.getBoard_id()));
+		mav.addObject("like_amount", service.getLiketotal(plikeVO.getBoardVO().getBoard_id()));
 		//좋아요 유무 체크
 		mav.addObject("likecheck", service.isLike(plikeVO));
 		//좋아요 리스트 
 		mav.addObject("likelist", service.getLikelist(plikeVO));
 		//좋아요 기능 구현 -END-
+		System.out.println("===========ddd===============================================================================");
+		
 		
 		mav.setViewName("map/content_view");
 		return mav;
@@ -227,10 +249,10 @@ public class MapController {
 		
 		  
 		  mf.get(i).transferTo(new File(savePath)); // 파일 저장
-		  imageVO.setImgname(imgname);
-		  imageVO.getBoardVO().setBoard_id(boardVO.getBoard_id()); 
+		//  imageVO.setImgname(imgname);
+		//  imageVO.getBoardVO().setBoard_id(boardVO.getBoard_id()); 
 		  
-		  service.detailInput(imageVO);
+		//  service.detailInput(imageVO);
 		  
 		  }
 		
@@ -413,23 +435,37 @@ public class MapController {
 	//좋아요 기능 -START-
 	//좋아요 입력
 		@PostMapping("/like/{board_id}")
-		public Map<String, Object> like(PlikeVO plikeVO, BoardVO boardVO , Authentication authentication) {
+		public Map<String, Object> like(PlikeVO plikeVO, BoardVO boardVO ,MemberVO memberVO , MyAuthentication myAuthentication) {
 			log.info("LIKE");
-			String member_id = authentication.getPrincipal().toString();	
+		
+			String pre_nickname= myAuthentication.getMember().getNickname();
+			
+		
+			//resultmap에 vo 담아주는 거
+			MemberVO member = new MemberVO();
+			plikeVO.setMemberVO(member);
+			plikeVO.getMemberVO().setMember_id(pre_nickname);
+			//plikeVO.getMemberVO().setNickname(nickname);
+			BoardVO board = new BoardVO();
+			plikeVO.setBoardVO(board);
+			plikeVO.getBoardVO().setBoard_id(boardVO.getBoard_id());
 	
-			plikeVO.setMember_id(member_id);
+			//plikeVO.setMember_id(member_id);
+		
 			Map<String, Object> map = new HashMap<>();
 			try {	
 				service.like(plikeVO);
 				map.put("SUCCESS", HttpStatus.OK);
-				map.put("like_amount", service.getLiketotal(plikeVO.getBoard_id()));
+				map.put("like_amount", service.getLiketotal(plikeVO.getBoardVO().getBoard_id()));
 		
 				List<PlikeVO> likelist = service.getLikelist(plikeVO);
 				map.put("likelist", likelist);
 				
 				//BOARD테이블의 plike 숫자 증가
 				service.insertplike(boardVO);
+			
 				System.out.println("=====================ssss==============================================================");
+			
 			} catch (Exception e) {
 				e.printStackTrace();
 				map.put("SUCCESS", HttpStatus.BAD_REQUEST);
@@ -439,16 +475,27 @@ public class MapController {
 		
 		//좋아요 취소
 		@DeleteMapping("/likecancel/{board_id}")
-		public Map<String, Object> likecancel(PlikeVO plikeVO, BoardVO boardVO , Authentication authentication) {
+		public Map<String, Object> likecancel(PlikeVO plikeVO, BoardVO boardVO , MemberVO memberVO, MyAuthentication myAuthentication) {
 			log.info("likecancel");
-			String member_id = authentication.getPrincipal().toString();	
+			String pre_nickname= myAuthentication.getMember().getNickname();	
 		
-			plikeVO.setMember_id(member_id);
+			
+			//resultmap에 vo 담아주는 거
+			MemberVO member = new MemberVO();
+			plikeVO.setMemberVO(member);
+			plikeVO.getMemberVO().setMember_id(pre_nickname);
+			//plikeVO.getMemberVO().setMember_id(nickname);
+			BoardVO board = new BoardVO();
+			plikeVO.setBoardVO(board);
+			plikeVO.getBoardVO().setBoard_id(boardVO.getBoard_id());
+		
+			//plikeVO.setMember_id(member_id);
+		
 			Map<String, Object> map = new HashMap<>();	
 			try {	
 				service.likecancel(plikeVO);
 				map.put("SUCCESS", HttpStatus.OK);
-				map.put("like_amount", service.getLiketotal(plikeVO.getBoard_id()));
+				map.put("like_amount", service.getLiketotal(plikeVO.getBoardVO().getBoard_id()));
 				
 				List<PlikeVO> likelist = service.getLikelist(plikeVO);
 				map.put("likelist", likelist);

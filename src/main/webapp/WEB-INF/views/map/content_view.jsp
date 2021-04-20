@@ -194,7 +194,7 @@ background-color:#dddddd;
 													
 					<!-- Profile Section -->
      				<div class="profile-info container">
-      					<div class="row col-lg-12">
+      					<div class="row col-lg-12" >
       						<div class="profile-info_name">
       							<input type="hidden" id="board_id" value="${board_id}"/>
       						</div>
@@ -202,11 +202,11 @@ background-color:#dddddd;
       					
       					<div class="row col-lg-12">
       						<div class="profile-info_follow-state">    		 	
-            					<a href="#likeModal" class="like_amount" data-toggle="modal"><span>좋아요${like_amount}</span></a>
+            					<a href="#likeModal" class="like_amount" data-toggle="modal" style="float:right;"><span>좋아요${like_amount}</span></a>
 	        				</div>
 
 							<!-- likelist Modal start -->
-							<div class="modal" id="likeModal">
+							<div class="modal" id="likeModal" >
 								<div class="modal-dialog">
 									<div class="modal-content">
 		      
@@ -219,7 +219,7 @@ background-color:#dddddd;
 			        					<!-- Modal body -->
 			       						<div class="likelist modal-body">
 			          						<c:forEach items="${likelist}" var="likelist">
-			          							<p>${likelist.member_id}</p>          	
+			          							<p>${likelist.memberVO.member_id}</p>          	
 			          						</c:forEach>
 			        					</div>
 			        
@@ -234,13 +234,15 @@ background-color:#dddddd;
 							<!-- like list Modal end -->
 		
 							<!-- 본인이 좋아요 누른 게시글이 아닌 경우 좋아요 버튼 발생 이미 눌렀던 경우는 좋아요 취소버튼 발생하게 구현해야 할것!-->
+							
 							<c:if test="${likecheck == 0}">	 			
 							<div class="col-lg-12">
 		        				<a href="javascript:void(0);" class="like" style="cursor:hand;" onclick="like();"><img src="/resources/img/location/before_like.png" style="width:25px;"></a>
+			       			
 			       			</div>	   
 		  					</c:if>	
 		  						
-							<c:if test="${likecheck != 0}">					
+							<c:if test="${likecheck != 0}" >					
 							<div class="col-lg-12">
 								<a href="javascript:void(0);" class="likecancel" style="cursor:hand;" onclick="likecancel();"><img src="/resources/img/location/after_like.png" style="width:25px;"></a>
 							</div>	   
@@ -272,7 +274,7 @@ background-color:#dddddd;
 					           html = "";
 					           
 					           for(var i in likelist){
-					        	   html += "<p>" + likelist[i].member_id + "</p>";
+					        	   html += "<p>" + likelist[i].memberVO.member_id + "</p>";
 					           }
 					           
 					           $('.like_amount').empty();
@@ -307,7 +309,7 @@ background-color:#dddddd;
 					        	html = "";//꼭 써줘야 할것!
 					        	
 								for(var i in likelist){
-									html += "<p>" + likelist[i].member_id + "</p>";
+									html += "<p>" + likelist[i].memberVO.member_id + "</p>";
 					         	}
 						           
 								$('.like_amount').empty();
