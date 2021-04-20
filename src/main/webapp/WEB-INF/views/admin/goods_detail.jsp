@@ -546,7 +546,7 @@ h2 {
 								name="profile" alt="" class="profile" /></a>
 								<span style="padding: 8px;"><b>${review.memberVO.nickname}</b></span>
 						</div>
-						
+						//수정
                                                 <span class="star-prototype" value="${review.ratescore}">${review.ratescore}
                                                 </span>
 
