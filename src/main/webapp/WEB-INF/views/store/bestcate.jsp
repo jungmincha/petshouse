@@ -93,6 +93,7 @@
 	    background-position: 0 0;
 	    max-width:80px; 
 	}
+	
   </style>
 </head>
 

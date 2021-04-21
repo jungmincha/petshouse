@@ -50,6 +50,10 @@
     	padding-top: 30px;
     }
     
+    .instagram-photo, .Popularity, .category, .knowhow{
+    	padding-bottom: 50px;
+    }
+    
     .blog-quote, .knowhow, .sns, .category{
     	padding-top: 60px;
     }
@@ -74,11 +78,39 @@
 	}
 	
 	.sns{
-		padding-bottom: 60px;
+		padding-bottom: 200px;
 	}
 	
-	.tag-item{
-		padding-top: 20px;
+	.tag-list{
+		padding-top: 15px;
+	}
+	
+	.hit{
+		position: absolute;
+	    bottom: 20px;
+	    right: 30px;
+	    font-size: 15px;
+	    color: #fff;
+	    text-shadow: 0 0 4px rgb(0 0 0 / 50%);
+	}
+	
+	a:link {
+		text-decoration: none;
+		color: #333333;
+	}
+	
+	a:visited {
+		text-decoration: none;
+		color: #333333;
+	}
+	
+	a:active {
+		text-decoration: none;
+		color: #333333;
+	}
+	
+	a:hover {
+		text-decoration: none;
 	}
 
 </style>
@@ -87,6 +119,11 @@
 <body style="padding-top:200px">
    <!-- header -->
    <%@ include file="/WEB-INF/views/include/header.jsp"%>
+   
+    <!-- login check -->
+    <sec:authorize access="hasAnyRole('ROLE_USER','ROLE_ADMIN')">
+			<input type="hidden" id="member_id" value="<sec:authentication property="principal.member_id"/>">
+	</sec:authorize>
    
    <!-- Instagram Section Begin -->
    <div class="container">
@@ -132,8 +169,7 @@
    <!-- Instagram Section End -->
         
    <!-- Popularity Section Begin -->
-      <section class="blog-details spad">
-        <div class="container">
+        <div class="Popularity container">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="blog-details-inner">
@@ -161,16 +197,15 @@
                      </div>
                  </div>
               </div>
-          </div> 
-     </section>             
+          </div>         
     <!-- Popularity Section End -->
 
      <!-- Category Section Begin -->
-      <div class="container">
+      <div class="Category container">
          <div class="row">
             <div class="col-lg-12">
                <div class="section-title">
-                  <h2 class="category">Category</h2>
+                  <h2>Category</h2>
                </div>
             </div>
          </div>
@@ -209,12 +244,11 @@
       <!-- Category Section End -->
 
       <!-- Knowhow Section Begin -->
-  		<section class="knowhow">	
-  		  <div class="container">
+  		  <div class="knowhow container">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="section-title">
-                        <h2>인기 노하우</h2>
+                        <h2><a href="/commu/tips">인기 노하우</a></h2>
                     </div>
                 </div>
             </div>
@@ -223,32 +257,28 @@
                      <c:forEach items="${knowhow}" var="knowhow">                   
                      	<div class="product-item">
                         	<div class="pi-pic">
-                                <img src="/resources/img/latest-1.jpg" alt="">
-                                 <div class="sale">BEST ${knowhow.rnum}</div>
+                        		<a href="/commu/tips/${knowhow.boardVO.board_id}">
+                                <img src="/resources/img/tips/${knowhow.imgname}" style="border-radius:5px; height:300px;" alt=""></a>
+                                <span class="hit">조회수 ${knowhow.boardVO.hit}</span>
+                                 <div class="sale">BEST ${knowhow.boardVO.rnum}</div>
                             </div>
                         <div class="latest-text">
-                        	<div class="tag-list">
-                            	<div class="tag-item">
-                                    <i class="fa fa-calendar-o"></i> &nbsp;<fmt:formatDate value="${knowhow.pdate}" pattern="yy.MM.dd" />
-                                     &nbsp;&nbsp;조회수 ${knowhow.hit}                        
-                                </div>                     
-                            </div>
-	                        <a href="#"><p style="padding-top:10px;"><span style="font-size:20px;">${knowhow.title}</span></p></a>
-	                        <!-- <p>${knowhow.content}</p> -->
+                        	<div class="tag-list">                          
+                                  <a href="/commu/tips/${knowhow.boardVO.board_id}"><p><span style="font-size:20px;">${knowhow.boardVO.title}</span></a>
+                                  <p>좋아요 ${knowhow.boardVO.plike}</p>                                        
+                            </div>                
                         </div>
                         </div>  
                       </c:forEach>
                  </div>
                </div>
-             </div>
-           </section>    
+             </div>  
          <!-- Knowhow Section End -->
          
          <!-- SNS Section Begin -->
-  		<section class="sns">	
-  		  <div class="container">
+  		  <div class="sns container">
            	 <div class="row">
-	       		 <div class="sns col-lg-12"> 
+	       		 <div class="col-lg-12" style="padding-bottom:20px;"> 
 					<div class="section-title">
 				    	<h2>인기 SNS</h2>
 					</div>		
@@ -257,22 +287,36 @@
              <div class="row">   
 				<c:forEach items="${sns}" var="sns">
 				<div class="col-12 col-lg-3 col-md-4 col-sm-6">
-					<div class="user-Info row" style="margin: 20px auto 0px 5px">
+					<div class="user-Info row" style="margin: 0px auto 0px 5px">
 						<div class="profile_box">
 							<img src="/resources/img/member/profile/${sns.boardVO.memberVO.thumbnail}" class="profile">		
 						</div>
-						<p>${sns.boardVO.memberVO.nickname}</p>
+						<p style="padding-top:10px;">${sns.boardVO.memberVO.nickname}</p>
+						<a href="/myPage/${sns.boardVO.memberVO.nickname}" style="padding:10px 0px 0px 30px;" onclick="checkLogin();">팔로우</a>
 					</div>
 					<div>
 						<a href="/commu/sns/${sns.boardVO.board_id}"> 
-						 <img src="/resources/img/member/sns/${sns.imgname}" style="width:250px; height:250px;"/></a>		
+						<img src="/resources/img/member/sns/${sns.imgname}" style="border-radius:5px; width:250px; height:250px; margin-bottom:30px;"/></a>		
 					</div>
 				</div>
 				</c:forEach>
 			 </div>
             </div>
-		</section>
    		<!-- SNS Section End -->
+   		
+   	<script>
+   		//로그인 여부 체크
+   		var member_id = $("#member_id").val();
+   		
+   		function checkLogin() {
+   			console.log(member_id);
+   			if(member_id == undefined){
+   				event.preventDefault();
+   				alert("로그인 후 이용 가능합니다.");
+   				location.href = '/login/login';
+   			}
+   		}
+   	</script>
 
    <!-- Footer -->
    <%@ include file="/WEB-INF/views/include/footer.jsp"%>
