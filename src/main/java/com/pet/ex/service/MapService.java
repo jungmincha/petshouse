@@ -76,6 +76,8 @@ public interface MapService {
 	//좋아요 board 테이블에 삭제
 	public void deleteplike(BoardVO boardVO);
 
+	public String getPresetnNickname(String member_id);
+
 	
 
 	
