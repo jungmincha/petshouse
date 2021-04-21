@@ -122,14 +122,14 @@ body::-webkit-scrollbar-track {
    <%@ include file="/WEB-INF/views/include/header.jsp"%>
        <!-- Login Check -->
   
-   
+
 
     <!-- Contact Section Begin -->
     <section class="contact-section spad">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                
+                   
           <!-- 위치 다시 선정하기 -->     
       <select  id="sel" style="border:none; font-size:22px;">
  		<option value='${location}' selected>${location}</option>
@@ -143,11 +143,11 @@ body::-webkit-scrollbar-track {
 		    <br>
 		    
 		    <!-- 글작성 폼 -->
-	 <form action="/map/write_view" method="get">  
-	 <!-- 전달할 값들 -->
-    <input id="location" type="hidden" name="location" value="${location}" /> 
- <input type="hidden" id="member_id" name="member_id" value="<sec:authentication property="principal.member_id"/>"> 
-	<input type="hidden" name="nickname" value="<sec:authentication property="principal.nickname"/>">  
+			 <form action="/map/write_view" method="get">  
+			 <!-- 전달할 값들 -->
+		    <input id="location" type="hidden" name="location" value="${location}" /> 
+		 	<input type="hidden" id="member_id" name="member_id" value="<sec:authentication property="principal.member_id"/>"> 
+			<input type="hidden" name="nickname" value="<sec:authentication property="principal.nickname"/>">  
 	
 
                  <!-- 커뮤니티 카테고리별 분류 셀렉트 BOX -->
@@ -205,14 +205,6 @@ body::-webkit-scrollbar-track {
                                        </c:if>                                                                                                                                                                                                                                                                           
                                     </c:forEach>      --%>                            
             
-         
-         
-         
-         
-         
-         
-         
-         
                  <!--게시판 글 출력 FOREACH문 -->
                 <table class="table">
 				<c:forEach items="${list}" var="list">

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.pet.ex.mapper.MapMapper">
+<mapper namespace="com.pet.ex.mapper.StatisticsMapper">
 
 	<resultMap type="BoardtypeVO" id="boardtypevo">
 		<result column="boardtype_id" property="boardtype_id" />
@@ -153,259 +153,33 @@
 	
 
 
-	<select id="getList" resultMap="boardvo"> 
-		<![CDATA[ 
-			
-		 SELECT * FROM (
-			     SELECT ROWNUM AS RNUM, A.* FROM (
-			     	select b.board_id, b.title, b.content, b.pdate,b.hit,b.pgroup,b.pstep, b.plike, b.pindent,b.hashtag, b.location, m.thumbnail, m.member_id, m.nickname, b.boardtype_id 
-			     	from  board b , member m
-					where b.member_id = m.member_id
-					
-    				and b.boardtype_id= 7 and b.location=#{location}and b.pstep=0 order by board_id desc
-			    ) A WHERE ROWNUM <= #{pageNum}* #{amount}
-			) WHERE RNUM > (#{pageNum}-1) * #{amount}
+	<!-- 일별 통계 -->
+	<select id="getDailySale" resultType="int">
+		<![CDATA[
+			select nvl(sum(payprice), 0) from pay where extract(year from paydate) = 2021 and extract(month from paydate) = 4 and extract(day from paydate) = #{valueOf}
 		]]>
 	</select>
 
-	<select id="getSerchList" resultMap="boardvo"> 
-		<![CDATA[ 
-			
-		 select * from(select rownum as rnum, a.* from(select * from board where boardtype_id=7 and location LIKE '%명동% order by pgroup desc, pstep asc)
-      a where rownum <= #{pageNum} * #{amount}) where rnum > (#{pageNum}-1) * #{amount}
-		]]>
-	</select>
-
-
-
-
-	<select id="getTotal" resultType="int">
-    <![CDATA[	
-		select count(*) from board 
-		where 
-		boardtype_id= 7 and pstep=0
+	
+	
+	<!-- 월별 통계 -->
+	<select id="getMonthSale" resultType="int"> 
+	<![CDATA[ 
+		select nvl(sum(payprice), 0) from pay where extract(year from paydate) = 2021 and extract(month from paydate) = #{valueOf}
 	]]>
 	</select>
-
-	<insert id="write" parameterType="boardvo">
-   <![CDATA[
-      insert into board (board_id, title, pdate, content, hit, hashtag, pgroup, pstep, pindent, member_id,  boardtype_id ,location)   
-       values (board_seq.nextval ,#{title}, sysdate, #{content} ,#{hit},#{hashtag},board_seq.currval,#{pstep},#{pindent},#{memberVO.member_id} ,7 ,#{memberVO.location})
-   ]]>
-	</insert>
-
-	<select id="content_view" resultMap="boardvo">
-   <![CDATA[
-      select * from board b , member m where b.member_id=m.member_id and board_id = #{board_id}
-   ]]>
-	</select>
-
-	<select id="inputDelete">
-   <![CDATA[
-    delete from board where board_id = #{board_id}
-   ]]>
-	</select>
-
-<insert id="insertLoc">
-   <![CDATA[
-      update member set location = #{location} WHERE member_id=#{member_id}
-   ]]>
-	</insert>
-
-
-
-
-<select id="getMemberList" resultType="MemberVO">
-   <![CDATA[
-    select * from member where member_id=#{member_id}
-   ]]>
-	</select>
 	
 	
-	
-	
-	<!-- 질문과 답변 댓글쓰기 -->
-		<insert id="insertComment">
+	<!-- 년별 통계 -->
+	<select id="getYearSale" resultType="int">
 		<![CDATA[
-		insert into board(board_id,content, pgroup, pstep,member_id, boardtype_id )
-		values (board_seq.nextval,#{content}, #{pgroup}, 1, #{memberVO.member_id}, 7)
-	]]>
-	</insert>
-
-
-
-	<!-- 글에 대한 댓글 출력 -->
-	<select id="listComment" resultMap="boardvo">
-   <![CDATA[
-	  select * from board b, member m 
-	  where b.member_id=m.member_id 
-	  and boardtype_id= 7 
-	  and pgroup = (select pgroup from board 
-	  where board_id=#{board_id}) and pstep=1 order by b.pdate desc
-   ]]>
-	</select>
-	
-	
-	
-	
-
-	<!-- 댓글 작성 후 ajax로 출력 -->
-	<select id="getComment" resultMap="boardvo">
-   <![CDATA[
-	 select board_id,nickname, thumbnail, pgroup, content, pdate from (select board_id,m.nickname, m.thumbnail,pgroup, content, b.pdate from board b, member m where b.member_id=m.member_id and boardtype_id= 7 and pgroup = (select pgroup from board where board_id=#{board_id}) and pstep=1 order by b.pdate desc) where rownum=1
-   ]]>
-	</select>
-	
-	
-	
-	
-	
-	<select id="getHashtag" resultMap="boardvo"> 
- 	<![CDATA[
-	
-	 select b.board_id, b.title, b.content, b.location, b.pdate,b.hit, b.pgroup, b.pstep, b.category_id, b.pindent,b.hashtag, m.member_id, m.nickname, b.boardtype_id
-			from  board b , member m
-			where b.member_id = m.member_id
-    		and b.boardtype_id= 7 and b.pstep=0 and b.hashtag=#{hashtag} and b.location=#{location}order by board_id desc
-	
+			select nvl(sum(payprice), 0) from pay where extract(year from paydate) = #{year}
 		]]>
 	</select>
 	
-	<select id="modify">
-		<![CDATA[
-			update board set title=#{title},content=#{content} where board_id = #{board_id}
-		]]>
-	</select>
-
-
-<!-- 댓글삭제 -->
-
-<select id="deleteComment">
-   <![CDATA[
-    delete from board where board_id = #{board_id}
-   ]]>
-	</select>
-
-<!--조회수-->
-	<select id="hit" resultType="int"> 
- 	<![CDATA[ 
- 	update board set hit = hit + 1 where board_id = #{board_id} 	
- 	]]>
-	</select>
 	
 	
 	
-
-
-	
-	
-	<insert id="detailInput">
-	 <![CDATA[
-    INSERT INTO IMAGE(img_id, imgname,board_id) VALUES (image_seq.nextval, #{imgname} , board_seq.currval)
-	 ]]>
-	</insert>
-	
-	
-	<select id="imageupload" resultMap="imagevo">
-   <![CDATA[
-     select imgname from image
-   ]]>
-	</select>
-	
-	
-	
-	
-	<!-- 좋아요 mapper start -->
-	
-		<!-- 좋아요 수 조회 -->
-	<select id="getLiketotal" resultType="int">
-		<![CDATA[
-	      select count(*) from plike where board_id = #{boardVO.board_id}
-	   ]]>
-	</select>
-	
-	
-	<!-- 좋아요 유무 체크 -->
-	<select id="isLike" resultType="int">
-		<![CDATA[
-	        select count(*) from plike where board_id=#{boardVO.board_id} and member_id=#{memberVO.member_id}
-	   ]]>
-	</select> 
-
-	
-	<!-- 좋아요 리스트 조회 -->
-	<select id="getLikelist" resultMap="plikevo">
-		<![CDATA[
-		select member_id from plike where board_id=#{boardVO.board_id}
-	        
-	   ]]>
-	</select> 
-	
-	
-	<!-- 좋아요 -->
-	<insert id="like">
-		<![CDATA[
-	        insert into plike values(plike_seq.nextval, #{boardVO.board_id}, #{memberVO.member_id})
-	   ]]>
-	</insert>
-	
-	<!-- 좋아요 취소-->
-	<select id="likecancel">
-		<![CDATA[
-	         delete from plike where board_id=#{boardVO.board_id} and member_id=#{memberVO.member_id}
-	   ]]>
-	</select>  
-	
-	<!-- 전체 좋아요 출력-->
-	<select id="getLikeprint" resultMap="plikevo">
-		<![CDATA[
-	       	select board_id ,count(*) as count from plike group by board_id
-	   ]]>
-	</select>
-	
-<!-- plike board테이블에 입력-->
-<select id="insertplike">
-   <![CDATA[
-      update board set plike = plike+1 WHERE board_id=#{board_id}
-   ]]>
-	</select>
-
-
-<!-- plike board테이블에 삭제-->
-<select id="deleteplike">
-   <![CDATA[
-      update board set plike = plike-1 WHERE board_id=#{board_id}
-   ]]>
-	</select>
-	
-	
-	<!-- 좋아요 mapper end -->
-
-<!-- 회원 정보 조회 -->
-	<select id="getMemberinfo" resultType="MemberVO">
-		<![CDATA[
-	         select * from member where member_id= #{member_id}
-	   ]]>
-	</select>
-	
-
-<!-- <insert id="fileUpload">
-	 <![CDATA[
-    INSERT INTO
-       image(imgname, board_id) VALUES (#{imgname}, 16)
-	 ]]>
-	</insert>
-	
-	
-	상품상세이미지 업로드
-	<insert id="detailInput">
-	 <![CDATA[
-    INSERT INTO IMAGE(img_id, imgname,board_id) VALUES (image_seq.nextval, #{imgname} , board_seq.currval)
-	 ]]>
-	</insert>
-	 -->
-
-
 
 
 </mapper>
