@@ -77,6 +77,9 @@ public interface SnsService {
 	//board테이블의 plike 숫자 감소
 	public void deleteplike(BoardVO boardVO);
 
+	//현재 닉네임 얻는 로직
+	public String getPresetnNickname(String member_id);
+
 
  
 
