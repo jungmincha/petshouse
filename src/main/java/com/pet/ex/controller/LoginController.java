@@ -127,12 +127,18 @@ public class LoginController {
 		}
 		if (securityService.insertMember(member) > 0) {
 			securityService.insertRegisterPoint(member.getMember_id());
-			mav.setViewName("redirect:/login/logout");
+			mav.setViewName("/login/registerSuccess");
 			return mav;
 		} else {
 			mav.setViewName("/login/register");
 			return mav;
 		}
+	}
+	@GetMapping("/success")
+	public ModelAndView success(ModelAndView mav) {
+	
+		mav.setViewName("/login/registerSuccess");
+		return mav;
 	}
 
 	// 이메일 확인 페이지 이동

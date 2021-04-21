@@ -173,16 +173,14 @@ public class MyPageController {
 	// 리뷰 작성
 	@PostMapping("/orderList/review/insert")
 	public ModelAndView insertReview(MultipartHttpServletRequest multi, Authentication authentication, ModelAndView mav,
-			BoardVO boardVO, ImageVO imageVO, String paystate_id) throws IllegalStateException, IOException {
+			BoardVO boardVO, String paystate_id) throws IllegalStateException, IOException {
 		log.info("myPage/orderList/review/insert");
 		String member_id = authentication.getPrincipal().toString();
 
 		boardVO.getMemberVO().setMember_id(member_id);
-
-		if (multi.getFile("file").getOriginalFilename().equals(" ")) {
+		if (multi.getFile("file").getOriginalFilename().equals("")) {
 			myPageService.insertPoint(100, 4, member_id);
 		} else {
-			BoardVO board = myPageService.getReview();
 			String path = multi.getSession().getServletContext().getRealPath("/static/img/member/review");
 			path = path.replace("webapp", "resources");
 			File dir = new File(path);
@@ -310,7 +308,6 @@ public class MyPageController {
 	public ModelAndView updateMemeber(MultipartHttpServletRequest multi, ModelAndView mav, MemberVO member,
 			ImageVO imageVO) throws IllegalStateException, IOException {
 		log.info("/myPage/updateMember/insert");
-		System.out.println(multi.getFile("file").getOriginalFilename());
 		if (multi.getFile("file").getOriginalFilename().equals("")) {
 
 			myPageService.updateMember(member);

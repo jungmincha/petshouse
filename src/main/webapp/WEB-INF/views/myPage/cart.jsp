@@ -45,11 +45,10 @@
 .pi {
 	padding-left: 20px
 }
-</style>
-<style>
+
 .pimg {
-	width: 100px;
-	height: 100px;
+	width: 70px;
+	height: 70px;
 }
 </style>
 </head>
@@ -67,11 +66,10 @@
 							<table>
 								<thead>
 									<tr>
-										<th style="width: 10%">전체선택<br> <input
-											type="checkbox" id="allCk">
-										</th>
-										<th>상품 이미지</th>
-										<th class="p-name">상품 이름</th>
+										<th style="width: 5%" ><input type="checkbox"
+											id="allCk"></th>
+										<th style="width: 15%">상품 이미지</th>
+										<th class="text-center">상품 이름</th>
 										<th>가격</th>
 										<th>수량</th>
 										<th>색상 / 사이즈</th>
@@ -100,13 +98,13 @@
 					<!-- 최종 금액 확인 -->
 					<div class="row">
 						<div class="col-lg-12 offset-lg-12">
-							<div class="proceed-checkout">
+							<div class="proceed-checkout text-right">
 								<ul>
 
-									<li class="cart-total">총 주문금액<span class="total">0원</span></li>
+									<li class="cart-total" style="font-size: 20px">총 주문금액 :&nbsp; <span class="total">0원</span></li>
 								</ul>
 								<a onclick="payPage()" class="proceed-btn"
-									style='cursor: pointer'>주문하기 </a>
+									style='cursor: pointer; font-size: 20px;'>주문하기 </a>
 							</div>
 						</div>
 					</div>
@@ -160,23 +158,23 @@
 											}
 
 											html += "<tr id='tr"+i+"'>"
-													+ "<td><input onclick='summary()' id='ck"
+													+ "<td class='cart-title first-row text-center'><input onclick='summary()' id='ck"
 													+ i
 													+ "' type='checkbox' name='board_id' value='"
 													+ data[i - 1].board_id
 													+ "'></input></td>"
-													+ "<td class='cart-pic first-row'> <a href='/admin/goods_detail/"+data[i-1].board_id+"'> <img src='/resources/img/admin/goods/"+data[i-1].goodsVO.thumbnail+"' class='pimg'> </a></td> "
-													+ "<td class='cart-title first-row'>"
+													+ "<td class='cart-title first-row text-center'> <a href='/admin/goods_detail/"+data[i-1].board_id+"'> <img src='/resources/img/admin/goods/"+data[i-1].goodsVO.thumbnail+"' class='pimg'> </a></td> "
+													+ "<td class='cart-title first-row text-center'>"
 													+ "<h5>"
 													+ "<a href='/admin/goods_detail/"+data[i-1].board_id+"' style='color:#000000' >"
 													+ data[i - 1].goodsVO.goodsname
 													+ "</a>"
 													+ "</h5>"
 													+ "</td>"
-													+ "<td class='p-price first-row' style='color:#000000'>"
+													+ "<td class='p-price first-row text-center' style='color:#000000'>"
 													+ "<input style='border:none; text-align:right; ' type='text' id='a"+i+"' value='"+data[i-1].goodsVO.price+"' readonly size='7px' >"
 													+ "원</td>"
-													+ "<td class='qua-col first-row'>"
+													+ "<td class='qua-col first-row text-center'>"
 													+ "	<div class='quantity'> <div class='pro-qty'> <span class='dec qtybtn' onclick='total"
 													+ i
 													+ "(-1)'>-</span> <input name='amount' type='text' id='b"
@@ -184,11 +182,11 @@
 														+ "' value='"+amount+"' readonly > <span class='inc qtybtn' onclick='total"
 													+ i
 													+ "(1)'>+</span> </div> </div>"
-													+ "</td> <td class='total-price first-row' style='color:#000000'> "
+													+ "</td> <td class='total-price first-row text-center' style='color:#000000'> "
 													+ pcolor
 													+ " / "
 													+ psize
-													+ "</td><td class='total-price first-row' style='color:#000000'>"
+													+ "</td><td class='total-price first-row text-center' style='color:#000000'>"
 													+ "<input style='border:none; text-align:right;' type='text' id='sum"
 														+ i
 														+ "' value='' readonly size='7px' name='sum' >원</td>"

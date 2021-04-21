@@ -106,9 +106,11 @@
 									src="/resources/img/member/profile/<sec:authentication  property="principal.thumbnail"/>">
 
 								<br> <br> <label for="thumbnail"
-									style="font-size: 20px; text-align: center">프로필 이미지 수정</label>
-								<label style="font-size: 20px; text-align: center"
-									onclick="defaultImage()">기본 이미지로 변경</label>
+									style="font-size: 17px; text-align: center">수정하기</label> <label
+									style="font-size: 17px; text-align: center"
+									onclick="defaultImage()">기본이미지</label>
+
+
 								<div class="custom-file">
 									<input type="file" class="custom-file-input" id="thumbnail"
 										name="file" multiple="multiple" style="display: block;">
@@ -205,9 +207,8 @@
 							<br> <br>
 							<hr>
 							<br>
-							<button type="submit" class="site-btn register-btn"
-								style="font-size: 15pt; background-color: red"
-								onclick="deleteMember()">회원탈퇴</button>
+							<button type="submit" class="btn-info float-right"
+								style="font-size: 15pt;" onclick="deleteMember()">회원탈퇴</button>
 						</form>
 						<br>
 
@@ -420,18 +421,11 @@ function deleteMember(){
 	    readImage(e.target)
 	})
 	
-	/*  $("#thumbnail").change(function(){
-	 if(this.files && this.files[0]) {
-	  var reader = new FileReader;
-	console.log(this.files[0]);
-	 reader.readAsDataURL(this.files[0]);
-	}
-	});  */
 	function defaultImage(){
 		 const previewImage = document.getElementById("preview-image");
          previewImage.src = "/resources/img/member/profile/profile.jpg";
-         $("#thumbnail").val("");
-         
+         $("#thumbnail2").val("profile.jpg");
+        $("#thumbnail").val(""); 
 		
 	}
 </script>

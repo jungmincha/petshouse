@@ -129,8 +129,7 @@ table th {
 </body>
 <script type="text/javascript">
 	function getPointList(pageNum, amount) {
-		$("#pointList").empty();
-		$("#page").empty();		
+			
 		var startDate = $("#datepicker").val();
 		var endDate = $("#datepicker2").val();
 
@@ -145,7 +144,8 @@ table th {
 			},
 			success : function(data) {
 				console.log(data);
-			
+				$("#pointList").empty();
+				$("#page").empty();	
 				html = "";
 				for (var i = 0; i < data.pointList.length; i++) {
 					html += "<tr>" + "<td>" +  getFormatDate(data.pointList[i].pdate)

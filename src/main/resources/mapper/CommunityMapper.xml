@@ -266,7 +266,7 @@
 	<!--노하우 사진 때문에 -->
 	<select id="getTipsBoard_id" resultType="boardvo">
 		 <![CDATA[
-  			select * from (select * from board where boardtype_id=5 order by pdate desc) where rownum=1
+  			 select * from (select * from board where boardtype_id=5 and pstep=0 order by pdate desc) where rownum=1
 	 	]]>
 	</select>
 
@@ -396,7 +396,7 @@
 	<!-- 질문과 답변 사진 때문에 -->
 	<select id="getQnaBoard_id" resultType="boardvo">
 		 <![CDATA[
-  			select * from (select * from board where boardtype_id=4 order by pdate desc) where rownum=1
+  			 select * from (select * from board where boardtype_id=4 and pstep=0 order by pdate desc) where rownum=1
 	 	]]>
 	</select>
 

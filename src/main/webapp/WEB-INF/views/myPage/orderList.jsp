@@ -782,8 +782,7 @@
 
 	// 버튼 클릭시 전체 리스트 조회
 	function allOrder(pageNum,amount){
-		$(".payList").remove();
-		$(".pagination").remove();						
+						
 						$
 								.ajax({
 									url : "/myPage/orderList/ajax",
@@ -794,6 +793,8 @@
 
 									},
 									success : function(data) {
+										$(".payList").remove();
+										$(".pagination").remove();	
 										html = "";
 										console.log(data);
 										for (var i = 1; i <= data.pay.length; i++) {
@@ -902,8 +903,7 @@
 	
 	// 버튼 클릭시 리스트 조회
 	function listOrder(paystate,pageNum,amount) {
-		$(".payList").remove();
-		$(".pagination").remove();
+		
 		
 		$
 				.ajax({
@@ -914,6 +914,8 @@
 						amount : amount
 					},
 					success : function(data) {
+						$(".payList").remove();
+						$(".pagination").remove();	
 						html = "";
 						console.log(data);
 						for (var i = 1; i <= data.pay.length; i++) {

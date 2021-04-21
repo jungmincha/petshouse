@@ -72,7 +72,7 @@ a:hover {
 
 function button_event() {
 	if (confirm("정말 삭제하시겠습니까?") == true) { //확인
-		location.href = '${pageContext.request.contextPath}/admin/ndelete?board_id=${notice_view.board_id}'
+		location.href = '${pageContext.request.contextPath}/admin/ndelete/${notice_view.board_id}'
 	} else { //취소
 		return;
 	}

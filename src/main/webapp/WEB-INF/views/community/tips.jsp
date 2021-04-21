@@ -66,7 +66,16 @@
 		
 	});
 </script>
-
+<style>
+.count{
+	position: absolute;
+    bottom: 10px;
+    right: 20px;
+    font-size: 13px;
+    color: #fff;
+    text-shadow: 0 0 4px rgb(0 0 0 / 50%);
+}
+</style>
 </head>
 
 
@@ -92,7 +101,7 @@
 					<li class="active">인기 노하우</li>
 				</ul>
 			</div>
-			<div class="product-slider owl-carousel" id="box"">
+			<div class="product-slider owl-carousel" id="box">
 
 				<c:forEach items="${rate}" var="rate">
 					<c:if test="${rate.boardVO.rnum le 10}">
@@ -101,13 +110,13 @@
 
 								<div class="product-item">
 									<a href="/commu/tips/${rate.boardVO.board_id}">
-										<img src="/resources/img/tips/${rate.imgname}" alt=""
-								style="border-radius: 5px; height: 150px;">
-										<h6 style="font-size: 15px; font-weight: bold;">${rate.boardVO.title}</h6>
+										<div class="pi-pic shot">
+										<img style="height:200px; border-radius:5px;" src="/resources/img/tips/${rate.imgname}" alt=""
+								style="border-radius: 5px; height: 150px;"><span class="count">조회수 ${rate.boardVO.hit}</span>
+								</div>
+										<h6 style="font-size: 15px; font-weight: bold; margin-top:9px;">${rate.boardVO.title}</h6>
 									</a>
 									<div style="font-size: 14px;">${rate.boardVO.memberVO.nickname}</div>
-									<div style="font-size: 13px; color: gray;">조회수
-										${rate.boardVO.hit}</div>
 								</div>
 							</div>
 						</div>
@@ -119,7 +128,7 @@
 		<!-- 동물 카테고리, 정렬, 글쓰기 버튼 -->
 		<div class=" row" style="margin-top:100px;padding-bottom: 30px;">
 
-			<select id="selectPet" class="form-control col-2"
+			<select id="selectPet" class="form-control col-1"
 				name="categoryVO.category_id"
 				style="margin-left: 40px; text-align: center">
 
@@ -133,7 +142,7 @@
 			</select><span class="col-lg-7"></span>
 
 			<button class="btn btn-outline-secondary col-lg-2" id="tw"
-				style="margin-left: 42px"
+				style="margin-left: 140px"
 				onclick="location.href='${pageContext.request.contextPath}tips/write'">노하우
 				작성</button>
 		</div>
@@ -144,15 +153,16 @@
 			<c:forEach items="${tips}" var="tp">
 				<div class="product-item col-sm-3">
 							<a href="/commu/tips/${tp.boardVO.board_id}">
-						<div class="pi-pic">
+						<div class="pi-pic shot">
 				<img src="/resources/img/tips/${tp.imgname}" alt=""
 								style="border-radius: 5px; height: 150px;">
+								<span class="count">조회수 ${tp.boardVO.hit}</span>
 						</div>
 						<div class="pi-text" style="text-align: left; padding-top: 5px;">
 							<h6 style="font-size: 15px; font-weight: bold;">${tp.boardVO.title}</h6></div>
 					</a>
 					<div style="font-size: 14px;text-align: left;">${tp.boardVO.memberVO.nickname}</div>
-					<div style="font-size: 13px; color: gray;text-align: left;">조회수 ${tp.boardVO.hit}</div>
+
 				</div></c:forEach>
 		</div>
 		

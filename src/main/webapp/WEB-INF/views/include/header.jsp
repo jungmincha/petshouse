@@ -127,16 +127,15 @@
 		<div class="container">
 			<div class="inner-header">
 				<div class="row">
-					<div class="col-lg-2 col-md-2">
+					<div class="col-lg-2 col-md-2 col-sm-2">
 						<div class="logo">
 							<a href="/home"> <img src="/resources/img/logo.png" alt="">
 							</a>
 						</div>
 					</div>
-					<div class="col-lg-7 col-md-7">
+					<div class="col-lg-6 col-md-6 col-sm-6" style="padding-top: 7px;">
 						<div class="advanced-search">
-							<button type="button" class="category-btn">All
-								Categories</button>
+
 							<form action="${pageContext.request.contextPath}/search"
 								class="input-group" method="get">
 								<input type="text" name="keyword" placeholder="펫츠하우스 통합검색">
@@ -147,36 +146,33 @@
 
 						</div>
 					</div>
-					<div class="col-lg-3 text-right col-md-3">
+					<div class="col-lg-4 text-right col-md-4 col-sm-4">
+
 						<ul class="nav-right">
-							<li class="heart-icon"><a href="#"> <i
-									class="icon_heart_alt"></i>
-							</a></li>
+							<sec:authorize access="hasRole('ROLE_USER')">
+								<li><sec:authentication property="principal.nickname" />님</li>
+
+								<li class="heart-icon">
+									<div class="top_profile_box ">
+										<a
+											href="/myPage/<sec:authentication property="principal.nickname"/>">
+											<img class="top_profile"
+											src="/resources/img/member/profile/<sec:authentication  property="principal.thumbnail"/>">
+										</a>
+									</div>
+								</li>
+							</sec:authorize>
 							<li class="cart-icon"><a href="/myPage/cart" id="cartCount"><i
-									class="icon_bag_alt"></i> </a>
-								<div class="cart-hover">
-									<sec:authorize access="isAnonymous()">
-										<li class="heart-icon"><a href="/login/login"
-											class="login-panel">Login</a></li>
-									</sec:authorize>
-									<sec:authorize access="hasAnyRole('ROLE_USER','ROLE_ADMIN')">
-										<li><a href="/login/logout" class="login-panel"
-											style="color: black">Logout</a>
-										<li class="heart-icon ">
-											<div class="top_profile_box ">
-												<a
-													href="/myPage/<sec:authentication property="principal.nickname"/>">
-													<img class="top_profile"
-													src="/resources/img/member/profile/<sec:authentication  property="principal.thumbnail"/>">
-												</a>
-											</div>
-
-										</li>
-
-									</sec:authorize>
-
-
-								</div></li>
+									class="icon_bag_alt"></i> </a></li>
+							<!-- 로그아웃 버튼 -->
+							<sec:authorize access="isAnonymous()">
+								<li class="heart-icon"><a href="/login/login"
+									class="login-panel">Login</a></li>
+							</sec:authorize>
+							<sec:authorize access="hasAnyRole('ROLE_USER','ROLE_ADMIN')">
+								<li><a href="/login/logout" class="login-panel"
+									style="color: black">Logout</a></li>
+							</sec:authorize>
 
 						</ul>
 					</div>

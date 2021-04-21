@@ -40,6 +40,23 @@ public class HomeServiceImpl implements HomeService {
 		log.info("getMoreTips");
 		return mapper.getMoreTips(keyword,cri);
 	}
+	
+	  @Override 
+	  public int qcount(String keyword){
+		log.info("qcount()");
+		return mapper.qcount(keyword); 
+	  }
+	@Override
+	public int tcount(String keyword) {
+		log.info("tcount()");
+		return mapper.tcount(keyword); 
+	}
+	@Override
+	public int gcount(String keyword) {
+		log.info("gcount()");
+		return mapper.gcount(keyword); 
+	}
+	 
 
 
 }

@@ -37,12 +37,14 @@ public class AuthProvider implements AuthenticationProvider {
 	private Authentication authenticate(String id, String password) throws AuthenticationException {
 		log.info("authenticate() 로그인 실행2");
 		MyAuthentication myInfo = (MyAuthentication) securityService.loadUserByUsername(id);
-
 		if (myInfo == null) {
 			log.info("사용자 정보가 없습니다.");
 			throw new UsernameNotFoundException(id);
 		} else if (myInfo != null && !new BCryptPasswordEncoder().matches(password, myInfo.getPassword())) {
 			log.info("비밀번호가 틀렸습니다.");
+			throw new BadCredentialsException(id);
+		} else if (!myInfo.getMember().getCertify().equals("Y")) {
+			log.info("이메일 인증해주세요");
 			throw new BadCredentialsException(id);
 		}
 

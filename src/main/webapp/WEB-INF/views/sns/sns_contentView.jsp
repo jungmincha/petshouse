@@ -175,16 +175,12 @@ body {
 	object-fit: cover;
 }
 
-.recent{
+.recent {
 	width: 130px;
-	height:130px;
+	height: 130px;
 	border-radius: 10px;
-	margin : 3px;
-	}
-	
-
- 
-	
+	margin: 3px;
+}
 </style>
 <script>
 	//로그인 체크
@@ -208,32 +204,41 @@ body {
 <body style="padding-top: 200px">
 
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
-	
-		
 
-	<form action="commu/sns/modify" method="get">
-		<%-- <input type="hidden" name="member_id"
-			value="<sec:authentication property="principal.member_id"/>"> --%>
-		  
+
+
+	 
 		<div class="mt-150 mb-150">
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-8">
+
 						<input type="hidden" name="board_id" value="${board_id}">
-						<input type="hidden" name="boardVO.memberVO.nickname" value="${sns.memberVO.nickname}">
-						<div style="float: right">
+						<input type="hidden" name="boardVO.memberVO.nickname"
+							value="${sns.memberVO.nickname}">
+						
+						
+						<div class="row" width="100%">
 
-
-							<a href="/commu/sns">목록으로</a>
-
+							<div class="profile_box" >
+								<img src="/resources/img/member/profile/${sns.memberVO.thumbnail}"
+									name="profile" alt="" class="profile" />
+							</div>
+							<p class="nickname" style="padding-top: 7px; font-size: 15px;">
+								${sns.memberVO.nickname} &nbsp&nbsp</p>
+							<div class="pdate" style="clear: left; float : right; padding-bottom: 25px; text-align: right;">
+							 ${sns.pdate}   
+							</div> 
 						</div>
+							
+ 
 
-						<h4>${sns.categoryVO.categoryname}</h4>
+						 
 						<c:forEach var="img" items="${img}">
 							<div class="mySlides">
 
 								<img src="/resources/img/member/sns/${img.imgname}"
-									style=" width: 780px;height:450px;object-fit: cover; border-radius: 10px;">
+									style="width: 780px; height: 450px; object-fit: cover; border-radius: 10px;">
 							</div>
 						</c:forEach>
 						<div style="text-align: center">
@@ -254,256 +259,284 @@ body {
 
 						<div class="row user_info">
 
-							<div class="profile_box">
-								<a href="/myPage/${sns.memberVO.nickname}" style="color: black"><img
-									src="/resources/img/member/profile/${sns.memberVO.thumbnail}"
-									name="profile" alt="" class="profile" /> 
-							</div>
-							<p class="nickname" style="padding-top: 7px; font-size:15px;">
-								${sns.memberVO.nickname} &nbsp&nbsp</p></a> 
+							 <!-- 좋아요 구현 -->
+
+							<!-- Profile Section -->
+							<div  class="container">
 								
+								<div class="row col-lg-12">
+									<div class="profile-info_name">
+								 
+										<input type="hidden" id="board_id" value="${board_id}" />
+									</div>
+								</div>
+
+								<div class="row col-lg-12">
+								 
+										
+									 
+
+									<!-- likelist Modal start -->
+									<div class="modal" id="likeModal">
+										<div class="modal-dialog">
+											<div class="modal-content">
+
+												<!-- Modal Header -->
+												<div class="modal-header">
+													<h4 class="modal-title">좋아요한 회원 목록</h4>
+													<button type="button" class="close" data-dismiss="modal">&times;</button>
+												</div>
+
+												<!-- Modal body -->
+												<div class="likelist modal-body">
+													<c:forEach items="${likelist}" var="likelist">
+														<p>${likelist.memberVO.member_id}</p>
+													</c:forEach>
+												</div>
+
+												<!-- Modal footer -->
+												<div class="modal-footer">
+													<button type="button" class="btn btn-warning"
+														data-dismiss="modal">Close</button>
+												</div>
+
+											</div>
+											<!-- modal-content end -->
+										</div>
+									</div>
+									<!-- like list Modal end -->
+
+									<!-- 본인이 좋아요 누른 게시글이 아닌 경우 좋아요 버튼 발생 이미 눌렀던 경우는 좋아요 취소버튼 발생하게 구현해야 할것!-->
+
+									<c:if test="${likecheck == 0}">
+										<div class="col-lg-12">
+										
+											<a href="javascript:void(0);" class="like"
+												style="cursor: hand;" onclick="like();"><img
+												src="/resources/img/location/before_like.png"
+												style="width: 30px;"></a>
+												
+												<a href="#likeModal" class="like_amount" data-toggle="modal"
+											 > ${like_amount} </a><div class="profile-info row"></div>
+										
+										</div>
+									</c:if>
+
+									<c:if test="${likecheck != 0}">
+										<div class="col-lg-12">
+											<a href="javascript:void(0);" class="likecancel"
+												style="cursor: hand;" onclick="likecancel();"><img
+												src="/resources/img/location/after_like.png"
+												style="width: 30px;"></a>
+											<a href="#likeModal" class="like_amount" data-toggle="modal">
+											 ${like_amount} </a></div>
+										</div>
+									</c:if>
+
+
+								</div>
+								<!-- row col-lg-12 end -->
+							</div>
+							<!-- profile-info end -->
+							<!-- Profile Section -->
+
+							<script type="text/javascript">
+								//좋아요 요청
+								function like() {
+									var board_id = $('#pgroup').val();
+									// var pre_nickname = $('#nickname').val();  
+
+									console.log(board_id);
+
+									$
+											.ajax({
+												type : "POST",
+												url : "/commu/sns/like/"
+														+ board_id,
+												success : function(data) {
+													console.log(data);
+													console
+															.log(data.like_amount)
+													var likelist = data.likelist;
+
+													html = "";
+
+													for ( var i in likelist) {
+														html += "<p>"
+																+ likelist[i].memberVO.member_id
+																+ "</p>";
+													}
+
+													$('.like_amount').empty();
+													
+													$('.likelist').empty();
+													$('.likelist').append(html);
+													$('.like').remove();
+													$('.profile-info')
+															.append(
+																	'<a href="javascript:void(0);" class="likecancel" style="cursor:hand;  padding-left:14px;" onclick="likecancel();"><img src="/resources/img/location/after_like.png" style="width:30px;"></a>');
+													$('.like_amount')
+													.append( 
+																	+ data.like_amount
+																	 );
+												},
+												error : function(e) {
+													console.log(e);
+												}
+											});//ajax end
+								};//like end
+
+								//좋아요 취소
+								function likecancel() {
+									var board_id = $('#pgroup').val();
+									// var pre_nickname = $('#nickname').val();
+
+									console.log(board_id);
+
+									$
+											.ajax({
+												type : "DELETE",
+												url : "/commu/sns/likecancel/"
+														+ board_id,
+												success : function(data) {
+													console.log(data);
+													console
+															.log(data.like_amount)
+													var likelist = data.likelist;
+
+													html = "";//꼭 써줘야 할것!
+
+													for ( var i in likelist) {
+														html += "<p>"
+																+ likelist[i].memberVO.member_id
+																+ "</p>";
+													}
+
+													$('.like_amount').empty();
+												 
+													$('.likelist').empty();
+													$('.likelist').append(html);
+													$('.likecancel').remove();
+													$('.profile-info')
+															.append(
+																	'<a href="javascript:void(0);" class="like" style="cursor:hand; padding-left:14px;" onclick="like();"><img src="/resources/img/location/before_like.png" style="width:30px;"></a>');
+													$('.like_amount')
+													.append( 
+																	+ data.like_amount
+																	+  '</a>');
+													},
+												error : function(e) {
+													console.log(e);
+												}
+											});//ajax end
+								};//likecancel end
+							</script>
+							 </div>
+						<div style="float:right;">
+							 
+							<span style="color: gray"> 조회수 ${sns.hit}</span>
 						</div>
-						
-					
-						<p>${sns.content}</p>
-
-						<c:set var="hashtag" value="${sns.hashtag}" />
-						<c:set var="tag" value="${fn:split(hashtag, ' ')}" />
-						<c:forEach var="t" items="${tag}">
-
-							<a href="xxx">${t}</a>
-
-						</c:forEach>
-
-	<div style="float: right">
-								<span class="pdate">
-								<fmt:formatDate var="formatRegDate" value="${sns.pdate}"
-									pattern="yyyy.MM.dd" />${formatRegDate} &nbsp&nbsp </span> 
-							<span style="color: gray"> 조회수 ${sns.hit}</span></div>
-
-					</div>
-	
-
-
-	<div class="col-lg-4">
-		<div class="sidebar-section">
-
-
-			<div class="archive-posts">
-				<div class="row">
-					<div class="row">
-						<div class="profile_box2">
-							<img
-								src="/resources/img/member/profile/${sns.memberVO.thumbnail}"
-								name="profile" alt="" class="profile" />
+ 
+						<div style="padding-left:30px; min-height:100px;">
+						 ${sns.content} 
 						</div>
-						<h4 style="padding-top: 30px;">${sns.memberVO.nickname}</h4>
-						<a href="/myPage/${sns.memberVO.nickname}"  style="padding-top:35px;"> &nbsp 팔로우
-						</a>
+
+						<form action="${pageContext.request.contextPath}/commu/sns/hashtag" method="post">
+							<ul class="pd-tags">
+								<c:set var="hashtag" value="${sns.hashtag}" />
+								<c:set var="tag" value="${fn:split(hashtag, ' ')}" />
+								<c:forEach var="t" items="${tag}">
+
+									<button id="hashtag" name="keyword" class="btn btn-disabled"
+										value="${t}"
+										onclick="location.href='${pageContext.request.contextPath}/commu/sns/hashtag'">${t}</button>
+
+								</c:forEach>
+							</ul>
+						</form>
+
+
+
+					</div> 
+
+
+
+					<div class="col-lg-4">
+						<div class="sidebar-section">
+
+
+							<div class="archive-posts">
+								 
+									<div class="row">
+										<div class="profile_box2">
+											<img
+												src="/resources/img/member/profile/${sns.memberVO.thumbnail}"
+												name="profile" alt="" class="profile" />
+										</div>
+										<h4 style="padding-top: 30px;">${sns.memberVO.nickname}</h4>
+										<a href="/myPage/${sns.memberVO.nickname}"
+											style="padding-top: 35px;"> &nbsp 팔로우 </a>
+									</div>
+
+ 
+							</div>
+							<br> <br>
+
+							<div class="recent-posts">
+								<h4>Recent Posts</h4>
+								<ul>
+
+									<c:forEach var="user" items="${user}">
+										<a href="/commu/sns/${user.boardVO.board_id}"> <img
+											src="/resources/img/member/sns/${user.imgname}"
+											class="recent"></a>
+									</c:forEach>
+
+								</ul>
+							</div>
+							<br> <br>
+
+							<div style="float: right">
+								<sec:authentication property="principal" var="buttonhidden" />
+								<sec:authorize access="isAuthenticated()">
+
+									<!-- 현재 접속된 닉네임과 댓글보드에 저장된 닉네임을 비교해서 일치 하면 보이게 함 -->
+									<c:if test="${buttonhidden.nickname eq sns.memberVO.nickname}">
+
+										<button id="modify_button" type="button"
+											class="btn btn-warning" onclick="modify_event();">수정</button>
+
+										<button id="delete_button" type="button"
+											class="btn btn-warning" onclick="button_event();">삭제</button>
+									</c:if>
+								</sec:authorize>
+
+
+
+							</div>
+
+
+
+
+							
+ 
+
+						</div>
 					</div>
-
-
 				</div>
 			</div>
-			<br>
-			<br>
-
-			<div class="recent-posts" >
-				<h4>Recent Posts</h4>
-				<ul>
-						
-						<c:forEach var="user" items="${user}">
- 						<a href="/commu/sns/${user.boardVO.board_id}">
-						<img src="/resources/img/member/sns/${user.imgname}" class="recent"></a>
- 					    </c:forEach>
-					
-				</ul>
-			</div>
-			<br>
-			<br>
-
-			<div style="float: right">
-				<sec:authentication property="principal" var="buttonhidden" />
-				<sec:authorize access="isAuthenticated()">
-
-					<!-- 현재 접속된 닉네임과 댓글보드에 저장된 닉네임을 비교해서 일치 하면 보이게 함 -->
-					<c:if test="${buttonhidden.nickname eq sns.memberVO.nickname}">
-
-						<button id="modify_button" type="button" class="btn btn-warning"
-							onclick="modify_event();">수정</button>
-
-						<button id="delete_button" type="button" class="btn btn-warning"
-							onclick="button_event();">삭제</button>
-					</c:if>
-				</sec:authorize>
-
-
-
-			</div>
-			
-			          		
-			          						
-			
-			<!-- 좋아요 구현 -->
-													
-					<!-- Profile Section -->
-     				<div style="float:right;"class="profile-info container">
-      					<div class="row col-lg-12" >
-      						<div class="profile-info_name">
-      							<input type="hidden" id="board_id" value="${board_id}"/>
-      						</div>
-      					</div>
-      					
-      					<div class="row col-lg-12">
-      						<div class="profile-info_follow-state">    		 	
-            					<a href="#likeModal" class="like_amount" data-toggle="modal" style="float:right;"><span>좋아요${like_amount}</span></a>
-	        				</div>
-
-							<!-- likelist Modal start -->
-							<div class="modal" id="likeModal" >
-								<div class="modal-dialog">
-									<div class="modal-content">
-		      
-			       						<!-- Modal Header -->
-										<div class="modal-header">
-			          						<h4 class="modal-title">좋아요한 회원 목록</h4>
-			          						<button type="button" class="close" data-dismiss="modal">&times;</button>
-			        					</div>
-			        
-			        					<!-- Modal body -->
-			       						<div class="likelist modal-body">
-			          						<c:forEach items="${likelist}" var="likelist">
-			          							<p>${likelist.memberVO.member_id}</p>          	
-			          						</c:forEach>
-			        					</div>
-			        
-			        					<!-- Modal footer -->
-			        					<div class="modal-footer">
-			          						<button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
-			       						</div>
-		                
-									</div> 	<!-- modal-content end -->														
-								</div>
-							</div>
-							<!-- like list Modal end -->
 		
-							<!-- 본인이 좋아요 누른 게시글이 아닌 경우 좋아요 버튼 발생 이미 눌렀던 경우는 좋아요 취소버튼 발생하게 구현해야 할것!-->
-							
-							<c:if test="${likecheck == 0}">	 			
-							<div class="col-lg-12">
-		        				<a href="javascript:void(0);" class="like" style="cursor:hand;" onclick="like();"><img src="/resources/img/location/before_like.png" style="width:25px;"></a>
-			       			
-			       			</div>	   
-		  					</c:if>	
-		  						
-							<c:if test="${likecheck != 0}" >					
-							<div class="col-lg-12">
-								<a href="javascript:void(0);" class="likecancel" style="cursor:hand;" onclick="likecancel();"><img src="/resources/img/location/after_like.png" style="width:25px;"></a>
-							</div>	   
-							</c:if>	 
-					
-							
-      					</div> <!-- row col-lg-12 end -->
-      				</div> <!-- profile-info end -->
-					<!-- Profile Section -->
-				  	
-					<script type="text/javascript">
-				  	 
-					//좋아요 요청
-				    function like(){  	
-				    	var board_id = $('#pgroup').val();  
-					 	// var pre_nickname = $('#nickname').val();  
-					 
-						console.log(board_id);
-				
-							
-				    	$.ajax({
-				    		type :"POST",
-					        url :"/commu/sns/like/" + board_id,   
-					        success :function(data){
-					           console.log(data);	
-					           console.log(data.like_amount)
-					           var likelist = data.likelist;
-					          
-					           html = "";
-					           
-					           for(var i in likelist){
-					        	   html += "<p>" + likelist[i].memberVO.member_id + "</p>";
-					           }
-					           
-					           $('.like_amount').empty();
-					           $('.like_amount').append('좋아요<span>' + data.like_amount + '</span></a>');                 
-					           $('.likelist').empty();
-					           $('.likelist').append(html);
-					           $('.like').remove();	          
-					           $('.profile-info').append('<a href="javascript:void(0);" class="likecancel" style="cursor:hand;" onclick="likecancel();"><img src="/resources/img/location/after_like.png" style="width:25px;"></a>');               
-					        },
-					        error: function(e){
-						    	console.log(e);
-						    }
-				   		});//ajax end
-					};//like end
-					    
-					//좋아요 취소
-					function likecancel(){  
-						var board_id = $('#pgroup').val();
-						// var pre_nickname = $('#nickname').val();
-					
-					   	console.log(board_id);
-					
-					   	
-				    	$.ajax({
-				    		type :"DELETE",
-					        url :"/commu/sns/likecancel/" + board_id, 
-							success :function(data){
-								console.log(data);	
-					        	console.log(data.like_amount)
-					        	var likelist = data.likelist;
-						          
-					        	html = "";//꼭 써줘야 할것!
-					        	
-								for(var i in likelist){
-									html += "<p>" + likelist[i].memberVO.member_id + "</p>";
-					         	}
-						           
-								$('.like_amount').empty();
-								$('.like_amount').append('좋아요<span>' + data.like_amount + '</span></a>');                 
-								$('.likelist').empty();
-						        $('.likelist').append(html);
-					            $('.likecancel').remove();		           
-					            $('.profile-info').append('<a href="javascript:void(0);" class="like" style="cursor:hand;" onclick="like();"><img src="/resources/img/location/before_like.png" style="width:25px;"></a>'); 
-					        },
-					        error: function(e){
-						    	console.log(e);
-						    }
-				   		});//ajax end
-					};//likecancel end
-						
-					</script>
-			
-			
-			
-			
-			
-			
-			
-		</div>
-	</div>
-	</div>
-	</div>
-	</div>
-</form>
+ 
 
 
 
 
 
 
-
-	<div class="container" style="margin-top: 100px;">
+	<div class="container" style="margin-top: 30px;">
 
 		<input type="hidden" id="pgroup" value="${sns.board_id}">
-		
+
 		<div>
 			<div>
 				<h4>
@@ -514,9 +547,9 @@ body {
 				<div id="inputContent">
 					<table class="table" style="margin: 10px;">
 						<td class="row"><textarea style="resize: none;"
-							class="form-control col-8" id="content" placeholder="댓글을 입력하세요"></textarea>
-						<button id="cw" class="col-1 btn btn-outline-secondary" onClick="getComment()">등록</button>
-					</td>
+								class="form-control col-8" id="content" placeholder="댓글을 입력하세요"></textarea>
+							<button id="cw" class="col-1 btn btn-outline-secondary"
+								onClick="getComment()">등록</button></td>
 
 					</table>
 				</div>
@@ -525,45 +558,48 @@ body {
 
 
 		<div class="container">
-		<c:forEach items="${comment}" var="m">
-			<div id="comment" style="width: 800px;">
+			<c:forEach items="${comment}" var="m">
+				<div id="comment" style="width: 800px;">
 
-			 
-				<!-- 여기서부터 시큐리티 권한을준다 -->
-			    <sec:authentication property="principal" var="pinfo" />
-			    <sec:authorize access="isAuthenticated()">	
-	
-				<!-- 현재 접속된 닉네임과 댓글보드에 저장된 닉네임을 비교해서 일치 하면 보이게 함 -->
-			<c:if test="${pinfo.nickname eq m.memberVO.nickname}">
-		
-			<a class="a-del" style="float: right;"  href="/commu/comment/delete?board_id=${m.board_id}"><b>삭제</b></a>
-			</c:if> 
-			</sec:authorize> 
+
+					<!-- 여기서부터 시큐리티 권한을준다 -->
+					<sec:authentication property="principal" var="pinfo" />
+					<sec:authorize access="isAuthenticated()">
+
+						<!-- 현재 접속된 닉네임과 댓글보드에 저장된 닉네임을 비교해서 일치 하면 보이게 함 -->
+						<c:if test="${pinfo.nickname eq m.memberVO.nickname}">
+
+						<a class="a-del" style="float: right;" href="/commu/sns/comment/delete/${m.board_id}"><b>삭제</b></a>
+						</c:if>
+					</sec:authorize>
 					<div class="row">
 						<div class="profile_box">
-							<a href="/myPage/${m.memberVO.nickname}">
-								<img src="/resources/img/member/profile/${m.memberVO.thumbnail}"
+							<a href="/myPage/${m.memberVO.nickname}"> <img
+								src="/resources/img/member/profile/${m.memberVO.thumbnail}"
 								name="profile" alt="" class="profile" />
 						</div>
-						<div style="padding: 5px; color:black;"><b>${m.memberVO.nickname}</b></div></a></div>
-						<div style="padding-left:40px;">${m.content}</div>
-						<div style="padding-left:40px;"><fmt:formatDate var="formatRegDate" value="${m.pdate}" pattern="yyyy.MM.dd" />${formatRegDate}"</div>
-					    <hr></div>
-				</c:forEach>
+						<div style="padding: 6px; color: black;">
+							<b>${m.memberVO.nickname}</b></a>
+						</div>
+						
+					</div>
+					<div style="padding-left: 30px;">${m.content}</div>
+					<div class="pdate" style="padding-left: 30px;">${m.pdate}</div>
+					<hr>
+				</div>
+			</c:forEach>
 
-			</div>
-
-
-			<div class="container">
-				<form id="commentListForm" name="commentListForm" method="post">
-					<div id="commentList"></div>
-				</form>
-			</div>
 		</div>
 
-	<div class="later col-lg-12 text-center">
-		<button type="button" class="btn btn-warning" onClick="btnClick()">더보기</button>
+
+		<div class="container">
+			<form id="commentListForm" name="commentListForm" method="post">
+				<div id="commentList"></div>
+			</form>
+		</div>
 	</div>
+
+	 
 
 
 
@@ -600,7 +636,10 @@ body {
 			dots[slideIndex - 1].className += " active";
 			captionText.innerHTML = dots[slideIndex - 1].alt;
 		}
+	</script>
 
+
+	<script type="text/javascript">
 		function getFormatDate(pdate) {
 
 			var date = date.substr(0, 17);
@@ -609,34 +648,23 @@ body {
 			return pdate;
 		}
 	</script>
+	<script type="text/javascript">
+		function button_event() {
+			if (confirm("정말 삭제하시겠습니까?") == true) { //확인
+				location.href = '${pageContext.request.contextPath}/commu/sns/delete?board_id=${sns.board_id}'
+			} else { //취소
+				return;
+			}
+		}
 
-
-<script type="text/javascript">
-	function getFormatDate(pdate) {
-
-			var date = date.substr(0, 17);
-			var date = date.split("T");
-			var date = date[0] + " " + date[1];
-			return pdate;
+		function modify_event() {
+			if (confirm("수정하시겠습니까?") == true) { //확인
+				location.href = '${pageContext.request.contextPath}/commu/sns/modify_view?board_id=${sns.board_id}'
+			} else { //취소
+				return;
+			}
 		}
 	</script>
-	<script type="text/javascript">
-	function button_event() {
-		if (confirm("정말 삭제하시겠습니까?") == true) { //확인
-			location.href = '${pageContext.request.contextPath}/commu/sns/delete?board_id=${sns.board_id}'
-		} else { //취소
-			return;
-		}
-	}
-
-	function modify_event() {
-		if (confirm("수정하시겠습니까?") == true) { //확인
-			location.href = '${pageContext.request.contextPath}/commu/sns/modify_view?board_id=${sns.board_id}'
-		} else { //취소
-			return;
-		}
-	}
-</script>
 
 	<script type="text/javascript">
 		// 댓글 작성 및 ajax로 댓글 불러오기 프로필사진, 닉네임, 내용, 날짜 넘김
@@ -660,112 +688,124 @@ body {
 						},
 						success : function(data) {
 
-							html = "<div class='row'><div class='profile_box'><a href='/myPage/"+data.memberVO.nickname+"'><img src='/resources/img/member/profile/" + data.memberVO.thumbnail +"' class='profile'></div><div style='padding:8px; color:black;'><b>"
-							+ data.memberVO.nickname
-							+ "</b></a></div></div>"
-							+ "<div style='padding-left:32px;'>"
-							+ data.content
-							+ "</div>"
-							+ "<div style='padding-left:32px;'>"
-						  	+ data.pdate
-							+ "</div>"  
-						
-							+ "<hr>"
-								 
-						  	$("#comment").prepend(html);
+							html = 	
+								"<a class='a-del' style='float:right;' href='/commu/sns/comment/delete/" + data.board_id + "'><b>삭제</b></a>"
+								+ "<div class='row'>"
+								+ "<div class='profile_box'>"
+								+ "<a href='/myPage/ " + data.memberVO.nickname + "'>"
+								+ "<img src='/resources/img/member/profile/" + data.memberVO.thumbnail + "' class='profile'></div>"
+								+ "<div style='padding:5px; color: black;'><b>" + data.memberVO.nickname + "</div></a></div></b>"
+								+ "<div style='padding-left:40px;'>" + data.content + "</div>"
+								+ "<div style='padding-left:40px;'>" + data.pdate + "</div><hr>"
+
+								$("#comment").prepend(html);
 							document.getElementById("content").value = '';
+							// 댓글 삭제
+							$(".a-del").click(function(event) { //id는 한번만 calss는 여러번 선택 가능
+								event.preventDefault();
+								console.log("삭제버튼 클릭")
+								var tr = $(this).parent();
 
-						}, //ajax 성공 시 end$
+								$.ajax({
+									type : 'DELETE', //method
+									url : $(this).attr("href"),
+									cache : false,
 
-						/* 
-							 error : function(request, status, error) {
-							 alert("code:" + request.status + "\n" + "message:"
-							 + request.responseText + "\n" + "error:" + error);
+									success : function(result) {
+										console.log("result: " + result);
+										if (result == "SUCCESS") {
+											$(tr).remove();
+											alert("삭제되었습니다.");
+										}
+									},
+									errer : function(e) {
+										console.log(e);
+									}
+								}); //end of ajax
+							}); // 삭제 종료	
+						},
+					})
 
-							 } // ajax 에러 시 end */
-						})
+		}
+	
+	
 
-			}
-		 
 		// 댓글 삭제
-			$(".a-del").click(function(event) { //id는 한번만 calss는 여러번 선택 가능.
-			
-			   //하나의 id는 한 문서에서 한 번만 사용이 가능(가장 마지막 혹은 처음게 선택). 하나의 class는 
-			
-			   event.preventDefault(); 
-			  
-			
-			   var tr = $(this).parent();//자바스크립트 클로저
+		$(".a-del").click(function(event) { //id는 한번만 calss는 여러번 선택 가능.
 
-			   $.ajax({
-			      type : 'delete', //method
-			      url : $(this).attr("href"), //주소를 받아오는 것이 두 번째 포인트.
-			      cache : false,
-			      success : function(result) {
-			         console.log("result: " + result);
-			         if (result == "SUCCESS") {
-			            $(tr).remove();
-			            alert("삭제되었습니다.");
-			         }
-			      },
-			      errer : function(e) {
-			         console.log(e);
-			      }
-			   }); //end of ajax
-			 }); // 삭제 종료
-			
-		       
+			//하나의 id는 한 문서에서 한 번만 사용이 가능(가장 마지막 혹은 처음게 선택). 하나의 class는 
 
-		//더보기
-		var pageNum = 1;
+			event.preventDefault();
 
-		function btnClick() {
+			var tr = $(this).parent();//자바스크립트 클로저
 
-			pageNum += 1;
-			console.log(pageNum);
+			$.ajax({
+				type : 'DELETE', //method
+				url : $(this).attr("href"), //주소를 받아오는 것이 두 번째 포인트.
+				cache : false,
+				success : function(result) {
+					console.log("result: " + result);
+					if (result == "SUCCESS") {
+						$(tr).remove();
+						alert("삭제되었습니다.");
+					}
+				},
+				errer : function(e) {
+					console.log(e);
+				}
+			}); //end of ajax
+		}); // 삭제 종료
 
-			$
-					.ajax({
-						type : "POST",
-						url : "/commu/scmorelist",
-						data : {
-							pageNum : pageNum,
-							board_id : "${sns.board_id}"
-						},
-						success : function(data) {
-							console.log(data);
-							var comment = data.comment;
+		
 
-							html = " "
-							for ( var i in comment) {
-								html += "<div id='comment'style = 'width : 800px;'>"
-										+ "<div class='row'><div class='profile_box'>"
-										+ "<img src='/resources/img/member/profile/"+comment[i].memberVO.thumbnail+"' name='profile' alt='' class='profile' /></div>"
-										+ comment[i].memberVO.nickname
-										+ "</div>"
-										+ "<div>"
-										+ comment[i].content
-										+ "</div>"
-										+ "<div>"
-										+ comment[i].pdate
-										+ "</div>"
-										+ "<hr>" + "</div>"
-							}
-
-							$("#comment").append(html);
-
-						},
-						//success end
-						error : function(request, status, error) {
-							alert("code:" + request.status + "\n" + "message:"
-									+ request.responseText + "\n" + "error:"
-									+ error);
-						} // ajax 에러 시 end
-					}); //ajax end	 
-		}; //click end
+	
 	</script>
 
-<div style="margin-top: 500px;">
+	<script type="text/javascript">
+		$(".pdate").each(function() {
+			var times = transferTime($(this).text());
+			$(this).text(times);
+		});
+
+		function transferTime(times) {
+			var now = new Date();
+
+			var sc = 1000;
+
+			var today = new Date(times);
+			//지나간 초
+			var pastSecond = parseInt((now - today) / sc, 10);
+
+			var date;
+			var hour;
+			var min;
+			var str = "";
+
+			var restSecond = 0;
+			if (pastSecond > 86400) {
+				date = parseInt(pastSecond / 86400, 10);
+				restSecond = pastSecond % 86400;
+				str = date + "일전 ";
+
+				 
+
+			} else if (pastSecond > 3600) {
+				hour = parseInt(pastSecond / 3600, 10);
+				restSecond = pastSecond % 3600;
+				str = str + hour + "시간전";
+
+			} else if (pastSecond > 60) {
+				min = parseInt(pastSecond / 60, 10);
+				restSecond = pastSecond % 60;
+				str = str + min + "분전";
+			} else {
+				str = pastSecond + "초전";
+			}
+
+			return str;
+		}
+	</script>
+	<div style="margin-top: 500px;">
 		<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 	</div>
 

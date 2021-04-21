@@ -267,8 +267,7 @@ a:hover {
 				start += 5;
 			}
 			console.log(start)
-			$("#tcomment").empty();
-			$("#page").empty();
+
 			console.log("실행");
 			$
 					.ajax({
@@ -279,7 +278,8 @@ a:hover {
 							board_id : "${tips_view.board_id}"
 						},
 						success : function(data) {
-
+							$("#tcomment").empty();
+							$("#page").empty();
 							console.log(data);
 							var tcomment = data.tcomment;
 
@@ -410,10 +410,6 @@ a:hover {
 				date = parseInt(pastSecond / 86400, 10);
 				restSecond = pastSecond % 86400;
 				str = date + "일 ";
-
-				hour = parseInt(restSecond / 3600, 10);
-				restSecond = restSecond % 3600;
-				str = str + hour + "시간 전";
 
 			} else if (pastSecond > 3600) {
 				hour = parseInt(pastSecond / 3600, 10);
