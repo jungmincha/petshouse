@@ -189,10 +189,12 @@ a:hover {
 
 				</div>
 
-				<hr> <c:forEach var="img" items="${img}">
+				<hr> 
+				 <c:forEach var="img" items="${img}">
 					<img src="/resources/img/qna/${img.imgname}">
 
 				</c:forEach>
+				
 				<section style="margin-top: 60px; margin-bottom: 20px;">${qna_view.content}</section>
 				<form action="${pageContext.request.contextPath}/commu/qnatag"
 					method="post">
@@ -226,10 +228,12 @@ a:hover {
 			</div>
 			<div class="table" style="margin-bottom: 50px;">
 			
-				<div class="row"><textarea style="resize: none; margin-left:60px;"
-							class="form-control col-10" id="content" placeholder="댓글을 입력하세요"></textarea>
-						<button id="cw" class="col-1 btn btn-outline-secondary"
-							onClick="getComment()">등록</button>
+			<div class="row">
+				<div class="col-11">
+				<textarea style="resize: none;"
+					class="form-control" id="content" placeholder="댓글을 입력하세요"></textarea></div>
+				<div class="col-1"><button  style="height:60px; width:80px;" id="cw" class="btn btn-outline-secondary"
+						onClick="getComment()">등록</button></div>
 			</div>
 		</div>
 		</div>

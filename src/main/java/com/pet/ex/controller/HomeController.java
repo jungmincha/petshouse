@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -39,9 +40,15 @@ public class HomeController {
 
 	// 글 검색
 	@GetMapping("/search")
-	public ModelAndView search(@RequestParam("keyword") String keyword, ModelAndView mav,Criteria cri)
+	public ModelAndView search(@RequestParam("keyword") String keyword,  ModelAndView mav,Criteria cri)
 			throws Exception {
 		log.info("search()실행");
+		int qcount = service.qcount(keyword);
+		mav.addObject("qcount", qcount);
+		int tcount = service.tcount(keyword);
+		mav.addObject("tcount", tcount);
+		int gcount = service.gcount(keyword);
+		mav.addObject("gcount", gcount);
 		mav.addObject("moregoods", service.getMoreGoods(keyword, cri));
 		mav.addObject("moreqna", service.getMoreQna(keyword,cri));
 		mav.addObject("moretips", service.getMoreTips(keyword,cri));
