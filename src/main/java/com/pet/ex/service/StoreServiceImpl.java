@@ -65,7 +65,7 @@ public class StoreServiceImpl implements StoreService {
 
 	//커뮤니티 노하우 조회
 	@Override
-	public List<BoardVO> getKnowhow() {
+	public List<ImageVO> getKnowhow() {
 		log.info("getKnowhow");
 		return mapper.getKnowhow();
 	}

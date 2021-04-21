@@ -201,13 +201,14 @@
 
 	<!-- community part -->
 	<!-- 노하우 조회 -->
-	<select id="getKnowhow" resultType="BoardVO">
+	<select id="getKnowhow" resultMap="imagevo">
 		<![CDATA[
-	      select * from(
-	        select rownum as rnum, A.*from (
-	           select substr(content, 1, 10) as content, substr(title, 1, 17) as title, pdate, hit from board where boardtype_id=5 order by hit desc  
-	       ) A where rownum <= 10
-	      )where rnum > 0
+	       select * from(
+	       	 select rownum as rnum, A.*from (
+			     	select i.imgname, b.board_id, substr(b.title, 1, 17) as title, b.hit, b.plike from board b, image i
+					where b.board_id=i.board_id and b.boardtype_id= 5 and b.pstep=0 order by b.plike desc
+			     ) A where rownum <= 10
+	     	)where rnum > 0
 	   ]]>
 	</select>	
 	

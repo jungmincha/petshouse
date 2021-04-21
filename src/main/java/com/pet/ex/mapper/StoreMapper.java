@@ -27,7 +27,7 @@ public interface StoreMapper {
 	public int getEventstatus(PointVO pointVO);
 
 	//커뮤니티 노하우 조회
-	public List<BoardVO> getKnowhow();
+	public List<ImageVO> getKnowhow();
 
 	//커뮤니티 SNS 조회
 	public List<ImageVO> getSns();
