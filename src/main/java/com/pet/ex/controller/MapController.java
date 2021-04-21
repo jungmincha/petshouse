@@ -119,12 +119,14 @@ public class MapController {
 
 	// content_view 페이지
 	@GetMapping("/board/{board_id}")
-	public ModelAndView content_view(String location, String member_id, String nickname,
+	public ModelAndView content_view(String location, String nickname,
 			ModelAndView mav, BoardVO boardVO, ImageVO imageVO, MemberVO memberVO, PlikeVO plikeVO,
-			MyAuthentication myAuthentication) {
-		// 현재 접속 닉네임
-		String pre_nickname = myAuthentication.getMember().getNickname();
-
+			Authentication authentication) {
+		
+		String member_id = authentication.getPrincipal().toString();
+		System.out.println(member_id);
+		String present_nickname = service.getPresetnNickname(member_id);//현재 닉네임
+		
 		mav.addObject("location", location);
 		mav.addObject("member_id", member_id);
 		mav.addObject("nickname", nickname);
@@ -143,7 +145,7 @@ public class MapController {
 		// resultmap에 vo 담아주는 거
 		MemberVO member = new MemberVO();
 		plikeVO.setMemberVO(member);
-		plikeVO.getMemberVO().setMember_id(pre_nickname);
+		plikeVO.getMemberVO().setMember_id(present_nickname);
 
 		BoardVO board = new BoardVO();
 		plikeVO.setBoardVO(board);
@@ -398,7 +400,7 @@ public class MapController {
 		if (hashtag == null) {
 
 			list = service.getList(cri);
-		} else {
+		}else{
 			MemberVO member = new MemberVO();
 			boardVO.setMemberVO(member);
 			boardVO.getMemberVO().setLocation(location);
@@ -417,15 +419,17 @@ public class MapController {
 	// 좋아요 입력
 	@PostMapping("/like/{board_id}")
 	public Map<String, Object> like(PlikeVO plikeVO, BoardVO boardVO, MemberVO memberVO,
-			MyAuthentication myAuthentication) {
+			Authentication authentication) {
 		log.info("LIKE");
 
-		String pre_nickname = myAuthentication.getMember().getNickname();
+		String member_id = authentication.getPrincipal().toString();
+		System.out.println(member_id);
+		String present_nickname = service.getPresetnNickname(member_id);//현재 닉네임
 
 		// resultmap에 vo 담아주는 거
 		MemberVO member = new MemberVO();
 		plikeVO.setMemberVO(member);
-		plikeVO.getMemberVO().setMember_id(pre_nickname);
+		plikeVO.getMemberVO().setMember_id(present_nickname);
 		// plikeVO.getMemberVO().setNickname(nickname);
 		BoardVO board = new BoardVO();
 		plikeVO.setBoardVO(board);
@@ -458,14 +462,17 @@ public class MapController {
 	// 좋아요 취소
 	@DeleteMapping("/likecancel/{board_id}")
 	public Map<String, Object> likecancel(PlikeVO plikeVO, BoardVO boardVO, MemberVO memberVO,
-			MyAuthentication myAuthentication) {
+			Authentication authentication) {
 		log.info("likecancel");
-		String pre_nickname = myAuthentication.getMember().getNickname();
+		
+		String member_id = authentication.getPrincipal().toString();
+		System.out.println(member_id);
+		String present_nickname = service.getPresetnNickname(member_id);//현재 닉네임
 
 		// resultmap에 vo 담아주는 거
 		MemberVO member = new MemberVO();
 		plikeVO.setMemberVO(member);
-		plikeVO.getMemberVO().setMember_id(pre_nickname);
+		plikeVO.getMemberVO().setMember_id(present_nickname);
 		// plikeVO.getMemberVO().setMember_id(nickname);
 		BoardVO board = new BoardVO();
 		plikeVO.setBoardVO(board);

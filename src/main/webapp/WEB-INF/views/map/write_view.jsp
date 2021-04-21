@@ -87,7 +87,7 @@ $(function() {
 	<div class="row">
 				<select name="hashtag" id="hashtag" class=" form-control col-2" 
 					style="height: 38px; margin-left: 15px; margin-right: 10px;">
-					<option value="우리동네질문">우리동네질문</option>
+				<option value="우리동네질문">우리동네질문</option>
 				<option value="분실/실종센터">분실/실종센터</option>
 				<option value="일상">일상</option>
 				<option value="맛집">맛집</option>
@@ -104,7 +104,7 @@ $(function() {
 
 
 <input placeholder="닉네임" class="form-control" id="nickname" 
-type="text" name="nickname" style="margin-bottom: 20px; width: 770px;" value="${nickname}">
+type="text" name="nickname" style="margin-bottom: 20px; width: 770px; background-color:white;" value="${nickname}" disabled>
 
 
 <textarea class="form-control col" name="content" placeholder="내용"
@@ -131,10 +131,7 @@ type="text" name="nickname" style="margin-bottom: 20px; width: 770px;" value="${
    <!-- Footer -->
    <%@ include file="/WEB-INF/views/include/footer.jsp"%>  
 
- <% response.setHeader("Cache-Control","no-store");
- response.setHeader("Pragma","no-cache"); 
- response.setDateHeader("Expires",0); 
- if (request.getProtocol().equals("HTTP/1.1")) response.setHeader("Cache-Control", "no-cache"); %>
+
  <!-- Js Plugins -->
 	<script src="/resources/js/jquery-3.3.1.min.js"></script>
 	<script src="/resources/js/bootstrap.min.js"></script>

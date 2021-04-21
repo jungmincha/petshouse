@@ -72,6 +72,8 @@ public interface MapMapper {
 	public void likecancel(PlikeVO plikeVO);
 
 	public List<PlikeVO> getLikeprint();
+	//현재 닉네임 출력
+	public String getPresetnNickname(String member_id);
 
 
 

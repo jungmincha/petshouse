@@ -249,6 +249,14 @@ public class MapServiceImpl implements MapService {
 	}
 
 
+	//현재 닉네임 얻는것
+	@Override
+	public String getPresetnNickname(String member_id) {
+		// TODO Auto-generated method stub
+		return mapper.getPresetnNickname(member_id);
+	}
+
+
 
 	
 
