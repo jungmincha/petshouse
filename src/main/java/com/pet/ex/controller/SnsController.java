@@ -141,13 +141,17 @@ public class SnsController {
 	}
 
 	@GetMapping("/sns/{board_id}")
-	public ModelAndView contentView(@PathVariable("board_id") int board_id,  MyAuthentication myAuthentication ,PlikeVO plikeVO ,BoardVO boardVO, MemberVO memberVO, Criteria cri, ModelAndView mav)
+	public ModelAndView contentView(@PathVariable("board_id") int board_id,  Authentication authentication ,PlikeVO plikeVO ,BoardVO boardVO, MemberVO memberVO, Criteria cri, ModelAndView mav)
 			throws Exception {
 
 		boardVO = service.getBoardInfo(board_id);
 		//현재 접속 아이디 
-		String pre_nickname= myAuthentication.getMember().getNickname();
-
+		//String pre_nickname= myAuthentication.getMember().getNickname();
+		
+		String member_id = authentication.getPrincipal().toString();
+		System.out.println(member_id);
+		String present_nickname = service.getPresetnNickname(member_id);//현재 닉네임
+		
 		log.info("SNS_View");
 
 		mav.addObject("comment", service.listComment(boardVO.getBoard_id(),cri));
@@ -156,10 +160,9 @@ public class SnsController {
 		int count = service.counta(board_id);
 		String nickname = service.getNickname(board_id);
 	
-		
-	
-		System.out.println("000000-------------------------------dddd-------------44444444444ooooooooooooooooo");
-		System.out.println(nickname);
+
+		System.out.println("000000-test-ooooooo");
+		System.out.println(present_nickname);
 	
 		mav.addObject("user",  service.getUserboard(nickname));
 		 
@@ -173,7 +176,7 @@ public class SnsController {
 		
 		MemberVO member = new MemberVO();
 		plikeVO.setMemberVO(member);
-		plikeVO.getMemberVO().setMember_id(pre_nickname);
+		plikeVO.getMemberVO().setMember_id(present_nickname);
 		BoardVO board = new BoardVO();
 		plikeVO.setBoardVO(board);
 		plikeVO.getBoardVO().setBoard_id(boardVO.getBoard_id());
@@ -269,17 +272,18 @@ public class SnsController {
 		//좋아요 기능 -START-
 		//좋아요 입력
 			@PostMapping("/sns/like/{board_id}")
-			public Map<String, Object> like(@PathVariable("board_id") int board_id  , MyAuthentication myAuthentication ,PlikeVO plikeVO, BoardVO boardVO ,MemberVO memberVO ) {
+			public Map<String, Object> like(@PathVariable("board_id") int board_id , Authentication authentication , PlikeVO plikeVO, BoardVO boardVO ,MemberVO memberVO ) {
 				log.info("LIKE");
 				
 				
 			
-				//현재 접속 아이디
-				String pre_nickname= myAuthentication.getMember().getNickname();
+				String member_id = authentication.getPrincipal().toString();
+				System.out.println(member_id);
+				String present_nickname = service.getPresetnNickname(member_id);//현재 닉네임
 				//resultmap에 vo 담아주는 거
 				MemberVO member = new MemberVO();
 				plikeVO.setMemberVO(member);
-				plikeVO.getMemberVO().setMember_id(pre_nickname);
+				plikeVO.getMemberVO().setMember_id(present_nickname);
 				
 			
 				BoardVO board = new BoardVO();
@@ -311,15 +315,16 @@ public class SnsController {
 			
 			//좋아요 취소
 			@DeleteMapping("/sns/likecancel/{board_id}")
-			public Map<String, Object> likecancel(@PathVariable("board_id") int board_id, MyAuthentication myAuthentication ,PlikeVO plikeVO, BoardVO boardVO , MemberVO memberVO) {
+			public Map<String, Object> likecancel(@PathVariable("board_id") int board_id,  Authentication authentication ,PlikeVO plikeVO, BoardVO boardVO , MemberVO memberVO) {
 				log.info("likecancel");
-				//현재 접속 아이디
-				String pre_nickname= myAuthentication.getMember().getNickname();
+				String member_id = authentication.getPrincipal().toString();
+				System.out.println(member_id);
+				String present_nickname = service.getPresetnNickname(member_id);//현재 닉네임
 			
 				//resultmap에 vo 담아주는 거
 				MemberVO member = new MemberVO();
 				plikeVO.setMemberVO(member);
-				plikeVO.getMemberVO().setMember_id(pre_nickname);
+				plikeVO.getMemberVO().setMember_id(present_nickname);
 	
 				BoardVO board = new BoardVO();
 				plikeVO.setBoardVO(board);

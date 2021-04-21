@@ -196,5 +196,11 @@ public class SnsServiceImpl implements SnsService {
 			
 			return mapper.getLikelist(plikeVO);
 		}
+		//현재 닉네임
+		@Override
+		public String getPresetnNickname(String member_id) {
+			
+			return mapper.getPresetnNickname(member_id);
+		}
 
 }

@@ -71,5 +71,7 @@ public interface SnsMapper {
 	public void likecancel(PlikeVO plikeVO);
 	//board테이블의 plike 숫자 감소
 	public void deleteplike(BoardVO boardVO);
+	//현재 닉네임 
+	public String getPresetnNickname(String member_id);
 
 }
