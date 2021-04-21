@@ -44,10 +44,10 @@ public interface MyhomeMapper {
 	public void memberModify(MemberVO memberVO);
 
 	//본인이 작성한 SNS 조회
-	public List<ImageVO> getSnslist(String member_id);
+	public List<ImageVO> getSnslist(MemberVO memberVO, Criteria cri);
 
 	//본인이 작성한 노하우 조회
-	public List<BoardVO> getKnowhowlist(String member_id);
+	public List<ImageVO> getKnowhowlist(MemberVO memberVO, Criteria cri);
 
 	//본인이 작성한 리뷰 조회
 	public List<BoardVO> getReviewlist(MemberVO memberVO, Criteria cri);

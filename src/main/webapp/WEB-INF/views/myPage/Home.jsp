@@ -68,10 +68,19 @@
 		padding-bottom: 50px;
 	}
 	
-	.sns img, .knowhow img, .qna img, .review img{
+	.sns img, .knowhow img, .review img{
 		width:250px; 
 		height:250px;
 		border-radius: 8px;
+	}
+	
+	.knowhow_hit, .sns_hit{
+		position: absolute;
+	    bottom: 65px;
+	    right: 35px;
+	    font-size: 15px;
+	    color: #fff;
+	    text-shadow: 0 0 4px rgb(0 0 0 / 50%);
 	}
 	
 	a:link {
@@ -229,36 +238,43 @@
 								<span style="font-size:20px;font-weight: bold;">SNS (${fn:length(sns)})</span> <span style="float:right">더보기</span><hr />			
 							</div>	
 							<c:forEach items="${sns}" var="sns">
-								<div class="col-lg-4 col-md-4 col-sm-4 wrap--profile text-center">	
-									<a href="/commu/sns/${sns.boardVO.board_id}"> 
-									<img src="/resources/img/member/sns/${sns.imgname}" /></a>									
-									<h6 style="padding-top:10px;">${sns.boardVO.content}</h6>
-								</div>
+								<c:if test="${sns.rnum le 3}">
+									<div class="col-lg-4 col-md-4 col-sm-4 wrap--profile text-center">	
+										<a href="/commu/sns/${sns.boardVO.board_id}"> 
+										<img src="/resources/img/member/sns/${sns.imgname}" style="border-radius:5px; width:250px; height:250px; margin-bottom:30px;"/></a>								
+										<span class="sns_hit">조회수 ${sns.boardVO.hit}</span>	
+										<h6 style="padding-top:10px;">${sns.boardVO.content}</h6>
+									</div>
+								</c:if>
 							</c:forEach>
 						</c:if>
 					</div>
 				
 					<!-- 노하우 게시글 조회 -->
 					<div class="knowhow row">		
-						<c:if test="${empty sns}">
+						<c:if test="${empty knowhow}">
 							<div class="col-12"> 
-								<span style="font-size:20px;font-weight: bold;">노하우 (${snscount})</span><hr />		
+								<span style="font-size:20px;font-weight: bold;">노하우 (${fn:length(knowhow)})</span><hr />		
 							</div>
 							<div class="col-12 knowhow_container">
 								<div>노하우를 작성해주세요</div>
 							</div>
 						</c:if>
-						<c:if test="${not empty sns}">							
+						<c:if test="${not empty knowhow}">							
 							<div class="col-12"> 
-								<span style="font-size:20px;font-weight: bold;">노하우 (${fn:length(sns)})</span> <span style="float:right">더보기</span><hr />			
+								<span style="font-size:20px;font-weight: bold;">노하우 (${fn:length(knowhow)})</span> <span style="float:right">더보기</span><hr />			
 							</div>	
-							<c:forEach items="${sns}" var="sns">
-								<div class="col-lg-4 col-md-4 col-sm-4 wrap--profile text-center">	
-									<a href="/commu/sns/${sns.boardVO.board_id}"> 
-									<img src="/resources/img/member/sns/${sns.imgname}" /></a>									
-									<h6 style="padding-top:10px;">${sns.boardVO.content}</h6>
-								</div>
-							</c:forEach>
+							<c:forEach items="${knowhow}" var="knowhow">
+								<c:if test="${knowhow.rnum le 3}">
+									<div class="col-lg-4 col-md-4 col-sm-4 wrap--profile text-center">	
+										<a href="/commu/tips/${knowhow.boardVO.board_id}">
+										<img src="/resources/img/tips/${knowhow.imgname}"alt="">							
+										<span class="knowhow_hit">조회수 ${knowhow.boardVO.hit}</span>
+										<h6 style="padding-top:10px;">${knowhow.boardVO.title}</h6></a>	
+										<span>좋아요 ${knowhow.boardVO.plike}</span>
+									</div>
+		                        </c:if>
+							</c:forEach>	
 						</c:if>
 					</div>	
 					

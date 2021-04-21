@@ -104,6 +104,7 @@
    	//로그인 여부 체크
    	function checkLogin() {
 		 if(member_id == undefined){
+			 event.preventDefault();
 			 alert("로그인 후 이벤트 참여 가능합니다.");
 			 location.href = '/login/login';
 		 }

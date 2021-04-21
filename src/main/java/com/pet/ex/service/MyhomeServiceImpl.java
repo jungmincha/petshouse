@@ -93,23 +93,25 @@ public class MyhomeServiceImpl implements MyhomeService {
 
 	//본인이 작성한 SNS 조회
 	@Override
-	public List<ImageVO> getSnslist(String member_id) {
+	public List<ImageVO> getSnslist(MemberVO memberVO, Criteria cri) {
 		log.info("getSnslist");
-		return mapper.getSnslist(member_id);
+		cri.setAmount(1000);
+		return mapper.getSnslist(memberVO, cri);
 	}
 
 	//본인이 작성한 노하우 조회
 	@Override
-	public List<BoardVO> getKnowhowlist(String member_id) {
+	public List<ImageVO> getKnowhowlist(MemberVO memberVO, Criteria cri) {
 		log.info("getKnowhowlist");
-		return mapper.getKnowhowlist(member_id);
+		cri.setAmount(1000);
+		return mapper.getKnowhowlist(memberVO, cri);
 	}
 
 	//본인이 작성한 리뷰 조회
 	@Override
 	public List<BoardVO> getReviewlist(MemberVO memberVO, Criteria cri) {
 		log.info("getReviewlist");
-		cri.setAmount(100);
+		cri.setAmount(1000);
 		return mapper.getReviewlist(memberVO, cri);
 	}
 	
@@ -124,7 +126,7 @@ public class MyhomeServiceImpl implements MyhomeService {
 	@Override
 	public List<BoardVO> getQnalist(MemberVO memberVO, Criteria cri){
 		log.info("getQnalist");
-		cri.setAmount(100);
+		cri.setAmount(1000);
 		return mapper.getQnalist(memberVO, cri);
 	}
 }

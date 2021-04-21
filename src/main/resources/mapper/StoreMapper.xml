@@ -217,7 +217,7 @@
 		<![CDATA[
 	       select * from(
 			    select rownum as rnum, A.*from (
-      		      select i.imgname, m.nickname, m.thumbnail, b.board_id from image i, board b, member m where m.member_id = b.member_id 
+      		      select i.imgname, m.nickname, m.thumbnail, b.board_id, b.hit from image i, board b, member m where m.member_id = b.member_id 
 				 	and i.board_id=b.board_id and b.boardtype_id=2 and pstep=0 and img_id in( 
  					select  min(img_id) as img_id from image where board_id is not null group by board_id) order by b.pdate desc
  				 ) A where rownum <= 8

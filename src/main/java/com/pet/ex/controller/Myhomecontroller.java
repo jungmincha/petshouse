@@ -60,8 +60,8 @@ public class Myhomecontroller {
 			
 		//회원 정보 및 작성한 게시글 출력
 		mav.addObject("member", service.getMemberInfo(memberVO.getNickname()));
-		mav.addObject("sns", service.getSnslist(memberVO.getMember_id()));
-		mav.addObject("knowhow", service.getKnowhowlist(memberVO.getMember_id()));
+		mav.addObject("sns", service.getSnslist(memberVO, cri));
+		mav.addObject("knowhow", service.getKnowhowlist(memberVO, cri));
 		mav.addObject("review", service.getReviewlist(memberVO, cri));
 		mav.addObject("goodsscore", service.getGoodsscore());
 		mav.addObject("qna", service.getQnalist(memberVO, cri));

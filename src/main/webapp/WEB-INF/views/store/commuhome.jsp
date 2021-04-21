@@ -85,11 +85,20 @@
 		padding-top: 15px;
 	}
 	
-	.hit{
+	.knowhow_hit{
 		position: absolute;
 	    bottom: 20px;
 	    right: 30px;
 	    font-size: 15px;
+	    color: #fff;
+	    text-shadow: 0 0 4px rgb(0 0 0 / 50%);
+	}
+		
+	.sns_hit{
+		position: absolute;
+	    bottom: 40px;
+	    right: 40px;
+	    font-size: 14px;
 	    color: #fff;
 	    text-shadow: 0 0 4px rgb(0 0 0 / 50%);
 	}
@@ -259,7 +268,7 @@
                         	<div class="pi-pic">
                         		<a href="/commu/tips/${knowhow.boardVO.board_id}">
                                 <img src="/resources/img/tips/${knowhow.imgname}" style="border-radius:5px; height:300px;" alt=""></a>
-                                <span class="hit">조회수 ${knowhow.boardVO.hit}</span>
+                                <span class="knowhow_hit">조회수 ${knowhow.boardVO.hit}</span>
                                  <div class="sale">BEST ${knowhow.boardVO.rnum}</div>
                             </div>
                         <div class="latest-text">
@@ -296,7 +305,8 @@
 					</div>
 					<div>
 						<a href="/commu/sns/${sns.boardVO.board_id}"> 
-						<img src="/resources/img/member/sns/${sns.imgname}" style="border-radius:5px; width:250px; height:250px; margin-bottom:30px;"/></a>		
+						<img src="/resources/img/member/sns/${sns.imgname}" style="border-radius:5px; width:250px; height:250px; margin-bottom:30px;"/></a>
+						<span class="sns_hit">조회수 ${sns.boardVO.hit}</span>		
 					</div>
 				</div>
 				</c:forEach>
