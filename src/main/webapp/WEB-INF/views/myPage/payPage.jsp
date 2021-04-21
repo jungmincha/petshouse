@@ -65,7 +65,7 @@
 				<input type="hidden" name="memberVO.member_id"
 					value="<sec:authentication property="principal.member_id"/>">
 				<div class="row">
-					<div class="col-lg-8">
+					<div class="col-lg-8" style="padding-right: 40px;">
 
 						<h4>결제 상세</h4>
 						<div class="row">

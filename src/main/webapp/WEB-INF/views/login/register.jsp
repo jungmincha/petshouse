@@ -70,10 +70,10 @@
 	border-bottom-color: #e2e2e2;
 	border-radius: .25em;
 }
-.filebox img{
- border-radius: 70%;
-}
 
+.filebox img {
+	border-radius: 70%;
+}
 </style>
 </head>
 
@@ -94,15 +94,21 @@
 							enctype="multipart/form-data">
 							<div class="filebox">
 
+
 								<img style="width: 200px; height: 200px;" id="preview-image"
-									name="preview-image" class="profile_box"> <br> <br>
-								<label for="thumbnail"
-									style="font-size: 20px; text-align: center">프로필 이미지 선택</label>
+									name="preview-image" class="profile_box"
+									src="/resources/img/member/profile/profile.jpg"> <br>
+								<br> <label for="thumbnail"
+									style="font-size: 17px; text-align: center">업로드</label> <label
+									style="font-size: 17px; text-align: center"
+									onclick="defaultImage()">기본이미지</label>
+
 
 								<div class="custom-file">
 									<input type="file" class="custom-file-input" id="thumbnail"
 										name="file" multiple="multiple" style="display: block;">
 								</div>
+								<input type="hidden" name="thumbnail" id="thumbnail2" value="">
 							</div>
 							<div class="group-input">
 								<label class="control-label" for="member_id">이메일</label> <input
@@ -395,13 +401,13 @@
 	    readImage(e.target)
 	})
 	
-	 $("#thumbnail").change(function(){
-	 if(this.files && this.files[0]) {
-	  var reader = new FileReader;
-	
-	 reader.readAsDataURL(this.files[0]);
+	function defaultImage(){
+		 const previewImage = document.getElementById("preview-image");
+        previewImage.src = "/resources/img/member/profile/profile.jpg";
+        $("#thumbnail2").val("profile.jpg");
+       $("#thumbnail").val(""); 
+		
 	}
-	}); 
 </script>
 
 <!-- Js Plugins -->
