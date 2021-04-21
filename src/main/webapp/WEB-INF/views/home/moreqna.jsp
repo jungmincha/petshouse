@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
@@ -88,29 +89,32 @@ a:hover {
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
 	<div class="container">
 
-		
+	
 		<input type="hidden" name="keyword" value="${param.keyword}">
-		
+			<h5><b>'${param.keyword}'</b>에 대한 검색결과 <b>${qcount}건</b></h5>
+			<br><br>
 						<div id="table">
 
 							<c:forEach items="${moreqna}" var="mq">
 								<a href="/commu/qna/${mq.board_id}">
-									<form action="${pageContext.request.contextPath}/commu/qnatag"
-										method="post">
+									<form action="${pageContext.request.contextPath}/search"
+										method="get">
 										<div style="font-weight: normal; font-size: 18px;">${mq.title}</div>
 										<ul class="pd-tags">
 											<div>${mq.content}</div>
 											<span>${mq.memberVO.nickname}</span>
-											<span style="font-size: 13px; color: gray;">${mq.pdate}</span>
+											<span style="font-size: 13px; color: gray;"><fmt:formatDate	value="${mq.pdate}" pattern="yyyy.MM.dd" /></span>
 											<span style="font-size: 13px; color: gray;"> 조회수
 												${mq.hit}</span>
 											<c:set var="hashtag" value="${mq.hashtag}" />
-											<c:set var="tag" value="${fn:split(hashtag, ' ')}" />
-											<c:forEach var="t" items="${tag}">
-												<span><button id="hashtag" name="keyword"
-														class="btn btn-disabled" style="" value="${t}"
-														onclick="location.href='${pageContext.request.contextPath}/commu/qnatag'">${t}</button></span>
-											</c:forEach>
+								<c:set var="tag" value="${fn:split(hashtag, '#')}" />
+								<c:forEach var="t" items="${tag}">
+									<span> <c:if test="${not empty mq.hashtag}">
+											<button id="hashtag" name="keyword" class="btn btn-disabled"
+												style="" value="${t}"
+												onclick="location.href='${pageContext.request.contextPath}/search'">#${t}</button></span>
+		</c:if>
+		</c:forEach>
 
 										</ul>
 									</form>

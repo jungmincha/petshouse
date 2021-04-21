@@ -138,7 +138,7 @@ a:hover {
 </style>
 </head>
 
-<body style="padding-top: 180px">
+<body style="padding-top: 150px">
 
 	<!-- Header -->
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
@@ -155,7 +155,7 @@ a:hover {
 	<div class="container">
 		<div class="head">
 			<c:forEach var="img" items="${img}">
-				<img style="height: 500px; width: 1200px;"
+				<img style="height: 400px; width: 1200px;"
 					src="/resources/img/tips/${img.imgname}">
 
 			</c:forEach>
@@ -189,19 +189,21 @@ a:hover {
 							${tips_view.memberVO.nickname} &nbsp&nbsp</b></span>
 
 				</div>
-				<hr>
-
+			
+<hr>
 				<section style="margin-top: 40px; margin-bottom: 20px;">${tips_view.content}</section>
-				<form action="${pageContext.request.contextPath}/commu/tipstag"
-					method="post">
+				<form action="${pageContext.request.contextPath}/search"
+					method="get">
 					<ul class="pd-tags">
 						<c:set var="hashtag" value="${tips_view.hashtag}" />
-						<c:set var="tag" value="${fn:split(hashtag, ' ')}" />
+						<c:set var="tag" value="${fn:split(hashtag, '#')}" />
 
 						<c:forEach var="t" items="${tag}">
+							<c:if test="${not empty tips_view.hashtag}">
 							<button id="hashtag" name="keyword" value="${t}"
 								class="btn btn-disabled"
-								onclick="location.href='${pageContext.request.contextPath}/commu/tipstag'">${t}</button>
+								onclick="location.href='${pageContext.request.contextPath}/search'">#${t}</button>
+								</c:if>
 						</c:forEach>
 
 					</ul>
@@ -225,10 +227,11 @@ a:hover {
 				<div class="table" style="margin-bottom: 50px;">
 
 					<div class="row">
-						<textarea style="resize: none; margin-left: 60px;"
-							class="form-control col-10" id="content" placeholder="댓글을 입력하세요"></textarea>
-						<button id="cw" class="col-1 btn btn-outline-secondary"
-							onClick="getComment()">등록</button>
+					<div class="col-11">
+						<textarea style="resize: none;"
+							class="form-control" id="content" placeholder="댓글을 입력하세요"></textarea></div>
+						<div class="col-1"><button style="height:60px; width:80px; margin-left:-30px;" id="cw" class="btn btn-outline-secondary"
+							onClick="getComment()">등록</button></div>
 
 					</div>
 				</div>

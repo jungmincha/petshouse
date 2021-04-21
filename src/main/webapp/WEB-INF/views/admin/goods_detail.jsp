@@ -215,7 +215,7 @@ h2 {
 	position: fixed;
 	top: 0;
 	left: 0;
-	background-color: rgba(0, 0, 0, 0.3);
+	background-color: rgba(0, 0, 0, 0.1);
 }
 
 .modal button {
@@ -241,6 +241,7 @@ h2 {
 
 .modalBox img {
 	width: 100%;
+	border-radius:5px;
 }
 
 .modalBox p {
