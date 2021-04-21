@@ -68,23 +68,6 @@ a:hover {
 }
 </style>
 
-<script type="text/javascript">
-
-function button_event() {
-	if (confirm("정말 삭제하시겠습니까?") == true) { //확인
-		location.href = '${pageContext.request.contextPath}/admin/ndelete/${notice_view.board_id}'
-	} else { //취소
-		return;
-	}
-}
-		function modify_event() {
-			if (confirm("수정하시겠습니까?") == true) { //확인
-				location.href = '${pageContext.request.contextPath}/admin/notice/modify/${notice_view.board_id}'
-			} else { //취소
-				return;
-			}
-		}
-</script>
 
 </head>
 
@@ -108,7 +91,7 @@ function button_event() {
 		<div class="head">
 			<div style="margin-top: 45px; margin-bottom: 10px;">
 				<a class="noti-subtitle" href="/admin/notice">공지사항</a>				
-				<input type="hidden" name="board_id" value="${notice_view.board_id}">
+				<input type="hidden" id="board_id" name="board_id" value="${notice_view.board_id}">
 			</div>
 			<h3 class="noticetitle"
 				style="font-weight: bold; margin-bottom: 10px;">${notice_view.title}</h3>
@@ -145,6 +128,42 @@ function button_event() {
 		</table>
 
 	</div>
+	
+	<script>
+	
+	function button_event() {
+		if (confirm("정말 삭제하시겠습니까?") == true) { //확인
+			var board_id = $('#board_id').val();
+			console.log(board_id);
+			var url = "/admin/ndelete/" + board_id;
+			
+			$.ajax({
+				type : "DELETE",
+				url : url,
+				cache : false,
+				success : function(result) {
+					console.log(result);
+					if (result == "SUCCESS") {
+						$(location).attr('href', '/admin/notice')
+					}
+				},
+				error : function(e) {
+					console.log(e);
+				}
+			})
+			
+		} else { //취소
+			return;
+		}
+	}
+			function modify_event() {
+				if (confirm("수정하시겠습니까?") == true) { //확인
+					location.href = '${pageContext.request.contextPath}/admin/notice/modify/${notice_view.board_id}'
+				} else { //취소
+					return;
+				}
+			}
+</script>
 
 	<div style="margin-top: 20px;">
 		<!-- Footer -->

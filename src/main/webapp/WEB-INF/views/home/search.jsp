@@ -49,7 +49,16 @@
 	type="text/css">
 <link rel="stylesheet" href="/resources/js/select-index.js"
 	type="text/css">
+ <script type="text/javascript">
+    $(document).ready(function(){	
+		$.fn.generateStars = function() {
+    	    return this.each(function(i,e){$(e).html($('<span/>').width($(e).text()*16));});
+    	};
 
+    	// 숫자 평점을 별로 변환하도록 호출하는 함수
+    	$('.star-prototype').generateStars();
+    })
+    </script>
 <style>
 .count{
 	position: absolute;

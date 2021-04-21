@@ -432,7 +432,7 @@ public class AdminController {
 	}
 
 	// 공지사항 삭제
-	@GetMapping("/ndelete/{board_id}")
+	@DeleteMapping("/ndelete/{board_id}")
 	public ResponseEntity<String> noticeDelete(BoardVO boardVO, Model model) {
 
 		ResponseEntity<String> entity = null;

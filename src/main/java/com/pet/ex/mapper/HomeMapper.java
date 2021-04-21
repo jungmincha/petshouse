@@ -20,6 +20,8 @@ public interface HomeMapper {
 	public int qcount(String keyword);
 	public int tcount(String keyword);
 	public int gcount(String keyword);
+	
+	public List<BoardVO> getStorerate(Criteria cri);
 
 
 }

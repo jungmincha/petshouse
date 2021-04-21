@@ -56,6 +56,13 @@ public class HomeServiceImpl implements HomeService {
 		log.info("gcount()");
 		return mapper.gcount(keyword); 
 	}
+	
+	@Override
+	public List<BoardVO> getStorerate(Criteria cri) {
+		log.info("getStorerate/cri");
+		cri.setAmount(8);
+		return mapper.getStorerate(cri);
+	}
 	 
 
 

@@ -19,4 +19,6 @@ public interface HomeService {
 	public int tcount(String keyword);
 	public int gcount(String keyword);
 
+	public List<BoardVO> getStorerate(Criteria cri);
+
 }

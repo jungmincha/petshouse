@@ -52,6 +52,7 @@ public class HomeController {
 		mav.addObject("moregoods", service.getMoreGoods(keyword, cri));
 		mav.addObject("moreqna", service.getMoreQna(keyword,cri));
 		mav.addObject("moretips", service.getMoreTips(keyword,cri));
+		mav.addObject("rate", service.getStorerate(cri));	
 		mav.setViewName("/home/search");
 		return mav;
 	}
