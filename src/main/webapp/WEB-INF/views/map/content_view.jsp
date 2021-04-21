@@ -269,9 +269,10 @@ background-color:#dddddd;
 							<div class="col-lg-12">
 								<a href="javascript:void(0);" class="likecancel" style="cursor:hand;" onclick="likecancel();"><img src="/resources/img/location/after_like.png" style="width:25px;"></a>
 							</div>	   
-							</c:if>	 
-					
-							
+							</c:if>	
+			
+      					
+      					
       					</div> <!-- row col-lg-12 end -->
       				</div> <!-- profile-info end -->
 					<!-- Profile Section -->

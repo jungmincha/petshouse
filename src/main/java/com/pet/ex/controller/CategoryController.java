@@ -43,22 +43,20 @@ public class CategoryController {
 	CategoryService service;
 
 	// 카테고리 메인페이지
-
 	@RequestMapping("/home")
 	public ModelAndView categoryhome(GoodsVO goodsvo, ModelAndView mav, CategoryVO categoryvo , BoardVO boardVO) throws Exception {
  
-
+		log.info("home...");
 		/* mav.addObject("goods", service.getGoods()); */
 		
 		mav.addObject("goods", service.getboard());//전체상품 조회
 		
 		mav.addObject("rate", service.getStorerate());
 		
-		
 		mav.addObject("category", service.getCategory());
 		mav.addObject("smallcategory", service.getScategory());
 		mav.setViewName("category/home");
-		log.info("home...");
+
 
 		return mav;
 	}
@@ -114,7 +112,7 @@ public class CategoryController {
 
 	}
 
-	
+	//전체 가격 높은순
 	@PostMapping("/highprice")
 	public ModelAndView pricecategory(GoodsVO goodsvo, ModelAndView mav, CategoryVO categoryvo , BoardVO boardvo) throws Exception{
 		
@@ -131,7 +129,7 @@ public class CategoryController {
 		return mav;
 	}
 	
-	
+	//전체 가격 낮은순
 	@PostMapping("/rowprice")
 	public ModelAndView rowcategory(GoodsVO goodsvo, ModelAndView mav, CategoryVO categoryvo , BoardVO boardvo) throws Exception{
 		
@@ -147,7 +145,7 @@ public class CategoryController {
 		return mav;
 	}
 	
-	
+	//전체 별점 높은순
 	@PostMapping("/highstar")
 	public ModelAndView highstar(GoodsVO goodsvo, ModelAndView mav, CategoryVO categoryvo , BoardVO boardVO) throws Exception {
 
@@ -165,7 +163,7 @@ public class CategoryController {
 	}
 	
 	
-	
+	// 소분류 가격 낮은순
 	@PostMapping("/small/srowprice")
 	public ModelAndView srowcategory(@RequestBody String id , CategoryVO categoryvo ,GoodsVO goodsvo, ModelAndView mav , BoardVO boardvo) throws Exception{
 		
@@ -176,7 +174,7 @@ public class CategoryController {
 		
 		
 		
-		  id=id.substring(7);
+		  id = id.substring(7);
 		  
 		  int idx = id.indexOf("\"");
 		  
@@ -203,7 +201,7 @@ public class CategoryController {
 	
 	
 	
-	
+	// 소분류 가격 높은순
 	@PostMapping("/small/shighprice")
 	public ModelAndView shighcategory(@RequestBody String id , CategoryVO categoryvo ,GoodsVO goodsvo, ModelAndView mav , BoardVO boardvo) throws Exception{
 		
@@ -238,7 +236,7 @@ public class CategoryController {
 	}
 	
 	
-	
+	// 소분류 별점 높은순
 	@PostMapping("/small/shighstar")
 	public ModelAndView shighstar(@RequestBody String id , CategoryVO categoryvo ,GoodsVO goodsvo, ModelAndView mav , BoardVO boardvo) throws Exception{
 		

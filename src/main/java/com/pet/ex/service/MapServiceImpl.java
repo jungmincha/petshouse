@@ -193,7 +193,7 @@ public class MapServiceImpl implements MapService {
 	}
 
 
-//좋아요수 조회
+	//좋아요수 조회
 	@Override
 	public int getLiketotal(int board_id) {
 		
@@ -201,7 +201,7 @@ public class MapServiceImpl implements MapService {
 	}
 
 
-//좋아요 유무 체크
+	//좋아요 유무 체크
 	@Override
 	public int isLike(PlikeVO plikeVO) {
 	
@@ -209,7 +209,7 @@ public class MapServiceImpl implements MapService {
 	}
 
 
-//좋아요 리스트 조회
+	//좋아요 리스트 조회
 	@Override
 	public List<PlikeVO> getLikelist(PlikeVO plikeVO) {
 	

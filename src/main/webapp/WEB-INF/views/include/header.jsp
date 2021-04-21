@@ -7,7 +7,6 @@
 
 <!DOCTYPE html >
 <html>
-
 <head>
 <meta charset="UTF-8">
 <meta name="description" content="Fashi Template">
@@ -233,7 +232,7 @@
 
 								<li><a href="/admin/goods">상품관리</a></li>
 								<li><a href="/admin/member_list">회원관리</a></li>
-								<li><a href="#">통계</a></li>
+								<li><a href="/statistics/main/home">통계</a></li>
 							</ul></li>
 
 					</ul>

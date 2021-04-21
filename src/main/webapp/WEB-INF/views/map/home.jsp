@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
 <html>
@@ -176,11 +175,7 @@
 							}
 						}
 						
-						
-						
-						
-						
-						
+							
 
 					});
 		} else {
@@ -224,9 +219,9 @@
 
 
 						<ul>
-							<li>위도:<span id="latitude"></span>(나중에 hidden처리)
+							<li><span id="latitude"></span>(나중에 hidden처리)
 							</li>
-							<li>경도:<span id="longitude"></span></li>
+							<li><span id="longitude"></span></li>
 
 						</ul>
 					</div>
@@ -248,9 +243,9 @@
 						
 
 							<p>
-								회원님의 위치가 <span id="address"
-									style="font-weight: bold; font-size: 20px;"></span>이 맞으면 '
-									계속 하기'을 눌러주세요.
+							회원님의 위치가 
+							<span id="address" style="font-weight: bold; font-size: 20px;"></span>
+							이 맞으면 '계속 하기'을 눌러주세요.
 							</p>
 							
 							
@@ -259,19 +254,16 @@
 								<div class="row">
 									<div class="col-lg-12">
 									
-											<!-- <input type="hidden" name="location" value="">  -->
-											<sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
+									<!-- <input type="hidden" name="location" value="">  -->
+									<sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
 										
-										 <input type="hidden" name="member_id" value="<sec:authentication property="principal.member_id"/>">
+									<input type="hidden" name="member_id" value="<sec:authentication property="principal.member_id"/>">
 								 	<input type="hidden" name="nickname" value="<sec:authentication property="principal.nickname"/>"> 
-						<input type="hidden" name="location" value=""/> 
+									<input type="hidden" name="location" class="location" value=""/> 
 								 	
 											</sec:authorize>
-										<button type="submit" class="site-btn" 
-											style="font-size: 20px;" >계속 하기</button>
-								
-										
-										
+										<button type="submit" class="site-btn"style="font-size: 20px;" >계속 하기</button>
+												
 									</div>
 								</div>
 							</form>
@@ -280,8 +272,6 @@
 					</div>
 					
 				</div>
-		
-			
 		</div>
 		
 		
@@ -289,11 +279,6 @@
 
 	<!-- Footer -->
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
-
-<% response.setHeader("Cache-Control","no-store");
- response.setHeader("Pragma","no-cache"); 
- response.setDateHeader("Expires",0); 
- if (request.getProtocol().equals("HTTP/1.1")) response.setHeader("Cache-Control", "no-cache"); %>
 
 
 

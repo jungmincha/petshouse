@@ -145,7 +145,7 @@ public class SnsController {
 			throws Exception {
 
 		boardVO = service.getBoardInfo(board_id);
-		//현재 접속 아이디
+		//현재 접속 아이디 
 		String pre_nickname= myAuthentication.getMember().getNickname();
 
 		log.info("SNS_View");
