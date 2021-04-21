@@ -197,7 +197,7 @@ body::-webkit-scrollbar-track {
 			<c:forEach items="${qna}" var="qna">
 				<tbody id="qnaList">
 					<td><a href="/commu/qna/${qna.board_id}">
-							<form action="${pageContext.request.contextPath}/commu/qnatag" method="post">
+							<form action="${pageContext.request.contextPath}/search" method="get">
 								<div style="font-weight: bold; font-size: 18px;">${qna.title}</div>
 								<ul class="pd-tags">
 									<div id="content">${qna.content}</div>
@@ -205,12 +205,15 @@ body::-webkit-scrollbar-track {
 									<span style="font-size: 13px; color: gray;"><fmt:formatDate value="${qna.pdate}" pattern="yyyy.MM.dd" /></span>
 									<span style="font-size: 13px; color: gray;"> 조회수 ${qna.hit}</span>
 									<c:set var="hashtag" value="${qna.hashtag}" />
-									<c:set var="tag" value="${fn:split(hashtag, ' ')}" />
+									<c:set var="tag" value="${fn:split(hashtag, '#')}" />
 									<c:forEach var="t" items="${tag}">
-										<span><button id="hashtag" name="keyword"
+										<span>
+										<c:if test="${not empty qna.hashtag}">
+										<button id="hashtag" name="keyword"
 												class="btn btn-disabled" style=""
 												value="${t}"
-												onclick="location.href='${pageContext.request.contextPath}/commu/qnatag'">${t}</button></span>
+												onclick="location.href='${pageContext.request.contextPath}/search'">#${t}</button></span>
+									</c:if>
 									</c:forEach>
 
 								</ul>

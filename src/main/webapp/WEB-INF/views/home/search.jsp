@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
@@ -50,6 +51,15 @@
 	type="text/css">
 
 <style>
+.count{
+	position: absolute;
+    bottom: 10px;
+    right: 20px;
+    font-size: 13px;
+    color: #fff;
+    text-shadow: 0 0 4px rgb(0 0 0 / 50%);
+}
+
 #hashtag {
 	font-size: 13px;
 	padding: 0.01px;
@@ -93,12 +103,12 @@ a:hover {
 	<!-- Header -->
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
 	<div class="container">
-
+	
 
 		<form action="${pageContext.request.contextPath}/moregoods"
 			method="get">
 			<input type="hidden" name="keyword" value="${param.keyword}">
-			<span style="font-size: 20px; font-weight: bold;">스토어</span> <span>
+			<span style="font-size: 20px; font-weight: bold;">스토어 검색결과수 ${gcount}</span> <span>
 				<button style="float: right" class="more btn btn-disabled"
 					type="submit">더보기</button>
 			</span>
@@ -108,7 +118,7 @@ a:hover {
 
 
 		<div id="table" class="row text-center"
-			style="margin-top: 20px; margin-left: 5px;">
+			style="margin-top: 20px; margin-left: 5px; margin-bottom:30px;">
 			<c:forEach items="${moregoods}" var="gs">
 				<div class="product-item col-sm-3">
 					<div class="pi-pic">
@@ -124,10 +134,12 @@ a:hover {
 			</c:forEach>
 		</div>
 
+
+
 		<form action="${pageContext.request.contextPath}/moretips"
 			method="get">
 			<input type="hidden" name="keyword" value="${param.keyword}">
-			<span style="font-size: 20px; font-weight: bold;">노하우</span> <span>
+			<span style="font-size: 20px; font-weight: bold;">노하우   검색결과수 ${tcount}</span> <span>
 				<button style="float: right" class="more btn btn-disabled"
 					type="submit">더보기</button>
 			</span>
@@ -135,14 +147,15 @@ a:hover {
 		<hr>
 
 		<div id="table" class="row text-center"
-			style="margin-top: 20px; margin-left: 5px;">
+			style="margin-left: 5px;  margin-bottom:30px;">
 
 			<c:forEach items="${moretips}" var="ts">
 				<div class="product-item col-sm-3">
 					<a href="/commu/tips/${ts.boardVO.board_id}">
-						<div class="pi-pic">
-						<img src="/resources/img/tips/${ts.imgname}" alt=""
+						<div class="pi-pic shot">
+				<img src="/resources/img/tips/${ts.imgname}" alt=""
 								style="border-radius: 5px; height: 150px;">
+								<span class="count">조회수 ${ts.boardVO.hit}</span>
 						</div>
 						<div class="pi-text" style="text-align: left; padding-top: 5px;">
 							<h6 style="font-size: 15px; font-weight: bold;">${ts.boardVO.title}</h6>
@@ -158,7 +171,8 @@ a:hover {
 
 		<form action="${pageContext.request.contextPath}/moreqna" method="get">
 			<input type="hidden" name="keyword" value="${param.keyword}">
-			<span style="font-size: 20px; font-weight: bold;">질문과 답변</span> <span>
+			<span style="font-size: 20px; font-weight: bold;">질문과 답변 검색결과수 ${qcount}</span>
+			 <span>
 				<button style="float: right" class="more btn btn-disabled"
 					type="submit">더보기</button>
 			</span>
@@ -169,21 +183,26 @@ a:hover {
 		<div>
 			<c:forEach items="${moreqna}" var="qs">
 				<a href="/commu/qna/${qs.board_id}">
-					<form action="${pageContext.request.contextPath}/commu/qnatag"
-						method="post">
+				
+					<form action="${pageContext.request.contextPath}/search"
+						method="get">
 						<div style="font-weight: normal; font-size: 18px;">${qs.title}</div>
 						<ul class="pd-tags">
 							<div>${qs.content}</div>
 							<span>${qs.memberVO.nickname}</span>
-							<span style="font-size: 13px; color: gray;">${qs.pdate}</span>
+							<span style="font-size: 13px; color: gray;"><fmt:formatDate value="${qs.pdate}" pattern="yyyy.MM.dd" /></span>
 							<span style="font-size: 13px; color: gray;"> 조회수 ${qs.hit}</span>
 							<c:set var="hashtag" value="${qs.hashtag}" />
-							<c:set var="tag" value="${fn:split(hashtag, ' ')}" />
+							<c:set var="tag" value="${fn:split(hashtag, '#')}" />
 							<c:forEach var="t" items="${tag}">
-								<span><button id="hashtag" name="keyword"
-										class="btn btn-disabled" style="" value="${t}"
-										onclick="location.href='${pageContext.request.contextPath}/commu/qnatag'">${t}</button></span>
-							</c:forEach>
+										<span>
+										<c:if test="${not empty qs.hashtag}">
+										<button id="hashtag" name="keyword"
+												class="btn btn-disabled" style=""
+												value="${t}"
+												onclick="location.href='${pageContext.request.contextPath}/search'">#${t}</button></span>
+									</c:if>
+									</c:forEach>
 
 						</ul>
 					</form>
@@ -196,8 +215,10 @@ a:hover {
 
 	<!-- Blog Section End -->
 
-	<!-- Footer -->
-	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
+	<div style="margin-top: 90px;">
+		<!-- Footer -->
+		<%@ include file="/WEB-INF/views/include/footer.jsp"%>
+	</div>
 
 	<!-- Js Plugins -->
 	<script src="/resources/js/jquery-3.3.1.min.js"></script>

@@ -73,15 +73,9 @@
 				<input type="text" class="form-control" name="title"
 					placeholder="제목" style="margin-bottom: 20px; width: 628px;">
 			</div>
-			<!-- <textarea class="form-control col" name="content" placeholder="내용"
-				style="width: 770px; height: 400px; margin-bottom: 20px; resize: none;"></textarea> -->
+			<textarea class="form-control col" name="content" placeholder="내용"
+				style="width: 770px; height: 400px; margin-bottom: 20px; resize: none;"></textarea>
 
-		<textarea id="editor4" name="content"></textarea>
-
-			<script>
-				CKEDITOR.replace('editor4');
-			</script>
-			
 
 			<div class="form-group row">
 

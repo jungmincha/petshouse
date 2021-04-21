@@ -194,6 +194,62 @@ h2 {
 	bottom: 500px;
 	padding: 10px;
 }
+
+
+.imgList {
+	width: 100%;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+}
+
+.imgC p {
+	text-align: center;
+}
+
+.modal {
+	display: none;
+	z-index: 500;
+	width: 100%;
+	height: 100vh;
+	position: fixed;
+	top: 0;
+	left: 0;
+	background-color: rgba(0, 0, 0, 0.3);
+}
+
+.modal button {
+	position: absolute;
+	top: 3rem;
+	right: 3rem;
+	background: transparent;
+	border: 0;
+	color: #ffffff;
+	font-size: 3rem;
+}
+
+.modalBox {
+	position: relative;
+	top: 20%;
+	left: 50%;
+	transform: translate(-50%, -20%);
+	background-color: #ffffff;
+	width: 30%;
+	height: 30%;
+	text-align: center;
+}
+
+.modalBox img {
+	width: 100%;
+}
+
+.modalBox p {
+	color: #ffffff;
+	background-color: #000;
+	font-size: 2rem;
+	padding: .2rem;
+}
+
 </style>
 
 </head>
@@ -556,11 +612,22 @@ h2 {
 																</div>
 									
 																<c:if test="${not empty review.title}">
-															
+															<div class="imgList">
+																	<div class="imgC">
 																<img style="margin-left: 28px;width:100px; height:100px; border-radius:5px;"src="/resources/img/member/review/${review.title}"
-																	alt="" />
+																	alt="" /><p></p>
+																	</div>
+																	</div>
+																	
 																</c:if>
-																
+		<div class="modal">
+		<button>&times;</button>
+		<div class="modalBox">
+			<img src="/resources/img/member/review/${review.title}" alt="">
+			<p></p>
+		</div>
+	</div>		
+	
 																	<div class="at-reply" style="margin-left: 28px; margin-top:20px;">
 																	${review.content}</div>
 															<div style="margin-left: 28px;"><fmt:formatDate value="${review.pdate}"
@@ -659,9 +726,43 @@ h2 {
 				</div>
 			</div>
 		</div>
+		
 	</section>
 	<!-- Product Shop Section End -->
-
+<script>
+$(function(){
+// 	이미지 클릭시 해당 이미지 모달
+	$(".imgC").click(function(){
+		$(".modal").show();
+		// 해당 이미지 가겨오기
+		var imgSrc = $(this).children("img").attr("src");
+		var imgAlt = $(this).children("img").attr("alt");
+		$(".modalBox img").attr("src", imgSrc);
+		$(".modalBox img").attr("alt", imgAlt);
+		
+		// 해당 이미지 텍스트 가져오기
+		// var imgTit =  $(this).children("p").text();
+		// $(".modalBox p").text(imgTit);
+		
+   // 해당 이미지에 alt값을 가져와 제목으로
+		$(".modalBox p").text(imgAlt);
+	});
+	
+	//.modal안에 button을 클릭하면 .modal닫기
+	$(".modal button").click(function(){
+		$(".modal").hide();
+	});
+	
+	//.modal밖에 클릭시 닫힘
+	$(".modal").click(function (e) {
+    if (e.target.className != "modal") {
+      return false;
+    } else {
+      $(".modal").hide();
+    }
+  });
+});
+</script>
 	<script src="/resources/js/jquery-3.3.1.min.js"></script>
 	<script src="/resources/js/bootstrap.min.js"></script>
 	<script src="/resources/js/jquery-ui.min.js"></script>

@@ -50,6 +50,15 @@
 	type="text/css">
 
 <style>
+.count{
+	position: absolute;
+    bottom: 10px;
+    right: 20px;
+    font-size: 13px;
+    color: #fff;
+    text-shadow: 0 0 4px rgb(0 0 0 / 50%);
+}
+
 #hashtag {
 	font-size: 13px;
 	padding: 0.01px;
@@ -98,18 +107,18 @@ a:hover {
 							<c:forEach items="${moretips}" var="mt">
 								<div class="product-item col-sm-3">
 									<a href="/commu/tips/${mt.boardVO.board_id}">
-										<div class="pi-pic">
-										<img src="/resources/img/tips/${mt.imgname}" alt=""
+										<div class="pi-pic shot">
+				<img src="/resources/img/tips/${mt.imgname}" alt=""
 								style="border-radius: 5px; height: 150px;">
-										</div>
+								<span class="count">조회수 ${mt.boardVO.hit}</span>
+						</div>
 										<div class="pi-text"
 											style="text-align: left; padding-top: 5px;">
 											<h6 style="font-size: 15px; font-weight: bold;">${mt.boardVO.title}</h6>
 										</div>
 									</a>
 									<div style="font-size: 14px; text-align: left;">${mt.boardVO.memberVO.nickname}</div>
-									<div style="font-size: 13px; color: gray; text-align: left;">조회수
-										${mt.boardVO.hit}</div>
+									
 								</div>
 							</c:forEach>
 
