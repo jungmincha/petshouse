@@ -180,6 +180,9 @@ public class MyPageController {
 		boardVO.getMemberVO().setMember_id(member_id);
 		if (multi.getFile("file").getOriginalFilename().equals("")) {
 			myPageService.insertPoint(100, 4, member_id);
+			boardVO.setTitle(null);
+			myPageService.insertReview(boardVO);
+
 		} else {
 			String path = multi.getSession().getServletContext().getRealPath("/static/img/member/review");
 			path = path.replace("webapp", "resources");
