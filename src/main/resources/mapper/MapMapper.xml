@@ -163,7 +163,7 @@
 		 SELECT * FROM (
 			    SELECT ROWNUM AS RNUM, A.* FROM (
       		      select i.imgname, m.nickname,  m.thumbnail, m.location, b.pdate, b.hit, b.plike, b.board_id, b.content from image i, board b, member m where m.member_id = b.member_id 
-				 	and i.board_id=b.board_id and b.boardtype_id=7 and pstep=0 and img_id in( 
+				 	and i.board_id=b.board_id and b.boardtype_id=7 and b.location = #{location} and pstep=0 and img_id in( 
  					select  min(img_id) as img_id from image where board_id is not null group by board_id) order by b.pdate desc
  					
 			    ) A WHERE ROWNUM <= #{pageNum}* #{amount}
@@ -411,13 +411,24 @@
    ]]>
 	</select>
 	
-	
+		<!-- 최신글 rownum으로 잡기-->
 	<select id="getLocationBoard_id" resultType="boardvo">
 
  <![CDATA[
   		select * from (select * from board where boardtype_id=7 order by pdate desc) where rownum=1
 	 	]]>
 	</select>
+	
+	
+	
+		<!--content_view 사진 출력-->
+	<select id="getPhoto" resultType="imagevo">
+
+ 	<![CDATA[
+  		select imgname from image where board_id = #{board_id}
+	 	]]>
+	</select>
+	
 	
 
 <!-- <insert id="fileUpload">

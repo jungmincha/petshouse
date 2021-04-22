@@ -82,6 +82,8 @@ public interface MapService {
 
 	public void depeteimage(int board_id);
 
+	public ImageVO getPhoto(int board_id);
+
 	
 
 	

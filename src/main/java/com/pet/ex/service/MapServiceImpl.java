@@ -257,7 +257,7 @@ public class MapServiceImpl implements MapService {
 	}
 
 
-
+	//최신글 1개 출력(rownum 이용해서)
 	@Override
 	public BoardVO getLocationBoard_id() {
 		
@@ -265,12 +265,20 @@ public class MapServiceImpl implements MapService {
 	}
 
 
-
+	//게시글 삭제하면서 동시에 사진 삭제
 	@Override
 	public void depeteimage(int board_id) {
 	
 		mapper.depeteimage(board_id);
 		
+	}
+
+
+	//content_view 안에서 사진 출력
+	@Override
+	public ImageVO getPhoto(int board_id) {
+		
+		return mapper.getPhoto(board_id);
 	}
 
 

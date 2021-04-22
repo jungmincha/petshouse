@@ -119,6 +119,22 @@ body::-webkit-scrollbar-track {
 	border-radius: 10px;
 	box-shadow: inset 0px 0px 5px white;
 }
+
+
+.profile_box {
+	width: 40px;
+	height: 40px;
+	border-radius: 70%;
+	overflow: hidden;
+	margin: 5px;
+}
+
+.profile {
+	width: 40px;
+	height: 40px;
+	object-fit: cover;
+}
+
 </style>
 
 
@@ -197,21 +213,21 @@ body::-webkit-scrollbar-track {
 											<!-- <div><img src="/resources/img/location/03b07835-4297-4230-b22e-7da930cff0c2.PNG"></div> -->
 
 	
-									
+								
 											
 								
 										
 										<div class="user-Info row" style="margin: 20px auto 0px 5px">
-										<div class="profile_box ">
+									
 										<div class="top_profile_box ">
 										<img src="/resources/img/member/profile/${list.boardVO.memberVO.thumbnail}">
 										</div>
-										</div>
+										
 										<div style="padding:7px"> ${list.boardVO.memberVO.nickname } </div>
 									
 									</div>
 										
-								
+						
 										
 										
 											<span style="font-size: 13px; color: gray;">${list.boardVO.pdate}</span>
@@ -221,10 +237,25 @@ body::-webkit-scrollbar-track {
 																							
 															
 										<div><img src="/resources/img/location/${list.imgname}" style="width:400px; height:350px;">
-											<div>${list.boardVO.content}</div>										
+										<br>	
+										<br>
+										<div>${list.boardVO.content}</div>										
 																						
 																							
-								</a></td>
+								</a>
+								
+								 <!-- 해시태그 --> 
+								<c:set var="hashtag" value="${list.boardVO.hashtag}" />
+									<c:set var="tag" value="${fn:split(hashtag, ' ')}" /> 
+									<c:forEach var="t" items="${tag}">
+										<span><button id="hashtag" name="keyword"
+												class="btn btn-disabled" style="" value="${t}"
+												onclick="location.href='${pageContext.request.contextPath}/map/qnatag'">${t}</button></span>
+									</c:forEach>
+								
+								
+								
+								</td>
 							</tbody>
 						</c:forEach>
 
@@ -296,22 +327,22 @@ body::-webkit-scrollbar-track {
 
 												html += "<tbody id='qnaList'><td>"
 														+ "<a href='${pageContext.request.contextPath}/commu/qna_view?board_id="
-														+ data[i - 1].board_id
+														+ data[i - 1].boardVO.board_id
 														+ "'>"
 
 														+ "<div style='font-weight: bold; font-size: 18px;'>"
-														+ data[i - 1].title
+														+ data[i - 1].boardVO.title
 														+ "</div>"
 														+ "<div>"
 														+ data[i - 1].content
 														+ "</div> <span>"
-														+ data[i - 1].memberVO.nickname
+														+ data[i - 1].boardVO.memberVO.nickname
 														+ "</span>"
 														+ "<span style='font-size: 13px; color: gray;'>"
-														+ data[i - 1].pdate
+														+ data[i - 1].boardVO.pdate
 														+ "</span> "
 														+ "<span style='font-size: 13px; color: gray;'> 조회수 "
-														+ data[i - 1].hit
+														+ data[i - 1].boardVO.hit
 														+ "</span>"
 														+ "</a>"
 														+ "</td></tbody>"
