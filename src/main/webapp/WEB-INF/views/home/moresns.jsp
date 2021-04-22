@@ -50,9 +50,8 @@
 	type="text/css">
 
 <style>
-.i {
-	box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.4);
-	border-radius: 10px;
+#navbars>li:nth-child(1) {
+   background-color: #e7ab3c;
 }
 
 .count {
@@ -157,10 +156,10 @@ a:hover {
 
 							</div>
 
-							<div class="shot">
+							<div class="pi-pic shot">
 								<a href="/commu/sns/${ms.boardVO.board_id}"> <img
 									src="/resources/img/member/sns/${ms.imgname}" alt=""
-									style="height: 300px;" class="card-img-top i" /><span
+										style="border-radius: 5px;height:250px; width:250px;" /><span
 									class="count">조회수 ${ms.boardVO.hit}</span></a>
 							</div>
 							<div class="card-body">좋아요${ms.boardVO.plike}//댓글수</div>

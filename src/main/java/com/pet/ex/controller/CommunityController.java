@@ -228,10 +228,10 @@ public class CommunityController {
 		boardVO = communityService.getQnaInfo(board_id);
 		log.info("qna_view()실행");
 		mav.addObject("qna_view", communityService.getQnaBoard(boardVO.getBoard_id()));
-		mav.addObject("comment", communityService.listComment(boardVO.getBoard_id(), cri));
+		mav.addObject("comments", communityService.listComment(boardVO.getBoard_id(), cri));
 		mav.addObject("img", communityService.getImg(board_id));
-		int count = communityService.qcount(board_id);
-		mav.addObject("qcount", count);
+		int qcount = communityService.qcount(board_id);
+		mav.addObject("qcount", qcount);
 		communityService.hit(boardVO.getBoard_id());
 		mav.setViewName("community/qna_view");
 		return mav;
@@ -357,10 +357,11 @@ public class CommunityController {
 		Map<String, Object> list = new HashMap<>();
 		List<BoardVO> comments = communityService.getcommentsList(cri, board_id);
 		list.put("comments", comments);
+		list.put("commentTotal", communityService.qcount(board_id));
 		return list;
 	}
 
-	// 질문과 답변 글 삭제하기 이미지 따로 첨부한건 안돼..
+	// 질문과 답변 글 삭제하기 
 	@GetMapping("/delete")
 	public ModelAndView delete(@RequestParam("board_id") int board_id, ModelAndView mav) throws Exception {
 		log.info("delete()실행");
@@ -373,7 +374,7 @@ public class CommunityController {
 
 	// 질문과 답변 댓글 삭제 안돼...
 	@DeleteMapping("/qna/comment/delete/{board_id}")
-	public ResponseEntity<String> reply_delete(BoardVO boardVO) {
+	public ResponseEntity<String> deletQnaComment(BoardVO boardVO) {
 
 		ResponseEntity<String> entity = null;
 		log.info("delete");
@@ -403,7 +404,6 @@ public class CommunityController {
 		try {
 
 			communityService.deleteTipsComment(boardVO);
-			System.out.println("===========");
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
