@@ -582,7 +582,6 @@ $(function(){
    
    //.modal밖에 클릭시 닫힘
    $(".modal").click(function (e) {
->>>>>>> Stashed changes
     if (e.target.className != "modal") {
       return false;
     } else {

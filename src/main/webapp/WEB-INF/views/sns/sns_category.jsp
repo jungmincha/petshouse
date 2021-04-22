@@ -67,7 +67,7 @@
 }
 
 .i {
-	box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.4);
+	
 	border-radius: 10px;
 }
 
