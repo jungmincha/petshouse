@@ -115,11 +115,14 @@
 									<a href="/commu/tips/${rate.boardVO.board_id}">
 										<div class="pi-pic shot">
 										<img style="height:200px; border-radius:5px;" src="/resources/img/tips/${rate.imgname}" alt=""
-								style="border-radius: 5px; height: 150px;"><span class="count">조회수 ${rate.boardVO.hit}</span>
+								><span class="count">조회수 ${rate.boardVO.hit}</span>
 								</div>
-										<h6 style="font-size: 15px; font-weight: bold; margin-top:9px;">${rate.boardVO.title}</h6>
+								<h6 style="font-size: 15px; font-weight: bold; margin-top:9px;">${rate.boardVO.title}</h6>
 									</a>
 									<div style="font-size: 14px;">${rate.boardVO.memberVO.nickname}</div>
+									<div class="col-md-2">
+									<img src="/resources/img/location/after_like.png" style="width: 30px;">
+									</div>
 								</div>
 							</div>
 						</div>
