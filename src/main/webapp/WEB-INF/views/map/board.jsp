@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -196,53 +197,37 @@ body::-webkit-scrollbar-track {
 
 
 
-					
-					<table class="table">
+						<!-- board 테이블 -->
+						<table class="table">
 						<c:forEach items="${list}" var="list">
-	
-
-							<input id="board_id" type="hidden" name="board_id"
-								value="${list.boardVO.board_id}" />
+						<input id="board_id" type="hidden" name="board_id" value="${list.boardVO.board_id}" />
 							<tbody id="mapList">
-								<td><a
-									href="/map/board/${list.boardVO.board_id}?location=${location}&member_id=${member_id}">
+								<td>
+								<a href="/map/board/${list.boardVO.board_id}?location=${location}&member_id=${member_id}">
 
 								
 									
-											<!-- 이미지 아직 수정중... -->
-											<!-- <div><img src="/resources/img/location/03b07835-4297-4230-b22e-7da930cff0c2.PNG"></div> -->
-
-	
 								
 											
-								
-										
+										<!-- 회원 썸네일 -->
 										<div class="user-Info row" style="margin: 20px auto 0px 5px">
-									
-										<div class="top_profile_box ">
-										<img src="/resources/img/member/profile/${list.boardVO.memberVO.thumbnail}">
+									    <div class="profile_box ">
+										<img src="/resources/img/member/profile/${list.boardVO.memberVO.thumbnail}" name="profile" alt="" class="profile" />
 										</div>
-										
-										<div style="padding:7px"> ${list.boardVO.memberVO.nickname } </div>
-									
-									</div>
-										
+										<div style="padding:7px"> ${list.boardVO.memberVO.nickname} </div>	
+										</div>
 						
-										
-										
-											<span style="font-size: 13px; color: gray;">${list.boardVO.pdate}</span>
+											<!-- 게시글 정보 -->
+											<span style="font-size: 13px; color: gray;"><fmt:formatDate value="${list.boardVO.pdate}" pattern="yyyy.MM.dd" /></span>
 											<span style="font-size: 13px; color: gray;"> 조회수${list.boardVO.hit}</span>
 											<span style="font-size: 13px; color: gray;"> 좋아요${list.boardVO.plike}</span>
 											<span style="font-size: 13px; color: gray;">${list.boardVO.hashtag}</span>
 																							
-															
-										<div><img src="/resources/img/location/${list.imgname}" style="width:400px; height:350px;">
-										<br>	
-										<br>
-										<div>${list.boardVO.content}</div>										
-																						
-																							
-								</a>
+											<!-- 게시글 썸네일 -->			
+											<div><img src="/resources/img/location/${list.imgname}" style="width:400px; height:350px;">
+											<br>	
+											<br>
+											<div>${list.boardVO.content}</div></a>
 								
 								 <!-- 해시태그 --> 
 								<c:set var="hashtag" value="${list.boardVO.hashtag}" />
@@ -270,7 +255,7 @@ body::-webkit-scrollbar-track {
 							style="padding-bottom: 50px; padding-top: 50px;">
 							<c:if test="${pageMaker.prev}">
 								<li class="page-item"><a class="page-link"
-									href="board?location=${location}&nickname=${nickname}&member_id=${member_id}${pageMaker.makeQuery(pageMaker.startPage - 1) }">
+									href="board?location=${location}&member_id=${member_id}${pageMaker.makeQuery(pageMaker.startPage - 1) }">
 										Previous</a></li>
 							</c:if>
 
@@ -278,12 +263,12 @@ body::-webkit-scrollbar-track {
 								end="${pageMaker.endPage }" var="idx">
 								<c:out value="${pageMaker.cri.pageNum == idx?'':''}" />
 								<li class="page-item"><a class="page-link"
-									href="board?location=${location}&nickname=${nickname}&member_id=${member_id}${pageMaker.makeQuery(idx)}">${idx}</a></li>
+									href="board?location=${location}&member_id=${member_id}${pageMaker.makeQuery(idx)}">${idx}</a></li>
 							</c:forEach>
 
 							<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
 								<li class="page-item"><a class="page-link"
-									href="board?location=${location}&nickname=${nickname}&member_id=${member_id}${pageMaker.makeQuery(pageMaker.endPage +1) }">Next</a></li>
+									href="board?location=${location}&member_id=${member_id}${pageMaker.makeQuery(pageMaker.endPage +1) }">Next</a></li>
 							</c:if>
 						</ul>
 					</div>

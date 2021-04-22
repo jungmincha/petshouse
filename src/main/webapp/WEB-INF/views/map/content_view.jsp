@@ -3,6 +3,7 @@
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -234,10 +235,11 @@ background-color:#dddddd;
 				
  					<%-- <h4> ${hashtag}</h4> --%>
     
-					<!-- 좋아요 구현 -->
+													
+				<!-- 좋아요 구현 -->
 													
 					<!-- Profile Section -->
-     				<div class="profile-info container">
+     				<div style="float:right;"class="profile-info container">
       					<div class="row col-lg-12" >
       						<div class="profile-info_name">
       							<input type="hidden" id="board_id" value="${board_id}"/>
@@ -281,19 +283,18 @@ background-color:#dddddd;
 							
 							<c:if test="${likecheck == 0}">	 			
 							<div class="col-lg-12">
-		        				<a href="javascript:void(0);" class="like" style="cursor:hand;" onclick="like();"><img src="/resources/img/location/before_like.png" style="width:25px;"></a>
+		        				<a href="javascript:void(0);" class="like" style="cursor:hand;" onclick="like();"><img src="/resources/img/location/before_like.png" style="width:30px;  "></a>
 			       			
 			       			</div>	   
 		  					</c:if>	
 		  						
 							<c:if test="${likecheck != 0}" >					
 							<div class="col-lg-12">
-								<a href="javascript:void(0);" class="likecancel" style="cursor:hand;" onclick="likecancel();"><img src="/resources/img/location/after_like.png" style="width:25px;"></a>
+								<a href="javascript:void(0);" class="likecancel" style="cursor:hand;" onclick="likecancel();"><img src="/resources/img/location/after_like.png" style="width:30px;  "></a>
 							</div>	   
-							</c:if>	
-			
-      					
-      					
+							</c:if>	 
+					
+							
       					</div> <!-- row col-lg-12 end -->
       				</div> <!-- profile-info end -->
 					<!-- Profile Section -->
@@ -316,7 +317,7 @@ background-color:#dddddd;
 					           console.log(data.like_amount)
 					           var likelist = data.likelist;
 					          
-					           html = "";
+ 								html = "";
 					           
 					           for(var i in likelist){
 					        	   html += "<p>" + likelist[i].memberVO.member_id + "</p>";
@@ -327,7 +328,7 @@ background-color:#dddddd;
 					           $('.likelist').empty();
 					           $('.likelist').append(html);
 					           $('.like').remove();	          
-					           $('.profile-info').append('<a href="javascript:void(0);" class="likecancel" style="cursor:hand;" onclick="likecancel();"><img src="/resources/img/location/after_like.png" style="width:25px;"></a>');               
+					           $('.profile-info').append('<a href="javascript:void(0);" class="likecancel" style="cursor:hand;  padding-left:14px;" onclick="likecancel();"><img src="/resources/img/location/after_like.png" style="width:30px;"></a>');               
 					        },
 					        error: function(e){
 						    	console.log(e);
@@ -351,18 +352,18 @@ background-color:#dddddd;
 					        	console.log(data.like_amount)
 					        	var likelist = data.likelist;
 						          
-					        	html = "";//꼭 써줘야 할것!
+								html = "";//꼭 써줘야 할것!
 					        	
 								for(var i in likelist){
 									html += "<p>" + likelist[i].memberVO.member_id + "</p>";
 					         	}
 						           
 								$('.like_amount').empty();
-								$('.like_amount').append('좋아요<span>' + data.like_amount + '</span></a>');                 
+								$('.like_amount').append('좋아요<span >' + data.like_amount + '</span></a>');                 
 								$('.likelist').empty();
 						        $('.likelist').append(html);
 					            $('.likecancel').remove();		           
-					            $('.profile-info').append('<a href="javascript:void(0);" class="like" style="cursor:hand;" onclick="like();"><img src="/resources/img/location/before_like.png" style="width:25px;"></a>'); 
+					            $('.profile-info').append('<a href="javascript:void(0);" class="like" style="cursor:hand;  padding-left:14px;" onclick="like();"><img src="/resources/img/location/before_like.png" style="width:30px; "></a>'); 
 					        },
 					        error: function(e){
 						    	console.log(e);
@@ -378,12 +379,7 @@ background-color:#dddddd;
 						<input type="hidden" id="nickname" name="nickname" value="<sec:authentication property="principal.nickname"/>"> 
 						
 						<div class="container" style="margin-bottom: 40px">
-							<div class="head">
-								<div style="margin-top: 45px; margin-bottom: 10px;">
-									<a class="qna-subtitle" href="qna">펫츠타운</a>
-								</div>
-							
-							</div>
+						
 						
 							<div style="float: right">
 							
@@ -403,9 +399,21 @@ background-color:#dddddd;
 							<table>
 								<tr>
 								<td>
-									<div style="font-size: 20px;">${content_view.memberVO.nickname}</div>
 									<hr>
+									<!-- 작성자 이름과 프로필 사진 -->
+									<div class="user-Info row" style="margin: 20px auto 0px 5px">
+									<div class="profile_box ">
+
+									<img src="/resources/img/member/profile/${content_view.memberVO.thumbnail}" name="profile" alt="" class="profile" />
+									</div>
+									<div style="padding:7px"> ${content_view.memberVO.nickname} </div>	
+									</div>
 									
+									
+									
+									
+									
+									<!--게시글 사진 -->
 									<img src="/resources/img/location/${photo.imgname}" style="width:400px; height:350px;">
 								
 									
@@ -414,7 +422,7 @@ background-color:#dddddd;
 										${content_view.content}
 									</section>
 									
-									<span style="color: gray;">${content_view.pdate}</span> 
+										<span style="font-size: 13px; color: gray;"><fmt:formatDate value="${content_view.pdate}" pattern="yyyy.MM.dd" /></span>
 									<span style="color: gray">조회수 ${content_view.hit}</span>
 								</td>
 								</tr>

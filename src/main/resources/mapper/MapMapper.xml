@@ -322,13 +322,6 @@
 	
 	
 	
-	<select id="imageupload" resultMap="imagevo">
-   <![CDATA[
-     select imgname from image
-   ]]>
-	</select>
-	
-	
 	
 	
 	<!-- 좋아요 mapper start -->
@@ -411,11 +404,11 @@
    ]]>
 	</select>
 	
-		<!-- 최신글 rownum으로 잡기-->
+		<!-- 최신글 rownum으로 잡기 (댓글 조회를 막기 위해 hashtag가 null이 아닌것들 중에서 조회한다)-->
 	<select id="getLocationBoard_id" resultType="boardvo">
 
  <![CDATA[
-  		select * from (select * from board where boardtype_id=7 order by pdate desc) where rownum=1
+  		select * from (select * from board where boardtype_id=7 order by pdate desc) where rownum=1 and hashtag is not null
 	 	]]>
 	</select>
 	
