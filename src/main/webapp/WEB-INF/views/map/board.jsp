@@ -144,9 +144,7 @@ body::-webkit-scrollbar-track {
 						<option value="relocaion">위치 다시 설정하기</option>
 					</select> <br> <br>
 
-					<!-- 사용자 닉네임 -->
-					<h4>${nickname}</h4>
-					<br>
+		
 
 					<!-- 글작성 폼 -->
 					<form action="/map/write_view" method="get">
@@ -155,8 +153,7 @@ body::-webkit-scrollbar-track {
 							value="${location}" /> <input type="hidden" id="member_id"
 							name="member_id"
 							value="<sec:authentication property="principal.member_id"/>">
-						<input type="hidden" name="nickname"
-							value="<sec:authentication property="principal.nickname"/>">
+				
 
 
 						<!-- 커뮤니티 카테고리별 분류 셀렉트 BOX -->
@@ -183,71 +180,51 @@ body::-webkit-scrollbar-track {
 
 
 
-
-
-
-
-					<%--  <c:set var="doneLoop" value="false"/>
-                                    <c:set var="attachMentCount"  value="${attachMentCount}" />
-                                    <c:set var="i" value="1" />
-                                    
-                                    <c:forEach var="attachment" items="${attachment}">
-                                       ${attachment.path }
-                                       <c:set var="i" value="${i+1}" />
-                                       
-                                       ${vo.b_index},${attachment.b_index}
-                                       
-                                       
-                                       <c:if test="${doneLoop ne true}"><!--doneloop가 false면 반복 멈춤 -->
-                                          <c:choose>
-                                             <c:when test="${vo.b_index eq attachment.b_index }">
-                                                <img alt="" src="${attachment.path }">
-                                                <img src="${pageContext.request.contextPath}${attachment.path}">
-                                                <c:set var="doneLoop" value="true"/>
-                                             </c:when>
-                                             
-                                             <c:when test="${i+1 > attachMentCount }">                                             
-                                                <img id="introImg"  class="boardShow_img" src="${pageContext.request.contextPath}/resources/board_thumbnail/bslist07.png">
-                                                <c:set var="doneLoop" value="true"/>
-                                             </c:when>                                             
-                                          </c:choose>                                       
-                                       </c:if>                                                                                                                                                                                                                                                                           
-                                    </c:forEach>      --%>
-
-					<!--게시판 글 출력 FOREACH문 -->
+					
 					<table class="table">
 						<c:forEach items="${list}" var="list">
-
+	
 
 							<input id="board_id" type="hidden" name="board_id"
-								value="${list.board_id}" />
+								value="${list.boardVO.board_id}" />
 							<tbody id="mapList">
 								<td><a
-									href="/map/board/${list.board_id}?location=${location}&nickname=${nickname}&member_id=${member_id}">
+									href="/map/board/${list.boardVO.board_id}?location=${location}&member_id=${member_id}">
 
-										<div style="font-weight: bold; font-size: 18px;">${list.title}</div>
-										<ul class="pd-tags">
+								
+									
 											<!-- 이미지 아직 수정중... -->
 											<!-- <div><img src="/resources/img/location/03b07835-4297-4230-b22e-7da930cff0c2.PNG"></div> -->
 
-											<div>${list.content}</div>
-											<span>${list.memberVO.nickname}</span>
-
-											<span style="font-size: 13px; color: gray;">${list.pdate}</span>
-											<span style="font-size: 13px; color: gray;"> 조회수
-												${list.hit}</span>
-											<span style="font-size: 13px; color: gray;"> 좋아요
-												${list.plike}</span>
-								</a> <!-- 해시태그 --> <c:set var="hashtag" value="${list.hashtag}" />
-									<c:set var="tag" value="${fn:split(hashtag, ' ')}" /> <c:forEach
-										var="t" items="${tag}">
-										<span><button id="hashtag" name="keyword"
-												class="btn btn-disabled" style="" value="${t}"
-												onclick="location.href='${pageContext.request.contextPath}/map/qnatag'">${t}</button></span>
-									</c:forEach>
-
-
-									</ul></td>
+	
+									
+											
+								
+										
+										<div class="user-Info row" style="margin: 20px auto 0px 5px">
+										<div class="profile_box ">
+										<div class="top_profile_box ">
+										<img src="/resources/img/member/profile/${list.boardVO.memberVO.thumbnail}">
+										</div>
+										</div>
+										<div style="padding:7px"> ${list.boardVO.memberVO.nickname } </div>
+									
+									</div>
+										
+								
+										
+										
+											<span style="font-size: 13px; color: gray;">${list.boardVO.pdate}</span>
+											<span style="font-size: 13px; color: gray;"> 조회수${list.boardVO.hit}</span>
+											<span style="font-size: 13px; color: gray;"> 좋아요${list.boardVO.plike}</span>
+											<span style="font-size: 13px; color: gray;">${list.boardVO.hashtag}</span>
+																							
+															
+										<div><img src="/resources/img/location/${list.imgname}" style="width:400px; height:350px;">
+											<div>${list.boardVO.content}</div>										
+																						
+																							
+								</a></td>
 							</tbody>
 						</c:forEach>
 

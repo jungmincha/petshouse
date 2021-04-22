@@ -25,7 +25,7 @@ public class MapServiceImpl implements MapService {
 	private MapMapper mapper;
 	
 	@Override
-	public List<BoardVO> getList(Criteria cri) {
+	public List<ImageVO>getList(Criteria cri) {
 	log.info("getList...");
 		return mapper.getList(cri);
 	}
@@ -116,7 +116,7 @@ public class MapServiceImpl implements MapService {
 
 
 	@Override
-	public List<BoardVO> getHashtag(BoardVO boardVO) {
+	public List<ImageVO> getHashtag(BoardVO boardVO) {
 	
 		return mapper.getHashtag(boardVO);
 	}
@@ -254,6 +254,23 @@ public class MapServiceImpl implements MapService {
 	public String getPresetnNickname(String member_id) {
 		// TODO Auto-generated method stub
 		return mapper.getPresetnNickname(member_id);
+	}
+
+
+
+	@Override
+	public BoardVO getLocationBoard_id() {
+		
+		return mapper.getLocationBoard_id();
+	}
+
+
+
+	@Override
+	public void depeteimage(int board_id) {
+	
+		mapper.depeteimage(board_id);
+		
 	}
 
 

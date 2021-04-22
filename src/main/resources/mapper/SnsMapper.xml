@@ -247,7 +247,7 @@
 	
 	
 	<!-- 현재 닉네임-->
-<select id="getPresetnNickname" resultType="String">
+	<select id="getPresetnNickname" resultType="String">
    <![CDATA[
      select nickname from member where member_id=#{member_id}
    ]]>

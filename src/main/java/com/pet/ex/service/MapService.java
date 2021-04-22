@@ -16,7 +16,7 @@ import com.pet.ex.vo.PlikeVO;
 public interface MapService {
 
 	//위치기반 홈 리스트
-	public List<BoardVO> getList(Criteria cri);
+	public List<ImageVO> getList(Criteria cri);
 	
 	public int getTotal(Criteria cri);
 
@@ -38,7 +38,7 @@ public interface MapService {
 
 	public BoardVO getComment(int Board_id);
 
-	public List<BoardVO> getHashtag(BoardVO boardVO);
+	public List<ImageVO> getHashtag(BoardVO boardVO);
 
 	public void fileUpload(String imgname);
 
@@ -75,8 +75,12 @@ public interface MapService {
 	public void insertplike(BoardVO boardVO);
 	//좋아요 board 테이블에 삭제
 	public void deleteplike(BoardVO boardVO);
-
+	//현재 닉네임 가져오는 서비스
 	public String getPresetnNickname(String member_id);
+
+	public BoardVO getLocationBoard_id();
+
+	public void depeteimage(int board_id);
 
 	
 

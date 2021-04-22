@@ -209,8 +209,7 @@ background-color:#dddddd;
    				<div class="col-lg-12">
               
 					<h3>${location}</h3>
-					<br>
-                    <h4>${nickname}</h4>
+				
  					<%-- <h4> ${hashtag}</h4> --%>
     
 					<!-- 좋아요 구현 -->
@@ -361,7 +360,7 @@ background-color:#dddddd;
 								<div style="margin-top: 45px; margin-bottom: 10px;">
 									<a class="qna-subtitle" href="qna">펫츠타운</a>
 								</div>
-							<h3 class="qnatitle" style="font-weight: bold; margin-bottom: 10px;">${content_view.title}</h3>
+							
 							</div>
 						
 							<div style="float: right">

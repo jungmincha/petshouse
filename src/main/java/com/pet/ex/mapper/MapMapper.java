@@ -15,7 +15,7 @@ import com.pet.ex.vo.PlikeVO;
 @Mapper
 public interface MapMapper {
 
-	public List<BoardVO> getList(Criteria cri);
+	public List<ImageVO> getList(Criteria cri);
 
 	public int getTotal(Criteria cri);
 
@@ -37,7 +37,7 @@ public interface MapMapper {
 
 	public BoardVO getComment(int board_id);
 
-	public List<BoardVO> getHashtag(BoardVO boardVO);
+	public List<ImageVO> getHashtag(BoardVO boardVO);
 
 	public void fileUpload(String imgname);
 
@@ -74,6 +74,10 @@ public interface MapMapper {
 	public List<PlikeVO> getLikeprint();
 	//현재 닉네임 출력
 	public String getPresetnNickname(String member_id);
+
+	public BoardVO getLocationBoard_id();
+	//사진 삭제
+	public void depeteimage(int board_id);
 
 
 

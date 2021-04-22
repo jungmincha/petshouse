@@ -82,6 +82,7 @@ label {
 	<div class="container" style="width: 1100px; min-height: 900px;">
 		 
 		<div class="col-lg-12">
+		
 			<form id="sns" name="sns" class="needs-validation"
 				action="${pageContext.request.contextPath}/commu/sns/write"
 				enctype="multipart/form-data" method="post">

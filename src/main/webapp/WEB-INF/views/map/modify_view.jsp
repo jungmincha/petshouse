@@ -72,11 +72,7 @@ $(function() {
                <br>
                  <br>
                
-       
-        <h4>${nickname}</h4> 
-            <br>
-            
-            
+
 <form action="/map/modify" method="post" enctype="multipart/form-data">
  <input id="location" type="hidden" name="location" value="${location}" /> 
 <%--   <input id="nicknamen" type="hidden" name="nickname" value="${nickname}" />  --%>

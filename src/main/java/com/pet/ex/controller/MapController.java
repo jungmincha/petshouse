@@ -70,7 +70,7 @@ public class MapController {
 
 	// 펫츠타운 메인페이지
 	@RequestMapping("/board")
-	public ModelAndView board(String location, String nickname, ModelAndView mav, Criteria cri, MemberVO memberVO,
+	public ModelAndView board(String location,ModelAndView mav, Criteria cri, MemberVO memberVO,
 			BoardVO boardVO, ImageVO imageVO, PlikeVO plikeVO, String member_id, Authentication authentication) {
 		
 		
@@ -90,10 +90,11 @@ public class MapController {
 		// 위치
 		mav.addObject("location", location);
 
-		// 닉네임
-		mav.addObject("nickname", nickname);
 		// 아이디
 		mav.addObject("member_id", member_id);
+		
+		
+		
 
 		// mav.addObject("image" );
 		mav.addObject("like_print", service.getLikeprint());
@@ -104,14 +105,14 @@ public class MapController {
 
 	// 글작성 양식
 	@GetMapping("/write_view")
-	public ModelAndView write_view(String location, String member_id, String nickname, ModelAndView mav,
+	public ModelAndView write_view(String location, String member_id,ModelAndView mav,
 			BoardVO boardVO) {
 
 		log.info("write_view...");
 
 		mav.addObject("location", location);
 		mav.addObject("member_id", member_id);
-		mav.addObject("nickname", nickname);
+
 		mav.setViewName("map/write_view");
 
 		return mav;
@@ -119,7 +120,7 @@ public class MapController {
 
 	// content_view 페이지
 	@GetMapping("/board/{board_id}")
-	public ModelAndView content_view(String location, String nickname,
+	public ModelAndView content_view(String location, 
 			ModelAndView mav, BoardVO boardVO, ImageVO imageVO, MemberVO memberVO, PlikeVO plikeVO,
 			Authentication authentication) {
 		
@@ -129,7 +130,7 @@ public class MapController {
 		
 		mav.addObject("location", location);
 		mav.addObject("member_id", member_id);
-		mav.addObject("nickname", nickname);
+	
 		mav.addObject("comment", service.listComment(boardVO.getBoard_id()));
 
 		// 조회수 기능
@@ -168,7 +169,7 @@ public class MapController {
 
 	// 게시글 수정 할 수 있는 페이지 띄움
 	@GetMapping("/modify_view/{board_id}")
-	public ModelAndView modify_view(String location, String member_id, String nickname, ModelAndView mav,
+	public ModelAndView modify_view(String location, String member_id, ModelAndView mav,
 			BoardVO boardVO) {
 
 		log.info("modify_view...");
@@ -177,7 +178,7 @@ public class MapController {
 
 		mav.addObject("member_id", member_id);
 		mav.addObject("content_view", service.content_view(boardVO.getBoard_id()));
-		mav.addObject("nickname", nickname);
+	
 
 		mav.setViewName("map/modify_view");
 
@@ -188,7 +189,7 @@ public class MapController {
 	@RequestMapping("/write") // 글작성 폼에서 정보입력(즉, insert)
 	public ModelAndView write(
 
-			String location, String member_id, String nickname, ModelAndView mav, ImageVO imageVO, BoardVO boardVO,
+			String location, String member_id, ModelAndView mav, ImageVO imageVO, BoardVO boardVO,
 			MemberVO memberVO, Criteria cri, MultipartHttpServletRequest multi) throws Exception
 
 	{
@@ -198,7 +199,7 @@ public class MapController {
 		boardVO.setMemberVO(member);
 		boardVO.getMemberVO().setLocation(location);
 		boardVO.getMemberVO().setMember_id(member_id);
-		boardVO.getMemberVO().setNickname(nickname);
+
 
 		service.write(boardVO);
 
@@ -215,7 +216,7 @@ public class MapController {
 		mav.addObject("location", location);
 
 		mav.addObject("member_id", member_id);
-		mav.addObject("nickname", nickname);
+	
 
 		// 사진 업로드
 		String path = multi.getSession().getServletContext().getRealPath("/static/img/location");
@@ -227,7 +228,7 @@ public class MapController {
 			dir.mkdir();
 		}
 
-		List<MultipartFile> mf = multi.getFiles("file");
+		List<MultipartFile> mf = multi.getFiles("btnAtt");
 
 		for (int i = 0; i < mf.size(); i++) { // 파일명 중복 검사
 
@@ -240,10 +241,14 @@ public class MapController {
 			String savePath = path + "\\" + imgname; // 저장 될 파일 경로
 
 			mf.get(i).transferTo(new File(savePath)); // 파일 저장
-			// imageVO.setImgname(imgname);
-			// imageVO.getBoardVO().setBoard_id(boardVO.getBoard_id());
-
-			// service.detailInput(imageVO);
+			imageVO.setImgname(imgname);
+			BoardVO board = service.getLocationBoard_id();
+			imageVO.getBoardVO().setBoard_id(board.getBoard_id());
+			service.detailInput(imageVO);
+		
+		
+			
+			
 
 		}
 
@@ -254,7 +259,7 @@ public class MapController {
 
 	// 게시글 수정
 	@RequestMapping("/modify") // 글작성 폼에서 정보수정(즉, update)
-	public ModelAndView modify(String location, String member_id, String nickname, ModelAndView mav, ImageVO imageVO,
+	public ModelAndView modify(String location, String member_id, ModelAndView mav, ImageVO imageVO,
 			BoardVO boardVO, MemberVO memberVO, Criteria cri, MultipartHttpServletRequest multi) throws Exception
 
 	{
@@ -273,7 +278,7 @@ public class MapController {
 		mav.addObject("location", location);
 
 		mav.addObject("member_id", member_id);
-		mav.addObject("nickname", nickname);
+	
 
 		service.modify(boardVO);
 
@@ -325,9 +330,7 @@ public class MapController {
 
 	// 댓글 작성
 	@PostMapping("/map_view/insert")
-	public BoardVO insertComment(BoardVO boardVO, Model model,
-
-			String location, String member_id, String nickname)
+	public BoardVO insertComment(BoardVO boardVO, Model model, String member_id)
 
 	{
 		MemberVO member = new MemberVO();
@@ -371,12 +374,13 @@ public class MapController {
 	@RequestMapping("/delete")
 	public ModelAndView delete(
 
-			int board_id, String location, String member_id, String nickname, ModelAndView mav, BoardVO boardVO,
+			int board_id, String location, String member_id, ModelAndView mav, BoardVO boardVO,
 			MemberVO memberVO) throws Exception {
 
 		log.info("delete");
+		
+		service.depeteimage(board_id);
 		service.inputDelete(board_id);
-
 		memberVO.setLocation(location);
 
 		service.insertLoc(memberVO);
@@ -384,7 +388,7 @@ public class MapController {
 		mav.addObject("location", location);
 
 		mav.addObject("member_id", member_id);
-		mav.addObject("nickname", nickname);
+
 
 		mav.setViewName("redirect:board");
 
@@ -393,18 +397,19 @@ public class MapController {
 
 	// 해시태그 (수정중)
 	@GetMapping("/location/tag")
-	public List<BoardVO> tag(String hashtag, String location, Criteria cri, BoardVO boardVO) throws Exception {
+	public List<ImageVO> tag(String hashtag, String location, Criteria cri, BoardVO boardVO , ImageVO imageVO) throws Exception {
 
-		List<BoardVO> list = new ArrayList<BoardVO>();
+		List<ImageVO> list = new ArrayList<ImageVO>();
 
 		if (hashtag == null) {
 
 			list = service.getList(cri);
 		}else{
 			MemberVO member = new MemberVO();
-			boardVO.setMemberVO(member);
-			boardVO.getMemberVO().setLocation(location);
-			boardVO.setHashtag(hashtag);
+			imageVO.getBoardVO().setMemberVO(member);
+			imageVO.getBoardVO().setMemberVO(member);
+			imageVO.getBoardVO().getMemberVO().setLocation(location);
+			imageVO.getBoardVO().setHashtag(hashtag);
 			list = service.getHashtag(boardVO);
 		}
 

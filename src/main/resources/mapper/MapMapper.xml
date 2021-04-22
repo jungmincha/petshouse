@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pet.ex.mapper.MapMapper">
 
-	<resultMap type="BoardtypeVO" id="boardtypevo">
+		<resultMap type="BoardtypeVO" id="boardtypevo">
 		<result column="boardtype_id" property="boardtype_id" />
 		<result column="boardtypename" property="boardtypename" />
 	</resultMap>
@@ -61,11 +61,13 @@
 		<result column="thumbnail" property="thumbnail" />
 		<result column="image3d" property="image3d" />
 		<result column="count" property="count" />
+		<result column="pcheck" property="pcheck" />
 		<collection property="stockVO" resultMap="stockvo" />
 		<collection property="categoryVO" resultMap="categoryvo" />
 	</resultMap>
 
 	<resultMap type="ImageVO" id="imagevo">
+		<result column="img_id" property="img_id" />
 		<result column="imgname" property="imgname" />
 		<collection property="boardVO" resultMap="boardvo" />
 		<collection property="goodsVO" resultMap="goodsvo" />
@@ -84,8 +86,10 @@
 		<result column="tel" property="tel" />
 		<result column="address" property="address" />
 		<result column="trycount" property="trycount" />
+		<result column="thumbnail" property="thumbnail" />
 		<result column="enable" property="enable" />
 		<result column="certify" property="certify" />
+		<result column="pdate" property="pdate" />
 		<collection property="roleVO" resultMap="rolevo" />
 		<collection property="logintypeVO" resultMap="logintypevo" />
 		<collection property="categoryVO" resultMap="categoryvo" />
@@ -143,26 +147,25 @@
 		<result column="goodspath" property="goodspath" />
 		<collection property="boardVO" resultMap="boardvo" />
 	</resultMap>
-	
-	<resultMap type="PlikeVO" id="plikevo">
+
+<!-- 좋아요 resultmap -->
+<resultMap type="PlikeVO" id="plikevo">
 		<result column="plike_id" property="plike_id" />
 		<result column="count" property="count" />
 		<collection property="memberVO" resultMap="membervo" />
 		<collection property="boardVO" resultMap="boardvo" />
 	</resultMap>
-	
 
-
-	<select id="getList" resultMap="boardvo"> 
+	<!-- 이미지 썸네일 수정 리스트-->
+	<select id="getList" resultMap="imagevo"> 
 		<![CDATA[ 
 			
 		 SELECT * FROM (
-			     SELECT ROWNUM AS RNUM, A.* FROM (
-			     	select b.board_id, b.title, b.content, b.pdate,b.hit,b.pgroup,b.pstep, b.plike, b.pindent,b.hashtag, b.location, m.thumbnail, m.member_id, m.nickname, b.boardtype_id 
-			     	from  board b , member m
-					where b.member_id = m.member_id
-					
-    				and b.boardtype_id= 7 and b.location=#{location}and b.pstep=0 order by board_id desc
+			    SELECT ROWNUM AS RNUM, A.* FROM (
+      		      select i.imgname, m.nickname,  m.thumbnail, m.location, b.pdate, b.hit, b.plike, b.board_id, b.content from image i, board b, member m where m.member_id = b.member_id 
+				 	and i.board_id=b.board_id and b.boardtype_id=7 and pstep=0 and img_id in( 
+ 					select  min(img_id) as img_id from image where board_id is not null group by board_id) order by b.pdate desc
+ 					
 			    ) A WHERE ROWNUM <= #{pageNum}* #{amount}
 			) WHERE RNUM > (#{pageNum}-1) * #{amount}
 		]]>
@@ -189,8 +192,8 @@
 
 	<insert id="write" parameterType="boardvo">
    <![CDATA[
-      insert into board (board_id, title, pdate, content, hit, hashtag, pgroup, pstep, pindent, member_id,  boardtype_id ,location)   
-       values (board_seq.nextval ,#{title}, sysdate, #{content} ,#{hit},#{hashtag},board_seq.currval,#{pstep},#{pindent},#{memberVO.member_id} ,7 ,#{memberVO.location})
+      insert into board (board_id,  pdate, content, hit, hashtag, pgroup, pstep, pindent, member_id,  boardtype_id ,location)   
+       values (board_seq.nextval ,sysdate, #{content} ,#{hit},#{hashtag},board_seq.currval,#{pstep},#{pindent},#{memberVO.member_id} ,7 ,#{memberVO.location})
    ]]>
 	</insert>
 
@@ -199,12 +202,25 @@
       select * from board b , member m where b.member_id=m.member_id and board_id = #{board_id}
    ]]>
 	</select>
+	
+	<!-- 게시글 삭제 -->
 
 	<select id="inputDelete">
    <![CDATA[
     delete from board where board_id = #{board_id}
    ]]>
 	</select>
+	
+	
+		<!-- 사진 삭제 -->
+		<select id="depeteimage">
+  	 <![CDATA[
+    	delete from image where board_id=#{board_id}
+
+  		 ]]>
+		</select>
+		
+	
 
 <insert id="insertLoc">
    <![CDATA[
@@ -260,10 +276,10 @@
 	
 	
 	
-	<select id="getHashtag" resultMap="boardvo"> 
+	<select id="getHashtag" resultMap="imagevo"> 
  	<![CDATA[
 	
-	 select b.board_id, b.title, b.content, b.location, b.pdate,b.hit, b.pgroup, b.pstep, b.category_id, b.pindent,b.hashtag, m.member_id, m.nickname, b.boardtype_id
+	 select b.board_id, b.content, b.location, b.pdate,b.hit, b.pgroup, b.pstep, b.category_id, b.pindent,b.hashtag, m.member_id, m.nickname, b.boardtype_id
 			from  board b , member m
 			where b.member_id = m.member_id
     		and b.boardtype_id= 7 and b.pstep=0 and b.hashtag=#{hashtag} and b.location=#{location}order by board_id desc
@@ -273,7 +289,7 @@
 	
 	<select id="modify">
 		<![CDATA[
-			update board set title=#{title},content=#{content} where board_id = #{board_id}
+			update board set content=#{content} where board_id = #{board_id}
 		]]>
 	</select>
 
@@ -296,14 +312,14 @@
 	
 	
 
+	<!-- 다중이미지업로드 -->
+	<insert id="detailInput" parameterType="imagevo">
 
-	
-	
-	<insert id="detailInput">
-	 <![CDATA[
-    INSERT INTO IMAGE(img_id, imgname,board_id) VALUES (image_seq.nextval, #{imgname} , board_seq.currval)
-	 ]]>
+ 		<![CDATA[
+   				 INSERT INTO IMAGE(img_id, imgname, board_id) VALUES (image_seq.nextval, #{imgname}, #{boardVO.board_id})
+	 	]]>
 	</insert>
+	
 	
 	
 	<select id="imageupload" resultMap="imagevo">
@@ -393,6 +409,14 @@
    <![CDATA[
      select nickname from member where member_id=#{member_id}
    ]]>
+	</select>
+	
+	
+	<select id="getLocationBoard_id" resultType="boardvo">
+
+ <![CDATA[
+  		select * from (select * from board where boardtype_id=7 order by pdate desc) where rownum=1
+	 	]]>
 	</select>
 	
 
