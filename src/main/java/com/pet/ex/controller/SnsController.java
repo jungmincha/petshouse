@@ -48,12 +48,12 @@ public class SnsController {
 
 	// sns홈
 	@RequestMapping("/sns")
-	public ModelAndView SNS(Criteria cri, BoardVO boardVO, ModelAndView mav) throws Exception {
+	public ModelAndView SNS(Criteria cri, ModelAndView mav) throws Exception {
 
 		log.info("sns");
 		
 		mav.addObject("list", service.getsnsList(cri));
-		 
+		
 		mav.setViewName("sns/sns_list");
 
 		return mav;
@@ -68,6 +68,30 @@ public class SnsController {
 		list.put("sns", sns);
 		return list;
 	}
+	
+	//sns 카테고리별 조회
+		@PostMapping("/sns/category/{boardVO.categoryVO.category_id}")
+		public ModelAndView snscategoryList(ImageVO imageVO, Criteria cri, ModelAndView mav) {
+			log.info("sns_categoryList");
+		 
+			mav.addObject("list", service.getSnsCategory(imageVO));		
+			mav.setViewName("sns/sns_category");	
+			return mav;	
+		}
+		
+		/*
+		 * //besthome 카테고리별 상품 더보기
+		 * 
+		 * @PostMapping("/sns/category/morelist/{categoryVO.code}") public Map<String,
+		 * Object> snscatemorelist(BoardVO boardVO, Criteria cri) {
+		 * log.info("snscatemorelist"); Map<String, Object> list = new HashMap<>();
+		 * List<BoardVO> goods = service.getGoodsinfo(); List<BoardVO> rate =
+		 * service.getBestrate(boardVO, cri); list.put("rate", rate); list.put("goods",
+		 * goods); return list; }
+		 */
+	
+	
+	 
 	
 
 	// sns 댓글 더보기
@@ -159,10 +183,7 @@ public class SnsController {
 
 		int count = service.counta(board_id);
 		String nickname = service.getNickname(board_id);
-	
-
-		System.out.println("000000-test-ooooooo");
-		System.out.println(present_nickname);
+  
 	
 		mav.addObject("user",  service.getUserboard(nickname));
 		 
@@ -195,6 +216,16 @@ public class SnsController {
 
 		mav.setViewName("sns/sns_contentView");
 
+		return mav;
+	}
+	
+	// SNS 태그 검색
+	@GetMapping("/sns/hashtag")
+	public ModelAndView snsTag(@RequestParam("keyword") String keyword, ModelAndView mav, BoardVO boardVO)
+			throws Exception {
+		log.info("snsTag()실행");
+		mav.addObject("tag", service.getSnstag(keyword));
+		mav.setViewName("sns/sns_hashtag");
 		return mav;
 	}
 	
@@ -247,7 +278,7 @@ public class SnsController {
 	}
 	
 	//댓글 삭제하기
-		@RequestMapping("/comment/delete")
+	@DeleteMapping("/sns/comment/delete/{board_id}")
 		public ResponseEntity<String> deleteComment(BoardVO boardVO) {
 
 			ResponseEntity<String> entity = null;
@@ -303,9 +334,7 @@ public class SnsController {
 					
 					//BOARD테이블의 plike 숫자 증가
 					service.insertplike(boardVO);
-				
-					System.out.println("=====================ssss==============================================================");
-				
+				 
 				} catch (Exception e) {
 					e.printStackTrace();
 					map.put("SUCCESS", HttpStatus.BAD_REQUEST);

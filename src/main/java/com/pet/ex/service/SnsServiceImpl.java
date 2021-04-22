@@ -203,4 +203,22 @@ public class SnsServiceImpl implements SnsService {
 			return mapper.getPresetnNickname(member_id);
 		}
 
+		@Override
+		public List<BoardVO> getSnstag(String keyword) {
+			log.info("getSnstag()호출");
+			return mapper.getSnstag(keyword);
+		}
+
+		@Override
+		public List<ImageVO> getsnsmoreList(Criteria cri) {
+			 
+			return mapper.getsnsmoreList(cri);
+		}
+
+		
+		@Override
+		public List<ImageVO> getSnsCategory(ImageVO imageVO) {
+			log.info("getSnsCategory");
+			return mapper.getSnsCategory(imageVO);
+		}
 }

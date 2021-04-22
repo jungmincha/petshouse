@@ -21,6 +21,7 @@ public class GoodsVO {
 	private String thumbnail;
 	private String pcheck;
 	private String image3d;
+	
 
 	// 외래키
 	private StockVO stockVO;
@@ -33,6 +34,6 @@ public class GoodsVO {
 	// storehome에서 best번호
 	private int rnum;
 
-	
+	private int point;
 	
 }

@@ -18,22 +18,14 @@
 	rel="stylesheet">
 
 <!-- Css Styles -->
-<link rel="stylesheet" href="/resources/css/bootstrap.min.css"
-	type="text/css">
-<link rel="stylesheet" href="/resources/css/font-awesome.min.css"
-	type="text/css">
-<link rel="stylesheet" href="/resources/css/themify-icons.css"
-	type="text/css">
-<link rel="stylesheet" href="/resources/css/elegant-icons.css"
-	type="text/css">
-<link rel="stylesheet" href="/resources/css/owl.carousel.min.css"
-	type="text/css">
-<link rel="stylesheet" href="/resources/css/nice-select.css"
-	type="text/css">
-<link rel="stylesheet" href="/resources/css/jquery-ui.min.css"
-	type="text/css">
-<link rel="stylesheet" href="/resources/css/slicknav.min.css"
-	type="text/css">
+<link rel="stylesheet" href="/resources/css/bootstrap.min.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/font-awesome.min.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/themify-icons.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/elegant-icons.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/owl.carousel.min.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/nice-select.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/jquery-ui.min.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/slicknav.min.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/style.css" type="text/css">
 
 <!-- bootstrap css cdn -->
@@ -109,51 +101,80 @@
 	});
 </script>
 
+<script type="text/javascript">
+    
+    
+    function fire_ajax_submit(id) {
+    	console.log(id);
+    	var category_id = id;	
+		var form = {
+				category_id: category_id
+		};   
+    	var url = "/commu/sns/category/"+id;
+    		
+    $.ajax({
+        type: "POST",
+        contentType: 'application/json; charset=utf-8',
+  		url: url,
+        data: JSON.stringify(form), 
+        cache : false,  
+        success: function (data) {         	
+          console.log("SUCCESS : ", data); 
+          $('#input').html(data);
+        },    
+        error: function (e) {
+     	   console.log("ERROR : ", e);
+        }
+    });
+} 
+</script>
+
 </head>
-<body style="padding-top: 170px">
+<body style="padding-top: 170px; min-height:1500px;">
 
 	<!-- Header -->
-	<%@ include file="/WEB-INF/views/include/header.jsp"%>
-
+ 	 <%@ include file="/WEB-INF/views/include/header.jsp" %>
 	<!-- Category Section Begin -->
-	<div class="container">
+	<div id = "input">
+	
+	<a class="btn btn-outline-secondary col-sm-1 float-right"  id = "login"  style="position: fixed; top: 170px; right: 200px;" onclick="location.href='${pageContext.request.contextPath}sns/write_view'">게시글등록</a>
+	<div class="container" style="min-height:1500px;">
+	
+	
 		<h2>SNS</h2>
-		<a class="btn btn-outline-secondary col-sm-2 float-right"  id = "login" onclick="location.href='${pageContext.request.contextPath}sns/write_view'">게시글등록</a>
+		
 
-
+	
 		<div class="row ">
 			<div class="col-sm-2">
-				<a href=" "> <img src="/resources/img/category/cat.jpg"></a>
+				<a href="#" onclick ="fire_ajax_submit(1);"> <img src="/resources/img/category/cat.jpg"></a>
 			</div>
 
 			<div class="col-sm-2">
-				<a href=" "> <img src="/resources/img/category/dog.jpg"></a>
+				<a href="#" onclick ="fire_ajax_submit(2);"> <img src="/resources/img/category/dog.jpg"></a>
 			</div>
 
 			<div class="col-sm-2">
-				<a href=" "> <img src="/resources/img/category/reptile.jpg"></a>
+				<a href="#" onclick ="fire_ajax_submit(3);"> <img src="/resources/img/category/reptile.jpg"></a>
 			</div>
 
 			<div class="col-sm-2">
-				<a href=" "> <img src="/resources/img/category/bird.jpg"></a>
+				<a href="#" onclick ="fire_ajax_submit(4);"> <img src="/resources/img/category/bird.jpg"></a>
 			</div>
 
 			<div class="col-sm-2">
-				<a href=" "> <img src="/resources/img/category/fish.jpg"></a>
+				<a href="#" onclick ="fire_ajax_submit(5);"> <img src="/resources/img/category/fish.jpg"></a>
 			</div>
 
 			<div class="col-sm-2">
-				<a href=" "> <img src="/resources/img/category/other.jpg"></a>
+				<a href="#" onclick ="fire_ajax_submit(6);"> <img src="/resources/img/category/other.jpg"></a>
 			</div>
 		</div>
 
 		<!-- Category Section End -->
 
 
-		<sec:authorize access="hasAnyRole('ROLE_USER','ROLE_ADMIN')">
-		<input type="hidden" id="member_id"
-			value="<sec:authentication property="principal.member_id"/>">
-	</sec:authorize>
+
 	
  
 			<div id="snslist" class = "row text-center"> 
@@ -190,8 +211,8 @@
 			<button type="button" class="btn btn-warning" onClick="btnClick()">더보기</button>
 		</div>
 	</div>
-
-	<!-- 더보기 페이징 처리 -->
+</div>
+ 	<!--  더보기 페이징 처리 -->
 	<script type="text/javascript">
       var pageNum = 1;
      
@@ -240,13 +261,9 @@
 				} // ajax 에러 시 end
     	    }); //ajax end	 
     	}; //click end	
-	</script>
-
-	<!-- Footer -->
-	<div style="margin-top: 100px">
-		<%@ include file="/WEB-INF/views/include/footer.jsp"%>
-	</div>
-
+	</script> 
+<!-- Footer -->
+ 	<%@ include file="/WEB-INF/views/include/footer.jsp" %>
 	<!-- Js Plugins -->
 	<script src="/resources/js/jquery-3.3.1.min.js"></script>
 	<script src="/resources/js/bootstrap.min.js"></script>

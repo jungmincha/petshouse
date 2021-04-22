@@ -74,4 +74,10 @@ public interface SnsMapper {
 	//현재 닉네임 
 	public String getPresetnNickname(String member_id);
 
+	public List<BoardVO> getSnstag(String keyword);
+
+	public List<ImageVO> getsnsmoreList(Criteria cri);
+
+	public List<ImageVO> getSnsCategory(ImageVO imageVO);
+
 }
