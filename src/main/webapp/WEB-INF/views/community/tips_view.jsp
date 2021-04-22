@@ -281,7 +281,7 @@ $(document).ready(function(){
 			} else {
 				start += 5;
 			}
-			console.log(start)
+			console.log(start);
 
 			console.log("실행");
 			$
