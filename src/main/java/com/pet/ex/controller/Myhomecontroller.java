@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -24,7 +24,9 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.pet.ex.page.Criteria;
 import com.pet.ex.service.MyhomeService;
+import com.pet.ex.vo.BoardVO;
 import com.pet.ex.vo.FollowVO;
+import com.pet.ex.vo.ImageVO;
 import com.pet.ex.vo.MemberVO;
 
 import lombok.extern.slf4j.Slf4j;
@@ -37,7 +39,7 @@ public class Myhomecontroller {
 	@Autowired
 	private MyhomeService service;
 	
-	//팔로우 기능
+	//마이페이지 전체 출력, 팔로우
 	@GetMapping("/{nickname}")
 	public ModelAndView myPageHome(Criteria cri, MemberVO memberVO, FollowVO followVO, Authentication authentication, ModelAndView mav) throws Exception {
 		log.info("myPageHome");
@@ -61,13 +63,86 @@ public class Myhomecontroller {
 		//회원 정보 및 작성한 게시글 출력
 		mav.addObject("member", service.getMemberInfo(memberVO.getNickname()));
 		mav.addObject("sns", service.getSnslist(memberVO, cri));
-		mav.addObject("knowhow", service.getKnowhowlist(memberVO, cri));
-		mav.addObject("review", service.getReviewlist(memberVO, cri));
-		mav.addObject("goodsscore", service.getGoodsscore());
-		mav.addObject("qna", service.getQnalist(memberVO, cri));
+		mav.addObject("snsTotal", service.getSnstotal(memberVO.getMember_id()));
 		
-		mav.setViewName("myPage/Home");
+		mav.addObject("knowhow", service.getKnowhowlist(memberVO, cri));
+		mav.addObject("knowhowTotal", service.getKnowhowtotal(memberVO.getMember_id()));
+		
+		mav.addObject("review", service.getReviewlist(memberVO, cri));
+		mav.addObject("reviewTotalCount", service.getReviewtotal(memberVO.getMember_id()));
+		mav.addObject("goodsscore", service.getGoodsscore());
+		
+		mav.addObject("qna", service.getQnalist(memberVO, cri));
+		mav.addObject("qnaTotal", service.getQnatotal(memberVO.getMember_id()));
+		
+		mav.setViewName("myPage/myhome");
 
+		return mav;
+	}
+	
+	//sns 전체 출력
+//	@GetMapping("/sns")
+//	public ModelAndView sns(@RequestParam("nickname") String nickname, MemberVO memberVO, Criteria cri, ModelAndView mav) throws Exception {
+//		log.info("more_sns");
+//		memberVO.setNickname(nickname);
+//		memberVO = service.getMemberInfo(memberVO.getNickname());
+//		mav.addObject("sns", service.getSnslist(memberVO, cri));
+//		mav.addObject("snsCount", service.getSnscount(memberVO.getMember_id()));
+//		
+//		mav.setViewName("myPage/mysns");
+//		return mav;
+//	}
+	
+	//sns 더보기 
+	@GetMapping("/moresns/{nickname}")
+	public Map<String, Object> moresns(MemberVO memberVO, Criteria cri) {
+		log.info("more_sns");
+		memberVO = service.getMemberInfo(memberVO.getNickname());
+		Map<String, Object> list = new HashMap<>();
+		List<ImageVO> sns = service.getSnslist(memberVO, cri);
+		int snsCount = service.getSnstotal(memberVO.getMember_id());
+		list.put("sns", sns);
+		list.put("snsTotal", snsCount);
+		return list;
+	}
+
+	//노하우 전체 출력
+	@GetMapping("/knowhow")
+	public ModelAndView knowhow(@RequestParam("nickname") String nickname, MemberVO memberVO, Criteria cri, ModelAndView mav) throws Exception {
+		log.info("more_knowhow");
+		memberVO.setNickname(nickname);
+		memberVO = service.getMemberInfo(memberVO.getNickname());
+		mav.addObject("knowhow", service.getKnowhowlist(memberVO, cri));
+		mav.addObject("knowhowCount", service.getKnowhowtotal(memberVO.getMember_id()));
+		
+		mav.setViewName("myPage/myknowhow");
+		return mav;
+	}
+	
+	//리뷰 전체 출력
+	@GetMapping("/review")
+	public ModelAndView review(@RequestParam("nickname") String nickname, MemberVO memberVO, Criteria cri, ModelAndView mav) throws Exception {
+		log.info("more_review");
+		memberVO.setNickname(nickname);
+		memberVO = service.getMemberInfo(memberVO.getNickname());
+		mav.addObject("review", service.getReviewlist(memberVO, cri));
+		mav.addObject("reviewTotal", service.getReviewtotal(memberVO.getMember_id()));
+		mav.addObject("goodsscore", service.getGoodsscore());
+		
+		mav.setViewName("myPage/myreview");
+		return mav;
+	}
+	
+	//Q&A 전체 출력
+	@GetMapping("/qna")
+	public ModelAndView qna(@RequestParam("nickname") String nickname, MemberVO memberVO, Criteria cri, ModelAndView mav) throws Exception {
+		log.info("more_qna");
+		memberVO.setNickname(nickname);
+		memberVO = service.getMemberInfo(memberVO.getNickname());
+		mav.addObject("qna", service.getQnalist(memberVO, cri));
+		mav.addObject("qnaCount", service.getQnatotal(memberVO.getMember_id()));
+		
+		mav.setViewName("myPage/myqna");
 		return mav;
 	}
 	

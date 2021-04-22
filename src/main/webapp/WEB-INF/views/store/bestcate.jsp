@@ -94,6 +94,9 @@
 	    max-width:80px; 
 	}
 	
+	#navbars>li:nth-child(3) {
+  		background-color: #e7ab3c;
+	}
   </style>
 </head>
 
@@ -165,23 +168,27 @@
                </c:forEach> 
             </div>  
             
-             <c:if test="${fn:length(rate) == 8}">
+             <c:if test="${fn:length(count) > 8}">
 		          <div class="col-lg-12 text-center">
+		         	  <input type="hidden" class="count" value="${fn:length(count)}" />
 		          	  <button type="button" class="btn btn-warning" onClick="btnClick()">더보기</button>
 			      </div>   
 		     </c:if> 
 	      
 	 <!-- 더보기 페이징 처리 -->
      <script>
-      var pageNum = 1;
-     
+     var pageNum = 1;
+     var check = $('.count').val() / 8;
+    	   
       function btnClick(){ 
-    	 var code = $('.code').val();
-    	 console.log(code);  
-    	  
-    	 var url = "/store/best/morelist/"+ code;
-    	 console.log(url);
     	 pageNum += 1;
+
+    	 if (pageNum > check) {
+	         $(".btn").hide();
+	     }
+ 
+    	 var code = $('.code').val();    	  
+    	 var url = "/store/best/morelist/"+ code; 	 
     	  		  
     	  	$.ajax({
     	        type :"POST",

@@ -87,18 +87,32 @@
 	   ]]>
 	</select>  
 	
+	<!-- 본인이 작성한 SNS 글개수 조회 -->
+	<select id="getSnstotal" resultType="int">
+		<![CDATA[
+	        select count(*) as count from board b where boardtype_id=2 and member_id=#{memberVO.member_id} and pstep=0
+	   ]]>
+	</select>  
+	
 	<!-- 본인이 작성한 노하우 조회 -->
 	<select id="getKnowhowlist" resultMap="imagevo">
 		<![CDATA[
 	      select * from(
 			    select rownum as rnum, A.*from (
-      		      select i.imgname, b.board_id, b.hit, substr(b.title, 1, 17) as title, b.plike from image i, board b, member m where m.member_id = b.member_id 
+      		      select i.imgname, b.board_id, b.hit, b.title, b.plike from image i, board b, member m where m.member_id = b.member_id 
 				 	and i.board_id=b.board_id and b.boardtype_id=5 and pstep=0 and m.member_id=#{memberVO.member_id} and img_id in( 
  					select  min(img_id) as img_id from image where board_id is not null group by board_id) order by b.pdate desc
  				 ) A where rownum <= #{cri.pageNum} * #{cri.amount}
 			)where rnum > (#{cri.pageNum}-1) * #{cri.amount} 
 	   ]]>
 	</select> 
+	
+	<!-- 본인이 작성한 노하우 글개수 조회 -->
+	<select id="getKnowhowtotal" resultType="int">
+		<![CDATA[
+	        select count(*) as count from board b where boardtype_id=5 and member_id=#{memberVO.member_id} and pstep=0
+	   ]]>
+	</select>  
 	
 	<!-- 본인이 작성한 리뷰 조회 -->
 	<select id="getReviewlist" resultMap="boardvo">
@@ -110,6 +124,13 @@
 	       )where rnum > (#{cri.pageNum}-1) * #{cri.amount} 
 	   ]]>
 	</select> 
+	
+	<!-- 본인이 작성한 리뷰 글개수 조회 -->
+	<select id="getReviewtotal" resultType="int">
+		<![CDATA[
+	        select count(*) as count from board b where boardtype_id=8 and member_id=#{memberVO.member_id} and pstep=0
+	   ]]>
+	</select>  
 	
 	<!-- 상품에 대한 리뷰 점수 평균 -->
 	<select id="getGoodsscore" resultMap="boardvo">
@@ -128,6 +149,13 @@
 		    )where rnum > (#{cri.pageNum}-1) * #{cri.amount} 
 	   ]]>
 	</select> 
+	
+	<!-- 본인이 작성한 질답 글개수 조회 -->
+	<select id="getQnatotal" resultType="int">
+		<![CDATA[
+	        select count(*) as count from board b where boardtype_id=4 and member_id=#{memberVO.member_id} and pstep=0
+	   ]]>
+	</select>  
 	
 	 
 

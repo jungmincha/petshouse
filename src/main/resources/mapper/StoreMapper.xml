@@ -166,6 +166,13 @@
 	   ]]>
 	</select>
 	
+	<!-- 베스트 상품 총 개수 -->
+	<select id="getGoodscount" resultType="BoardVO">
+		<![CDATA[
+	       select count(*) as count from board b, goods g where b.goods_id=g.goods_id and b.boardtype_id=8 group by g.goods_id
+	   ]]>
+	</select>
+	
 	<!-- 베스트 상품에 대한 별점 평균 -->
 	<select id="getBestrate" resultMap="boardvo">
 		<![CDATA[
@@ -177,6 +184,20 @@
 	   ]]>
 	</select>
 	
+	<!-- 카테고리별 베스트 상품 총 개수 -->
+	<select id="getBestcount" resultType="BoardVO">
+		<![CDATA[
+	       	select count(*) as count from board b, goods g, category c where b.goods_id=g.goods_id and g.category_id=c.category_id and c.code=#{boardVO.categoryVO.code} and b.boardtype_id=8 group by g.goods_id
+	   ]]>
+	</select>
+	
+	<!-- 카테고리 조회 -->
+	<select id="getCategory" resultType="CategoryVO">
+		<![CDATA[
+	        select * from category where category_id between 1 and 6 order by category_id asc
+	   ]]>
+	</select>
+	
 	<!-- 이벤트(7일) 참여 조회 -->
 	<select id="getEventstatus" resultType="int">
 		<![CDATA[
@@ -184,29 +205,22 @@
 	   ]]>
 	</select>	
 	
-	<!-- category 조회 -->
-	<select id="getCategory" resultType="CategoryVO">
-		<![CDATA[
-	        select * from category where category_id between 1 and 6 order by category_id asc
-	   ]]>
-	</select>
-	
-	<!-- point 저장 -->
+	<!-- 포인트 점수 저장 -->
 	<insert id="point">
 		<![CDATA[
 	       insert into point values(point_seq.nextval, #{pscore}, sysdate, 6, #{memberVO.member_id})
 	   ]]>
-	</insert>	
+	</insert>
 	
-
+	
 	<!-- community part -->
 	<!-- 노하우 조회 -->
 	<select id="getKnowhow" resultMap="imagevo">
 		<![CDATA[
 	       select * from(
 	       	 select rownum as rnum, A.*from (
-			     	select i.imgname, b.board_id, substr(b.title, 1, 17) as title, b.hit, b.plike from board b, image i
-					where b.board_id=i.board_id and b.boardtype_id= 5 and b.pstep=0 order by b.plike desc
+			     	select i.imgname, b.board_id, b.title, b.hit, b.plike, m.nickname from board b, image i, member m
+					where b.board_id=i.board_id and b.member_id=m.member_id and b.boardtype_id= 5 and b.pstep=0 order by b.plike desc
 			     ) A where rownum <= 10
 	     	)where rnum > 0
 	   ]]>

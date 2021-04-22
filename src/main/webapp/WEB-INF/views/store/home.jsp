@@ -93,6 +93,10 @@
 	   bottom: 500px;
 	   padding:10px;
 	}
+	
+	#navbars>li:nth-child(3) {
+  		background-color: #e7ab3c;
+	}
 </style>
 </head>
 
@@ -219,7 +223,6 @@
                      </ul>
                   </div>
                   <div class="product-slider owl-carousel">
-
                      <c:forEach items="${rate}" var="rate">
                         <c:if test="${rate.rnum le 10}">
                            <div class="product-item">
@@ -240,15 +243,17 @@
                                           <h5>${goods.goodsVO.goodsname}</h5>
                                        </a>
                                        <div class="product-price">${goods.goodsVO.price}원</div>
-                                 <span class="star-prototype"> ${rate.avgscore}</span>
-                                 &nbsp; <span>리뷰 ${rate.count}</span>
+                                		<span class="star-prototype"> ${rate.avgscore}</span>
+                                 		&nbsp; <span>리뷰 ${rate.count}</span>
                                  	 </c:if>
                                  </c:forEach>
                               </div>
                            </div>
                         </c:if>
                      </c:forEach>
-                 </div>
+                </div>
+                </div>
+             </div>
          </section>
          <!-- Hot Item section End -->
 
@@ -326,7 +331,8 @@
                </c:forEach>                      
             </div>
              
-              <c:if test="${fn:length(rate) == 8}">
+              <c:if test="${fn:length(count) > 8}">
+                <input type="hidden" class="count" value="${fn:length(count)}" />
 	            <div class="col-lg-12 text-center">
 	            	<button type="button" class="btn btn-warning" onClick="btnClick()">더보기</button>
 		        </div>
@@ -340,10 +346,17 @@
      <!-- 더보기 페이징 처리 -->
      <script>
       var pageNum = 1;
+      var check = $('.count').val() / 8;
      
       function btnClick(){
     	  pageNum += 1;
+    	  
+    	  if (pageNum > check) {
+              $(".btn").hide();
+           }
+    	  
     	  console.log(pageNum);
+    	  console.log(check);
     	  		  
     	  	$.ajax({
     	        type :"POST",
