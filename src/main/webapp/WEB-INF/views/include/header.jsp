@@ -16,7 +16,6 @@
 <title>펫츠하우스</title>
 
 <!-- Google Font -->
-<!-- Google Font -->
 <link
 	href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap"
 	rel="stylesheet">
@@ -50,50 +49,11 @@
 	<input type="hidden" id="nickname" name="nickname"
 		value="<sec:authentication property="principal.nickname"/>">
 </sec:authorize>
-
-<script>
-	//위치기반 인증 자바스크립트 함수
-	function location_auth() {
-
-		try {
-			var member_id = document.getElementById("member_id").value;
-		} catch (e) {
-			console.error(e);
-			alert("로그인 후 이용 가능합니다.");
-			location.href = "/login/login";
-		}
-
-		var location_security = document.getElementById("location_security").value;
-		var member_id = document.getElementById("member_id").value;
-		var nickname = document.getElementById("nickname").value;
-		//var location = document.getElementById("location").value; 
-		console.log(location_security);
-
-		if (location_security == null) {
-
-			location.href = "/map/home";
-
-		} else {
-
-			location.href = "/map/board?location=" + location_security
-					+ "&member_id=" + member_id + "&nickname=" + nickname;
-
-			console.log(location_security);
-			console.log(member_id);
-			console.log(nickname);
-
-		}
-
-	}
-</script>
-
-
 <style>
 .top_profile_box {
 	width: 40px;
 	height: 40px;
 	border-radius: 70%;
-	overflow: hidden;
 }
 
 .top_profile {
@@ -111,6 +71,15 @@
 	bottom: 80px;
 	padding: 10px;
 }
+
+a:visited {
+	color: #000000;
+}
+
+.logo img {
+	width: 180px;
+	height: 50px;
+}
 </style>
 </head>
 
@@ -123,17 +92,16 @@
 
 	<!-- Header Section Begin -->
 	<header class="header-section fixed-top bg-white">
-
 		<div class="container">
 			<div class="inner-header">
-				<div class="row">
-					<div class="col-lg-2 col-md-2 col-sm-2">
+				<div class="row" style="height: 70px">
+					<div class="col-lg-3 " style="padding-left: 50px">
 						<div class="logo">
 							<a href="/home"> <img src="/resources/img/logo.png" alt="">
 							</a>
 						</div>
 					</div>
-					<div class="col-lg-6 col-md-6 col-sm-6" style="padding-top: 7px;">
+					<div class="col-lg-5 " style="padding-top: 10px;">
 						<div class="advanced-search">
 
 							<form action="${pageContext.request.contextPath}/search"
@@ -146,11 +114,12 @@
 
 						</div>
 					</div>
-					<div class="col-lg-4 text-right col-md-4 col-sm-4">
+					<div class="col-lg-4 text-right">
 
-						<ul class="nav-right">
+						<ul class="nav-right"
+							style="padding-top: 16px; padding-right: 15px">
+
 							<sec:authorize access="hasRole('ROLE_USER')">
-								<li><sec:authentication property="principal.nickname" />님</li>
 
 								<li class="heart-icon">
 									<div class="top_profile_box ">
@@ -161,17 +130,18 @@
 										</a>
 									</div>
 								</li>
+								<li><a
+									href="/myPage/<sec:authentication property="principal.nickname"/>"><sec:authentication
+											property="principal.nickname" />님</a></li>
 							</sec:authorize>
 							<li class="cart-icon"><a href="/myPage/cart" id="cartCount"><i
 									class="icon_bag_alt"></i> </a></li>
 							<!-- 로그아웃 버튼 -->
 							<sec:authorize access="isAnonymous()">
-								<li class="heart-icon"><a href="/login/login"
-									class="login-panel">Login</a></li>
+								<li><a href="/login/login" class="login-panel">Login</a></li>
 							</sec:authorize>
 							<sec:authorize access="hasAnyRole('ROLE_USER','ROLE_ADMIN')">
-								<li><a href="/login/logout" class="login-panel"
-									style="color: black">Logout</a></li>
+								<li><a href="/login/logout" class="login-panel">Logout</a></li>
 							</sec:authorize>
 
 						</ul>
@@ -179,7 +149,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="nav-item">
+		<div class="nav-item ">
 			<div class="container">
 				<div class="nav-depart">
 					<div class="depart-btn">
@@ -192,7 +162,7 @@
 					</div>
 				</div>
 				<nav class="nav-menu mobile-menu">
-					<ul>
+					<ul id="navbars">
 						<li><a href="/store/home">Home</a></li>
 						<li><a href="/store/commu/home">커뮤니티</a>
 							<ul class="dropdown">
@@ -236,13 +206,14 @@
 
 			</div>
 		</div>
+
+		
+
+
 		<!-- 상단 버튼 -->
 		<div class="top" onclick="window.scrollTo(0,0);">top</div>
 	</header>
 	<!-- Header End -->
-
-
-
 
 </body>
 <script>
@@ -258,6 +229,40 @@
 		}
 
 	})
+
+	//위치기반 인증 자바스크립트 함수
+	function location_auth() {
+
+		try {
+			var member_id = document.getElementById("member_id").value;
+		} catch (e) {
+			console.error(e);
+			alert("로그인 후 이용 가능합니다.");
+			location.href = "/login/login";
+		}
+
+		var location_security = document.getElementById("location_security").value;
+		var member_id = document.getElementById("member_id").value;
+		var nickname = document.getElementById("nickname").value;
+		//var location = document.getElementById("location").value; 
+		console.log(location_security);
+
+		if (location_security == null) {
+
+			location.href = "/map/home";
+
+		} else {
+
+			location.href = "/map/board?location=" + location_security
+					+ "&member_id=" + member_id + "&nickname=" + nickname;
+
+			console.log(location_security);
+			console.log(member_id);
+			console.log(nickname);
+
+		}
+
+	}
 </script>
 <!-- Js Plugins -->
 <script src="/resources/js/jquery.countdown.min.js"></script>
