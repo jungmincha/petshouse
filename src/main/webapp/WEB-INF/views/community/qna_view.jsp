@@ -196,16 +196,18 @@ a:hover {
 				</c:forEach>
 				
 				<section style="margin-top: 60px; margin-bottom: 20px;">${qna_view.content}</section>
-				<form action="${pageContext.request.contextPath}/commu/qnatag"
-					method="post">
+				<form action="${pageContext.request.contextPath}/search"
+					method="get">
 					<ul class="pd-tags">
 						<c:set var="hashtag" value="${qna_view.hashtag}" />
-						<c:set var="tag" value="${fn:split(hashtag, ' ')}" />
+						<c:set var="tag" value="${fn:split(hashtag, '#')}" />
 
 						<c:forEach var="t" items="${tag}">
+						<c:if test="${not empty qna_view.hashtag}">
 							<button id="hashtag" name="keyword" value="${t}"
 								class="btn btn-disabled"
-								onclick="location.href='${pageContext.request.contextPath}/commu/qnatag'">${t}</button>
+								onclick="location.href='${pageContext.request.contextPath}/search'">#${t}</button>
+								</c:if>
 						</c:forEach>
 
 					</ul>
@@ -232,7 +234,7 @@ a:hover {
 				<div class="col-11">
 				<textarea style="resize: none;"
 					class="form-control" id="content" placeholder="댓글을 입력하세요"></textarea></div>
-				<div class="col-1"><button  style="height:60px; width:80px;" id="cw" class="btn btn-outline-secondary"
+				<div class="col-1"><button  style="height:60px; width:80px; margin-left:-30px;" id="cw" class="btn btn-outline-secondary"
 						onClick="getComment()">등록</button></div>
 			</div>
 		</div>
@@ -254,8 +256,8 @@ a:hover {
 					</div>
 					<div style="padding-left: 32px;">${dto.content}</div>
 					<div style="padding-left: 32px;">${dto.pdate}"</div>
-					<%-- 		<a class="a-del"
-						href="/commu/qna_view/delete?board_id=${dto.board_id}"><b>삭제하기</b></a> --%>
+					<a class="a-del"
+						href="/commu/qna_view/delete?board_id=${dto.board_id}"><b>삭제하기</b></a> 
 					<hr>
 				</c:forEach>
 

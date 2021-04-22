@@ -100,9 +100,10 @@ textarea::-webkit-scrollbar-track {
 			<input type="text" class="form-control" style=" margin-bottom: 20px; width:628px;"  name="title"value="${qna_view.title}" />
 			</div>
 			<textarea class="form-control col" name="content"
-				style="width: 770px; height: 400px; margin-bottom: 20px; resize: none;">${qna_view.content}</textarea>
+				style="width: 770px; height: 400px; margin-bottom: 20px; resize: none;" value="${qna_view.content}">${qna_view.content}</textarea>
+			
 			<input type="text" class="form-control" name="hashtag" maxlength="30"
-				value="${qna_view.hashtag}" />
+				value="${qna_view.hashtag}"/>
 
 		<div style="margin-top:30px; float: right;">
 			<button type="submit" class="btn btn-warning"	

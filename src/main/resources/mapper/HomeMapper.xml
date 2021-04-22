@@ -185,6 +185,23 @@
    ]]>
 	</select>
 	
+		<!-- 상품 검색, 더보기 -->
+	<select id="getMoreSns" resultMap="imagevo">
+   <![CDATA[
+     SELECT * FROM (
+			     SELECT ROWNUM AS RNUM, A.* FROM (
+   		select  i.imgname, b.board_id,  b.content, b.plike, b.hit, b.hashtag, m.member_id, m.thumbnail , m.nickname, b.boardtype_id 
+   		from board b, image i, member m
+   		where b.board_id=i.board_id 
+   		and b.member_id=m.member_id
+   		and b.hashtag like '%'||#{keyword}||'%' and b.boardtype_id='2' and img_id in( 
+ 					select  min(img_id) as img_id from image where board_id is not null group by board_id)
+   		      ) A WHERE ROWNUM <= #{cri.pageNum} * 8
+			) WHERE RNUM > (#{cri.pageNum}-1) * 8
+
+   ]]>
+	</select>
+	
  		<!-- 질문과 답변 검색 카운트 -->
 	<select id="qcount" resultType="int">
 		<![CDATA[
@@ -202,13 +219,21 @@
 				where title like '%'||#{keyword}||'%' and pstep='0' and boardtype_id='5'
 	  	 ]]>
 	</select> 
-		<!-- 질문과 답변 검색 카운트 -->
+	<!-- 스토어 검색 카운트 -->
 	<select id="gcount" resultType="int">
 		<![CDATA[
 	         select count(*) as count  	
 	         from  board b, goods g 
 				where b.goods_id=g.goods_id
 				 and goodsname like '%'||#{keyword}||'%' and boardtype_id='3'
+	  	 ]]>
+	</select> 
+	
+	<!-- sns 검색 카운트 -->
+	<select id="scount" resultType="int">
+		<![CDATA[
+	         select count(*) as count  	
+	         from  board where hashtag like '%'||#{keyword}||'%' and boardtype_id='2'
 	  	 ]]>
 	</select> 
 	

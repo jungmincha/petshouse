@@ -41,6 +41,13 @@ public class HomeServiceImpl implements HomeService {
 		return mapper.getMoreTips(keyword,cri);
 	}
 	
+	@Override
+	public List<ImageVO> getMoreSns(String keyword, Criteria cri) {
+		log.info("getMoreSns");
+		return mapper.getMoreSns(keyword,cri);
+	}
+	 
+	
 	  @Override 
 	  public int qcount(String keyword){
 		log.info("qcount()");
@@ -58,12 +65,19 @@ public class HomeServiceImpl implements HomeService {
 	}
 	
 	@Override
+	public int scount(String keyword) {
+		log.info("scount()");
+		return mapper.scount(keyword); 
+	}
+	
+	@Override
 	public List<BoardVO> getStorerate(Criteria cri) {
 		log.info("getStorerate/cri");
 		cri.setAmount(8);
 		return mapper.getStorerate(cri);
 	}
-	 
+
+
 
 
 }

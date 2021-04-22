@@ -49,9 +49,12 @@ public class HomeController {
 		mav.addObject("tcount", tcount);
 		int gcount = service.gcount(keyword);
 		mav.addObject("gcount", gcount);
+		int scount = service.scount(keyword);
+		mav.addObject("scount", scount);
 		mav.addObject("moregoods", service.getMoreGoods(keyword, cri));
 		mav.addObject("moreqna", service.getMoreQna(keyword,cri));
 		mav.addObject("moretips", service.getMoreTips(keyword,cri));
+		mav.addObject("moresns", service.getMoreSns(keyword,cri));
 		mav.addObject("rate", service.getStorerate(cri));	
 		mav.setViewName("/home/search");
 		return mav;
@@ -63,6 +66,8 @@ public class HomeController {
 			BoardVO boardVO) throws Exception {
 		log.info("moregoods()실행");
 		System.out.println(keyword);
+		int gcount = service.gcount(keyword);
+		mav.addObject("gcount", gcount);
 		mav.addObject("moregoods", service.getMoreGoods(keyword, cri));
 		mav.setViewName("/home/moregoods");
 		return mav;
@@ -77,11 +82,35 @@ public class HomeController {
 		list.put("goodslist", goodslist);
 		return list;
 	}
+	
+	@GetMapping("/moresns")
+	public ModelAndView moresns(@RequestParam("keyword") String keyword, ModelAndView mav, BoardVO boardVO, Criteria cri)
+			throws Exception {
+		log.info("moresns()실행");
+		int scount = service.scount(keyword);
+		mav.addObject("scount", scount);
+		System.out.println(keyword);
+		mav.addObject("moresns", service.getMoreSns(keyword,cri));
+		mav.setViewName("/home/moresns");
+		return mav;
+	}
+	
+	// 검색 ajax 더보기
+	@PostMapping("/snsmorelist")
+	public Map<String, Object> snslist(@RequestParam("keyword") String keyword, Criteria cri) {
+		log.info("snslist");
+		Map<String, Object> list = new HashMap<>();
+		List<ImageVO> snslist = service.getMoreSns(keyword, cri);
+		list.put("snslist", snslist);
+		return list;
+	}
 
 	@GetMapping("/moreqna")
 	public ModelAndView moreqna(@RequestParam("keyword") String keyword, ModelAndView mav, BoardVO boardVO, Criteria cri)
 			throws Exception {
 		log.info("moreqna()실행");
+		int qcount = service.qcount(keyword);
+		mav.addObject("qcount", qcount);
 		System.out.println(keyword);
 		mav.addObject("moreqna", service.getMoreQna(keyword,cri));
 		mav.setViewName("/home/moreqna");
@@ -94,6 +123,8 @@ public class HomeController {
 			throws Exception {
 		log.info("moretips()실행");
 		System.out.println(keyword);
+		int tcount = service.tcount(keyword);
+		mav.addObject("tcount", tcount);
 		mav.addObject("moretips", service.getMoreTips(keyword,cri));
 		mav.setViewName("/home/moretips");
 		return mav;

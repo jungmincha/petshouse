@@ -210,7 +210,7 @@ body::-webkit-scrollbar-track {
 										<span>
 										<c:if test="${not empty qna.hashtag}">
 										<button id="hashtag" name="keyword"
-												class="btn btn-disabled" style=""
+												class="btn btn-disabled" 
 												value="${t}"
 												onclick="location.href='${pageContext.request.contextPath}/search'">#${t}</button></span>
 									</c:if>

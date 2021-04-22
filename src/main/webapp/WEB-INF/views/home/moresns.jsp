@@ -50,15 +50,28 @@
 	type="text/css">
 
 <style>
-.count{
-	position: absolute;
-    bottom: 10px;
-    right: 20px;
-    font-size: 13px;
-    color: #fff;
-    text-shadow: 0 0 4px rgb(0 0 0 / 50%);
+.i {
+	box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.4);
+	border-radius: 10px;
 }
 
+.count {
+	position: absolute;
+	bottom: 80px;
+	right: 30px;
+	font-size: 13px;
+	color: #fff;
+	text-shadow: 0 0 4px rgb(0 0 0/ 50%);
+}
+
+.count2 {
+	position: absolute;
+	bottom: 10px;
+	right: 10px;
+	font-size: 13px;
+	color: #fff;
+	text-shadow: 0 0 4px rgb(0 0 0/ 50%);
+}
 #hashtag {
 	font-size: 13px;
 	padding: 0.01px;
@@ -85,6 +98,25 @@ a:active {
 a:hover {
 	text-decoration: none;
 }
+
+.more {
+	font-size: 13px;
+	padding: 0.01px;
+}
+
+.profile_box {
+	width: 40px;
+	height: 40px;
+	border-radius: 70%;
+	overflow: hidden;
+	margin: 5px;
+}
+
+.profile {
+	width: 40px;
+	height: 40px;
+	object-fit: cover;
+}
 </style>
 <script>
 
@@ -100,30 +132,44 @@ a:hover {
 		
 		<input type="hidden" name="keyword" value="${param.keyword}">
 		
-		<h5><b>'${param.keyword}'</b>에 대한 검색결과 <b>${tcount}건</b></h5>
+		<h5><b>'${param.keyword}'</b>에 대한 검색결과 <b>${scount}건</b></h5>
 			<br><br>
 			<div id="table" class="row text-center"
-							style="margin-top: 20px; margin-left: 5px;">
+				style="margin-left: 5px; margin-bottom: 30px;">
 
-							<c:forEach items="${moretips}" var="mt">
-								<div class="product-item col-sm-3">
-									<a href="/commu/tips/${mt.boardVO.board_id}">
-										<div class="pi-pic shot">
-				<img src="/resources/img/tips/${mt.imgname}" alt=""
-								style="border-radius: 5px; height: 150px;">
-								<span class="count">조회수 ${mt.boardVO.hit}</span>
-						</div>
-										<div class="pi-text"
-											style="text-align: left; padding-top: 5px;">
-											<h6 style="font-size: 15px; font-weight: bold;">${mt.boardVO.title}</h6>
-										</div>
-									</a>
-									<div style="font-size: 14px; text-align: left;">${mt.boardVO.memberVO.nickname}</div>
-									
+
+				<div id="snslist" class="row text-center">
+					<c:forEach items="${moresns}" var="ms">
+						<div class=" col-12 col-md-4 col-lg-3">
+
+							<div class="user-Info row" style="margin: 20px auto 0px 5px">
+								<div class="profile_box ">
+
+									<img
+										src="/resources/img/member/profile/${ms.boardVO.memberVO.thumbnail}"
+										name="profile" alt="" class="profile" />
 								</div>
-							</c:forEach>
+								<div style="padding: 7px">${ms.boardVO.memberVO.nickname }
+								</div>
+								<a href="/myPage/${ms.boardVO.memberVO.nickname}"
+									style="padding: 7px;"> 팔로우</a>
 
+
+							</div>
+
+							<div class="shot">
+								<a href="/commu/sns/${ms.boardVO.board_id}"> <img
+									src="/resources/img/member/sns/${ms.imgname}" alt=""
+									style="height: 300px;" class="card-img-top i" /><span
+									class="count">조회수 ${ms.boardVO.hit}</span></a>
+							</div>
+							<div class="card-body">좋아요${ms.boardVO.plike}//댓글수</div>
 						</div>
+
+
+					</c:forEach>
+				</div>
+			</div>
 						 <div class="later col-lg-12 text-center">
             <button type="button" class="btn btn-warning" onClick="btnClick()">더보기</button>
 	 </div>
@@ -139,24 +185,27 @@ a:hover {
     	  		  
     	  	$.ajax({
     	        type :"POST",
-    	        url :"/tipsmorelist",
+    	        url :"/snsmorelist",
     	        data : {
     	        	pageNum: pageNum,
     	        	keyword:"${param.keyword}"
     	        },
     	        success :function(data){
     	           console.log(data);
-    	           var tipslist = data.tipslist;
+    	           var snslist = data.snslist;
 					
     	          html = " "
-    	           for(var i in tipslist){
-    	        	  html  +="<div class='product-item col-sm-3'>"
-    	        	  +"<a href='/commu/tips/"+tipslist[i].boardVO.board_id+"'>"
-    	        	  +"<div class='pi-pic'><img src='/resources/img/tips/"+tipslist[i].imgname+"' alt=''style='border-radius: 5px; height: 150px;'></div>"   	          	
-    	        	  +"<div class='pi-text' style='text-align: left; padding-top: 5px;'>"
-    	        	  +"<h6 style='font-size: 15px; font-weight: bold;'>"+tipslist[i].boardVO.title+"</h6></div></a>"
-    	        	  +"<div style='font-size: 14px; text-align: left;'>"+tipslist[i].boardVO.memberVO.nickname+"</div>"
-    	        	  +"<div style='font-size: 13px; color: gray; text-align: left;'>조회수"+tipslist[i].boardVO.hit+"</div></div>"
+    	           for(var i in snslist){
+    	        	  html +="<div class='col-12 col-md-4 col-lg-3' >"
+    	        	  +"<div class='user-Info row' style=' margin: 20px auto 0px 5px' >"
+    	        	  +"<div class='profile_box'>"
+    	        	  +"<img src='/resources/img/member/profile/"+snslist[i].boardVO.memberVO.thumbnail+"}'  name=' profile'  alt=''  class=' profile'  /></div>"
+    	        	  +"<div style='padding: 7px' >"+snslist[i].boardVO.memberVO.nickname+"</div>"
+    	        	  +"<a href='/myPage/"+snslist[i].boardVO.memberVO.nickname+"' style=' padding: 7px;' > 팔로우</a></div>"
+    	        	  +"<div class='shot' > <a href=' /commu/sns/"+snslist[i].boardVO.board_id+"' > "
+    	        	  +"<img src='/resources/img/member/sns/"+snslist[i].imgname+"'  alt=''  style='height: 300px;'  class='card-img-top i'  />"
+    	        	  +"<span class='count' >조회수 "+snslist[i].boardVO.hit+"</span></a> </div>"
+    	        	  +"<div class='card-body' >좋아요"+snslist[i].boardVO.plike+"//댓글수</div> </div>"
     	           }
     	           
     	            $("#table").append(html); 

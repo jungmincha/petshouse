@@ -90,7 +90,8 @@ a:hover {
 
 		
 		<input type="hidden" name="keyword" value="${param.keyword}">
-		
+		<h5><b>'${param.keyword}'</b>에 대한 검색결과 <b>${gcount}건</b></h5>
+			<br><br>
 						<div id="table" class="row text-center"
 					style="margin-top: 20px; margin-left: 5px;">
 					<c:forEach items="${moregoods}" var="mg">
