@@ -381,8 +381,8 @@
 			     SELECT ROWNUM AS RNUM, A.* FROM (
 			       select b.board_id, b.content, m.member_id,m.thumbnail, m.nickname, b.pdate from board b, member m where b.member_id=m.member_id and boardtype_id= 4 and pgroup = 
 			       (select pgroup from board where board_id=#{board_id}) and pstep=1 order by b.pdate desc
-			    ) A WHERE ROWNUM <= #{cri.pageNum} * 5
-			) WHERE RNUM > (#{cri.pageNum}-1) *5
+			    ) A WHERE ROWNUM <= #{cri.amount}
+			) WHERE RNUM > 0
 		]]>
 	</select>
 

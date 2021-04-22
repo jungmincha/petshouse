@@ -228,7 +228,7 @@ public class CommunityController {
 		boardVO = communityService.getQnaInfo(board_id);
 		log.info("qna_view()실행");
 		mav.addObject("qna_view", communityService.getQnaBoard(boardVO.getBoard_id()));
-		mav.addObject("comment", communityService.listComment(boardVO.getBoard_id(), cri));
+		mav.addObject("comments", communityService.listComment(boardVO.getBoard_id(), cri));
 		mav.addObject("img", communityService.getImg(board_id));
 		int qcount = communityService.qcount(board_id);
 		mav.addObject("qcount", qcount);

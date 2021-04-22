@@ -88,8 +88,9 @@
 <!-- 수정 삭제 경고창 end-->
 <style>
 #navbars>li:nth-child(2) {
-   background-color: #e7ab3c;
+	background-color: #e7ab3c;
 }
+
 a:link {
 	text-decoration: none;
 	color: #333333;
@@ -182,39 +183,40 @@ a:hover {
 
 				<div class="row user_info">
 
-					<div class="profile_box"  style="margin-left:16px;">
+					<div class="profile_box" style="margin-left: 16px;">
 						<a href="/myPage/${qna_view.memberVO.nickname}"><img
 							src="/resources/img/member/profile/${qna_view.memberVO.thumbnail}"
 							name="profile" alt="" class="profile" /> &nbsp&nbsp</a>
 					</div>
-					<span class="nickname" style="padding: 6px;">
-						<b>${qna_view.memberVO.nickname}</b> &nbsp&nbsp</span>
+					<span class="nickname" style="padding: 6px;"> <b>${qna_view.memberVO.nickname}</b>
+						&nbsp&nbsp
+					</span>
 
 				</div>
 
-				<hr> 
-				 <c:forEach var="img" items="${img}">
+				<hr> <c:forEach var="img" items="${img}">
 					<img src="/resources/img/qna/${img.imgname}">
 
 				</c:forEach>
-				
+
 				<section style="margin-top: 60px; margin-bottom: 20px;">${qna_view.content}</section>
-				<form action="${pageContext.request.contextPath}/search" method="get">
+				<form action="${pageContext.request.contextPath}/search"
+					method="get">
 					<ul class="pd-tags">
-								<c:set var="hashtag" value="${qna_view.hashtag}" />
-									<c:set var="tag" value="${fn:split(hashtag, '#')}" />
-									<c:forEach var="t" items="${tag}">
-										<span>
-										<c:if test="${not empty qna_view.hashtag}">
-										<button id="hashtag" name="keyword"
-												class="btn btn-disabled" 
-												value="${t}"
-												onclick="location.href='${pageContext.request.contextPath}/search'">#${t}</button></span>
-									</c:if>
-									</c:forEach>
+						<c:set var="hashtag" value="${qna_view.hashtag}" />
+						<c:set var="tag" value="${fn:split(hashtag, '#')}" />
+						<c:forEach var="t" items="${tag}">
+							<c:if test="${not empty qna_view.hashtag}">
+								<span>
+									<button id="hashtag" name="keyword" class="btn btn-disabled"
+										value="${t}"
+										onclick="location.href='${pageContext.request.contextPath}/search'">#${t}</button>
+								</span>
+							</c:if>
+						</c:forEach>
 
 					</ul>
-				</form><span style="color: gray;"><fmt:formatDate
+				</form> <span style="color: gray;"><fmt:formatDate
 						value="${qna_view.pdate}" pattern="yyyy.MM.dd" /></span> <span
 				style="color: gray">조회수 ${qna_view.hit}</span>
 			</td>
@@ -228,43 +230,45 @@ a:hover {
 		<input type="hidden" id="pgroup" value="${qna_view.board_id}">
 		<div>
 			<div>
-				<strong  id="count"> 댓글 ${qcount}</strong>
-				<br><br>
+				<strong id="count"> 댓글 ${qcount}</strong> <br> <br>
 			</div>
 			<div class="table" style="margin-bottom: 50px;">
-			
-			<div class="row">
-				<div class="col-11">
-				<textarea style="resize: none;"
-					class="form-control" id="content" placeholder="댓글을 입력하세요 (최대 200자)"></textarea></div>
-				<div class="col-1"><button  style="height:60px; width:80px; margin-left:-30px;" id="cw" class="btn btn-outline-secondary"
-						onClick="getComment()">등록</button></div>
+
+				<div class="row">
+					<div class="col-11">
+						<textarea style="resize: none;" class="form-control" id="content"
+							placeholder="댓글을 입력하세요 (최대 200자)"></textarea>
+					</div>
+					<div class="col-1">
+						<button style="height: 60px; width: 80px; margin-left: -30px;"
+							id="cw" class="btn btn-outline-secondary" onClick="getComment()">등록</button>
+					</div>
+				</div>
 			</div>
 		</div>
-		</div>
-</div>
+	</div>
 
 	<sec:authentication property="principal" var="pinfo" />
-		<div class="container" style="margin-bottom: 10px;">
-			<div id="comment"></div>
-			</div>
+	<div class="container" style="margin-bottom: 10px;">
+		<div id="comments"></div>
+	</div>
 
-			<div class="container">
+	<div class="container">
 
-			<div class="later col-lg-12 text-center" id="page"></div>
-		</div>
+		<div class="later col-lg-12 text-center" id="page"></div>
+	</div>
 
 
-<script>
-$(document).ready(function(){
-	$('#content').on('keyup',function(){
-		if($(this).val().length > 200){
-			$(this).val($(this).val().substring(0,200));
-		}
-	});
-	
-});
-</script>
+	<script>
+		$(document).ready(function() {
+			$('#content').on('keyup', function() {
+				if ($(this).val().length > 200) {
+					$(this).val($(this).val().substring(0, 200));
+				}
+			});
+
+		});
+	</script>
 
 	<script type="text/javascript">
 		//timerID = setTimeout("getListComment()", 3);
@@ -292,7 +296,7 @@ $(document).ready(function(){
 							board_id : "${qna_view.board_id}"
 						},
 						success : function(data) {
-							$("#comment").empty();
+							$("#comments").empty();
 							$("#page").empty();
 							console.log(data);
 							var comments = data.comments;
@@ -322,7 +326,8 @@ $(document).ready(function(){
 
 							}
 							$("#count").text("댓글 " + data.commentTotal + "개");
-							$("#comment").append(html);
+							$("#comments").append(html);
+							console.log(data.commentTotal);
 							if (data.comments.length < data.commentTotal) {
 								html2 = "<button type='button' class='btn btn-warning' onClick='getListComment()'>더보기</button>"
 
