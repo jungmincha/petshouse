@@ -87,7 +87,16 @@
 		]]>
 	</select>
 	
-	
+	<select id="getSnsCategory" resultMap="imagevo">
+
+		 <![CDATA[ 
+		 		 
+      		        select i.imgname, m.nickname,  c.category_id, m.thumbnail, b.hit, b.plike, b.board_id, b.content from image i, board b, member m, category c where b.category_id=c.category_id and c.category_id=#{boardVO.categoryVO.category_id} and m.member_id = b.member_id 
+				 	and i.board_id=b.board_id and b.boardtype_id=2 and pstep=0 and img_id in( 
+ 					select  min(img_id) as img_id from image where board_id is not null group by board_id) order by b.pdate desc
+ 			 
+		]]>
+	</select>
 	  <select id="getUserboard" resultMap="imagevo">
 
 		 <![CDATA[ 
@@ -159,7 +168,7 @@
 	  	 ]]>
 	</select>
 	
-		<!-- 질답 댓글 게시판 페이징처리용 -->
+		<!-- SNS 댓글 게시판 페이징처리용 -->
 	<select id="getCommentsWithPaging" resultMap="boardvo">
 	<![CDATA[		
 		SELECT * FROM (
