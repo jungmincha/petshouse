@@ -51,6 +51,9 @@
 	type="text/css">
 
 <style>
+#navbars>li:nth-child(1) {
+   background-color: #e7ab3c;
+}
 #hashtag {
 	font-size: 13px;
 	padding: 0.01px;

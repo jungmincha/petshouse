@@ -47,9 +47,13 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 <style>
+#navbars>li:nth-child(2) {
+   background-color: #e7ab3c;
+}
+
 .jumbotron {
 	text-align: center;
-	height: 300px;
+	height: 360px;
 }
 
 .qcontent {
@@ -155,7 +159,10 @@ body::-webkit-scrollbar-track {
 
 	<div class="container">
 		<div class="jumbotron">
+	<a class="qna-subtitle" href="/commu/qna">
 			<h3 class="display-5">질문과 답변</h3>
+			<br></a><br>
+			<h6>내 반려동물에 대한 모든 궁금증!</h6>
 			<br>
 			<hr>
 			<br>
@@ -165,7 +172,7 @@ body::-webkit-scrollbar-track {
 					<span aria-hidden="true"></span> <input
 						class="form-control mr-sm-8" type="text" name="keyword"
 						style="text-align: center; height: 60px;"
-						placeholder="내 반려동물에 대한 모든 궁금증!">
+						placeholder="검색해보세요">
 				</div>
 			</form>
 		</div>
@@ -222,8 +229,6 @@ body::-webkit-scrollbar-track {
 				</tbody>
 			</c:forEach>
 		</table>
-
-
 
 		<!-- 페이징 -->
 		<div class="ul">

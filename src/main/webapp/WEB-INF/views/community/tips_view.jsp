@@ -86,6 +86,9 @@
 </script>
 <!-- 수정 삭제 경고창 end-->
 <style>
+#navbars>li:nth-child(2) {
+   background-color: #e7ab3c;
+}
 a:link {
 	text-decoration: none;
 	color: #333333;
@@ -195,17 +198,17 @@ a:hover {
 				<form action="${pageContext.request.contextPath}/search"
 					method="get">
 					<ul class="pd-tags">
-						<c:set var="hashtag" value="${tips_view.hashtag}" />
-						<c:set var="tag" value="${fn:split(hashtag, '#')}" />
-
-						<c:forEach var="t" items="${tag}">
-							<c:if test="${not empty tips_view.hashtag}">
-							<button id="hashtag" name="keyword" value="${t}"
-								class="btn btn-disabled"
-								onclick="location.href='${pageContext.request.contextPath}/search'">#${t}</button>
-								</c:if>
-						</c:forEach>
-
+							<c:set var="hashtag" value="${tips_view.hashtag}" />
+									<c:set var="tag" value="${fn:split(hashtag, '#')}" />
+									<c:forEach var="t" items="${tag}">
+										<span>
+										<c:if test="${not empty tips_view.hashtag}">
+										<button id="hashtag" name="keyword"
+												class="btn btn-disabled" 
+												value="${t}"
+												onclick="location.href='${pageContext.request.contextPath}/search'">#${t}</button></span>
+									</c:if>
+									</c:forEach>
 					</ul>
 				</form> <span style="color: gray"><fmt:formatDate
 						value="${tips_view.pdate}" pattern="yyyy.MM.dd" /></span> <span
@@ -229,7 +232,7 @@ a:hover {
 					<div class="row">
 					<div class="col-11">
 						<textarea style="resize: none;"
-							class="form-control" id="content" placeholder="댓글을 입력하세요"></textarea></div>
+							class="form-control" id="content" placeholder="댓글을 입력하세요 (최대 200자)"></textarea></div>
 						<div class="col-1"><button style="height:60px; width:80px; margin-left:-30px;" id="cw" class="btn btn-outline-secondary"
 							onClick="getComment()">등록</button></div>
 
@@ -253,7 +256,16 @@ a:hover {
 		</div>
 	</div>
 
-
+<script>
+$(document).ready(function(){
+	$('#content').on('keyup',function(){
+		if($(this).val().length > 200){
+			$(this).val($(this).val().substring(0,200));
+		}
+	});
+	
+});
+</script>
 
 	<script type="text/javascript">
 		//timerID = setTimeout("getListComment()", 3);

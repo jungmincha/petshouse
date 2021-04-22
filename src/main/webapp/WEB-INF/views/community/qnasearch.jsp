@@ -47,6 +47,9 @@
 
 
 <style>
+#navbars>li:nth-child(2) {
+   background-color: #e7ab3c;
+}
 
 .jumbotron {
 	text-align: center;
@@ -86,7 +89,10 @@ background-color:#dddddd;
 	
 	<div class="container">
 		<div class="jumbotron">
-			<h3 class="display-5">무엇이든 물어보세요!</h3>
+			<a class="qna-subtitle" href="/commu/qna">
+			<h3 class="display-5">질문과 답변</h3>
+			<br></a>
+			<h6>무엇이든 물어보세요!</h6>
 			<hr class="my-4">
 			<form action="${pageContext.request.contextPath}/commu/qnasearch" method="post">
 				<div class="questions-header__form__search col">
@@ -112,7 +118,7 @@ background-color:#dddddd;
 			<c:forEach items="${qsearch}" var="qs">
 				<tbody>
 					<td><a href="/commu/qna/${qs.board_id}">
-							<form action="${pageContext.request.contextPath}/commu/qnatag" method="post">
+							<form action="${pageContext.request.contextPath}/search" method="get">
 								<div style="font-weight: bold; font-size: 18px;">${qs.title}</div>
 								<ul class="pd-tags">
 									<div>${qs.content}</div>
@@ -120,12 +126,15 @@ background-color:#dddddd;
 									<span style="font-size: 13px; color: gray;">${qs.pdate}</span>
 									<span style="font-size: 13px; color: gray;"> 조회수 ${qs.hit}</span>
 									<c:set var="hashtag" value="${qs.hashtag}" />
-									<c:set var="tag" value="${fn:split(hashtag, ' ')}" />
+									<c:set var="tag" value="${fn:split(hashtag, '#')}" />
 									<c:forEach var="t" items="${tag}">
-										<span><button id="hashtag" name="keyword"
-												class="btn btn-disabled" style=""
+										<span>
+										<c:if test="${not empty qs.hashtag}">
+										<button id="hashtag" name="keyword"
+												class="btn btn-disabled" 
 												value="${t}"
-												onclick="location.href='${pageContext.request.contextPath}/commu/qnatag'">${t}</button></span>
+												onclick="location.href='${pageContext.request.contextPath}/search'">#${t}</button></span>
+									</c:if>
 									</c:forEach>
 
 								</ul>

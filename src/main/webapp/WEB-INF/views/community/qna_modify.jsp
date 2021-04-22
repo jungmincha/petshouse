@@ -45,6 +45,9 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 <style>
+#navbars>li:nth-child(2) {
+   background-color: #e7ab3c;
+}
 body::-webkit-scrollbar {
     width: 10px;
   }

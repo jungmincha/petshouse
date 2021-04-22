@@ -389,7 +389,7 @@
 	<!-- 질문과 답변 댓글 카운트 -->
 	<select id="qcount" resultType="int">
 		<![CDATA[
-	         select count(content) as count  from board where boardtype_id= 4 and pgroup = (select pgroup from board where board_id=#{board_id}) and pstep=1 order by content
+	         select count(*) as count  from board where boardtype_id= 4 and pgroup = (select pgroup from board where board_id=#{board_id}) and pstep=1 order by content
 	  	 ]]>
 	</select>
 

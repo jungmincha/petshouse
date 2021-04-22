@@ -50,6 +50,9 @@
 	type="text/css">
 
 <style>
+#navbars>li:nth-child(1) {
+   background-color: #e7ab3c;
+}
 .count{
 	position: absolute;
     bottom: 10px;

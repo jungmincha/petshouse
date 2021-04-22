@@ -62,10 +62,10 @@
 	})
 </script>
 <style>
-.i {
-	box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.4);
-	border-radius: 10px;
+#navbars>li:nth-child(1) {
+   background-color: #e7ab3c;
 }
+
 
 .count {
 	position: absolute;
@@ -152,6 +152,30 @@ a:hover {
 }
 </style>
 
+	
+	<script>
+		$(document).ready(function(){
+			function add(){
+				var gc = $('#gcount').val();
+				var tc = $('#tcount').val();
+				var qc = $('#qcount').val();
+				var sc = $('#scount').val();
+			
+			
+				var add = parseInt(gc)+parseInt(tc)+parseInt(qc)+parseInt(sc);
+				console.log(add);
+				
+				var total = document.createElement('div');
+				total.id = "ddd"
+				
+				document.getElementById("table").appendChild(total);
+			
+				
+			}
+			add();
+		 });
+	</script>
+
 </head>
 
 <body style="padding-top: 180px">
@@ -160,10 +184,16 @@ a:hover {
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
 	<div class="container">
 
+	<div id="total"></div>
+	<input type="hidden" id="gcount" value="${gcount}">
+	<input type="hidden" id="tcount" value="${tcount}">
+		<input type="hidden" id="qcount" value="${qcount}">
+	<input type="hidden" id="scount" value="${scount}">
+	
 		<c:if test="${gcount != 0}">
 			<form action="${pageContext.request.contextPath}/moregoods"
 				method="get">
-				<input type="hidden" name="keyword" value="${param.keyword}">
+				<input type="hidden" name="keyword" value="${param.keyword}">					
 				<span style="font-size: 20px; font-weight: bold;">스토어 </span><span
 					id="sc">${gcount} </span> <span>
 					<button id="mb" style="float: right" class="more btn btn-disabled"
@@ -229,10 +259,10 @@ a:hover {
 
 							</div>
 
-							<div class="shot">
+							<div class="pi-pic shot">
 								<a href="/commu/sns/${ms.boardVO.board_id}"> <img
 									src="/resources/img/member/sns/${ms.imgname}" alt=""
-									style="height: 300px;" class="card-img-top i" /><span
+										style="border-radius: 5px; height:250px; width:250px;" /><span
 									class="count">조회수 ${ms.boardVO.hit}</span></a>
 							</div>
 							<div class="card-body">좋아요${ms.boardVO.plike}//댓글수</div>
