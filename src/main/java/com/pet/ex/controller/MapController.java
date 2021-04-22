@@ -151,6 +151,11 @@ public class MapController {
 		BoardVO board = new BoardVO();
 		plikeVO.setBoardVO(board);
 		plikeVO.getBoardVO().setBoard_id(boardVO.getBoard_id());
+		
+		//사진 보여주는 거
+		mav.addObject("photo", service.getPhoto(boardVO.getBoard_id()));
+		
+		
 
 		// 좋아요 수
 		mav.addObject("like_amount", service.getLiketotal(plikeVO.getBoardVO().getBoard_id()));
@@ -372,9 +377,7 @@ public class MapController {
 
 	// content_view 에서 게시글 삭제
 	@RequestMapping("/delete")
-	public ModelAndView delete(
-
-			int board_id, String location, String member_id, ModelAndView mav, BoardVO boardVO,
+	public ModelAndView delete(int board_id, String location, String member_id, ModelAndView mav, BoardVO boardVO,
 			MemberVO memberVO) throws Exception {
 
 		log.info("delete");

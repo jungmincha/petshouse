@@ -78,6 +78,8 @@ public interface MapMapper {
 	public BoardVO getLocationBoard_id();
 	//사진 삭제
 	public void depeteimage(int board_id);
+	//content_view 사진 출력
+	public ImageVO getPhoto(int board_id);
 
 
 

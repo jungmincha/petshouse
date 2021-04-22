@@ -59,6 +59,22 @@ background-color:#dddddd;
 }
 
 
+.profile_box {
+	width: 40px;
+	height: 40px;
+	border-radius: 70%;
+	overflow: hidden;
+	margin: 5px;
+}
+
+.profile {
+	width: 40px;
+	height: 40px;
+	object-fit: cover;
+}
+
+
+
 </style>
 
 
@@ -91,6 +107,12 @@ background-color:#dddddd;
 						
 						"<a class='a-del' style='float:right;' href='/map/map_view/delete/"+data.board_id+"'><b>삭제</b></a>"
 						+
+						
+						
+						
+						
+						
+						
 						
 						" <div>" + data.memberVO.nickname + "</div>"
 							+ 
@@ -383,6 +405,11 @@ background-color:#dddddd;
 								<td>
 									<div style="font-size: 20px;">${content_view.memberVO.nickname}</div>
 									<hr>
+									
+									<img src="/resources/img/location/${photo.imgname}" style="width:400px; height:350px;">
+								
+									
+									
 									<section style="margin-top: 60px; margin-bottom: 20px;">
 										${content_view.content}
 									</section>
@@ -435,10 +462,16 @@ background-color:#dddddd;
 										<a class="a-del" style="float: right;" href="${pageContext.request.contextPath}/map/map_view/delete/${dto.board_id}" ><b>삭제</b></a>
 									</c:if>
 									</sec:authorize>
-									<div class="profile_box">
-										<img src="/resources/img/member/profile/${dto.memberVO.thumbnail}" name="profile" alt="" class="profile" />
-									</div>
-									<div>${dto.memberVO.nickname}</div>
+									
+									<div class="user-Info row" style="margin: 20px auto 0px 5px">
+									<div class="profile_box ">
+							
+							<img src="/resources/img/member/profile/${dto.memberVO.thumbnail}" name="profile" alt="" class="profile" />
+							</div>
+							<div style="padding:7px"> ${dto.memberVO.nickname} </div>	
+							</div>
+					
+								
 									<div>${dto.content}</div>
 									<div>${dto.pdate}</div>
 									<hr>
