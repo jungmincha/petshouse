@@ -88,7 +88,11 @@ input:focus, select:focus, button:focus, textarea:focus {
 a:hover, a:focus {
 	text-decoration: none;
 	outline: none;
-	color: black;
+	color: #e7ab3c;
+}
+
+a:link {
+	color: #333333;
 }
 
 ul, ol {
@@ -203,44 +207,43 @@ ul, ol {
 }
 
 @keyframes loader {
-	0% {
-		-webkit-transform: rotate(0deg);
-		transform: rotate(0deg);
-		border: 4px solid #f44336;
-		border-left-color: transparent;
-	}
-	50% {
-		-webkit-transform: rotate(180deg);
-		transform: rotate(180deg);
-		border: 4px solid #673ab7;
-		border-left-color: transparent;
-	}
-	100% {
-		-webkit-transform: rotate(360deg);
-		transform: rotate(360deg);
-		border: 4px solid #f44336;
-		border-left-color: transparent;
-	}
+   0% {
+      -webkit-transform: rotate(0deg);
+      transform: rotate(0deg);
+      border: 4px solid #f44336;
+      border-left-color: transparent;
+   }
+   50% {
+      -webkit-transform: rotate(180deg);
+      transform: rotate(180deg);
+      border: 4px solid #673ab7;
+      border-left-color: transparent;
+   }
+   100% {
+      -webkit-transform: rotate(360deg);
+      transform: rotate(360deg);
+      border: 4px solid #f44336;
+      border-left-color: transparent;
+   }
 }
 
 @-webkit-keyframes loader {
-	0% {
-		-webkit-transform: rotate(0deg);
-		border: 4px solid #f44336;
-		border-left-color: transparent;
-	}
-	50% {
-		-webkit-transform: rotate(180deg);
-		border: 4px solid #673ab7;
-		border-left-color: transparent;
-	}
-	100% {
-		-webkit-transform: rotate(360deg);
-		border: 4px solid #f44336;
-		border-left-color: transparent;
-	}
+   0% {
+      -webkit-transform: rotate(0deg);
+      border: 4px solid #f44336;
+      border-left-color: transparent;
+   }
+   50% {
+      -webkit-transform: rotate(180deg);
+      border: 4px solid #673ab7;
+      border-left-color: transparent;
+   }
+   100% {
+      -webkit-transform: rotate(360deg);
+      border: 4px solid #f44336;
+      border-left-color: transparent;
+   }
 }
-
 /*---------------------
   Header
 -----------------------*/
@@ -402,13 +405,11 @@ ul, ol {
 
 .inner-header .advanced-search {
 	height: 50px;
-	
 }
-
 
 .inner-header .advanced-search .input-group {
 	border: 1px solid #ebebeb;
-	width: 90%;
+	width: 100%;
 	height: 100%;
 	float: right;
 }
@@ -1058,7 +1059,6 @@ ul, ol {
 
 .product-slider .owl-dots {
 	text-align: center;
-	margin-top: 27px;
 }
 
 .product-slider .owl-dots button {
@@ -2155,40 +2155,41 @@ ul, ol {
 }
 
 .product-details .pd-color-choose {
-   margin-bottom: 20px;
+	margin-bottom: 20px;
 }
 
 .product-details .pd-color-choose .color-item {
-   display: inline-block;
-   margin-right: 5px;
+	display: inline-block;
+	margin-right: 5px;
 }
 
 .product-details .pd-color-choose .color-item:last-child {
-   margin-right: 0;
+	margin-right: 0;
 }
 
 .product-details .pd-color-choose .color-item input {
-   position: absolute;
-   visibility: hidden;
+	position: absolute;
+	visibility: hidden;
 }
 
 .product-details .pd-color-choose .color-item label {
-   font-size: 16px;
-   color: #252525;
-   font-weight: 700;
-   height: 40px;
-   width: 47px;
-   border: 1px solid #ebebeb;
-   text-align: center;
-   line-height: 40px;
-   text-transform: uppercase;
-   cursor: pointer;
+	font-size: 16px;
+	color: #252525;
+	font-weight: 700;
+	height: 40px;
+	width: 47px;
+	border: 1px solid #ebebeb;
+	text-align: center;
+	line-height: 40px;
+	text-transform: uppercase;
+	cursor: pointer;
 }
 
 .product-details .pd-color-choose .color-item label.activeColor {
-   background: #e7ab3c;
-   color: #ffffff;
+	background: #e7ab3c;
+	color: #ffffff;
 }
+
 .product-details .pd-color .pd-color-choose .cc-item label.cc-yellow {
 	background: #EEEE21;
 }
@@ -2197,7 +2198,7 @@ ul, ol {
 	background: #8230E3;
 }
 
-.product-details .pd-size-choose   {
+.product-details .pd-size-choose {
 	margin-bottom: 20px;
 }
 
@@ -2988,7 +2989,7 @@ ul, ol {
 }
 
 .checkout-form .place-order .order-total .payment-check .pc-item label input:checked
-	~span {
+	 ~span {
 	background: #e7ab3c;
 	border-color: #e7ab3c;
 }
@@ -4040,6 +4041,7 @@ ul, ol {
 	}
 	.inner-header {
 		padding: 0;
+		display:none;
 	}
 	.inner-header .logo {
 		text-align: center;
@@ -4056,6 +4058,7 @@ ul, ol {
 	.nav-item {
 		background: transparent;
 	}
+	
 	.nav-item .nav-menu {
 		display: none;
 	}
