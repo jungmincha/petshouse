@@ -53,12 +53,15 @@
 .top_profile_box {
 	width: 40px;
 	height: 40px;
-	border-radius: 70%;
+	
 }
 
 .top_profile {
-	width: 100%;
+	width: 40px;
+	height:40px;
 	object-fit: cover;
+
+	border-radius: 70%;
 }
 
 .top {
@@ -207,14 +210,72 @@ a:visited {
 			</div>
 		</div>
 
-		
+		<!-- 모바일 디비이스 상단메뉴 -->
+		<div class="row " id="mobile-navbar">
+			<div class="col-4">
+				<nav class="navbar navbar-expand-md navbar-light"
+					style="background-color: white; padding-top: 15px">
 
+					<button class="navbar-toggler" type="button" data-toggle="collapse"
+						data-target="#collapsibleNavbar">
+						<span class="navbar-toggler-icon"></span>
+					</button>
+
+					<div class="collapse navbar-collapse" id="collapsibleNavbar">
+						<ul class="navbar-nav">
+							<li class="nav-item"><a class="nav-link" href="#">Link</a></li>
+							<li class="nav-item"><a class="nav-link" href="#">Link</a></li>
+							<li class="nav-item"><a class="nav-link" href="#">Link</a></li>
+						</ul>
+					</div>
+				</nav>
+			</div>
+			<div class="col-4 logo text-center" style="padding-top: 10px">
+				<a href="/store/home"> <img class=""
+					src="/resources/img/logo.png" alt="">
+				</a>
+			</div>
+			<div class="col-4">
+				<ul class="nav-right" style="padding-top: 16px; padding-right: 15px">
+
+					<sec:authorize access="hasRole('ROLE_USER')">
+
+						<li class="heart-icon">
+							<div class="top_profile_box ">
+								<a
+									href="/myPage/<sec:authentication property="principal.nickname"/>">
+									<img class="top_profile"
+									src="/resources/img/member/profile/<sec:authentication  property="principal.thumbnail"/>">
+								</a>
+							</div>
+						</li>
+						<li><a
+							href="/myPage/<sec:authentication property="principal.nickname"/>"><sec:authentication
+									property="principal.nickname" />님</a></li>
+					</sec:authorize>
+					<li class="cart-icon"><a href="/myPage/cart" id="cartCount"><i
+							class="icon_bag_alt"></i> </a></li>
+					<!-- 로그아웃 버튼 -->
+					<sec:authorize access="isAnonymous()">
+						<li><a href="/login/login" class="login-panel">Login</a></li>
+					</sec:authorize>
+					<sec:authorize access="hasAnyRole('ROLE_USER','ROLE_ADMIN')">
+						<li><a href="/login/logout" class="login-panel">Logout</a></li>
+					</sec:authorize>
+
+				</ul>
+			</div>
+			<div class="col-12">
+				<hr>
+			</div>
+
+		</div>
 
 		<!-- 상단 버튼 -->
-		<div class="top" onclick="window.scrollTo(0,0);">top</div>
+
 	</header>
 	<!-- Header End -->
-
+	<div class="top" onclick="window.scrollTo(0,0);">top</div>
 </body>
 <script>
 	$(document).ready(function() {

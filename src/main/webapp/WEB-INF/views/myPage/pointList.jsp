@@ -80,12 +80,16 @@ table td {
 table th {
 	font-size: 20px;
 }
+
+#navbars>li:nth-child(4) {
+	background-color: #e7ab3c;
+}
 </style>
 </head>
-<%@ include file="/WEB-INF/views/include/header.jsp"%>
 
+<jsp:include page="/WEB-INF/views/include/header.jsp" />
 <body style="padding-top: 180px">
-
+	
 	<div class="container">
 		<div class="blog-details-inner">
 			<h2>포인트 사용내역</h2>
@@ -203,7 +207,7 @@ table th {
 	
 	
 </script>
-<%@ include file="/WEB-INF/views/include/footer.jsp"%>
+<jsp:include page="/WEB-INF/views/include/footer.jsp" />
 <!-- Js Plugins -->
 
 <script src="/resources/js/bootstrap.min.js"></script>

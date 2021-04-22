@@ -15,34 +15,7 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>회원정보수정</title>
 
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<!-- 부가적인 테마 -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-<!-- Google Font -->
-<link
-	href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap"
-	rel="stylesheet">
 
-<!-- Css Styles -->
-<link rel="stylesheet" href="/resources/css/bootstrap.min.css"
-	type="text/css">
-<link rel="stylesheet" href="/resources/css/font-awesome.min.css"
-	type="text/css">
-<link rel="stylesheet" href="/resources/css/themify-icons.css"
-	type="text/css">
-<link rel="stylesheet" href="/resources/css/elegant-icons.css"
-	type="text/css">
-<link rel="stylesheet" href="/resources/css/owl.carousel.min.css"
-	type="text/css">
-<link rel="stylesheet" href="/resources/css/nice-select.css"
-	type="text/css">
-<link rel="stylesheet" href="/resources/css/jquery-ui.min.css"
-	type="text/css">
-<link rel="stylesheet" href="/resources/css/slicknav.min.css"
-	type="text/css">
-<link rel="stylesheet" href="/resources/css/style.css" type="text/css">
 <style>
 /* .help-block 을 일단 보이지 않게 설정 */
 #myForm .help-block {
@@ -82,11 +55,8 @@
 	
 </script>
 </head>
-
+<jsp:include page="/WEB-INF/views/include/header.jsp" />
 <body style="padding-top: 128px">
-	<!-- header -->
-	<%@ include file="/WEB-INF/views/include/header.jsp"%>
-
 
 	<!-- Register Section Begin -->
 	<div class="register-login-section spad">
@@ -106,8 +76,9 @@
 									src="/resources/img/member/profile/<sec:authentication  property="principal.thumbnail"/>">
 
 								<br> <br> <label for="thumbnail"
-									style="font-size: 17px; text-align: center">수정하기</label> <label
-									style="font-size: 17px; text-align: center"
+									style="font-size: 17px; text-align: center; font-weight: bold;">수정하기</label>
+								<label
+									style="font-size: 17px; text-align: center; font-weight: bold;"
 									onclick="defaultImage()">기본이미지</label>
 
 
@@ -220,8 +191,6 @@
 	</div>
 	<!-- Register Form Section End -->
 
-	<!-- Footer -->
-	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 	<input id="checkNic" type="hidden"
 		value="<sec:authentication
 			property='principal.nickname' />">
@@ -229,6 +198,7 @@
 		value="<sec:authentication
 			property='principal.tel' />">
 </body>
+<jsp:include page="/WEB-INF/views/include/footer.jsp" />
 <script>
 function deleteMember(){
 	event.preventDefault();
@@ -430,9 +400,8 @@ function deleteMember(){
 	}
 </script>
 <!-- Js Plugins -->
-<script src="/resources/js/jquery-3.3.1.min.js"></script>
+
 <script src="/resources/js/bootstrap.min.js"></script>
-<script src="/resources/js/jquery-ui.min.js"></script>
 <script src="/resources/js/jquery.countdown.min.js"></script>
 <script src="/resources/js/jquery.nice-select.min.js"></script>
 <script src="/resources/js/jquery.zoom.min.js"></script>

@@ -46,6 +46,9 @@ img {
 	-webkit-border-radius: 7px;
 }
 </style>
+<!-- csrf 처리 -->
+<meta name="_csrf_parameter" content="${_csrf.parameterName}" />
+<meta name="_csrf_header" content="${_csrf.headerName}" />
 </head>
 <body style="padding-top: 128px">
 
@@ -56,24 +59,16 @@ img {
 </body>
 
 <script type="text/javascript">
+	
 	// 시간 포맷 함수
-
-	function transferTime(time) {
+	function transferTime(times) {
 		var now = new Date();
-		var sYear = time.substring(0, 4);
-		var sMonth = time.substring(5, 7) - 1;
-		var sDate = time.substring(8, 10);
-		var sHour = time.substring(11, 13);
-		var sMin = time.substring(14, 16);
-		var sSecond = time.substring(17, 19);
+
 		var sc = 1000;
-
-		var today = new Date(sYear, sMonth, sDate, sHour, sMin, sSecond);
-		console.log(today);
-
+		var today = new Date(times);
 		//지나간 초
 		var pastSecond = parseInt((now - today) / sc, 10);
-		console.log(pastSecond)
+
 		var date;
 		var hour;
 		var min;
@@ -83,40 +78,17 @@ img {
 		if (pastSecond > 86400) {
 			date = parseInt(pastSecond / 86400, 10);
 			restSecond = pastSecond % 86400;
-			str = date + "일 ";
-			if (restSecond > 3600) {
-				hour = parseInt(restSecond / 3600, 10);
-				restSecond = restSecond % 3600;
-				str = str + hour + "시간 ";
-				if (restSecond > 60) {
-					min = parseInt(restSecond / 60, 10);
-					restSecond = restSecond % 60;
-					str = str + min + "분 " + restSecond + "초 전";
-				} else {
-					str = str + restSecond + "초 전";
-				}
-			} else if (restSecond > 60) {
-				min = parseInt(restSecond / 60, 10);
-				restSecond = restSecond % 60;
-				str = str + min + "분 " + restSecond + "초 전";
-			} else {
-				str = str + restSecond + "초 전";
-			}
+			str = date + "일 전";
+
 		} else if (pastSecond > 3600) {
 			hour = parseInt(pastSecond / 3600, 10);
 			restSecond = pastSecond % 3600;
-			str = str + hour + "시간 ";
-			// if(restSecond > 60){
-			min = parseInt(restSecond / 60, 10);
-			// restSecond = restSecond % 60;
-			str = str + min + "분 전";
-			//  }else{
-			// str = str + restSecond + "초 전";
-			//}
+			str = str + hour + "시간 전";
+
 		} else if (pastSecond > 60) {
 			min = parseInt(pastSecond / 60, 10);
 			restSecond = pastSecond % 60;
-			str = str + min + "분 " + restSecond + "초 전";
+			str = str + min + "분 전";
 		} else {
 			str = pastSecond + "초 전";
 		}

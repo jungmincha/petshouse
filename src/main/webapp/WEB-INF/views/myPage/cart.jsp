@@ -52,7 +52,7 @@
 }
 </style>
 </head>
-<%@ include file="/WEB-INF/views/include/header.jsp"%>
+<jsp:include page="/WEB-INF/views/include/header.jsp" />
 <body style="padding-top: 128px">
 
 	<!-- 쇼핑카트 섹션 -->
@@ -66,8 +66,7 @@
 							<table>
 								<thead>
 									<tr>
-										<th style="width: 5%" ><input type="checkbox"
-											id="allCk"></th>
+										<th style="width: 5%"><input type="checkbox" id="allCk"></th>
 										<th style="width: 15%">상품 이미지</th>
 										<th class="text-center">상품 이름</th>
 										<th>가격</th>
@@ -101,7 +100,9 @@
 							<div class="proceed-checkout text-right">
 								<ul>
 
-									<li class="cart-total" style="font-size: 20px">총 주문금액 :&nbsp; <span class="total">0원</span></li>
+									<li class="cart-total" style="font-size: 20px">총 주문금액
+										:&nbsp; <span class="total">0원</span>
+									</li>
 								</ul>
 								<a onclick="payPage()" class="proceed-btn"
 									style='cursor: pointer; font-size: 20px;'>주문하기 </a>
@@ -345,5 +346,4 @@
 <script src="/resources/js/jquery.slicknav.js"></script>
 <script src="/resources/js/owl.carousel.min.js"></script>
 <script src="/resources/js/main.js"></script>
-
 </html>

@@ -3,7 +3,6 @@ package com.pet.ex.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -47,7 +46,10 @@ public class MyPageServiceImpl implements MyPageService {
 	public void insertPay(PayVO pay) {
 		log.info("insertPay()");
 		myPageMapper.insertPay(pay);
-		myPageMapper.insertUsePoint(pay);
+		if (pay.getUsepoint() != 0) {
+			myPageMapper.insertUsePoint(pay);
+		}
+
 		myPageMapper.insertEarningPoint(pay);
 	}
 

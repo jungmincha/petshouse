@@ -3851,6 +3851,9 @@ ul, ol {
 	.nav-item .nav-menu li a {
 		padding: 16px 45px 15px;
 	}
+	#mobile-navbar{
+		display: none;
+	}
 }
 
 @media only screen and (min-width: 1200px) {
@@ -3893,6 +3896,9 @@ ul, ol {
 	}
 	.related-products .product-item .pi-pic ul li a {
 		padding: 16px 12px 12px 11px;
+	}
+	#mobile-navbar{
+		display: none;
 	}
 }
 
@@ -3948,6 +3954,12 @@ ul, ol {
 	}
 	.inner-header .advanced-search .input-group button {
 		right: -8px;
+	}
+	.inner-header {
+	display: none;
+	}
+	.nav-item{
+		display:none;
 	}
 }
 
@@ -4173,6 +4185,7 @@ ul, ol {
 	.checkout-content input {
 		margin-top: 50px;
 	}
+	
 }
 
 /* Small Device: 320px */
