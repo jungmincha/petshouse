@@ -1,18 +1,12 @@
 package com.pet.ex.controller;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +17,6 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,17 +27,12 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.pet.ex.page.Criteria;
 import com.pet.ex.page.PageVO;
-import com.pet.ex.service.AdminService;
 import com.pet.ex.service.CommunityService;
-import com.pet.ex.service.FileService;
 import com.pet.ex.vo.BoardVO;
-import com.pet.ex.vo.CategoryVO;
-import com.pet.ex.vo.GoodsVO;
 import com.pet.ex.vo.ImageVO;
 import com.pet.ex.vo.MemberVO;
 
 import lombok.extern.slf4j.Slf4j;
-import net.sf.json.JSONArray;
 
 @Slf4j
 @RestController
@@ -52,13 +40,13 @@ import net.sf.json.JSONArray;
 public class CommunityController {
 
 	@Autowired
-	private CommunityService communityService;
+	private CommunityService service;
 
 	// 노하우 메인 페이지
 	@RequestMapping("/tips")
 	public ModelAndView tips(Criteria cri, ModelAndView mav) {
-		mav.addObject("tips", communityService.getTipsList(cri));
-		mav.addObject("rate", communityService.getTipsRate()); // 인기 노하우 슬라이드
+		mav.addObject("tips", service.getTipsList(cri));
+		mav.addObject("rate", service.getTipsRate()); // 인기 노하우 슬라이드
 		mav.setViewName("community/tips");
 		return mav;
 	}
@@ -68,18 +56,15 @@ public class CommunityController {
 	public ModelAndView tips_view(@PathVariable("board_id") int board_id, BoardVO boardVO, Criteria cri,
 			ModelAndView mav) throws Exception {
 
-		boardVO = communityService.getBoardInfo(board_id);
+		boardVO = service.getBoardInfo(board_id);
 
 		log.info("tips_view()실행");
+		int count = service.tcount(board_id);
 
-		mav.addObject("tcomment", communityService.listTComment(boardVO.getBoard_id(), cri));
-
-		int count = communityService.counta(board_id);
-
-		mav.addObject("tips_view", communityService.getBoard(boardVO.getBoard_id()));
-		mav.addObject("img", communityService.getImg(board_id));
+		mav.addObject("tips_view", service.getBoard(boardVO.getBoard_id()));
+		mav.addObject("img", service.getImg(board_id));
 		mav.addObject("count", count);
-		communityService.hit(boardVO.getBoard_id());
+		service.hit(boardVO.getBoard_id());
 		mav.setViewName("community/tips_view");
 
 		return mav;
@@ -89,11 +74,11 @@ public class CommunityController {
 	@GetMapping("/tips/pet")
 	public List<ImageVO> tips_pet(int category_id, Criteria cri) throws Exception {
 
-		List<ImageVO> list = new ArrayList<ImageVO>();
-		if (category_id == 0) {
-			list = communityService.getTipsList(cri);
+		List<ImageVO> list = new ArrayList<ImageVO>();  
+		if (category_id == 0) {                       //0번이면 전체 리스트를 뿌려준다
+			list = service.getTipsList(cri);
 		} else {
-			list = communityService.getPetTips(category_id);
+			list = service.getPetTips(category_id);  
 		}
 
 		log.info("tips_pet()실행");
@@ -112,8 +97,8 @@ public class CommunityController {
 	@PostMapping("/tips/write")
 	public ModelAndView write(MultipartHttpServletRequest multi, BoardVO boardVO, ImageVO imageVO, ModelAndView mav)
 			throws IllegalStateException, IOException {
-		log.info("twrite()실행");
-		communityService.writeTips(boardVO);
+		log.info("tipswrite()실행");
+		service.writeTips(boardVO);
 
 		String path = multi.getSession().getServletContext().getRealPath("/static/img/tips");
 		path = path.replace("webapp", "resources");
@@ -137,9 +122,9 @@ public class CommunityController {
 
 			mf.get(i).transferTo(new File(savePath)); // 파일 저장
 			imageVO.setImgname(imgname);
-			BoardVO board = communityService.getTipsBoard_id();
+			BoardVO board = service.getTipsBoard_id();
 			imageVO.getBoardVO().setBoard_id(board.getBoard_id());
-			communityService.ImgInput(imageVO);
+			service.ImgInput(imageVO);
 
 		}
 		mav.setView(new RedirectView("/commu/tips", true));
@@ -151,8 +136,8 @@ public class CommunityController {
 	public ModelAndView tmodify_page(@RequestParam("board_id") int board_id, BoardVO boardVO, ModelAndView mav)
 			throws Exception {
 		log.info("tmodify_page()실행");
-		mav.addObject("tips_view", communityService.getBoard(boardVO.getBoard_id()));
-		mav.addObject("img", communityService.getImg(board_id));
+		mav.addObject("tips_view", service.getBoard(boardVO.getBoard_id()));
+		mav.addObject("img", service.getImg(board_id));
 		mav.setViewName("community/tips_modify");
 		return mav;
 	}
@@ -161,42 +146,53 @@ public class CommunityController {
 	@PostMapping("/tmodify")
 	public ModelAndView tmodify(BoardVO boardVO, ModelAndView mav) throws Exception {
 		log.info("tmodify()실행");
-		communityService.tmodify(boardVO);
+		service.tmodify(boardVO);
 		mav.setView(new RedirectView("/commu/tips", true));
 		return mav;
 	}
 
 	// 노하우 글 삭제하기
-	@GetMapping("/tdelete")
-	public ModelAndView tdelete(@RequestParam("board_id") int board_id, Criteria cri, ModelAndView mav)
-			throws Exception {
-		log.info("tdelete()실행");
-		communityService.ImgDelete(board_id);
-		communityService.tdelete(board_id);
-		mav.setView(new RedirectView("/commu/tips", true));
-		return mav;
+	@DeleteMapping("/tdelete/{board_id}")
+	public ResponseEntity<String> tipsDelete(BoardVO boardVO, Model model) {
+
+		ResponseEntity<String> entity = null;
+		log.info("delete");
+
+		try {
+			service.ImgDelete(boardVO.getBoard_id());
+			service.tipsdelete(boardVO.getBoard_id());
+
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+
+		return entity;
+
 	}
 
 	// 노하우 댓글 작성
 	@PostMapping("/tips_view/insert")
-	public BoardVO insertTComment(BoardVO boardVO, @RequestParam("member_id") String member_id) {
+	public BoardVO insertTipsComment(BoardVO boardVO, @RequestParam("member_id") String member_id) {
 		MemberVO member = new MemberVO();
 		boardVO.setMemberVO(member);
 		boardVO.getMemberVO().setMember_id(member_id);
-		communityService.insertTComment(boardVO);
-		BoardVO tcomment = communityService.getTComment(boardVO.getPgroup());
+		service.insertTipsComment(boardVO);
+		BoardVO tcomment = service.getTipsComment(boardVO.getPgroup());
 		System.out.println(tcomment);
 		return tcomment;
 	}
 
 	// 댓글 더보기
 	@PostMapping("/tmorelist")
-	public Map<String, Object> tcomment(@RequestParam("board_id") int board_id, Criteria cri) {
+	public Map<String, Object> tipscomment(@RequestParam("board_id") int board_id, Criteria cri) {
 		log.info("commentmorelist");
 		Map<String, Object> list = new HashMap<>();
-		List<BoardVO> tcomment = communityService.getTCommentList(board_id, cri);
+		List<BoardVO> tcomment = service.getTipsCommentList(board_id, cri);
 		list.put("tcomment", tcomment);
-		list.put("commentTotal", communityService.counta(board_id));
+		list.put("commentTotal", service.tcount(board_id));
 		return list;
 	}
 
@@ -205,7 +201,7 @@ public class CommunityController {
 	public Map<String, Object> tips(Criteria cri) {
 		log.info("morelist");
 		Map<String, Object> list = new HashMap<>();
-		List<ImageVO> tips = communityService.getTipsList(cri);
+		List<ImageVO> tips = service.getTipsList(cri);
 		list.put("tips", tips);
 		return list;
 	}
@@ -213,8 +209,8 @@ public class CommunityController {
 	// 질문과 답변 메인 페이지
 	@RequestMapping("/qna")
 	public ModelAndView qna(Criteria cri, ModelAndView mav) {
-		mav.addObject("qna", communityService.getQnaList(cri));
-		int total = communityService.getTotal(cri);
+		mav.addObject("qna", service.getQnaList(cri));
+		int total = service.getTotal(cri);
 		mav.addObject("pageMaker", new PageVO(cri, total));
 		mav.setViewName("community/qna");
 		return mav;
@@ -225,14 +221,13 @@ public class CommunityController {
 	@GetMapping("/qna/{board_id}")
 	public ModelAndView qna_view(@PathVariable("board_id") int board_id, BoardVO boardVO, Criteria cri,
 			ModelAndView mav) throws Exception {
-		boardVO = communityService.getQnaInfo(board_id);
+		boardVO = service.getQnaInfo(board_id);
 		log.info("qna_view()실행");
-		mav.addObject("qna_view", communityService.getQnaBoard(boardVO.getBoard_id()));
-		mav.addObject("comments", communityService.listComment(boardVO.getBoard_id(), cri));
-		mav.addObject("img", communityService.getImg(board_id));
-		int qcount = communityService.qcount(board_id);
+		mav.addObject("qna_view", service.getQnaBoard(boardVO.getBoard_id()));
+		mav.addObject("img", service.getImg(board_id));
+		int qcount = service.qcount(board_id);
 		mav.addObject("qcount", qcount);
-		communityService.hit(boardVO.getBoard_id());
+		service.hit(boardVO.getBoard_id());
 		mav.setViewName("community/qna_view");
 		return mav;
 	}
@@ -242,9 +237,9 @@ public class CommunityController {
 	public List<BoardVO> qna_pet(int category_id, Criteria cri) throws Exception {
 		List<BoardVO> list = new ArrayList<BoardVO>();
 		if (category_id == 0) {
-			list = communityService.getQnaList(cri);
+			list = service.getQnaList(cri);
 		} else {
-			list = communityService.getPetQna(category_id);
+			list = service.getPetQna(category_id);
 		}
 
 		log.info("qna_pet()실행");
@@ -264,8 +259,8 @@ public class CommunityController {
 	public ModelAndView write(MultipartHttpServletRequest multi, ImageVO imageVO, BoardVO boardVO, ModelAndView mav)
 			throws IllegalStateException, IOException {
 		log.info("write()실행");
-		communityService.writeQna(boardVO);
-		BoardVO board = communityService.getQnaBoard_id();
+		service.writeQna(boardVO);
+		BoardVO board = service.getQnaBoard_id();
 		System.out.println(board.getBoard_id());
 
 		String path = multi.getSession().getServletContext().getRealPath("/static/img/qna");
@@ -292,7 +287,7 @@ public class CommunityController {
 			imageVO.setImgname(imgname);
 			
 			imageVO.getBoardVO().setBoard_id(board.getBoard_id());
-			communityService.ImgInput(imageVO);
+			service.ImgInput(imageVO);
 
 		}
 		mav.setView(new RedirectView("/commu/qna", true));
@@ -301,10 +296,10 @@ public class CommunityController {
 
 	// 질문과 답변 글 검색
 	@PostMapping("/qnasearch")
-	public ModelAndView qsearch(@RequestParam("keyword") String keyword, ModelAndView mav, BoardVO boardVO)
+	public ModelAndView qnasearch(@RequestParam("keyword") String keyword, ModelAndView mav, BoardVO boardVO)
 			throws Exception {
 		log.info("qsearch()실행");
-		mav.addObject("qsearch", communityService.getQsearch(keyword));
+		mav.addObject("qsearch", service.getQnasearch(keyword));
 		mav.setViewName("/community/qnasearch");
 		return mav;
 	}
@@ -314,7 +309,7 @@ public class CommunityController {
 	public ModelAndView qtag(@RequestParam("keyword") String keyword, ModelAndView mav, BoardVO boardVO)
 			throws Exception {
 		log.info("qtag()실행");
-		mav.addObject("qtag", communityService.getQtag(keyword));
+		mav.addObject("qtag", service.getQnatag(keyword));
 		mav.setViewName("/home/search");
 		return mav;
 	}
@@ -324,7 +319,7 @@ public class CommunityController {
 	public ModelAndView modify_page(@RequestParam("board_id") int board_id, BoardVO boardVO, ModelAndView mav)
 			throws Exception {
 		log.info("modify_page()실행");
-		mav.addObject("qna_view", communityService.getQnaBoard(boardVO.getBoard_id()));
+		mav.addObject("qna_view", service.getQnaBoard(boardVO.getBoard_id()));
 		mav.setViewName("community/qna_modify");
 		return mav;
 	}
@@ -333,7 +328,7 @@ public class CommunityController {
 	@PostMapping("/modify")
 	public ModelAndView modify(BoardVO boardVO, ModelAndView mav) throws Exception {
 		log.info("modify()실행");
-		communityService.modify(boardVO);
+		service.modify(boardVO);
 		mav.setView(new RedirectView("/commu/qna", true));
 		return mav;
 	}
@@ -344,8 +339,8 @@ public class CommunityController {
 		MemberVO member = new MemberVO();
 		boardVO.setMemberVO(member);
 		boardVO.getMemberVO().setMember_id(member_id);
-		communityService.insertComment(boardVO);
-		BoardVO comments = communityService.getComment(boardVO.getPgroup());
+		service.insertComment(boardVO);
+		BoardVO comments = service.getComment(boardVO.getPgroup());
 		System.out.println(comments);
 		return comments;
 	}
@@ -355,24 +350,36 @@ public class CommunityController {
 	public Map<String, Object> comments(@RequestParam("board_id") int board_id, Criteria cri) {
 		log.info("commentsmorelist");
 		Map<String, Object> list = new HashMap<>();
-		List<BoardVO> comments = communityService.getcommentsList(cri, board_id);
+		List<BoardVO> comments = service.getcommentsList(cri, board_id);
 		list.put("comments", comments);
-		list.put("commentTotal", communityService.qcount(board_id));
+		list.put("commentTotal", service.qcount(board_id));
 		return list;
 	}
 
-	// 질문과 답변 글 삭제하기 
-	@GetMapping("/delete")
-	public ModelAndView delete(@RequestParam("board_id") int board_id, ModelAndView mav) throws Exception {
-		log.info("delete()실행");
-		communityService.ImgDelete(board_id);
-		communityService.delete(board_id);
 
-		mav.setView(new RedirectView("/commu/qna", true));
-		return mav;
+	// 질문과 답변 글 삭제하기
+	@DeleteMapping("/qdelete/{board_id}")
+	public ResponseEntity<String> qnaDelete(BoardVO boardVO, Model model) {
+
+		ResponseEntity<String> entity = null;
+		log.info("delete");
+
+		try {
+			service.ImgDelete(boardVO.getBoard_id());
+			service.qnadelete(boardVO.getBoard_id());
+
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+
+		return entity;
+
 	}
 
-	// 질문과 답변 댓글 삭제 안돼...
+	// 질문과 답변 댓글 삭제 
 	@DeleteMapping("/qna/comment/delete/{board_id}")
 	public ResponseEntity<String> deletQnaComment(BoardVO boardVO) {
 
@@ -381,7 +388,7 @@ public class CommunityController {
 
 		try {
 
-			communityService.deleteQnaComment(boardVO);
+			service.deleteQnaComment(boardVO);
 
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 		} catch (Exception e) {
@@ -403,7 +410,7 @@ public class CommunityController {
 
 		try {
 
-			communityService.deleteTipsComment(boardVO);
+			service.deleteTipsComment(boardVO);
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();

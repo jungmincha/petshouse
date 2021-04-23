@@ -27,7 +27,6 @@ public class BoardVO {
 	private String hashtag;
 	private int pgroup;
 	private int pstep;
-	private int pindent;
 	private int ratescore;
 	private String location;
 

@@ -29,7 +29,7 @@ public interface CommunityMapper {
 	public BoardVO getBoard(int board_id);
 
 	// 댓글 카운트
-	public int counta(int board_id);
+	public int tcount(int board_id);
 
 	// 노하우 페이징 처리 리스트 출력
 	public List<ImageVO> getTipsList(Criteria cri);
@@ -46,25 +46,19 @@ public interface CommunityMapper {
 	// 노하우 글 수정하기
 	public void tmodify(BoardVO boardVO);
 
-	// 노하우 글 삭제하기
-	public void tdelete(int board_id);
+
 
 	// 노하우 사진 때문에
 	public BoardVO getTipsBoard_id();
 
 	// 노하우 댓글 작성
-	public void insertTComment(BoardVO boardVO);
-
-	// 노하우 댓글 리스트 출력
-	public List<BoardVO> listTComment(int board_id, Criteria cri);
+	public void insertTipsComment(BoardVO boardVO);
 
 	// 노하우 작성 후 ajax로 삽입
-	public BoardVO getTComment(int board_id);
-
-	public List<BoardVO> getTCommentWithPaging(int board_id, Criteria cri);
+	public BoardVO getTipsComment(int board_id);
 
 	// 더보기
-	public List<BoardVO> getTCommentList(Criteria cri, int board_id);
+	public List<BoardVO> getTipsCommentList(int board_id,Criteria cri);
 
 	// 질문과 답변 특정글
 	public BoardVO getQnaInfo(int board_id);
@@ -75,13 +69,13 @@ public interface CommunityMapper {
 	public int qcount(int board_id);
 
 	// 질문과 답변 글 검색
-	public List<BoardVO> getQsearch(String keyword);
+	public List<BoardVO> getQnasearch(String keyword);
 
 	// 질문과 답변 진짜 글쓰기
 	public void writeQna(BoardVO boardVO);
 
 	// 질문과 답변 메인페이지 출력
-	public List<BoardVO> getListWithPaging(Criteria cri);
+	public List<BoardVO> getQnaList(Criteria cri);
 
 	// 페이징 처리용 토탈카운트,,,,
 	public int getTotalCount(Criteria cri);
@@ -96,7 +90,7 @@ public interface CommunityMapper {
 	public List<BoardVO> getPetQna(int category_id);
 
 	// 질문과 답변 태그
-	public List<BoardVO> getQtag(String keyword);
+	public List<BoardVO> getQnatag(String keyword);
 
 	// 질문과 답변 사진 때문에
 	public BoardVO getQnaBoard_id();
@@ -104,26 +98,14 @@ public interface CommunityMapper {
 	// 질문과 답변 댓글 작성
 	public void insertComment(BoardVO boardVO);
 
-	// 질문과 답변 댓글 리스트 출력
-	public List<BoardVO> listComment(int board_id, Criteria cri);
 
 	// 질문과 답변 댓글 출력(ajax)
 	public BoardVO getComment(int board_id);
 
 	// 질문과 답변 댓글 페이징
-	public List<BoardVO> getCommentsWithPaging(Criteria cri, int board_id);
+	public List<BoardVO> getcommentsList(Criteria cri, int board_id);
 
 	public void ImgDelete(int board_id);
 
-	// 노하우 댓글 작성하기
-	// public void writeTComment(BoardVO boardVO);
-	// 질문과 답변 댓글쓰기
-	// public void writeComment(BoardVO boardVO);
-	// 노하우 특정 글 페이지
-	// public BoardVO getTipsview(int board_id);
-	// 질문과 답변 특정 글 페이지
-	// public BoardVO getQnaview(int board_id);
-	// 노하우 글 검색
-	// public List<BoardVO> getTsearch(String keyword);
 
 }

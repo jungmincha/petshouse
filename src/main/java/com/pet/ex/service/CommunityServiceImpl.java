@@ -50,10 +50,10 @@ public class CommunityServiceImpl implements CommunityService {
 	}
 
 	@Override
-	public int counta(int board_id) {
-		log.info("counta()");
+	public int tcount(int board_id) {
+		log.info("tcounta()");
 		System.out.println(board_id);
-		return mapper.counta(board_id);
+		return mapper.tcount(board_id);
 	}
 
 	// 노하우 메인페이지 리스트 출력
@@ -99,43 +99,37 @@ public class CommunityServiceImpl implements CommunityService {
 
 	// 노하우 글 삭제
 	@Override
-	public void tdelete(int board_id) {
+	public void tipsdelete(int board_id) {
 		log.info("mapper.delete()호출");
 		mapper.delete(board_id);
 	}
 
-	// 노하우 댓글 가져오기
-	@Override
-	public List<BoardVO> listTComment(int board_id, Criteria cri) {
-		log.info("listTComment()");
-		return mapper.listTComment(board_id, cri);
-	}
 
 	@Override
-	public BoardVO getTComment(int board_id) {
-		log.info("getTComment()");
-		return mapper.getTComment(board_id);
+	public BoardVO getTipsComment(int board_id) {
+		log.info("getTipsComment()");
+		return mapper.getTipsComment(board_id);
 	}
 
 	// 노하우 댓글 작성
 	@Override
-	public void insertTComment(BoardVO boardVO) {
-		log.info("insertTComment");
-		mapper.insertTComment(boardVO);
+	public void insertTipsComment(BoardVO boardVO) {
+		log.info("insertTipsComment");
+		mapper.insertTipsComment(boardVO);
 
 	}
 
 	// 노하우 댓
 	@Override
-	public List<BoardVO> getTCommentList(int board_id, Criteria cri) {
-		return mapper.getTCommentWithPaging(board_id, cri);
+	public List<BoardVO> getTipsCommentList(int board_id, Criteria cri) {
+		return mapper.getTipsCommentList(board_id, cri);
 	}
 
 	// 질문과 답변 메인 리스트 출력
 	@Override
 	public List<BoardVO> getQnaList(Criteria cri) {
 		log.info("getQnaList(cri)");
-		return mapper.getListWithPaging(cri);
+		return mapper.getQnaList(cri);
 	}
 
 	// 질문과 답변 페이징 처리용 토탈카운트
@@ -161,8 +155,8 @@ public class CommunityServiceImpl implements CommunityService {
 
 	// 질문과 답변 글 삭제하기
 	@Override
-	public void delete(int board_id) {
-		log.info("mapper.delete()호출");
+	public void qnadelete(int board_id) {
+		log.info("mapper.qdelete()호출");
 		mapper.delete(board_id);
 	}
 
@@ -194,29 +188,22 @@ public class CommunityServiceImpl implements CommunityService {
 
 	// 질문과 답변 태그
 	@Override
-	public List<BoardVO> getQtag(String keyword) {
-		log.info("mapper.getQtag()호출");
-		return mapper.getQtag(keyword);
+	public List<BoardVO> getQnatag(String keyword) {
+		log.info("mapper.getQnatag()호출");
+		return mapper.getQnatag(keyword);
 	}
 
 	// 질문과 답변 글 검색
 	@Override
-	public List<BoardVO> getQsearch(String keyword) {
-		log.info("mapper.getQsearch()호출");
-		return mapper.getQsearch(keyword);
+	public List<BoardVO> getQnasearch(String keyword) {
+		log.info("mapper.getQnasearch()호출");
+		return mapper.getQnasearch(keyword);
 	}
 
 	@Override
 	public BoardVO getQnaBoard_id() {
 		log.info("getQnaBoard_id");
 		return mapper.getQnaBoard_id();
-	}
-
-	// 질문과 답변 댓글 가져오기
-	@Override
-	public List<BoardVO> listComment(int Board_id, Criteria cri) {
-		log.info("listComment()");
-		return mapper.listComment(Board_id, cri);
 	}
 
 	@Override
@@ -235,7 +222,7 @@ public class CommunityServiceImpl implements CommunityService {
 
 	@Override
 	public List<BoardVO> getcommentsList(Criteria cri, int board_id) {
-		return mapper.getCommentsWithPaging(cri, board_id);
+		return mapper.getcommentsList(cri, board_id);
 	}
 
 	@Override
@@ -256,29 +243,5 @@ public class CommunityServiceImpl implements CommunityService {
 
 	}
 
-	/*
-	 * // 노하우 댓글 작성
-	 * 
-	 * @Override public void writeTComment(BoardVO boardVO) {
-	 * log.info("mapper.writeTComment()호출"); mapper.writeTComment(boardVO); } // 질문과
-	 * 답변 댓글 작성
-	 * 
-	 * @Override public void writeComment(BoardVO boardVO) {
-	 * log.info("mapper.writeComment()호출"); mapper.writeComment(boardVO); }
-	 * 
-	 * // 노하우 특정 페이지 가져오기
-	 * 
-	 * @Override public BoardVO getTipsview(int board_id) {
-	 * log.info("getTipsview()"); return mapper.getTipsview(board_id); }
-	 * 
-	 * // 질문과 답변 특정 페이지 가져오기
-	 * 
-	 * @Override public BoardVO getQnaview(int board_id) {
-	 * log.info("mapper.getQnaview()"); return mapper.getQnaview(board_id); } // 노하우
-	 * 글 검색
-	 * 
-	 * @Override public List<BoardVO> getTsearch(String keyword) {
-	 * log.info("mapper.getTsearch()"); return mapper.getTsearch(keyword); }
-	 * 
-	 */
+
 }

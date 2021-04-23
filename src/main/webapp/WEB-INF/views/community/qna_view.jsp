@@ -71,7 +71,23 @@
 <script type="text/javascript">
 	function button_event() {
 		if (confirm("정말 삭제하시겠습니까?") == true) { //확인
-			location.href = '${pageContext.request.contextPath}/commu/delete?board_id=${qna_view.board_id}'
+			var board_id = $('#board_id').val();
+			var url = "/commu/qdelete/" + board_id;
+			
+			$.ajax({
+				type : "DELETE",
+				url : url,
+				cache : false,
+				success : function(result) {
+					console.log(result);
+					if (result == "SUCCESS") {
+						$(location).attr('href', '/commu/qna')
+					}
+				},
+				error : function(e) {
+					console.log(e);
+				}
+			})
 		} else { //취소
 			return;
 		}
@@ -160,6 +176,8 @@ a:hover {
 		<input type="hidden" id="nickname"
 			value="<sec:authentication property="principal.nickname"/>">
 	</sec:authorize>
+	
+	<input type="hidden" id="board_id" name="board_id" value="${qna_view.board_id}">
 
 	<div class="container" style="margin-bottom: 40px">
 		<div class="head">
@@ -169,13 +187,7 @@ a:hover {
 			<h3 class="qnatitle" style="font-weight: bold; margin-bottom: 10px;">${qna_view.title}</h3>
 		</div>
 
-		<div style="float: right">
-			<button type="button" id="modify_button" class="btn btn-secondary"
-				onclick="modify_event();">수정</button>
 
-			<button type="button" id="delete_button" class="btn btn-secondary"
-				onclick="button_event();">삭제</button>
-		</div>
 
 		<table>
 			<td>
@@ -191,15 +203,22 @@ a:hover {
 					<span class="nickname" style="padding: 6px;"> <b>${qna_view.memberVO.nickname}</b>
 						&nbsp&nbsp
 					</span>
+					<div class="col-9"></div>
+		<div style="margin-left:43px;">
+			<button type="button" id="modify_button" class="btn btn-secondary"
+				onclick="modify_event();">수정</button>
+
+			<button type="button" id="delete_button" class="btn btn-secondary"
+				onclick="button_event();">삭제</button>
+		</div>
 
 				</div>
 
-				<hr> <c:forEach var="img" items="${img}">
+				<hr> 
+				<c:forEach var="img" items="${img}">
 					<img src="/resources/img/qna/${img.imgname}">
-
 				</c:forEach>
-
-				<section style="margin-top: 60px; margin-bottom: 20px;">${qna_view.content}</section>
+						<section style="margin-top: 60px; margin-bottom: 20px;">${qna_view.content}</section>
 				<form action="${pageContext.request.contextPath}/search"
 					method="get">
 					<ul class="pd-tags">
@@ -247,8 +266,9 @@ a:hover {
 			</div>
 		</div>
 	</div>
-
+	<sec:authorize access="hasAnyRole('ROLE_USER','ROLE_ADMIN')">
 	<sec:authentication property="principal" var="pinfo" />
+	</sec:authorize>
 	<div class="container" style="margin-bottom: 10px;">
 		<div id="comments"></div>
 	</div>

@@ -28,7 +28,7 @@ public interface CommunityService {
 	public int qcount(int board_id);
 
 	// 질문과 답변 검색 리스트 출력
-	public List<BoardVO> getQsearch(String keyword);
+	public List<BoardVO> getQnasearch(String keyword);
 
 	// qna 사진 때문에
 	public BoardVO getQnaBoard_id();
@@ -43,16 +43,14 @@ public interface CommunityService {
 	public void modify(BoardVO boardVO);
 
 	// 질문과 답변 글 삭제하기
-	public void delete(int bId);
+	public void qnadelete(int board_id);
 
 	// 질문과 답변 동물에 해당하는 글
 	public List<BoardVO> getPetQna(int category_id);
 
 	// 질문과 답변 태그
-	public List<BoardVO> getQtag(String keyword);
+	public List<BoardVO> getQnatag(String keyword);
 
-	// 질문과 답변 댓글
-	public List<BoardVO> listComment(int board_id, Criteria cri);
 
 	// 댓글 작성 후 ajax로 삽입
 	public BoardVO getComment(int Board_id);
@@ -67,7 +65,7 @@ public interface CommunityService {
 	public List<ImageVO> getTipsList(Criteria cri);
 
 	// 댓글수
-	public int counta(int board_id);
+	public int tcount(int board_id);
 
 	// 노하우 글 작성하기
 	public void writeTips(BoardVO boardVO);
@@ -76,7 +74,7 @@ public interface CommunityService {
 	public void tmodify(BoardVO boardVO);
 
 	// 노하우 글 삭제하기
-	public void tdelete(int board_id);
+	public void tipsdelete(int board_id);
 
 	// 노하우 조회
 	public BoardVO getBoardInfo(int board_id);
@@ -91,15 +89,13 @@ public interface CommunityService {
 
 	public BoardVO getTipsBoard_id();
 
-	// 노하우 댓글 리스트
-	public List<BoardVO> listTComment(int board_id, Criteria cri);
 
 	// 댓글 작성 후 ajax로 삽입
-	public BoardVO getTComment(int board_id);
+	public BoardVO getTipsComment(int board_id);
 
-	public void insertTComment(BoardVO boardVO);
+	public void insertTipsComment(BoardVO boardVO);
 
-	public List<BoardVO> getTCommentList(int board_id, Criteria cri);
+	public List<BoardVO> getTipsCommentList(int board_id, Criteria cri);
 
 	public void deleteQnaComment(BoardVO boardVO);
 
@@ -107,14 +103,5 @@ public interface CommunityService {
 
 	public void ImgDelete(int board_id);
 
-	// 노하우 댓글 작성하기
-	// public void writeTComment(BoardVO boardVO);
-	// 질문과 답변 댓글 작성하기
-	// public void writeComment(BoardVO boardVO);
-	// 노하우 특정 글 페이지
-	// public Object getTipsview(int board_id);
-	// 질문과 답변 특정 글 페이지
-	// public BoardVO getQnaview(int board_id);
-	// 노하우 검색 리스트 출력
-	// public List<BoardVO> getTsearch(String keyword);
+	
 }

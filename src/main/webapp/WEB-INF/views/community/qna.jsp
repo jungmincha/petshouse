@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
@@ -48,20 +48,13 @@
 
 <style>
 #navbars>li:nth-child(2) {
-   background-color: #e7ab3c;
+	background-color: #e7ab3c;
 }
 
 .jumbotron {
 	text-align: center;
 	height: 360px;
-}
-
-.qcontent {
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-	width: 1000px;
-	height: 20px;
+	background-color:#F5FBEF !important;
 }
 
 a:link {
@@ -87,39 +80,32 @@ a:hover {
 	font-size: 13px;
 	padding: 0.01px;
 }
-#hashtag:hover{
-background-color:#dddddd;
-}
 
-.top {
-   background-color: #e7ab3c;
-   border-radius: 10px;
-   cursor: pointer; 
-   position: fixed; 
-   right: 5px; 
-   font-size: 15px; 
-   bottom: 500px;
-   padding:10px;
+#hashtag:hover {
+	background-color: #dddddd;
 }
 
 body::-webkit-scrollbar {
-    width: 10px;
-  }
-body::-webkit-scrollbar-thumb {
-    background-color: #666666;
-    border-radius: 10px;
-    background-clip: padding-box;
-    border: 2px solid transparent;
-  }
-body::-webkit-scrollbar-track {
-    background-color: #CCCCCC;
-    border-radius: 10px;
-    box-shadow: inset 0px 0px 5px white;
-  }
-  
- #content {overflow: hidden; text-overflow: ellipsis; }
+	width: 15px;
+}
 
- 
+body::-webkit-scrollbar-thumb {
+	background-color: #666666;
+	border-radius: 10px;
+	background-clip: padding-box;
+	border: 2px solid transparent;
+}
+
+body::-webkit-scrollbar-track {
+	background-color: #CCCCCC;
+	border-radius: 10px;
+	box-shadow: inset 0px 0px 5px white;
+}
+
+#content {
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
 </style>
 
 <script>
@@ -147,21 +133,18 @@ body::-webkit-scrollbar-track {
 	<!-- Header -->
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
 
-	<!-- content -->
+
 	<sec:authorize access="hasAnyRole('ROLE_USER','ROLE_ADMIN')">
 		<input type="hidden" id="member_id"
 			value="<sec:authentication property="principal.member_id"/>">
 	</sec:authorize>
-	
-	<!-- 탑 버튼 -->
-<div class="top" onclick="window.scrollTo(0,0);">top</div>
 
-
+	<!-- 질문과 답변 검색창 -->
 	<div class="container">
 		<div class="jumbotron">
-	<a class="qna-subtitle" href="/commu/qna">
-			<h3 class="display-5">질문과 답변</h3>
-			<br></a><br>
+			<a class="qna-subtitle" href="/commu/qna">
+				<h3>질문과 답변</h3> <br>
+			</a><br>
 			<h6>내 반려동물에 대한 모든 궁금증!</h6>
 			<br>
 			<hr>
@@ -171,14 +154,13 @@ body::-webkit-scrollbar-track {
 				<div class="questions-header__form__search col">
 					<span aria-hidden="true"></span> <input
 						class="form-control mr-sm-8" type="text" name="keyword"
-						style="text-align: center; height: 60px;"
-						placeholder="검색해보세요">
+						style="text-align: center; height: 60px;" placeholder="검색해보세요">
 				</div>
 			</form>
 		</div>
+	<!-- 질문과 답변 검색창 end -->
 
-
-		<!-- 동물 카테고리, 정렬, 글쓰기 버튼 -->
+		<!-- 동물 카테고리 글쓰기 버튼 -->
 		<div class=" row" style="padding-bottom: 30px;">
 
 			<select id="selectPet" class="form-control col-sm-1"
@@ -195,40 +177,39 @@ body::-webkit-scrollbar-track {
 			</select> <span class="col-sm-9"></span>
 			<button class="btn btn-outline-secondary col-sm-1 " id="qw"
 				style="margin-left: 65px;"
-				onclick="location.href='${pageContext.request.contextPath}qna/write'">질문 작성</button>
+				onclick="location.href='${pageContext.request.contextPath}qna/write'">질문
+				작성</button>
 		</div>
+		<!-- 동물 카테고리 글쓰기 버튼 end -->
 
-		<!-- 게시글 끌고오기 -->
-
+		<!-- qna 글 끌고오기 -->
 		<table class="table">
 			<c:forEach items="${qna}" var="qna">
 				<tbody id="qnaList">
 					<td><a href="/commu/qna/${qna.board_id}">
 							<form action="${pageContext.request.contextPath}/search" method="get">
 								<div style="font-weight: bold; font-size: 18px;">${qna.title}</div>
-								<ul class="pd-tags">
-									<div id="content">${qna.content}</div>
-									<span>${qna.memberVO.nickname}</span>		
-									<span style="font-size: 13px; color: gray;"><fmt:formatDate value="${qna.pdate}" pattern="yyyy.MM.dd" /></span>
-									<span style="font-size: 13px; color: gray;"> 조회수 ${qna.hit}</span>
-									<c:set var="hashtag" value="${qna.hashtag}" />
-									<c:set var="tag" value="${fn:split(hashtag, '#')}" />
-									<c:forEach var="t" items="${tag}">
-										<span>
-										<c:if test="${not empty qna.hashtag}">
-										<button id="hashtag" name="keyword"
-												class="btn btn-disabled" 
-												value="${t}"
+								<div id="content">${qna.content}</div>
+								<span>${qna.memberVO.nickname}</span> <span
+									style="font-size: 13px; color: gray;"><fmt:formatDate
+										value="${qna.pdate}" pattern="yyyy.MM.dd" /></span> <span
+									style="font-size: 13px; color: gray;"> 조회수 ${qna.hit}</span>
+								<c:set var="hashtag" value="${qna.hashtag}" />
+								<c:set var="tag" value="${fn:split(hashtag, '#')}" />
+								<c:forEach var="t" items="${tag}">
+									<c:if test="${not empty qna.hashtag}">
+										<span><button id="hashtag" name="keyword"
+												class="btn btn-disabled" value="${t}"
 												onclick="location.href='${pageContext.request.contextPath}/search'">#${t}</button></span>
 									</c:if>
-									</c:forEach>
-
-								</ul>
+								</c:forEach>
 							</form>
 					</a></td>
 				</tbody>
 			</c:forEach>
 		</table>
+		<!-- qna 글 끌고오기 end-->
+
 
 		<!-- 페이징 -->
 		<div class="ul">

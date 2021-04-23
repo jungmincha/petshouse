@@ -178,7 +178,7 @@ a:hover {
 
 </head>
 
-<body style="padding-top: 180px">
+<body style="padding-top: 180px;">
 
 	<!-- Header -->
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>

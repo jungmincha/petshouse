@@ -70,7 +70,24 @@
 <script type="text/javascript">
 	function button_event() {
 		if (confirm("정말 삭제하시겠습니까?") == true) { //확인
-			location.href = '${pageContext.request.contextPath}/commu/tdelete?board_id=${tips_view.board_id}'
+			var board_id = $('#board_id').val();
+			var url = "/commu/tdelete/" + board_id;
+			
+			$.ajax({
+				type : "DELETE",
+				url : url,
+				cache : false,
+				success : function(result) {
+					console.log(result);
+					if (result == "SUCCESS") {
+						$(location).attr('href', '/commu/tips')
+					}
+				},
+				error : function(e) {
+					console.log(e);
+				}
+			})
+			
 		} else { //취소
 			return;
 		}
@@ -86,6 +103,11 @@
 </script>
 <!-- 수정 삭제 경고창 end-->
 <style>
+.bottom{
+color: gray;
+margin-top:20px;
+margin-bottom:20px;
+}
 #navbars>li:nth-child(2) {
    background-color: #e7ab3c;
 }
@@ -109,7 +131,7 @@ a:hover {
 }
 
 #hashtag {
-	font-size: 13px;
+	font-size: 15px;
 	padding: 0.01px;
 }
 
@@ -138,6 +160,7 @@ a:hover {
 	height: 100%;
 	object-fit: cover;
 }
+
 </style>
 </head>
 
@@ -154,13 +177,14 @@ a:hover {
 		<input type="hidden" id="member_id"
 			value="<sec:authentication property="principal.member_id"/>">
 	</sec:authorize>
+	
+	<input type="hidden" id="board_id" name="board_id" value="${tips_view.board_id}">
 
 	<div class="container">
 		<div class="head">
 			<c:forEach var="img" items="${img}">
-				<img style="height: 400px; width: 1200px;"
+				<img style="height: 500px; width: 1200px;"
 					src="/resources/img/tips/${img.imgname}">
-
 			</c:forEach>
 			<div style="margin-top: 45px; margin-bottom: 10px;">
 				<a class="tips-subtitle" href="/commu/tips">노하우</a>
@@ -194,7 +218,7 @@ a:hover {
 				</div>
 			
 <hr>
-				<section style="margin-top: 40px; margin-bottom: 20px;">${tips_view.content}</section>
+				<section style="margin-top: 40px; margin-bottom: 20px; min-height:90px;">${tips_view.content}</section>
 				<form action="${pageContext.request.contextPath}/search"
 					method="get">
 					<ul class="pd-tags">
@@ -210,9 +234,13 @@ a:hover {
 									</c:if>
 									</c:forEach>
 					</ul>
-				</form> <span style="color: gray"><fmt:formatDate
-						value="${tips_view.pdate}" pattern="yyyy.MM.dd" /></span> <span
-				style="color: gray">조회수 ${tips_view.hit}</span>
+				</form> 
+				<div class="bottom">
+				<span><fmt:formatDate value="${tips_view.pdate}" pattern="yyyy.MM.dd" /></span>
+				 &nbsp&nbsp<span>조회수 ${tips_view.hit}</span>
+				 &nbsp&nbsp<span>좋아요 수</span>
+				</div>
+				<hr>
 			</td>
 		</table>
 
@@ -241,7 +269,9 @@ a:hover {
 			</div>
 		</div>
 
-		<sec:authentication property="principal" var="pinfo" />
+		<sec:authorize access="hasAnyRole('ROLE_USER','ROLE_ADMIN')">
+	<sec:authentication property="principal" var="pinfo" />
+	</sec:authorize>
 		<div class="container" style="margin-bottom: 10px;">
 			<div id="tcomment"></div>
 		</div>
