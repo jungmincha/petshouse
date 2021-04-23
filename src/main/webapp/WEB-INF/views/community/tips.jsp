@@ -13,7 +13,9 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>펫츠하우스</title>
 
-<link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap"
+	rel="stylesheet">
 
 <!-- Css Styles -->
 <link rel="stylesheet" href="/resources/css/bootstrap.min.css"
@@ -35,12 +37,17 @@
 <link rel="stylesheet" href="/resources/css/style.css" type="text/css">
 
 <!-- bootstrap css cdn -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" type="text/css" />
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	type="text/css" />
 
 <!-- jquery cdn -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<link rel="stylesheet" href="/resources/css/select-style.css" type="text/css">
-<link rel="stylesheet" href="/resources/js/select-index.js" type="text/css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<link rel="stylesheet" href="/resources/css/select-style.css"
+	type="text/css">
+<link rel="stylesheet" href="/resources/js/select-index.js"
+	type="text/css">
 
 <script>
 	//로그인 체크
@@ -62,24 +69,28 @@
 
 <style>
 #navbars>li:nth-child(2) {
-   background-color: #e7ab3c;
-}
-.count{
-	position: absolute;
-    bottom: 15px;
-    right: 20px;
-    font-size: 13px;
-    color: #fff;
-    text-shadow: 0 0 4px rgb(0 0 0 / 50%);
+	background-color: #e7ab3c;
 }
 
-.count2{
+.count {
 	position: absolute;
-    bottom: 62px;
-    right: 20px;
-    font-size: 13px;
-    color: #fff;
-    text-shadow: 0 0 4px rgb(0 0 0 / 50%);
+	bottom: 37px;
+	right: 20px;
+	font-size: 13px;
+	color: #fff;
+	text-shadow: 0 0 4px rgb(0 0 0/ 50%);
+}
+
+.count2 {
+	position: absolute;
+	bottom: 62px;
+	right: 20px;
+	font-size: 13px;
+	color: #fff;
+	text-shadow: 0 0 4px rgb(0 0 0/ 50%);
+}
+img{
+border-radius:8px;
 }
 </style>
 </head>
@@ -96,39 +107,41 @@
 
 
 	<div class="container">
-	
-			<!--인기노하우 슬라이드-->
-			<div class="filter-control">
-				<ul>
-					<li class="active">인기 노하우</li>
-				</ul>
-			</div>
-			
-			<div class="product-slider owl-carousel" id="box">
-				<c:forEach items="${rate}" var="rate">
-					<c:if test="${rate.boardVO.rnum le 10}">
-						<div class="product-item">
-								<div class="pi-pic shot">
-									<a href="/commu/tips/${rate.boardVO.board_id}">
-										<img style="height:200px; border-radius:8px;" src="/resources/img/tips/${rate.imgname}" alt="">
-										<span class="count2">조회수 ${rate.boardVO.hit}</span>
-										<h6 style="font-size: 15px; font-weight: bold; margin-top:9px;">${rate.boardVO.title}</h6>
-									</a>
-									<div style="font-size: 14px;">${rate.boardVO.memberVO.nickname}</div>
-								</div>
-						</div>
-					</c:if>
-				</c:forEach>
-			</div>
-			<!--인기 노하우 슬라이드 end -->
-			
-		
-		<!-- 동물 카테고리, 글쓰기 버튼 -->
-		<div class=" row" style="margin-top:100px;padding-bottom: 30px;">
 
-			<select id="selectPet" class="form-control col-1" name="categoryVO.category_id"
-				style="margin-left: 40px; text-align: center">
-				
+		<!--인기노하우 슬라이드-->
+		<div class="filter-control">
+			<ul>
+				<li class="active">인기 노하우</li>
+			</ul>
+		</div>
+
+		<div class="product-slider owl-carousel" id="box">
+			<c:forEach items="${rate}" var="rate">
+				<c:if test="${rate.boardVO.rnum le 10}">
+					<div class="product-item">
+						<div class="pi-pic shot">
+							<a href="/commu/tips/${rate.boardVO.board_id}"> <img
+								style="height: 200px;"
+								src="/resources/img/tips/${rate.imgname}" alt=""> <span
+								class="count2">조회수 ${rate.boardVO.hit}</span> <span
+								style="font-size: 18px; font-weight: bold;">${rate.boardVO.title}</span>
+							</a>
+							<div style="font-size: 16px;">${rate.boardVO.memberVO.nickname}</div>
+						</div>
+					</div>
+				</c:if>
+			</c:forEach>
+		</div>
+		<!--인기 노하우 슬라이드 end -->
+
+
+		<!-- 동물 카테고리, 글쓰기 버튼 -->
+		<div class="row" style="margin-top: 100px; padding-bottom: 30px;">
+
+			<select id="selectPet" class="form-control col-1"
+				name="categoryVO.category_id"
+				style="margin-left: 15px; text-align: center">
+
 				<option value="0">동물</option>
 				<option value="1">고양이</option>
 				<option value="2">강아지</option>
@@ -136,46 +149,46 @@
 				<option value="4">조류</option>
 				<option value="5">어류</option>
 				<option value="6">기타</option>
-				
-			</select>
-			
-			<span class="col-lg-7"></span>
 
-		<button class="btn btn-outline-secondary col-lg-2" id="tw" style="margin-left: 140px"
-				onclick="location.href='${pageContext.request.contextPath}tips/write'">노하우 작성</button>
+			</select> <span class="col-7"></span>
+
+			<button class="btn btn-outline-secondary col-2" id="tw"
+				style="margin-left: 165px"
+				onclick="location.href='${pageContext.request.contextPath}tips/write'">노하우
+				작성</button>
 		</div>
 		<!-- 동물 카테고리, 글쓰기 버튼 end -->
-		
-		
+
+
 		<!-- 노하우 리스트 -->
-		<div id="table" class="row text-center" style="margin-top: 20px; margin-left: 5px;">
+		<div id="table" class="row"
+			style="margin-top: 20px; margin-bottom:20px;">
 
 			<c:forEach items="${tips}" var="tp">
 				<div class="product-item col-sm-3">
-					<a href="/commu/tips/${tp.boardVO.board_id}">
-						<div class="pi-pic shot">
-							<img src="/resources/img/tips/${tp.imgname}" alt="" style="border-radius: 8px; height: 180px;">
-							<span class="count">조회수 ${tp.boardVO.hit}</span>
-						</div>
-						<div class="pi-text" style="text-align: left; padding-top: 5px;">
-							<h6 style="font-size: 15px; font-weight: bold;">${tp.boardVO.title}</h6>
-						</div>
-					</a>
-					<div style="font-size: 14px;text-align: left;">${tp.boardVO.memberVO.nickname}</div>
+					<div class="pi-pic shot">
+						<a href="/commu/tips/${tp.boardVO.board_id}"> <img
+							src="/resources/img/tips/${tp.imgname}" alt=""
+							style="height: 180px;"> <span
+							class="count">조회수 ${tp.boardVO.hit}</span> <span
+							style="font-size: 15px; font-weight: bold;">${tp.boardVO.title}</span>
+						</a>
+					</div>
+					<div style="font-size: 14px; text-align: left;">${tp.boardVO.memberVO.nickname}</div>
 				</div>
 			</c:forEach>
 		</div>
 		<!-- 노하우 리스트 end -->
-		
+
 		<!-- 더보기 버튼 -->
-            <div class="later col-lg-12 text-center">
-           		 <button type="button" class="btn btn-warning" onClick="btnClick()">더보기</button>
-	        </div>
-		
+		<div class="later col-lg-12 text-center">
+			<button type="button" class="btn btn-warning" onClick="btnClick()">더보기</button>
+		</div>
+
 	</div>
 
 	<!-- 페이징 -->
- <script type="text/javascript">
+	<script type="text/javascript">
       var pageNum = 1;
      
       function btnClick(){
@@ -197,13 +210,13 @@
     	           for(var i in tips){
     	        	  html +="<div class='product-item col-sm-3'>"
 							 +"<a href='/commu/tips/"+tips[i].boardVO.board_id+"'>"
-							 +"<div class='pi-pic'>"
-							 +"<img src='/resources/img/tips/"+tips[i].imgname+"' alt=''style='border-radius: 5px; height: 150px;'></div>"   	          	
-	       	          		 +"<div class='pi-text' style='text-align: left; padding-top: 5px;'>"
-	       	          		 +"<h6 style='font-size: 15px; font-weight: bold;'>"+tips[i].boardVO.title+"</h6></div></a>"
-	       	          		 +"<div style='font-size: 14px;text-align: left;'>"+tips[i].boardVO.memberVO.nickname+"</div>"
-	     					+"<div style='font-size: 13px; color: gray;text-align: left;'>조회수"+ tips[i].boardVO.hit+"</div>"
-	     					+"</div>"
+							 +"<div class='pi-pic shot'>"
+							 +"<img src='/resources/img/tips/"+tips[i].imgname+"' alt=''style='border-radius: 8px; height: 180px;'>"
+								+"<span class='count'>조회수"+tips[i].boardVO.hit+"</span></div>"
+								+"<div class='pi-text' style='text-align: left; padding-top: 5px;'>"
+								+"<h6 style='font-size: 15px; font-weight: bold;'>"+tips[i].boardVO.title+"</h6></div></a>"
+								+"<div style='font-size: 14px;text-align: left;'>"+tips[i].boardVO.memberVO.nickname+"</div>"
+								+"</div>"
     	           }
     	        
     	           
@@ -236,19 +249,17 @@
 
 											console.log(data);
 											$("#table").remove();
-											var html = "<div id='table' class='table row text-center' style='margin-top:20px; margin-left:5px;'>"
+											var html = "<div id='table' class='row text-center' style='margin-top:20px; margin-left:5px;'>"
 											for (var i = 1; i <= data.length; i++) {
 
 												html +="<div class='product-item col-sm-3'>"
 													 +"<a href='/commu/tips/"+data[i - 1].boardVO.board_id+"'>"
-													+"<div class='pi-pic'>"
-													+"<img src='/resources/img/tips/"+data[i - 1].imgname+"' alt=''style='border-radius: 5px; height: 150px;'>"
-													+"</div>"
+													+"<div class='pi-pic shot'>"
+													+"<img src='/resources/img/tips/"+data[i - 1].imgname+"' alt=''style='border-radius: 8px; height: 180px;'>"
+													+"<span class='count'>조회수"+data[i - 1].boardVO.hit+"</span></div>"
 													+"<div class='pi-text' style='text-align: left; padding-top: 5px;'>"
-													+"<h6 style='font-size: 15px; font-weight: bold;'>"+data[i - 1].boardVO.title+"</h6></div>"
-													+"</a>"
+													+"<h6 style='font-size: 15px; font-weight: bold;'>"+data[i - 1].boardVO.title+"</h6></div></a>"
 													+"<div style='font-size: 14px;text-align: left;'>"+data[i - 1].boardVO.memberVO.nickname+"</div>"
-													+"<div style='font-size: 13px; color: gray;text-align: left;'>조회수"+data[i - 1].boardVO.hit+"</div>"
 													+"</div>"
 				     					
 									     					
@@ -269,7 +280,7 @@
 									})
 						})
 	</script>
-	
+
 	<!-- Footer -->
 	<div style="margin-top: 100px">
 		<%@ include file="/WEB-INF/views/include/footer.jsp"%>

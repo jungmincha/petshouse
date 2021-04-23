@@ -133,8 +133,7 @@ a:hover {
 		
 		<h5><b>'${param.keyword}'</b>에 대한 검색결과 <b>${scount}건</b></h5>
 			<br><br>
-			<div id="table" class="row text-center"
-				style="margin-left: 5px; margin-bottom: 30px;">
+		
 
 
 				<div id="snslist" class="row text-center">
@@ -159,7 +158,7 @@ a:hover {
 							<div class="pi-pic shot">
 								<a href="/commu/sns/${ms.boardVO.board_id}"> <img
 									src="/resources/img/member/sns/${ms.imgname}" alt=""
-										style="border-radius: 5px;height:250px; width:250px;" /><span
+										style="border-radius: 8px;height:250px; width:250px;" /><span
 									class="count">조회수 ${ms.boardVO.hit}</span></a>
 							</div>
 							<div class="card-body">좋아요${ms.boardVO.plike}//댓글수</div>
@@ -168,7 +167,7 @@ a:hover {
 
 					</c:forEach>
 				</div>
-			</div>
+			
 						 <div class="later col-lg-12 text-center">
             <button type="button" class="btn btn-warning" onClick="btnClick()">더보기</button>
 	 </div>

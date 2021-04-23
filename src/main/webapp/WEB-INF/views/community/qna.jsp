@@ -45,7 +45,7 @@
 <!-- jquery cdn -->
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 <style>
 #navbars>li:nth-child(2) {
 	background-color: #e7ab3c;
@@ -53,27 +53,8 @@
 
 .jumbotron {
 	text-align: center;
-	height: 360px;
-	background-color:#F5FBEF !important;
-}
-
-a:link {
-	text-decoration: none;
-	color: #333333;
-}
-
-a:visited {
-	text-decoration: none;
-	color: #333333;
-}
-
-a:active {
-	text-decoration: none;
-	color: #333333;
-}
-
-a:hover {
-	text-decoration: none;
+	background-color:#FAFAFA !important;
+	margin-top:-29px;
 }
 
 #hashtag {
@@ -82,7 +63,7 @@ a:hover {
 }
 
 #hashtag:hover {
-	background-color: #dddddd;
+	background-color:#F2EFFB;
 }
 
 body::-webkit-scrollbar {
@@ -103,9 +84,33 @@ body::-webkit-scrollbar-track {
 }
 
 #content {
-	overflow: hidden;
-	text-overflow: ellipsis;
+	margin-top:0.3rem;
+	margin-bottom:0.3rem;
+	font-size:0.9rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; 
+    -webkit-box-orient: vertical;
+
 }
+.input {
+    background-image: url(https://cdn1.iconfinder.com/data/icons/hawcons/32/698627-icon-111-search-256.png);
+    background-position: 13px center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    border: 1px solid #ccc;
+    padding: 5px 5px;
+    text-indent: 30px;  
+    width: 120px;
+}
+
+.search input{
+	width:55%;
+	margin-left:23%;
+	height:40px;
+}
+
 </style>
 
 <script>
@@ -140,32 +145,30 @@ body::-webkit-scrollbar-track {
 	</sec:authorize>
 
 	<!-- 질문과 답변 검색창 -->
-	<div class="container">
+
 		<div class="jumbotron">
 			<a class="qna-subtitle" href="/commu/qna">
-				<h3>질문과 답변</h3> <br>
-			</a><br>
-			<h6>내 반려동물에 대한 모든 궁금증!</h6>
-			<br>
-			<hr>
-			<br>
+				<h3><b>질문과 답변</b></h3>
+			</a>
+			<div style="font-size:15px">내 반려동물에 대한 모든 궁금증을 남겨보세요!</div><br>
+			
 			<form action="${pageContext.request.contextPath}/commu/qnasearch"
 				method="post">
-				<div class="questions-header__form__search col">
-					<span aria-hidden="true"></span> <input
-						class="form-control mr-sm-8" type="text" name="keyword"
-						style="text-align: center; height: 60px;" placeholder="검색해보세요">
+				<div class="search" >
+				<input rel="search" class="input form-control mr-sm-8" type="text" name="keyword"
+						style="text-align: center;" placeholder="궁금한 것을 검색해보세요">
 				</div>
 			</form>
 		</div>
+		
 	<!-- 질문과 답변 검색창 end -->
-
+	<div class="container">
 		<!-- 동물 카테고리 글쓰기 버튼 -->
 		<div class=" row" style="padding-bottom: 30px;">
 
-			<select id="selectPet" class="form-control col-sm-1"
+			<select id="selectPet" class="form-control col-sm-1 md-1 lg-1"
 				name="categoryVO.category_id"
-				style="margin-left: 15px; text-align-last: center">
+				style="text-align-last: center">
 
 				<option value="0">동물</option>
 				<option value="1">고양이</option>
@@ -175,8 +178,8 @@ body::-webkit-scrollbar-track {
 				<option value="5">어류</option>
 				<option value="6">기타</option>
 			</select> <span class="col-sm-9"></span>
-			<button class="btn btn-outline-secondary col-sm-1 " id="qw"
-				style="margin-left: 65px;"
+			<button class="btn btn-outline-secondary col-sm-2 md-2 lg-2" id="qw"
+			
 				onclick="location.href='${pageContext.request.contextPath}qna/write'">질문
 				작성</button>
 		</div>
@@ -186,14 +189,18 @@ body::-webkit-scrollbar-track {
 		<table class="table">
 			<c:forEach items="${qna}" var="qna">
 				<tbody id="qnaList">
-					<td><a href="/commu/qna/${qna.board_id}">
+					<td>
 							<form action="${pageContext.request.contextPath}/search" method="get">
-								<div style="font-weight: bold; font-size: 18px;">${qna.title}</div>
+							<a href="/commu/qna/${qna.board_id}">
+								<div style="font-weight: bold; font-size: 18px; margin-top:10px;">${qna.title}</div>
 								<div id="content">${qna.content}</div>
-								<span>${qna.memberVO.nickname}</span> <span
-									style="font-size: 13px; color: gray;"><fmt:formatDate
-										value="${qna.pdate}" pattern="yyyy.MM.dd" /></span> <span
-									style="font-size: 13px; color: gray;"> 조회수 ${qna.hit}</span>
+								</a>
+								<div style="margin-bottom:10px;">
+								<span>${qna.memberVO.nickname}</span> 
+								<span style="font-size: 13px; color: gray;">
+								<fmt:formatDate
+										value="${qna.pdate}" pattern="yy.MM.dd" /></span> 
+								<span style="font-size: 13px; color: gray;"> 조회수 ${qna.hit}</span>
 								<c:set var="hashtag" value="${qna.hashtag}" />
 								<c:set var="tag" value="${fn:split(hashtag, '#')}" />
 								<c:forEach var="t" items="${tag}">
@@ -203,8 +210,9 @@ body::-webkit-scrollbar-track {
 												onclick="location.href='${pageContext.request.contextPath}/search'">#${t}</button></span>
 									</c:if>
 								</c:forEach>
+								</div>
 							</form>
-					</a></td>
+					</td>
 				</tbody>
 			</c:forEach>
 		</table>
@@ -279,8 +287,8 @@ body::-webkit-scrollbar-track {
 
 											}
 											html += "</table>"
-											$(".ul").prepend(html);
-
+											$(".ul").prepend(html).trigger( "create" );
+											
 										}, //ajax 성공 시 end
 
 										/* error : function(request, status, error) {
@@ -292,6 +300,8 @@ body::-webkit-scrollbar-track {
 										} // ajax 에러 시 end */
 
 									})
+							
+							
 						})
 	</script>
 

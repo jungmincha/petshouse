@@ -206,6 +206,12 @@ public class CommunityServiceImpl implements CommunityService {
 		return mapper.getQnaBoard_id();
 	}
 
+	  @Override 
+	  public int qscount(String keyword){
+		log.info("qscount()");
+		return mapper.qscount(keyword); 
+	  }
+	  
 	@Override
 	public BoardVO getComment(int Board_id) {
 		log.info("getComment()");
