@@ -51,7 +51,7 @@
 	});
 </script>
 
-<style>
+<!-- <style>
 .jumbotron {
 	text-align: center;
 	height: 300px;
@@ -137,7 +137,35 @@ body::-webkit-scrollbar-track {
 }
 
 </style>
+ -->
+<!-- <style>
+/* CSS */
+.pageTitle {position: fixed; left: 0; top: 0; width: 100%; height: 52px; line-height: 52px; color: #fff; text-align: center; background: #111;}
+article {padding: 52px 3% 0;}
+article .block {padding: 20px; min-height: 500px;}
+article .block p {line-height: 22px; color: #fff; font-size: 16px; font-weight: 600;}
+article .block:nth-child(2n+1) {background: #999;}
+article .block:nth-child(2n) {background: #222;}
 
+</style> -->
+
+
+<script>
+//Javascript
+var count = 0;
+//스크롤 바닥 감지
+window.onscroll = function(e) {
+    //추가되는 임시 콘텐츠
+    //window height + window scrollY 값이 document height보다 클 경우,
+    if((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+    	//실행할 로직 (콘텐츠 추가)
+        count++;
+        var addContent = '<div class="block"><p>'+ count +'번째로 추가된 콘텐츠</p></div>';
+        //article에 추가되는 콘텐츠를 append
+        $('article').append(addContent);
+    }
+};
+</script>
 
 </head>
 <body style="padding-top: 128px">
@@ -148,7 +176,31 @@ body::-webkit-scrollbar-track {
 
 
 
-	<!-- Contact Section Begin -->
+
+<!-- HTML -->
+<header>                
+    <h1 class="pageTitle">Infinity scroll</h1>
+</header>
+<article>
+    <div class="block">
+        <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem mollitia accusamus sequi ipsa, rerum nam laboriosam, ipsam aperiam deleniti beatae expedita id quisquam veritatis corporis, voluptates ducimus molestiae eum adipisci.
+        </p>
+    </div>
+    <div class="block">
+        <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem mollitia accusamus sequi ipsa, rerum nam laboriosam, ipsam aperiam deleniti beatae expedita id quisquam veritatis corporis, voluptates ducimus molestiae eum adipisci.
+        </p>
+    </div>
+    <!-- 반복 -->
+</article>
+
+
+
+
+
+
+	<%-- <!-- Contact Section Begin -->
 	<section class="contact-section spad">
 		<div class="container">
 			<div class="row">
@@ -191,23 +243,23 @@ body::-webkit-scrollbar-track {
 								style="margin-left: 65px;" type="submit">글 작성</button>
 						</div>
 					</form>
-	<!-- 무한 페이징 시작 -->	
-					<article>
-					<br/>
- 					</article>
-				
-    
-  
-			
 
-					<%-- 	<!-- board 테이블 -->
+					<br />
+
+
+
+						<!-- board 테이블 -->
 						<table class="table">
 						<c:forEach items="${list}" var="list">
 						
 							<tbody id="mapList">
 								<td>
 								<a href="/map/board/${list.boardVO.board_id}?location=${location}&member_id=${member_id}">
-										
+
+								
+									
+								
+											
 										<!-- 회원 썸네일 -->
 										<div class="user-Info row" style="margin: 20px auto 0px 5px">
 									    <div class="profile_box ">
@@ -215,6 +267,9 @@ body::-webkit-scrollbar-track {
 										</div>
 										<div style="padding:7px"> ${list.boardVO.memberVO.nickname} </div>	
 										</div>
+										
+									
+										
 						
 											<!-- 게시글 정보 -->
 											<span style="font-size: 13px; color: gray;"><fmt:formatDate value="${list.boardVO.pdate}" pattern="yyyy.MM.dd" /></span>
@@ -245,10 +300,9 @@ body::-webkit-scrollbar-track {
 							</tbody>
 						</c:forEach>
 
-					</table> --%>
+					</table>
 
-				
-    			
+
 
 
 					<!-- 페이징 -->
@@ -281,124 +335,6 @@ body::-webkit-scrollbar-track {
 			</div>
 		</div>
 	</section>
-	
-	
-	<script type="text/javascript">	
-	
-/* 	window.onload=function() {
-	
-	
-	//컨트롤러에서 json에 담아온 list 객체를 변수선언해준다.
-	 var json = JSON.parse('${jsonList}');
-	console.log(json);
-	//변수 json의 길이를 구해준다.
-	 var list_length = Object.keys(json).length;
-
-
-	for(var i = 0 ; i <= list_length ; i++){
-		
-		console.log(json[i].boardVO.content);
-		console.log(json[i].boardVO.memberVO.nickname);
-		console.log(json[i].boardVO.memberVO.thumbnail);
-		console.log(json[i].imgname);
-		 
-	 
-	
-} */
-
-var json = JSON.parse('${jsonList}');
-var list_length = Object.keys(json).length;
-
-
-//Javascript
-
-//스크롤 바닥 감지
-window.onscroll = function(e) {
-	
-	
-	
-	
- 	
-    //추가되는 임시 콘텐츠
-    //window height + window scrollY 값이 document height보다 클 경우,
-    if((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
- 	//실행할 로직 (콘텐츠 추가)
-    //   count++;
- 	console.log(list_length);
-
- 	  for(var i = 0 ; i < list_length  ; i++){
- 	
-        var addContent =
-        
-        	 "<table class='table'>"
-        	+
-   			"<tbody id='mapList'>"
-			+
-			"<td>"
-			+
-			"<a href='/map/board/"+ json[i].boardVO.board_id + "?location=${location}&member_id=${member_id}'>"
-			+			
-			"<div class='user-Info row' style='margin: 20px auto 0px 5px'>"
-			+
-			"<div class='profile_box'>"
-			+
-			"<img src='/resources/img/member/profile/" + json[i].boardVO.memberVO.thumbnail+ "' name='profile' alt='' class='profile'/>"
-			+
-			"</div>"
-			+
-			"<div style='padding:7px'>" + json[i].boardVO.memberVO.nickname 
-			+
-			"</div>"	
-			+
-			"</div>"
-			+
-			"<span style='font-size: 13px; color: gray;'>"  +  json[i].boardVO.pdate +  "</span>"
-			+			
-			"<span style='font-size: 13px; color: gray;'>조회수" + json[i].boardVO.hit + "</span>"
-			+
-			"<span style='font-size: 13px; color: gray;'>좋아요" + json[i].boardVO.plike +  "</span>"
-			+
-			"<span style='font-size: 13px; color: gray;'>" +  json[i].boardVO.hashtag +  "</span>"
-			+
-			"<br>"	
-			+
-			"<br>"			
-			+
-			<!-- 게시글 이미지 썸네일 -->			
-			"<div>"
-			+
-			"<img src='/resources/img/location/" +  json[i].imgname + "'style='width: 780px; height: 450px; object-fit: cover; border-radius: 10px;'>"
-			+
-			"<br>"	
-			+
-			"<br>"		
-			+
-			"<div style='font-size:20px;'>"  + json[i].boardVO.content 
-			+
-			"</div>"
-			+
-			"</a>"
-			+	
-			"</td>"
-			+
-			"</tbody>"
-			+
-		    "</table>" ;
-
-			 //article에 추가되는 콘텐츠를 append
-		      $('article').append(addContent); 
-         
-       
- 	    }
- 	
-}
-    
-    
-}
-	
-</script>
-	
-	
 
 	<script type="text/javascript">
 		$('#hashtag')
@@ -471,7 +407,7 @@ window.onscroll = function(e) {
 	</script>
 
 
-
+ --%>
 	<!-- Footer -->
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 

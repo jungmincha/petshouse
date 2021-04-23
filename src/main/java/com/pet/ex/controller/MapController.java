@@ -1,7 +1,7 @@
 package com.pet.ex.controller;
 
 //jungmin2브랜치 등록
-import java.io.File;
+import java.io.File; 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -49,7 +49,8 @@ import com.pet.ex.vo.PlikeVO;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import net.sf.json.JSONObject;
+import net.sf.json.JSONArray;
+
 
 @Slf4j
 @AllArgsConstructor
@@ -67,61 +68,46 @@ public class MapController {
 
 		return mav;
 	}
+	
+	
+	
+	
+	// 펫츠타운 위치기반동의 페이지
+		@GetMapping("/home_test")
+		public ModelAndView home_test(ModelAndView mav) {
+
+			mav.setViewName("map/infinity_test_board");
+
+			return mav;
+		}
+	
+	
 
 	// 펫츠타운 메인페이지
 	@RequestMapping("/board")
 	public ModelAndView board(String location,ModelAndView mav, Criteria cri, MemberVO memberVO,
-			BoardVO boardVO, ImageVO imageVO, PlikeVO plikeVO,  Authentication authentication) {
+			BoardVO boardVO, ImageVO imageVO, PlikeVO plikeVO,  Authentication authentication ) {
 		
 		
 		
 		memberVO.setLocation(location); // 명동 받아옴
-
 		service.insertLoc(memberVO); // 홍제 2동 삽입된
-
 		boardVO.setLocation(location); // 여기서도 홍제 2동 삽입됨
-
+		
 		mav.addObject("list", service.getList(cri));
-
 		int total = service.getTotal(cri);
-
 		mav.addObject("pageMaker", new PageVO(cri, total));
 
-		// 위치
-		mav.addObject("location", location);
+		mav.addObject("location", location);// 위치
 
-		
-		
-		// 좋아요 기능 구현 -START-
-		
-		//String member_id = authentication.getPrincipal().toString();
-		//System.out.println(member_id);
-		//String present_nickname = service.getPresetnNickname(member_id);//현재 닉네임
-		
-		
-
-				// resultmap에 vo 담아주는 거
-				//MemberVO member = new MemberVO();
-				//plikeVO.setMemberVO(member);
-				//plikeVO.getMemberVO().setMember_id(present_nickname);
-
-				//BoardVO board = new BoardVO();
-				//plikeVO.setBoardVO(board);
-				//plikeVO.getBoardVO().setBoard_id(boardVO.getBoard_id());
-				
-			//	mav.addObject("like_amount", service.getLiketotal(plikeVO.getBoardVO().getBoard_id()));// 좋아요 수
-			//	mav.addObject("likecheck", service.isLike(plikeVO));	// 좋아요 유무 체크
-			//	mav.addObject("likelist", service.getLikelist(plikeVO));	// 좋아요 리스트
-				//mav.addObject("likelist2", service.getAllLikelist(plikeVO));	// 좋아요 리스트
-				// 좋아요 기능 구현 -END-
-				
-		
-		
-		
 		
 
 		// mav.addObject("image" );
 		mav.addObject("like_print", service.getLikeprint());
+		
+		mav.addObject("jsonList", JSONArray.fromObject(service.getList(cri)));
+		
+		
 		mav.setViewName("map/board");
 		
 		return mav;
@@ -183,7 +169,7 @@ public class MapController {
 		// 좋아요 기능 구현 -END-
 		
 		//사진 보여주는 거
-				mav.addObject("photo", service.getPhoto(board_id));
+		mav.addObject("photo", service.getPhoto(board_id));
 		mav.setViewName("map/content_view");
 		return mav;
 

@@ -82,7 +82,7 @@ public interface MapService {
 
 	public void depeteimage(int board_id);
 
-	public ImageVO getPhoto(int board_id);
+	public List<ImageVO> getPhoto(int board_id);
 
 	public List<PlikeVO> getAllLikelist(PlikeVO plikeVO);
 

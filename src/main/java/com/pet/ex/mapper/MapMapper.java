@@ -79,7 +79,7 @@ public interface MapMapper {
 	//사진 삭제
 	public void depeteimage(int board_id);
 	//content_view 사진 출력
-	public ImageVO getPhoto(int board_id);
+	public List<ImageVO> getPhoto(int board_id);
 
 	public List<PlikeVO> getAllLikelist(PlikeVO plikeVO);
 
