@@ -211,7 +211,7 @@ body {
 </script>
 
 </head>
-<body style="padding-top: 200px">
+<body style="padding-top: 170px">
 
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
 
@@ -241,11 +241,10 @@ body {
 								${sns.memberVO.nickname}</p>
 							
 							<div class="pdate" style="padding-top: 7px; padding-left:600px; font-size: 15px;">  ${sns.pdate}    </div> 
- 
+ 							
 						</div>
 							
  
-
 						 
 						<c:forEach var="img" items="${img}">
 							<div class="mySlides">
@@ -483,8 +482,9 @@ body {
 							<br> <br>
 
 							<div style="float: right">
+								<sec:authorize access="hasAnyRole('ROLE_USER','ROLE_ADMIN')">
 								<sec:authentication property="principal" var="buttonhidden" />
-								<sec:authorize access="isAuthenticated()">
+								<sec:authorize access="isAuthenticated()">   </sec:authorize>
 
 									<!-- 현재 접속된 닉네임과 댓글보드에 저장된 닉네임을 비교해서 일치 하면 보이게 함 -->
 									<c:if test="${buttonhidden.nickname eq sns.memberVO.nickname}">

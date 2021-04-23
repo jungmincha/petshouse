@@ -95,8 +95,8 @@ label {
 				</div>
 
 				<div class="form-group row">
-					<input type="submit" class="btn btn-warning "
-						style="position: fixed; top: 150px; right: 400px;" value="sns등록">
+					<input type="submit" class="btn btn-outline-secondary col-sm-1"
+						style="position: fixed; top: 170px; right: 250px;" value="sns등록">
 				</div>
 
 				<div class="form-1">
@@ -124,8 +124,8 @@ label {
 							<div class="custom-file">
 								<input type="file" class="custom-file-input" id="btnAtt"
 									multiple="multiple" name="btnAtt" style="display: block;"
-									required> <label class="custom-file-label"
-									for="inputGroupFile02">사진을 선택하세요.</label>
+									required> 
+									<label class="custom-file-label">사진을 선택하세요.</label>
 							</div>
 						</div>
 					</div>
@@ -134,11 +134,11 @@ label {
 
 					<div class="form-group row">
 						<label class="col-sm-2"></label>
-						<div class="input-group col-lg-7 ">
-							<div id='image_preview '>
+						<div class="input-group col-lg-8 ">
+							 
 								<div id='preview'
 									data-placeholder='이미지를 첨부 하려면 파일 선택 버튼을 클릭하거나 이미지를 드래그앤드롭 하세요 *최대 10장까지'></div>
-							</div>
+							 
 						</div>
 					</div>
 
