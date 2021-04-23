@@ -181,6 +181,13 @@
 
 
 		<div id="snslist" class="row text-center">
+		<c:if test="${empty list}">
+							
+							<div class="col-12" style="min-height:200px; margin:100px auto;">
+								<div>등록된 게시글이 없습니다.</div>
+							</div>
+			</c:if>
+			<c:if test="${not empty list}">
 			<c:forEach items="${list}" var="sns">
 
 				<div class=" col-12 col-md-4 col-lg-3">
@@ -209,7 +216,7 @@
 					<div class="card-body">좋아요${sns.boardVO.plike}//댓글수</div>
 
 				</div>
-			</c:forEach>
+			</c:forEach></c:if>
 		</div>
 
 	</div>

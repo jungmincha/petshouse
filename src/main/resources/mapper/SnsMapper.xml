@@ -8,15 +8,15 @@
 	<!-- sns등록 -->
 	<insert parameterType="boardvo" id="snsBoardInput">
 	   <![CDATA[ 
-	  	 			insert into board (board_id,  content, plike, hit, hashtag, pgroup, pstep, pindent, member_id, boardtype_id,category_id)   
-      			    values (board_seq.nextval , #{content} , 0,    0,  #{hashtag}, board_seq.currval,0,0, #{memberVO.member_id}, 2 , #{categoryVO.category_id})    
+	  	 			insert into board (board_id,  content, plike, hit, hashtag, pgroup, pstep,  member_id, boardtype_id,category_id)   
+      			    values (board_seq.nextval , #{content} , 0,    0,  #{hashtag}, board_seq.currval,0,#{memberVO.member_id}, 2 , #{categoryVO.category_id})    
 		]]>
 	</insert>
 
 	<select id="getSnsBoard_id" resultType="boardvo">
 
  <![CDATA[
-  					select * from (select * from board where boardtype_id=2 order by pdate desc) where rownum=1
+  			select * from (select * from board where boardtype_id=2 order by pdate desc) where rownum=1
 	 	]]>
 	</select>
 	<!-- 다중이미지업로드 -->
@@ -235,19 +235,19 @@
 	   ]]>
 	</select>
 	
-<!-- plike board테이블에 입력-->
-<select id="insertplike">
-   <![CDATA[
-      update board set plike = plike+1 WHERE board_id=#{board_id}
-   ]]>
-	</select>
+	<!-- plike board테이블에 입력-->
+	<select id="insertplike">
+ 	  <![CDATA[
+  	    update board set plike = plike+1 WHERE board_id=#{board_id}
+  	 ]]>
+		</select>
 
 
-<!-- plike board테이블에 삭제-->
-<select id="deleteplike">
-   <![CDATA[
-      update board set plike = plike-1 WHERE board_id=#{board_id}
-   ]]>
+	<!-- plike board테이블에 삭제-->
+	<select id="deleteplike">
+  		 <![CDATA[
+    	  update board set plike = plike-1 WHERE board_id=#{board_id}
+  		 ]]>
 	</select>
 	
 	
@@ -278,7 +278,6 @@
 		<result column="hashtag" property="hashtag" />
 		<result column="pgroup" property="pgroup" />
 		<result column="pstep" property="pstep" />
-		<result column="pindent" property="pindent" />
 		<result column="ratescore" property="ratescore" />
 		<result column="avgscore" property="avgscore" />
 		<result column="count" property="count" />

@@ -139,8 +139,12 @@ h2 {
 			<!--  카테고리 부트스트랩 end -->
 			<div class="col-lg-8">
 				<div id="input">
-					<table class="table2 table-hover " border="1">
-						<h2>상품 관리</h2>
+				<h2 style="margin-bottom:20px;">상품 관리</h2>
+					<table class="table table-hover">
+						<div class="col-lg-10">
+								<a class="btn btn-outline-secondary float-right" href="/admin/board/registerView">상품게시글등록</a> 
+								<a class="btn btn-outline-secondary float-right" href="/admin/goods/registerView">상품등록</a>
+						</div>
 						<tr>
 							<th>상품번호</th>
 							<th>상품명</th>
@@ -164,10 +168,7 @@ h2 {
 							</tr>
 						</c:forEach>
 					</table>
-					<a class="btn btn-warning float-right"
-						href="/admin/board/registerView">상품게시글등록</a> <a
-						class="btn btn-warning float-right"
-						href="/admin/goods/registerView">상품등록</a>
+				
 
 					<!-- 페이징처리 -->
 					<ul class="pagination justify-content-center"
