@@ -100,25 +100,9 @@ body a {
 	font-family: "MY FONT", serif;
 }
 
-body span {
-	font-family: "MY FONT", serif;
-}
 
-body p {
-	font-family: "MY FONT", serif;
-}
 
-section {
-	font-family: "MY FONT", serif;
-}
 
-div {
-	font-family: "MY FONT", serif;
-}
-
-h2 {
-	font-family: "MY FONT", serif;
-}
 </style>
 </head>
 

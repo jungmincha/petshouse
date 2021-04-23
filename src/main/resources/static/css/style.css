@@ -623,7 +623,7 @@ ul, ol {
 	right: 20px;
 	top: 13px;
 	content: "";
-	font-family: "MY FONT", serif;
+    font-family: FontAwesome;
 	font-size: 18px;
 }
 
@@ -3867,6 +3867,7 @@ ul, ol {
 	.container {
 		max-width: 1170px;
 	}
+	
 }
 
 /* Medium Device: 1200px */
@@ -3968,6 +3969,7 @@ ul, ol {
 	.nav-item{
 		display:none;
 	}
+	
 }
 
 /* Tablet Device: 768px */
@@ -4024,6 +4026,7 @@ ul, ol {
 	.checkout-content input {
 		margin-top: 50px;
 	}
+	
 }
 
 /* Large Device: 480px */
