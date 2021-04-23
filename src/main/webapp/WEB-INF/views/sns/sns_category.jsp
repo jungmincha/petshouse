@@ -107,32 +107,7 @@
 	});
 </script>
 
-<script type="text/javascript">
-	function fire_ajax_submit(id) {
-		console.log(id);
-		var category_id = id;
-		var form = {
-			category_id : category_id
-		};
-		var url = "/commu/sns/category/" + id;
-
-		$.ajax({
-			type : "POST",
-			contentType : 'application/json; charset=utf-8',
-			url : url,
-			data : JSON.stringify(form),
-			cache : false,
-			success : function(data) {
-				console.log("SUCCESS : ", data);
-				$('#input').html(data);
-			},
-			error : function(e) {
-				console.log("ERROR : ", e);
-			}
-		});
-	}
-</script>
-
+ 
 </head>
 <body style="padding-top: 170px; min-height: 1500px;">
 <a class="btn btn-outline-secondary col-sm-1 float-right"  id = "login"  style="position: fixed; top: 170px; right: 200px;" onclick="location.href='${pageContext.request.contextPath}sns/write_view'">게시글등록</a>
@@ -199,10 +174,10 @@
 								src="/resources/img/member/profile/${sns.boardVO.memberVO.thumbnail}"
 								name="profile" alt="" class="profile" />
 						</div>
-						<div style="padding: 7px">${sns.boardVO.memberVO.nickname }
-						</div>
+						<div style="padding-top: 13px; padding-left :7px;">${sns.boardVO.memberVO.nickname} </div>
+						 
 						<a href="/myPage/${sns.boardVO.memberVO.nickname}"
-							style="padding: 7px;"> 팔로우</a>
+							style="padding: 13px; "><b>팔로우</b></a>
 
 
 					</div>

@@ -21,7 +21,9 @@ public interface AdminMapper {
 	
 	public int getTotalGoods(Criteria cri);
 	
-	public List<GoodsVO> getList2(int category_id);
+	public List<GoodsVO> getList2(int category_id, Criteria cri);
+	
+	public int getTotalCateGoods(int category_id, Criteria cri);
 	
 	public List<CategoryVO> getCatengoods();
 	
@@ -38,11 +40,15 @@ public interface AdminMapper {
 	public void goodsModify(GoodsVO goodsVO);
 
 	/* public void reviewDelete(int goods_id); */
+	
+	public void imgDelete(int goods_id);
 
 	public void boardDelete(int goods_id);
 
 	public void goodsDelete(int goods_id);
 
+	
+	
 	
 	/* 상품게시글관리 */
 	public List<GoodsVO> getNboard();
@@ -128,6 +134,10 @@ public interface AdminMapper {
 	   
 		// 리뷰 리스트
 		public List<BoardVO> getReviewList(BoardVO boardVO, Criteria cri);
+
+	
+
+	
 
 
 

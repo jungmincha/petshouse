@@ -82,15 +82,16 @@ public class AdminController {
 	public ModelAndView goodsNcategory(@RequestBody GoodsVO goodsvo, Criteria cri, CategoryVO categoryVO,
 			ModelAndView mav) {
 
-		mav.addObject("list2", service.getList2(categoryVO.getCategory_id()));
+		mav.addObject("list2", service.getList2(categoryVO.getCategory_id(),cri));
 		mav.addObject("category", service.getCatengoods());
 		mav.addObject("sort", service.getSort(categoryVO));
+		
+		int total = service.getTotalCateGoods(categoryVO.getCategory_id(),cri);
+		log.info("total" + total);
+		mav.addObject("pageMaker", new PageVO(cri, total));
+		
 		mav.setViewName("admin/goods_list_category");
-		/*
-		 * int total = service.getTotal(cri); log.info("total" + total);
-		 * mav.addObject("pageMaker", new PageVO(cri, total));
-		 */
-
+		
 		return mav;
 	}
 
