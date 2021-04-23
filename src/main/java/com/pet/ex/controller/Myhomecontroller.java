@@ -81,20 +81,21 @@ public class Myhomecontroller {
 	}
 	
 	//sns 전체 출력
-//	@GetMapping("/sns")
-//	public ModelAndView sns(@RequestParam("nickname") String nickname, MemberVO memberVO, Criteria cri, ModelAndView mav) throws Exception {
-//		log.info("more_sns");
-//		memberVO.setNickname(nickname);
-//		memberVO = service.getMemberInfo(memberVO.getNickname());
-//		mav.addObject("sns", service.getSnslist(memberVO, cri));
-//		mav.addObject("snsCount", service.getSnscount(memberVO.getMember_id()));
-//		
-//		mav.setViewName("myPage/mysns");
-//		return mav;
-//	}
+	@GetMapping("/sns")
+	public ModelAndView sns(@RequestParam("nickname") String nickname, MemberVO memberVO, Criteria cri, ModelAndView mav) throws Exception {
+		log.info("sns");
+		memberVO.setNickname(nickname);
+		memberVO = service.getMemberInfo(memberVO.getNickname());
+		mav.addObject("member", service.getMemberInfo(memberVO.getNickname()));
+		mav.addObject("sns", service.getSnslist(memberVO, cri));
+		mav.addObject("snsTotal", service.getSnstotal(memberVO.getMember_id()));
+		
+		mav.setViewName("myPage/mysns");
+		return mav;
+	}
 	
-	//sns 더보기 
-	@GetMapping("/moresns/{nickname}")
+	//sns 더보기(ajax)
+	@PostMapping("/moresns/{nickname}")
 	public Map<String, Object> moresns(MemberVO memberVO, Criteria cri) {
 		log.info("more_sns");
 		memberVO = service.getMemberInfo(memberVO.getNickname());
@@ -111,11 +112,24 @@ public class Myhomecontroller {
 		log.info("more_knowhow");
 		memberVO.setNickname(nickname);
 		memberVO = service.getMemberInfo(memberVO.getNickname());
+		mav.addObject("member", service.getMemberInfo(memberVO.getNickname()));
 		mav.addObject("knowhow", service.getKnowhowlist(memberVO, cri));
-		mav.addObject("knowhowCount", service.getKnowhowtotal(memberVO.getMember_id()));
+		mav.addObject("knowhowTotal", service.getKnowhowtotal(memberVO.getMember_id()));
 		
 		mav.setViewName("myPage/myknowhow");
 		return mav;
+	}
+	
+	//knowhow 더보기(ajax)
+	@PostMapping("/moreknow/{nickname}")
+	public Map<String, Object> moreknow(MemberVO memberVO, Criteria cri) {
+		log.info("more_knowhow");
+		memberVO = service.getMemberInfo(memberVO.getNickname());
+		Map<String, Object> list = new HashMap<>();
+		List<ImageVO> knowhow = service.getKnowhowlist(memberVO, cri);
+		list.put("knowhow", knowhow);
+		list.put("knowhowTotal", service.getKnowhowtotal(memberVO.getMember_id()));
+		return list;
 	}
 	
 	//리뷰 전체 출력
@@ -124,6 +138,7 @@ public class Myhomecontroller {
 		log.info("more_review");
 		memberVO.setNickname(nickname);
 		memberVO = service.getMemberInfo(memberVO.getNickname());
+		mav.addObject("member", service.getMemberInfo(memberVO.getNickname()));
 		mav.addObject("review", service.getReviewlist(memberVO, cri));
 		mav.addObject("reviewTotal", service.getReviewtotal(memberVO.getMember_id()));
 		mav.addObject("goodsscore", service.getGoodsscore());
@@ -132,17 +147,43 @@ public class Myhomecontroller {
 		return mav;
 	}
 	
+	//리뷰 더보기(ajax)
+	@PostMapping("/morereview/{nickname}")
+	public Map<String, Object> morereview(MemberVO memberVO, Criteria cri) {
+		log.info("more_review");
+		memberVO = service.getMemberInfo(memberVO.getNickname());
+		Map<String, Object> list = new HashMap<>();
+		List<BoardVO> review = service.getReviewlist(memberVO, cri);
+		list.put("review", review);
+		list.put("reviewTotal", service.getReviewtotal(memberVO.getMember_id()));
+		list.put("goodsscore", service.getGoodsscore());
+		return list;
+	}
+	
 	//Q&A 전체 출력
 	@GetMapping("/qna")
 	public ModelAndView qna(@RequestParam("nickname") String nickname, MemberVO memberVO, Criteria cri, ModelAndView mav) throws Exception {
 		log.info("more_qna");
 		memberVO.setNickname(nickname);
 		memberVO = service.getMemberInfo(memberVO.getNickname());
+		mav.addObject("member", service.getMemberInfo(memberVO.getNickname()));
 		mav.addObject("qna", service.getQnalist(memberVO, cri));
-		mav.addObject("qnaCount", service.getQnatotal(memberVO.getMember_id()));
+		mav.addObject("qnaTotal", service.getQnatotal(memberVO.getMember_id()));
 		
 		mav.setViewName("myPage/myqna");
 		return mav;
+	}
+	
+	//qna 더보기(ajax)
+	@PostMapping("/qna/{nickname}")
+	public Map<String, Object> morekqna(MemberVO memberVO, Criteria cri) {
+		log.info("more_qna");
+		memberVO = service.getMemberInfo(memberVO.getNickname());
+		Map<String, Object> list = new HashMap<>();
+		List<BoardVO> qna = service.getQnalist(memberVO, cri);
+		list.put("qna", qna);
+		list.put("qnaTotal", service.getQnatotal(memberVO.getMember_id()));
+		return list;
 	}
 	
 	//팔로우
@@ -234,6 +275,13 @@ public class Myhomecontroller {
 		service.memberModify(memberVO);
 		mav.setView(new RedirectView("view", true));
 
+		return mav;
+	}
+	
+	//에러페이지
+	@GetMapping("/error")
+	public ModelAndView error(ModelAndView mav) {
+		mav.setViewName("myPage/errorPage");
 		return mav;
 	}
 }

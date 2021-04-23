@@ -32,7 +32,7 @@
 		border-radius: 4px;
 		border: 1px solid #dadce0;
 		text-align: center;
-		min-height: 400px;
+		min-height: 350px;
 		margin: 20px auto;
 	}
 	
@@ -134,15 +134,16 @@
 						
 				<div class="user-profile__container">
 					<div class="user-profile__profile-image box" style="background: #BDBDBD;">
-						<img src="/resources/img/member/profile/${member.thumbnail}" class="profile" />
+						<a href="/myPage/${member.nickname}">
+						<img src="/resources/img/member/profile/${member.thumbnail}" class="profile" /></a>
 					</div>
 
 					<div class="profile-info">
+					
+					
 						<div class="profile-info__name">
 							<input type="hidden" id="member" value="${member.nickname}" />
-							<h3>${member.nickname}</h3>
-						</div>
-						<div class="follow-state">
+							<h3 style="margin-bottom:10px;">${member.nickname}</h3>
 							<a href="#followerModal" class="follower" data-toggle="modal">팔로워<span class="highlight">${follower}&nbsp;&nbsp;</span> </a>
 				          	<a href="#followingModal" data-toggle="modal">팔로잉<span class="highlight">${following}</span></a>
 						</div>
@@ -240,7 +241,7 @@
 						<c:if test="${not empty sns}">							
 							<div class="col-12"> 
 								<span style="font-size:20px;font-weight: bold;">SNS (${snsTotal})</span>
-								<a href="/myPage/moresns/${member.nickname}" style="float: right; padding-right:20px;">더보기</a><hr />		
+								<a href="/myPage/sns?nickname=${member.nickname}" style="float: right; padding-right:20px;">더보기</a><hr />		
 							</div>	
 							<c:forEach items="${sns}" var="sns">
 								<c:if test="${sns.rnum le 3}">
@@ -274,9 +275,9 @@
 								<c:if test="${knowhow.rnum le 3}">
 									<div class="col-lg-4 col-md-4 col-sm-4 wrap--profile text-center">	
 										<a href="/commu/tips/${knowhow.boardVO.board_id}">
-										<img src="/resources/img/tips/${knowhow.imgname}" alt="">							
+										<img src="/resources/img/tips/${knowhow.imgname}" alt=""></a>								
 										<span class="knowhow_hit">조회수 ${knowhow.boardVO.hit}</span>
-										<h6 style="margin-top:10px;">${knowhow.boardVO.title}</h6></a>	
+										<h6 style="padding-top:10px;">${knowhow.boardVO.title}</h6>
 									</div>
 		                        </c:if>
 							</c:forEach>	
@@ -335,23 +336,21 @@
 							<div class="col-12"> 
 								<c:forEach items="${qna}" var="qna">
 									<c:if test="${qna.rnum le 5}">
-										<form action="${pageContext.request.contextPath}/commu/qnatag" method="get">
+										<form action="/commu/qnatag" method="get">
 											<a href="/commu/qna/${qna.board_id}">
 												<div style="font-weight: normal; font-size: 18px;">${qna.title}</div>
-												<ul class="pd-tags">
 													<div>${qna.content}</div>									
-														<span style="font-size: 15px; color: gray;"><fmt:formatDate value="${qna.pdate}" pattern="yyyy.MM.dd" /></span>
-														<span style="font-size: 15px; color: gray;">조회수 ${qna.hit}</span>
+													<span style="font-size: 15px; color: gray;"><fmt:formatDate value="${qna.pdate}" pattern="yyyy.MM.dd" /></span>
+													<span style="font-size: 15px; color: gray;">조회수 ${qna.hit}</span>
 														
-														<c:set var="hashtag" value="${qna.hashtag}" />
-														<c:set var="tag" value="${fn:split(hashtag, '#')}" />
-														<c:forEach var="tag" items="${tag}">
-															<c:if test="${not empty qna.hashtag}">
-																<span><button id="hashtag" name="keyword" class="btn btn-disabled" style="" value="${tag}"
-																	onclick="location.href='${pageContext.request.contextPath}/search'">#${tag}</button></span>
-															</c:if>
+													<c:set var="hashtag" value="${qna.hashtag}" />
+													<c:set var="tag" value="${fn:split(hashtag, '#')}" />
+													<c:forEach var="tag" items="${tag}">
+														<c:if test="${not empty qna.hashtag}">
+															<span><button id="hashtag" name="keyword" class="btn btn-disabled" style="" value="${tag}"
+																onclick="location.href='${pageContext.request.contextPath}/search'">#${tag}</button></span>
+														</c:if>
 														</c:forEach>
-												</ul>
 											</a>
 										</form>
 										<hr />	

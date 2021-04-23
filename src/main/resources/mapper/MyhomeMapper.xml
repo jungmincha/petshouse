@@ -119,7 +119,7 @@
 		<![CDATA[
 	      	select * from(
 		        select rownum as rnum, A.*from (
-		           	select g.thumbnail, g.goods_id, g.goodsname from board b, goods g where b.goods_id=g.goods_id and b.member_id=#{memberVO.member_id} and b.boardtype_id=8 order by b.pdate desc
+		           	select g.thumbnail, g.goods_id, g.goodsname, b.board_id from board b, goods g where b.goods_id=g.goods_id and b.member_id=#{memberVO.member_id} and b.boardtype_id=8 order by b.pdate desc
 		       ) A where rownum <= #{cri.pageNum} * #{cri.amount}
 	       )where rnum > (#{cri.pageNum}-1) * #{cri.amount} 
 	   ]]>
@@ -144,7 +144,7 @@
 		<![CDATA[     
 			select * from(
 			   select rownum as rnum, A.*from (     
-	         	  select * from board where boardtype_id=4 and member_id=#{memberVO.member_id} order by pdate desc
+	         	  select * from board where boardtype_id=4 and member_id=#{memberVO.member_id} and pstep=0 order by pdate desc
 	          ) A where rownum <= #{cri.pageNum} * #{cri.amount}
 		    )where rnum > (#{cri.pageNum}-1) * #{cri.amount} 
 	   ]]>

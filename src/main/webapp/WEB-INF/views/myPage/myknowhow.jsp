@@ -2,7 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,38 +13,13 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
-<script>
-   $(document).ready(function() {
-      $.fn.generateStars = function() {
-         return this.each(function(i, e) {
-            $(e).html($('<span/>').width($(e).text() * 16));
-         });
-      };
-
-      // 숫자 평점을 별로 변환하도록 호출하는 함수
-      $('.star-prototype').generateStars();
-   });
-</script>
-
 <Style>
 	.user-profile__container {
 		border-radius: 4px;
 		border: 1px solid #dadce0;
 		text-align: center;
-		min-height: 400px;
+		min-height: 300px;
 		margin: 20px auto;
-	}
-	
-	.sns_container, .review_container, .qna_container, .knowhow_container {
-		border-radius: 4px;
-		border: 1px solid #dadce0;
-		text-align: center;
-		min-height: 200px;	
-	}
-	
-	.sns_container div, .review_container div, .qna_container div, .knowhow_container div{
-		height:200px; 
-		line-height:200px;
 	}
 
 	.box {
@@ -62,21 +36,21 @@
 		object-fit: cover;
 	}
 	
-	.sns, .knowhow, .qna, .review{
+	.knowhow{
 		padding-top: 20px;
 		padding-left: 20px;
 		padding-bottom: 50px;
 	}
 	
-	.sns img, .knowhow img, .review img{
+	.knowhow img{
 		width:250px; 
 		height:250px;
 		border-radius: 8px;
 	}
 	
-	.knowhow_hit, .sns_hit{
+	.knowhow_hit{
 		position: absolute;
-	    bottom: 35px;
+	    bottom: 65px;
 	    right: 35px;
 	    font-size: 15px;
 	    color: #fff;
@@ -102,17 +76,6 @@
 		text-decoration: none;
 	}
 
-	span.star-prototype, span.star-prototype>*, span.star, span.star>* {
-	   height: 16px;
-	   background: url(http://i.imgur.com/YsyS5y8.png) 0 -16px repeat-x;
-	   display: inline-block;
-	}
-	
-	span.star-prototype>*, span.star>* {
-	   background-position: 0 0;
-	   max-width: 80px;
-	}
-	
 	#navbars>li:nth-child(4) {
   		background-color: #e7ab3c;
 	}
@@ -134,92 +97,16 @@
 						
 				<div class="user-profile__container">
 					<div class="user-profile__profile-image box" style="background: #BDBDBD;">
-						<img src="/resources/img/member/profile/${member.thumbnail}" class="profile" />
+						<a href="/myPage/${member.nickname}">
+						<img src="/resources/img/member/profile/${member.thumbnail}" class="profile" /></a>
 					</div>
 
 					<div class="profile-info">
 						<div class="profile-info__name">
 							<input type="hidden" id="member" value="${member.nickname}" />
-							<h3>${member.nickname}</h3>
-						</div>
-						<div class="follow-state">
-							<a href="#followerModal" class="follower" data-toggle="modal">팔로워<span class="highlight">${follower}&nbsp;&nbsp;</span> </a>
-				          	<a href="#followingModal" data-toggle="modal">팔로잉<span class="highlight">${following}</span></a>
-						</div>
-				
-						<!-- follower list Modal start -->
-					    <div class="modal" id="followerModal">
-						  <div class="modal-dialog">
-				  	    	  <div class="modal-content">			      
-									<!-- Modal Header -->
-									<div class="modal-header">
-										<h4 class="modal-title">팔로워 회원 목록</h4>
-										<button type="button" class="close" data-dismiss="modal">&times;</button>
-									</div>
-										        
-									<!-- Modal body -->
-									<div class="followerlist modal-body">
-										<c:forEach items="${followerlist}" var="followerlist">
-											<p>${followerlist.follower_id}</p>          	
-										</c:forEach>
-									</div>
-										        
-									<!-- Modal footer -->
-									<div class="modal-footer">
-										<button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
-									</div>            
-								</div>
-							</div>
-						</div>
-						<!-- follower list Modal end -->
-								   
-						<!-- following list Modal start -->
-						<div class="modal" id="followingModal">
-							<div class="modal-dialog">
-								<div class="modal-content">
-								      
-									<!-- Modal Header -->
-									<div class="modal-header">
-								       <h4 class="modal-title">팔로잉 회원 목록</h4>
-								       <button type="button" class="close" data-dismiss="modal">&times;</button>
-								    </div>
-								        
-								    <!-- Modal body -->
-								    <div class="modal-body">
-								        <c:forEach items="${followinglist}" var="followinglist">
-								          	<p>${followinglist.nickname}</p>          	
-								        </c:forEach>
-								    </div>
-								        
-								    <!-- Modal footer -->
-								    <div class="modal-footer">
-								        <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
-								    </div>
-								 </div>
-							</div>
-						</div>
-						<!-- following list Modal end -->
-							 
-						<!-- 본인 계정인 경우 수정 버튼 발생, principal로 확인-->	   	
-						<c:if test="${member.member_id eq follower_id}">
-							<div class="profile-info__actions" style = "padding-top : 50px;">
-								<a class="btn btn-warning" href="/myPage/view" style="color:black">설정</a>
-							</div>
-						</c:if>
-								
-						<!-- 본인 계정이 아닌 경우 팔로우 버튼 발생, principal로 확인-->	   	
-						<c:if test="${member.member_id ne follower_id}">	
-							<c:if test="${followcheck == 0}">							
-								<div class="profile-info__actions" style = "padding-top : 50px;">
-					        		<button type="button" class="follow btn-warning" onclick="follow();">팔로우</button>
-						        </div>	   
-					        </c:if>		
-				    	    <c:if test="${followcheck != 0}">							
-								<div class="profile-info__actions" style = "padding-top : 50px;">
-					     			<button type="button" class="unfollow btn-warning" onclick="unfollow();">언팔로우</button>
-								</div>	   
-							</c:if>		
-						</c:if>					
+							<h3 style="margin-bottom:10px;">${member.nickname}</h3>
+							<p>작성한 노하우</p>
+						</div>				
 					</div>
 					</div>
 					</form>
@@ -227,98 +114,79 @@
 				<!-- profile Content End-->
 				
 				<div class="col-lg-9 wrap--profile">	
-					<!-- SNS 게시글 조회 -->
-				
-				
 					<!-- 노하우 게시글 조회 -->
-					<div class="knowhow row">	
-						<c:if test="${empty knowhow}">
-							<div class="col-12"> 
-								<span style="font-size:20px;font-weight: bold;">노하우 (${knowhowTotal})</span><hr />		
+					<div class="knowhow row">							
+						<div class="col-12"> 
+							<span style="font-size:20px;font-weight: bold;">노하우 (${knowhowTotal})</span><hr />
+						</div>	
+						<c:forEach items="${knowhow}" var="knowhow">
+							<div class="col-lg-4 col-md-4 col-sm-4 wrap--profile text-center">	
+								<a href="/commu/tips/${knowhow.boardVO.board_id}">
+								<img src="/resources/img/tips/${knowhow.imgname}" alt=""></a>								
+								<span class="knowhow_hit">조회수 ${knowhow.boardVO.hit}</span>
+								<h6 style="padding-top:10px;">${knowhow.boardVO.title}</h6>
 							</div>
-							<div class="col-12 knowhow_container">
-								<div>노하우를 작성해주세요</div>
-							</div>
-						</c:if>
-						<c:if test="${not empty knowhow}">							
-							<div class="col-12"> 
-								<span style="font-size:20px;font-weight: bold;">노하우 (${knowhowTotal})</span>
-								<a href="/myPage/knowhow?nickname=${member.nickname}" style="float: right; padding-right:20px;">더보기</a><hr />		
-							</div>	
-							<c:forEach items="${knowhow}" var="knowhow">
-								<c:if test="${knowhow.rnum le 3}">
-									<div class="col-lg-4 col-md-4 col-sm-4 wrap--profile text-center">	
-										<a href="/commu/tips/${knowhow.boardVO.board_id}">
-										<img src="/resources/img/tips/${knowhow.imgname}" alt="">							
-										<span class="knowhow_hit">조회수 ${knowhow.boardVO.hit}</span>
-										<h6 style="margin-top:10px;">${knowhow.boardVO.title}</h6></a>	
-									</div>
-		                        </c:if>
-							</c:forEach>	
-						</c:if>
-					</div>	
-			
+						</c:forEach>
 					</div>
-				</div>
+					<div class="row">		
+						<div class="col-12 text-center"> 	
+							<c:if test="${knowhowTotal > 9}">
+					            <input type="hidden" class="knowhowTotal" value="${knowhowTotal}" />
+						        <button type="button" class="btn btn-warning" onClick="btnClick()">더보기</button>
+						   </c:if>
+						</div>	
+					</div>
+				</div>					
 			</div>
-	<script>
-	   	var nickname = $('#member').val();  
-	   	console.log(nickname);
-	  	
-	   	//팔로우 요청
-	    function follow(){  	         
-	    	$.ajax({
-	    		type :"POST",
-		        url :"/myPage/follow/" + nickname,     
-		        success :function(data){
-		           console.log(data);	
-		           var followerlist = data.followerlist;
-		          
-		           html = "";
-		           for(var i in followerlist){
-		        	   html += "<p>" + followerlist[i].follower_id + "</p>";
-		           }
-		           
-		           $('.follower').empty();
-		           $('.follower').append('팔로워<span>' + data.follower + '</span></a>');                 
-		           $('.followerlist').empty();
-		           $('.followerlist').append(html);
-		           $('.follow').remove();	          
-		           $('.profile-info').append('<button type="button" class="unfollow btn-warning" onclick="unfollow();">언팔로우</button>');               
-		        },  
-		        error: function(e){
-			    	console.log(e);
-			    }
-	   		});//ajax end
-		};//follow end
-	    
-		//팔로우 취소
-		function unfollow(){  
-	    	$.ajax({
-	    		type :"POST",
-		        url :"/myPage/unfollow/" + nickname,
-		        success :function(data){
-		        	console.log(data);	
-		        	var followerlist = data.followerlist;
-			          
-		        	html = "";
-			        for(var i in followerlist){
-			        	html += "<p>" + followerlist[i].follower_id + "</p>";
-			        }    
-			           
-		        	$('.follower').empty();
-			        $('.follower').append('팔로워<span>' + data.follower + '</span></a>');  
-			        $('.followerlist').empty();
-			        $('.followerlist').append(html);
-		            $('.unfollow').remove();		           
-		            $('.profile-info').append('<button type="button" class="follow btn-warning" onclick="follow();">팔로우</button>'); 
-		        },
-		        error: function(e){
-			    	console.log(e);
-			    }
-	   		});//ajax end
-		};//unfollow end
-	</script>
+		</div>
+
+	<!-- 더보기 페이징 처리 -->
+    <script>
+ 
+      var nickname = $('#member').val();  
+      var pageNum = 1;
+      var check = $('.knowhowTotal').val() / 9;
+     
+      function btnClick(){
+    	  pageNum += 1;
+    	  
+    	  if (pageNum > check) {
+              $(".btn").hide();
+           }
+    	  console.log(pageNum);
+    	  console.log(check);
+    	  		  
+    	  	$.ajax({
+    	        type :"POST",
+    	        url :"/myPage/moreknow/" + nickname,
+    	        data : {
+    	        	pageNum: pageNum 
+    	        },
+    	        success :function(data){
+    	          console.log(data);
+    	          var knowhow = data.knowhow;
+    	          var knowhowTotal = data.knowhowTotal;
+					 	      
+    	          html = "";	
+
+    	           for(var i in knowhow){
+    	        	  html += "<div class='col-lg-4 col-md-4 col-sm-4 wrap--profile text-center'>"
+	      	          	   + "<a href='/commu/tips/'" + knowhow[i].boardVO.board_id + "'><img src='/resources/img/tips/"+knowhow[i].imgname + "' /></a>"
+	       	          	   + "<span class='knowhow_hit'>조회수" + knowhow[i].boardVO.hit + "</span>"       	         	
+	       	         	   + "<h6 style='padding-top:10px;'>" + knowhow[i].boardVO.title + "</h6></div>";   	          	       	          	
+    	        	}//knowhow foreach end      	     	           
+    	        	
+    	           $(".knowhow").append(html); 
+    	          
+    	        }, 	        
+    	        //success end
+    	        error : function(request, status, error) {
+					alert("code:" + request.status + "\n" + "message:"
+							+ request.responseText + "\n" + "error:" + error);
+				} // ajax 에러 시 end
+    	    }); //ajax end	 
+    	}; //click end	
+      </script>
 
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 </body>

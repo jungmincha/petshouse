@@ -97,7 +97,7 @@
 		 }
 	 }
     	
-   	$('#canvas').click(function(e){
+   	$('.btn').click(function(e){
    		e.preventDefault();
    		checkLogin();
    		
@@ -212,7 +212,8 @@
  				<div id="board">
  					<img class="roulette" src="/resources/img/commuhome/roulette.jpg">
 	 				<div id="pin"></div>
-	 				<canvas id="canvas" width="1000px" height="1000px"></canvas>			
+	 				<canvas id="canvas" width="1000px" height="1000px"></canvas>	
+	 				<button type="button" class="btn btn-warning">도전</button>		
  				</div>
  				</div>
  			 <div class="way col-lg-12">	

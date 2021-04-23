@@ -14,38 +14,13 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
-<script>
-   $(document).ready(function() {
-      $.fn.generateStars = function() {
-         return this.each(function(i, e) {
-            $(e).html($('<span/>').width($(e).text() * 16));
-         });
-      };
-
-      // 숫자 평점을 별로 변환하도록 호출하는 함수
-      $('.star-prototype').generateStars();
-   });
-</script>
-
-<Style>
+<style>
 	.user-profile__container {
 		border-radius: 4px;
 		border: 1px solid #dadce0;
 		text-align: center;
-		min-height: 400px;
+		min-height: 300px;
 		margin: 20px auto;
-	}
-	
-	.sns_container, .review_container, .qna_container, .knowhow_container {
-		border-radius: 4px;
-		border: 1px solid #dadce0;
-		text-align: center;
-		min-height: 200px;	
-	}
-	
-	.sns_container div, .review_container div, .qna_container div, .knowhow_container div{
-		height:200px; 
-		line-height:200px;
 	}
 
 	.box {
@@ -62,25 +37,10 @@
 		object-fit: cover;
 	}
 	
-	.sns, .knowhow, .qna, .review{
+	.qna{
 		padding-top: 20px;
 		padding-left: 20px;
 		padding-bottom: 50px;
-	}
-	
-	.sns img, .knowhow img, .review img{
-		width:250px; 
-		height:250px;
-		border-radius: 8px;
-	}
-	
-	.knowhow_hit, .sns_hit{
-		position: absolute;
-	    bottom: 35px;
-	    right: 35px;
-	    font-size: 15px;
-	    color: #fff;
-	    text-shadow: 0 0 4px rgb(0 0 0 / 50%);
 	}
 	
 	a:link {
@@ -102,22 +62,11 @@
 		text-decoration: none;
 	}
 
-	span.star-prototype, span.star-prototype>*, span.star, span.star>* {
-	   height: 16px;
-	   background: url(http://i.imgur.com/YsyS5y8.png) 0 -16px repeat-x;
-	   display: inline-block;
-	}
-	
-	span.star-prototype>*, span.star>* {
-	   background-position: 0 0;
-	   max-width: 80px;
-	}
-	
 	#navbars>li:nth-child(4) {
   		background-color: #e7ab3c;
 	}
 
-</Style>
+</style>
 
 </head>
 <body style="padding-top: 200px;">
@@ -134,92 +83,16 @@
 						
 				<div class="user-profile__container">
 					<div class="user-profile__profile-image box" style="background: #BDBDBD;">
-						<img src="/resources/img/member/profile/${member.thumbnail}" class="profile" />
+					<a href="/myPage/${member.nickname}">
+						<img src="/resources/img/member/profile/${member.thumbnail}" class="profile" /></a>
 					</div>
 
 					<div class="profile-info">
 						<div class="profile-info__name">
 							<input type="hidden" id="member" value="${member.nickname}" />
-							<h3>${member.nickname}</h3>
-						</div>
-						<div class="follow-state">
-							<a href="#followerModal" class="follower" data-toggle="modal">팔로워<span class="highlight">${follower}&nbsp;&nbsp;</span> </a>
-				          	<a href="#followingModal" data-toggle="modal">팔로잉<span class="highlight">${following}</span></a>
-						</div>
-				
-						<!-- follower list Modal start -->
-					    <div class="modal" id="followerModal">
-						  <div class="modal-dialog">
-				  	    	  <div class="modal-content">			      
-									<!-- Modal Header -->
-									<div class="modal-header">
-										<h4 class="modal-title">팔로워 회원 목록</h4>
-										<button type="button" class="close" data-dismiss="modal">&times;</button>
-									</div>
-										        
-									<!-- Modal body -->
-									<div class="followerlist modal-body">
-										<c:forEach items="${followerlist}" var="followerlist">
-											<p>${followerlist.follower_id}</p>          	
-										</c:forEach>
-									</div>
-										        
-									<!-- Modal footer -->
-									<div class="modal-footer">
-										<button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
-									</div>            
-								</div>
-							</div>
-						</div>
-						<!-- follower list Modal end -->
-								   
-						<!-- following list Modal start -->
-						<div class="modal" id="followingModal">
-							<div class="modal-dialog">
-								<div class="modal-content">
-								      
-									<!-- Modal Header -->
-									<div class="modal-header">
-								       <h4 class="modal-title">팔로잉 회원 목록</h4>
-								       <button type="button" class="close" data-dismiss="modal">&times;</button>
-								    </div>
-								        
-								    <!-- Modal body -->
-								    <div class="modal-body">
-								        <c:forEach items="${followinglist}" var="followinglist">
-								          	<p>${followinglist.nickname}</p>          	
-								        </c:forEach>
-								    </div>
-								        
-								    <!-- Modal footer -->
-								    <div class="modal-footer">
-								        <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
-								    </div>
-								 </div>
-							</div>
-						</div>
-						<!-- following list Modal end -->
-							 
-						<!-- 본인 계정인 경우 수정 버튼 발생, principal로 확인-->	   	
-						<c:if test="${member.member_id eq follower_id}">
-							<div class="profile-info__actions" style = "padding-top : 50px;">
-								<a class="btn btn-warning" href="/myPage/view" style="color:black">설정</a>
-							</div>
-						</c:if>
-								
-						<!-- 본인 계정이 아닌 경우 팔로우 버튼 발생, principal로 확인-->	   	
-						<c:if test="${member.member_id ne follower_id}">	
-							<c:if test="${followcheck == 0}">							
-								<div class="profile-info__actions" style = "padding-top : 50px;">
-					        		<button type="button" class="follow btn-warning" onclick="follow();">팔로우</button>
-						        </div>	   
-					        </c:if>		
-				    	    <c:if test="${followcheck != 0}">							
-								<div class="profile-info__actions" style = "padding-top : 50px;">
-					     			<button type="button" class="unfollow btn-warning" onclick="unfollow();">언팔로우</button>
-								</div>	   
-							</c:if>		
-						</c:if>					
+							<h3 style="margin-bottom:10px;">${member.nickname}</h3>
+							<p>작성한 질문과답변</p>
+						</div>				
 					</div>
 					</div>
 					</form>
@@ -227,112 +100,104 @@
 				<!-- profile Content End-->
 				
 				<div class="col-lg-9 wrap--profile">	
-					
-					
-					<!-- Q&A 게시글 조회 -->
-					<div class="qna row">
-						<c:if test="${empty qna}">
-							<div class="col-12"> 
-								<span style="font-size:20px;font-weight: bold;">질문과답변 (${qnaTotal})</span><hr />							
-							</div>	
-							<div class="col-12 qna_container">
-								<div>질문과답변을 작성해주세요</div>
-							</div>
-						</c:if>
-						<c:if test="${not empty qna}">
-							<div class="col-12"> 
-								<span style="font-size:20px;font-weight: bold;">질문과답변 (${qnaTotal})</span>
-								<a href="/myPage/qna?nickname=${member.nickname}" style="float: right; padding-right:20px;">더보기</a><hr />		
-							</div>	
-							<div class="col-12"> 
-								<c:forEach items="${qna}" var="qna">
-									<c:if test="${qna.rnum le 5}">
-										<form action="${pageContext.request.contextPath}/commu/qnatag" method="get">
-											<a href="/commu/qna/${qna.board_id}">
-												<div style="font-weight: normal; font-size: 18px;">${qna.title}</div>
-												<ul class="pd-tags">
-													<div>${qna.content}</div>									
-														<span style="font-size: 15px; color: gray;"><fmt:formatDate value="${qna.pdate}" pattern="yyyy.MM.dd" /></span>
-														<span style="font-size: 15px; color: gray;">조회수 ${qna.hit}</span>
-														
-														<c:set var="hashtag" value="${qna.hashtag}" />
-														<c:set var="tag" value="${fn:split(hashtag, '#')}" />
-														<c:forEach var="tag" items="${tag}">
-															<c:if test="${not empty qna.hashtag}">
-																<span><button id="hashtag" name="keyword" class="btn btn-disabled" style="" value="${tag}"
-																	onclick="location.href='${pageContext.request.contextPath}/search'">#${tag}</button></span>
-															</c:if>
-														</c:forEach>
-												</ul>
-											</a>
-										</form>
-										<hr />	
-									</c:if>
-								</c:forEach>
-							</div>	
-						</c:if>			
+					<!-- 질문과답변 게시글 조회 -->
+					<div class="qna row">							
+						<div class="col-12"> 
+							<span style="font-size:20px;font-weight: bold;">질문과답변 (${qnaTotal})</span><hr />
+						</div>	
+						<div class="col-12"> 
+							<c:forEach items="${qna}" var="qna">
+								<form action="/commu/qnatag" method="get">
+									<a href="/commu/qna/${qna.board_id}">
+										<div style="font-weight: normal; font-size: 18px;">${qna.title}</div>
+											<div>${qna.content}</div>									
+												<span style="font-size: 15px; color: gray;"><fmt:formatDate value="${qna.pdate}" pattern="yyyy-MM-dd" /></span>
+												<span style="font-size: 15px; color: gray;">조회수 ${qna.hit}</span>
+									</a>
+										<c:forEach var="hashtag" items="${qna.hashtag}">
+											<c:if test="${not empty hashtag}">
+												<span>&nbsp; ${hashtag}</span>
+											</c:if>
+										</c:forEach>
+								</form>
+								<hr />
+							</c:forEach>
+						 </div>
 					</div>
+					<div class="row">		
+						<div class="col-12 text-center"> 	
+							<c:if test="${qnaTotal > 10}">
+					            <input type="hidden" class="qnaTotal" value="${qnaTotal}" />
+						        <button type="button" class="btn btn-warning" onClick="btnClick()">더보기</button>
+						   </c:if>
+						</div>	
 					</div>
-				</div>
+				</div>					
 			</div>
-	<script>
-	   	var nickname = $('#member').val();  
-	   	console.log(nickname);
-	  	
-	   	//팔로우 요청
-	    function follow(){  	         
-	    	$.ajax({
-	    		type :"POST",
-		        url :"/myPage/follow/" + nickname,     
-		        success :function(data){
-		           console.log(data);	
-		           var followerlist = data.followerlist;
-		          
-		           html = "";
-		           for(var i in followerlist){
-		        	   html += "<p>" + followerlist[i].follower_id + "</p>";
-		           }
-		           
-		           $('.follower').empty();
-		           $('.follower').append('팔로워<span>' + data.follower + '</span></a>');                 
-		           $('.followerlist').empty();
-		           $('.followerlist').append(html);
-		           $('.follow').remove();	          
-		           $('.profile-info').append('<button type="button" class="unfollow btn-warning" onclick="unfollow();">언팔로우</button>');               
-		        },  
-		        error: function(e){
-			    	console.log(e);
-			    }
-	   		});//ajax end
-		};//follow end
-	    
-		//팔로우 취소
-		function unfollow(){  
-	    	$.ajax({
-	    		type :"POST",
-		        url :"/myPage/unfollow/" + nickname,
-		        success :function(data){
-		        	console.log(data);	
-		        	var followerlist = data.followerlist;
-			          
-		        	html = "";
-			        for(var i in followerlist){
-			        	html += "<p>" + followerlist[i].follower_id + "</p>";
-			        }    
-			           
-		        	$('.follower').empty();
-			        $('.follower').append('팔로워<span>' + data.follower + '</span></a>');  
-			        $('.followerlist').empty();
-			        $('.followerlist').append(html);
-		            $('.unfollow').remove();		           
-		            $('.profile-info').append('<button type="button" class="follow btn-warning" onclick="follow();">팔로우</button>'); 
-		        },
-		        error: function(e){
-			    	console.log(e);
-			    }
-	   		});//ajax end
-		};//unfollow end
-	</script>
+		</div>
+
+	<!-- 더보기 페이징 처리 -->
+    <script> 
+      var nickname = $('#member').val();  
+      var pageNum = 1;
+      var check = $('.qnaTotal').val() / 10;
+     
+      function btnClick(){
+    	  pageNum += 1;
+    	  
+    	  if (pageNum > check) {
+              $(".btn").hide();
+           }
+    	  console.log(pageNum);
+    	  console.log(check);
+    	  		  
+    	  	$.ajax({
+    	        type :"POST",
+    	        url :"/myPage/qna/" + nickname,
+    	        data : {
+    	        	pageNum: pageNum 
+    	        },
+    	        success :function(data){
+    	          console.log(data);
+    	          var qna = data.qna;
+    	          var qnaTotal = data.qnaTotal;
+					 	      
+    	          html = "";	
+
+    	           for(var i in qna){
+    	        	  html += "<div class='col-12'><form action='/commu/qnatag' method='get'>"
+	      	          	   + "<a href='/commu/qna/'" + qna[i].board_id + "'>"  
+	      	          	   + "<div style='font-weight: normal; font-size: 18px;'>" + qna[i].title + "</div>"
+	       	          	   + "<div>" + qna[i].content + "</div>"  	         	
+	       	          	   + "<span style='font-size:15px; color:gray;'>" + getFormatDate(qna[i].pdate) + "</span>"
+	       	         	   + "<span style='font-size:15px; color:gray;'> 조회수 " + qna[i].hit + "</span></a>";
+	       	          for(var j in qna){
+	       	        	  if(qna[j].hashtag != null){
+	       	        		html += "<div>" + qna[j].hashtag + "</div>";
+	       	        	  }
+	       	          }       	          
+	       	          html += "</form><hr />";	           
+    	           }//qna foreach end      	     	           
+    	        	
+    	           $(".qna").append(html); 
+    	          
+    	        }, 	        
+    	        //success end
+    	        error : function(request, status, error) {
+					alert("code:" + request.status + "\n" + "message:"
+							+ request.responseText + "\n" + "error:" + error);
+				} // ajax 에러 시 end
+    	    }); //ajax end	 
+    	}; //click end	
+      </script>
+      
+      <script>
+		function getFormatDate(date) {
+			
+			var date = date.substr(0, 10);
+			return date; 
+		}	
+	  </script>
 
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 </body>

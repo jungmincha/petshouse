@@ -2,7 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,38 +13,13 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
-<script>
-   $(document).ready(function() {
-      $.fn.generateStars = function() {
-         return this.each(function(i, e) {
-            $(e).html($('<span/>').width($(e).text() * 16));
-         });
-      };
-
-      // 숫자 평점을 별로 변환하도록 호출하는 함수
-      $('.star-prototype').generateStars();
-   });
-</script>
-
 <Style>
 	.user-profile__container {
 		border-radius: 4px;
 		border: 1px solid #dadce0;
 		text-align: center;
-		min-height: 400px;
+		min-height: 300px;
 		margin: 20px auto;
-	}
-	
-	.sns_container, .review_container, .qna_container, .knowhow_container {
-		border-radius: 4px;
-		border: 1px solid #dadce0;
-		text-align: center;
-		min-height: 200px;	
-	}
-	
-	.sns_container div, .review_container div, .qna_container div, .knowhow_container div{
-		height:200px; 
-		line-height:200px;
 	}
 
 	.box {
@@ -62,25 +36,16 @@
 		object-fit: cover;
 	}
 	
-	.sns, .knowhow, .qna, .review{
+	.review{
 		padding-top: 20px;
 		padding-left: 20px;
 		padding-bottom: 50px;
 	}
 	
-	.sns img, .knowhow img, .review img{
+	.review img{
 		width:250px; 
 		height:250px;
 		border-radius: 8px;
-	}
-	
-	.knowhow_hit, .sns_hit{
-		position: absolute;
-	    bottom: 35px;
-	    right: 35px;
-	    font-size: 15px;
-	    color: #fff;
-	    text-shadow: 0 0 4px rgb(0 0 0 / 50%);
 	}
 	
 	a:link {
@@ -101,7 +66,7 @@
 	a:hover {
 		text-decoration: none;
 	}
-
+	
 	span.star-prototype, span.star-prototype>*, span.star, span.star>* {
 	   height: 16px;
 	   background: url(http://i.imgur.com/YsyS5y8.png) 0 -16px repeat-x;
@@ -112,7 +77,7 @@
 	   background-position: 0 0;
 	   max-width: 80px;
 	}
-	
+
 	#navbars>li:nth-child(4) {
   		background-color: #e7ab3c;
 	}
@@ -134,92 +99,16 @@
 						
 				<div class="user-profile__container">
 					<div class="user-profile__profile-image box" style="background: #BDBDBD;">
-						<img src="/resources/img/member/profile/${member.thumbnail}" class="profile" />
+					<a href="/myPage/${member.nickname}">
+						<img src="/resources/img/member/profile/${member.thumbnail}" class="profile" /></a>
 					</div>
 
 					<div class="profile-info">
 						<div class="profile-info__name">
 							<input type="hidden" id="member" value="${member.nickname}" />
-							<h3>${member.nickname}</h3>
-						</div>
-						<div class="follow-state">
-							<a href="#followerModal" class="follower" data-toggle="modal">팔로워<span class="highlight">${follower}&nbsp;&nbsp;</span> </a>
-				          	<a href="#followingModal" data-toggle="modal">팔로잉<span class="highlight">${following}</span></a>
-						</div>
-				
-						<!-- follower list Modal start -->
-					    <div class="modal" id="followerModal">
-						  <div class="modal-dialog">
-				  	    	  <div class="modal-content">			      
-									<!-- Modal Header -->
-									<div class="modal-header">
-										<h4 class="modal-title">팔로워 회원 목록</h4>
-										<button type="button" class="close" data-dismiss="modal">&times;</button>
-									</div>
-										        
-									<!-- Modal body -->
-									<div class="followerlist modal-body">
-										<c:forEach items="${followerlist}" var="followerlist">
-											<p>${followerlist.follower_id}</p>          	
-										</c:forEach>
-									</div>
-										        
-									<!-- Modal footer -->
-									<div class="modal-footer">
-										<button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
-									</div>            
-								</div>
-							</div>
-						</div>
-						<!-- follower list Modal end -->
-								   
-						<!-- following list Modal start -->
-						<div class="modal" id="followingModal">
-							<div class="modal-dialog">
-								<div class="modal-content">
-								      
-									<!-- Modal Header -->
-									<div class="modal-header">
-								       <h4 class="modal-title">팔로잉 회원 목록</h4>
-								       <button type="button" class="close" data-dismiss="modal">&times;</button>
-								    </div>
-								        
-								    <!-- Modal body -->
-								    <div class="modal-body">
-								        <c:forEach items="${followinglist}" var="followinglist">
-								          	<p>${followinglist.nickname}</p>          	
-								        </c:forEach>
-								    </div>
-								        
-								    <!-- Modal footer -->
-								    <div class="modal-footer">
-								        <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
-								    </div>
-								 </div>
-							</div>
-						</div>
-						<!-- following list Modal end -->
-							 
-						<!-- 본인 계정인 경우 수정 버튼 발생, principal로 확인-->	   	
-						<c:if test="${member.member_id eq follower_id}">
-							<div class="profile-info__actions" style = "padding-top : 50px;">
-								<a class="btn btn-warning" href="/myPage/view" style="color:black">설정</a>
-							</div>
-						</c:if>
-								
-						<!-- 본인 계정이 아닌 경우 팔로우 버튼 발생, principal로 확인-->	   	
-						<c:if test="${member.member_id ne follower_id}">	
-							<c:if test="${followcheck == 0}">							
-								<div class="profile-info__actions" style = "padding-top : 50px;">
-					        		<button type="button" class="follow btn-warning" onclick="follow();">팔로우</button>
-						        </div>	   
-					        </c:if>		
-				    	    <c:if test="${followcheck != 0}">							
-								<div class="profile-info__actions" style = "padding-top : 50px;">
-					     			<button type="button" class="unfollow btn-warning" onclick="unfollow();">언팔로우</button>
-								</div>	   
-							</c:if>		
-						</c:if>					
+							<h3 style="margin-bottom:10px;">${member.nickname}</h3>
+							<p>구매한 상품</p>
+						</div>				
 					</div>
 					</div>
 					</form>
@@ -227,103 +116,92 @@
 				<!-- profile Content End-->
 				
 				<div class="col-lg-9 wrap--profile">	
-				
-					
 					<!-- 리뷰 게시글 조회 -->
-					<div class="review row">
-						<c:if test="${empty review}">
-							<div class="col-12"> 
-								<span style="font-size:20px;font-weight: bold;">리뷰 (${reviewTotal})</span><hr />							
-							</div>	
-							<div class="col-12 review_container">
-								<div>리뷰를 작성해주세요</div>
-							</div>
-						</c:if>
-						<c:if test="${not empty review}">
-							<div class="col-12"> 
-								<span style="font-size:20px;font-weight: bold;">리뷰 (${reviewTotal})</span>
-								<a href="/myPage/review?nickname=${member.nickname}" style="float: right; padding-right:20px;">더보기</a><hr />						
-							</div>	
-							<c:forEach items="${review}" var="review">
-								<c:if test="${review.rnum le 3}">
-									<div class="col-lg-4 col-md-4 col-sm-4 wrap--profile text-center">	
-										<a href="#"> 
-										<img src="/resources/img/admin/goods/${review.goodsVO.thumbnail}"/></a>														
-										<h6 style="padding-top:10px;">${review.goodsVO.goodsname}</h6>
+					<div class="review row">							
+						<div class="col-12"> 
+							<span style="font-size:20px;font-weight: bold;">리뷰 (${reviewTotal})</span><hr />
+						</div>	
+						<c:forEach items="${review}" var="review">
+							<div class="col-lg-4 col-md-4 col-sm-4 wrap--profile text-center">	
+								<a href="/admin/goods_detail/${review.board_id}"> 
+								<img src="/resources/img/admin/goods/${review.goodsVO.thumbnail}"/></a>														
+								<h6 style="padding-top:10px;">${review.goodsVO.goodsname}</h6>
 										
-										 <c:forEach items="${goodsscore}" var="rate">
-		                             		 <c:if test="${rate.goodsVO.goods_id eq review.goodsVO.goods_id}">
-				                                 <span class="star-prototype"> ${rate.avgscore}</span>
-		                                		 &nbsp; <span>리뷰 ${rate.count}</span>
-		                               	  	 </c:if>
-	                                 	</c:forEach>
-									</div>
-								</c:if>
-							</c:forEach>	
-						</c:if>	
-						
+								<c:forEach items="${goodsscore}" var="rate">
+		                      		<c:if test="${rate.goodsVO.goods_id eq review.goodsVO.goods_id}">
+				                       	<span class="star-prototype"> ${rate.avgscore}</span>
+		                                &nbsp; <span>리뷰 ${rate.count}</span>
+		                            </c:if>
+	                            </c:forEach>
+							</div>
+						</c:forEach>
 					</div>
+					<div class="row">		
+						<div class="col-12 text-center"> 	
+							<c:if test="${reviewTotal > 1}">
+					            <input type="hidden" class="reviewTotal" value="${reviewTotal}" />
+						        <button type="button" class="btn btn-warning" onClick="btnClick()">더보기</button>
+						   </c:if>
+						</div>	
 					</div>
-				</div>
+				</div>					
 			</div>
-	<script>
-	   	var nickname = $('#member').val();  
-	   	console.log(nickname);
-	  	
-	   	//팔로우 요청
-	    function follow(){  	         
-	    	$.ajax({
-	    		type :"POST",
-		        url :"/myPage/follow/" + nickname,     
-		        success :function(data){
-		           console.log(data);	
-		           var followerlist = data.followerlist;
-		          
-		           html = "";
-		           for(var i in followerlist){
-		        	   html += "<p>" + followerlist[i].follower_id + "</p>";
-		           }
-		           
-		           $('.follower').empty();
-		           $('.follower').append('팔로워<span>' + data.follower + '</span></a>');                 
-		           $('.followerlist').empty();
-		           $('.followerlist').append(html);
-		           $('.follow').remove();	          
-		           $('.profile-info').append('<button type="button" class="unfollow btn-warning" onclick="unfollow();">언팔로우</button>');               
-		        },  
-		        error: function(e){
-			    	console.log(e);
-			    }
-	   		});//ajax end
-		};//follow end
-	    
-		//팔로우 취소
-		function unfollow(){  
-	    	$.ajax({
-	    		type :"POST",
-		        url :"/myPage/unfollow/" + nickname,
-		        success :function(data){
-		        	console.log(data);	
-		        	var followerlist = data.followerlist;
-			          
-		        	html = "";
-			        for(var i in followerlist){
-			        	html += "<p>" + followerlist[i].follower_id + "</p>";
-			        }    
-			           
-		        	$('.follower').empty();
-			        $('.follower').append('팔로워<span>' + data.follower + '</span></a>');  
-			        $('.followerlist').empty();
-			        $('.followerlist').append(html);
-		            $('.unfollow').remove();		           
-		            $('.profile-info').append('<button type="button" class="follow btn-warning" onclick="follow();">팔로우</button>'); 
-		        },
-		        error: function(e){
-			    	console.log(e);
-			    }
-	   		});//ajax end
-		};//unfollow end
-	</script>
+		</div>
+
+	<!-- 더보기 페이징 처리 -->
+    <script>
+ 
+      var nickname = $('#member').val();  
+      var pageNum = 1;
+      var check = $('.reviewTotal').val() / 1;
+     
+      function btnClick(){
+    	  pageNum += 1;
+    	  
+    	  if (pageNum > check) {
+              $(".btn").hide();
+           }
+    	  console.log(pageNum);
+    	  console.log(check);
+    	  		  
+    	  	$.ajax({
+    	        type :"POST",
+    	        url :"/myPage/morereview/" + nickname,
+    	        data : {
+    	        	pageNum: pageNum 
+    	        },
+    	        success :function(data){
+    	          console.log(data);
+    	          var review = data.review;
+    	          var reviewTotal = data.reviewTotal;
+    	          var rate = data.goodsscore;
+					 	      
+    	          html = "";	
+
+    	           for(var i in sns){
+    	        	  html += "<div class='col-lg-4 col-md-4 col-sm-4 wrap--profile text-center'>"
+	      	          	   + "<a href='/admin/goods_detail/'" + review[i].board_id + "'><img src='/resources/img/admin/goods/"+review[i].goodsVO.thumbnail + "' /></a>"
+	       	          	   + "<h6 style='padding-top:10px;'>" + review[i].goodsVO.goodsname "</h6>";
+	       	          for(var i in rate){	   
+	      	          	   if(review[i].goodsVO.goods_id == rate[j].goodsVO.goods_id){
+	      	          			html += "<span class='star-prototype'>" +  rate[j].avgscore + "</span>"
+	      	          			     + "&nbsp; <span>리뷰" + rate[j].count + "</span>";
+	      	          	   }
+	       	          }
+	       	     	  html += "</div>"; 
+    	        	}//review foreach end      	     	           
+    	        	
+    	           $(".review").append(html); 
+    	          
+    	        }, 	        
+    	        //success end
+    	        error : function(request, status, error) {
+					alert("code:" + request.status + "\n" + "message:"
+							+ request.responseText + "\n" + "error:" + error);
+				} // ajax 에러 시 end
+    	    }); //ajax end	 
+    	}; //click end	
+      </script>
 
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 </body>
