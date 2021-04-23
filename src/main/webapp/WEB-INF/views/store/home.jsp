@@ -94,7 +94,7 @@
 	   padding:10px;
 	}
 	
-	#navbars>li:nth-child(3) {
+	#navbars>li:nth-child(1) {
   		background-color: #e7ab3c;
 	}
 </style>

@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,6 +14,19 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
+<script>
+   $(document).ready(function() {
+      $.fn.generateStars = function() {
+         return this.each(function(i, e) {
+            $(e).html($('<span/>').width($(e).text() * 16));
+         });
+      };
+
+      // 숫자 평점을 별로 변환하도록 호출하는 함수
+      $('.star-prototype').generateStars();
+   });
+</script>
+
 <Style>
 	.user-profile__container {
 		border-radius: 4px;
@@ -22,14 +36,14 @@
 		margin: 20px auto;
 	}
 	
-	.sns_container{
+	.sns_container, .review_container, .qna_container, .knowhow_container {
 		border-radius: 4px;
 		border: 1px solid #dadce0;
 		text-align: center;
 		min-height: 200px;	
 	}
 	
-	.sns_container div{
+	.sns_container div, .review_container div, .qna_container div, .knowhow_container div{
 		height:200px; 
 		line-height:200px;
 	}
@@ -48,21 +62,21 @@
 		object-fit: cover;
 	}
 	
-	.sns{
+	.sns, .knowhow, .qna, .review{
 		padding-top: 20px;
 		padding-left: 20px;
 		padding-bottom: 50px;
 	}
 	
-	.sns img{
+	.sns img, .knowhow img, .review img{
 		width:250px; 
 		height:250px;
 		border-radius: 8px;
 	}
 	
-	.sns_hit{
+	.knowhow_hit, .sns_hit{
 		position: absolute;
-	    bottom: 65px;
+	    bottom: 35px;
 	    right: 35px;
 	    font-size: 15px;
 	    color: #fff;
@@ -88,6 +102,17 @@
 		text-decoration: none;
 	}
 
+	span.star-prototype, span.star-prototype>*, span.star, span.star>* {
+	   height: 16px;
+	   background: url(http://i.imgur.com/YsyS5y8.png) 0 -16px repeat-x;
+	   display: inline-block;
+	}
+	
+	span.star-prototype>*, span.star>* {
+	   background-position: 0 0;
+	   max-width: 80px;
+	}
+	
 	#navbars>li:nth-child(4) {
   		background-color: #e7ab3c;
 	}
@@ -203,17 +228,39 @@
 				
 				<div class="col-lg-9 wrap--profile">	
 					<!-- SNS 게시글 조회 -->
-					<div class="sns row">							
-						
-						
+				
+				
+					<!-- 노하우 게시글 조회 -->
+					<div class="knowhow row">	
+						<c:if test="${empty knowhow}">
+							<div class="col-12"> 
+								<span style="font-size:20px;font-weight: bold;">노하우 (${knowhowTotal})</span><hr />		
+							</div>
+							<div class="col-12 knowhow_container">
+								<div>노하우를 작성해주세요</div>
+							</div>
+						</c:if>
+						<c:if test="${not empty knowhow}">							
+							<div class="col-12"> 
+								<span style="font-size:20px;font-weight: bold;">노하우 (${knowhowTotal})</span>
+								<a href="/myPage/knowhow?nickname=${member.nickname}" style="float: right; padding-right:20px;">더보기</a><hr />		
+							</div>	
+							<c:forEach items="${knowhow}" var="knowhow">
+								<c:if test="${knowhow.rnum le 3}">
+									<div class="col-lg-4 col-md-4 col-sm-4 wrap--profile text-center">	
+										<a href="/commu/tips/${knowhow.boardVO.board_id}">
+										<img src="/resources/img/tips/${knowhow.imgname}" alt="">							
+										<span class="knowhow_hit">조회수 ${knowhow.boardVO.hit}</span>
+										<h6 style="margin-top:10px;">${knowhow.boardVO.title}</h6></a>	
+									</div>
+		                        </c:if>
+							</c:forEach>	
+						</c:if>
+					</div>	
+			
 					</div>
 				</div>
 			</div>
-		 
-		</div>
-		
-		
-	<!-- 팔로우 기능 -->
 	<script>
 	   	var nickname = $('#member').val();  
 	   	console.log(nickname);
@@ -272,66 +319,6 @@
 	   		});//ajax end
 		};//unfollow end
 	</script>
-	
-	
-	<!-- 더보기 페이징 처리 -->
-    <script>
-   	$(document).ready(function() {
-		getSnslist();
-	})
-	
-	  var nickname = $('#member').val(); 
-      var pageNum = 0;
-      var check = $('.snsTotal').val() / 9;
-     
-      function getSnslist(){
-    	  pageNum += 1;
-    	  
-    	  if (pageNum > check) {
-              $(".btn").hide();
-           }
-    	  
-    	  console.log(pageNum);
-    	  console.log(check);
-    	  		  
-    	  	$.ajax({
-    	        type :"GET",
-    	        url :"/myPage/moresns/" + nickname,
-    	        data : {
-    	        	pageNum: pageNum 
-    	        },
-    	        success :function(data){
-    	          console.log(data);
-    	          var sns = data.sns;
-    	          var snsTotal = data.snsTotal;
-					 	      
-    	          html = "<div class='col-12'><span style='font-size:20px;font-weight: bold;'>SNS(" + snsTotal + ")</span><hr /></div>";	
-
-    	           for(var i in sns){
-    	        	  html += "<div class='col-lg-4 col-md-4 col-sm-4 wrap--profile text-center'>"
-	      	          	   + "<a href='/commu/sns/'" + sns[i].boardVO.board_id + "'><img src='/resources/img/member/sns/"+sns[i].imgname + "' /></a>"
-	       	          	   + "<span class='sns_hit'>조회수" + sns[i].boardVO.hit + "</span>"       	         	
-	       	         	   + "<h6 style='margin::10px 0px 30px 0px;'>" + sns[i].boardVO.content + "</h6>";       	          	       	          	
-    	        	}//sns foreach end      	   
-    	           
-    	           if(snsTotal > 9){
-		        		html += "<div class='col-lg-12 text-center'>"  
-		        			 += "<input type='hidden' class='snsTotal' value='" + snsTotal + "'/>"
-		            		 + "<button type='button' class='btn btn-warning' onClick='btnClick()'>더보기</button> </div>";			      
-    	           }
-    	        	
-				   $(".sns").empty();
-    	           $(".sns").append(html); 
-    	          
-    	        }, 	        
-    	        //success end
-    	        error : function(request, status, error) {
-					alert("code:" + request.status + "\n" + "message:"
-							+ request.responseText + "\n" + "error:" + error);
-				} // ajax 에러 시 end
-    	    }); //ajax end	 
-    	}; //click end	
-      </script>
 
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 </body>

@@ -69,7 +69,7 @@ public class Myhomecontroller {
 		mav.addObject("knowhowTotal", service.getKnowhowtotal(memberVO.getMember_id()));
 		
 		mav.addObject("review", service.getReviewlist(memberVO, cri));
-		mav.addObject("reviewTotalCount", service.getReviewtotal(memberVO.getMember_id()));
+		mav.addObject("reviewTotal", service.getReviewtotal(memberVO.getMember_id()));
 		mav.addObject("goodsscore", service.getGoodsscore());
 		
 		mav.addObject("qna", service.getQnalist(memberVO, cri));
@@ -100,9 +100,8 @@ public class Myhomecontroller {
 		memberVO = service.getMemberInfo(memberVO.getNickname());
 		Map<String, Object> list = new HashMap<>();
 		List<ImageVO> sns = service.getSnslist(memberVO, cri);
-		int snsCount = service.getSnstotal(memberVO.getMember_id());
 		list.put("sns", sns);
-		list.put("snsTotal", snsCount);
+		list.put("snsTotal", service.getSnstotal(memberVO.getMember_id()));
 		return list;
 	}
 

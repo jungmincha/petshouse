@@ -122,7 +122,7 @@
 		text-decoration: none;
 	}
 	
-	#navbars>li:nth-child(1) {
+	#navbars>li:nth-child(2) {
   		background-color: #e7ab3c;
 	}
 
