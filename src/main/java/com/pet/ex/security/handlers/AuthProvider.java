@@ -37,6 +37,7 @@ public class AuthProvider implements AuthenticationProvider {
 	private Authentication authenticate(String id, String password) throws AuthenticationException {
 		log.info("authenticate() 로그인 실행2");
 		MyAuthentication myInfo = (MyAuthentication) securityService.loadUserByUsername(id);
+		System.out.println(myInfo);
 		if (myInfo == null) {
 			log.info("사용자 정보가 없습니다.");
 			throw new UsernameNotFoundException(id);

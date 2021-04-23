@@ -49,7 +49,9 @@
 .pimg {
 	width: 40px;
 	height: 40px;
+	border-radius: 20%;
 }
+
 </style>
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
 <body style="padding-top: 100px">
@@ -173,7 +175,7 @@
 
 						</div>
 					</div>
-					<div class="col-lg-4 ">
+					<div class="col-lg-4" >
 
 						<div class="place-order">
 							<h4>결제 금액</h4>
@@ -220,14 +222,14 @@
 						var html = "";
 						for (var i = 0; i < payGoods.length; i++) {
 							html += "<li class='fw-normal'>"
-									+ "<img src='/resources/img/admin/goods/"+payGoods[i].thumbnail+"' class='pimg'>"
+									+ "<img src='/resources/img/admin/goods/"+payGoods[i].thumbnail+"' class='pimg'>&nbsp;&nbsp;"
 									+ payGoods[i].name
-									+ "&nbsp x &nbsp "
+									+ "&nbsp; x &nbsp; "
 									+ payGoods[i].amount
 									+ "<input type='hidden' name='amount' value='"+payGoods[i].amount+"'>"
 									+ " <span>"
 									+ payGoods[i].sum
-									+ "원</span> <br> "+payGoods[i].pcolor+" / "+payGoods[i].psize
+									+ "원</span> <br> 옵션 : "+payGoods[i].pcolor+" / "+payGoods[i].psize
 									+ "<input type='hidden' name='goodsSum' value='"+ payGoods[i].sum+"'><input type='hidden' name='goodsName' value='"+ payGoods[i].name+"'>"
 									+"<input type='hidden' name='psize' value='"+ payGoods[i].psize+"'>"
 									+"<input type='hidden' name='pcolor' value='"+ payGoods[i].pcolor+"'>"

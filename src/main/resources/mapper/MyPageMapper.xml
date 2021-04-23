@@ -18,7 +18,6 @@
 		<result column="hashtag" property="hashtag" />
 		<result column="pgroup" property="pgroup" />
 		<result column="pstep" property="pstep" />
-		<result column="pindent" property="pindent" />
 		<result column="ratescore" property="ratescore" />
 		<result column="avgscore" property="avgscore" />
 		<result column="count" property="count" />
@@ -29,20 +28,11 @@
 		<collection property="categoryVO" resultMap="categoryvo" />
 	</resultMap>
 
-	<resultMap type="CartVO" id="cartvo">
-		<result column="cart_id" property="cart_id" />
-		<result column="orderstate" property="orderstate" />
-		<result column="amount" property="amount" />
-		<collection property="memberVO" resultMap="membervo" />
-		<collection property="goodsVO" resultMap="goodsvo" />
-		<collection property="payVO" resultMap="payvo" />
-	</resultMap>
-
 	<resultMap type="CategoryVO" id="categoryvo">
 		<result column="category_id" property="category_id" />
 		<result column="categoryname" property="categoryname" />
 		<result column="code" property="code" />
-		<result column="sortnumber" property="sortnumber" />
+		<result column="sortname" property="sortname" />
 	</resultMap>
 
 	<resultMap type="FollowVO" id="followvo">

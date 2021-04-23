@@ -41,7 +41,7 @@ public class AuthFailureHandler implements AuthenticationFailureHandler {
 
 			id = exception.getMessage();
 			log.info(id);
-			if (!securityService.getMember(id).getCertify().equals("Y")) {
+			if (securityService.getMember(id) != null && !securityService.getMember(id).getCertify().equals("Y")) {
 				msg = "이메일을 인증해주세요.";
 			} else if (securityService.getMember(id) != null) {
 				securityService.updateTryCount(id);

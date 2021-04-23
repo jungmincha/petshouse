@@ -36,6 +36,10 @@
 <link rel="stylesheet" href="/resources/css/slicknav.min.css"
 	type="text/css">
 <link rel="stylesheet" href="/resources/css/style.css" type="text/css">
+<link rel="stylesheet"
+	href="https://www.w3schools.com/w3css/4/w3pro.css">
+<link rel="stylesheet"
+	href="https://www.w3schools.com/lib/w3-theme-teal.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link rel="stylesheet"
@@ -46,21 +50,21 @@
 		value="<sec:authentication property="principal.location"/>">
 	<input type="hidden" id="member_id" name="member_id"
 		value="<sec:authentication property="principal.member_id"/>">
-
 </sec:authorize>
 <style>
 .top_profile_box {
 	width: 40px;
 	height: 40px;
-	
 }
 
 .top_profile {
 	width: 40px;
-	height:40px;
+	height: 40px;
 	object-fit: cover;
-
 	border-radius: 70%;
+	object-fit: cover;
+	height: 40px;
+	object-fit: cover;
 }
 
 .top {
@@ -81,6 +85,39 @@ a:visited {
 .logo img {
 	width: 180px;
 	height: 50px;
+}
+
+@font-face {
+	font-family: 'MY FONT';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts-20-12@1.0/ELAND_Choice_M.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+body a {
+	font-family: "MY FONT", serif;
+}
+
+body span {
+	font-family: "MY FONT", serif;
+}
+
+body p {
+	font-family: "MY FONT", serif;
+}
+
+section {
+	font-family: "MY FONT", serif;
+}
+
+div {
+	font-family: "MY FONT", serif;
+}
+
+h2 {
+	font-family: "MY FONT", serif;
 }
 </style>
 </head>
@@ -121,7 +158,7 @@ a:visited {
 						<ul class="nav-right"
 							style="padding-top: 16px; padding-right: 15px">
 
-							<sec:authorize access="hasRole('ROLE_USER')">
+							<sec:authorize access="hasAnyRole('ROLE_USER','ROLE_ADMIN')">
 
 								<li class="heart-icon">
 									<div class="top_profile_box ">
@@ -208,68 +245,38 @@ a:visited {
 
 			</div>
 		</div>
-
-		<!-- 모바일 디비이스 상단메뉴 -->
-		<div class="row " id="mobile-navbar">
-			<div class="col-4">
-				<nav class="navbar navbar-expand-md navbar-light"
-					style="background-color: white; padding-top: 15px">
-
-					<button class="navbar-toggler" type="button" data-toggle="collapse"
-						data-target="#collapsibleNavbar">
-						<span class="navbar-toggler-icon"></span>
-					</button>
-
-					<div class="collapse navbar-collapse" id="collapsibleNavbar">
-						<ul class="navbar-nav">
-							<li class="nav-item"><a class="nav-link" href="#">Link</a></li>
-							<li class="nav-item"><a class="nav-link" href="#">Link</a></li>
-							<li class="nav-item"><a class="nav-link" href="#">Link</a></li>
-						</ul>
+		<div id="mobile-header">
+			<nav class="w3-sidebar w3-bar-block w3-card" id="mySidebar">
+				<div class="w3-container w3-theme-d2">
+					<span onclick="closeSidebar()"
+						class="w3-button w3-display-topright w3-large">X</span> <br>
+					<div class="w3-padding w3-center">
+						<img class="w3-circle" src="img_avatar.jpg" alt="avatar"
+							style="width: 75%">
 					</div>
-				</nav>
-			</div>
-			<div class="col-4 logo text-center" style="padding-top: 10px">
-				<a href="/store/home"> <img class=""
-					src="/resources/img/logo.png" alt="">
-				</a>
-			</div>
-			<div class="col-4">
-				<ul class="nav-right" style="padding-top: 16px; padding-right: 15px">
+				</div>
+				<a class="w3-bar-item w3-button" href="#">Movies</a> <a
+					class="w3-bar-item w3-button" href="#">Friends</a> <a
+					class="w3-bar-item w3-button" href="#">Messages</a>
+			</nav>
 
-					<sec:authorize access="hasRole('ROLE_USER')">
+			<div class="w3-bar w3-card ">
+				<div class="row">
+					<div class="col-4">
+						<i class="icon_profile"></i>
+						<button class="" onclick="openSidebar()">&#9776;</button>
+					</div>
+					<div class="col-4">
+						<div class="logo text-center">
+							<a href="/home"> <img src="/resources/img/logo.png" alt="">
+							</a>
+						</div>
+					</div>
+					<div class="col-4"></div>
+				</div>
 
-						<li class="heart-icon">
-							<div class="top_profile_box ">
-								<a
-									href="/myPage/<sec:authentication property="principal.nickname"/>">
-									<img class="top_profile"
-									src="/resources/img/member/profile/<sec:authentication  property="principal.thumbnail"/>">
-								</a>
-							</div>
-						</li>
-						<li><a
-							href="/myPage/<sec:authentication property="principal.nickname"/>"><sec:authentication
-									property="principal.nickname" />님</a></li>
-					</sec:authorize>
-					<li class="cart-icon"><a href="/myPage/cart" id="cartCount"><i
-							class="icon_bag_alt"></i> </a></li>
-					<!-- 로그아웃 버튼 -->
-					<sec:authorize access="isAnonymous()">
-						<li><a href="/login/login" class="login-panel">Login</a></li>
-					</sec:authorize>
-					<sec:authorize access="hasAnyRole('ROLE_USER','ROLE_ADMIN')">
-						<li><a href="/login/logout" class="login-panel">Logout</a></li>
-					</sec:authorize>
-
-				</ul>
 			</div>
-			<div class="col-12">
-				<hr>
-			</div>
-
 		</div>
-
 		<!-- 상단 버튼 -->
 
 	</header>
@@ -287,7 +294,7 @@ a:visited {
 			html = "<span id='cartCount'>" + count + "</span>"
 			$("#cartCount").append(html)
 		}
-
+		closeSidebar();
 	})
 
 	//위치기반 인증 자바스크립트 함수
@@ -303,7 +310,6 @@ a:visited {
 
 		var location_security = document.getElementById("location_security").value;
 		var member_id = document.getElementById("member_id").value;
-
 		//var location = document.getElementById("location").value; 
 		console.log(location_security);
 
@@ -319,9 +325,15 @@ a:visited {
 			console.log(location_security);
 			console.log(member_id);
 
-
 		}
 
+	}
+	function openSidebar() {
+		document.getElementById("mySidebar").style.display = "block";
+	}
+
+	function closeSidebar() {
+		document.getElementById("mySidebar").style.display = "none";
 	}
 </script>
 <!-- Js Plugins -->

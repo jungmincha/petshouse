@@ -14,11 +14,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>소셜로그인</title>
-<script src="https://code.jquery.com/jquery-3.3.1.js"
-	integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
-	crossorigin="anonymous">
-	
-</script>
+
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <!-- 부가적인 테마 -->
@@ -55,6 +51,13 @@
 /* glyphicon 을 일단 보이지 않게 설정 */
 #myForm .glyphicon {
 	display: none;
+}
+
+#preview-image {
+	width: 40px;
+	height: 40px;
+	border-radius: 70%;
+	overflow: hidden;
 }
 
 .filebox {
@@ -94,8 +97,8 @@
 					<div class="register-form">
 						<h2>SNS 간편회원가입</h2>
 						<h2 style="font-size: 13pt">추가 정보를 입력해주세요</h2>
-						<form action="/login/register/insert" method="post" id="myForm"
-							enctype="multipart/form-data">
+						<form action="/login/register/insert" method="post"
+							id="myForm" enctype="multipart/form-data">
 
 							<input type="hidden" name="member_id"
 								value="<sec:authentication property='principal.member_id'/>">
@@ -105,16 +108,27 @@
 
 							<input type="hidden" name="name"
 								value="<sec:authentication property='principal.name' />">
+
 							<div class="filebox">
+
+
 								<img style="width: 200px; height: 200px;" id="preview-image"
-									name="preview-image" class="profile_box"> <br> <br>
-								<label for="thumbnail"
-									style="font-size: 20px; text-align: center">프로필 이미지 선택</label>
+									name="preview-image" class="profile_box"
+									>
+
+								<br> <br> <label for="thumbnail"
+									style="font-size: 17px; text-align: center; font-weight: bold;">수정하기</label>
+								<label
+									style="font-size: 17px; text-align: center; font-weight: bold;"
+									onclick="defaultImage()">기본이미지</label>
+
 
 								<div class="custom-file">
 									<input type="file" class="custom-file-input" id="thumbnail"
 										name="file" multiple="multiple" style="display: block;">
 								</div>
+								<input type="hidden" name="thumbnail" id="thumbnail2"
+									value="">
 							</div>
 							<div class="group-input">
 								<label class="control-label" for="nickname">닉네임</label> <input
@@ -138,7 +152,7 @@
 											style="font-size: 10pt; background-color: #000000; color: #ffffff; font-weight: bold" />
 									</div>
 									<input class="form-control" type="text"
-										style="font-size: 13pt;" id="address" name="address" readonly/>
+										style="font-size: 13pt;" id="address" name="address" readonly />
 								</div>
 							</div>
 
@@ -302,31 +316,33 @@
 	        // 이미지가 로드가 된 경우
 	        reader.onload = e => {
 	            const previewImage = document.getElementById("preview-image")
+	            
 	            previewImage.src = e.target.result
+	          
 	        }
 	        // reader가 이미지 읽도록 하기
+	       
 	        reader.readAsDataURL(input.files[0])
 	    }
 	}
 	// input file에 change 이벤트 부여
 	const thumbnail = document.getElementById("thumbnail")
 	thumbnail.addEventListener("change", e => {
+		
 	    readImage(e.target)
 	})
 	
-	 $("#thumbnail").change(function(){
-	 if(this.files && this.files[0]) {
-	  var reader = new FileReader;
-	
-	 reader.readAsDataURL(this.files[0]);
+	function defaultImage(){
+		 const previewImage = document.getElementById("preview-image");
+         previewImage.src = "/resources/img/member/profile/profile.jpg";
+         $("#thumbnail2").val("profile.jpg");
+        $("#thumbnail").val(""); 
+		
 	}
-	}); 
 </script>
 
 <!-- Js Plugins -->
-<script src="/resources/js/jquery-3.3.1.min.js"></script>
 <script src="/resources/js/bootstrap.min.js"></script>
-<script src="/resources/js/jquery-ui.min.js"></script>
 <script src="/resources/js/jquery.countdown.min.js"></script>
 <script src="/resources/js/jquery.nice-select.min.js"></script>
 <script src="/resources/js/jquery.zoom.min.js"></script>

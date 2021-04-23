@@ -26,13 +26,20 @@
 10.  Footer
 
 -------------------------------------------------------------------*/
-
+@font-face {
+	font-family: 'MY FONT';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts-20-12@1.0/ELAND_Choice_M.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
 /*----------------------------------------*/
 /* Template default CSS
 /*----------------------------------------*/
 html, body {
 	height: 100%;
-	font-family: "Muli", sans-serif;
+	font-family: "MY FONT", serif;
 	-webkit-font-smoothing: antialiased;
 	font-smoothing: antialiased;
 }
@@ -41,7 +48,7 @@ h1, h2, h3, h4, h5, h6 {
 	margin: 0;
 	color: #111111;
 	font-weight: 400;
-	font-family: "Muli", sans-serif;
+	font-family: "MY FONT", serif;
 }
 
 h1 {
@@ -70,7 +77,7 @@ h6 {
 
 p {
 	font-size: 16px;
-	font-family: "Muli", sans-serif;
+	font-family: "MY FONT", serif;
 	color: #636363;
 	font-weight: 400;
 	line-height: 26px;
@@ -274,7 +281,7 @@ ul, ol {
 
 .ht-right .lan-selector .ddcommon .ddTitle .ddArrow:before {
 	content: "3";
-	font-family: "ElegantIcons";
+	font-family: "MY FONT", serif;
 	font-size: 14px;
 	color: #636363;
 	float: right;
@@ -616,7 +623,7 @@ ul, ol {
 	right: 20px;
 	top: 13px;
 	content: "";
-	font-family: FontAwesome;
+	font-family: "MY FONT", serif;
 	font-size: 18px;
 }
 
@@ -1621,7 +1628,7 @@ ul, ol {
 	right: -18px;
 	top: 0px;
 	content: "";
-	font-family: "FontAwesome";
+	font-family: "MY FONT", serif;
 	font-size: 16px;
 	color: #b2b2b2;
 }
@@ -3688,7 +3695,7 @@ ul, ol {
 .faq-accordin .card-heading a:after, .faq-accordin .card-heading>a.active[aria-expanded=false]:after
 	{
 	content: "";
-	font-family: "FontAwesome";
+	font-family: "MY FONT", serif;
 	font-size: 14px;
 	color: #404040;
 	height: 25px;
@@ -3705,7 +3712,7 @@ ul, ol {
 .faq-accordin .card-heading a[aria-expanded=true]:after, .faq-accordin .card-heading>a.active:after
 	{
 	content: "";
-	font-family: "FontAwesome";
+	font-family: "MY FONT", serif;
 	float: left;
 	font-size: 13px;
 	color: #ffffff;
@@ -3851,7 +3858,7 @@ ul, ol {
 	.nav-item .nav-menu li a {
 		padding: 16px 45px 15px;
 	}
-	#mobile-navbar{
+	#mobile-header{
 		display: none;
 	}
 }
@@ -3897,7 +3904,7 @@ ul, ol {
 	.related-products .product-item .pi-pic ul li a {
 		padding: 16px 12px 12px 11px;
 	}
-	#mobile-navbar{
+	#mobile-header{
 		display: none;
 	}
 }

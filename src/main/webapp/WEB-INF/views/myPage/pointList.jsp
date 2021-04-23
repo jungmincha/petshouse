@@ -84,12 +84,21 @@ table th {
 #navbars>li:nth-child(4) {
 	background-color: #e7ab3c;
 }
+
+@font-face {
+	font-family: "MY FONT";
+	src: url("/resources/fonts/Cafe24Ssurround.ttf")
+}
+
+span {
+	font-family: "MY FONT", serif;
+}
 </style>
 </head>
 
 <jsp:include page="/WEB-INF/views/include/header.jsp" />
 <body style="padding-top: 180px">
-	
+
 	<div class="container">
 		<div class="blog-details-inner">
 			<h2>포인트 사용내역</h2>
@@ -111,8 +120,8 @@ table th {
 			<div class="posted-by">
 
 				<div class="pb-text">
-					<table class="table table-striped">
-						<thead>
+					<table class="table">
+						<thead class="thead-dark">
 							<tr>
 								<th>적립 일자</th>
 								<th>적립 내용</th>
