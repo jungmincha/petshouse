@@ -25,6 +25,7 @@ public class StoreServiceImpl implements StoreService {
 	@Autowired
 	public StoreMapper mapper;
 
+	//상품에 대한 별점 평균
 	@Override
 	public List<BoardVO> getStorerate(Criteria cri) {
 		log.info("getStorerate/cri");
@@ -32,35 +33,54 @@ public class StoreServiceImpl implements StoreService {
 		return mapper.getStorerate(cri);
 	}
 
+	//상품 전체 정보 
 	@Override
 	public List<BoardVO> getGoodsinfo() {
 		log.info("getGoodsinfo");
 		return mapper.getGoodsinfo();
 	}
 	
+	//베스트 상품 총 개수	
+	@Override
+	public List<BoardVO> getGoodscount() {
+		log.info("getGoodscount");
+		return mapper.getGoodscount();
+	}
+	
+	//베스트 상품에 대한 별점 평균
 	@Override
 	public List<BoardVO> getBestrate(BoardVO boardVO, Criteria cri) {
 		log.info("getBestrate");
 		cri.setAmount(8);
 		return mapper.getBestrate(boardVO, cri);
 	}
+	
+	//카테고리별 베스트 상품 총 개수	
+	@Override
+	public List<BoardVO> getBestcount(int code) {
+		log.info("getBestcount");
+		return mapper.getBestcount(code);
+	}
 
+	//카테고리 조회
 	@Override
 	public List<CategoryVO> getCategory() {
 		log.info("getCategory");
 		return mapper.getCategory();
 	}
 	
-	@Override
-	public void point(PointVO pointVO) {
-		log.info("point");
-		mapper.point(pointVO);
-	}
-	
+	//이벤트(7일) 참여 조회
 	@Override
 	public int getEventstatus(PointVO pointVO) {
 		log.info("getEventstatus");
 		return mapper.getEventstatus(pointVO);	
+	}
+	
+	//포인트 점수 저장
+	@Override
+	public void point(PointVO pointVO) {
+		log.info("point");
+		mapper.point(pointVO);
 	}
 
 	//커뮤니티 노하우 조회

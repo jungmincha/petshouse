@@ -43,6 +43,7 @@ public class StoreController {
 		log.info("storehome");
 		mav.addObject("rate", service.getStorerate(cri));		
 		mav.addObject("goods", service.getGoodsinfo());
+		mav.addObject("count", service.getGoodscount());
 		mav.setViewName("store/home");
 		return mav;
 	}
@@ -64,7 +65,8 @@ public class StoreController {
 	public ModelAndView best(Criteria cri, ModelAndView mav) {
 		log.info("beststore");			
 		mav.addObject("rate", service.getStorerate(cri));
-		mav.addObject("goods", service.getGoodsinfo());	
+		mav.addObject("goods", service.getGoodsinfo());
+		mav.addObject("count", service.getGoodscount());
 		mav.setViewName("store/beststore");
 		return mav;
 	}
@@ -74,7 +76,8 @@ public class StoreController {
 	public ModelAndView best(BoardVO boardVO, Criteria cri, ModelAndView mav) {
 		log.info("beststore");
 		mav.addObject("rate", service.getBestrate(boardVO, cri));
-		mav.addObject("goods", service.getGoodsinfo());		
+		mav.addObject("goods", service.getGoodsinfo());	
+		mav.addObject("count", service.getBestcount(boardVO.getCategoryVO().getCode()));	
 		mav.setViewName("store/bestcate");	
 		return mav;	
 	}
@@ -89,6 +92,28 @@ public class StoreController {
 		list.put("rate", rate);
 		list.put("goods", goods);
 		return list;
+	}
+	
+	//커뮤홈 이동
+	@GetMapping("/commu/home")
+	public ModelAndView commuhome(ModelAndView mav) {
+		log.info("commuhome");
+		mav.addObject("knowhow", service.getKnowhow());
+		mav.addObject("sns", service.getSns());			
+		mav.setViewName("store/commuhome");
+		return mav;
+	}	
+	
+	//커뮤에서 카테고리 이동
+	@GetMapping("/commu/category/{category_id}")
+	public ModelAndView commuhome(CategoryVO category, String categoryName, ModelAndView mav) {
+	   log.info(categoryName);
+	   mav.addObject("category_id", category.getCategory_id());
+	   mav.addObject("categoryName", categoryName);
+	   mav.addObject("category", categoryService.getCategory());
+	   mav.addObject("smallcategory", categoryService.getScategory());
+	   mav.setViewName("category/home");	
+	   return mav;
 	}
 	
 	//이벤트 페이지 이동
@@ -122,27 +147,5 @@ public class StoreController {
 			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 		return entity;
-	}
-	
-	//커뮤홈 이동
-	@GetMapping("/commu/home")
-	public ModelAndView commuhome(ModelAndView mav) {
-		log.info("commuhome");
-		mav.addObject("knowhow", service.getKnowhow());
-		mav.addObject("sns", service.getSns());			
-		mav.setViewName("store/commuhome");
-		return mav;
-	}	
-	
-	//커뮤에서 카테고리 이동
-	@GetMapping("/commu/category/{category_id}")
-	public ModelAndView commuhome(CategoryVO category, String categoryName, ModelAndView mav) {
-	   log.info(categoryName);
-	   mav.addObject("category_id", category.getCategory_id());
-	   mav.addObject("categoryName", categoryName);
-	   mav.addObject("category", categoryService.getCategory());
-	   mav.addObject("smallcategory", categoryService.getScategory());
-	   mav.setViewName("category/home");	
-	   return mav;
 	}
 }

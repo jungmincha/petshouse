@@ -41,16 +41,28 @@ public interface MyhomeService {
 
 	//본인이 작성한 SNS 조회
 	public List<ImageVO> getSnslist(MemberVO memberVO, Criteria cri);
+	
+	//본인이 작성한 SNS 글개수 조회
+	public int getSnstotal(String member_id);
 
 	//본인이 작성한 노하우 조회
 	public List<ImageVO> getKnowhowlist(MemberVO memberVO, Criteria cri);
 	
+	//본인이 작성한 노하우 글개수 조회
+	public int getKnowhowtotal(String member_id);
+	
 	//본인이 작성한 리뷰 조회
 	public List<BoardVO> getReviewlist(MemberVO memberVO, Criteria cri);
+	
+	//본인이 작성한 리뷰 글개수 조회
+	public int getReviewtotal(String member_id);
 	
 	//상품에 대한 리뷰 점수 평균
 	public List<BoardVO> getGoodsscore();
 
 	//본인이 작성한 질답 조회
 	public List<BoardVO> getQnalist(MemberVO memberVO, Criteria cri);
+
+	//본인이 작성한 질답 글개수 조회
+	public int getQnatotal(String member_id);
 }

@@ -85,19 +85,6 @@
 	   	   	
 	   	   	ctx.rotate((360/list.length) * (Math.PI/180));
 		});
-
-		//내부 원 설정
-   	   	ctx.beginPath();
-   	   	ctx.arc(0, 0, 0, 0, 0*Math.PI, false);
-   	   	ctx.fillStyle = 'white';
-   	   	ctx.fill();
-   	   	
-   	   	ctx.textAlign= 'center';
-   	   	ctx.textBaseline = 'middle';
-   	   	ctx.font = '50px sanserif';
-   	   	
-   	   	ctx.strokeStyle = '#9197B5';
-   	   	ctx.strokeText('', 0,0);
    	 
    	var member_id = $("#member_id").val();
    	 
@@ -203,6 +190,10 @@
 		padding-top: 100px;
 		padding-bottom: 50px;
 	}
+	
+	#navbars>li:nth-child(3) {
+  		background-color: #e7ab3c;
+	}	
   </style>
   </head> 
   

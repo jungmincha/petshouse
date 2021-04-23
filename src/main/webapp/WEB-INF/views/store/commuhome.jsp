@@ -121,6 +121,10 @@
 	a:hover {
 		text-decoration: none;
 	}
+	
+	#navbars>li:nth-child(1) {
+  		background-color: #e7ab3c;
+	}
 
 </style>
 </head>
@@ -261,20 +265,20 @@
                     </div>
                 </div>
             </div>
-            <div class="row text-center">
+            <div class="row">
                  <div class="product-slider owl-carousel">
                      <c:forEach items="${knowhow}" var="knowhow">                   
                      	<div class="product-item">
                         	<div class="pi-pic">
                         		<a href="/commu/tips/${knowhow.boardVO.board_id}">
-                                <img src="/resources/img/tips/${knowhow.imgname}" style="border-radius:5px; height:300px;" alt=""></a>
+                                <img src="/resources/img/tips/${knowhow.imgname}" style="border-radius:5px; height:200px;" alt=""></a>
                                 <span class="knowhow_hit">조회수 ${knowhow.boardVO.hit}</span>
                                  <div class="sale">BEST ${knowhow.boardVO.rnum}</div>
                             </div>
                         <div class="latest-text">
-                        	<div class="tag-list">                          
-                                  <a href="/commu/tips/${knowhow.boardVO.board_id}"><p><span style="font-size:20px;">${knowhow.boardVO.title}</span></a>
-                                  <p>좋아요 ${knowhow.boardVO.plike}</p>                                        
+                        	<div class="tag-list">                    		                     
+                                  <a href="/commu/tips/${knowhow.boardVO.board_id}"><span style="font-size:15px; font-weight:bold; margin-top:9px;">${knowhow.boardVO.title}</span></a>                                
+                                  <p style="font-size: 14px;">${knowhow.boardVO.memberVO.nickname}</p>                                       
                             </div>                
                         </div>
                         </div>  
@@ -289,7 +293,7 @@
            	 <div class="row">
 	       		 <div class="col-lg-12" style="padding-bottom:20px;"> 
 					<div class="section-title">
-				    	<h2>인기 SNS</h2>
+				    	<h2><a href="/commu/sns">인기 SNS</a></h2>
 					</div>		
 				</div> 
 			 </div>  

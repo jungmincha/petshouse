@@ -104,6 +104,10 @@
 	   bottom: 500px;
 	   padding:10px;
 	}	
+	
+	#navbars>li:nth-child(3) {
+  		background-color: #e7ab3c;
+	}
   </style>
 </head>
 
@@ -182,8 +186,9 @@
                 </c:forEach>
             </div>
             
-	          <c:if test="${fn:length(rate) == 8}">
+	          <c:if test="${fn:length(count) > 8}">
 	            <div class="btn col-lg-12 text-center">  
+	          	    <input type="hidden" class="count" value="${fn:length(count)}" />
 	            	<button type="button" class="btn btn-warning" onClick="btnClick()">더보기</button>
 		        </div>
 		       </c:if>
@@ -192,13 +197,20 @@
 	  </section>
      <!-- Goods End -->
  
-      <!-- 더보기 페이징 처리 -->
+     <!-- 더보기 페이징 처리 -->
      <script>
      var pageNum = 1;
-     
-      function btnClick(){
-    	  pageNum += 1;
-    	  console.log(pageNum);
+     var check = $('.count').val() / 8;
+    
+	     function btnClick(){
+	   	  pageNum += 1;
+	   	  
+	   	  if (pageNum > check) {
+	             $(".btn").hide();
+	          }
+	   	  
+	   	  console.log(pageNum);
+	   	  console.log(check);
     	   	  		  
     	  	$.ajax({
     	        type :"POST",

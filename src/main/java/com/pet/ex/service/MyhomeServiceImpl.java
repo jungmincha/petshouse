@@ -95,24 +95,45 @@ public class MyhomeServiceImpl implements MyhomeService {
 	@Override
 	public List<ImageVO> getSnslist(MemberVO memberVO, Criteria cri) {
 		log.info("getSnslist");
-		cri.setAmount(1000);
+		cri.setAmount(9);
 		return mapper.getSnslist(memberVO, cri);
+	}
+	
+	//본인이 작성한 SNS 글개수 조회
+	@Override
+	public int getSnstotal(String member_id) {
+		log.info("getSnstotal");
+		return mapper.getSnstotal(member_id);
 	}
 
 	//본인이 작성한 노하우 조회
 	@Override
 	public List<ImageVO> getKnowhowlist(MemberVO memberVO, Criteria cri) {
 		log.info("getKnowhowlist");
-		cri.setAmount(1000);
+		cri.setAmount(9);
 		return mapper.getKnowhowlist(memberVO, cri);
+	}
+	
+	//본인이 작성한 노하우 글개수 조회
+	@Override
+	public int getKnowhowtotal(String member_id) {
+		log.info("getKnowhowtotal");
+		return mapper.getKnowhowtotal(member_id);
 	}
 
 	//본인이 작성한 리뷰 조회
 	@Override
 	public List<BoardVO> getReviewlist(MemberVO memberVO, Criteria cri) {
 		log.info("getReviewlist");
-		cri.setAmount(1000);
+		cri.setAmount(9);
 		return mapper.getReviewlist(memberVO, cri);
+	}
+	
+	//본인이 작성한 리뷰 글개수 조회
+	@Override
+	public int getReviewtotal(String member_id) {
+		log.info("getReviewtotal");
+		return mapper.getReviewtotal(member_id);
 	}
 	
 	//상품에 대한 리뷰 점수 평균
@@ -126,7 +147,14 @@ public class MyhomeServiceImpl implements MyhomeService {
 	@Override
 	public List<BoardVO> getQnalist(MemberVO memberVO, Criteria cri){
 		log.info("getQnalist");
-		cri.setAmount(1000);
+		cri.setAmount(10);
 		return mapper.getQnalist(memberVO, cri);
+	}
+	
+	//본인이 작성한 질답 글개수 조회
+	@Override
+	public int getQnatotal(String member_id) {
+		log.info("getQnatotal");
+		return mapper.getQnatotal(member_id);
 	}
 }
