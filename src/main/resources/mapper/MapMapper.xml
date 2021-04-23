@@ -192,8 +192,8 @@
 
 	<insert id="write" parameterType="boardvo">
    <![CDATA[
-      insert into board (board_id,  pdate, content, hit, hashtag, pgroup, pstep, pindent, member_id,  boardtype_id ,location)   
-       values (board_seq.nextval ,sysdate, #{content} ,#{hit},#{hashtag},board_seq.currval,#{pstep},#{pindent},#{memberVO.member_id} ,7 ,#{memberVO.location})
+      insert into board (board_id,  pdate, content, hit, hashtag, pgroup, pstep, member_id,  boardtype_id ,location)   
+       values (board_seq.nextval ,sysdate, #{content} ,#{hit},#{hashtag},board_seq.currval,#{pstep},#{memberVO.member_id} ,7 ,#{memberVO.location})
    ]]>
 	</insert>
 
@@ -345,7 +345,7 @@
 	<!-- 좋아요 리스트 조회 -->
 	<select id="getLikelist" resultMap="plikevo">
 		<![CDATA[
-		select member_id from plike where board_id=#{boardVO.board_id}
+		 select p.member_id , m.nickname from plike p , member m where p.member_id = m.member_id and board_id = #{boardVO.board_id}
 	        
 	   ]]>
 	</select> 
@@ -415,12 +415,26 @@
 	
 	
 		<!--content_view 사진 출력-->
-	<select id="getPhoto" resultType="imagevo">
+	<select id="getPhoto" resultMap="imagevo">
 
  	<![CDATA[
-  		select imgname from image where board_id = #{board_id}
+  		select * from image where board_id=#{boardVO.board_id}
 	 	]]>
 	</select>
+	
+	
+	
+	
+	
+	
+	<!-- 전체 좋아요 리스트 조회 -->
+	<select id="getAllLikelist" resultMap="plikevo">
+		<![CDATA[
+		select member_id from plike where board_id = board_id
+	        
+	   ]]>
+	</select> 
+	
 	
 	
 

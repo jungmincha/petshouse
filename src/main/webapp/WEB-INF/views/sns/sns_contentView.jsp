@@ -295,7 +295,7 @@ body {
 			        					<!-- Modal body -->
 			       						<div class="likelist modal-body">
 			          						<c:forEach items="${likelist}" var="likelist">
-			          							<p>${likelist.memberVO.member_id}</p>          	
+			          							<p>${likelist.memberVO.nickname}</p>          	
 			          						</c:forEach>
 			        					</div>
 			        
@@ -350,7 +350,7 @@ body {
 					           html = "";
 					           
 					           for(var i in likelist){
-					        	   html += "<p>" + likelist[i].memberVO.member_id + "</p>";
+					        	   html += "<p>" + likelist[i].memberVO.nickname + "</p>";
 					           }
 					           
 					           $('.like_amount').empty();
@@ -385,7 +385,7 @@ body {
 					        	html = "";//꼭 써줘야 할것!
 					        	
 								for(var i in likelist){
-									html += "<p>" + likelist[i].memberVO.member_id + "</p>";
+									html += "<p>" + likelist[i].memberVO.nickname + "</p>";
 					         	}
 						           
 								$('.like_amount').empty();

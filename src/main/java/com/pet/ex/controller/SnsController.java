@@ -176,6 +176,7 @@ public class SnsController {
 		System.out.println(member_id);
 		String present_nickname = service.getPresetnNickname(member_id);//현재 닉네임
 		
+		
 		log.info("SNS_View");
 
 		mav.addObject("comment", service.listComment(boardVO.getBoard_id(),cri));
@@ -197,7 +198,8 @@ public class SnsController {
 		
 		MemberVO member = new MemberVO();
 		plikeVO.setMemberVO(member);
-		plikeVO.getMemberVO().setMember_id(present_nickname);
+		plikeVO.getMemberVO().setMember_id(member_id);
+		plikeVO.getMemberVO().setNickname(present_nickname);
 		BoardVO board = new BoardVO();
 		plikeVO.setBoardVO(board);
 		plikeVO.getBoardVO().setBoard_id(boardVO.getBoard_id());
@@ -314,7 +316,8 @@ public class SnsController {
 				//resultmap에 vo 담아주는 거
 				MemberVO member = new MemberVO();
 				plikeVO.setMemberVO(member);
-				plikeVO.getMemberVO().setMember_id(present_nickname);
+				plikeVO.getMemberVO().setMember_id(member_id);
+				plikeVO.getMemberVO().setNickname(present_nickname);
 				
 			
 				BoardVO board = new BoardVO();
@@ -353,7 +356,8 @@ public class SnsController {
 				//resultmap에 vo 담아주는 거
 				MemberVO member = new MemberVO();
 				plikeVO.setMemberVO(member);
-				plikeVO.getMemberVO().setMember_id(present_nickname);
+				plikeVO.getMemberVO().setMember_id(member_id);
+				plikeVO.getMemberVO().setNickname(present_nickname);
 	
 				BoardVO board = new BoardVO();
 				plikeVO.setBoardVO(board);

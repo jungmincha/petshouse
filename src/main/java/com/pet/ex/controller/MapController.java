@@ -71,7 +71,7 @@ public class MapController {
 	// 펫츠타운 메인페이지
 	@RequestMapping("/board")
 	public ModelAndView board(String location,ModelAndView mav, Criteria cri, MemberVO memberVO,
-			BoardVO boardVO, ImageVO imageVO, PlikeVO plikeVO, String member_id, Authentication authentication) {
+			BoardVO boardVO, ImageVO imageVO, PlikeVO plikeVO,  Authentication authentication) {
 		
 		
 		
@@ -90,8 +90,32 @@ public class MapController {
 		// 위치
 		mav.addObject("location", location);
 
-		// 아이디
-		mav.addObject("member_id", member_id);
+		
+		
+		// 좋아요 기능 구현 -START-
+		
+		//String member_id = authentication.getPrincipal().toString();
+		//System.out.println(member_id);
+		//String present_nickname = service.getPresetnNickname(member_id);//현재 닉네임
+		
+		
+
+				// resultmap에 vo 담아주는 거
+				//MemberVO member = new MemberVO();
+				//plikeVO.setMemberVO(member);
+				//plikeVO.getMemberVO().setMember_id(present_nickname);
+
+				//BoardVO board = new BoardVO();
+				//plikeVO.setBoardVO(board);
+				//plikeVO.getBoardVO().setBoard_id(boardVO.getBoard_id());
+				
+			//	mav.addObject("like_amount", service.getLiketotal(plikeVO.getBoardVO().getBoard_id()));// 좋아요 수
+			//	mav.addObject("likecheck", service.isLike(plikeVO));	// 좋아요 유무 체크
+			//	mav.addObject("likelist", service.getLikelist(plikeVO));	// 좋아요 리스트
+				//mav.addObject("likelist2", service.getAllLikelist(plikeVO));	// 좋아요 리스트
+				// 좋아요 기능 구현 -END-
+				
+		
 		
 		
 		
@@ -120,7 +144,7 @@ public class MapController {
 
 	// content_view 페이지
 	@GetMapping("/board/{board_id}")
-	public ModelAndView content_view(String location, 
+	public ModelAndView content_view(@PathVariable("board_id") int board_id, String location, 
 			ModelAndView mav, BoardVO boardVO, ImageVO imageVO, MemberVO memberVO, PlikeVO plikeVO,
 			Authentication authentication) {
 		
@@ -146,27 +170,20 @@ public class MapController {
 		// resultmap에 vo 담아주는 거
 		MemberVO member = new MemberVO();
 		plikeVO.setMemberVO(member);
-		plikeVO.getMemberVO().setMember_id(present_nickname);
-
+		plikeVO.getMemberVO().setMember_id(member_id);
+		plikeVO.getMemberVO().setNickname(present_nickname);
+		
 		BoardVO board = new BoardVO();
 		plikeVO.setBoardVO(board);
 		plikeVO.getBoardVO().setBoard_id(boardVO.getBoard_id());
 		
-		//사진 보여주는 거
-		mav.addObject("photo", service.getPhoto(boardVO.getBoard_id()));
-		
-		
-
-		// 좋아요 수
-		mav.addObject("like_amount", service.getLiketotal(plikeVO.getBoardVO().getBoard_id()));
-		// 좋아요 유무 체크
-		mav.addObject("likecheck", service.isLike(plikeVO));
-		// 좋아요 리스트
-		mav.addObject("likelist", service.getLikelist(plikeVO));
+		mav.addObject("like_amount", service.getLiketotal(plikeVO.getBoardVO().getBoard_id()));// 좋아요 수
+		mav.addObject("likecheck", service.isLike(plikeVO));	// 좋아요 유무 체크
+		mav.addObject("likelist", service.getLikelist(plikeVO));	// 좋아요 리스트
 		// 좋아요 기능 구현 -END-
-		System.out.println(
-				"===========ddd===============================================================================");
-
+		
+		//사진 보여주는 거
+				mav.addObject("photo", service.getPhoto(board_id));
 		mav.setViewName("map/content_view");
 		return mav;
 
@@ -433,12 +450,16 @@ public class MapController {
 		String member_id = authentication.getPrincipal().toString();
 		System.out.println(member_id);
 		String present_nickname = service.getPresetnNickname(member_id);//현재 닉네임
+		
+		System.out.println("---------------===========================--------------888888888888888888888888888");
+		System.out.println(present_nickname);
 
 		// resultmap에 vo 담아주는 거
 		MemberVO member = new MemberVO();
 		plikeVO.setMemberVO(member);
-		plikeVO.getMemberVO().setMember_id(present_nickname);
-		// plikeVO.getMemberVO().setNickname(nickname);
+		plikeVO.getMemberVO().setMember_id(member_id);
+		plikeVO.getMemberVO().setNickname(present_nickname);
+	
 		BoardVO board = new BoardVO();
 		plikeVO.setBoardVO(board);
 		plikeVO.getBoardVO().setBoard_id(boardVO.getBoard_id());
@@ -480,8 +501,9 @@ public class MapController {
 		// resultmap에 vo 담아주는 거
 		MemberVO member = new MemberVO();
 		plikeVO.setMemberVO(member);
-		plikeVO.getMemberVO().setMember_id(present_nickname);
-		// plikeVO.getMemberVO().setMember_id(nickname);
+		plikeVO.getMemberVO().setMember_id(member_id);
+		plikeVO.getMemberVO().setNickname(present_nickname);
+
 		BoardVO board = new BoardVO();
 		plikeVO.setBoardVO(board);
 		plikeVO.getBoardVO().setBoard_id(boardVO.getBoard_id());

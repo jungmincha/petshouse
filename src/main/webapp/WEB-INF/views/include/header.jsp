@@ -46,8 +46,7 @@
 		value="<sec:authentication property="principal.location"/>">
 	<input type="hidden" id="member_id" name="member_id"
 		value="<sec:authentication property="principal.member_id"/>">
-	<input type="hidden" id="nickname" name="nickname"
-		value="<sec:authentication property="principal.nickname"/>">
+
 </sec:authorize>
 <style>
 .top_profile_box {
@@ -304,7 +303,7 @@ a:visited {
 
 		var location_security = document.getElementById("location_security").value;
 		var member_id = document.getElementById("member_id").value;
-		var nickname = document.getElementById("nickname").value;
+
 		//var location = document.getElementById("location").value; 
 		console.log(location_security);
 
@@ -315,11 +314,11 @@ a:visited {
 		} else {
 
 			location.href = "/map/board?location=" + location_security
-					+ "&member_id=" + member_id + "&nickname=" + nickname;
+					+ "&member_id=" + member_id;
 
 			console.log(location_security);
 			console.log(member_id);
-			console.log(nickname);
+
 
 		}
 

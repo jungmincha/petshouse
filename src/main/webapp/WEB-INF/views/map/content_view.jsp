@@ -265,7 +265,7 @@ background-color:#dddddd;
 			        					<!-- Modal body -->
 			       						<div class="likelist modal-body">
 			          						<c:forEach items="${likelist}" var="likelist">
-			          							<p>${likelist.memberVO.member_id}</p>          	
+			          							<p>${likelist.memberVO.nickname}</p>          	
 			          						</c:forEach>
 			        					</div>
 			        
@@ -307,6 +307,7 @@ background-color:#dddddd;
 					 	// var member_id = $('#member_id').val();  
 					 
 						console.log(board_id);
+						console.log("이게머야"+board_id);
 						// console.log(member_id);
 							
 				    	$.ajax({
@@ -320,7 +321,7 @@ background-color:#dddddd;
  								html = "";
 					           
 					           for(var i in likelist){
-					        	   html += "<p>" + likelist[i].memberVO.member_id + "</p>";
+					        	   html += "<p>" + likelist[i].memberVO.nickname + "</p>";
 					           }
 					           
 					           $('.like_amount').empty();
@@ -355,7 +356,7 @@ background-color:#dddddd;
 								html = "";//꼭 써줘야 할것!
 					        	
 								for(var i in likelist){
-									html += "<p>" + likelist[i].memberVO.member_id + "</p>";
+									html += "<p>" + likelist[i].memberVO.nickname + "</p>";
 					         	}
 						           
 								$('.like_amount').empty();
@@ -412,9 +413,14 @@ background-color:#dddddd;
 									
 									
 									
-									
-									<!--게시글 사진 -->
-									<img src="/resources/img/location/${photo.imgname}" style="width:400px; height:350px;">
+										<!--게시글 사진 -->
+							<%-- 		<c:forEach var="photo" items="${photo}">
+								<div class="mySlides"> --%>
+								<img src="/resources/img/location/${photo.imgname}"
+								style="width: 780px; height: 450px; object-fit: cover; border-radius: 10px;">
+							<%-- 	</div>
+								</c:forEach>
+									 --%>
 								
 									
 									
@@ -497,6 +503,42 @@ background-color:#dddddd;
    <!-- Footer -->
    <%@ include file="/WEB-INF/views/include/footer.jsp"%>  
    <!-- Footer -->
+   
+   	<script type="text/javascript">
+		var slideIndex = 1;
+		showSlides(slideIndex);
+
+		function plusSlides(n) {
+			showSlides(slideIndex += n);
+		}
+
+		function currentSlide(n) {
+			showSlides(slideIndex = n);
+		}
+
+		function showSlides(n) {
+			var i;
+			var slides = document.getElementsByClassName("mySlides");
+			var dots = document.getElementsByClassName("demo");
+			var captionText = document.getElementById("caption");
+			if (n > slides.length) {
+				slideIndex = 1
+			}
+			if (n < 1) {
+				slideIndex = slides.length
+			}
+			for (i = 0; i < slides.length; i++) {
+				slides[i].style.display = "none";
+			}
+			for (i = 0; i < dots.length; i++) {
+				dots[i].className = dots[i].className.replace(" active", "");
+			}
+			slides[slideIndex - 1].style.display = "block";
+			dots[slideIndex - 1].className += " active";
+			captionText.innerHTML = dots[slideIndex - 1].alt;
+		}
+	</script>
+   
    
    <script type="text/javascript">
 	// 댓글 삭제

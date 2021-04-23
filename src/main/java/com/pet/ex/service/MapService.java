@@ -84,6 +84,8 @@ public interface MapService {
 
 	public ImageVO getPhoto(int board_id);
 
+	public List<PlikeVO> getAllLikelist(PlikeVO plikeVO);
+
 	
 
 	

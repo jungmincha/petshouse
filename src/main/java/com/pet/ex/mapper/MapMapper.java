@@ -81,6 +81,8 @@ public interface MapMapper {
 	//content_view 사진 출력
 	public ImageVO getPhoto(int board_id);
 
+	public List<PlikeVO> getAllLikelist(PlikeVO plikeVO);
+
 
 
 }

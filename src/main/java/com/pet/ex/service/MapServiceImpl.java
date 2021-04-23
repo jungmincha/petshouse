@@ -282,6 +282,14 @@ public class MapServiceImpl implements MapService {
 	}
 
 
+	//전체 좋아요 출력
+	@Override
+	public List<PlikeVO> getAllLikelist(PlikeVO plikeVO) {
+		
+		return mapper.getAllLikelist(plikeVO);
+	}
+
+
 
 	
 

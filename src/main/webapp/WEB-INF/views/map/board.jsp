@@ -200,7 +200,7 @@ body::-webkit-scrollbar-track {
 						<!-- board 테이블 -->
 						<table class="table">
 						<c:forEach items="${list}" var="list">
-						<input id="board_id" type="hidden" name="board_id" value="${list.boardVO.board_id}" />
+						
 							<tbody id="mapList">
 								<td>
 								<a href="/map/board/${list.boardVO.board_id}?location=${location}&member_id=${member_id}">
@@ -216,6 +216,10 @@ body::-webkit-scrollbar-track {
 										</div>
 										<div style="padding:7px"> ${list.boardVO.memberVO.nickname} </div>	
 										</div>
+										
+										
+									
+										
 						
 											<!-- 게시글 정보 -->
 											<span style="font-size: 13px; color: gray;"><fmt:formatDate value="${list.boardVO.pdate}" pattern="yyyy.MM.dd" /></span>
