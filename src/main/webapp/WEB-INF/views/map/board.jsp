@@ -191,16 +191,16 @@ body::-webkit-scrollbar-track {
 								style="margin-left: 65px;" type="submit">글 작성</button>
 						</div>
 					</form>
-	<!-- 무한 페이징 시작 -->	
-					<article>
+	
 					<br/>
- 					</article>
+ 					
 				
     
   
-			
+			<!-- 무한 페이징 시작 -->	
+					<article>
 
-					<%-- 	<!-- board 테이블 -->
+						<!-- board 테이블 -->
 						<table class="table">
 						<c:forEach items="${list}" var="list">
 						
@@ -239,41 +239,15 @@ body::-webkit-scrollbar-track {
 									onclick="location.href='${pageContext.request.contextPath}/map/qnatag'">${t}</button></span>
 									</c:forEach>
 								
-								
-								
 								</td>
 							</tbody>
 						</c:forEach>
 
-					</table> --%>
+					</table> 
 
-				
+				</article>
     			
 
-
-					<!-- 페이징 -->
-					<div class="ul">
-						<ul class="pagination justify-content-center"
-							style="padding-bottom: 50px; padding-top: 50px;">
-							<c:if test="${pageMaker.prev}">
-								<li class="page-item"><a class="page-link"
-									href="board?location=${location}&member_id=${member_id}${pageMaker.makeQuery(pageMaker.startPage - 1) }">
-										Previous</a></li>
-							</c:if>
-
-							<c:forEach begin="${pageMaker.startPage }"
-								end="${pageMaker.endPage }" var="idx">
-								<c:out value="${pageMaker.cri.pageNum == idx?'':''}" />
-								<li class="page-item"><a class="page-link"
-									href="board?location=${location}&member_id=${member_id}${pageMaker.makeQuery(idx)}">${idx}</a></li>
-							</c:forEach>
-
-							<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-								<li class="page-item"><a class="page-link"
-									href="board?location=${location}&member_id=${member_id}${pageMaker.makeQuery(pageMaker.endPage +1) }">Next</a></li>
-							</c:if>
-						</ul>
-					</div>
 
 
 				</div>
@@ -285,6 +259,8 @@ body::-webkit-scrollbar-track {
 	
 	<script type="text/javascript">	
 	
+	var json = JSON.parse('${jsonList}');
+	 var list_length = Object.keys(json).length;
 /* 	window.onload=function() {
 	
 	
@@ -306,26 +282,19 @@ body::-webkit-scrollbar-track {
 	
 } */
 
-var json = JSON.parse('${jsonList}');
-var list_length = Object.keys(json).length;
-
-
 //Javascript
 
 //스크롤 바닥 감지
 window.onscroll = function(e) {
 	
-	
-	
-	
- 	
+	 
     //추가되는 임시 콘텐츠
     //window height + window scrollY 값이 document height보다 클 경우,
     if((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
  	//실행할 로직 (콘텐츠 추가)
     //   count++;
- 	console.log(list_length);
-
+ 	
+ 	
  	  for(var i = 0 ; i < list_length  ; i++){
  	
         var addContent =
@@ -352,7 +321,8 @@ window.onscroll = function(e) {
 			+
 			"</div>"
 			+
-			"<span style='font-size: 13px; color: gray;'>"  +  json[i].boardVO.pdate +  "</span>"
+			
+			"<span style='font-size: 13px; color: gray;'>" + json[i].boardVO.pdate + "</span>"
 			+			
 			"<span style='font-size: 13px; color: gray;'>조회수" + json[i].boardVO.hit + "</span>"
 			+

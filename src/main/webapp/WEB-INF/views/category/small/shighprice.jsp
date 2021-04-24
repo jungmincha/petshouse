@@ -15,7 +15,7 @@
 <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
 
 
-  
+
 <style>
 .tab-item {
 	width: 1000;
@@ -31,173 +31,168 @@ select {
 	font-size: 18px;
 }
 
-
 .hero-items {
-	   padding-top: 150px;
-	}
-	
-	.single-hero-items {
-	   max-height: 580px;
-	}
-	
-	.category, .hotitem {
-	   padding-top: 40px;
-	}
-	
-	.product-item {
-	   padding-top: 20px;
-	}
-	
-	.recommended {
-	   padding-top: 60px;
-	}
-	
-	.best {
-	   padding: 80px;
-	}
-	
-	.product-item img{
-    	width: 200px;
-    	height: 280px;
-    }
-    	
-	span.star-prototype, span.star-prototype>* {
-	   height: 16px;
-	   background: url(http://i.imgur.com/YsyS5y8.png) 0 -16px repeat-x;
-	   display: inline-block;
-	}
-	
-	span.star-prototype>* {
-	   background-position: 0 0;
-	   max-width: 80px;
-	}
+	padding-top: 150px;
+}
 
+.single-hero-items {
+	max-height: 580px;
+}
 
+.category, .hotitem {
+	padding-top: 40px;
+}
+
+.product-item {
+	padding-top: 20px;
+}
+
+.recommended {
+	padding-top: 60px;
+}
+
+.best {
+	padding: 80px;
+}
+
+.product-item img {
+	width: 200px;
+	height: 280px;
+}
+
+span.star-prototype, span.star-prototype>* {
+	height: 16px;
+	background: url(http://i.imgur.com/YsyS5y8.png) 0 -16px repeat-x;
+	display: inline-block;
+}
+
+span.star-prototype>* {
+	background-position: 0 0;
+	max-width: 80px;
+}
 </style>
 
 
 <script type="text/javascript">
+	function fire_ajax_submit(id, name) {
+		console.log("id는" + id);
 
-  	function fire_ajax_submit(id, name) {
-  		 console.log("id는"+id);
-  	
-  		
-  		 var category = $("#category").val();
-  	   
-     	var form={
-     			
-     			category:category,
-     			
-     			name:name,
-     			
-     	};
+		var category = $("#category").val();
 
-    	
-    	var url = "/category/smallcategory/"+id;
+		var form = {
 
-    $.ajax({
-    	
-        type: "POST",
-        contentType: 'application/json; charset=utf-8',
-  		url: url,
-     	data: JSON.stringify(form), 
-        cache : false,
-        
-    
-        success: function (data) { 
-           
-          console.log("SUCCESS : ", data);
-     
-          $('#input').html(data);
-          
-      	
- 
-        },
-        
-        error: function (e) {
-      console.log("ERROR : ", e);
-      
-        }
-    });
+			category : category,
 
-  	}
-  	
-  	
-  	
- 	function select_submit(arr, id) {
-    	console.log(arr);
-    	console.log(id);
-    	 var category = $("#category").val();
-    		
-    		var form={
-    				
-    				category:category,		
-    				id:id,
-    		}
-    	var url = "/category/small/"+arr;
+			name : name,
 
- 
-    	
-    	
-    $.ajax({
-        type: "POST",
-        contentType: 'application/json; charset=utf-8',
-  		url: url,
-        data: JSON.stringify(form), 
-        cache : false,    
-        success: function (data) { 	
-          console.log("SUCCESS : ", data);
-          $('#input').html(data);
-	
-        },
-        error: function (e) {
-      console.log("ERROR : ", e);
-  
-        }
-    });
-  	} 
-    		
-    		
-    		
-    		
-    		
- 
- $(document).ready(function() {
-	      $.fn.generateStars = function() {
-	         return this.each(function(i, e) {
-	            $(e).html($('<span/>').width($(e).text() * 16));
-	         });
-	      };
+		};
 
-	      // 숫자 평점을 별로 변환하도록 호출하는 함수
-	      $('.star-prototype').generateStars();
-	   });
+		var url = "/category/smallcategory/" + id;
 
+		$.ajax({
 
+			type : "POST",
+			contentType : 'application/json; charset=utf-8',
+			url : url,
+			data : JSON.stringify(form),
+			cache : false,
 
+			success : function(data) {
+
+				console.log("SUCCESS : ", data);
+
+				$('#input').html(data);
+
+			},
+
+			error : function(e) {
+				console.log("ERROR : ", e);
+
+			}
+		});
+
+	}
+
+	//카테고리별로 이동시켜주는 ajax
+	function chageLangSelect(id) {
+
+		console.log(id);
+		var target = document.getElementById("selectBox2");
+
+		console.log('선택된 옵션 value 값='
+				+ target.options[target.selectedIndex].value);
+
+		var category = $("#category").val();
+
+		var form = {
+
+			category : category,
+			id : id,
+
+		};
+
+		var url = "/category/small/"
+				+ target.options[target.selectedIndex].value;
+
+		$.ajax({
+			type : "POST",
+			contentType : 'application/json; charset=utf-8',
+			url : url,
+			data : JSON.stringify(form),
+			cache : false,
+			success : function(data) {
+				console.log("SUCCESS : ", data);
+				$('#input').html(data);
+
+			},
+			error : function(e) {
+				console.log("ERROR : ", e);
+
+			}
+		});
+	}
+
+	$(document).ready(function() {
+		$.fn.generateStars = function() {
+			return this.each(function(i, e) {
+				$(e).html($('<span/>').width($(e).text() * 16));
+			});
+		};
+
+		// 숫자 평점을 별로 변환하도록 호출하는 함수
+		$('.star-prototype').generateStars();
+	});
 </script>
 
 
- 
-  	
+
+
 
 
 
 </head>
 
 
-<body style="padding-top:128px">
+<body style="padding-top: 128px">
 
-<c:forEach items="${sgname}" var="sgname" >
-			<h3>${sgname}</h3>
-			</c:forEach>
+	<c:forEach items="${sgname}" var="sgname">
+		<h3>${sgname}</h3>
+	</c:forEach>
 
-<br/>
-			
-				
-				
-				
-				<div class="dropdown">
+	<br />
+
+	<c:forEach items="${smallCategory_id}" var="smallCategory_id">
+		<select name="selectBox2" id="selectBox2"
+			style="border: none; font-size: 20px"
+			onchange="chageLangSelect('${smallCategory_id}')">
+			<option style="font-size: 20px;" value="srowprice" selected>가격
+				낮은순</option>
+			<option style="font-size: 20px;" value="shighprice">가격 높은순</option>
+			<option style="font-size: 20px;" value="shighstar">별점 높은순</option>
+		</select>
+	</c:forEach>
+
+	<%-- <div class="dropdown">
      <button type="button" style="font-size:20px; color:black;background-color:white; border:none; " class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
     카테고리
     </button>
@@ -214,32 +209,26 @@ select {
   
     
     </div>
-  </div>
-			
+  </div> --%>
 
-					<div class="row text-center">
-				<c:forEach items="${smallgoods}" var="goods" varStatus="status">
-                       
-                           <div class="product-item">
-                              <div class="pi-pic"> 
-                                  
-                     			 </div>
-                              <div class="pi-text"  style="padding:10px;">
-                               
-                             
-                                    
-                                       <a href="/admin/goods_detail/${goods.board_id}">
-                                       <img src="/resources/img/admin/goods/${goods.goodsVO.thumbnail}" alt="">
-                                          <h5>${goods.goodsVO.goodsname}</h5>
-                                       </a>
-                                       <div class="product-price">${goods.goodsVO.price}원</div>
-         						   별점 <span class="star-prototype">${rate[status.index].avgscore}</span>
-                                 &nbsp; <span>리뷰 ${rate[status.index].count}</span>      
-                              </div>
-                           </div>
-                              </c:forEach> 
+	<c:forEach items="${smallgoods}" var="goods" varStatus="status">
 
-				</div>
+		<div class="product-item">
+			<div class="pi-pic"></div>
+			<div class="pi-text" style="padding: 10px;">
+
+
+
+				<a href="/admin/goods_detail/${goods.board_id}"> <img
+					src="/resources/img/admin/goods/${goods.goodsVO.thumbnail}" alt="">
+					<h5>${goods.goodsVO.goodsname}</h5>
+				</a>
+				<div class="product-price">${goods.goodsVO.price}원</div>
+				별점 <span class="star-prototype">${rate[status.index].avgscore}</span>
+				&nbsp; <span>리뷰 ${rate[status.index].count}</span>
+			</div>
+		</div>
+	</c:forEach>
 
 
 </body>

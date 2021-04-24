@@ -173,22 +173,22 @@ select {
   	
   	
   	
- 	function select_submit(arr) {
-    	console.log(arr);
-    	var category = $("#category").val();
-    	
+function chageLangSelect() {
+		
+		var target = document.getElementById("selectBox");
+
+  		console.log('선택된 옵션 value 값=' + target.options[target.selectedIndex].value); 
+ 
+		 var category = $("#category").val();
+      	   
     	var form={
     			
     			category:category,
     			
-    	
-    	
-
-    
     			
     	};
     	
-    	var url = "/category/"+arr;
+    	var url = "/category/"+target.options[target.selectedIndex].value;
     	
     	
     $.ajax({
@@ -251,28 +251,15 @@ select {
 
 <br/>
 	
-	<div class="dropdown">
-     <button type="button" style="font-size:20px; color:black;background-color:white; border:none; " class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-     전체
-    </button>
-    <div class="dropdown-menu">
-    <a class="dropdown-item" style="font-size:20px;" href="/category/home">최신순</a>
+<!-- <select name="selectBox" id="selectBox" style="border:none; font-size:20px "onchange="chageLangSelect()">
+    <option style="font-size:20px;" value="rowprice">가격 낮은순</option>
+    <option style="font-size:20px;" value="highprice">가격 높은순</option>
+    <option style="font-size:20px;" value="highstar">별점 높은순</option>
+</select> -->
 
-  <a class="dropdown-item" style="font-size:20px;" href="#" onclick="select_submit('rowprice')">가격 낮은순</a>
-  <a class="dropdown-item" style="font-size:20px;" href="#" onclick="select_submit('highprice')">가격 높은순</a>
-   <a class="dropdown-item" style="font-size:20px;" href="#" onclick="select_submit('highstar')">별점 높은순</a>
-     <!--   <a class="dropdown-item" style="font-size:20px;" href="/category/highprice">가격 높은순</a> -->
-<!--      <a class="dropdown-item" style="font-size:20px;" href="#" onclick="select_submit('highprice')">가격 높은순</a>  -->
-   <!--    <a class="dropdown-item" style="font-size:20px;" href="#" onclick="select_submit('rowprice')">가격 낮은순</a> -->
-   
-<!--       <a class="dropdown-item" style="font-size:20px;" href="#" onclick="select_submit('highstar')">별점 높은순</a> -->
-      
-    
-    </div>
-  </div>
     
                  
-<div class="row text-center">
+
 
 
 <c:forEach items="${goods}" var="goods" varStatus="status">
@@ -293,10 +280,7 @@ select {
                            </div>
                               </c:forEach> 
                    
-     
-      </div>
-
-         
+   
 
   
 

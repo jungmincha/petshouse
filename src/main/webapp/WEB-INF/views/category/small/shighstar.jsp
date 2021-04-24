@@ -124,17 +124,23 @@ select {
 }
   	
 	
-  	function select_submit(arr, id) {
-    	console.log(arr);
-    	console.log(id);
-    	 var category = $("#category").val();
-    		
-    		var form={
-    				
-    				category:category,		
-    				id:id,
-    		}
-    	var url = "/category/small/"+arr;
+  //카테고리별로 이동시켜주는 ajax
+  	function chageLangSelect(id) {
+  			
+  	 		console.log(id);
+  			var target = document.getElementById("selectBox2");
+
+  	  		console.log('선택된 옵션 value 값=' + target.options[target.selectedIndex].value); 
+  	 
+  			 var category = $("#category").val();
+  	      	   
+  	    	var form={
+  	    			
+  	    			category:category,
+  	    			id:id,	
+  	    	};
+
+      	var url = "/category/small/"+target.options[target.selectedIndex].value;
     	
     	
     $.ajax({
@@ -185,7 +191,16 @@ select {
 <br/>
 				
 				
-				<div class="dropdown">
+	<c:forEach items="${smallCategory_id}" var="smallCategory_id" >	
+	<select name="selectBox2" id="selectBox2" style="border:none; font-size:20px "onchange="chageLangSelect('${smallCategory_id}')">
+    <option style="font-size:20px;" value="srowprice" selected>가격 낮은순</option>
+    <option style="font-size:20px;" value="shighprice">가격 높은순</option>
+    <option style="font-size:20px;" value="shighstar">별점 높은순</option>
+	</select>
+	</c:forEach>		
+				
+				
+				<%-- <div class="dropdown">
      <button type="button" style="font-size:20px; color:black;background-color:white; border:none; " class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
     카테고리
     </button>
@@ -202,7 +217,7 @@ select {
   
     
     </div>
-  </div>
+  </div> --%>
 			
 
 					<div class="row text-center">

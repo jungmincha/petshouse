@@ -166,6 +166,10 @@
 	<script>
 		$(function() {
 			
+			var json_dailySale = JSON.parse('${json_dailySale}');
+			
+			console.log(json_dailySale);
+		
 		
 			
 			var monthSale = "${monthSale}";
