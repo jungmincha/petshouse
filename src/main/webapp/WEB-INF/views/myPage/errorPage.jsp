@@ -20,7 +20,7 @@
 	<!-- header -->
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
 
-	<div class="container" style="min-height: 900px;">
+	<div class="container">
     	<div class="row">
 			
 		</div>

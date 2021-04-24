@@ -256,10 +256,7 @@
     	    }); //ajax end	 
     	}; //click end	
       </script>
-    
-    <!-- top scroll -->
-	<div class="top" onclick="window.scrollTo(0,0);">top</div>	
-	
+
    <!-- Footer -->
  	<%@ include file="/WEB-INF/views/include/footer.jsp" %>
  

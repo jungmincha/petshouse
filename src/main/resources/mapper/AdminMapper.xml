@@ -377,7 +377,16 @@
 	<!-- 회원 정보 삭제 -->
 	<select id="memberDelete" resultType="MemberVO">
 	  <![CDATA[
-	      delete from member where member_id=#{member_id}
+	      BEGIN
+			delete from paygoods where pay_id=(select pay_id from pay where member_id=#{member_id});
+			delete from pay where member_id=#{member_id};
+			delete from image where board_id in (select board_id from board where member_id=#{member_id});
+			delete from plike where member_id=#{member_id};
+			delete from board where member_id=#{member_id};
+			delete from follow where member_id=#{member_id};
+			delete from point where member_id=#{member_id};
+			delete from member where member_id=#{member_id};
+		END;
 	   ]]>
 	</select>
 

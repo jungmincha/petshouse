@@ -29,79 +29,64 @@
 	type="text/css">
 <link rel="stylesheet" href="/resources/css/style.css" type="text/css">
 
+<style>
+	.footer-section{
+	    background: #252525;
+	   	padding-top:30px;
+	   	min-height:20px;
+	}
+
+	.footer, h3, h6{
+		color:gray;
+	}
+	
+	.info span{
+		padding-left: 50px;
+	}
+	
+	.info{
+		padding-bottom:3px;
+	}
+	
+	.ment{
+		padding-bottom:30px;
+	}
+</style>
+
 </head>
 
 <body>
 	<!-- Footer Section Begin -->
 	<footer class="footer-section">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-3">
-					<div class="footer-left">
-						<div class="footer-logo">
-							<a href="#"><img src="/resources/img/logo.png" alt=""></a>
-						</div>
-						<ul>
-							<li>Address: 60-49 Road 11378 New York</li>
-							<li>Phone: +65 11.188.888</li>
-							<li>Email: hello.colorlib@gmail.com</li>
-						</ul>
-
-					</div>
-				</div>
-				<div class="col-lg-2 offset-lg-1">
-					<div class="footer-widget">
-						<h5>Information</h5>
-						<ul>
-							<li><a href="#">About Us</a></li>
-							<li><a href="#">Checkout</a></li>
-							<li><a href="#">Contact</a></li>
-							<li><a href="#">Serivius</a></li>
-						</ul>
-					</div>
-				</div>
-				<div class="col-lg-2">
-					<div class="footer-widget">
-						<h5>My Account</h5>
-						<ul>
-							<li><a href="#">My Account</a></li>
-							<li><a href="#">Contact</a></li>
-							<li><a href="#">Shopping Cart</a></li>
-							<li><a href="#">Shop</a></li>
-						</ul>
-					</div>
-				</div>
-				<div class="col-lg-4">
-					<div class="newslatter-item">
-						<h5>Join Our Newsletter Now</h5>
-						<p>Get E-mail updates about our latest shop and special
-							offers.</p>
-						<form action="#" class="subscribe-form">
-							<input type="text" placeholder="Enter Your Mail">
-							<button type="button">Subscribe</button>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="copyright-reserved">
-			<div class="container">
+		<div class="footer container">
 				<div class="row">
-					<div class="col-lg-12">
-						<div class="copyright-text">
-							Template is licensed under CC BY 3.0. Copyright &copy;
-							<script>
+					<div class="col-3 ">
+						<div class="footer-logo" > 
+							<a href="/store/home"><img src="/resources/img/logo.png" style="width:200px; height:50px; margin:20px 0px 40px 50px;" alt=""></a>
+						</div>					
+					</div>
+					<div class="col-lg-6"> 
+						<h6 style="margin:0px;">&nbsp;고객센터 ></h6>
+						<h3 style="margin:5px;">1588 - 0000</h3>
+						<h6 style="margin:5px;">&nbsp;평일 09:00 ~ 18:00(공휴일 제외)</h6>
+					</div>
+					<div class="info col-12 col-lg-12">
+						<span>상호명:(주)펫츠하우스 &nbsp;|&nbsp; 대표:김준성 &nbsp;|&nbsp;
+						이메일(고객문의):eril1024@gmail.com &nbsp;| &nbsp;주소:서울시 노원구 동일로 230길 12</span>
+					</div>
+					<div class="info col-12 col-lg-12">
+						<span>사업자등록번호:111-11-12345 &nbsp;|&nbsp; 통신판매업 신고번호:제2021-서울노원-1234호 &nbsp;
+						</span>
+					</div>
+					<div class="ment col-12 col-lg-12">
+						<span style="padding-left:50px;">Copyright &copy;&nbsp;</span> 		
+						<script>
 								document.write(new Date().getFullYear());
-							</script>
-							<i class="fa fa-heart-o" aria-hidden="true"></i>
-						</div>
-						<div class="payment-pic">
-							<img src="/resources/img/payment-method.png" alt="">
-						</div>
+						</script>
+						<span> PetHouse. All rights reserved</span> 	
 					</div>
 				</div>
 			</div>
-		</div>
 	</footer>
 	<!-- Footer Section End -->
 </body>

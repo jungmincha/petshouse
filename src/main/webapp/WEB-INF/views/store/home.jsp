@@ -97,6 +97,7 @@
 	#navbars>li:nth-child(1) {
   		background-color: #e7ab3c;
 	}
+
 </style>
 </head>
 
@@ -209,7 +210,7 @@
 
        <!-- Hot Item section Begin -->
          <section class="hotitem">
-            <div class="row">
+            <div class="row" style="margin:0px;">
                <div class="col-sm-3">
                   <div class="product-large set-bg" data-setbg="/resources/img/storehome/hot_banner_01.jpg">
                      <h2>Hot Item</h2>
@@ -258,8 +259,8 @@
          <!-- Hot Item section End -->
 
          <!-- Recommended Item Begin -->
-         <section class="recommended">        
-            <div class="deal-of-week set-bg spad" data-setbg="/resources/img/storehome/re_banner.jpg">
+         <section class="recommended">     
+            <div class="deal-of-week set-bg spad" style="margin:0px;" data-setbg="/resources/img/storehome/re_banner.jpg">
                <div class="col-12 col-md-6 text-center">
                   <div class="section-title">
                      <h2>Recommended Product</h2>
@@ -402,10 +403,7 @@
     	    }); //ajax end	 
     	}; //click end	
       </script>
-
-	<!-- top scroll -->
-	<div class="top" onclick="window.scrollTo(0,0);">top</div>	
-	
+      
    <!-- Footer -->
    <%@ include file="/WEB-INF/views/include/footer.jsp"%>
 

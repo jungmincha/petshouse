@@ -87,19 +87,17 @@
 		});
    	 
    	var member_id = $("#member_id").val();
-   	 
-   	//로그인 여부 체크
-   	function checkLogin() {
-		 if(member_id == undefined){
-			 event.preventDefault();
+   	
+   	
+	$('.btn').click(function(e){
+   	$('#canvas').click(function(e){
+   		
+   		//로그인 여부 체크
+   		if(member_id == undefined){
+			 e.preventDefault();
 			 alert("로그인 후 이벤트 참여 가능합니다.");
 			 location.href = '/login/login';
-		 }
-	 }
-    	
-   	$('.btn').click(function(e){
-   		e.preventDefault();
-   		checkLogin();
+		 } 
    		
    	  	var random = 0;
    	   	var clicked = 0;
@@ -156,6 +154,7 @@
 		    }
     	});//ajax end
    	});//click end
+	});
    });
    </script>  
   
@@ -168,6 +167,20 @@
  		top: 70px;
  	}
 
+	.btn{
+		width:0;
+		height:0;
+		top: 330px;
+		left: calc(50% - 16px);
+		position: absolute;
+		border-radius: 32px 32px 0 0;
+		border-top:70px solid crimson;
+		border-left:16px solid transparent;
+		border-right: 16px solid transparent;
+		border-bottom:0;
+		z-index:1;	
+	}
+	
 	#pin{
 		width:0;
 		height:0;
@@ -212,8 +225,8 @@
  				<div id="board">
  					<img class="roulette" src="/resources/img/commuhome/roulette.jpg">
 	 				<div id="pin"></div>
+	 				<button type="button" class="btn btn-warning" onClick="btnClick()">더보기</button>
 	 				<canvas id="canvas" width="1000px" height="1000px"></canvas>	
-	 				<button type="button" class="btn btn-warning">도전</button>		
  				</div>
  				</div>
  			 <div class="way col-lg-12">	
