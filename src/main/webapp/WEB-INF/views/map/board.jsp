@@ -51,6 +51,7 @@
 	});
 </script>
 
+
 <style>
 .jumbotron {
 	text-align: center;
@@ -138,7 +139,6 @@ body::-webkit-scrollbar-track {
 
 </style>
 
-
 </head>
 <body style="padding-top: 128px">
 
@@ -193,12 +193,11 @@ body::-webkit-scrollbar-track {
 					</form>
 	
 					<br/>
- 					
 				
     
   
 			<!-- 무한 페이징 시작 -->	
-					<article>
+				<!-- 	<article> -->
 
 						<!-- board 테이블 -->
 						<table class="table">
@@ -245,8 +244,31 @@ body::-webkit-scrollbar-track {
 
 					</table> 
 
-				</article>
+				<!-- </article> -->
     			
+    			<!-- 페이징 -->
+		<div class="ul">
+			<ul class="pagination justify-content-center"
+				style="padding-bottom: 50px; padding-top: 50px;">
+				<c:if test="${pageMaker.prev}">
+					<li class="page-item"><a class="page-link"
+						href="qna${pageMaker.makeQuery(pageMaker.startPage - 1) }">
+							Previous</a></li>
+				</c:if>
+
+				<c:forEach begin="${pageMaker.startPage }"
+					end="${pageMaker.endPage }" var="idx">
+					<c:out value="${pageMaker.cri.pageNum == idx?'':''}" />
+					<li class="page-item"><a class="page-link"
+						href="qna${pageMaker.makeQuery(idx)}">${idx}</a></li>
+				</c:forEach>
+
+				<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
+					<li class="page-item"><a class="page-link"
+						href="qna${pageMaker.makeQuery(pageMaker.endPage +1) }">Next</a></li>
+				</c:if>
+			</ul>
+		</div>
 
 
 
@@ -256,12 +278,12 @@ body::-webkit-scrollbar-track {
 		</div>
 	</section>
 	
-	
+<!-- 	
 	<script type="text/javascript">	
 	
 	var json = JSON.parse('${jsonList}');
 	 var list_length = Object.keys(json).length;
-/* 	window.onload=function() {
+ 	window.onload=function() {
 	
 	
 	//컨트롤러에서 json에 담아온 list 객체를 변수선언해준다.
@@ -280,9 +302,9 @@ body::-webkit-scrollbar-track {
 		 
 	 
 	
-} */
+} 
 
-//Javascript
+
 
 //스크롤 바닥 감지
 window.onscroll = function(e) {
@@ -333,8 +355,8 @@ window.onscroll = function(e) {
 			"<br>"	
 			+
 			"<br>"			
-			+
-			<!-- 게시글 이미지 썸네일 -->			
+			+ 
+				
 			"<div>"
 			+
 			"<img src='/resources/img/location/" +  json[i].imgname + "'style='width: 780px; height: 450px; object-fit: cover; border-radius: 10px;'>"
@@ -355,7 +377,7 @@ window.onscroll = function(e) {
 			+
 		    "</table>" ;
 
-			 //article에 추가되는 콘텐츠를 append
+		
 		      $('article').append(addContent); 
          
        
@@ -366,7 +388,7 @@ window.onscroll = function(e) {
     
 }
 	
-</script>
+</script>  -->
 	
 	
 
@@ -376,15 +398,28 @@ window.onscroll = function(e) {
 						function() {
 							var hashtag = $(this).val();
 							var location = $('#location').val();
+							var member_id = $('#member_id').val();
 							console.log("너의 해시태그는 뭐니?" + hashtag);
 							console.log("너의 장소는 뭐니?" + location);
+							console.log("너의 아이디는 뭐니?" + member_id);
+							
+							var target = document.getElementById("hashtag");
 
-							if (hashtag == "전체") {
-								console.log(hashtag);
-								window.location.href = "/map/board?location=${location}&nickname=${nickname}&member_id=${member_id}";
-							}
+							console.log('선택된 옵션 value 값='+ target.options[target.selectedIndex].value);
+							
+							if(target.options[target.selectedIndex].value=="전체"){
+							console.log("success");
 
-							var url = "/map/location/tag";
+							window.location = "/map/board?location="+location+"&member_id=" + member_id;
+							
+							}else{
+							
+								var url = "/map/location/tag";
+					
+						
+
+							
+						//	var url = "/map/location/tag";
 						
 							$.ajax({
 										url : url,
@@ -397,34 +432,69 @@ window.onscroll = function(e) {
 
 											console.log(data);
 											$(".table").empty();
-											var html = "<table class='table'>";
+											//var html = "<table class='table'>";
 											for (var i = 1; i <= data.length; i++) {
 
-												html += "<tbody id='qnaList'><td>"
-														+ "<a href='${pageContext.request.contextPath}/commu/qna_view?board_id="
-														+ data[i - 1].boardVO.board_id
-														+ "'>"
-
-														+ "<div style='font-weight: bold; font-size: 18px;'>"
-														+ data[i - 1].boardVO.title
-														+ "</div>"
-														+ "<div>"
-														+ data[i - 1].content
-														+ "</div> <span>"
-														+ data[i - 1].boardVO.memberVO.nickname
-														+ "</span>"
-														+ "<span style='font-size: 13px; color: gray;'>"
-														+ data[i - 1].boardVO.pdate
-														+ "</span> "
-														+ "<span style='font-size: 13px; color: gray;'> 조회수 "
-														+ data[i - 1].boardVO.hit
-														+ "</span>"
-														+ "</a>"
-														+ "</td></tbody>"
-
+												var html =  "<table class='table'>"
+										        	+
+										   			"<tbody id='mapList'>"
+													+
+													"<td>"
+													+
+													"<a href='/map/board/"+ data[i - 1].boardVO.board_id+ + "?location=${location}&member_id=${member_id}'>"
+													+			
+													"<div class='user-Info row' style='margin: 20px auto 0px 5px'>"
+													+
+													"<div class='profile_box'>"
+													+
+													"<img src='/resources/img/member/profile/" + data[i - 1].boardVO.memberVO.thumbnail+ "' name='profile' alt='' class='profile'/>"
+													+
+													"</div>"
+													+
+													"<div style='padding:7px'>" + data[i - 1].boardVO.memberVO.nickname 
+													+
+													"</div>"	
+													+
+													"</div>"
+													+
+													
+													"<span style='font-size: 13px; color: gray;'>" + data[i - 1].boardVO.pdate + "</span>"
+													+			
+													"<span style='font-size: 13px; color: gray;'>조회수" + data[i - 1].boardVO.hit + "</span>"
+													+
+													"<span style='font-size: 13px; color: gray;'>좋아요" + data[i - 1].boardVO.plike +  "</span>"
+													+
+													"<span style='font-size: 13px; color: gray;'>" + data[i - 1].boardVO.hashtag +  "</span>"
+													+
+													"<br>"	
+													+
+													"<br>"			
+													+ 
+														
+													"<div>"
+													+
+													"<img src='/resources/img/location/" +  data[i - 1].imgname + "'style='width: 780px; height: 450px; object-fit: cover; border-radius: 10px;'>"
+													+
+													"<br>"	
+													+
+													"<br>"		
+													+
+													"<div style='font-size:20px;'>"  + data[i - 1].boardVO.content 
+													+
+													"</div>"
+													+
+													"</a>"
+													+	
+													"</td>"
+													+
+													"</tbody>"
+													+
+													"</table>" ;
+													
+													$('table').append(html); 
+													
 											}
-											html += "</table>"
-											$(".ul").prepend(html);
+											
 
 										}, //ajax 성공 시 end
 
@@ -437,7 +507,7 @@ window.onscroll = function(e) {
 										} // ajax 에러 시 end
 
 									})
-						})
+							}})
 	</script>
 
 
