@@ -276,7 +276,7 @@ public class MapServiceImpl implements MapService {
 
 	//content_view 안에서 사진 출력
 	@Override
-	public ImageVO getPhoto(int board_id) {
+	public List<ImageVO> getPhoto(int board_id) {
 		
 		return mapper.getPhoto(board_id);
 	}

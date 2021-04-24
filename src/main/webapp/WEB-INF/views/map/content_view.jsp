@@ -108,27 +108,33 @@ background-color:#dddddd;
 						
 						"<a class='a-del' style='float:right;' href='/map/map_view/delete/"+data.board_id+"'><b>삭제</b></a>"
 						+
-						
-						
-						
-						
-						
-						
-						
-						" <div>" + data.memberVO.nickname + "</div>"
+						"<div class='user-Info row' style='margin: 20px auto 0px 5px'>"
+						+
+						"<div class='profile_box'>"
+						+
+						"<img src='/resources/img/member/profile/"+data.memberVO.thumbnail+"' name='profile' alt='' class='profile' />"
+						+
+						"</div>"
+						+
+						"<div style='padding:7px'>"+ data.memberVO.nickname
+						+
+						"</div>"
+						+
+						"</div>"		
 							+ 
 							
 							"<div>" + data.content + "</div>" 
 							+ 
 							"<div>" + data.pdate + "</div>"
 							+
-							
 							"<hr>"
 							
 
 					
 					 $("#comment").prepend(html); 
 					document.getElementById("content").value='';
+					
+					
 					// 댓글 삭제
 					$(".a-del").click(function(event) { //id는 한번만 calss는 여러번 선택 가능
 						event.preventDefault(); 
@@ -157,31 +163,7 @@ background-color:#dddddd;
 
 		}
 		
-		// 댓글 삭제
-		$(".a-del").click(function(event) { //id는 한번만 calss는 여러번 선택 가능.
-
-			//하나의 id는 한 문서에서 한 번만 사용이 가능(가장 마지막 혹은 처음게 선택). 하나의 class는 
-
-			event.preventDefault();
-
-			var tr = $(this).parent();//자바스크립트 클로저
-
-			$.ajax({
-				type : 'DELETE', //method
-				url : $(this).attr("href"), //주소를 받아오는 것이 두 번째 포인트.
-				cache : false,
-				success : function(result) {
-					console.log("result: " + result);
-					if (result == "SUCCESS") {
-						$(tr).remove();
-						alert("삭제되었습니다.");
-					}
-				},
-				errer : function(e) {
-					console.log(e);
-				}
-			}); //end of ajax
-		}); // 삭제 종료
+		
 
 		function button_event() {
 			
@@ -200,13 +182,6 @@ background-color:#dddddd;
 				return;
 			}
 		}
-		
-		
-		   
-	
-		   	
-		
-		
 		
 		
 	</script>
@@ -231,9 +206,10 @@ background-color:#dddddd;
 			<div class="row">
    				<div class="col-lg-12">
               
-					<h3>${location}</h3>
-				
- 					<%-- <h4> ${hashtag}</h4> --%>
+					<h4>${location}</h4	>
+					<br>				
+ 					
+
     
 													
 				<!-- 좋아요 구현 -->
@@ -381,9 +357,9 @@ background-color:#dddddd;
 						
 						<div class="container" style="margin-bottom: 40px">
 						
-						
-							<div style="float: right">
 							
+							<div style="float: right">
+							<hr>
 								<sec:authentication property="principal" var="buttonhidden" />
 								<sec:authorize access="isAuthenticated()">	
 								<!-- 현재 접속된 닉네임과 댓글보드에 저장된 닉네임을 비교해서 일치 하면 보이게 함 -->
@@ -400,7 +376,7 @@ background-color:#dddddd;
 							<table>
 								<tr>
 								<td>
-									<hr>
+							
 									<!-- 작성자 이름과 프로필 사진 -->
 									<div class="user-Info row" style="margin: 20px auto 0px 5px">
 									<div class="profile_box ">
@@ -414,13 +390,13 @@ background-color:#dddddd;
 									
 									
 										<!--게시글 사진 -->
-							<%-- 		<c:forEach var="photo" items="${photo}">
-								<div class="mySlides"> --%>
+								<c:forEach var="photo" items="${photo}">							
 								<img src="/resources/img/location/${photo.imgname}"
 								style="width: 780px; height: 450px; object-fit: cover; border-radius: 10px;">
-							<%-- 	</div>
+								<br>
+								<br>
 								</c:forEach>
-									 --%>
+									
 								
 									
 									
@@ -480,10 +456,10 @@ background-color:#dddddd;
 									<div class="user-Info row" style="margin: 20px auto 0px 5px">
 									<div class="profile_box ">
 							
-							<img src="/resources/img/member/profile/${dto.memberVO.thumbnail}" name="profile" alt="" class="profile" />
-							</div>
-							<div style="padding:7px"> ${dto.memberVO.nickname} </div>	
-							</div>
+									<img src="/resources/img/member/profile/${dto.memberVO.thumbnail}" name="profile" alt="" class="profile" />
+									</div>
+									<div style="padding:7px"> ${dto.memberVO.nickname} </div>	
+									</div>
 					
 								
 									<div>${dto.content}</div>
