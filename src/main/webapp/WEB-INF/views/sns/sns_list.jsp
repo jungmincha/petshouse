@@ -218,6 +218,7 @@ a:hover {
 				</c:if>
 				<c:if test="${not empty list}">
 					<c:forEach items="${list}" var="sns">
+					<input type="hidden" name="board_id" value="${boardVO.board_id}">
 
 						<div class=" col-12 col-md-4 col-lg-3">
 
@@ -237,16 +238,24 @@ a:hover {
 							</div>
 
 							<div class="shot">
+								
 								<div style="font-size: 17px;">
+								<%-- <c:if test="${imgCount.board_id eq sns.boardVO.board_id && imgCount.count >= '2'}"> --%>
 								 <i class="far fa-clone clone"></i>
+								<%-- </c:if> --%>
 								 </div>
 								<a href="/commu/sns/${sns.boardVO.board_id}"> 
 								<img src="/resources/img/member/sns/${sns.imgname }" alt="" style="height: 300px;" class="card-img-top i" />
 								
 								<span class="count">조회수 ${sns.boardVO.hit}</span></a>
 							</div>
-							<div class="card-body" style="font-size : 20px; "><i class="far fa-heart"></i>&nbsp&nbsp${sns.boardVO.plike} &nbsp&nbsp&nbsp&nbsp<i class="far fa-comment"></i></div>
+							<div class="card-body" style="font-size : 20px; ">
 							
+							<a href="/commu/sns/${sns.boardVO.board_id}"> <i class="far fa-heart"></i>&nbsp&nbsp${sns.boardVO.plike}</a> &nbsp&nbsp&nbsp&nbsp
+							<c:forEach items="${count}" var="count">  
+							<c:if test="${count.pgroup eq sns.boardVO.board_id}"><a href="/commu/sns/${sns.boardVO.board_id}"><i class="far fa-comment"></i>
+							
+							${count.count}</a></c:if></c:forEach></div>
 
 						</div>
 					</c:forEach>

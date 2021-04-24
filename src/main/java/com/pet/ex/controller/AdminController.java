@@ -243,6 +243,8 @@ public class AdminController {
 	public ModelAndView boardInput(MultipartHttpServletRequest multi, ImageVO imageVO, BoardVO boardVO, GoodsVO goodsVO,
 			ModelAndView mav) throws IllegalStateException, IOException {
 
+		
+
 		log.info("goods_register_view");
 		String path = multi.getSession().getServletContext().getRealPath("/static/img/admin/board");
 
@@ -253,30 +255,32 @@ public class AdminController {
 			dir.mkdir();
 		}
 
-		List<MultipartFile> mf = multi.getFiles("file");
+		List<MultipartFile> mf = multi.getFiles("btnAtt");
 
-		for (int i = 0; i < mf.size(); i++) { // 파일명 중복 검사
+		 
+			for (int i = 0; i < mf.size(); i++) { // 파일명 중복 검사
+				
+				UUID uuid = UUID.randomUUID();
+				
+				String originalfileName = mf.get(i).getOriginalFilename();		  		
+	  			String ext = FilenameUtils.getExtension(originalfileName);
+	  			//저장 될 파일명
+	  			String imgname=uuid+"."+ext; 
+			
 
-			UUID uuid = UUID.randomUUID(); // 파일명 랜덤으로 변경
-
-			String originalfileName = mf.get(i).getOriginalFilename();
-			String ext = FilenameUtils.getExtension(originalfileName);
-			// 저장 될 파일명
-			String imgname = uuid + "." + ext;
-
-			String savePath = path + "\\" + imgname; // 저장 될 파일 경로
-
-			mf.get(i).transferTo(new File(savePath)); // 파일 저장
-			imageVO.setImgname(imgname);
-			imageVO.getGoodsVO().setGoods_id(boardVO.getGoodsVO().getGoods_id());
-			service.detailInput(imageVO);
-		}
-		service.boardInput(boardVO);
-		service.updateCheck(boardVO);
+				String savePath = path + "\\" + imgname; // 저장 될 파일 경로
+				
+				mf.get(i).transferTo(new File(savePath)); // 파일 저장
+				imageVO.setImgname(imgname);
+				imageVO.getGoodsVO().setGoods_id(boardVO.getGoodsVO().getGoods_id());
+				service.detailInput(imageVO);
+			}	
+			service.boardInput(boardVO);
+			service.updateCheck(boardVO);
 		mav.setView(new RedirectView("/admin/goods", true));
 
 		return mav;
-
+		
 	}
 
 	@GetMapping("/board/{board_id}")

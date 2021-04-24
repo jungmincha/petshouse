@@ -6,202 +6,268 @@
 
 
 	<!-- sns등록 -->
+	
 	<insert parameterType="boardvo" id="snsBoardInput">
-	   <![CDATA[ 
+	
+	   		<![CDATA[ 
 	  	 			insert into board (board_id,  content, plike, hit, hashtag, pgroup, pstep,  member_id, boardtype_id,category_id)   
       			    values (board_seq.nextval , #{content} , 0,    0,  #{hashtag}, board_seq.currval,0,#{memberVO.member_id}, 2 , #{categoryVO.category_id})    
-		]]>
+			]]>
+			
 	</insert>
-
+	
+	
 	<select id="getSnsBoard_id" resultType="boardvo">
 
- <![CDATA[
-  			select * from (select * from board where boardtype_id=2 order by pdate desc) where rownum=1
-	 	]]>
+			 <![CDATA[
+  					select * from (select * from board where boardtype_id=2 order by pdate desc) where rownum=1
+	 		 ]]>
+	 		 
 	</select>
 
 	<!-- 다중이미지업로드 -->
+	
 	<insert parameterType="imagevo" id="snsImgInput">
 
- 		<![CDATA[
+ 			<![CDATA[
    				 INSERT INTO IMAGE(img_id, imgname, board_id) VALUES (image_seq.nextval, #{imgname}, #{boardVO.board_id})
-	 	]]>
+	 		]]>
+	 		
 	</insert>
 
 
 
-	<!-- sns조회 -->
+	<!-- SNS 상세조회 -->
+	
 	<select id="getboardInfo" resultMap="boardvo">
 
-		 <![CDATA[ 
-			select * from Board where board_id = #{board_id} and boardtype_id=2
-		]]>
+		 	<![CDATA[ 
+				select * from Board where board_id = #{board_id} and boardtype_id=2
+			]]>
 
 	</select>
 
 	<select id="getBoard" resultMap="boardvo">
 
-		 <![CDATA[ 
-   		 	 select * from board b, member m, category c  where b.category_id = c.category_id and b.member_id = m.member_id and b.board_id = #{board_id}  and b.boardtype_id=2 
-		]]>
+		 	<![CDATA[ 
+   		 		 select * from board b, member m, category c  where b.category_id = c.category_id and b.member_id = m.member_id and b.board_id = #{board_id}  and b.boardtype_id=2 
+			]]>
+			
 	</select>
 
 	<select id="getImg" resultMap="imagevo">
 
-		 <![CDATA[ 
-      		select * from image where board_id=#{boardVO.board_id}
-		]]>
+			 <![CDATA[ 
+      			select * from image where board_id=#{boardVO.board_id}
+			]]>
+			
 	</select>
 
 
 
 
 	<!-- sns 수정 -->
+	
 	<select id="modifySns">
-		<![CDATA[
-			update board set content=#{content}, hashtag=#{hashtag}, category_id=#{categoryVO.category_id} where board_id = #{board_id}
-		]]>
+	
+			<![CDATA[
+				update board set content=#{content}, hashtag=#{hashtag}, category_id=#{categoryVO.category_id} where board_id = #{board_id}
+			]]>
+			
 	</select>
 
 	<!-- SNS 게시글 삭제(이미지,게시글) -->
+	
 	<delete id="deleteImg" parameterType="imagevo">
-	   <![CDATA[
-	     	delete from image where board_id = #{board_id} 
-	   ]]>
+	
+	   		<![CDATA[
+	     		delete from image where board_id = #{board_id} 
+	   		]]>
+	   		
 	</delete>
 
 	<delete id="deleteBoard" parameterType="boardvo">
-	   <![CDATA[
-	     	delete from board where board_id = #{board_id}
-	   ]]>
+	
+	  		 <![CDATA[
+	     		delete from board where board_id = #{board_id}
+	  		 ]]>
+	  		 
 	</delete>
 
+
 	<!-- sns리스트 - 한개의 이미지만 가져와서 리스트로 뿌림 -->
+	
 	<select id="getsnsList" resultMap="imagevo">
 
-		 <![CDATA[ 
-		 		SELECT * FROM (
-			     SELECT ROWNUM AS RNUM, A.* FROM (
-      		      select i.imgname, m.nickname,  m.thumbnail, b.hit, b.plike, b.board_id, b.content from image i, board b, member m where m.member_id = b.member_id 
-				 	and i.board_id=b.board_id and b.boardtype_id=2 and pstep=0 and img_id in( 
- 					select  min(img_id) as img_id from image where board_id is not null group by board_id) order by b.pdate desc
- 				)A WHERE ROWNUM <= #{pageNum} * #{amount}
-			) WHERE RNUM > (#{pageNum}-1) * #{amount}  
-		]]>
+			 <![CDATA[ 
+		 			SELECT * FROM (
+			  		   SELECT ROWNUM AS RNUM, A.* FROM (
+      		   			   select i.imgname, m.nickname,  m.thumbnail, b.hit, b.plike, b.board_id, b.content from image i, board b, member m where m.member_id = b.member_id 
+						 	and i.board_id=b.board_id and b.boardtype_id=2 and pstep=0 and img_id in( 
+ 							select  min(img_id) as img_id from image where board_id is not null group by board_id) order by b.pdate desc
+ 						)A WHERE ROWNUM <= #{pageNum} * #{amount}
+					) WHERE RNUM > (#{pageNum}-1) * #{amount}  
+			]]>
+			
 	</select>
 
+	<!-- 카테고리별 리스트 -->
+	
 	<select id="getSnsCategory" resultMap="imagevo">
 
-		 <![CDATA[ 
-		 		 
-      		        select i.imgname, m.nickname,  c.category_id, m.thumbnail, b.hit, b.plike, b.board_id, b.content from image i, board b, member m, category c where b.category_id=c.category_id and c.category_id=#{boardVO.categoryVO.category_id} and m.member_id = b.member_id 
+			 <![CDATA[ 
+		 		    select i.imgname, m.nickname,  c.category_id, m.thumbnail, b.hit, b.plike, b.board_id, b.content from image i, board b, member m, category c where b.category_id=c.category_id and c.category_id=#{boardVO.categoryVO.category_id} and m.member_id = b.member_id 
 				 	and i.board_id=b.board_id and b.boardtype_id=2 and pstep=0 and img_id in( 
  					select  min(img_id) as img_id from image where board_id is not null group by board_id) order by b.pdate desc
- 			 
-		]]>
+ 			]]>
+ 			
 	</select>
 	
+	<!-- 회원이 쓴 최신게시물 조회 -->
 	
 	<select id="getUserboard" resultMap="imagevo">
 
-		 <![CDATA[ 
-		 		select * from (select rownum as rnum, A.* from(select i.imgname, m.nickname, b.board_id from image i, board b, member m 
- 				where m.member_id = b.member_id and m.nickname = #{nickname} and i.board_id=b.board_id and b.boardtype_id=2 and pstep=0 and img_id in( 
+			 <![CDATA[ 
+		 			select * from (select rownum as rnum, A.* from(select i.imgname, m.nickname, b.board_id from image i, board b, member m 
+ 					where m.member_id = b.member_id and m.nickname = #{nickname} and i.board_id=b.board_id and b.boardtype_id=2 and pstep=0 and img_id in( 
  					select  min(img_id) as img_id from image where board_id is not null group by board_id) order by b.pdate desc) A
                    ) Where rnum <=4
-		]]>
+			]]>
 	</select>
 
 	<!-- SNS 해시태그 -->
+	
 	<select id="getSnstag" resultMap="imagevo">
+	
    			<![CDATA[
                     select i.imgname, m.nickname, b.category_id, m.thumbnail, b.hit, b.plike, b.hashtag, b.board_id, b.content from image i, board b, member m where m.member_id = b.member_id 
                      and i.board_id=b.board_id and b.boardtype_id=2 and pstep=0 and hashtag like '%'||#{keyword}||'%' and img_id in( 
                      select  min(img_id) as img_id from image where board_id is not null group by board_id) order by b.pdate desc  
    			]]>
+   			
 	</select>
 
 
-
-	<!-- sns 총갯수 -->
-	<select id="getSnstotal" resultType="int">
-		<![CDATA[	
-		select count(*) from board where boardtype_id=2 and pstep = 0
-		]]>
-	</select>
 
 	<!-- 글에 대한 댓글 출력 -->
  
 	<select id="getCommentsList" resultMap="boardvo">
-	<![CDATA[		
-       SELECT * FROM (
-			     SELECT ROWNUM AS RNUM, A.* FROM (
-			       select b.board_id, b.content, m.member_id, m.nickname, m.thumbnail,b.pdate from board b, member m where b.member_id=m.member_id and boardtype_id= 2 and pgroup = 
-			       (select pgroup from board where board_id=#{board_id}) and pstep=1 order by b.pdate desc
-			    ) A WHERE ROWNUM <= #{cri.amount}
-			) WHERE RNUM > 0
-		]]>
-	</select>
-   
-	<!-- SNS 댓글 카운트 -->
-	<select id="getCommentsCount" resultType="int">
-		<![CDATA[
-	         select count(*) as count  from board where boardtype_id= 2 and pgroup = (select pgroup from board where board_id=#{board_id}) and pstep=1 order by content
-	  	 ]]>
+	
+			<![CDATA[		
+      			 SELECT * FROM (
+			    		 SELECT ROWNUM AS RNUM, A.* FROM (
+			       				select b.board_id, b.content, m.member_id, m.nickname, m.thumbnail,b.pdate from board b, member m where b.member_id=m.member_id and boardtype_id= 2 and pgroup = 
+			      		 (select pgroup from board where board_id=#{board_id}) and pstep=1 order by b.pdate desc
+			    		) A WHERE ROWNUM <= #{cri.amount}
+				) WHERE RNUM > 0
+			]]>
+		
 	</select>
 	
-	<select id="counta" resultType="int">
-		<![CDATA[
-	         select count(*) as count  from board where boardtype_id= 2 and pgroup = (select pgroup from board where board_id=#{board_id}) and pstep=1 order by content
-	  	 ]]>
+   <!-- SNS 총갯수 -->
+   
+	<select id="getSnstotal" resultType="int">
+	
+			<![CDATA[	
+					select count(*) from board where boardtype_id=2 and pstep = 0
+			]]>
+		
+	</select>
+	
+	<!-- SNS 댓글 카운트 -->
+	
+	<select id="getCommentsCount" resultType="int">
+	
+			<![CDATA[
+	       			select count(*) as count   from board where boardtype_id= 2 and pgroup = (select pgroup from board where board_id=#{board_id}) and pstep=1 group by pgroup
+	  		 ]]>
+	  		 
+	</select>
+	
+	<!-- SNS 이미지 카운트 -->
+	
+	 <select id="imgCount" resultMap="imagevo">
+	 
+			<![CDATA[
+	        	 	 select board_id , count(imgname) as count from image group by board_id
+	  		 ]]>
+	  		 
+	</select>
+	
+	<!-- SNS 리스트 댓글 카운트 -->
+	
+	<select id="countComment" resultMap="boardvo">
+	
+			<![CDATA[
+	          		select pgroup , count(*) as count from board where boardtype_id= 2 and pstep=1 group by pgroup
+	  		 ]]>
+	  	 
 	</select>
 
-	<!-- 댓글 작성 후 ajax로 출력 -->
-	<select id="getComment" resultMap="boardvo">
-   <![CDATA[
-	 select board_id, nickname, pgroup, content, pdate, thumbnail from (select b.board_id, m.nickname, b.pgroup, b.content, b.pdate, m.thumbnail from board b, member m where b.member_id=m.member_id and boardtype_id= 2 and pgroup = (select pgroup from board where board_id=#{board_id}) and pstep=1 order by b.pdate desc) where rownum=1
-   ]]>
-	</select>
+	
 
+	<!-- 조회수 -->
+	
 	<select id="hit" resultType="int"> 
- 	<![CDATA[ 
- 	update board set hit = hit + 1 where board_id = #{board_id} 	
- 	]]>
+	
+ 			<![CDATA[ 
+ 					update board set hit = hit + 1 where board_id = #{board_id} 	
+ 			]]>
+ 			
 	</select>
 
+	<!-- 댓글작성 -->
 	<insert id="insertComment">
-		<![CDATA[
-		insert into board(board_id,content, pgroup, pstep,member_id, boardtype_id )
-		values (board_seq.nextval,#{content}, #{pgroup}, 1, #{memberVO.member_id}, 2)
-	]]>
+	
+			<![CDATA[
+					insert into board(board_id,content, pgroup, pstep,member_id, boardtype_id )
+					values (board_seq.nextval,#{content}, #{pgroup}, 1, #{memberVO.member_id}, 2)
+			]]>
+			
 	</insert>
+	
+	<!-- 댓글 작성 후 ajax로 출력 -->
+	
+	<select id="getComment" resultMap="boardvo">
+	
+  			 <![CDATA[
+					 select board_id, nickname, pgroup, content, pdate, thumbnail from (select b.board_id, m.nickname, b.pgroup, b.content, b.pdate, m.thumbnail from board b, member m where b.member_id=m.member_id and boardtype_id= 2 and pgroup = (select pgroup from board where board_id=#{board_id}) and pstep=1 order by b.pdate desc) where rownum=1
+   			]]>
+   			
+	</select>
 
 	<!-- 댓글삭제 -->
+	
 	<select id="deleteComment">
-   <![CDATA[
-    delete from board where board_id = #{board_id}
-   ]]>
-	</select>
-
-
-
-	<select id="getMemberInfo" resultType="membervo">
-		<![CDATA[
-	         select * from member where member_id=#{member_id};
-	  	 ]]>
+	
+  			 <![CDATA[
+   					 delete from board where board_id = #{board_id}
+   			 ]]>
+   			 
 	</select>
 
 	<!-- SNS 댓글 게시판 페이징처리용 -->
 	<select id="getCommentsWithPaging" resultMap="boardvo">
-	<![CDATA[		
-		SELECT * FROM (
-			     SELECT ROWNUM AS RNUM, A.* FROM (
-			       select b.content, m.member_id,m.thumbnail, m.nickname, b.pdate from board b, member m where b.member_id=m.member_id and boardtype_id= 2 and pgroup = 
-			       (select pgroup from board where board_id=#{board_id}) and pstep=1 order by b.pdate desc
-			    ) A WHERE ROWNUM <= #{cri.pageNum} * 5
-			) WHERE RNUM > (#{cri.pageNum}-1) *5
-		]]>
+	
+			<![CDATA[		
+				SELECT * FROM (
+			     	SELECT ROWNUM AS RNUM, A.* FROM (
+			      	 select b.content, m.member_id,m.thumbnail, m.nickname, b.pdate from board b, member m where b.member_id=m.member_id and boardtype_id= 2 and pgroup = 
+			      	 (select pgroup from board where board_id=#{board_id}) and pstep=1 order by b.pdate desc
+			   	 ) A WHERE ROWNUM <= #{cri.pageNum} * 5
+				) WHERE RNUM > (#{cri.pageNum}-1) *5
+			]]>
+			
 	</select>
+	
+	<select id="getMemberInfo" resultType="membervo">
+	
+			<![CDATA[
+	         	select * from member where member_id=#{member_id};
+	  	 	]]>
+	  	 
+	</select>
+
 
 	<select id="getNickname" resultType="String">
 		<![CDATA[

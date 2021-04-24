@@ -11,7 +11,7 @@
 <meta name="keywords" content="Fashi, unica, creative, html">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>SNS</title>
+<title>{keyword}</title>
 
 <link
 	href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap"
@@ -156,7 +156,7 @@
 	 
 		<div id = "input">
 	
-			<a class="btn btn-outline-secondary col-sm-1"  id = "login"   style="position: fixed; top: 170px; right: 200px;" onclick="location.href='${pageContext.request.contextPath}sns/write_view'">게시글등록</a>
+			<a class="btn btn-outline-secondary col-sm-1"  id = "login" style="position: fixed; top: 170px; right: 200px;" onclick="location.href='${pageContext.request.contextPath}sns/write_view'">게시글등록</a>
 		<div class="container" style="min-height:1500px;">
 	
 	
@@ -196,7 +196,7 @@
 		<sec:authorize access="hasAnyRole('ROLE_USER','ROLE_ADMIN')">
 		<input type="hidden" id="member_id"
 			value="<sec:authentication property="principal.member_id"/>">
-	</sec:authorize>
+		</sec:authorize>
 	
  		 
 			<div id="snslist" class = "row text-center"> 

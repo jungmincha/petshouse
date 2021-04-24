@@ -42,18 +42,20 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @RequestMapping("/commu")
 public class SnsController {
-
 	@Autowired
 	private SnsService service;
 
 	// sns홈
 	@RequestMapping("/sns")
-	public ModelAndView SNS(Criteria cri, ModelAndView mav) throws Exception {
+	public ModelAndView SNS( BoardVO boardVO, Criteria cri, ImageVO imageVO,  ModelAndView mav) throws Exception {
 
 		log.info("sns");
 		
 		mav.addObject("list", service.getsnsList(cri));
 		
+		mav.addObject("imgCount", service.imgCount(imageVO));
+		mav.addObject("count", service.countComment(boardVO));
+	 
 		mav.setViewName("sns/sns_list");
 
 		return mav;
@@ -61,12 +63,12 @@ public class SnsController {
 	
 	//sns 더보기
 	@PostMapping("/smorelist")
-	public Map<String, Object> sns(@RequestParam("board_id") int board_id, Criteria cri) {
+	public Map<String, Object> sns(@RequestParam("board_id") int board_id, BoardVO boardVO, ImageVO imageVO, Criteria cri) {
 		log.info("morelist");
 		Map<String, Object> list = new HashMap<>();
 		List<ImageVO> sns = service.getsnsList(cri);
 		list.put("sns", sns);
-		list.put("total", service.getSnstotal(cri));
+		list.put("total", service.getSnstotal(boardVO));
 		return list;
 	}
 	
@@ -80,6 +82,7 @@ public class SnsController {
 			return mav;	
 		}
 		
+	 
 		/*
 		 * //besthome 카테고리별 상품 더보기
 		 * 
@@ -184,14 +187,14 @@ public class SnsController {
 	 
 		log.info("SNS_View");
 
-		int count = service.counta(board_id);
+		 
 		String nickname = service.getNickname(board_id);
   
 	
 		mav.addObject("user",  service.getUserboard(nickname));
 		mav.addObject("sns", service.getBoard(boardVO.getBoard_id()));
 		mav.addObject("img", service.getImg(board_id));
-		mav.addObject("count", count);
+		 
 		
 		//좋아요 start
 		//좋아요 출력
@@ -213,7 +216,7 @@ public class SnsController {
 		
 		//좋아요 end
 	 
-		System.out.println(count);
+	 
 		service.hit(boardVO.getBoard_id());
 
 		mav.setViewName("sns/sns_contentView");

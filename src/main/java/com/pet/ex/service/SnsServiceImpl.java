@@ -82,12 +82,7 @@ public class SnsServiceImpl implements SnsService {
 		mapper.hit(board_id);
 	}
 
-	@Override
-	public int counta(int board_id) {
-		log.info("counta()");
-		System.out.println(board_id);
-		return mapper.counta(board_id);
-	}
+ 
 
 	@Override
 	public List<ImageVO> getsnsList(Criteria cri) {
@@ -96,10 +91,7 @@ public class SnsServiceImpl implements SnsService {
 		return mapper.getsnsList(cri);
 	}
 
-	@Override
-	public int getSnstotal(Criteria cri) {
-		return mapper.getSnstotal(cri);
-	}
+	 
 
 	@Override
 	public MemberVO getMemberInfo(String member_id) {
@@ -236,8 +228,22 @@ public class SnsServiceImpl implements SnsService {
 		}
 
 		@Override
-		public int total(int board_id) {
+		public int getSnstotal(BoardVO boardVO) {
 			 
-			return mapper.total(board_id);
+			return mapper.getSnstotal(boardVO);
+		}
+		
+		@Override
+		public List<ImageVO> imgCount(ImageVO imageVO) {
+			 
+			return mapper.imgCount(imageVO);
+		}
+
+
+		 
+		@Override
+		public List<BoardVO> countComment(BoardVO boardVO) {
+			 
+			return mapper.countComment(boardVO);
 		}
 }

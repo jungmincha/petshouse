@@ -37,13 +37,11 @@ public interface SnsService {
 
 	//조회수
 	public void hit(int board_id);
-    //댓글수
-	public int counta(int board_id);
-
+   
 	 
 	public List<ImageVO> getsnsList(Criteria cri);
 
-	public int getSnstotal(Criteria cri);
+	 
 
 	public MemberVO getMemberInfo(String member_id);
 	
@@ -93,8 +91,19 @@ public interface SnsService {
 	public List<BoardVO> getCommentsList(int board_id, Criteria cri);
 
 	public int getCommentsCount(int board_id);
+	
+	
+	//sns 총 갯수
+	public  int getSnstotal(BoardVO boardVO);
 
-	public int total(int board_id);
+ 
+ 
+
+	public List<BoardVO> countComment(BoardVO boardVO);
+
+	public List<ImageVO> imgCount(ImageVO imageVO);
+
+ 
  
 
 

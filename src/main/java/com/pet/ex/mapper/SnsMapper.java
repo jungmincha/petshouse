@@ -33,12 +33,10 @@ public interface SnsMapper {
 	public List<BoardVO> listComment(int board_id, Criteria cri);
 
 	public void hit(int board_id);
-
-	public int counta(int board_id);
-
+ 
 	public List<ImageVO> getsnsList(Criteria cri);
 
-	public int getSnstotal(Criteria cri);
+ 
 
 	public MemberVO getMemberInfo(String member_id);
 	
@@ -85,6 +83,9 @@ public interface SnsMapper {
 
 	public int getCommentsCount(int board_id);
 
-	public int total(int board_id);
+	//sns 총 갯수
+		public  int getSnstotal(BoardVO boardVO);
+		public List<ImageVO> imgCount(ImageVO imageVO);
+	public List<BoardVO> countComment(BoardVO boardVO);
 
 }
