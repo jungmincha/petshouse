@@ -186,20 +186,30 @@ border-radius:8px;
 		<!-- 노하우 리스트 end -->
 
 		<!-- 더보기 버튼 -->
-		<div class="later col-lg-12 text-center">
-			<button type="button" class="btn btn-warning" onClick="btnClick()">더보기</button>
-		</div>
+	   <c:if test="${fn:length(tipslistcount) > 12}">
+                <input type="hidden" class="count" value="${fn:length(tipslistcount)}" />
+	            <div class="later col-lg-12 text-center">
+	            	<button type="button" class="btn btn-warning" onClick="btnClick()">더보기</button>
+		        </div>
+		      </c:if>
+	    
 
 	</div>
 
 	<!-- 페이징 -->
-	<script type="text/javascript">
+	<script>
       var pageNum = 1;
+      var check = $('.count').val() / 12;
      
       function btnClick(){
-
     	  pageNum += 1;
+    	  
+    	  if (pageNum > check) {
+              $(".btn").hide();
+           }
+    	  
     	  console.log(pageNum);
+    	  console.log(check);
     	  		  
     	  	$.ajax({
     	        type :"POST",
@@ -209,9 +219,10 @@ border-radius:8px;
     	        },
     	        success :function(data){
     	           console.log(data);
-    	           var tips = data.tips;
+    	           var tips= data.tips;
+    	     
 					
-    	          html = " "
+    	         html = " "
     	           for(var i in tips){
     	        	   html +="<div class='product-item col-sm-6 col-md-4 col-lg-3 '>"
     	  					+"<div class='pi-pic shot'>"
@@ -222,10 +233,18 @@ border-radius:8px;
     	  					+"<div style='font-size: 14px; text-align: left;'>"+tips[i].boardVO.memberVO.nickname+"</div>"
     	  					+"</div>"
 
-    	           }
-    	        
     	           
-    	            $("#table").append(html); 
+
+    	        	}//tips foreach end      	   
+
+    	           
+    	           if(tips.length == 12){
+		        		html += "<div class='btn col-lg-12 text-center'>"  
+		            		 + "<button type='button' class='btn btn-warning' onClick='btnClick()'>더보기</button> </div>";			      
+		        	}
+    	           
+    	           $('.btn').remove();
+    	           $("#table").append(html); 
     	          
     	        }, 	        
     	        //success end
@@ -254,16 +273,16 @@ border-radius:8px;
 
 											console.log(data);
 											$("#table").remove();
-											var html = "<div id='table' class='row text-center' style='margin-top:20px; margin-left:5px;'>"
+											var html = "<div id='table' class='row' style='margin-top: 1rem;text-align: left; margin-bottom:1rem;'>"
 											for (var i = 1; i <= data.length; i++) {
 
-												html +="<div class='product-item col-sm-3'>"
-													 +"<a href='/commu/tips/"+data[i - 1].boardVO.board_id+"'>"
+												html +="<div class='product-item col-sm-6 col-md-4 col-lg-3'>"
 													+"<div class='pi-pic shot'>"
-													+"<img src='/resources/img/tips/"+data[i - 1].imgname+"' alt=''style='border-radius: 8px; height: 180px;'>"
-													+"<span class='count'>조회수"+data[i - 1].boardVO.hit+"</span></div>"
-													+"<div class='pi-text' style='text-align: left; padding-top: 5px;'>"
-													+"<h6 style='font-size: 15px; font-weight: bold;'>"+data[i - 1].boardVO.title+"</h6></div></a>"
+													 +"<a href='/commu/tips/"+data[i - 1].boardVO.board_id+"'>"
+													+"<img src='/resources/img/tips/"+data[i - 1].imgname+"' alt=''style='height: 180px;'>"
+													+"<span class='count'>조회수"+data[i - 1].boardVO.hit+"</span>"
+												
+													+"<span style='font-size: 15px; font-weight: bold;'>"+data[i - 1].boardVO.title+"</span></a></div>"
 													+"<div style='font-size: 14px;text-align: left;'>"+data[i - 1].boardVO.memberVO.nickname+"</div>"
 													+"</div>"
 				     					
