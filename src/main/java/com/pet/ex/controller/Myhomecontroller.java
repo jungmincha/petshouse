@@ -50,6 +50,7 @@ public class Myhomecontroller {
 		//회원 본인 계정
 		String follower_id = authentication.getPrincipal().toString();	
 		followVO.setFollower_id(service.getFollowernick(follower_id));
+		System.out.println(followVO.getMemberVO().getMember_id());
 		
 		//팔로워&팔로잉 수  
 		mav.addObject("follower", service.getFollowertotal(followVO.getMemberVO().getMember_id()));
@@ -95,7 +96,7 @@ public class Myhomecontroller {
 	}
 	
 	//sns 더보기(ajax)
-	@PostMapping("/moresns/{nickname}")
+	@PostMapping("/sns/{nickname}")
 	public Map<String, Object> moresns(MemberVO memberVO, Criteria cri) {
 		log.info("more_sns");
 		memberVO = service.getMemberInfo(memberVO.getNickname());
@@ -121,7 +122,7 @@ public class Myhomecontroller {
 	}
 	
 	//knowhow 더보기(ajax)
-	@PostMapping("/moreknow/{nickname}")
+	@PostMapping("/knowhow/{nickname}")
 	public Map<String, Object> moreknow(MemberVO memberVO, Criteria cri) {
 		log.info("more_knowhow");
 		memberVO = service.getMemberInfo(memberVO.getNickname());
@@ -135,7 +136,7 @@ public class Myhomecontroller {
 	//리뷰 전체 출력
 	@GetMapping("/review")
 	public ModelAndView review(@RequestParam("nickname") String nickname, MemberVO memberVO, Criteria cri, ModelAndView mav) throws Exception {
-		log.info("more_review");
+		log.info("review");
 		memberVO.setNickname(nickname);
 		memberVO = service.getMemberInfo(memberVO.getNickname());
 		mav.addObject("member", service.getMemberInfo(memberVO.getNickname()));
@@ -148,14 +149,13 @@ public class Myhomecontroller {
 	}
 	
 	//리뷰 더보기(ajax)
-	@PostMapping("/morereview/{nickname}")
+	@PostMapping("/review/{nickname}")
 	public Map<String, Object> morereview(MemberVO memberVO, Criteria cri) {
 		log.info("more_review");
 		memberVO = service.getMemberInfo(memberVO.getNickname());
 		Map<String, Object> list = new HashMap<>();
 		List<BoardVO> review = service.getReviewlist(memberVO, cri);
 		list.put("review", review);
-		list.put("reviewTotal", service.getReviewtotal(memberVO.getMember_id()));
 		list.put("goodsscore", service.getGoodsscore());
 		return list;
 	}

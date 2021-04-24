@@ -154,20 +154,20 @@
 				  	    	  <div class="modal-content">			      
 									<!-- Modal Header -->
 									<div class="modal-header">
-										<h4 class="modal-title">팔로워 회원 목록</h4>
+										<h5 class="modal-title">팔로워 회원 목록</h5>
 										<button type="button" class="close" data-dismiss="modal">&times;</button>
 									</div>
 										        
 									<!-- Modal body -->
-									<div class="followerlist modal-body">
+									<div class="modal-body">
 										<c:forEach items="${followerlist}" var="followerlist">
-											<p>${followerlist.follower_id}</p>          	
+											<div>${followerlist.follower_id}</div>          	
 										</c:forEach>
 									</div>
 										        
 									<!-- Modal footer -->
 									<div class="modal-footer">
-										<button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+										<button type="button" class="btn btn-warning" style="background-color: #e7ab3c" data-dismiss="modal">닫기</button>
 									</div>            
 								</div>
 							</div>
@@ -181,20 +181,20 @@
 								      
 									<!-- Modal Header -->
 									<div class="modal-header">
-								       <h4 class="modal-title">팔로잉 회원 목록</h4>
+								       <h5 class="modal-title">팔로잉 회원 목록</h5>
 								       <button type="button" class="close" data-dismiss="modal">&times;</button>
 								    </div>
 								        
 								    <!-- Modal body -->
 								    <div class="modal-body">
 								        <c:forEach items="${followinglist}" var="followinglist">
-								          	<p>${followinglist.nickname}</p>          	
+								          	<div>${followinglist.nickname}</div>          	
 								        </c:forEach>
 								    </div>
 								        
 								    <!-- Modal footer -->
 								    <div class="modal-footer">
-								        <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+								        <button type="button" class="btn btn-warning" style="background-color: #e7ab3c" data-dismiss="modal">닫기</button>
 								    </div>
 								 </div>
 							</div>
@@ -302,7 +302,7 @@
 							<c:forEach items="${review}" var="review">
 								<c:if test="${review.rnum le 3}">
 									<div class="col-lg-4 col-md-4 col-sm-4 wrap--profile text-center">	
-										<a href="#"> 
+										<a href="/admin/goods_detail/${review.board_id}">
 										<img src="/resources/img/admin/goods/${review.goodsVO.thumbnail}"/></a>														
 										<h6 style="padding-top:10px;">${review.goodsVO.goodsname}</h6>
 										

@@ -68,14 +68,14 @@
 					<div class="col-lg-6"> 
 						<h6 style="margin:0px;">&nbsp;고객센터 ></h6>
 						<h3 style="margin:5px;">1588 - 0000</h3>
-						<h6 style="margin:5px;">&nbsp;평일 09:00 ~ 18:00(공휴일 제외)</h6>
+						<h6 style="margin:5px;">&nbsp;평일 09:00 ~ 18:00 (공휴일 제외)</h6>
 					</div>
 					<div class="info col-12 col-lg-12">
-						<span>상호명:(주)펫츠하우스 &nbsp;|&nbsp; 대표:김준성 &nbsp;|&nbsp;
-						이메일(고객문의):eril1024@gmail.com &nbsp;| &nbsp;주소:서울시 노원구 동일로 230길 12</span>
+						<span>상호명 : (주)펫츠하우스 &nbsp;|&nbsp; 대표 : 김준성 &nbsp;|&nbsp;
+						이메일(고객문의) : eril1024@gmail.com &nbsp;| &nbsp;주소 : 서울시 노원구 동일로 230길 12</span>
 					</div>
 					<div class="info col-12 col-lg-12">
-						<span>사업자등록번호:111-11-12345 &nbsp;|&nbsp; 통신판매업 신고번호:제2021-서울노원-1234호 &nbsp;
+						<span>사업자등록번호 : 111-11-12345 &nbsp;|&nbsp; 통신판매업 신고번호 : 제2021-서울노원-1234호 &nbsp;
 						</span>
 					</div>
 					<div class="ment col-12 col-lg-12">
