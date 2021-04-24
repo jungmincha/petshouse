@@ -207,7 +207,7 @@
 		<![CDATA[
 	         select count(*) as count  	
 	         from  board 
-				where title like '%'||#{keyword}||'%' and pstep='0' and boardtype_id='4' or title like '%'||#{keyword}||'%' and boardtype_id='4'
+				where content like '%'||#{keyword}||'%' and pstep='0' and boardtype_id='4' or title like '%'||#{keyword}||'%' and boardtype_id='4'
 	  	 ]]>
 	</select> 
 

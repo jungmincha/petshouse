@@ -62,7 +62,7 @@
 
 			<input type="hidden" class="form-control" name="memberVO.member_id"
 				value="<sec:authentication property='principal.member_id'/>">
-			<h2 style="margin-top: 30px;">질문하기</h2>
+			<h2 style="margin-top: 30px;">질문하기</h2><br><br>
 
 			<div class="row">
 				<select class=" form-control col-2" name="categoryVO.category_id"
@@ -229,7 +229,7 @@
 </script>
 
 	<!-- Footer -->
-	<div style="margin-top: 100px">
+	<div style="margin-top: 150px">
 		<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 	</div>
 

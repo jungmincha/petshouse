@@ -206,7 +206,7 @@
 	<!-- 노하우 카테고리에 해당하는 글 끌고오기 -->
 	<select id="getPetTips" resultMap="imagevo"> 
  	<![CDATA[
-			select i.imgname, b.board_id, b.title, b.content, m.thumbnail,b.pdate,b.hit, b.pgroup, b.pstep, b.category_id, b.pindent,b.hashtag, m.member_id, m.nickname, b.boardtype_id, c.category_id, c.categoryname
+			select i.imgname, b.board_id, b.title, b.content, m.thumbnail,b.pdate,b.hit, b.pgroup, b.pstep, b.category_id, b.hashtag, m.member_id, m.nickname, b.boardtype_id, c.category_id, c.categoryname
 			from  board b , member m, category c, image i
 			where b.member_id = m.member_id
 			and b.board_id=i.board_id
@@ -310,6 +310,15 @@
    		select * from board where content like '%'||#{keyword}||'%' and boardtype_id='4' and pstep='0' or title like '%'||#{keyword}||'%' and boardtype_id='4' order by pdate desc
    ]]>
 	</select>
+	
+		<!-- 질문과 답변 검색 카운트 -->
+	<select id="qscount" resultType="int">
+		<![CDATA[
+	         select count(*) as count  	
+	         from  board 
+				where content like '%'||#{keyword}||'%' and pstep='0' and boardtype_id='4' or title like '%'||#{keyword}||'%' and boardtype_id='4'
+	  	 ]]>
+	</select> 
 
 	<!-- 질문과 답변 글쓰기 (이미지 추가해야함) -->
 	<insert id="writeQna" parameterType="boardvo">

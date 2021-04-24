@@ -89,13 +89,8 @@ a:hover {
 
 				<input type="text" class="form-control" name="title"
 					placeholder="제목" style="margin-bottom: 20px;">
-	
-		<textarea id="editor4" name="content"></textarea>
-		<script>
-				CKEDITOR.replace('editor4');
-		</script>
-		
-		<!-- 	<textarea class="form-control col" name="content" placeholder="내용"
+
+		<textarea class="form-control col" name="content" placeholder="내용"
 				style="width: 770px; height: 400px; margin-bottom: 20px; resize: none;"></textarea>
 
 
@@ -105,7 +100,7 @@ a:hover {
 								<div class="custom-file">
 									<input type="file" class="custom-file-input" id="file"
 									    multiple="multiple" name="file"
-										style="display: block;" required> <label
+										style="display: block;"> <label
 										class="custom-file-label" for="inputGroupFile02">사진을
 										선택하세요.</label>
 								</div>
@@ -120,7 +115,7 @@ a:hover {
 										data-placeholder='이미지를 첨부 하려면 파일 선택 버튼을 클릭하거나 이미지를 드래그앤드롭 하세요 *최대 10장까지'></div>
 								</div>
 							</div>
-						</div> -->
+						</div>
 						
 		<div style="margin-top:30px; float: right;">
 			<button type="submit" class="btn btn-warning"

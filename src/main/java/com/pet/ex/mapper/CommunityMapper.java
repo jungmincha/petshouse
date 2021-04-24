@@ -97,7 +97,7 @@ public interface CommunityMapper {
 
 	// 질문과 답변 댓글 작성
 	public void insertComment(BoardVO boardVO);
-
+	public int qscount(String keyword);
 
 	// 질문과 답변 댓글 출력(ajax)
 	public BoardVO getComment(int board_id);

@@ -299,6 +299,8 @@ public class CommunityController {
 	public ModelAndView qnasearch(@RequestParam("keyword") String keyword, ModelAndView mav, BoardVO boardVO)
 			throws Exception {
 		log.info("qsearch()실행");
+		int qscount = service.qscount(keyword);
+		mav.addObject("qscount", qscount);
 		mav.addObject("qsearch", service.getQnasearch(keyword));
 		mav.setViewName("/community/qnasearch");
 		return mav;

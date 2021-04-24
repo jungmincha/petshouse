@@ -9,13 +9,6 @@ import com.pet.ex.vo.ImageVO;
 
 public interface CommunityService {
 
-	public List<ImageVO> getImg(int board_id);
-
-	// 조회수
-	public void hit(int board_id);
-
-	public void ImgInput(ImageVO imageVO);
-
 	// 질문과 답변 메인 페이지 리스트
 	public List<BoardVO> getQnaList(Criteria cri);
 
@@ -50,6 +43,7 @@ public interface CommunityService {
 
 	// 질문과 답변 태그
 	public List<BoardVO> getQnatag(String keyword);
+	public int qscount(String keyword);
 
 
 	// 댓글 작성 후 ajax로 삽입
@@ -102,6 +96,13 @@ public interface CommunityService {
 	public void deleteTipsComment(BoardVO boardVO);
 
 	public void ImgDelete(int board_id);
+	
+	public List<ImageVO> getImg(int board_id);
+
+	// 조회수
+	public void hit(int board_id);
+
+	public void ImgInput(ImageVO imageVO);
 
 	
 }

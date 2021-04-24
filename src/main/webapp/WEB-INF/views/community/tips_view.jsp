@@ -230,8 +230,9 @@ a:hover {
 										<button id="hashtag" name="keyword"
 												class="btn btn-disabled" 
 												value="${t}"
-												onclick="location.href='${pageContext.request.contextPath}/search'">#${t}</button></span>
+												onclick="location.href='${pageContext.request.contextPath}/search'">#${t}</button>
 									</c:if>
+									</span>
 									</c:forEach>
 					</ul>
 				</form> 

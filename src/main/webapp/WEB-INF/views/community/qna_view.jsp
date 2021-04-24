@@ -188,10 +188,17 @@ a:hover {
 		</div>
 
 
+		<div style="float: right">
+			<button type="button" id="modify_button" class="btn btn-warning"
+				onclick="modify_event();">수정</button>
+
+			<button type="button" id="delete_button" class="btn btn-warning"
+				onclick="button_event();">삭제</button>
+		</div>
+
 
 		<table>
 			<td>
-
 
 				<div class="row user_info">
 
@@ -200,19 +207,11 @@ a:hover {
 							src="/resources/img/member/profile/${qna_view.memberVO.thumbnail}"
 							name="profile" alt="" class="profile" /> &nbsp&nbsp</a>
 					</div>
-					<span class="nickname" style="padding: 6px;"> <b>${qna_view.memberVO.nickname}</b>
-						&nbsp&nbsp
-					</span>
-					<div class="col-9"></div>
-		<div style="margin-left:43px;">
-			<button type="button" id="modify_button" class="btn btn-secondary"
-				onclick="modify_event();">수정</button>
-
-			<button type="button" id="delete_button" class="btn btn-secondary"
-				onclick="button_event();">삭제</button>
-		</div>
+					<span class="nickname" style="padding: 6px;"> <b>
+							${qna_view.memberVO.nickname} &nbsp&nbsp</b></span>
 
 				</div>
+			
 
 				<hr> 
 				<c:forEach var="img" items="${img}">
