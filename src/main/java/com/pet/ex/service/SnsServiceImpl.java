@@ -234,4 +234,10 @@ public class SnsServiceImpl implements SnsService {
 			System.out.println(board_id);
 			return mapper.getCommentsCount(board_id);
 		}
+
+		@Override
+		public int total(int board_id) {
+			 
+			return mapper.total(board_id);
+		}
 }

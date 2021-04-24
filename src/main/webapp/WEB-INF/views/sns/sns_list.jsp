@@ -161,8 +161,7 @@ a:hover {
 	<!-- Category Section Begin -->
 	<div id="input">
 
-		<a class="btn btn-outline-secondary col-sm-1 
-	" id="login"
+		<a class="btn btn-outline-secondary col-sm-1 " id="login"
 			style="position: fixed; top: 170px; right: 200px;"
 			onclick="location.href='${pageContext.request.contextPath}sns/write_view'">게시글등록</a>
 		<div class="container" style="min-height: 1500px;">
@@ -254,7 +253,9 @@ a:hover {
 				</c:if>
 			</div>
 			<div class="col-lg-12 text-center">
-				<button type="button" class="btn btn-warning" onClick="btnClick()">더보기</button>
+			 
+				<button type="button" class="btn btn-warning" id = "more" onClick="btnClick()">더보기</button>
+				 
 			</div>
 		</div>
 	</div>
@@ -276,6 +277,7 @@ a:hover {
 						},
 						success : function(data) {
 							console.log(data);
+							$("#more").empty();
 							var sns = data.sns;
 
 							html = " "
@@ -296,13 +298,16 @@ a:hover {
 										+ "<span class='count2'>조회수 "
 										+ sns[i].boardVO.hit
 										+ "</span></a></div>"
-										+ "<div class='card-body'>좋아요//댓글수"
+										+ "<div class='card-body'><i class='far fa-heart'></i>"  + sns[i].boardVO.plike + " <i class='far fa-comment'></i>"
 
 										+ "</div></div></div>"
 							}
 
 							$("#snslist").append(html);
-
+							if ((pageNum-1) * 8 + data.length < total)
+								html2 = "<button type='button' class='btn btn-warning' onClick='btnClick()'>더보기</button>"
+								
+									$("#more").append(html2);
 						},
 						//success end
 						error : function(request, status, error) {
@@ -312,6 +317,8 @@ a:hover {
 						} // ajax 에러 시 end
 					}); //ajax end	 
 		}; //click end
+		
+		
 	</script>
 	<!-- Footer -->
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>

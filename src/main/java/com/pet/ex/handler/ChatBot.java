@@ -11,10 +11,10 @@ public class ChatBot {
 	
 	private final Map<String, String> BASIC_QUESTION = Collections.unmodifiableMap(new HashMap<String, String>() {
 		{
-			put("1.상품 문의","관리자의 상품 문의 응답");
-			put("2.배송 문의","관리자의 배송 문의 응답");
-			put("3.환불/교환 문의","관리자의 환불/교환 문의 응답");
-			put("3.상담원 연결","상담원 연결 중입니다.");
+			put("1.상품 문의","상품과 관련된 질문은 상담원과 함께 해주세요.");
+			put("2.배송 문의","배송과 관련된 질문은 상담원과 함께 해주세요.");
+			put("3.환불/교환 문의","환불 및 교환과 관련된 질문은 상담원과 함께 해주세요.");
+			put("4.상담원 연결","상담원 연결 중입니다.");
 		}
 	});
 	

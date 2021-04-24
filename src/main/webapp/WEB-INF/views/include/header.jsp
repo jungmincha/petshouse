@@ -21,6 +21,8 @@
 	rel="stylesheet">
 
 <!-- Css Styles -->
+<script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+   
 <link rel="stylesheet" href="/resources/css/bootstrap.min.css"
 	type="text/css">
 <link rel="stylesheet" href="/resources/css/font-awesome.min.css"
@@ -68,15 +70,28 @@
 }
 
 .top {
-	background-color: #e7ab3c;
-	border-radius: 10px;
+	 
+	 
 	cursor: pointer;
 	position: fixed;
-	right: 20px;
+	right: 15px;
 	font-size: 15px;
 	bottom: 80px;
 	padding: 10px;
 }
+
+.chat {
+	 
+	border-radius: 10px;
+	cursor: pointer;
+	position: fixed;
+	right: 15px;
+	font-size: 30px;
+	bottom: 120px;
+	padding: 10px;
+}
+
+
 
 a:visited {
 	color: #000000;
@@ -265,9 +280,18 @@ body a {
 
 	</header>
 	<!-- Header End -->
-	<div class="top" onclick="window.scrollTo(0,0);">top</div>
+	
+	<div class="top" onclick="window.scrollTo(0,0);"><i class="fas fa-chevron-circle-up" style="font-size:30px;"></i></div>
+	<sec:authorize access="hasAnyRole('ROLE_USER')">
+	<div class="chat"><a href="${pageContext.request.contextPath}/chat" onclick="window.open(this.href,'팝업창','width=600,height=670');return false;"><i class="fas fa-paw"></i></a></div>
+	</sec:authorize>
+	<sec:authorize access="hasAnyRole('ROLE_ADMIN')">
+	<div class="chat"><a href="${pageContext.request.contextPath}/room" onclick="window.open(this.href,'팝업창','width=600,height=670');return false;"><i class="fas fa-paw"></i></a></div>
+	</sec:authorize>
+	
 </body>
 <script>
+
 	$(document).ready(function() {
 		var count = 0;
 		if (sessionStorage.getItem("cartList") != null) {

@@ -93,6 +93,8 @@ public interface SnsService {
 	public List<BoardVO> getCommentsList(int board_id, Criteria cri);
 
 	public int getCommentsCount(int board_id);
+
+	public int total(int board_id);
  
 
 

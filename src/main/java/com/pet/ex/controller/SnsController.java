@@ -61,11 +61,12 @@ public class SnsController {
 	
 	//sns 더보기
 	@PostMapping("/smorelist")
-	public Map<String, Object> sns(Criteria cri) {
+	public Map<String, Object> sns(@RequestParam("board_id") int board_id, Criteria cri) {
 		log.info("morelist");
 		Map<String, Object> list = new HashMap<>();
 		List<ImageVO> sns = service.getsnsList(cri);
 		list.put("sns", sns);
+		list.put("total", service.getSnstotal(cri));
 		return list;
 	}
 	
@@ -169,17 +170,18 @@ public class SnsController {
 			throws Exception {
 
 		boardVO = service.getBoardInfo(board_id);
-		//현재 접속 아이디 
-		//String pre_nickname= myAuthentication.getMember().getNickname();
-		
-		String member_id = authentication.getPrincipal().toString();
+		 
+		String member_id = "";
+	      if(authentication!=null) {
+	         member_id = authentication.getPrincipal().toString();
+	      }
 		System.out.println(member_id);
 		String present_nickname = service.getPresetnNickname(member_id);//현재 닉네임
 		
 		
 		log.info("SNS_View");
 
-		/* mav.addObject("comment", service.listComment(boardVO.getBoard_id(),cri)); */
+	 
 		log.info("SNS_View");
 
 		int count = service.counta(board_id);
@@ -194,7 +196,6 @@ public class SnsController {
 		//좋아요 start
 		//좋아요 출력
 	
-		
 		MemberVO member = new MemberVO();
 		plikeVO.setMemberVO(member);
 		plikeVO.getMemberVO().setMember_id(member_id);

@@ -481,7 +481,7 @@ body {
 
 						<div class="archive-posts">
 
-							<div class="row">
+							<div class="row" style="padding-top:50px;">
 								<div class="profile_box2">
 									<img
 										src="/resources/img/member/profile/${sns.memberVO.thumbnail}"
@@ -489,7 +489,7 @@ body {
 								</div>
 								<h4 style="padding-top: 30px; padding-left: 15px;">${sns.memberVO.nickname}</h4>
 								<a href="/myPage/${sns.memberVO.nickname}"
-									style="padding-top: 30px;"> &nbsp 팔로우 </a>
+									style="padding-top: 40px;"> &nbsp 팔로우 </a>
 							</div>
 
 

@@ -85,4 +85,6 @@ public interface SnsMapper {
 
 	public int getCommentsCount(int board_id);
 
+	public int total(int board_id);
+
 }
