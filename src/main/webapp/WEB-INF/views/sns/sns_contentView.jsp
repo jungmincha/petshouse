@@ -78,11 +78,12 @@ body {
 }
 
 /* Hide the images by default */
-.mySlides {
+/* .mySlides {
 	display: none;
+	overflow: hidden;
 	width: 780px;
 	margin: 10px auto;
-}
+} */
 
 /* Add a pointer when hovering over the thumbnail images */
 .cursor {
@@ -215,7 +216,14 @@ body {
 
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
 
-
+		<sec:authorize access="hasAnyRole('ROLE_USER','ROLE_ADMIN')">
+		<input type="hidden" id="nickname"
+			value="<sec:authentication property="principal.nickname"/>">
+	</sec:authorize>
+	<sec:authorize access="hasAnyRole('ROLE_USER','ROLE_ADMIN')">
+		<input type="hidden" id="member_id"
+			value="<sec:authentication property="principal.member_id"/>">
+	</sec:authorize>
 
 	 
 		<div class="mt-150 mb-150">
@@ -260,11 +268,7 @@ body {
 							onclick="plusSlides(1)">❯</a>
 
 
-
-			          			<c:forEach items="${likelist}" var="likelist">
-			          							<p>${likelist.memberVO.nickname}</p>          	
-			          						</c:forEach>				       	
-			          						
+ 
 			
 			<!-- 좋아요 구현 -->
 													

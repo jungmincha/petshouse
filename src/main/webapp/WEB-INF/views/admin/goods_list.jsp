@@ -14,7 +14,7 @@
 <meta name="keywords" content="Fashi, unica, creative, html">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>Insert title here</title>
+<title>상품관리</title>
 <!-- Google Font -->
 <link
 	href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap"
@@ -39,6 +39,7 @@
 <link rel="stylesheet" href="/resources/css/slicknav.min.css"
 	type="text/css">
 <link rel="stylesheet" href="/resources/css/style.css" type="text/css">
+
 <script type="text/javascript">
 	//delete ajax
 	$(document).ready(function() {
@@ -100,23 +101,45 @@
 </script>
 
 <style>
-.table2 {
-	display: table;
-	margin: 30px 30px 30px 30px;
-	width: 700px;
-	font-size: 15px;
-	font-stretch: extra-condensed;
-	text-align: center;
+ 
+ 
+ 
+#navbars>li:nth-child(3) {
+   background-color: #e7ab3c;
+}
+a:link {
+	text-decoration: none;
+	color: #333333;
 }
 
-h2 {
+a:visited {
+	text-decoration: none;
+	color: #333333;
+}
+
+a:active {
+	text-decoration: none;
+	color: #333333;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+tr{
+	font-size : 16px;
 	text-align: center;
 }
+td{
+	font-size : 15px;
+	text-align: center;
+	}
 </style>
+
 </head>
 
 
-<body style="padding-top: 180px">
+<body style="padding-top: 200px">
 
 
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
@@ -134,38 +157,44 @@ h2 {
 			<div class="col-lg-2">
 				<%@ include file="/WEB-INF/views/include/category.jsp"%>
 			</div>
-
-
-			<!--  카테고리 부트스트랩 end -->
-			<div class="col-lg-8">
+			 
+			<div class="col-lg-10">
 				<div id="input">
-				<h2 style="margin-bottom:20px;">상품 관리</h2>
+				
+				  <div class="section-title">
+					<h2 style="margin-bottom:20px; font-size:30px; ">상품 관리</h2>
+				 </div>  
+				<div class="col-lg-10">
+								<a class="btn btn-outline-secondary col-sm-1 " style="position:fixed; top:200px; right:200px;" href="/admin/board/registerView">상품게시글등록</a> 
+								<a class="btn btn-outline-secondary col-sm-1 " style="position:fixed; top:170px; right:200px;" href="/admin/goods/registerView">상품등록</a>
+				 </div>
+				 
 					<table class="table table-hover">
-						<div class="col-lg-10">
-								<a class="btn btn-outline-secondary float-right" href="/admin/board/registerView">상품게시글등록</a> 
-								<a class="btn btn-outline-secondary float-right" href="/admin/goods/registerView">상품등록</a>
-						</div>
+						<thead>
 						<tr>
 							<th>상품번호</th>
+							<th>상품사진</th>
 							<th>상품명</th>
 							<th>가격</th>
 							<th>재고상태</th>
 							<th>등록여부</th>
 							<th>삭제</th>
 						</tr>
+						</thead>
 						<c:forEach items="${list}" var="goods">
-							<tr onClick="location.href='/admin/goods/${goods.goods_id}'"
-								style="cursor: pointer;">
+							<tbody id="goodsList">
+							<tr onClick="location.href='/admin/goods/${goods.goods_id}'" style="cursor: pointer;">
 								<td>${goods.goods_id}</td>
-								<td>${goods.goodsname}</td>
+								<td><img src="/resources/img/admin/goods/${goods.thumbnail}" style="width:70px; height:80px;"/></td>
+								<td><div style="font-weight:bold; font-size:15px;">${goods.goodsname}</div></td>
 								<td><fmt:formatNumber value="${goods.price}"
 										pattern="###,###,###" />원</td>
 								<td>${goods.stockVO.stockname}</td>
-								<td>${goods.pcheck}</td>
-								<td onclick="event.cancelBubble=true;"><a class="a-delete"
-									data-bid='${goods.goods_id}'
-									href="/admin/goods/${goods.goods_id}">삭제</a></td>
+								<td><span style="font-size: 13px; color: gray;">${goods.pcheck}</span></td>
+								<td onclick="event.cancelBubble=true;">
+								<a class="a-delete" data-bid='${goods.goods_id}' href="/admin/goods/${goods.goods_id}">삭제</a></td>
 							</tr>
+							</tbody>
 						</c:forEach>
 					</table>
 				
@@ -196,7 +225,7 @@ h2 {
 
 					<br>
 				</div>
-			</div>
+			</div> 
 		</div>
 	</div>
 
@@ -220,5 +249,5 @@ h2 {
 <script src="/resources/js/owl.carousel.min.js"></script>
 <script src="/resources/js/main.js"></script>
 
-</html>
 
+</html>

@@ -27,7 +27,7 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public List<GoodsVO> getList(Criteria cri) {
 
-		cri.setAmount(15);
+		cri.setAmount(5);
 		return mapper.getList(cri);
 	}
 
@@ -38,13 +38,18 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public List<GoodsVO> getList2(int category_id) {
-		/*
-		 * log.info("List" + cri); cri.setAmount(20);
-		 */
-		return mapper.getList2(category_id);
+	public List<GoodsVO> getList2(int category_id, Criteria cri) {
+		
+		cri.setAmount(5);
+		return mapper.getList2(category_id, cri);
 	}
 
+	@Override
+	public int getTotalCateGoods(int category_id, Criteria cri) {
+
+		return mapper.getTotalCateGoods(category_id, cri);
+	}
+	
 	@Override
 	public List<CategoryVO> getCatengoods() {
 
@@ -91,7 +96,7 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public void goodsDelete(int goods_id) {
 
-		/* mapper.reviewDelete(goods_id); */
+		mapper.imgDelete(goods_id);
 		mapper.boardDelete(goods_id);
 		mapper.goodsDelete(goods_id);
 	}

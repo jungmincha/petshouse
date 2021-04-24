@@ -18,15 +18,34 @@
 	rel="stylesheet">
 
 <!-- Css Styles -->
-<link rel="stylesheet" href="/resources/css/bootstrap.min.css" type="text/css">
-<link rel="stylesheet" href="/resources/css/font-awesome.min.css" type="text/css">
-<link rel="stylesheet" href="/resources/css/themify-icons.css" type="text/css">
-<link rel="stylesheet" href="/resources/css/elegant-icons.css" type="text/css">
-<link rel="stylesheet" href="/resources/css/owl.carousel.min.css" type="text/css">
-<link rel="stylesheet" href="/resources/css/nice-select.css" type="text/css">
-<link rel="stylesheet" href="/resources/css/jquery-ui.min.css" type="text/css">
-<link rel="stylesheet" href="/resources/css/slicknav.min.css" type="text/css">
+<script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+   
+<link
+	href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap"
+	rel="stylesheet">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+<!-- Css Styles -->
+<link rel="stylesheet" href="/resources/css/bootstrap.min.css"
+	type="text/css">
+<link rel="stylesheet" href="/resources/css/font-awesome.min.css"
+	type="text/css">
+<link rel="stylesheet" href="/resources/css/themify-icons.css"
+	type="text/css">
+<link rel="stylesheet" href="/resources/css/elegant-icons.css"
+	type="text/css">
+<link rel="stylesheet" href="/resources/css/owl.carousel.min.css"
+	type="text/css">
+<link rel="stylesheet" href="/resources/css/nice-select.css"
+	type="text/css">
+<link rel="stylesheet" href="/resources/css/jquery-ui.min.css"
+	type="text/css">
+<link rel="stylesheet" href="/resources/css/slicknav.min.css"
+	type="text/css">
 <link rel="stylesheet" href="/resources/css/style.css" type="text/css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
 
 <!-- bootstrap css cdn -->
 <link rel="stylesheet"
@@ -56,32 +75,39 @@
 	object-fit: cover;
 }
 
-.i{
+.i {
+	border-radius: 10px;
+}
 
-	 border-radius: 10px;
+.count {
+	position: absolute;
+	bottom: 80px;
+	right: 30px;
+	font-size: 13px;
+	color: #fff;
+	text-shadow: 0 0 4px rgb(0 0 0/ 50%);
+}
+
+.count2 {
+	position: absolute;
+	bottom: 10px;
+	right: 10px;
+	font-size: 13px;
+	color: #fff;
+	text-shadow: 0 0 4px rgb(0 0 0/ 50%);
+}
+
+.clone{
+	position: absolute;
+	top: 80px;
+	right: 25px;	
+	opacity: 0.5;
+
+}
+
+a:hover {
 	
 }
-.count{
-	position: absolute;
-    bottom: 80px;
-    right: 30px;
-    font-size: 13px;
-    color: #fff;
-    text-shadow: 0 0 4px rgb(0 0 0 / 50%);
-}
-
-.count2{
-	position: absolute;
-    bottom: 10px;
-    right: 10px;
-    font-size: 13px;
-    color: #fff;
-    text-shadow: 0 0 4px rgb(0 0 0 / 50%);
-
-
-}
-
-
 </style>
 <script>
 	//로그인 체크
@@ -97,180 +123,198 @@
 		$('#login').click(function() {
 			checkLogin();
 		});
-		
+
 	});
 </script>
 
 <script type="text/javascript">
-    
-    
-    function fire_ajax_submit(id) {
-    	console.log(id);
-    	var category_id = id;	
+	function fire_ajax_submit(id) {
+		console.log(id);
+		var category_id = id;
 		var form = {
-				category_id: category_id
-		};   
-    	var url = "/commu/sns/category/"+id;
-    		
-    $.ajax({
-        type: "POST",
-        contentType: 'application/json; charset=utf-8',
-  		url: url,
-        data: JSON.stringify(form), 
-        cache : false,  
-        success: function (data) {         	
-          console.log("SUCCESS : ", data); 
-          $('#input').html(data);
-        },    
-        error: function (e) {
-     	   console.log("ERROR : ", e);
-        }
-    });
-} 
+			category_id : category_id
+		};
+		var url = "/commu/sns/category/" + id;
+
+		$.ajax({
+			type : "POST",
+			contentType : 'application/json; charset=utf-8',
+			url : url,
+			data : JSON.stringify(form),
+			cache : false,
+			success : function(data) {
+				console.log("SUCCESS : ", data);
+				$('#input').html(data);
+			},
+			error : function(e) {
+				console.log("ERROR : ", e);
+			}
+		});
+	}
 </script>
 
 </head>
-<body style="padding-top: 170px; min-height:1500px;">
+<body style="padding-top: 180px; min-height: 1500px;">
 
 	<!-- Header -->
- 	 <%@ include file="/WEB-INF/views/include/header.jsp" %>
+	<%@ include file="/WEB-INF/views/include/header.jsp"%>
 	<!-- Category Section Begin -->
-	<div id = "input">
-	
-	<a class="btn btn-outline-secondary col-sm-1 float-right"  id = "login"  style="position: fixed; top: 170px; right: 200px;" onclick="location.href='${pageContext.request.contextPath}sns/write_view'">게시글등록</a>
-	<div class="container" style="min-height:1500px;">
-	
-	
-		<h2>SNS</h2>
-		
+	<div id="input">
 
-	
-		<div class="row ">
-			<div class="col-sm-2">
-				<a href="#" onclick ="fire_ajax_submit(1);"> <img src="/resources/img/category/cat.jpg"></a>
-			</div>
+		<a class="btn btn-outline-secondary col-sm-1 
+	" id="login"
+			style="position: fixed; top: 170px; right: 200px;"
+			onclick="location.href='${pageContext.request.contextPath}sns/write_view'">게시글등록</a>
+		<div class="container" style="min-height: 1500px;">
 
-			<div class="col-sm-2">
-				<a href="#" onclick ="fire_ajax_submit(2);"> <img src="/resources/img/category/dog.jpg"></a>
-			</div>
-
-			<div class="col-sm-2">
-				<a href="#" onclick ="fire_ajax_submit(3);"> <img src="/resources/img/category/reptile.jpg"></a>
-			</div>
-
-			<div class="col-sm-2">
-				<a href="#" onclick ="fire_ajax_submit(4);"> <img src="/resources/img/category/bird.jpg"></a>
-			</div>
-
-			<div class="col-sm-2">
-				<a href="#" onclick ="fire_ajax_submit(5);"> <img src="/resources/img/category/fish.jpg"></a>
-			</div>
-
-			<div class="col-sm-2">
-				<a href="#" onclick ="fire_ajax_submit(6);"> <img src="/resources/img/category/other.jpg"></a>
-			</div>
-		</div>
-
-		<!-- Category Section End -->
+ 				<div class="section-title">
+					<h2 style="margin-bottom:10px; font-size:30px; ">SNS</h2>
+				 </div>  
 
 
-
-	
- 
-			<div id="snslist" class = "row text-center"> 
-			<c:if test="${empty list}">
-							
-							<div class="col-12" style="min-height:200px; margin:100px auto;">
-								<div>등록된 게시글이 없습니다.</div>
-							</div>
-			</c:if>
-			<c:if test="${not empty list}">
-			<c:forEach items="${list}" var="sns">
-
-				<div class=" col-12 col-md-4 col-lg-3" >
-
-					<div class="user-Info row" style="margin: 20px auto 0px 5px">
-						<div class="profile_box ">
-							
-							<img
-								src="/resources/img/member/profile/${sns.boardVO.memberVO.thumbnail}"
-								name="profile" alt="" class="profile" />
-						</div>
-						<div style="padding:7px"> ${sns.boardVO.memberVO.nickname } </div>
-					<a href="/myPage/${sns.boardVO.memberVO.nickname}" style="padding:7px;"> 팔로우</a>
-						 
-		
-					</div>
-					 
-					<div class="shot">
-						<a href="/commu/sns/${sns.boardVO.board_id}"> <img
-							src="/resources/img/member/sns/${sns.imgname }" alt=""
-							style="height: 300px;" class="card-img-top i" /><span class="count">조회수 ${sns.boardVO.hit}</span></a></div>
-						<div class="card-body">
-							 
-							좋아요${sns.boardVO.plike}//댓글수
-						</div>
-					 
+			<div class="row ">
+				<div class="col-sm-2">
+					<a href="#" onclick="fire_ajax_submit(1);"> <img
+						src="/resources/img/category/cat.jpg"></a>
 				</div>
-			</c:forEach></c:if>
-		</div>
-		<div class="col-lg-12 text-center">
-			<button type="button" class="btn btn-warning" onClick="btnClick()">더보기</button>
+
+				<div class="col-sm-2">
+					<a href="#" onclick="fire_ajax_submit(2);"> <img
+						src="/resources/img/category/dog.jpg"></a>
+				</div>
+
+				<div class="col-sm-2">
+					<a href="#" onclick="fire_ajax_submit(3);"> <img
+						src="/resources/img/category/reptile.jpg"></a>
+				</div>
+
+				<div class="col-sm-2">
+					<a href="#" onclick="fire_ajax_submit(4);"> <img
+						src="/resources/img/category/bird.jpg"></a>
+				</div>
+
+				<div class="col-sm-2">
+					<a href="#" onclick="fire_ajax_submit(5);"> <img
+						src="/resources/img/category/fish.jpg"></a>
+				</div>
+
+				<div class="col-sm-2">
+					<a href="#" onclick="fire_ajax_submit(6);"> <img
+						src="/resources/img/category/other.jpg"></a>
+				</div>
+			</div>
+
+			<!-- Category Section End -->
+
+
+
+
+
+			<div id="snslist" class="row text-center">
+				<c:if test="${empty list}">
+
+					<div class="col-12" style="min-height: 200px; margin: 100px auto;">
+						<div>등록된 게시글이 없습니다.</div>
+					</div>
+				</c:if>
+				<c:if test="${not empty list}">
+					<c:forEach items="${list}" var="sns">
+
+						<div class=" col-12 col-md-4 col-lg-3">
+
+							<div class="user-Info row" style="margin: 20px auto 2px 5px">
+								<div class="profile_box ">
+
+									<img
+										src="/resources/img/member/profile/${sns.boardVO.memberVO.thumbnail}"
+										name="profile" alt="" class="profile" />
+								</div>
+								<div style="padding-top: 13px; padding-left: 7px;">${sns.boardVO.memberVO.nickname}
+								</div>
+
+								<a href="/myPage/${sns.boardVO.memberVO.nickname}"
+									style="padding-top: 13px; padding-left: 5px;"> · 팔로우</a>
+
+							</div>
+
+							<div class="shot">
+								<div style="font-size: 17px;">
+								 <i class="far fa-clone clone"></i>
+								 </div>
+								<a href="/commu/sns/${sns.boardVO.board_id}"> 
+								<img src="/resources/img/member/sns/${sns.imgname }" alt="" style="height: 300px;" class="card-img-top i" />
+								
+								<span class="count">조회수 ${sns.boardVO.hit}</span></a>
+							</div>
+							<div class="card-body" style="font-size : 20px; "><i class="far fa-heart"></i>&nbsp&nbsp${sns.boardVO.plike} &nbsp&nbsp&nbsp&nbsp<i class="far fa-comment"></i></div>
+							
+
+						</div>
+					</c:forEach>
+				</c:if>
+			</div>
+			<div class="col-lg-12 text-center">
+				<button type="button" class="btn btn-warning" onClick="btnClick()">더보기</button>
+			</div>
 		</div>
 	</div>
-</div>
- 	<!--  더보기 페이징 처리 -->
+	<!--  더보기 페이징 처리 -->
 	<script type="text/javascript">
-      var pageNum = 1;
-     
-      function btnClick(){
+		var pageNum = 1;
 
-    	  pageNum += 1;
-    	  console.log(pageNum);
-    	  		  
-    	  	$.ajax({
-    	        type :"POST",
-    	        url :"/commu/smorelist",
-    	        data : {
-    	        	pageNum: pageNum 
-    	        },
-    	        success :function(data){
-    	           console.log(data);
-    	           var sns = data.sns;
-					
-    	          html = " "
-    	           for(var i in sns){
-    	        	  html +="<div class='card-feed  col-12 col-md-4 col-lg-3'>"
-    	        	 	 +"<div class='user-Info row' style='margin: 20px auto 0px 5px'>"
-    	        	 	 +"<div class='profile_box'>"
-    	        	 	 +"<img src='/resources/img/member/profile/"+sns[i].boardVO.memberVO.thumbnail+"'name='profile' alt='' class='profile' /></div>"
-    	        	 	 +"<p style='padding:5px;'>"+sns[i].boardVO.memberVO.nickname +"</p>"
-    	        	 	 +"<a href='/myPage/" + sns[i].boardVO.memberVO.nickname + "' style='padding:6px'>팔로우</a>"
-    	        	 	 +"</div>"
-    	        	 	 +"<div class='card'>"
-    	        		+"<a href='/commu/sns/"+sns[i].boardVO.board_id+"'> "
-    	        		+"<img src='/resources/img/member/sns/"+sns[i].imgname +"' alt='' style='height: 300px;' class='card-img-top i' />"
-    	        		
-    	        		+"<span class='count2'>조회수 "+ sns[i].boardVO.hit + "</span></a></div>"
-    	        		+"<div class='card-body'>좋아요//댓글수"
-    	        		 
-    	        	  	+"</div></div></div>"
-    	           }
-    	        
-    	           
-    	            $("#snslist").append(html); 
-    	          
-    	        }, 	        
-    	        //success end
-    	        error : function(request, status, error) {
-					alert("code:" + request.status + "\n" + "message:"
-							+ request.responseText + "\n" + "error:" + error);
-				} // ajax 에러 시 end
-    	    }); //ajax end	 
-    	}; //click end	
-	</script> 
-<!-- Footer -->
- 	<%@ include file="/WEB-INF/views/include/footer.jsp" %>
+		function btnClick() {
+
+			pageNum += 1;
+			console.log(pageNum);
+
+			$
+					.ajax({
+						type : "POST",
+						url : "/commu/smorelist",
+						data : {
+							pageNum : pageNum
+						},
+						success : function(data) {
+							console.log(data);
+							var sns = data.sns;
+
+							html = " "
+							for ( var i in sns) {
+								html += "<div class='card-feed  col-12 col-md-4 col-lg-3'>"
+										+ "<div class='user-Info row' style='margin: 20px auto 0px 5px'>"
+										+ "<div class='profile_box'>"
+										+ "<img src='/resources/img/member/profile/"+sns[i].boardVO.memberVO.thumbnail+"'name='profile' alt='' class='profile' /></div>"
+										+ "<p style='padding:5px;'>"
+										+ sns[i].boardVO.memberVO.nickname
+										+ "</p>"
+										+ "<a href='/myPage/" + sns[i].boardVO.memberVO.nickname + "' style='padding:6px'>팔로우</a>"
+										+ "</div>"
+										+ "<div class='card'>"
+										+ "<a href='/commu/sns/"+sns[i].boardVO.board_id+"'> "
+										+ "<img src='/resources/img/member/sns/"+sns[i].imgname +"' alt='' style='height: 300px;' class='card-img-top i' />"
+
+										+ "<span class='count2'>조회수 "
+										+ sns[i].boardVO.hit
+										+ "</span></a></div>"
+										+ "<div class='card-body'>좋아요//댓글수"
+
+										+ "</div></div></div>"
+							}
+
+							$("#snslist").append(html);
+
+						},
+						//success end
+						error : function(request, status, error) {
+							alert("code:" + request.status + "\n" + "message:"
+									+ request.responseText + "\n" + "error:"
+									+ error);
+						} // ajax 에러 시 end
+					}); //ajax end	 
+		}; //click end
+	</script>
+	<!-- Footer -->
+	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 	<!-- Js Plugins -->
 	<script src="/resources/js/jquery-3.3.1.min.js"></script>
 	<script src="/resources/js/bootstrap.min.js"></script>

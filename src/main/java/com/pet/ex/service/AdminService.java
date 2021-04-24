@@ -21,7 +21,8 @@ public interface AdminService {
 	public int getTotalGoods(Criteria cri); 
 
 	//카테고리별 상품조회
-	public List<GoodsVO> getList2(int category_id);
+	public List<GoodsVO> getList2(int category_id, Criteria cri);
+	public int getTotalCateGoods(int category_id, Criteria cri); 
 	
 	//카테고리
 	public List<CategoryVO> getCatengoods();

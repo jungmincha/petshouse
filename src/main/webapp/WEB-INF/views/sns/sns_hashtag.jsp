@@ -118,6 +118,34 @@
 	});
 </script>
 
+<script type="text/javascript">
+    
+    
+    function fire_ajax_submit(id) {
+    	console.log(id);
+    	var category_id = id;	
+		var form = {
+				category_id: category_id
+		};   
+    	var url = "/commu/sns/category/"+id;
+    		
+    $.ajax({
+        type: "POST",
+        contentType: 'application/json; charset=utf-8',
+  		url: url,
+        data: JSON.stringify(form), 
+        cache : false,  
+        success: function (data) {         	
+          console.log("SUCCESS : ", data); 
+          $('#input').html(data);
+        },    
+        error: function (e) {
+     	   console.log("ERROR : ", e);
+        }
+    });
+} 
+</script>
+
 </head>
 <body style="padding-top: 170px">
 
@@ -125,34 +153,40 @@
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
 
 	<!-- Category Section Begin -->
-	<div class="container">
+	 
+		<div id = "input">
+	
+			<a class="btn btn-outline-secondary col-sm-1"  id = "login"   style="position: fixed; top: 170px; right: 200px;" onclick="location.href='${pageContext.request.contextPath}sns/write_view'">게시글등록</a>
+		<div class="container" style="min-height:1500px;">
+	
+	
 		<h2>SNS</h2>
-		<a class="btn btn-outline-secondary col-sm-2 float-right"  id = "login" onclick="location.href='${pageContext.request.contextPath}sns/write_view'">게시글등록</a>
+		
 
 
-		<div class="row ">
+			<div class="row ">
 			<div class="col-sm-2">
-				<a href=" "> <img src="/resources/img/category/cat.jpg"></a>
+				<a href="#" onclick ="fire_ajax_submit(1);"> <img src="/resources/img/category/cat.jpg"></a>
 			</div>
 
 			<div class="col-sm-2">
-				<a href=" "> <img src="/resources/img/category/dog.jpg"></a>
+				<a href="#" onclick ="fire_ajax_submit(2);"> <img src="/resources/img/category/dog.jpg"></a>
 			</div>
 
 			<div class="col-sm-2">
-				<a href=" "> <img src="/resources/img/category/reptile.jpg"></a>
+				<a href="#" onclick ="fire_ajax_submit(3);"> <img src="/resources/img/category/reptile.jpg"></a>
 			</div>
 
 			<div class="col-sm-2">
-				<a href=" "> <img src="/resources/img/category/bird.jpg"></a>
+				<a href="#" onclick ="fire_ajax_submit(4);"> <img src="/resources/img/category/bird.jpg"></a>
 			</div>
 
 			<div class="col-sm-2">
-				<a href=" "> <img src="/resources/img/category/fish.jpg"></a>
+				<a href="#" onclick ="fire_ajax_submit(5);"> <img src="/resources/img/category/fish.jpg"></a>
 			</div>
 
 			<div class="col-sm-2">
-				<a href=" "> <img src="/resources/img/category/other.jpg"></a>
+				<a href="#" onclick ="fire_ajax_submit(6);"> <img src="/resources/img/category/other.jpg"></a>
 			</div>
 		</div>
 
@@ -164,7 +198,7 @@
 			value="<sec:authentication property="principal.member_id"/>">
 	</sec:authorize>
 	
- 
+ 		 
 			<div id="snslist" class = "row text-center"> 
 			<c:forEach items="${tag}" var="sns">
 
@@ -194,9 +228,9 @@
 					 
 				</div>
 			</c:forEach>
-		</div>
+		</div> 
 		 
-	</div>
+	</div></div>
 
 	 
 

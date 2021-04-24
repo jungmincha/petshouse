@@ -19,6 +19,7 @@
   			select * from (select * from board where boardtype_id=2 order by pdate desc) where rownum=1
 	 	]]>
 	</select>
+
 	<!-- 다중이미지업로드 -->
 	<insert parameterType="imagevo" id="snsImgInput">
 
@@ -53,13 +54,15 @@
 	</select>
 
 
+
+
 	<!-- sns 수정 -->
 	<select id="modifySns">
 		<![CDATA[
 			update board set content=#{content}, hashtag=#{hashtag}, category_id=#{categoryVO.category_id} where board_id = #{board_id}
 		]]>
 	</select>
-	
+
 	<!-- SNS 게시글 삭제(이미지,게시글) -->
 	<delete id="deleteImg" parameterType="imagevo">
 	   <![CDATA[
@@ -86,7 +89,7 @@
 			) WHERE RNUM > (#{pageNum}-1) * #{amount}  
 		]]>
 	</select>
-	
+
 	<select id="getSnsCategory" resultMap="imagevo">
 
 		 <![CDATA[ 
@@ -97,7 +100,7 @@
  			 
 		]]>
 	</select>
-	  <select id="getUserboard" resultMap="imagevo">
+	<select id="getUserboard" resultMap="imagevo">
 
 		 <![CDATA[ 
 		 		select * from (select rownum as rnum, A.* from(select i.imgname, m.nickname, b.board_id from image i, board b, member m 
@@ -105,9 +108,19 @@
  					select  min(img_id) as img_id from image where board_id is not null group by board_id) order by b.pdate desc) A
                    ) Where rnum <=4
 		]]>
-	</select>  
-	 
-	
+	</select>
+
+	<!-- SNS 해시태그 -->
+	<select id="getSnstag" resultMap="imagevo">
+   			<![CDATA[
+                    select i.imgname, m.nickname, b.category_id, m.thumbnail, b.hit, b.plike, b.hashtag, b.board_id, b.content from image i, board b, member m where m.member_id = b.member_id 
+                     and i.board_id=b.board_id and b.boardtype_id=2 and pstep=0 and hashtag like '%'||#{keyword}||'%' and img_id in( 
+                     select  min(img_id) as img_id from image where board_id is not null group by board_id) order by b.pdate desc  
+   			]]>
+	</select>
+
+
+
 	<!-- sns 총갯수 -->
 	<select id="getSnstotal" resultType="int">
 		<![CDATA[	
@@ -152,7 +165,7 @@
 		values (board_seq.nextval,#{content}, #{pgroup}, 1, #{memberVO.member_id}, 2)
 	]]>
 	</insert>
-	
+
 	<!-- 댓글삭제 -->
 	<select id="deleteComment">
    <![CDATA[
@@ -167,8 +180,8 @@
 	         select * from member where member_id=#{member_id};
 	  	 ]]>
 	</select>
-	
-		<!-- SNS 댓글 게시판 페이징처리용 -->
+
+	<!-- SNS 댓글 게시판 페이징처리용 -->
 	<select id="getCommentsWithPaging" resultMap="boardvo">
 	<![CDATA[		
 		SELECT * FROM (
@@ -179,83 +192,83 @@
 			) WHERE RNUM > (#{cri.pageNum}-1) *5
 		]]>
 	</select>
-	
+
 	<select id="getNickname" resultType="String">
 		<![CDATA[
 	         select nickname from member m, board b where m.member_id=b.member_id and b.board_id=#{boardVO.board_id}
 	  	 ]]>
 	</select>
-	
-	
+
+
 	<!-- 좋아요 mapper start -->
-	
-		<!-- 좋아요 수 조회 -->
+
+	<!-- 좋아요 수 조회 -->
 	<select id="getLiketotal" resultType="int">
 		<![CDATA[
 	      select count(*) from plike where board_id = #{boardVO.board_id}
 	   ]]>
 	</select>
-	
-	
+
+
 	<!-- 좋아요 유무 체크 -->
 	<select id="isLike" resultType="int">
 		<![CDATA[
 	        select count(*) from plike where board_id=#{boardVO.board_id} and member_id=#{memberVO.member_id}
 	   ]]>
-	</select> 
+	</select>
 
-	
+
 	<!-- 좋아요 리스트 조회 -->
 	<select id="getLikelist" resultMap="plikevo">
 		<![CDATA[
 		 select p.member_id , m.nickname from plike p , member m where p.member_id = m.member_id and board_id = #{boardVO.board_id}
 	        
 	   ]]>
-	</select> 
-	
-	
+	</select>
+
+
 	<!-- 좋아요 -->
 	<insert id="like">
 		<![CDATA[
 	        insert into plike values(plike_seq.nextval, #{boardVO.board_id}, #{memberVO.member_id})
 	   ]]>
 	</insert>
-	
-	<!-- 좋아요 취소-->
+
+	<!-- 좋아요 취소 -->
 	<select id="likecancel">
 		<![CDATA[
 	         delete from plike where board_id=#{boardVO.board_id} and member_id=#{memberVO.member_id}
 	   ]]>
-	</select>  
-	
-	<!-- 전체 좋아요 출력-->
+	</select>
+
+	<!-- 전체 좋아요 출력 -->
 	<select id="getLikeprint" resultMap="plikevo">
 		<![CDATA[
 	       	select board_id ,count(*) as count from plike group by board_id
 	   ]]>
 	</select>
-	
-	<!-- plike board테이블에 입력-->
+
+	<!-- plike board테이블에 입력 -->
 	<select id="insertplike">
  	  <![CDATA[
   	    update board set plike = plike+1 WHERE board_id=#{board_id}
   	 ]]>
-		</select>
+	</select>
 
 
-	<!-- plike board테이블에 삭제-->
+	<!-- plike board테이블에 삭제 -->
 	<select id="deleteplike">
   		 <![CDATA[
     	  update board set plike = plike-1 WHERE board_id=#{board_id}
   		 ]]>
 	</select>
-	
-	
+
+
 	<!-- 좋아요 mapper end -->
-	
-	
-	
-	<!-- 현재 닉네임-->
+
+
+
+	<!-- 현재 닉네임 -->
 	<select id="getPresetnNickname" resultType="String">
    <![CDATA[
      select nickname from member where member_id=#{member_id}
@@ -406,8 +419,8 @@
 		<collection property="boardVO" resultMap="boardvo" />
 	</resultMap>
 
-<!-- 좋아요 resultmap -->
-<resultMap type="PlikeVO" id="plikevo">
+	<!-- 좋아요 resultmap -->
+	<resultMap type="PlikeVO" id="plikevo">
 		<result column="plike_id" property="plike_id" />
 		<result column="count" property="count" />
 		<collection property="memberVO" resultMap="membervo" />
