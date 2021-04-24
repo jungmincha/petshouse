@@ -91,16 +91,20 @@ img {
 input:focus, select:focus, button:focus, textarea:focus {
 	outline: none;
 }
-
+a:link{
+	
+	color: #000000;
+}
+a:visited{
+	
+	color: #000000;
+}
 a:hover, a:focus {
 	text-decoration: none;
 	outline: none;
 	color: #e7ab3c;
 }
 
-a:link {
-	color: #333333;
-}
 
 ul, ol {
 	padding: 0;
@@ -2828,6 +2832,10 @@ ul, ol {
 	display: block;
 	text-align: center;
 }
+.proceed-btn:hover{
+	color: #e7ab3c;
+	
+}
 
 /*---------------------
   Check Out
@@ -3656,6 +3664,9 @@ ul, ol {
 .contact-form .leave-comment .comment-form .site-btn {
 	padding: 13px 35px 11px;
 }
+.site-btn:hover{
+	color: #e7ab3c;
+}
 
 /*---------------------
   Faq Section
@@ -3963,12 +3974,7 @@ ul, ol {
 	.inner-header .advanced-search .input-group button {
 		right: -8px;
 	}
-	.inner-header {
-	display: none;
-	}
-	.nav-item{
-		display:none;
-	}
+	
 	
 }
 
@@ -4027,6 +4033,12 @@ ul, ol {
 		margin-top: 50px;
 	}
 	
+	.inner-header {
+		display: none;
+	}
+	.nav-item{
+		display:none;
+	}
 }
 
 /* Large Device: 480px */
@@ -4080,7 +4092,6 @@ ul, ol {
 	.nav-item {
 		background: transparent;
 	}
-	
 	.nav-item .nav-menu {
 		display: none;
 	}

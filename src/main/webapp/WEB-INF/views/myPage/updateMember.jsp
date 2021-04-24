@@ -50,6 +50,25 @@
 	border-bottom-color: #e2e2e2;
 	border-radius: .25em;
 }
+#point-btn{
+	background-color: black;
+	color:white;
+	border-color: black;
+	font-family: "MY FONT", serif;
+	font: inherit;
+	font-weight: 700;
+	padding: 10px;
+	font-size: small;
+}
+#point-btn:hover{
+	color: #e7ab3c;
+}
+#address-btn{
+	color: #ffffff;
+}
+#address-btn:hover {
+	color: #e7ab3c;
+}
 </style>
 <script type="text/javascript">
 	
@@ -139,9 +158,9 @@
 								<label class="control-label" for="address">주소</label>
 								<div class="input-group mb-3">
 									<div class="input-group-prepend">
-										<input type="button" class="form-control" onClick="goPopup();"
+										<input id="address-btn" type="button" class="form-control" onClick="goPopup();"
 											value="주소검색"
-											style="font-size: 10pt; background-color: #000000; color: #ffffff; font-weight: bold" />
+											style="font-size: 10pt; background-color: #000000; font-weight: bold" />
 									</div>
 									<input class="form-control" type="text"
 										style="font-size: 13pt;" id="address" name="address" readonly
@@ -178,11 +197,11 @@
 							<br> <br>
 							<hr>
 							<br>
-							<button type="submit" class="btn-info float-right"
-								style="font-size: 15pt;" onclick="deleteMember()">회원탈퇴</button>
+							<button id="point-btn"type="submit" class="float-right"
+								style="font-size: 10pt;" onclick="deleteMember()">회원탈퇴</button>
 						</form>
 						<br>
-
+				
 
 					</div>
 				</div>

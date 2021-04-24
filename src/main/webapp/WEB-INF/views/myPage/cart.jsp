@@ -50,6 +50,12 @@
 	width: 70px;
 	height: 70px;
 }
+a:link {
+	color: white;
+}
+a:visited {
+	color: white;
+}
 </style>
 </head>
 <jsp:include page="/WEB-INF/views/include/header.jsp" />
@@ -71,7 +77,7 @@
 										<th class="text-center">상품 이름</th>
 										<th>가격</th>
 										<th>수량</th>
-										<th>색상 / 사이즈</th>
+										<th>옵션</th>
 										<th>금액</th>
 										<th><i class="ti-close" onclick="allCartDelete()"
 											style='cursor: pointer'></i></th>
@@ -104,8 +110,8 @@
 										:&nbsp; <span class="total">0원</span>
 									</li>
 								</ul>
-								<a onclick="payPage()" class="proceed-btn"
-									style='cursor: pointer; font-size: 20px;'>주문하기 </a>
+								<a href="#" onclick="payPage()" class="proceed-btn"
+									style='cursor: pointer; font-size: 20px; '>주문하기 </a>
 							</div>
 						</div>
 					</div>
@@ -167,7 +173,7 @@
 													+ "<td class='cart-title first-row text-center'> <a href='/admin/goods_detail/"+data[i-1].board_id+"'> <img src='/resources/img/admin/goods/"+data[i-1].goodsVO.thumbnail+"' class='pimg'> </a></td> "
 													+ "<td class='cart-title first-row text-center'>"
 													+ "<h5>"
-													+ "<a href='/admin/goods_detail/"+data[i-1].board_id+"' style='color:#000000' >"
+													+ "<a href='/admin/goods_detail/"+data[i-1].board_id+"'  >"
 													+ data[i - 1].goodsVO.goodsname
 													+ "</a>"
 													+ "</h5>"
@@ -184,10 +190,19 @@
 													+ i
 													+ "(1)'>+</span> </div> </div>"
 													+ "</td> <td class='total-price first-row text-center' style='color:#000000'> "
-													+ pcolor
-													+ " / "
-													+ psize
-													+ "</td><td class='total-price first-row text-center' style='color:#000000'>"
+											if (pcolor != null && psize != null) {
+												html += pcolor + " / " + psize
+											} else if (pcolor == null
+													&& psize != null) {
+												html += psize
+
+											} else if (pcolor != null
+													&& psize == null) {
+												html += pcolor
+
+											}
+
+											html += "</td><td class='total-price first-row text-center' style='color:#000000'>"
 													+ "<input style='border:none; text-align:right;' type='text' id='sum"
 														+ i
 														+ "' value='' readonly size='7px' name='sum' >원</td>"
@@ -310,6 +325,7 @@
 
 	// 결제 페이지 이동
 	function payPage() {
+		event.preventDefault();
 		var payGoods = new Array();
 
 		var count = this.form.board_id.length;

@@ -122,7 +122,7 @@ span {
 				<div class="pb-text">
 					<table class="table">
 						<thead class="thead-dark">
-							<tr>
+							<tr >
 								<th>적립 일자</th>
 								<th>적립 내용</th>
 								<th>포인트</th>
@@ -161,7 +161,7 @@ span {
 				$("#page").empty();	
 				html = "";
 				for (var i = 0; i < data.pointList.length; i++) {
-					html += "<tr>" + "<td>" +  getFormatDate(data.pointList[i].pdate)
+					html += "<tr >" + "<td>" +  getFormatDate(data.pointList[i].pdate)
 							+ "</td>" + "<td>"
 							+ data.pointList[i].pointtypeVO.pointtypename + "</td>"
 					if (data.pointList[i].pscore < 0) {

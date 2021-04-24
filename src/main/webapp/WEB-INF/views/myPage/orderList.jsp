@@ -47,8 +47,8 @@
 }
 
 #pimg {
-	width: 200px;
-	height: 200px;
+	width: 130px;
+	height: 130px;
 }
 
 .modal {
@@ -225,7 +225,13 @@
 	border-radius: 10px;
 	box-shadow: inset 0px 0px 5px white;
 }
-
+a>p:hover {
+	color: #e7ab3c;
+}
+a>span{
+	font-weight: bold;
+	font-size: 19px;
+}
 </style>
 <jsp:include page="/WEB-INF/views/include/header.jsp" />
 </head>
@@ -293,12 +299,20 @@
 <div id="myModal" class="modal">
 
 	<!-- Modal content -->
-	<div class="modal-content"
-		style="width: 600px; height: 710px; padding-top: 110px">
-		<div class="close" style="font-size: 30px;">&times;</div>
-		<div style="text-align: center; font-weight: bold;">
-			<h4>리뷰 쓰기</h4>
+	<div class="modal-content" style="width: 600px; height: 710px;">
+		<div class="row">
+			<div class="col-4">
+				<div class="close" style="font-size: 30px; float: left">&times;</div>
+			</div>
+			<div class="col-4">
+				<div style="text-align: center; font-weight: bold;">
+					<h4>리뷰 쓰기</h4>
+				</div>
+			</div>
+			<div class="col-4"></div>
+
 		</div>
+
 
 		<div class="container">
 
@@ -311,12 +325,17 @@
 
 				<!-- 상품사진, 상품명 -->
 				<div style="margin-top: 15px;">
-					<div class="pb-pic">
-						<img src="" id="pimg">
+					<div class="row">
+						<div class="col-3 pb-pic">
+							<img src="" id="pimg">
+						</div>
+						<div class="col-6">
+							<p id="goodsName"></p>
+							<p id="goodsoption"></p>
+						</div>
+
 					</div>
-					<div class="pb-text" style="line-height: 80px;">
-						<span id="goodsName"></span>
-					</div>
+
 				</div>
 
 				<!-- 별점 -->
@@ -391,11 +410,10 @@
 	$(document)
 			.ready(
 					function() {
-						allOrder();
-						
+						allOrder();					
 					});
 
-	// 버튼 클릭시 전체 리스트 조회
+	// 전체 리스트 조회
 	function allOrder(pageNum,amount){
 		
 			var url ="/myPage/orderList/ajax/"+"${paystate}";
@@ -411,7 +429,8 @@
 									success : function(data) {
 										$(".payList").remove();
 										$(".pagination").remove();	
-										html = "";
+										var html = "";
+										var option ="";
 										console.log(data);
 										for (var i = 1; i <= data.pay.length; i++) {
 											html += "<div class='row payList'> <div class='col-lg-1'> </div> <div class='col-lg-12'>"
@@ -422,14 +441,25 @@
 													}
 													html += " <div class='row'> <div class='col-lg-5'> <div class='pb-pic'>"
 													+ "<img src='/resources/img/admin/goods/"+data.pay[i-1].payGoodsVO[0].boardVO.goodsVO.thumbnail+"' class='pimg'> </div>"
-													+ "<div class='pb-text'> <a href='#' onclick='orderPopup("+data.pay[i-1].pay_id+",\""+data.pay[i-1].receipt_id+"\")'> <h5>"
+													+ "<div class='pb-text'> <a href='#' onclick='orderPopup("+data.pay[i-1].pay_id+",\""+data.pay[i-1].receipt_id+"\")'> <span>"
 													+ data.pay[i - 1].pay_id
 													+ " / "
 													+ getFormatDate(data.pay[i - 1].paydate)
-													+ "</h5> </a> <a href='/admin/goods_detail/"+data.pay[i-1].payGoodsVO[0].boardVO.board_id+"'><p style='font-size: 22px'>"
+													+ "</span> </a> <a href='/admin/goods_detail/"+data.pay[i-1].payGoodsVO[0].boardVO.board_id+"'><p style='font-size: 22px'>"
 													+ data.pay[i - 1].payGoodsVO[0].boardVO.goodsVO.goodsname
 													+ "</p></a>"
-													+ "<span style='font-size: 13px'>색상 - "+data.pay[i - 1].payGoodsVO[0].pcolor+" / 사이즈 - "+data.pay[i - 1].payGoodsVO[0].psize+"</span><br> </div>"
+													if(data.pay[i - 1].payGoodsVO[0].pcolor != null && data.pay[i - 1].payGoodsVO[0].psize != null){
+														html += "<span style='font-size: 13px'>옵션 - "+data.pay[i - 1].payGoodsVO[0].pcolor+" / "+data.pay[i - 1].payGoodsVO[0].psize+"</span>" 
+														option = "옵션 - "+data.pay[i - 1].payGoodsVO[0].pcolor+" / "+data.pay[i - 1].payGoodsVO[0].psize
+													} else if(data.pay[i - 1].payGoodsVO[0].pcolor != null && data.pay[i - 1].payGoodsVO[0].psize == null){
+														html += "옵션 - "+data.pay[i - 1].payGoodsVO[0].pcolor
+														option = "옵션 - "+data.pay[i - 1].payGoodsVO[0].pcolor
+													} else if(data.pay[i - 1].payGoodsVO[0].pcolor == null && data.pay[i - 1].payGoodsVO[0].psize != null){
+														html += "옵션 - "+data.pay[i - 1].payGoodsVO[0].psize
+														option = "옵션 - "+data.pay[i - 1].payGoodsVO[0].psize
+													}
+											
+													html +="</div>"
 													+ "</div> <div class='col-lg-1'></div> <div class='col-lg-3' style='text-align: center;'> <br> <span style='font-size: 18px;'>총 금액 : "
 													+ data.pay[i - 1].payprice
 													+ "원</span><br> <span  style='font-size: 18px;'>수량 : "
@@ -453,7 +483,7 @@
 																break;
 														case 5 :
 															html += "</div> <div class='col-lg-3' style='text-align: right;'>"
-																+ "<span style='font-size: 20px'><br><button id='myBtn' onclick='modals("+data.pay[i - 1].payGoodsVO[0].boardVO.goodsVO.goods_id+" ,\""+data.pay[i - 1].payGoodsVO[0].boardVO.goodsVO.thumbnail+"\",\""+data.pay[i-1].payGoodsVO[0].boardVO.title+"\", "+data.pay[i-1].paystateVO.paystate_id+")'>리뷰 작성</button></span>"
+																+ "<span style='font-size: 20px'><br><button id='myBtn' onclick='modals("+data.pay[i - 1].payGoodsVO[0].boardVO.goodsVO.goods_id+" ,\""+data.pay[i - 1].payGoodsVO[0].boardVO.goodsVO.thumbnail+"\",\""+data.pay[i-1].payGoodsVO[0].boardVO.goodsVO.goodsname+"\", "+data.pay[i-1].paystateVO.paystate_id+" , \""+option+"\")'>리뷰 작성</button></span>"
 																+ "</div> </div>" 
 																break;
 														case 6 :
@@ -476,20 +506,31 @@
 													}
 													if( data.pay[i - 1].payGoodsVO.length>1){
 														html +=" <hr><div class='row collapse in' id='demo"+i+"'> "
+														option ="";
 														for (var j = 1; j < data.pay[i - 1].payGoodsVO.length; j++) {
 															html += " <div class='col-lg-5'> <div class='pb-pic'>"
 																	+ "<img src='/resources/img/admin/goods/"+data.pay[i-1].payGoodsVO[j].boardVO.goodsVO.thumbnail+"' class='pimg'> </div>"
 																	+ "<div class='pb-text'><a href='/admin/goods_detail/"+data.pay[i-1].payGoodsVO[j].boardVO.board_id+"'>  <p style='font-size: 22px'>"
 																	+ data.pay[i - 1].payGoodsVO[j].boardVO.goodsVO.goodsname
 																	+ "</p></a>"
-																	+ "<span style='font-size: 13px'>색상 - "+data.pay[i - 1].payGoodsVO[j].pcolor+" / 사이즈 - "+data.pay[i - 1].payGoodsVO[j].psize+"</span><br> </div>"
+																	if(data.pay[i - 1].payGoodsVO[j].pcolor != null && data.pay[i - 1].payGoodsVO[j].psize != null){
+																		html += "<span style='font-size: 13px'>옵션 - "+data.pay[i - 1].payGoodsVO[j].pcolor+" / "+data.pay[i - 1].payGoodsVO[j].psize+"</span>" 
+																		option = "옵션 - "+data.pay[i - 1].payGoodsVO[j].pcolor+" / "+data.pay[i - 1].payGoodsVO[j].psize
+																	} else if(data.pay[i - 1].payGoodsVO[j].pcolor != null && data.pay[i - 1].payGoodsVO[j].psize == null){
+																		html += "옵션 - "+data.pay[i - 1].payGoodsVO[j].pcolor
+																		option = "옵션 - "+data.pay[i - 1].payGoodsVO[j].pcolor
+																	} else if(data.pay[i - 1].payGoodsVO[j].pcolor == null && data.pay[i - 1].payGoodsVO[j].psize != null){
+																		html += "옵션 - "+data.pay[i - 1].payGoodsVO[j].psize
+																		option = "옵션 - "+data.pay[i - 1].payGoodsVO[j].psize
+																	}
+																	html += "</div>"
 																	+ "</div> <div class='col-lg-1'></div> <div class='col-lg-3' style='text-align: center;'> <br>"
 																	+ "<span  style='font-size: 18px'>수량 : "
 																	+ data.pay[i - 1].payGoodsVO[j].amount
 																	+ "</span>"
 																	+ "</div> <div class='col-lg-3'  style='text-align: right;'> <br>"
 																	if(data.pay[i-1].paystateVO.paystate_id==5){
-																		html += "<span style='font-size: 20px'><button id='myBtn' onclick='modals("+data.pay[i - 1].payGoodsVO[j].boardVO.goodsVO.goods_id+" ,\""+data.pay[i - 1].payGoodsVO[j].boardVO.goodsVO.thumbnail+"\",\""+data.pay[i-1].payGoodsVO[j].boardVO.title+"\", "+data.pay[i-1].paystateVO.paystate_id+")'>리뷰 작성</button></span><br>"
+																		html += "<span style='font-size: 20px'><button id='myBtn' onclick='modals("+data.pay[i - 1].payGoodsVO[j].boardVO.goodsVO.goods_id+" ,\""+data.pay[i - 1].payGoodsVO[j].boardVO.goodsVO.thumbnail+"\",\""+data.pay[i-1].payGoodsVO[j].boardVO.goodsVO.goodsname+"\", "+data.pay[i-1].paystateVO.paystate_id+" , \""+option+"\")'>리뷰 작성</button></span>"
 																	}
 																	html +="</div>"	
 																
@@ -532,7 +573,8 @@
 					success : function(data) {
 						$(".payList").remove();
 						$(".pagination").remove();	
-						html = "";
+						var html = "";
+						var option ="";
 						console.log(data);
 						for (var i = 1; i <= data.pay.length; i++) {
 							html += "<div class='row payList'> <div class='col-lg-1'> </div> <div class='col-lg-12'>"
@@ -548,9 +590,20 @@
 									+ " / "
 									+ getFormatDate(data.pay[i - 1].paydate)
 									+ "</h5> </a> <a href='/admin/goods_detail/"+data.pay[i-1].payGoodsVO[0].boardVO.board_id+"'><p style='font-size: 22px'>"
-													+ data.pay[i - 1].payGoodsVO[0].boardVO.goodsVO.goodsname
-													+ "</p></a>"
-									+ "<span style='font-size: 13px'>색상 - "+data.pay[i - 1].payGoodsVO[0].pcolor+" / 사이즈 - "+data.pay[i - 1].payGoodsVO[0].psize+"</span><br> </div>"
+									+ data.pay[i - 1].payGoodsVO[0].boardVO.goodsVO.goodsname
+									+ "</p></a>"
+									if(data.pay[i - 1].payGoodsVO[0].pcolor != null && data.pay[i - 1].payGoodsVO[0].psize != null){
+										html += "<span style='font-size: 13px'>옵션 - "+data.pay[i - 1].payGoodsVO[0].pcolor+" / "+data.pay[i - 1].payGoodsVO[0].psize+"</span>" 
+										option = "옵션 - "+data.pay[i - 1].payGoodsVO[0].pcolor+" / "+data.pay[i - 1].payGoodsVO[0].psize
+									} else if(data.pay[i - 1].payGoodsVO[0].pcolor != null && data.pay[i - 1].payGoodsVO[0].psize == null){
+										html += "옵션 - "+data.pay[i - 1].payGoodsVO[0].pcolor
+										option = "옵션 - "+data.pay[i - 1].payGoodsVO[0].pcolor
+									} else if(data.pay[i - 1].payGoodsVO[0].pcolor == null && data.pay[i - 1].payGoodsVO[0].psize != null){
+										html += "옵션 - "+data.pay[i - 1].payGoodsVO[0].psize
+										option = "옵션 - "+data.pay[i - 1].payGoodsVO[0].psize
+									}
+							
+									html +="</div>"
 									+ "</div> <div class='col-lg-1'></div> <div class='col-lg-3' style='text-align: center;'> <br> <span style='font-size: 18px;'>총 금액 : "
 									+ data.pay[i - 1].payprice
 									+ "원</span><br> <span  style='font-size: 18px;'>수량 : "
@@ -574,7 +627,7 @@
 												break;
 										case 5 :
 											html += "</div> <div class='col-lg-3' style='text-align: right;'>"
-												+ "<span style='font-size: 20px'><br><button id='myBtn' onclick='modals("+data.pay[i - 1].payGoodsVO[0].boardVO.goodsVO.goods_id+" ,\""+data.pay[i - 1].payGoodsVO[0].boardVO.goodsVO.thumbnail+"\",\""+data.pay[i-1].payGoodsVO[0].boardVO.title+"\", "+data.pay[i-1].paystateVO.paystate_id+")'>리뷰 작성</button></span>"
+												+ "<span style='font-size: 20px'><br><button id='myBtn' onclick='modals("+data.pay[i - 1].payGoodsVO[0].boardVO.goodsVO.goods_id+" ,\""+data.pay[i - 1].payGoodsVO[0].boardVO.goodsVO.thumbnail+"\",\""+data.pay[i-1].payGoodsVO[0].boardVO.goodsVO.goodsname+"\", "+data.pay[i-1].paystateVO.paystate_id+" , \""+option+"\")'>리뷰 작성</button></span>"
 												+ "</div> </div>" 
 												break;
 										case 6 :
@@ -597,20 +650,31 @@
 									}
 									if( data.pay[i - 1].payGoodsVO.length>1){
 										html +=" <hr><div class='row collapse in' id='demo"+i+"'> "
+										option ="";
 										for (var j = 1; j < data.pay[i - 1].payGoodsVO.length; j++) {
 											html += " <div class='col-lg-5'> <div class='pb-pic'>"
 													+ "<img src='/resources/img/admin/goods/"+data.pay[i-1].payGoodsVO[j].boardVO.goodsVO.thumbnail+"' class='pimg'> </div>"
 													+ "<div class='pb-text'><a href='/admin/goods_detail/"+data.pay[i-1].payGoodsVO[j].boardVO.board_id+"'>  <p style='font-size: 22px'>"
 													+ data.pay[i - 1].payGoodsVO[j].boardVO.goodsVO.goodsname
 													+ "</p></a>"
-													+ "<span style='font-size: 13px'>색상 - "+data.pay[i - 1].payGoodsVO[j].pcolor+" / 사이즈 - "+data.pay[i - 1].payGoodsVO[j].psize+"</span><br> </div>"
+													if(data.pay[i - 1].payGoodsVO[j].pcolor != null && data.pay[i - 1].payGoodsVO[j].psize != null){
+														html += "<span style='font-size: 13px'>옵션 - "+data.pay[i - 1].payGoodsVO[j].pcolor+" / "+data.pay[i - 1].payGoodsVO[j].psize+"</span>" 
+														option = "옵션 - "+data.pay[i - 1].payGoodsVO[j].pcolor+" / "+data.pay[i - 1].payGoodsVO[j].psize
+													} else if(data.pay[i - 1].payGoodsVO[j].pcolor != null && data.pay[i - 1].payGoodsVO[j].psize == null){
+														html += "옵션 - "+data.pay[i - 1].payGoodsVO[j].pcolor
+														option = "옵션 - "+data.pay[i - 1].payGoodsVO[j].pcolor
+													} else if(data.pay[i - 1].payGoodsVO[j].pcolor == null && data.pay[i - 1].payGoodsVO[j].psize != null){
+														html += "옵션 - "+data.pay[i - 1].payGoodsVO[j].psize
+														option = "옵션 - "+data.pay[i - 1].payGoodsVO[j].psize
+													}
+													html += "</div>"
 													+ "</div> <div class='col-lg-1'></div> <div class='col-lg-3' style='text-align: center;'> <br>"
 													+ "<span  style='font-size: 18px'>수량 : "
 													+ data.pay[i - 1].payGoodsVO[j].amount
 													+ "</span>"
 													+ "</div> <div class='col-lg-3'  style='text-align: right;'> <br>"
 													if(data.pay[i-1].paystateVO.paystate_id==5){
-														html += "<span style='font-size: 20px'><button id='myBtn' onclick='modals("+data.pay[i - 1].payGoodsVO[j].boardVO.goodsVO.goods_id+" ,\""+data.pay[i - 1].payGoodsVO[j].boardVO.goodsVO.thumbnail+"\",\""+data.pay[i-1].payGoodsVO[j].boardVO.title+"\" , "+data.pay[i-1].paystateVO.paystate_id+")'>리뷰 작성</button></span><br>"
+														html += "<span style='font-size: 20px'><button id='myBtn' onclick='modals("+data.pay[i - 1].payGoodsVO[j].boardVO.goodsVO.goods_id+" ,\""+data.pay[i - 1].payGoodsVO[j].boardVO.goodsVO.thumbnail+"\",\""+data.pay[i-1].payGoodsVO[j].boardVO.goodsVO.goodsname+"\", "+data.pay[i-1].paystateVO.paystate_id+" , \""+option+"\")'>리뷰 작성</button></span>"
 													}
 													html +="</div>"	
 												
@@ -767,12 +831,13 @@
 
 	var span = document.getElementsByClassName("close")[0];                                          
 
-	function modals(goods_id , thumbnail, title, paystate_id){
+	function modals(goods_id , thumbnail, title, paystate_id, option){
 		modal.style.display = "block";
 		$("#goods_id").val(goods_id);
 		$("#pimg").attr("src", "/resources/img/admin/goods/"+thumbnail);
-		$("#goodsName").text(title);
+		$("#goodsName").text("상품명 : "+title);
 		$("#paystate_id").val(paystate_id);
+		$("#goodsoption").text(option);
 	}
 
 	span.onclick = function() {
@@ -892,6 +957,7 @@
 
 	}
 	
+
 	
 </script>
 <!-- Js Plugins -->

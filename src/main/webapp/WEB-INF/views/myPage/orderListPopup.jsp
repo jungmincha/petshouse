@@ -54,6 +54,7 @@
 
 		<div class="container">
 			<h4>주문 상세 내역</h4>
+			<hr>
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="contact-widget">

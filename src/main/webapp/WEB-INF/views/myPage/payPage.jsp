@@ -51,7 +51,25 @@
 	height: 40px;
 	border-radius: 20%;
 }
-
+#point-btn{
+	background-color: black;
+	color:white;
+	border-color: black;
+	font-family: "MY FONT", serif;
+	font: inherit;
+	font-weight: 700;
+	padding: 10px;
+	font-size: small;
+}
+#point-btn:hover{
+	color: #e7ab3c;
+}
+#address-btn{
+	color: #ffffff;
+}
+#address-btn:hover {
+	color: #e7ab3c;
+}
 </style>
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
 <body style="padding-top: 100px">
@@ -104,7 +122,7 @@
 										<h5 style="font-weight: bold">배송지 정보</h5>
 									</div>
 									<div class="col-lg-6 text-right">
-										<span onclick="reset()">초기화</span>
+										<a href="#"onclick="reset()">초기화</a>
 									</div>
 								</div>
 
@@ -126,9 +144,9 @@
 								<div class="input-group mb-3">
 									<div class="input-group-prepend">
 
-										<input type="button" class="form-control" onClick="goPopup();"
+										<input id="address-btn" type="button" class="form-control" onClick="goPopup();"
 											value="주소검색"
-											style="font-size: 10pt; background-color: #000000; color: #ffffff; font-weight: bold" />
+											style="font-size: 10pt; background-color: #000000;  font-weight: bold" />
 									</div>
 									<input class="form-control" type="text"
 										style="font-size: 13pt;" id="deliveryaddress"
@@ -164,7 +182,7 @@
 											type="text" id="point" />
 									</div>
 									<div class="col-lg-4 ">
-										<button onclick="usePoint()">전액사용</button>
+										<button id="point-btn" onclick="usePoint()">전액사용</button>
 
 									</div>
 
@@ -175,7 +193,7 @@
 
 						</div>
 					</div>
-					<div class="col-lg-4" >
+					<div class="col-lg-4">
 
 						<div class="place-order">
 							<h4>결제 금액</h4>
@@ -195,7 +213,7 @@
 
 								<div class="order-btn">
 									<button type="submit" onclick="payNow('card')"
-										class="site-btn place-btn">Place Order</button>
+										class="site-btn place-btn">결제하기</button>
 
 								</div>
 							</div>
@@ -474,6 +492,7 @@
 	
 	// 초기화
 	function reset(){
+		event.preventDefault();
 		$('#deliveryname').val("");
 		$('#deliveryaddress').val("");
 		$('#deliverytel').val("");
