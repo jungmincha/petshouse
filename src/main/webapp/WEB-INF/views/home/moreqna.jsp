@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
@@ -52,33 +52,16 @@
 
 <style>
 #navbars>li:nth-child(1) {
-   background-color: #e7ab3c;
+	background-color: #e7ab3c;
 }
+
 #hashtag {
 	font-size: 13px;
 	padding: 0.01px;
 }
-#hashtag:hover{
-background-color:#dddddd;
-}
 
-a:link {
-	text-decoration: none;
-	color: #333333;
-}
-
-a:visited {
-	text-decoration: none;
-	color: #333333;
-}
-
-a:active {
-	text-decoration: none;
-	color: #333333;
-}
-
-a:hover {
-	text-decoration: none;
+#hashtag:hover {
+	background-color: #dddddd;
 }
 </style>
 <script>
@@ -92,42 +75,48 @@ a:hover {
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
 	<div class="container">
 
-	
+
 		<input type="hidden" name="keyword" value="${param.keyword}">
-			<h5><b>'${param.keyword}'</b>에 대한 검색결과 <b>${qcount}건</b></h5>
-			<br><br>
-						<div id="table">
+		<h5>
+			<b>'${param.keyword}'</b>에 대한 검색결과 <b>${qcount}건</b>
+		</h5>
+		<br>
+		<br>
+		<div id="table">
 
-							<c:forEach items="${moreqna}" var="mq">
-								<a href="/commu/qna/${mq.board_id}">
-									<form action="${pageContext.request.contextPath}/search"
-										method="get">
-										<div style="font-weight: normal; font-size: 18px;">${mq.title}</div>
-										<ul class="pd-tags">
-											<div>${mq.content}</div>
-											<span>${mq.memberVO.nickname}</span>
-											<span style="font-size: 13px; color: gray;"><fmt:formatDate	value="${mq.pdate}" pattern="yyyy.MM.dd" /></span>
-											<span style="font-size: 13px; color: gray;"> 조회수
-												${mq.hit}</span>
-											<c:set var="hashtag" value="${mq.hashtag}" />
-								<c:set var="tag" value="${fn:split(hashtag, '#')}" />
-								<c:forEach var="t" items="${tag}">
-									<span> <c:if test="${not empty mq.hashtag}">
-											<button id="hashtag" name="keyword" class="btn btn-disabled"
-												style="" value="${t}"
-												onclick="location.href='${pageContext.request.contextPath}/search'">#${t}</button></span>
-		</c:if>
-		</c:forEach>
+			<c:forEach items="${moreqna}" var="mq">
 
-										</ul>
-									</form>
-								</a>
-								<hr>
-							</c:forEach>
-
+				<form action="${pageContext.request.contextPath}/search"
+					method="get">
+					<a href="/commu/qna/${mq.board_id}">
+						<div style="font-weight: normal; font-size: 18px;">${mq.title}</div>
+						<div>${mq.content}</div>
+					</a>
+					<div style="margin-bottom: 10px;">
+						<span>${mq.memberVO.nickname}</span> <span
+							style="font-size: 13px; color: gray;"><fmt:formatDate
+								value="${mq.pdate}" pattern="yyyy.MM.dd" /></span> <span
+							style="font-size: 13px; color: gray;"> 조회수 ${mq.hit}</span>
+						<c:set var="hashtag" value="${mq.hashtag}" />
+						<c:set var="tag" value="${fn:split(hashtag, '#')}" />
+						<c:forEach var="t" items="${tag}">
+							<c:if test="${not empty mq.hashtag}">
+								<span>
+									<button id="hashtag" name="keyword" class="btn btn-disabled"
+										style="" value="${t}"
+										onclick="location.href='${pageContext.request.contextPath}/search'">#${t}</button>
+								</span>
+							</c:if>
+						</c:forEach>
 						</div>
-						
-						<div class="ul">
+				</form>
+
+				<hr>
+			</c:forEach>
+
+		</div>
+
+		<div class="ul">
 			<ul class="pagination justify-content-center"
 				style="padding-bottom: 50px; padding-top: 50px;">
 				<c:if test="${pageMaker.prev}">

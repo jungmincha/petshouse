@@ -309,11 +309,14 @@ border-radius:8px;
 
 			
 				<c:forEach items="${moreqna}" var="qs">
-					<a href="/commu/qna/${qs.board_id}">
+					
 
 						<form action="${pageContext.request.contextPath}/search" method="get">
+						<a href="/commu/qna/${qs.board_id}">
 							<div style="font-weight: normal; font-size: 18px;">${qs.title}</div>
-								<div>${qs.content}</div>
+							<div>${qs.content}</div>
+						</a>
+						<div style="margin-bottom: 10px;">
 								<span>${qs.memberVO.nickname}</span>
 								<span style="font-size: 13px; color: gray;"><fmt:formatDate	value="${qs.pdate}" pattern="yyyy.MM.dd" /></span>
 								<span style="font-size: 13px; color: gray;"> 조회수 ${qs.hit}</span>
@@ -327,8 +330,9 @@ border-radius:8px;
 									</c:if>
 								</span>
 								</c:forEach>
+								</div>
 						</form>
-					</a>
+					
 				<hr>
 		</c:forEach>
 

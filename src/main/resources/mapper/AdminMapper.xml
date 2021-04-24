@@ -509,8 +509,8 @@
                select b.title, b.content,b.ratescore,b.pdate, m.nickname,m.thumbnail, m.member_id,b.goods_id 
                 from  board b, member m where m.member_id=b.member_id  and b.boardtype_id= 8 and b.goods_id = #{boardVO.goodsVO.goods_id}
                order by b.pdate desc
-               			    ) A WHERE ROWNUM <= #{cri.pageNum} * #{cri.amount}
-			) WHERE RNUM > (#{cri.pageNum}-1) * #{cri.amount}  
+               			    ) A WHERE ROWNUM <= #{cri.pageNum} * 10
+			) WHERE RNUM > (#{cri.pageNum}-1) * 10
          
    ]]>
    </select>

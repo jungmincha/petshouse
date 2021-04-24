@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
@@ -9,7 +9,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport"
-   content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
 <title>상품조회</title>
@@ -23,17 +23,17 @@
 <script src="/resources/sidemenu/bootstrap/js/bootstrap.min.js"></script>
 <script src="/resources/sidemenu/js/custom.js"></script>
 <link rel="stylesheet"
-   href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 
 <!-- Bootstrap -->
 <link href="/resources/sidemenu/bootstrap/css/bootstrap.min.css"
-   rel="stylesheet">
+	rel="stylesheet">
 <!-- styles -->
 <link href="/resources/sidemenu/css/styles.css" rel="stylesheet">
 
 <link
-   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
-   rel="stylesheet">
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
+	rel="stylesheet">
 
 
 
@@ -73,83 +73,82 @@
 </script>
 <style>
 .profile_box {
-   width: 30px;
-   height: 30px;
-   border-radius: 70%;
-   overflow: hidden;
-   margin: 5px;
+	width: 30px;
+	height: 30px;
+	border-radius: 70%;
+	overflow: hidden;
+	margin: 5px;
 }
 
 .profile_box2 {
-   width: 80px;
-   height: 80px;
-   border-radius: 70%;
-   overflow: hidden;
-   margin: 5px;
+	width: 80px;
+	height: 80px;
+	border-radius: 70%;
+	overflow: hidden;
+	margin: 5px;
 }
 
 .profile {
-   width: 100%;
-   height: 100%;
-   object-fit: cover;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
 }
 
 .tab-item {
-   width: 1000;
+	width: 1000;
 }
 
 span.star-prototype, span.star-prototype>* {
-   height: 16px;
-   background: url(http://i.imgur.com/YsyS5y8.png) 0 -16px repeat-x;
-   display: inline-block;
+	height: 16px;
+	background: url(http://i.imgur.com/YsyS5y8.png) 0 -16px repeat-x;
+	display: inline-block;
 }
 
 span.star-prototype>* {
-   background-position: 0 0;
-   max-width: 80px;
+	background-position: 0 0;
+	max-width: 80px;
 }
 
 .shoppingguide {
-   margin: 10px auto 10%;
-   max-width: 1100px;
-   background: #fff;
-   border: 1px #d5d5d5 solid;
-   color: #555;
-   line-height: 23px;
+	margin: 10px auto 10%;
+	max-width: 1100px;
+	background: #fff;
+	border: 1px #d5d5d5 solid;
+	color: #555;
+	line-height: 23px;
 }
 
 tbody {
-   display: table-row-group;
-   vertical-align: middle;
-   border-color: inherit;
-   font-size: 8px;
+	display: table-row-group;
+	vertical-align: middle;
+	border-color: inherit;
+	font-size: 8px;
 }
 
 table {
-   width: 100%;
-   boder-collapse: collapse;
+	width: 100%;
+	boder-collapse: collapse;
 }
 
 td, th {
-   border-bottom: 1px solid #000000;
+	border-bottom: 1px solid #000000;
 }
 
 th {
-   background: #FFFFF0;
-   text-align: -internal-center;
-   font-size: 20px;
+	background: #FFFFF0;
+	text-align: -internal-center;
+	font-size: 20px;
 }
 
 h2 {
-   text-align: center;
+	text-align: center;
 }
 
 .owl-carousel .owl-item img {
-   display: block;
-   width: 130px;
-   height: 150px;
+	display: block;
+	width: 130px;
+	height: 150px;
 }
-
 
 .top {
 	background-color: #e7ab3c;
@@ -162,10 +161,8 @@ h2 {
 	padding: 10px;
 }
 
-
 .imgList {
 	width: 100%;
-	display: flex;
 	justify-content: space-around;
 	align-items: center;
 }
@@ -197,7 +194,7 @@ h2 {
 
 .modalBox {
 	position: relative;
-	top: 20%;
+	top: 35%;
 	left: 50%;
 	transform: translate(-50%, -20%);
 	background-color: #ffffff;
@@ -208,7 +205,7 @@ h2 {
 
 .modalBox img {
 	width: 100%;
-	border-radius:5px;
+	border-radius: 5px;
 }
 
 .modalBox p {
@@ -218,6 +215,10 @@ h2 {
 	padding: .2rem;
 }
 
+#bottom {
+	margin-left: 28px;
+	margin-top: 1px;
+}
 </style>
 
 </head>
@@ -225,112 +226,118 @@ h2 {
 
 
 
-   <!-- header -->
-   <%@ include file="/WEB-INF/views/include/header.jsp"%>
+	<!-- header -->
+	<%@ include file="/WEB-INF/views/include/header.jsp"%>
 
-   <!-- Page Content -->
-   <!-- Product Shop Section Begin -->
+	<!-- Page Content -->
+	<!-- Product Shop Section Begin -->
 
-   <section class="product-shop spad page-details">
-      <div class="container">
-       
-         <div class="row">
-           
-            <div class="col-lg-12">
+	<section class="product-shop spad page-details">
+		<div class="container">
 
-               <form action="modify" method="post">
-                  <!-- input ajax 시작하는 곳! -->
-                  <div id="input" class="row">
+			<div class="row">
+
+				<div class="col-lg-12">
+
+					<form action="modify" method="post">
+						<!-- input ajax 시작하는 곳! -->
+						<div id="input" class="row">
 
 
-                     <div class="col-lg-6">
-                        <div class="product-pic-zoom">
-                           <img class="product-big-img" height="600px;"
-                              src="/resources/img/admin/goods/${goods.goodsVO.thumbnail}"
-                              alt="">
-                           <div class="zoom-icon">
-                              <i class="fa fa-search-plus"></i>
-                           </div>
-                         </div>
-                        <div class="product-thumbs">
-                           <div class="product-thumbs-track ps-slider owl-carousel">
-                              <div class="pt active"
-                                 data-imgbigurl="/resources/img/admin/goods/${goods.goodsVO.thumbnail}">
-                                 <img
-                                    src="/resources/img/admin/goods/${goods.goodsVO.thumbnail}"
-                                    width="1270" alt="">
-                              </div>
-                              <c:forEach var="goods" items="${img}">
-                                 <div class="pt"
-                                    data-imgbigurl="/resources/img/admin/board/${goods.imgname}">
-                                    <img src="/resources/img/admin/board/${goods.imgname}"
-                                       alt="">
-                                 </div>
-                              </c:forEach>
-                           </div>
-                        </div>
-                     </div>
-                     
-                     
-                     <div class="col-lg-6" style="padding-left:40px;">
-                        <div class="product-details">
-                           <div class="pd-title">
-                              <input type="hidden" name="board_id" value="${goods.board_id}">
-                              <input type="hidden" name="goods_id"
-                                 value="${goods.goodsVO.goods_id}"> 
-                                 <input  type="hidden" name="goods_id" value="${goods.pdate}">
-                                 
-                                 
-                              <span>${goods.categoryVO.categoryname}/${goods.categoryVO.sortname}</span>
-                              <div style="padding-top:10px;">
-                              <h3>${goods.goodsVO.goodsname}</h3></div>
+							<div class="col-lg-6">
+								<div class="product-pic-zoom">
+									<img class="product-big-img" height="600px;"
+										src="/resources/img/admin/goods/${goods.goodsVO.thumbnail}"
+										alt="">
+									<div class="zoom-icon">
+										<i class="fa fa-search-plus"></i>
+									</div>
+								</div>
+								<div class="product-thumbs">
+									<div class="product-thumbs-track ps-slider owl-carousel">
+										<div class="pt active"
+											data-imgbigurl="/resources/img/admin/goods/${goods.goodsVO.thumbnail}">
+											<img
+												src="/resources/img/admin/goods/${goods.goodsVO.thumbnail}"
+												width="1270" alt="">
+										</div>
+										<c:forEach var="goods" items="${img}">
+											<div class="pt"
+												data-imgbigurl="/resources/img/admin/board/${goods.imgname}">
+												<img src="/resources/img/admin/board/${goods.imgname}"
+													alt="">
+											</div>
+										</c:forEach>
+									</div>
+								</div>
+							</div>
 
-                            
-                           </div>
-                           <div class="pd-rating" style="margin:10px 0px;">
- 
-                              <c:if test="${one.goodsVO.goods_id eq goods.goodsVO.goods_id}">
-                                 <span class="star-prototype"> ${one.avgscore}</span>
-                                 <span> &nbsp; ${one.count}개 리뷰</span>
-                              </c:if>
- 
-                           </div>
-                           <div class="pd-desc" style="margin:20px 0px;">
-                              <small>${goods.goodsVO.description}</small>
-                              <h4 style="margin:30px 0px; ">
-                                 <fmt:formatNumber value="${goods.goodsVO.price}"
-                                    pattern="###,###,###" />
-                                 원
-                              </h4>
 
-                           </div>
+							<div class="col-lg-6" style="padding-left: 40px;">
+								<div class="product-details">
+									<div class="pd-title">
+										<input type="hidden" name="board_id" value="${goods.board_id}">
+										<input type="hidden" name="goods_id"
+											value="${goods.goodsVO.goods_id}"> <input
+											type="hidden" name="goods_id" value="${goods.pdate}">
 
-						 <div class="pd-share" style="padding-top:20px;">
-                              <div class="p-code">
-                              	 <p>혜택 : <b>${goods.goodsVO.point}P</b> 적립 <small>(구매금액의 1% 적립)</small> </br>
-                              	 배송 : <b>2500원</b> 선결제 <small>(30,000원 이상시 무료배송)</small></p>
-                                 <small>※ 재고상태 : ${goods.goodsVO.stockVO.stockname}</small></br>
-                                
-                              </div>
 
-                           </div>
- 
-							 
-                           <div style="min-height:120px; padding-top:115px; float:fixed;">
-                           <c:if test="${not empty goods.goodsVO.pcolor}">
-                            <div class="pd-color-choose"  >
-                              <c:set var="pcolor" value="${goods.goodsVO.pcolor}" />
-                              <c:set var="color" value="${fn:split(pcolor, ',')}" />
-                              <c:forEach var="c" items="${color}">
-                                 <div class="color-item">
-                                    <input id="pcolor" type="radio" name="pcolor" value="${c}" />
-                                    <label for="pcolor">${c} </label>
-                                 </div>
-                              </c:forEach> </c:if>
-                          
-                           
+										<span>${goods.categoryVO.categoryname}/${goods.categoryVO.sortname}</span>
+										<div style="padding-top: 10px;">
+											<h3>${goods.goodsVO.goodsname}</h3>
+										</div>
 
-                           <script type="text/javascript">
+
+									</div>
+									<div class="pd-rating" style="margin: 10px 0px;">
+
+										<c:if test="${one.goodsVO.goods_id eq goods.goodsVO.goods_id}">
+											<span class="star-prototype"> ${one.avgscore}</span>
+											<span> &nbsp; ${one.count}개 리뷰</span>
+										</c:if>
+
+									</div>
+									<div class="pd-desc" style="margin: 20px 0px;">
+										<small>${goods.goodsVO.description}</small>
+										<h4 style="margin: 30px 0px;">
+											<fmt:formatNumber value="${goods.goodsVO.price}"
+												pattern="###,###,###" />
+											원
+										</h4>
+
+									</div>
+
+									<div class="pd-share" style="padding-top: 20px;">
+										<div class="p-code">
+											<p>
+												혜택 : <b>${goods.goodsVO.point}P</b> 적립 <small>(구매금액의
+													1% 적립)</small> </br> 배송 : <b>2500원</b> 선결제 <small>(30,000원 이상시
+													무료배송)</small>
+											</p>
+											<small>※ 재고상태 : ${goods.goodsVO.stockVO.stockname}</small></br>
+
+										</div>
+
+									</div>
+
+
+									<div
+										style="min-height: 120px; padding-top: 115px; float: fixed;">
+										<c:if test="${not empty goods.goodsVO.pcolor}">
+											<div class="pd-color-choose">
+												<c:set var="pcolor" value="${goods.goodsVO.pcolor}" />
+												<c:set var="color" value="${fn:split(pcolor, ',')}" />
+												<c:forEach var="c" items="${color}">
+													<div class="color-item">
+														<input id="pcolor" type="radio" name="pcolor" value="${c}" />
+														<label for="pcolor">${c} </label>
+													</div>
+												</c:forEach>
+										</c:if>
+
+
+
+										<script type="text/javascript">
                               $(".pd-color-choose .color-item label")
                                     .on(
                                           'click',
@@ -344,219 +351,221 @@ h2 {
                                           });
                            </script>
 
- 							 <c:if test="${not empty goods.goodsVO.psize}">
-                           <div class="pd-size-choose">
-                              <c:set var="psize" value="${goods.goodsVO.psize}" />
-                              <c:set var="size" value="${fn:split(psize, ',')}" />
-                              <c:forEach var="s" items="${size}">
-                                 <div class="sc-item">
-                                    <input type="radio" id="psize" name="psize" value="${s}" />
-                                    <label for="size">${s}</label>
-                                 </div>
-                              </c:forEach>
-                           </div>
-                          </c:if>
-                          
-                            <div class="quantity" style=" float:fixed;">
-                              <div class="pro-qty">
-                                 <span class="dec qtybtn">-</span> 
-                                 <input id="amount" type="text" value="1"> 
-                                 <span class="inc qtybtn">+</span>
-                                 
-                              </div>
-                              <div onclick="inputCart()" class="primary-btn pd-cart"
-                                 style="cursor: pointer;">Add To Cart</div>
-                                 	 
-                           </div>
-                            </div>
-                          
-                        </div>
-                     </div>
-</div></div>
+										<c:if test="${not empty goods.goodsVO.psize}">
+											<div class="pd-size-choose">
+												<c:set var="psize" value="${goods.goodsVO.psize}" />
+												<c:set var="size" value="${fn:split(psize, ',')}" />
+												<c:forEach var="s" items="${size}">
+													<div class="sc-item">
+														<input type="radio" id="psize" name="psize" value="${s}" />
+														<label for="size">${s}</label>
+													</div>
+												</c:forEach>
+											</div>
+										</c:if>
+
+										<div class="quantity" style="float: fixed;">
+											<div class="pro-qty">
+												<span class="dec qtybtn">-</span> <input id="amount"
+													type="text" value="1"> <span class="inc qtybtn">+</span>
+
+											</div>
+											<div onclick="inputCart()" class="primary-btn pd-cart"
+												style="cursor: pointer;">Add To Cart</div>
+
+										</div>
+									</div>
+
+								</div>
+							</div>
+						</div>
+				</div>
 
 
-                     <div class="product-tab">
-                        <div class="tab-item" style="width:1000px;">
-                           <ul class="nav" role="tablist">
-                              <li><a class="active" data-toggle="tab" href="#tab-1"
-                                 role="tab"> 상세정보 </a></li>
-                              <li><a data-toggle="tab" href="#tab-2" role="tab">
-                                    고객리뷰 </a></li>
-                              <li><a data-toggle="tab" href="#tab-3" role="tab">주문가이드</a></li>
-                           </ul>
-                        </div>
-                        <div class="tab-item-content">
-                           <div class="tab-content">
-                              <div class="tab-pane fade-in active" id="tab-1"
-                                 role="tabpanel">
-                                 <div class="product-content">
-                                    <div class="row">
-                                       <div class="col-lg-7">
-                                     
-                                
-                                          <img src="/resources/img/file/cat1.jpg" alt="">
-                                       
-                                    </div>
-                                 </div>
-                              </div>
-</div>
-
-                              <!--                   리뷰                 -->
-
-                              <div class="tab-pane fade" id="tab-2" role="tabpanel" value=8>
-                                 <div class="customer-review-option">
-
-                                    <c:if
-                                       test="${one.goodsVO.goods_id eq goods.goodsVO.goods_id}">
-                                       <span style="font-size: 17px;"> &nbsp;
-                                          ${one.count}개의 리뷰</span>
-                                    </c:if>
-                                    <hr>
-
-                                    <div class="comment-option">
-
-                                       <c:forEach items="${review}" var="review">
-                                          <div class="co-item">
-                                             <div class="avatar-pic">
-                                                
-                                             </div>
-
-                                             <div class="avatar-text">
-                                                <div class="at-rating">
-                                                   <div class="row">
-                                                      <div class="profile_box">
-                                                         <a href="/myPage/${review.memberVO.nickname}"> <img
-                                                            src="/resources/img/member/profile/${review.memberVO.thumbnail}"
-                                                            name="profile" alt="" class="profile" /></a>
-                                                      </div>
-                                                      <div style="padding-top: 8px; padding-left: 5px; font-size: 15px;">
-                                                         <b>${review.memberVO.nickname}</b>
-                                                   <span class="star-prototype" value="${review.ratescore}">${review.ratescore}
-                                                   </span>
-                                                      </div>
-                                                   </div>
-                                                   <span style="margin-left: 28px;"> </span> 
-                                                </div>
-                           
-                                                <c:if test="${not empty review.title}">
-                                             <div class="imgList">
-                                                   <div class="imgC">
-                                                <img style="margin-left: 28px;width:100px; height:100px; border-radius:5px;"src="/resources/img/member/review/${review.title}"
-                                                   alt="" /><p></p>
-                                                   </div>
-                                                   </div>
-                                                   
-                                                </c:if>
-      <div class="modal">
-      <button>&times;</button>
-      <div class="modalBox">
-         <img src="/resources/img/member/review/${review.title}" alt="">
-         <p></p>
-      </div>
-   </div>      
-   
-                                                   <div class="at-reply" style="margin-left: 28px; margin-top:20px;">
-                                                   ${review.content}</div>
-                                             <div style="margin-left: 28px;"><fmt:formatDate value="${review.pdate}"
-                                                      pattern="yyyy.MM.dd" /></div>
-                                                <p style="font-size: 10px">
-                                                   
-                                                </p>
-                                             </div>
-                                          </div>
-                                       </c:forEach>
-                                    </div>
-                                 </div>
-                              </div>
+				<div class="product-tab">
+					<div class="tab-item" style="width: 1000px;">
+						<ul class="nav" role="tablist">
+							<li><a class="active" data-toggle="tab" href="#tab-1"
+								role="tab"> 상세정보 </a></li>
+							<li><a data-toggle="tab" href="#tab-2" role="tab"> 고객리뷰
+							</a></li>
+							<li><a data-toggle="tab" href="#tab-3" role="tab">주문가이드</a></li>
+						</ul>
+					</div>
+					<div class="tab-item-content">
+						<div class="tab-content">
+							<div class="tab-pane fade-in active" id="tab-1" role="tabpanel">
+								<div class="product-content">
+									<div class="row">
+										<div class="col-lg-7">
 
 
+											<img src="/resources/img/file/cat1.jpg" alt="">
 
-                              <div class="tab-pane fade" id="tab-3" role="tabpanel">
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<!--                   리뷰 탭2                -->
+
+							<div class="tab-pane fade" id="tab-2" role="tabpanel" value=8>
+								<div class="customer-review-option">
+
+									<c:if test="${one.goodsVO.goods_id eq goods.goodsVO.goods_id}">
+										<span style="font-size: 19px;"><b> &nbsp; ${one.count}개의
+											리뷰</b></span>
+									</c:if>
+									<hr>
+
+									<div class="comment-option">
+
+										<c:forEach items="${review}" var="review">
+											<div class="co-item">
+												<div class="avatar-text">
+													<div class="at-rating">
+														<div class="row">
+															<div class="profile_box">
+																<a href="/myPage/${review.memberVO.nickname}"> 
+																<img src="/resources/img/member/profile/${review.memberVO.thumbnail}"
+																	name="profile" alt="" class="profile" /></a>
+															</div>
+															<div style="padding-top: 8px; padding-left: 5px; font-size: 15px;">
+																<b>${review.memberVO.nickname}</b> 
+																<span class="star-prototype" value="${review.ratescore}">${review.ratescore}</span>
+															</div>
+														</div>
+														
+													</div>
+
+													<c:if test="${not empty review.title}">
+														<div class="imgList">
+															<span class="imgC"> <img
+																style="margin-left: 28px; width: 100px; height: 100px; border-radius: 5px;"
+																src="/resources/img/member/review/${review.title}"
+																alt="" />
+															</span>
+														</div>
+													</c:if>
+
+													<div id="bottom">
+														<div>${review.content}</div>
+														<div style="color: gray">
+															<fmt:formatDate value="${review.pdate}"
+																pattern="yy.MM.dd" />
+														</div>
+													</div>
+
+													<!-- 이미지 모달창 -->
+													<div class="modal">
+														<button>&times;</button>
+														<div class="modalBox">
+															<img src="/resources/img/member/review/${review.title}"
+																alt="">
+														</div>
+													</div>
+													<!-- 이미지 모달창 end-->
+
+												</div>
+											</div>
+											<hr>
+										</c:forEach>
+
+									</div>
+
+								</div>
+
+							</div>
+									<!--                   리뷰 탭2 end               -->
 
 
-                                 <br> <br>
-                                 <div class="shoppingguide">
 
-                                    <table>
-
-                                       <colgroup>
-                                          <col style="width: 20%;">
-                                          <col style="width: 80%;">
-                                       </colgroup>
-                                       <tbody>
-                                          <tr>
-                                             <th scope="row">상품결제정보</th>
-                                             <td><p>
-                                                   고액결제의 경우 안전을 위해 카드사에서 확인전화를 드릴 수도 있습니다. 확인과정에서 도난 카드의
-                                                   사용이나 타인 명의의 주문등 정상적인 주문이 아니라고 판단될 경우 임의로 주문을 보류 또는 취소할
-                                                   수 있습니다. &nbsp; <br> <br>무통장 입금은 상품 구매 대금은
-                                                   PC뱅킹, 인터넷뱅킹, 텔레뱅킹 혹은 가까운 은행에서 직접 입금하시면 됩니다. &nbsp;<br>주문
-                                                   시 입력한 입금자명과 실제입금자의 성명이 반드시 일치하여야 하며, 7일 이내로 입금을 하셔야 하며
-                                                   입금되지 않은 주문은 자동취소 됩니다. <br>
-
-                                                </p>
-                                                <p>품질보증기준: 전자상거래 소비자 보호법에 의거하여 소비자 청약철회 가능한 기준에 따름.</p>
-                                                <p>구매자가 미성년자일 경우 법정 대리인이 계약에 동의하지 않을 때 구매를 취소할 수
-                                                   있습니다.</p></td>
-                                          </tr>
-                                          <tr>
-                                             <th scope="row">배송정보</th>
-                                             <td><p>
-                                                   펫츠하우스는 대한민국 택배 no.1 우체국택배를 이용하여<br>가장 안전하고, 신속하게
-                                                   배송하여 드립니다 :) <br>대부분 출고 다음날에 바로 도착하며 (주말 제외)<br>지역
-                                                   택배 기사님들의 일정과 기상상황에 따라 변동이 있을 수 있습니다. <br>기본 배송
-                                                   준비일은 입고지연 상품 제외, 2~5일 정도가 소요되고 있습니다.<br>
-                                                </p></td>
-                                          </tr>
-                                          <tr>
-                                             <th scope="row">교환 및 반품정보</th>
-                                             <td><p>
-                                                   [교환/반품 안내]<br>물품 수령 후(택배 도착일자 기준) 7일 이내에 Q&amp;A
-                                                   "배송 후 교환/반품" 게시판 또는 고객센터 [070-7000-0000]
-                                                </p>
-                                                <p>
-                                                   로 반드시 접수 해주세요. 글쓰기시 양식이 자동으로 등록되어 있으며, 사전에 신청해 주신 상품에
-                                                   한해서만 교환/반품이 가능합니다.<br>접수 시 펫츠하우스에서 우체국 택배 회수접수를
-                                                   도와드리고 있습니다.
-                                                </p>
-
-                                                <p>
-                                                   *패킹하여 보내실 때는 물품 수령시와 동일하게 포장해 주세요.<br>택에 손상이 있는
-                                                   경우에는 반품과 교환이 모두 불가합니다.<br>성함,주소,전화번호,보내시는 상품,사유등
-                                                   반품카드 양식에 맞게 적어 보내주셔야 처리가 가능합니다.
-                                                </p>
+							<div class="tab-pane fade" id="tab-3" role="tabpanel">
 
 
-                                                <p>
-                                                   &lt;교환반품 불가사항&gt;<br>-상품 수령 후 7일 이상 경과된 경우<br>-상품
-                                                   구매시 교환/환불 불가능이 명시되어 있는경우<br>-사용 흔적(집냄새,향수냄새,체취) /
-                                                   텍 제거 및 바코드 훼손, 오염이 발견된 상품<br>-세일상품
-                                                </p>
-                                                <p>-배송시 생긴 구김, 마감 박음질, 제작과정에서 발생하는 냄새나 초크자국 등 대량생산으로
-                                                   인해 생긴 사유는 불량으로 간주되지 않습니다.</p>
-                                                <p>
-                                                   <br>*불량상품의 재발송 시 왕복배송비는 펫츠하우스가 부담합니다.
-                                                </p></td>
-                                          </tr>
-                                       </tbody>
-                                    </table>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
+								<br> <br>
+								<div class="shoppingguide">
 
-                  </div>
+									<table>
 
-                  <!-- input ajax 끝나는 곳! -->
-               </form>
-            </div>
-         </div>
-      </div>
-      
-   </section>
-   <!-- Product Shop Section End -->
-<script>
+										<colgroup>
+											<col style="width: 20%;">
+											<col style="width: 80%;">
+										</colgroup>
+										<tbody>
+											<tr>
+												<th scope="row" style="text-align:center;">상품결제정보</th>
+												<td><p>
+														고액결제의 경우 안전을 위해 카드사에서 확인전화를 드릴 수도 있습니다. 확인과정에서 도난 카드의 사용이나
+														타인 명의의 주문등 정상적인 주문이 아니라고 판단될 경우 임의로 주문을 보류 또는 취소할 수 있습니다.
+														&nbsp; <br> <br>무통장 입금은 상품 구매 대금은 PC뱅킹, 인터넷뱅킹,
+														텔레뱅킹 혹은 가까운 은행에서 직접 입금하시면 됩니다. &nbsp;<br>주문 시 입력한
+														입금자명과 실제입금자의 성명이 반드시 일치하여야 하며, 7일 이내로 입금을 하셔야 하며 입금되지 않은
+														주문은 자동취소 됩니다. <br>
+
+													</p>
+													<p>품질보증기준: 전자상거래 소비자 보호법에 의거하여 소비자 청약철회 가능한 기준에 따름.</p>
+													<p>구매자가 미성년자일 경우 법정 대리인이 계약에 동의하지 않을 때 구매를 취소할 수 있습니다.</p></td>
+											</tr>
+											<tr>
+												<th scope="row" style="text-align:center;">배송정보</th>
+												<td><p>
+														펫츠하우스는 대한민국 택배 no.1 우체국택배를 이용하여<br>가장 안전하고, 신속하게 배송하여
+														드립니다 :) <br>대부분 출고 다음날에 바로 도착하며 (주말 제외)<br>지역 택배
+														기사님들의 일정과 기상상황에 따라 변동이 있을 수 있습니다. <br>기본 배송 준비일은 입고지연
+														상품 제외, 2~5일 정도가 소요되고 있습니다.<br>
+													</p></td>
+											</tr>
+											<tr>
+												<th scope="row" style="text-align:center;">교환 및 반품정보</th>
+												<td><p>
+														[교환/반품 안내]<br>물품 수령 후(택배 도착일자 기준) 7일 이내에 Q&amp;A "배송
+														후 교환/반품" 게시판 또는 고객센터 [070-7000-0000]
+													</p>
+													<p>
+														로 반드시 접수 해주세요. 글쓰기시 양식이 자동으로 등록되어 있으며, 사전에 신청해 주신 상품에 한해서만
+														교환/반품이 가능합니다.<br>접수 시 펫츠하우스에서 우체국 택배 회수접수를 도와드리고
+														있습니다.
+													</p>
+
+													<p>
+														*패킹하여 보내실 때는 물품 수령시와 동일하게 포장해 주세요.<br>택에 손상이 있는 경우에는
+														반품과 교환이 모두 불가합니다.<br>성함,주소,전화번호,보내시는 상품,사유등 반품카드 양식에
+														맞게 적어 보내주셔야 처리가 가능합니다.
+													</p>
+
+
+													<p>
+														&lt;교환반품 불가사항&gt;<br>-상품 수령 후 7일 이상 경과된 경우<br>-상품
+														구매시 교환/환불 불가능이 명시되어 있는경우<br>-사용 흔적(집냄새,향수냄새,체취) / 텍
+														제거 및 바코드 훼손, 오염이 발견된 상품<br>-세일상품
+													</p>
+													<p>-배송시 생긴 구김, 마감 박음질, 제작과정에서 발생하는 냄새나 초크자국 등 대량생산으로 인해
+														생긴 사유는 불량으로 간주되지 않습니다.</p>
+													<p>
+														<br>*불량상품의 재발송 시 왕복배송비는 펫츠하우스가 부담합니다.
+													</p></td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+			<!-- input ajax 끝나는 곳! -->
+			</form>
+		</div>
+		</div>
+		</div>
+
+	</section>
+	<!-- Product Shop Section End -->
+
+	<script>
 $(function(){
 //    이미지 클릭시 해당 이미지 모달
    $(".imgC").click(function(){
@@ -590,27 +599,27 @@ $(function(){
   });
 });
 </script>
- 
-   <script src="/resources/js/jquery-3.3.1.min.js"></script>
-   <script src="/resources/js/bootstrap.min.js"></script>
-   <script src="/resources/js/jquery-ui.min.js"></script>
-   <script src="/resources/js/jquery.countdown.min.js"></script>
-   <script src="/resources/js/jquery.nice-select.min.js"></script>
-   <script src="/resources/js/jquery.zoom.min.js"></script>
-   <script src="/resources/js/jquery.dd.min.js"></script>
-   <script src="/resources/js/jquery.slicknav.js"></script>
-   <script src="/resources/js/owl.carousel.min.js"></script>
-   <script src="/resources/js/main.js"></script>
-   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-   <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-   <script
-      src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
+	<script src="/resources/js/jquery-3.3.1.min.js"></script>
+	<script src="/resources/js/bootstrap.min.js"></script>
+	<script src="/resources/js/jquery-ui.min.js"></script>
+	<script src="/resources/js/jquery.countdown.min.js"></script>
+	<script src="/resources/js/jquery.nice-select.min.js"></script>
+	<script src="/resources/js/jquery.zoom.min.js"></script>
+	<script src="/resources/js/jquery.dd.min.js"></script>
+	<script src="/resources/js/jquery.slicknav.js"></script>
+	<script src="/resources/js/owl.carousel.min.js"></script>
+	<script src="/resources/js/main.js"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 
 
-   <!-- Footer -->
-   <%@ include file="/WEB-INF/views/include/footer.jsp"%>
- 
+	<!-- Footer -->
+	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
+
 
 </body>
 

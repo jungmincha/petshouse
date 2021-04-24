@@ -208,8 +208,7 @@ body::-webkit-scrollbar-track {
 						<form action="${pageContext.request.contextPath}/search"
 							method="get">
 							<a href="/commu/qna/${qna.board_id}">
-								<div
-									style="font-weight: bold; font-size: 18px; margin-top: 10px;">${qna.title}</div>
+								<div style="font-weight: bold; font-size: 18px; margin-top: 10px;">${qna.title}</div>
 								<div id="content">${qna.content}</div>
 							</a>
 							<div style="margin-bottom: 10px;">
