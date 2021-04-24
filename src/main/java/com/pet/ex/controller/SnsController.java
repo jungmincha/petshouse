@@ -179,7 +179,7 @@ public class SnsController {
 		
 		log.info("SNS_View");
 
-		mav.addObject("comment", service.listComment(boardVO.getBoard_id(),cri));
+		/* mav.addObject("comment", service.listComment(boardVO.getBoard_id(),cri)); */
 		log.info("SNS_View");
 
 		int count = service.counta(board_id);
@@ -187,7 +187,6 @@ public class SnsController {
   
 	
 		mav.addObject("user",  service.getUserboard(nickname));
-		 
 		mav.addObject("sns", service.getBoard(boardVO.getBoard_id()));
 		mav.addObject("img", service.getImg(board_id));
 		mav.addObject("count", count);
@@ -279,6 +278,17 @@ public class SnsController {
 		return comments;
 	}
 	
+	// 댓글 더보기
+		@PostMapping("/sns/morelist")
+		public Map<String, Object> commentMoreList(@RequestParam("board_id") int board_id, Criteria cri) {
+			log.info("commentMoreList");
+			Map<String, Object> list = new HashMap<>();
+			List<BoardVO> Comment = service.getCommentsList(board_id,cri);
+			list.put("comment", Comment);
+			list.put("commentTotal", service.getCommentsCount(board_id));
+			return list;
+		}
+	
 	//댓글 삭제하기
 	@DeleteMapping("/sns/comment/delete/{board_id}")
 		public ResponseEntity<String> deleteComment(BoardVO boardVO) {
@@ -289,9 +299,10 @@ public class SnsController {
 			try {
 				service.deleteComment(boardVO);
 				System.out.println("===========");
-				
 				entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+				
 			} catch (Exception e) {
+				
 				e.printStackTrace();
 
 				entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);

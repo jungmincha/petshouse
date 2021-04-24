@@ -86,6 +86,13 @@ public interface SnsService {
 	public List<ImageVO> getsnsmoreList(Criteria cri);
 
 	public List<ImageVO> getSnsCategory(ImageVO imageVO);
+
+	
+	
+	
+	public List<BoardVO> getCommentsList(int board_id, Criteria cri);
+
+	public int getCommentsCount(int board_id);
  
 
 

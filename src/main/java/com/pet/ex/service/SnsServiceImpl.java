@@ -221,4 +221,17 @@ public class SnsServiceImpl implements SnsService {
 			log.info("getSnsCategory");
 			return mapper.getSnsCategory(imageVO);
 		}
+
+		@Override
+		public List<BoardVO> getCommentsList(int board_id, Criteria cri) {
+			
+			return mapper.getCommentsList(board_id, cri);
+		}
+
+		@Override
+		public int getCommentsCount(int board_id) {
+			log.info("getCommentsCount()");
+			System.out.println(board_id);
+			return mapper.getCommentsCount(board_id);
+		}
 }
