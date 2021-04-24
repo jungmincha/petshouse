@@ -136,11 +136,18 @@ border-radius:8px;
 
 
 		<!-- 동물 카테고리, 글쓰기 버튼 -->
-		<div class="row" style="margin-top: 100px; padding-bottom: 30px;">
+	<div style="padding-top:30px; margin-bottom:110px; ">
+		
+		<div style="float: right;">
+			<button class="btn btn-outline-secondary" id="tw"
+				onclick="location.href='${pageContext.request.contextPath}tips/write'">노하우
+				작성</button>
+		</div>
 
-			<select id="selectPet" class="form-control col-1"
-				name="categoryVO.category_id"
-				style="margin-left: 15px; text-align: center">
+		<div style="float: left; margin-bottom: 30px;">
+
+			<select id="selectPet" class="form-control"
+				name="categoryVO.category_id" style="text-align-last: center">
 
 				<option value="0">동물</option>
 				<option value="1">고양이</option>
@@ -149,23 +156,20 @@ border-radius:8px;
 				<option value="4">조류</option>
 				<option value="5">어류</option>
 				<option value="6">기타</option>
+			</select>
 
-			</select> <span class="col-7"></span>
 
-			<button class="btn btn-outline-secondary col-2" id="tw"
-				style="margin-left: 165px"
-				onclick="location.href='${pageContext.request.contextPath}tips/write'">노하우
-				작성</button>
+		</div>
 		</div>
 		<!-- 동물 카테고리, 글쓰기 버튼 end -->
 
 
 		<!-- 노하우 리스트 -->
 		<div id="table" class="row"
-			style="margin-top: 20px; margin-bottom:20px;">
+			style="margin-top: 1rem; margin-bottom:1rem;">
 
 			<c:forEach items="${tips}" var="tp">
-				<div class="product-item col-sm-3">
+				<div class="product-item col-sm-6 col-md-4 col-lg-3 ">
 					<div class="pi-pic shot">
 						<a href="/commu/tips/${tp.boardVO.board_id}"> <img
 							src="/resources/img/tips/${tp.imgname}" alt=""

@@ -49,24 +49,7 @@
 #navbars>li:nth-child(3) {
    background-color: #e7ab3c;
 }
-a:link {
-	text-decoration: none;
-	color: #333333;
-}
 
-a:visited {
-	text-decoration: none;
-	color: #333333;
-}
-
-a:active {
-	text-decoration: none;
-	color: #333333;
-}
-
-a:hover {
-	text-decoration: none;
-}
 </style>
 
 
@@ -86,13 +69,13 @@ a:hover {
 
 	<div class="container">
 	<div class="row">
-	<h3 style="margin-bottom:20px;">공지 사항</h3>      
+	<h3 style="margin-bottom:15px;">공지 사항</h3>      
 		
 		
   			<!-- 관리자에게만 작성버튼 띄우기 -->
 			<sec:authorize access="hasAnyRole('ROLE_ADMIN')">
 				<div class="col-lg-12">
-					<button class="btn btn-outline-secondary col-sm-1" id="nw"
+					<button class="btn btn-outline-secondary" id="nw"
 						style="margin-left: 65px; float:right;  margin-bottom:20px;"
 						onclick="location.href='${pageContext.request.contextPath}notice/write'">공지 작성</button>
 			 	</div> 

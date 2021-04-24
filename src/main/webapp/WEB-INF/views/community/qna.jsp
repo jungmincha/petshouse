@@ -45,7 +45,8 @@
 <!-- jquery cdn -->
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 <style>
 #navbars>li:nth-child(2) {
 	background-color: #e7ab3c;
@@ -53,8 +54,8 @@
 
 .jumbotron {
 	text-align: center;
-	background-color:#FAFAFA !important;
-	margin-top:-29px;
+	background-color: #FAFAFA !important;
+	margin-top: -29px;
 }
 
 #hashtag {
@@ -63,7 +64,7 @@
 }
 
 #hashtag:hover {
-	background-color:#F2EFFB;
+	background-color: #F2EFFB;
 }
 
 body::-webkit-scrollbar {
@@ -71,46 +72,49 @@ body::-webkit-scrollbar {
 }
 
 body::-webkit-scrollbar-thumb {
-	background-color: #666666;
+	background-color: #CCCCCC;
 	border-radius: 10px;
 	background-clip: padding-box;
 	border: 2px solid transparent;
 }
 
 body::-webkit-scrollbar-track {
-	background-color: #CCCCCC;
+	background-color: #FFF;
 	border-radius: 10px;
 	box-shadow: inset 0px 0px 5px white;
 }
 
 #content {
-	margin-top:0.3rem;
-	margin-bottom:0.3rem;
-	font-size:0.9rem;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 2; 
-    -webkit-box-orient: vertical;
-
+	display: block;
+	width: auto;
+	margin-top: 0.3rem;
+	margin-bottom: 0.3rem;
+	white-space: normal;
+	font-size: 0.9rem;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
 }
+
 .input {
-    background-image: url(https://cdn1.iconfinder.com/data/icons/hawcons/32/698627-icon-111-search-256.png);
-    background-position: 13px center;
-    background-size: contain;
-    background-repeat: no-repeat;
-    border: 1px solid #ccc;
-    padding: 5px 5px;
-    text-indent: 30px;  
-    width: 120px;
+	background-image:
+		url(https://cdn1.iconfinder.com/data/icons/hawcons/32/698627-icon-111-search-256.png);
+	background-position: 13px center;
+	background-size: contain;
+	background-repeat: no-repeat;
+	border: 1px solid #ccc;
+	padding: 5px 5px;
+	text-indent: 30px;
+	width: 120px;
 }
 
-.search input{
-	width:55%;
-	margin-left:23%;
-	height:40px;
+.search input {
+	width: 55%;
+	margin-left: 23%;
+	height: 40px;
 }
-
 </style>
 
 <script>
@@ -146,29 +150,39 @@ body::-webkit-scrollbar-track {
 
 	<!-- 질문과 답변 검색창 -->
 
-		<div class="jumbotron">
-			<a class="qna-subtitle" href="/commu/qna">
-				<h3><b>질문과 답변</b></h3>
-			</a>
-			<div style="font-size:15px">내 반려동물에 대한 모든 궁금증을 남겨보세요!</div><br>
-			
-			<form action="${pageContext.request.contextPath}/commu/qnasearch"
-				method="post">
-				<div class="search" >
-				<input rel="search" class="input form-control mr-sm-8" type="text" name="keyword"
-						style="text-align: center;" placeholder="궁금한 것을 검색해보세요">
-				</div>
-			</form>
-		</div>
-		
+	<div class="jumbotron">
+		<a class="qna-subtitle" href="/commu/qna">
+			<h3>
+				<b>질문과 답변</b>
+			</h3>
+		</a>
+		<div style="font-size: 15px">내 반려동물에 대한 모든 궁금증을 남겨보세요!</div>
+		<br>
+
+		<form action="${pageContext.request.contextPath}/commu/qnasearch"
+			method="post">
+			<div class="search">
+				<input rel="search" class="input form-control mr-sm-8" type="text"
+					name="keyword" style="text-align: center;"
+					placeholder="궁금한 것을 검색해보세요">
+			</div>
+		</form>
+	</div>
+
 	<!-- 질문과 답변 검색창 end -->
 	<div class="container">
 		<!-- 동물 카테고리 글쓰기 버튼 -->
-		<div class=" row" style="padding-bottom: 30px;">
 
-			<select id="selectPet" class="form-control col-sm-1 md-1 lg-1"
-				name="categoryVO.category_id"
-				style="text-align-last: center">
+		<div style="float: right;">
+			<button class="btn btn-outline-secondary" id="qw"
+				onclick="location.href='${pageContext.request.contextPath}qna/write'">질문
+				작성</button>
+		</div>
+
+		<div style="float: left; margin-bottom: 30px;">
+
+			<select id="selectPet" class="form-control"
+				name="categoryVO.category_id" style="text-align-last: center">
 
 				<option value="0">동물</option>
 				<option value="1">고양이</option>
@@ -177,30 +191,32 @@ body::-webkit-scrollbar-track {
 				<option value="4">조류</option>
 				<option value="5">어류</option>
 				<option value="6">기타</option>
-			</select> <span class="col-sm-9"></span>
-			<button class="btn btn-outline-secondary col-sm-2 md-2 lg-2" id="qw"
-			
-				onclick="location.href='${pageContext.request.contextPath}qna/write'">질문
-				작성</button>
+			</select>
+
+
 		</div>
+
 		<!-- 동물 카테고리 글쓰기 버튼 end -->
+
+
 
 		<!-- qna 글 끌고오기 -->
 		<table class="table">
 			<c:forEach items="${qna}" var="qna">
 				<tbody id="qnaList">
 					<td>
-							<form action="${pageContext.request.contextPath}/search" method="get">
+						<form action="${pageContext.request.contextPath}/search"
+							method="get">
 							<a href="/commu/qna/${qna.board_id}">
-								<div style="font-weight: bold; font-size: 18px; margin-top:10px;">${qna.title}</div>
+								<div
+									style="font-weight: bold; font-size: 18px; margin-top: 10px;">${qna.title}</div>
 								<div id="content">${qna.content}</div>
-								</a>
-								<div style="margin-bottom:10px;">
-								<span>${qna.memberVO.nickname}</span> 
-								<span style="font-size: 13px; color: gray;">
-								<fmt:formatDate
-										value="${qna.pdate}" pattern="yy.MM.dd" /></span> 
-								<span style="font-size: 13px; color: gray;"> 조회수 ${qna.hit}</span>
+							</a>
+							<div style="margin-bottom: 10px;">
+								<span>${qna.memberVO.nickname}</span> <span
+									style="font-size: 13px; color: gray;"> <fmt:formatDate
+										value="${qna.pdate}" pattern="yy.MM.dd" /></span> <span
+									style="font-size: 13px; color: gray;"> 조회수 ${qna.hit}</span>
 								<c:set var="hashtag" value="${qna.hashtag}" />
 								<c:set var="tag" value="${fn:split(hashtag, '#')}" />
 								<c:forEach var="t" items="${tag}">
@@ -210,8 +226,8 @@ body::-webkit-scrollbar-track {
 												onclick="location.href='${pageContext.request.contextPath}/search'">#${t}</button></span>
 									</c:if>
 								</c:forEach>
-								</div>
-							</form>
+							</div>
+						</form>
 					</td>
 				</tbody>
 			</c:forEach>

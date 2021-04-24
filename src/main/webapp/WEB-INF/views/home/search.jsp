@@ -62,38 +62,43 @@
 	})
 </script>
 <style>
+
+/* 헤더 컬러 부여*/
 #navbars>li:nth-child(1) {
    background-color: #e7ab3c;
 }
-.tab{
+
+ /* 구간 나누기 */
+.tab{ 
 margin-bottom:50px;
 }
 
+hr{
+padding-bottom:1rem;
+}
+
+/* 노하우 조회수 */
 .count {
 	position: absolute;
-	bottom: 80px;
+	bottom: 37px;
+	right: 20px;
+	font-size: 13px;
+	color: #fff;
+	text-shadow: 0 0 4px rgb(0 0 0/ 50%);
+}
+/* sns 조회수*/
+.count2 {
+	position: absolute;
+	bottom:76px;
 	right: 30px;
 	font-size: 13px;
 	color: #fff;
 	text-shadow: 0 0 4px rgb(0 0 0/ 50%);
 }
 
-.count2 {
-	position: absolute;
-	bottom: 10px;
-	right: 10px;
-	font-size: 13px;
-	color: #fff;
-	text-shadow: 0 0 4px rgb(0 0 0/ 50%);
-}
 
-.count3 {
-	position: absolute;
-	bottom: 10px;
-	right: 20px;
-	font-size: 13px;
-	color: #fff;
-	text-shadow: 0 0 4px rgb(0 0 0/ 50%);
+img{
+border-radius:8px;
 }
 
 #hashtag {
@@ -103,11 +108,6 @@ margin-bottom:50px;
 
 #hashtag:hover {
 	background-color: #dddddd;
-}
-
-.more {
-	font-size: 13px;
-	padding: 0.01px;
 }
 
 .profile_box {
@@ -132,6 +132,9 @@ margin-bottom:50px;
 
 #mb {
 	color: #FFBF00;
+	float:right;
+	font-size: 17px;
+
 }
 </style>
 
@@ -179,7 +182,7 @@ margin-bottom:50px;
 				<input type="hidden" name="keyword" value="${param.keyword}">					
 				<span style="font-size: 20px; font-weight: bold;">스토어 </span><span
 					id="sc">${gcount} </span> <span>
-					<button id="mb" style="float: right" class="more btn btn-disabled"
+					<button id="mb" class="btn btn-disabled"
 						type="submit">더보기</button>
 				</span>
 
@@ -187,13 +190,13 @@ margin-bottom:50px;
 			<hr>
 
 		<div id="table" class="row text-center"
-				style="margin-top: 20px; margin-left: 5px; margin-bottom: 30px;">
+				style="margin-top: 20px;margin-bottom: 30px;">
 				<c:forEach items="${moregoods}" var="gs">
 					<div class="product-item col-sm-3">
 						<div class="pi-pic">
 							<a href="/admin/goods_detail/${gs.board_id}"> <img
 								src="/resources/img/admin/goods/${gs.goodsVO.thumbnail}" alt=""
-								style="width: 160px; height: 230px; border-radius: 8px;"></a>
+								style="width: 160px; height: 230px;"></a>
 						</div>
 						<div class="pi-text">
 							<h6>${gs.goodsVO.goodsname}</h6>
@@ -212,7 +215,7 @@ margin-bottom:50px;
 				<span style="font-size: 20px; font-weight: bold;">SNS </span> 
 				<span id="sc">${scount} </span> 
 				<span>
-					<button id="mb" style="float: right" class="more btn btn-disabled"
+					<button id="mb"  class="btn btn-disabled"
 						type="submit">더보기</button>
 				</span>
 
@@ -221,11 +224,11 @@ margin-bottom:50px;
 
 
 
-				<div id="snslist" class="row text-center">
+				<div id="snslist" class="row">
 					<c:forEach items="${moresns}" var="ms">
-						<div class=" col-12 col-md-4 col-lg-3">
+						<div class="col-12 col-md-4 col-lg-3 ">
 
-							<div class="user-Info row" style="margin: 20px auto 0px 5px">
+							<div class="user-Info row" style="margin: 0px auto 0px 5px">
 								<div class="profile_box ">
 
 									<img
@@ -243,8 +246,8 @@ margin-bottom:50px;
 							<div class="pi-pic shot">
 								<a href="/commu/sns/${ms.boardVO.board_id}"> <img
 									src="/resources/img/member/sns/${ms.imgname}" alt=""
-										style="border-radius: 8px; height:250px; width:250px;" /><span
-									class="count">조회수 ${ms.boardVO.hit}</span></a>
+										/><span
+									class="count2">조회수 ${ms.boardVO.hit}</span></a>
 							</div>
 							<div class="card-body">좋아요${ms.boardVO.plike}//댓글수</div>
 						</div>
@@ -262,43 +265,41 @@ margin-bottom:50px;
 				<input type="hidden" name="keyword" value="${param.keyword}">
 				<span style="font-size: 20px; font-weight: bold;">노하우 </span><span
 					id="sc">${tcount}</span> <span>
-					<button id="mb" style="float: right" class="more btn btn-disabled"
+					<button id="mb" class=" btn btn-disabled"
 						type="submit">더보기</button>
 				</span>
 
 			</form>
 			<hr>
 
-			<div id="table" class="row text-center"
-				style="margin-left: 5px; margin-bottom: 30px;">
+		<div id="table" class="row"
+			style="margin-top: 1rem; margin-bottom:1rem;">
 
-				<c:forEach items="${moretips}" var="ts">
-					<div class="product-item col-sm-3">
-						<a href="/commu/tips/${ts.boardVO.board_id}">
-							<div class="pi-pic shot">
-								<img src="/resources/img/tips/${ts.imgname}" alt=""
-									style="border-radius: 5px; height: 150px;"> <span
-									class="count3">조회수 ${ts.boardVO.hit}</span>
-							</div>
-							<div class="pi-text" style="text-align: left; padding-top: 5px;">
-								<h6 style="font-size: 15px; font-weight: bold;">${ts.boardVO.title}</h6>
-							</div>
+			<c:forEach items="${moretips}" var="mt">
+				<div class="product-item col-sm-6 col-md-4 col-lg-3 ">
+					<div class="pi-pic shot">
+						<a href="/commu/tips/${mt.boardVO.board_id}"> 
+						<img src="/resources/img/tips/${mt.imgname}" alt=""
+							style="height: 180px;"> 
+							<span class="count">조회수 ${mt.boardVO.hit}</span> 
+							<span style="font-size: 15px; font-weight: bold;">${mt.boardVO.title}</span>
 						</a>
-						<div style="font-size: 14px; text-align: left;">${ts.boardVO.memberVO.nickname}</div>
 					</div>
-				</c:forEach>
-			</div>
+					<div style="font-size: 14px; text-align: left;">${mt.boardVO.memberVO.nickname}</div>
+				</div>
+			</c:forEach>
+		</div>
 		</c:if>
 		</div>
 
-<div class="tab">
+	<div class="tab">
 		<c:if test="${qcount != 0}">
 			<form action="${pageContext.request.contextPath}/moreqna"
 				method="get">
 				<input type="hidden" name="keyword" value="${param.keyword}">
 				<span style="font-size: 20px; font-weight: bold;">질문과 답변 </span> <span
 					id="sc">${qcount} </span> <span>
-					<button id="mb" style="float: right" class="more btn btn-disabled"
+					<button id="mb" class="btn btn-disabled"
 						type="submit">더보기</button>
 				</span>
 			</form>
