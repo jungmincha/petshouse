@@ -144,6 +144,15 @@
 		<result column="goodspath" property="goodspath" />
 		<collection property="boardVO" resultMap="boardvo" />
 	</resultMap>
+	
+		<!-- 좋아요 resultmap -->
+	<resultMap type="PlikeVO" id="plikevo">
+		<result column="plike_id" property="plike_id" />
+		<result column="count" property="count" />
+		<collection property="memberVO" resultMap="membervo" />
+		<collection property="boardVO" resultMap="boardvo" />
+	</resultMap>
+	
 
 
 	<!-- 노하우 게시판 리스트 -->
@@ -158,7 +167,7 @@
 					and b.category_id =  c.category_id
     				and b.boardtype_id= 5 and b.pstep=0 order by board_id desc
 			    ) A WHERE ROWNUM <= #{pageNum} * 12
-			) WHERE RNUM > (#{pageNum}-1) * #{amount}  
+			) WHERE RNUM > (#{pageNum}-1) * 12 
 		]]>
 	</select>
 
@@ -439,6 +448,85 @@
  			update board set hit = hit + 1 where board_id = #{board_id} 	
  		]]>
 	</select>
+
+
+	
+	<!-- 현재 닉네임 -->
+	<select id="getPresetnNickname" resultType="String">
+   <![CDATA[
+     select nickname from member where member_id=#{member_id}
+   ]]>
+	</select>
+	
+	<!-- 좋아요 mapper start -->
+
+	<!-- 좋아요 수 조회 -->
+	<select id="getLiketotal" resultType="int">
+		<![CDATA[
+	      select count(*) from plike where board_id = #{boardVO.board_id}
+	   ]]>
+	</select>
+
+
+	<!-- 좋아요 유무 체크 -->
+	<select id="isLike" resultType="int">
+		<![CDATA[
+	        select count(*) from plike where board_id=#{boardVO.board_id} and member_id=#{memberVO.member_id}
+	   ]]>
+	</select>
+
+
+	<!-- 좋아요 리스트 조회 -->
+	<select id="getLikelist" resultMap="plikevo">
+		<![CDATA[
+		 select p.member_id , m.nickname from plike p , member m where p.member_id = m.member_id and board_id = #{boardVO.board_id}
+	        
+	   ]]>
+	</select>
+
+
+	<!-- 좋아요 -->
+	<insert id="like">
+		<![CDATA[
+	        insert into plike values(plike_seq.nextval, #{boardVO.board_id}, #{memberVO.member_id})
+	   ]]>
+	</insert>
+
+	<!-- 좋아요 취소 -->
+	<select id="likecancel">
+		<![CDATA[
+	         delete from plike where board_id=#{boardVO.board_id} and member_id=#{memberVO.member_id}
+	   ]]>
+	</select>
+
+	<!-- 전체 좋아요 출력 -->
+	<select id="getLikeprint" resultMap="plikevo">
+		<![CDATA[
+	       	select board_id ,count(*) as count from plike group by board_id
+	   ]]>
+	</select>
+
+	<!-- plike board테이블에 입력 -->
+	<select id="insertplike">
+ 	  <![CDATA[
+  	    update board set plike = plike+1 WHERE board_id=#{board_id}
+  	 ]]>
+	</select>
+
+
+	<!-- plike board테이블에 삭제 -->
+	<select id="deleteplike">
+  		 <![CDATA[
+    	  update board set plike = plike-1 WHERE board_id=#{board_id}
+  		 ]]>
+	</select>
+
+
+	<!-- 좋아요 mapper end -->
+	
+
+
+
 
 
 </mapper>

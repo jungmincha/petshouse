@@ -12,7 +12,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>펫츠하우스</title>
-
+<!-- Css Styles -->
+<script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 <link
 	href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap"
 	rel="stylesheet">
@@ -79,25 +80,6 @@
 background-color:#dddddd;
 }
 
-a:link {
-	text-decoration: none;
-	color: #333333;
-}
-
-a:visited {
-	text-decoration: none;
-	color: #333333;
-}
-
-a:active {
-	text-decoration: none;
-	color: #333333;
-}
-
-a:hover {
-	text-decoration: none;
-}
-
 .more {
 	font-size: 13px;
 	padding: 0.01px;
@@ -161,7 +143,9 @@ a:hover {
 										style="border-radius: 8px;height:250px; width:250px;" /><span
 									class="count">조회수 ${ms.boardVO.hit}</span></a>
 							</div>
-							<div class="card-body">좋아요${ms.boardVO.plike}//댓글수</div>
+								<div style="font-size : 20px; text-align:center; margin-top:8px;margin-bottom:30px; ">
+							<i class="far fa-heart" style="font-size : 25px;"></i>&nbsp&nbsp${ms.boardVO.plike} 
+							&nbsp&nbsp&nbsp&nbsp<i class="far fa-comment" style="font-size : 25px;"></i></div>
 						</div>
 
 

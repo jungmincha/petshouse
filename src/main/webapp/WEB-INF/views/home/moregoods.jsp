@@ -61,28 +61,28 @@
 #hashtag:hover{
 background-color:#dddddd;
 }
-
-a:link {
-	text-decoration: none;
-	color: #333333;
-}
-
-a:visited {
-	text-decoration: none;
-	color: #333333;
-}
-
-a:active {
-	text-decoration: none;
-	color: #333333;
-}
-
-a:hover {
-	text-decoration: none;
-}
+	span.star-prototype, span.star-prototype>*, span.star, span.star>* {
+	   height: 16px;
+	   background: url(http://i.imgur.com/YsyS5y8.png) 0 -16px repeat-x;
+	   display: inline-block;
+	}
+	
+	span.star-prototype>*, span.star>* {
+	   background-position: 0 0;
+	   max-width: 80px;
+	}
 </style>
-<script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$.fn.generateStars = function() {
+			return this.each(function(i, e) {
+				$(e).html($('<span/>').width($(e).text() * 16));
+			});
+		};
 
+		// 숫자 평점을 별로 변환하도록 호출하는 함수
+		$('.star-prototype').generateStars();
+	})
 </script>
 </head>
 
@@ -96,6 +96,7 @@ a:hover {
 		<input type="hidden" name="keyword" value="${param.keyword}">
 		<h5><b>'${param.keyword}'</b>에 대한 검색결과 <b>${gcount}건</b></h5>
 			<br><br>
+			<c:forEach items="${rate}" var="rate">
 						<div id="table" class="row text-center"
 					style="margin-top: 20px; margin-left: 5px;">
 					<c:forEach items="${moregoods}" var="mg">
@@ -108,10 +109,13 @@ a:hover {
 							<div class="pi-text">
 								<h6>${mg.goodsVO.goodsname}</h6>
 								<div class="product-price">${mg.goodsVO.price}원</div>
+									<span class="star-prototype"> ${rate.avgscore}</span>
+                              <span> &nbsp; 리뷰 ${rate.count}</span>
 							</div>
 						</div>
 					</c:forEach>
 	</div>
+	</c:forEach>
 	
 	
 	 <div class="later col-lg-12 text-center">

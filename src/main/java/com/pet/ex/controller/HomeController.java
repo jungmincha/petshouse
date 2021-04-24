@@ -69,6 +69,7 @@ public class HomeController {
 		int gcount = service.gcount(keyword);
 		mav.addObject("gcount", gcount);
 		mav.addObject("moregoods", service.getMoreGoods(keyword, cri));
+		mav.addObject("rate", service.getStorerate(cri));	
 		mav.setViewName("/home/moregoods");
 		return mav;
 	}

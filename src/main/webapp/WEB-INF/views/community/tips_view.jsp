@@ -63,6 +63,26 @@
 		$('#cw').click(function() {
 			checkLogin();
 		});
+
+	});
+</script>
+
+<script>
+	//로그인 체크
+	$(document).ready(function() {
+		var member_id = $("#member_id").val();
+
+		function checkLogin() {
+			if (member_id == undefined) {
+				alert("먼저 로그인 해주세요");
+				
+			}
+		}
+
+		//좋아요  로그인 체크
+		$('.like').click(function() {
+			checkLogin();
+		});
 	});
 </script>
 
@@ -142,6 +162,9 @@ margin-bottom:20px;
 	height: 100%;
 	object-fit: cover;
 }
+.plike{
+left:100%;
+}
 
 </style>
 </head>
@@ -159,6 +182,8 @@ margin-bottom:20px;
 		<input type="hidden" id="member_id"
 			value="<sec:authentication property="principal.member_id"/>">
 	</sec:authorize>
+	
+	
 	
 	<input type="hidden" id="board_id" name="board_id" value="${tips_view.board_id}">
 
@@ -200,34 +225,110 @@ margin-bottom:20px;
 				</div>
 			
 <hr>
+
+
 				<section style="margin-top: 40px; margin-bottom: 20px; min-height:90px;">${tips_view.content}</section>
-				<form action="${pageContext.request.contextPath}/search"
-					method="get">
-					<ul class="pd-tags">
-							<c:set var="hashtag" value="${tips_view.hashtag}" />
-									<c:set var="tag" value="${fn:split(hashtag, '#')}" />
-									<c:forEach var="t" items="${tag}">
-										<span>
-										<c:if test="${not empty tips_view.hashtag}">
-										<button id="hashtag" name="keyword"
-												class="btn btn-disabled" 
-												value="${t}"
-												onclick="location.href='${pageContext.request.contextPath}/search'">#${t}</button>
-									</c:if>
-									</span>
-									</c:forEach>
-					</ul>
-				</form> 
+			
 				<div class="bottom">
-				<span><fmt:formatDate value="${tips_view.pdate}" pattern="yyyy.MM.dd" /></span>
-				 &nbsp&nbsp<span>조회수 ${tips_view.hit}</span>
-				 &nbsp&nbsp<span>좋아요 수</span>
+				
+				<span class="row col-lg-12" style="padding-left:20px;">
+							 
+							<!-- 본인이 좋아요 누른 게시글이 아닌 경우 좋아요 버튼 발생 이미 눌렀던 경우는 좋아요 취소버튼 발생하게 구현해야 할것!-->
+							<span class="row">
+							
+							
+							<c:if test="${likecheck == 0}">
+								<span class="col-lg-12">
+									<a href="javascript:void(0);" class="like"
+										style="cursor: hand;" onclick="like();"><img
+										src="/resources/img/location/before_like.png"
+										style="width: 26px;  "></a>
+									
+
+								</span>
+							</c:if>
+
+							<c:if test="${likecheck != 0}">
+								<span class="col-lg-12">
+									<a href="javascript:void(0);" class="likecancel"
+										style="cursor: hand;" onclick="likecancel();"><img
+										src="/resources/img/location/after_like.png"
+										style="width:26px; "></a>
+										
+								</span>
+							</c:if>
+							<span class="profile-info_follow-state row  ">
+							
+								<span class="profile-info" ></span>
+									<a href="#likeModal" class="like_amount" data-toggle="modal"
+									style="float: right; padding:10px; font-size:15px;">  ${like_amount}  </a>
+							</span>
+						
+						</span></span>
+						
+					 <form action="${pageContext.request.contextPath}/search"
+							method="get">
+					
+							<span> <fmt:formatDate
+										value="${tips_view.pdate}" pattern="yy.MM.dd" /></span> &nbsp&nbsp
+							<span> 조회수 ${tips_view.hit}</span>&nbsp&nbsp
+								<c:set var="hashtag" value="${tips_view.hashtag}" />
+								<c:set var="tag" value="${fn:split(hashtag, '#')}" />
+								<c:forEach var="t" items="${tag}">
+									<c:if test="${not empty tips_view.hashtag}">
+										<span><button id="hashtag" name="keyword"
+												class="btn btn-disabled" value="${t}"
+												onclick="location.href='${pageContext.request.contextPath}/search'">#${t}</button></span>
+									</c:if>
+								</c:forEach>
+							
+						</form>
+				</span>
+						<!-- row col-lg-12 end -->
 				</div>
 				<hr>
 			</td>
 		</table>
 
 	</div>
+	
+		<!-- 좋아요 구현 -->
+
+							
+
+								
+			
+				
+
+					<!-- likelist Modal start -->
+					<div class="modal" id="likeModal">
+						<div class="modal-dialog">
+							<div class="modal-content">
+
+								<!-- Modal Header -->
+								<div class="modal-header">
+									<h4 class="modal-title">좋아요한 회원 목록</h4>
+									<button type="button" class="close" data-dismiss="modal">&times;</button>
+								</div>
+
+								<!-- Modal body -->
+								<div class="likelist modal-body">
+									<c:forEach items="${likelist}" var="likelist">
+										<p>${likelist.memberVO.nickname}</p>
+									</c:forEach>
+								</div>
+
+								<!-- Modal footer -->
+								<div class="modal-footer">
+									<button type="button" class="btn btn-warning"
+										data-dismiss="modal">Close</button>
+								</div>
+
+							</div>
+							<!-- modal-content end -->
+						</div>
+					</div>
+					<!-- like list Modal end -->
 
 
 	<div class="container">
@@ -455,6 +556,92 @@ $(document).ready(function(){
 			return str;
 		}
 	</script>
+	
+		<script type="text/javascript">
+						//좋아요 요청
+						function like() {
+							var board_id = $('#pgroup').val();
+							// var pre_nickname = $('#nickname').val();  
+
+							console.log(board_id);
+
+							$
+									.ajax({
+										type : "POST",
+										url : "/commu/tips_view/like/" + board_id,
+										success : function(data) {
+											console.log(data);
+											console.log(data.like_amount)
+											var likelist = data.likelist;
+
+											html = "";
+
+											for ( var i in likelist) {
+												html += "<p>"
+														+ likelist[i].memberVO.nickname
+														+ "</p>";
+											}
+
+											$('.like_amount').empty();
+											$('.like_amount').append(
+													'<span>' + data.like_amount
+															+ '</span></a>');
+											$('.likelist').empty();
+											$('.likelist').append(html);
+											$('.like').remove();
+											$('.profile-info')
+													.append(
+															'<a href="javascript:void(0);" class="likecancel" style="cursor:hand;  padding-left:30px;" onclick="likecancel();"><img src="/resources/img/location/after_like.png" style="width:25px;"></a>');
+										},
+										error : function(e) {
+											console.log(e);
+										}
+									});//ajax end
+						};//like end
+
+						//좋아요 취소
+						function likecancel() {
+							var board_id = $('#pgroup').val();
+							// var pre_nickname = $('#nickname').val();
+
+							console.log(board_id);
+
+							$
+									.ajax({
+										type : "DELETE",
+										url : "/commu/tips_view/likecancel/"
+												+ board_id,
+										success : function(data) {
+											console.log(data);
+											console.log(data.like_amount)
+											var likelist = data.likelist;
+
+											html = "";//꼭 써줘야 할것!
+
+											for ( var i in likelist) {
+												html += "<p>"
+														+ likelist[i].memberVO.nickname
+														+ "</p>";
+											}
+
+											$('.like_amount').empty();
+											$('.like_amount').append(
+													'<span >'
+															+ data.like_amount
+															+ '</span></a>');
+											$('.likelist').empty();
+											$('.likelist').append(html);
+											$('.likecancel').remove();
+											$('.profile-info')
+													.append(
+															'<a href="javascript:void(0);" class="like" style="cursor:hand;  padding-left:30px;" onclick="like();"><img src="/resources/img/location/before_like.png" style="width:25px; "></a>');
+										},
+										error : function(e) {
+											console.log(e);
+										}
+									});//ajax end
+						};//likecancel end
+					</script>
 
 	<div style="margin-top: 20px;">
 		<!-- Footer -->

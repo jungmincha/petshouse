@@ -8,6 +8,7 @@ import com.pet.ex.mapper.CommunityMapper;
 import com.pet.ex.page.Criteria;
 import com.pet.ex.vo.BoardVO;
 import com.pet.ex.vo.ImageVO;
+import com.pet.ex.vo.PlikeVO;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -247,6 +248,60 @@ public class CommunityServiceImpl implements CommunityService {
 	public void ImgDelete(int board_id) {
 		mapper.ImgDelete(board_id);
 
+	}
+
+	@Override
+	public String getPresetnNickname(String member_id) {
+		return mapper.getPresetnNickname(member_id);
+	}
+
+	@Override
+	public String getNickname(int board_id) {
+		return mapper.getNickname(board_id);
+	}
+
+	@Override
+	public List<ImageVO> getUserboard(String nickname) {
+		return mapper.getUserboard(nickname);
+	}
+
+	@Override
+	public int getLiketotal(int board_id) {
+		return mapper.getLiketotal(board_id);
+	}
+
+	@Override
+	public int isLike(PlikeVO plikeVO) {
+		return mapper.isLike(plikeVO);
+	}
+
+	@Override
+	public List<PlikeVO> getLikelist(PlikeVO plikeVO) {
+		return mapper.getLikelist(plikeVO);
+	}
+
+	@Override
+	public void like(PlikeVO plikeVO) {
+		mapper.like(plikeVO);
+		
+	}
+
+	@Override
+	public void likecancel(PlikeVO plikeVO) {
+		mapper.likecancel(plikeVO);
+		
+	}
+
+	@Override
+	public void insertplike(BoardVO boardVO) {
+		mapper.insertplike(boardVO);
+	}
+
+	@Override
+	public void deleteplike(BoardVO boardVO) {
+
+		mapper.deleteplike(boardVO);
+		
 	}
 
 

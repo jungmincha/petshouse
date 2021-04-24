@@ -8,6 +8,7 @@ import com.pet.ex.page.Criteria;
 import com.pet.ex.vo.BoardVO;
 import com.pet.ex.vo.GoodsVO;
 import com.pet.ex.vo.ImageVO;
+import com.pet.ex.vo.PlikeVO;
 
 @Mapper
 public interface CommunityMapper {
@@ -106,6 +107,26 @@ public interface CommunityMapper {
 	public List<BoardVO> getcommentsList(Criteria cri, int board_id);
 
 	public void ImgDelete(int board_id);
+
+	public String getPresetnNickname(String member_id);
+
+	public String getNickname(int board_id);
+
+	public List<ImageVO> getUserboard(String nickname);
+
+	public int getLiketotal(int board_id);
+
+	public int isLike(PlikeVO plikeVO);
+
+	public List<PlikeVO> getLikelist(PlikeVO plikeVO);
+
+	public void like(PlikeVO plikeVO);
+
+	public void likecancel(PlikeVO plikeVO);
+
+	public void insertplike(BoardVO boardVO);
+
+	public void deleteplike(BoardVO boardVO);
 
 
 }

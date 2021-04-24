@@ -12,6 +12,7 @@ import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,6 +32,7 @@ import com.pet.ex.service.CommunityService;
 import com.pet.ex.vo.BoardVO;
 import com.pet.ex.vo.ImageVO;
 import com.pet.ex.vo.MemberVO;
+import com.pet.ex.vo.PlikeVO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -53,7 +55,7 @@ public class CommunityController {
 
 	// 노하우 특정 글 페이지 출력
 	@GetMapping("/tips/{board_id}")
-	public ModelAndView tips_view(@PathVariable("board_id") int board_id, BoardVO boardVO, Criteria cri,
+	public ModelAndView tips_view(@PathVariable("board_id") int board_id, BoardVO boardVO,  Authentication authentication ,PlikeVO plikeVO ,Criteria cri,
 			ModelAndView mav) throws Exception {
 
 		boardVO = service.getBoardInfo(board_id);
@@ -65,6 +67,39 @@ public class CommunityController {
 		mav.addObject("img", service.getImg(board_id));
 		mav.addObject("count", count);
 		service.hit(boardVO.getBoard_id());
+		
+		
+		String member_id = "";
+	      if(authentication!=null) {
+	         member_id = authentication.getPrincipal().toString();
+	      }
+		System.out.println(member_id);
+		String present_nickname = service.getPresetnNickname(member_id);//현재 닉네임
+
+		//좋아요 start
+		//좋아요 출력
+	
+		
+		MemberVO member = new MemberVO();
+		plikeVO.setMemberVO(member);
+		plikeVO.getMemberVO().setMember_id(member_id);
+		plikeVO.getMemberVO().setNickname(present_nickname);
+		BoardVO board = new BoardVO();
+		plikeVO.setBoardVO(board);
+		plikeVO.getBoardVO().setBoard_id(boardVO.getBoard_id());
+		
+		//좋아요 수 
+		mav.addObject("like_amount", service.getLiketotal(plikeVO.getBoardVO().getBoard_id()));
+		//좋아요 유무 체크
+		mav.addObject("likecheck", service.isLike(plikeVO));
+		//좋아요 리스트 
+		mav.addObject("likelist", service.getLikelist(plikeVO));
+		
+		//좋아요 end
+		
+		
+		
+		
 		mav.setViewName("community/tips_view");
 
 		return mav;
@@ -423,5 +458,100 @@ public class CommunityController {
 		return entity;
 
 	}
+	
+	//좋아요 기능 -START-
+			//좋아요 입력
+				@PostMapping("/tips_view/like/{board_id}")
+				public Map<String, Object> like(@PathVariable("board_id") int board_id , Authentication authentication , PlikeVO plikeVO, BoardVO boardVO ,MemberVO memberVO ) {
+					log.info("LIKE");
+					
+					
+				
+					String member_id = authentication.getPrincipal().toString();
+					System.out.println(member_id);
+					String present_nickname = service.getPresetnNickname(member_id);//현재 닉네임
+					//resultmap에 vo 담아주는 거
+					MemberVO member = new MemberVO();
+					plikeVO.setMemberVO(member);
+					plikeVO.getMemberVO().setMember_id(member_id);
+					plikeVO.getMemberVO().setNickname(present_nickname);
+					
+				
+					BoardVO board = new BoardVO();
+					plikeVO.setBoardVO(board);
+					plikeVO.getBoardVO().setBoard_id(boardVO.getBoard_id());
+			
+					//plikeVO.setMember_id(member_id);
+				
+					Map<String, Object> map = new HashMap<>();
+					try {	
+						service.like(plikeVO);
+						map.put("SUCCESS", HttpStatus.OK);
+						map.put("like_amount", service.getLiketotal(plikeVO.getBoardVO().getBoard_id()));
+				
+						List<PlikeVO> likelist =  service.getLikelist(plikeVO);
+						map.put("likelist", likelist);
+						
+						//BOARD테이블의 plike 숫자 증가
+						service.insertplike(boardVO);
+					 
+					} catch (Exception e) {
+						e.printStackTrace();
+						map.put("SUCCESS", HttpStatus.BAD_REQUEST);
+					}
+					return map;
+				}
+				
+				//좋아요 취소
+				@DeleteMapping("/tips_view/likecancel/{board_id}")
+				public Map<String, Object> likecancel(@PathVariable("board_id") int board_id,  Authentication authentication ,PlikeVO plikeVO, BoardVO boardVO , MemberVO memberVO) {
+					log.info("likecancel");
+					String member_id = authentication.getPrincipal().toString();
+					System.out.println(member_id);
+					String present_nickname = service.getPresetnNickname(member_id);//현재 닉네임
+				
+					//resultmap에 vo 담아주는 거
+					MemberVO member = new MemberVO();
+					plikeVO.setMemberVO(member);
+					plikeVO.getMemberVO().setMember_id(member_id);
+					plikeVO.getMemberVO().setNickname(present_nickname);
+		
+					BoardVO board = new BoardVO();
+					plikeVO.setBoardVO(board);
+					plikeVO.getBoardVO().setBoard_id(boardVO.getBoard_id());
+				
+		
+				
+					Map<String, Object> map = new HashMap<>();	
+					try {	
+						service.likecancel(plikeVO);
+						map.put("SUCCESS", HttpStatus.OK);
+						map.put("like_amount", service.getLiketotal(plikeVO.getBoardVO().getBoard_id()));
+						
+						List<PlikeVO> likelist = service.getLikelist(plikeVO);
+						map.put("likelist", likelist);
+						//BOARD테이블의 plike 숫자 감소
+						service.deleteplike(boardVO);
+					} catch (Exception e) {
+						e.printStackTrace();
+						map.put("SUCCESS", HttpStatus.BAD_REQUEST);
+					}
+					return map;
+				}
+			
+				//좋아요 기능 -END-
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }
