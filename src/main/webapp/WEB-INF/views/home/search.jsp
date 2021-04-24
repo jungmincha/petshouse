@@ -13,7 +13,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>펫츠하우스</title>
-
+<!-- Css Styles -->
+<script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 <link
 	href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap"
 	rel="stylesheet">
@@ -67,7 +68,16 @@
 #navbars>li:nth-child(1) {
    background-color: #e7ab3c;
 }
-
+	span.star-prototype, span.star-prototype>*, span.star, span.star>* {
+	   height: 16px;
+	   background: url(http://i.imgur.com/YsyS5y8.png) 0 -16px repeat-x;
+	   display: inline-block;
+	}
+	
+	span.star-prototype>*, span.star>* {
+	   background-position: 0 0;
+	   max-width: 80px;
+	}
  /* 구간 나누기 */
 .tab{ 
 margin-bottom:50px;
@@ -189,6 +199,7 @@ border-radius:8px;
 			</form>
 			<hr>
 
+<c:forEach items="${rate}" var="rate">
 		<div id="table" class="row text-center"
 				style="margin-top: 20px;margin-bottom: 30px;">
 				<c:forEach items="${moregoods}" var="gs">
@@ -199,13 +210,19 @@ border-radius:8px;
 								style="width: 160px; height: 230px;"></a>
 						</div>
 						<div class="pi-text">
+						
 							<h6>${gs.goodsVO.goodsname}</h6>
 							<div class="product-price">${gs.goodsVO.price}원</div>
+							<span class="star-prototype"> ${rate.avgscore}</span>
+                              <span> &nbsp; 리뷰 ${rate.count}</span>
+                            
 						</div>
 					</div>
 				</c:forEach>
 			</div>
+			</c:forEach>
 		</c:if>
+		
 
 <div class="tab">
 		<c:if test="${scount != 0}">
@@ -249,7 +266,9 @@ border-radius:8px;
 										/><span
 									class="count2">조회수 ${ms.boardVO.hit}</span></a>
 							</div>
-							<div class="card-body">좋아요${ms.boardVO.plike}//댓글수</div>
+							<div style="font-size : 20px; text-align:center; margin-top:8px;margin-bottom:30px; ">
+							<i class="far fa-heart" style="font-size : 25px;"></i>&nbsp&nbsp${ms.boardVO.plike} 
+							&nbsp&nbsp&nbsp&nbsp<i class="far fa-comment" style="font-size : 25px;"></i></div>
 						</div>
 
 

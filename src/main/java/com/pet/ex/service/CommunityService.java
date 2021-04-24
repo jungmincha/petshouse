@@ -6,6 +6,7 @@ import com.pet.ex.page.Criteria;
 import com.pet.ex.vo.BoardVO;
 import com.pet.ex.vo.GoodsVO;
 import com.pet.ex.vo.ImageVO;
+import com.pet.ex.vo.PlikeVO;
 
 public interface CommunityService {
 
@@ -103,6 +104,32 @@ public interface CommunityService {
 	public void hit(int board_id);
 
 	public void ImgInput(ImageVO imageVO);
+	
+	
+	
+
+	public String getPresetnNickname(String member_id);
+
+	public String getNickname(int board_id);
+
+	public List<ImageVO> getUserboard(String nickname);
+
+	//좋아요 수 
+	public int getLiketotal(int board_id);
+	//좋아요 유무 체크
+	public int isLike(PlikeVO plikeVO);
+	//좋아요 리스트 
+	public List<PlikeVO> getLikelist(PlikeVO plikeVO);
+	//좋아요 요청
+	public void like(PlikeVO plikeVO);
+	//좋아요 취소
+	public void likecancel(PlikeVO plikeVO);
+	
+	//board테이블의 plike 숫자 증가
+	public void insertplike(BoardVO boardVO);
+	
+	//board테이블의 plike 숫자 감소
+	public void deleteplike(BoardVO boardVO);
 
 	
 }

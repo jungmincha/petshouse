@@ -174,7 +174,8 @@ border-radius:8px;
 						<a href="/commu/tips/${tp.boardVO.board_id}"> <img
 							src="/resources/img/tips/${tp.imgname}" alt=""
 							style="height: 180px;"> <span
-							class="count">조회수 ${tp.boardVO.hit}</span> <span
+							class="count">조회수 ${tp.boardVO.hit}</span> 
+							<span
 							style="font-size: 15px; font-weight: bold;">${tp.boardVO.title}</span>
 						</a>
 					</div>
@@ -212,15 +213,15 @@ border-radius:8px;
 					
     	          html = " "
     	           for(var i in tips){
-    	        	  html +="<div class='product-item col-sm-3'>"
-							 +"<a href='/commu/tips/"+tips[i].boardVO.board_id+"'>"
-							 +"<div class='pi-pic shot'>"
-							 +"<img src='/resources/img/tips/"+tips[i].imgname+"' alt=''style='border-radius: 8px; height: 180px;'>"
-								+"<span class='count'>조회수"+tips[i].boardVO.hit+"</span></div>"
-								+"<div class='pi-text' style='text-align: left; padding-top: 5px;'>"
-								+"<h6 style='font-size: 15px; font-weight: bold;'>"+tips[i].boardVO.title+"</h6></div></a>"
-								+"<div style='font-size: 14px;text-align: left;'>"+tips[i].boardVO.memberVO.nickname+"</div>"
-								+"</div>"
+    	        	   html +="<div class='product-item col-sm-6 col-md-4 col-lg-3 '>"
+    	  					+"<div class='pi-pic shot'>"
+    	  					+"<a href='/commu/tips/"+tips[i].boardVO.board_id+"'> "
+    	  					+"<img src='/resources/img/tips/"+tips[i].imgname+"' alt='' style='height: 180px;'> "
+    	  					+"<span class='count'>조회수 "+tips[i].boardVO.hit+"</span> "
+    	  					+"<span style='font-size: 15px; font-weight: bold;'>"+tips[i].boardVO.title+"</span></div>"
+    	  					+"<div style='font-size: 14px; text-align: left;'>"+tips[i].boardVO.memberVO.nickname+"</div>"
+    	  					+"</div>"
+
     	           }
     	        
     	           
