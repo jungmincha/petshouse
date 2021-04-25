@@ -457,7 +457,6 @@ window.onscroll = function(e) {
 													+
 													"</div>"
 													+
-													
 													"<span style='font-size: 13px; color: gray;'>" + data[i - 1].boardVO.pdate + "</span>"
 													+			
 													"<span style='font-size: 13px; color: gray;'>조회수" + data[i - 1].boardVO.hit + "</span>"

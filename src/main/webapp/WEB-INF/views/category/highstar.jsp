@@ -201,7 +201,7 @@ function chageLangSelect() {
             
            
                
-<div class="row text-center">
+
 
 
 <c:forEach items="${rate}" var="rate">
@@ -259,8 +259,7 @@ function chageLangSelect() {
       </div>
       </c:forEach> --%>
    
-      </div>
-
+s
          
 
 
