@@ -40,4 +40,7 @@ public interface StoreService {
 	
 	//커뮤니티 SNS 조회
 	public List<ImageVO> getSns();
+
+	//해당 SNS 댓글 총 개수
+	public List<BoardVO> getCommentcount();
 }

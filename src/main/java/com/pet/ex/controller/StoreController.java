@@ -99,7 +99,8 @@ public class StoreController {
 	public ModelAndView commuhome(ModelAndView mav) {
 		log.info("commuhome");
 		mav.addObject("knowhow", service.getKnowhow());
-		mav.addObject("sns", service.getSns());			
+		mav.addObject("sns", service.getSns());	
+		mav.addObject("comment", service.getCommentcount());
 		mav.setViewName("store/commuhome");
 		return mav;
 	}	

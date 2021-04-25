@@ -87,7 +87,7 @@
 	
 	.knowhow_hit{
 		position: absolute;
-	    bottom: 20px;
+	    bottom: 15px;
 	    right: 30px;
 	    font-size: 15px;
 	    color: #fff;
@@ -96,7 +96,7 @@
 		
 	.sns_hit{
 		position: absolute;
-	    bottom: 40px;
+	    bottom: 80px;
 	    right: 40px;
 	    font-size: 14px;
 	    color: #fff;
@@ -153,13 +153,13 @@
                 <h5><a href="/search?keyword=강아지">Dog</a></h5>
             </div>
         </div>
-        <div class="insta-item set-bg" data-setbg="/resources/img/commuhome/reptile2.jpg">
+        <div class="insta-item set-bg" data-setbg="/resources/img/commuhome/reptile.jpg">
             <div class="inside-text">
                 <i class="ti-instagram"></i>
                 <h5><a href="/search?keyword=파충류">Reptile</a></h5>
             </div>
         </div>
-        <div class="insta-item set-bg" data-setbg="/resources/img/commuhome/bird1.jpg">
+        <div class="insta-item set-bg" data-setbg="/resources/img/commuhome/bird.jpg">
             <div class="inside-text">
                 <i class="ti-instagram"></i>
                 <h5><a href="/search?keyword=새">Bird</a></h5>
@@ -204,7 +204,7 @@
 							</script>
                         </div>
                         <div class="blog-large-pic">
-                           <a href="/store/commu/home">
+                           <a href="/commu/sns/4598">
                            <img src="/resources/img/commuhome/sns.jpg" alt=""></a>
                         </div>     
                      </div>
@@ -309,8 +309,17 @@
 					</div>
 					<div>
 						<a href="/commu/sns/${sns.boardVO.board_id}"> 
-						<img src="/resources/img/member/sns/${sns.imgname}" style="border-radius:5px; width:250px; height:250px; margin-bottom:30px;"/></a>
-						<span class="sns_hit">조회수 ${sns.boardVO.hit}</span>		
+						<img src="/resources/img/member/sns/${sns.imgname}" style="border-radius:5px; width:250px; height:230px; margin-bottom:0px;"/>
+						<span class="sns_hit">조회수 ${sns.boardVO.hit}</span></a>	
+					</div>
+					<div class="card-body" style="font-size:20px;">		
+						<a href="/commu/sns/${sns.boardVO.board_id}"><i class="far fa-heart"></i>&nbsp;&nbsp;${sns.boardVO.plike}</a> &nbsp;&nbsp;&nbsp;&nbsp;
+						<c:forEach items="${comment}" var="comment">  
+							<c:if test="${comment.pgroup eq sns.boardVO.board_id}">
+								<a href="/commu/sns/${sns.boardVO.board_id}">
+								<i class="far fa-comment"></i>${comment.count}</a>								
+							</c:if>
+						</c:forEach>
 					</div>
 				</div>
 				</c:forEach>

@@ -230,7 +230,7 @@
  				</div>
  				</div>
  			 <div class="way col-lg-12">	
- 				<img src="/resources/img/commuhome/roulette3.jpg">
+ 				<img src="/resources/img/commuhome/roulette2.jpg">
  			</div>
 
  		</div>
