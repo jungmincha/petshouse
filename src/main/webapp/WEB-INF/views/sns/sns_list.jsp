@@ -101,7 +101,9 @@
 	position: absolute;
 	top: 80px;
 	right: 25px;	
-	opacity: 0.5;
+	opacity: 0.4;
+	font-size : 25px;
+	color : #fff
 
 }
 
@@ -239,11 +241,12 @@ a:hover {
 
 							<div class="shot">
 								
-								<div style="font-size: 17px;">
-								<%-- <c:if test="${imgCount.board_id eq sns.boardVO.board_id && imgCount.count >= '2'}"> --%>
+								 
+								<c:forEach items="${imgCount}" var = "imgCount">
+								  <c:if test="${imgCount.boardVO.board_id eq sns.boardVO.board_id and imgCount.count > 1}"> 
 								 <i class="far fa-clone clone"></i>
-								<%-- </c:if> --%>
-								 </div>
+								  </c:if> </c:forEach> 
+								  
 								<a href="/commu/sns/${sns.boardVO.board_id}"> 
 								<img src="/resources/img/member/sns/${sns.imgname }" alt="" style="height: 300px;" class="card-img-top i" />
 								
