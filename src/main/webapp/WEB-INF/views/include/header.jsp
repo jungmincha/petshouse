@@ -22,7 +22,7 @@
 
 <!-- Css Styles -->
 <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
-   
+
 <link rel="stylesheet" href="/resources/css/bootstrap.min.css"
 	type="text/css">
 <link rel="stylesheet" href="/resources/css/font-awesome.min.css"
@@ -70,8 +70,6 @@
 }
 
 .top {
-	 
-	 
 	cursor: pointer;
 	position: fixed;
 	right: 15px;
@@ -81,7 +79,6 @@
 }
 
 .chat {
-	 
 	border-radius: 10px;
 	cursor: pointer;
 	position: fixed;
@@ -91,33 +88,10 @@
 	padding: 10px;
 }
 
-
-
-a:visited {
-	color: #000000;
-}
-
 .logo img {
 	width: 180px;
 	height: 50px;
 }
-
-@font-face {
-	font-family: 'MY FONT';
-	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts-20-12@1.0/ELAND_Choice_M.woff')
-		format('woff');
-	font-weight: normal;
-	font-style: normal;
-}
-
-body a {
-	font-family: "MY FONT", serif;
-}
-
-
-
-
 </style>
 </head>
 
@@ -280,18 +254,27 @@ body a {
 
 	</header>
 	<!-- Header End -->
-	
-	<div class="top" onclick="window.scrollTo(0,0);"><i class="fas fa-chevron-circle-up" style="font-size:30px;"></i></div>
+
+	<div class="top" onclick="window.scrollTo(0,0);">
+		<i class="fas fa-chevron-circle-up" style="font-size: 30px;"></i>
+	</div>
 	<sec:authorize access="hasAnyRole('ROLE_USER')">
-	<div class="chat"><a href="${pageContext.request.contextPath}/chat" onclick="window.open(this.href,'팝업창','width=600,height=670');return false;"><i class="fas fa-paw"></i></a></div>
+		<div class="chat">
+			<a href="${pageContext.request.contextPath}/chat"
+				onclick="window.open(this.href,'팝업창','width=600,height=670');return false;"><i
+				class="fas fa-paw"></i></a>
+		</div>
 	</sec:authorize>
 	<sec:authorize access="hasAnyRole('ROLE_ADMIN')">
-	<div class="chat"><a href="${pageContext.request.contextPath}/room" onclick="window.open(this.href,'팝업창','width=600,height=670');return false;"><i class="fas fa-paw"></i></a></div>
+		<div class="chat">
+			<a href="${pageContext.request.contextPath}/room"
+				onclick="window.open(this.href,'팝업창','width=600,height=670');return false;"><i
+				class="fas fa-paw"></i></a>
+		</div>
 	</sec:authorize>
-	
+
 </body>
 <script>
-
 	$(document).ready(function() {
 		var count = 0;
 		if (sessionStorage.getItem("cartList") != null) {

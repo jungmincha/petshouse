@@ -353,10 +353,10 @@
 	<delete id="deleteMember">
 	<![CDATA[
 		BEGIN
+		delete from plike where member_id=#{member_id}
 		delete from paygoods where pay_id=(select pay_id from pay where member_id=#{member_id});
 		delete from pay where member_id=#{member_id};
 		delete from image where board_id in (select board_id from board where member_id=#{member_id});
-		delete from tag where board_id in (select board_id from board where member_id=#{member_id});
 		delete from board where member_id=#{member_id};
 		delete from follow where member_id=#{member_id};
 		delete from point where member_id=#{member_id};

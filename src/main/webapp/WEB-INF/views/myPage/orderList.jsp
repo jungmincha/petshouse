@@ -331,7 +331,7 @@ a>span{
 						</div>
 						<div class="col-6">
 							<p id="goodsName"></p>
-							<p id="goodsoption"></p>
+							<p id="goodsoption" style="font-size: 12px;"></p>
 						</div>
 
 					</div>
@@ -585,11 +585,11 @@ a>span{
 									}
 									html += " <div class='row'> <div class='col-lg-5'> <div class='pb-pic'>"
 									+ "<img src='/resources/img/admin/goods/"+data.pay[i-1].payGoodsVO[0].boardVO.goodsVO.thumbnail+"' class='pimg'> </div>"
-									+ "<div class='pb-text'> <a href='#' onclick='orderPopup("+data.pay[i-1].pay_id+",\""+data.pay[i-1].receipt_id+"\")'> <h5>"
+									+ "<div class='pb-text'> <a href='#' onclick='orderPopup("+data.pay[i-1].pay_id+",\""+data.pay[i-1].receipt_id+"\")'> <span>"
 									+ data.pay[i - 1].pay_id
 									+ " / "
 									+ getFormatDate(data.pay[i - 1].paydate)
-									+ "</h5> </a> <a href='/admin/goods_detail/"+data.pay[i-1].payGoodsVO[0].boardVO.board_id+"'><p style='font-size: 22px'>"
+									+ "</span> </a> <a href='/admin/goods_detail/"+data.pay[i-1].payGoodsVO[0].boardVO.board_id+"'><p style='font-size: 22px'>"
 									+ data.pay[i - 1].payGoodsVO[0].boardVO.goodsVO.goodsname
 									+ "</p></a>"
 									if(data.pay[i - 1].payGoodsVO[0].pcolor != null && data.pay[i - 1].payGoodsVO[0].psize != null){
