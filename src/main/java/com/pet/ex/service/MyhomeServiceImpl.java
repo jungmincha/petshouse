@@ -136,6 +136,13 @@ public class MyhomeServiceImpl implements MyhomeService {
 		return mapper.getReviewtotal(member_id);
 	}
 	
+	//해당 SNS 댓글 총 개수
+	@Override
+	public List<BoardVO> getCommentcount() {
+		log.info("getCommentcount");
+		return mapper.getCommentcount();
+	}
+	
 	//상품에 대한 리뷰 점수 평균
 	@Override
 	public List<BoardVO> getGoodsscore() {

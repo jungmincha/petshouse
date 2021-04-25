@@ -112,14 +112,14 @@
 						
 				<div class="user-profile__container">
 					<div class="user-profile__profile-image box" style="background: #BDBDBD;">
-					<a href="/myPage/${member.nickname}">
+						<a href="/myPage/${member.nickname}">
 						<img src="/resources/img/member/profile/${member.thumbnail}" class="profile" /></a>
 					</div>
 
 					<div class="profile-info">
 						<div class="profile-info__name">
 							<input type="hidden" id="member" value="${member.nickname}" />
-							<h3 style="margin-bottom:10px;">${member.nickname}</h3>
+							<a href="/myPage/${member.nickname}"><h3 style="margin-bottom:10px;">${member.nickname}</h3></a>
 							<p>구매한 상품</p>
 						</div>				
 					</div>

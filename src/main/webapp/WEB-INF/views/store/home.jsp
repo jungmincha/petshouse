@@ -83,17 +83,6 @@
 	   max-width: 80px;
 	}
 	
-	.top {
-	   background-color: #e7ab3c;
-	   border-radius: 10px;
-	   cursor: pointer; 
-	   position: fixed; 
-	   right: 5px; 
-	   font-size: 15px; 
-	   bottom: 500px;
-	   padding:10px;
-	}
-	
 	#navbars>li:nth-child(1) {
   		background-color: #e7ab3c;
 	}

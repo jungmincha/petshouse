@@ -50,7 +50,7 @@
 	
 	.sns_hit{
 		position: absolute;
-	    bottom: 65px;
+	    bottom: 55px;
 	    right: 35px;
 	    font-size: 15px;
 	    color: #fff;
@@ -79,6 +79,10 @@
 	#navbars>li:nth-child(4) {
   		background-color: #e7ab3c;
 	}
+	
+	.btn{
+		margin-bottom: 100px;
+	}
 
 </Style>
 
@@ -87,7 +91,7 @@
 	<!-- header -->
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
 
-	<div class="container" style="min-height: 900px;">
+	<div class="container">
     	<div class="row">
 			<div class="col-lg-3 wrap--profile">	
 				<form id="myPage" name="myPage" action="${pageContext.request.contextPath}/commu/thumbnail" method="post">
@@ -97,14 +101,14 @@
 						
 				<div class="user-profile__container">
 					<div class="user-profile__profile-image box" style="background: #BDBDBD;">
-					<a href="/myPage/${member.nickname}">
+						<a href="/myPage/${member.nickname}">
 						<img src="/resources/img/member/profile/${member.thumbnail}" class="profile" /></a>
 					</div>
 
 					<div class="profile-info">
 						<div class="profile-info__name">
 							<input type="hidden" id="member" value="${member.nickname}" />
-							<h3 style="margin-bottom:10px;">${member.nickname}</h3>
+							<a href="/myPage/${member.nickname}"><h3 style="margin-bottom:10px;">${member.nickname}</h3></a>
 							<p>작성한 SNS</p>
 						</div>				
 					</div>
@@ -122,10 +126,17 @@
 						<c:forEach items="${sns}" var="sns">
 							<div class="col-lg-4 col-md-4 col-sm-4 wrap--profile text-center">	
 								<a href="/commu/sns/${sns.boardVO.board_id}"> 
-								<img src="/resources/img/member/sns/${sns.imgname}"/></a>								
-								<span class="sns_hit">조회수 ${sns.boardVO.hit}</span>	
-								<h6 style="padding:10px 0px 30px 0px;">${sns.boardVO.content}</h6>
-							</div>
+									<img src="/resources/img/member/sns/${sns.imgname}" style="margin:15px 0px 10px 0px;"/></a>								
+									<span class="sns_hit">조회수 ${sns.boardVO.hit}</span>					
+									<a href="/commu/sns/${sns.boardVO.board_id}"><i class="far fa-heart" style="font-size:20px;"></i>&nbsp;&nbsp;${sns.boardVO.plike}</a>
+										
+									<c:forEach items="${comment}" var="comment">  
+										<c:if test="${comment.pgroup eq sns.boardVO.board_id}">
+											<a href="/commu/sns/${sns.boardVO.board_id}">
+											<i class="far fa-comment" style="margin-left:20px; font-size:20px;"></i>&nbsp;&nbsp;${comment.count}</a>								
+										</c:if>
+									</c:forEach>
+								</div>
 						</c:forEach>
 					</div>
 					<div class="row">		
@@ -166,17 +177,29 @@
     	          console.log(data);
     	          var sns = data.sns;
     	          var snsTotal = data.snsTotal;
+    	          var comment = data.comment;
 					 	      
     	          html = "";	
 
     	           for(var i in sns){
     	        	  html += "<div class='col-lg-4 col-md-4 col-sm-4 wrap--profile text-center'>"
-	      	          	   + "<a href='/commu/sns/'" + sns[i].boardVO.board_id + "'><img src='/resources/img/member/sns/"+sns[i].imgname + "' /></a>"
-	       	          	   + "<span class='sns_hit'>조회수" + sns[i].boardVO.hit + "</span>"       	         	
-	       	         	   + "<h6 style='margin:10px 0px 30px 0px;'>" + sns[i].boardVO.content + "</h6></div>";       	          	       	          	
-    	        	}//sns foreach end      	     	           
+	      	          	   + "<a href='/commu/sns/'" + sns[i].boardVO.board_id + "'>" 
+	      	          	   + "<img src='/resources/img/member/sns/"+sns[i].imgname + "' style='margin:10px 0px 10px 0px;'/></a>"
+	       	          	   + "<span class='sns_hit'>조회수" + sns[i].boardVO.hit + "</span>" 
+	       	          	   + "<a href='/commu/sns/" + sns[i].boardVO.board_id + "'>"
+	       	          	   + "<i class='far fa-heart' style='font-size:20px;'></i>&nbsp;&nbsp;" + sns[i].boardVO.plike + "</a>";
+	       	          	for(var j in comment){
+	       	          		if(comment[j].pgroup == sns[i].boardVO.board_id){
+	       	          		  html += "<a href='/commu/sns/" + sns[i].boardVO.board_id + "'>"
+	       	          		       + "<i class='far fa-comment' style='margin-left:20px; font-size:20px;'></i>&nbsp;&nbsp;" + comment[j].count + "</a>";
+	       	          		}//if end
+	       	          	}//comment foreach end
+	       	          	
+	       	        	html += "</div>";
+
+    	           }//sns foreach end      	     	            	        	
     	        	
-    	           $(".sns").append(html); 
+    	        	$(".sns").append(html); 
     	          
     	        }, 	        
     	        //success end

@@ -62,6 +62,14 @@
 		object-fit: cover;
 	}
 	
+	.profile_box {
+		width: 40px;
+		height: 40px;
+		border-radius: 70%;
+		overflow: hidden;
+		margin: 5px;
+	}
+	
 	.sns, .knowhow, .qna, .review{
 		padding-top: 20px;
 		padding-left: 20px;
@@ -74,9 +82,18 @@
 		border-radius: 8px;
 	}
 	
-	.knowhow_hit, .sns_hit{
+	.sns_hit{
 		position: absolute;
-	    bottom: 35px;
+	    bottom: 55px;
+	    right: 35px;
+	    font-size: 15px;
+	    color: #fff;
+	    text-shadow: 0 0 4px rgb(0 0 0 / 50%);
+	}
+	
+	.knowhow_hit{
+		position: absolute;
+	    bottom: 60px;
 	    right: 35px;
 	    font-size: 15px;
 	    color: #fff;
@@ -139,11 +156,9 @@
 					</div>
 
 					<div class="profile-info">
-					
-					
 						<div class="profile-info__name">
 							<input type="hidden" id="member" value="${member.nickname}" />
-							<h3 style="margin-bottom:10px;">${member.nickname}</h3>
+							<a href="/myPage/${member.nickname}"><h3 style="margin-bottom:10px;">${member.nickname}</h3></a>
 							<a href="#followerModal" class="follower" data-toggle="modal">팔로워<span class="highlight">${follower}&nbsp;&nbsp;</span> </a>
 				          	<a href="#followingModal" data-toggle="modal">팔로잉<span class="highlight">${following}</span></a>
 						</div>
@@ -159,12 +174,16 @@
 									</div>
 										        
 									<!-- Modal body -->
-									<div class="modal-body">
-										<c:forEach items="${followerlist}" var="followerlist">
-											<div>${followerlist.follower_id}</div>          	
-										</c:forEach>
-									</div>
-										        
+									<div class="modal-body row">
+                           				<c:forEach items="${followerlist}" var="followerlist">
+                              				<div class="profile_box" style="margin-left:15px;">
+                              					<a href="/myPage/${followerlist.memberVO.nickname}">
+                              					<img src="/resources/img/member/profile/${followerlist.memberVO.thumbnail}" class="profile" />
+                              				</div>
+                              				<div style="padding-top:10px;">${followerlist.follower_id}</div></a>
+                          				</c:forEach>
+                        			</div>
+
 									<!-- Modal footer -->
 									<div class="modal-footer">
 										<button type="button" class="btn btn-warning" style="background-color: #e7ab3c" data-dismiss="modal">닫기</button>
@@ -186,10 +205,15 @@
 								    </div>
 								        
 								    <!-- Modal body -->
-								    <div class="modal-body">
+								    <div class="modal-body row">
 								        <c:forEach items="${followinglist}" var="followinglist">
-								          	<div>${followinglist.nickname}</div>          	
-								        </c:forEach>
+                              				<div class="profile_box" style="margin-left:15px;">
+                              					<a href="/myPage/${followinglist.memberVO.nickname}">
+                              					<img src="/resources/img/member/profile/${followinglist.memberVO.thumbnail}" class="profile" />
+                              				</div>
+                              				<div style="padding-top:10px;">${followinglist.memberVO.nickname}</div></a>
+                          				</c:forEach>
+								        
 								    </div>
 								        
 								    <!-- Modal footer -->
@@ -247,9 +271,16 @@
 								<c:if test="${sns.rnum le 3}">
 									<div class="col-lg-4 col-md-4 col-sm-4 wrap--profile text-center">	
 										<a href="/commu/sns/${sns.boardVO.board_id}"> 
-										<img src="/resources/img/member/sns/${sns.imgname}"/></a>								
-										<span class="sns_hit">조회수 ${sns.boardVO.hit}</span>	
-										<h6 style="padding-top:10px;">${sns.boardVO.content}</h6>
+										<img src="/resources/img/member/sns/${sns.imgname}" style="margin-bottom:10px"/></a>								
+										<span class="sns_hit">조회수 ${sns.boardVO.hit}</span>					
+										<a href="/commu/sns/${sns.boardVO.board_id}"><i class="far fa-heart" style="font-size:20px;"></i>&nbsp;&nbsp;${sns.boardVO.plike}</a>
+										
+										<c:forEach items="${comment}" var="comment">  
+											<c:if test="${comment.pgroup eq sns.boardVO.board_id}">
+												<a href="/commu/sns/${sns.boardVO.board_id}">
+												<i class="far fa-comment" style="margin-left:20px; font-size:20px;"></i>&nbsp;&nbsp;${comment.count}</a>								
+											</c:if>
+										</c:forEach>
 									</div>
 								</c:if>
 							</c:forEach>
@@ -277,7 +308,7 @@
 										<a href="/commu/tips/${knowhow.boardVO.board_id}">
 										<img src="/resources/img/tips/${knowhow.imgname}" alt=""></a>								
 										<span class="knowhow_hit">조회수 ${knowhow.boardVO.hit}</span>
-										<h6 style="padding-top:10px;">${knowhow.boardVO.title}</h6>
+										<h6 style="margin-top:10px;">${knowhow.boardVO.title}</h6>
 									</div>
 		                        </c:if>
 							</c:forEach>	
