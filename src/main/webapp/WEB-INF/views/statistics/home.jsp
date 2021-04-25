@@ -10,7 +10,7 @@
 
 <meta charset="UTF-8">
 
-<title>Bootstrap Admin Theme v3</title>
+<title>매출액 통계</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script
@@ -76,25 +76,22 @@
 
 
 
-
-
 				<div class="row">
 					<div class="col-md-11" style="margin:0 auto;">
 
 						<!-- 일별 -->
-						<h4>월을 선택하세요</h4>
 						<select class="form-control" id="choice-month"
 							style="width: 200px">
 							<c:forEach var="i" begin="1" end="12">
 								<option value="${i}" <c:if test="${i eq month}">selected</c:if>>
-									${i}</option>
+									${i} 월</option>
 							</c:forEach>
 						</select>
-
+						<br>
 						<!-- BAR CHART -->
-						<div class="card card-success">
-							<div class="card-header">
-								<h3 class="card-title">펫츠하우스 일별 통계</h3>
+						<div class="card card-info">
+							<div class="card-header" style="background-color:#e7ab3c;">
+								<h3 class="card-title">일별 매출액</h3>
 								<div class="card-tools">
 									<button type="button" class="btn btn-tool"
 										data-card-widget="collapse">
@@ -107,11 +104,10 @@
 								</div>
 							</div>
 
-							<div class="card-body">
-								<div class="chart">
-									<canvas id="barChart"
-										style="min-height: 400px; height: 400px; max-height: 400px; max-width: 100%;"></canvas>
-								</div>
+							 <div class="card-body">
+                <div class="chart">
+                  <canvas id="lineChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                </div>
 							</div>
 							<!-- /.card-body -->
 
@@ -120,8 +116,8 @@
 
 						<!-- BAR CHART -->
 						<div class="card card-success">
-							<div class="card-header">
-								<h3 class="card-title">펫츠하우스 월별 통계</h3>
+							<div class="card-header" style="background-color:#e7ab3c;">
+								<h3 class="card-title">월별 매출액</h3>
 								<div class="card-tools">
 									<button type="button" class="btn btn-tool"
 										data-card-widget="collapse">
@@ -147,8 +143,8 @@
 
 						<!-- BAR CHART -->
 						<div class="card card-success">
-							<div class="card-header">
-								<h3 class="card-title">펫츠하우스 년별 통계</h3>
+							<div class="card-header" style="background-color:#e7ab3c;">
+								<h3 class="card-title" >연도별 매출액</h3>
 								<div class="card-tools">
 									<button type="button" class="btn btn-tool"
 										data-card-widget="collapse">
@@ -183,6 +179,9 @@
 
 
 	</div>
+	
+	 <!-- Footer -->
+   <%@ include file="/WEB-INF/views/include/footer.jsp"%>
 
 
 </body>
@@ -229,7 +228,7 @@
 				 
 				 var day = getMaxDay(${2021}, month);
 				 console.log("day", day);
-				 // push로 데이터 삽입 push가 js가 제공하는 배열 객체의 값을 넣을때 사용하는 함수
+				
 				 for(var i = 1; i <= day; i++ ) {
 					
 					labels.push(i + "일");
@@ -239,13 +238,15 @@
 					console.log("labels",labels);
 					console.log("dayData",dayData);	
 					
+					var lineChartCanvas = $('#lineChart').get(0).getContext('2d')
+					
 				    var areaChartData = {
 				      labels  : labels,
 				      datasets: [
 				        {
 				          label               : '일별 통계',
-				          backgroundColor     : 'rgba(60,141,188,0.9)',
-				          borderColor         : 'rgba(60,141,188,0.8)',
+				     	  backgroundColor     : '#b2bec3', //라인 그래프를 클릭하면 나타나는 작은 사각형 안의 배경색깔
+				          borderColor         : '#b2bec3',//라인 그래프 라인색깔 
 				          pointRadius          : false,
 				          pointColor          : '#3b8bba',
 				          pointStrokeColor    : 'rgba(60,141,188,1)',
@@ -254,63 +255,52 @@
 				          data                : dayData
 				        }
 				      ]
-				    }
-				    //-------------
-				    //- BAR CHART -
-				    //-------------
-				    var barChartCanvas = $('#barChart').get(0).getContext('2d')
-				    var barChartData = $.extend(true, {}, areaChartData)
-				    var temp0 = areaChartData.datasets[0]
+				    }			    
+				    var areaChartOptions = {
+				    	      maintainAspectRatio : false,
+				    	      responsive : true,
+				    	      legend: {
+				    	        display: false
+				    	      },
+				    	      scales: {
+				    	        xAxes: [{
+				    	          gridLines : {
+				    	            display : false,
+				    	          }
+				    	        }],
+				    	        yAxes: [{
+				    	          gridLines : {
+				    	            display : false,
+				    	          }
+				    	        }]
+				    	      }
+				    	    }
 				    
-				    barChartData.datasets[0] = temp0
-				    var barChartOptions = {
-				      responsive              : true,
-				      maintainAspectRatio     : false,
-				      datasetFill             : false,
-				      scales: {
-				    	  yAxes: [
-				              {
-				                  ticks: {
-				                      beginAtZero: true,
-				                      stepSize: 200,
-				                      max: 2000
-				                  }
-				              }
-				          ]
-				      }
-				      
-				    }
-				    chart = new Chart(barChartCanvas, {
-				      type: 'bar',
-				      data: barChartData,
-				      options: barChartOptions
-				    })
+
+				    //-------------
+				    //- LINE CHART -
+				    //--------------
+				    var lineChartOptions = $.extend(true, {}, areaChartOptions)
+				    var lineChartData = $.extend(true, {}, areaChartData)
+				    lineChartData.datasets[0].fill = false;
+			
+				    lineChartOptions.datasetFill = false
+				    
+				    var lineChart = new Chart(lineChartCanvas, {
+				        type: 'line',
+				        data: lineChartData,
+				        options: lineChartOptions
+				      })
+			
+
+				    
+			
 			}
 		});
     }
   
   });
-  
-/*   function updateYAxesValue(value) {
-	chart.options = {
-		responsive              : true,
-		maintainAspectRatio     : false,
-		datasetFill             : false,
-		scales: {
-			yAxes: [
-				{
-				ticks: {
-					beginAtZero: true,
-					stepSize: 200,
-		    		max: value
-		    		}
-		  		}
-			]
-		}
-	};
-    chart.update();
-	  
-  } */
+
   
   function getMaxDay(year, month) {
 	  month -= 1;
@@ -337,7 +327,7 @@
 				{
 				label: '월별 통계',
 				data: monthData,
-	       		backgroundColor : ['#00c0ef', '#00a65a', '#f39c12', '#f56954', '#3c8dbc', '#d2d6de'],
+	       		backgroundColor : ['#e7ab3c', '#00a65a', '#f39c12', '#f56954', '#3c8dbc', '#d2d6de'],
 	      		}
 	    	]
 	  	}
@@ -359,6 +349,7 @@
   	var ylabels = "${year}"; 
    	var yearData = "${yearSale}"; 
    	console.log("ylabels", ylabels);
+   	console.log("ydate", yearData);
    	//console.log("yearData", typeof(yearData));
    
 	var barYearChartCanvas = $('#barYearChart').get(0).getContext('2d')
@@ -366,9 +357,9 @@
 			labels: [ylabels],
 			datasets: [
 				{
-				label: '년별 통계',
+				label: '연도별 통계',
 				data: [yearData],
-	       		backgroundColor : ['#f39c12', '#00a65a', '#f56954', '#00c0ef', '#3c8dbc', '#d2d6de'],
+	       		backgroundColor : ['#e7ab3c', '#00a65a', '#f56954', '#00c0ef', '#3c8dbc', '#d2d6de'],
 	      		}
 	    	]
 	  	}
@@ -378,14 +369,14 @@
 	    responsive : true,
 	    scales: {
 			xAxes: [{
-				barPercentage: 0.2
+				barPercentage: 0.1
 	        }],
 			yAxes: [
 	              {
 	                  ticks: {
 	                      beginAtZero: true,
 	                      stepSize: 200,
-	                      max: 2000
+	                     // max: 20000
 	                  }
 	              }
 	          ]
