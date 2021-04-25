@@ -70,24 +70,7 @@
 background-color:#dddddd;
 }
 
-a:link {
-	text-decoration: none;
-	color: #333333;
-}
 
-a:visited {
-	text-decoration: none;
-	color: #333333;
-}
-
-a:active {
-	text-decoration: none;
-	color: #333333;
-}
-
-a:hover {
-	text-decoration: none;
-}
 </style>
 <script>
 
@@ -127,18 +110,28 @@ a:hover {
 							</c:forEach>
 
 						</div>
-						 <div class="later col-lg-12 text-center">
-            <button type="button" class="btn btn-warning" onClick="btnClick()">더보기</button>
-	 </div>
+					 <c:if test="${fn:length(tipscount) > 8}">
+                <input type="hidden" class="count" value="${fn:length(tipscount)}" />
+	            <div class="col-lg-12 text-center">
+	            	<button type="button" class="btn btn-warning" onClick="btnClick()">더보기</button>
+		        </div>
+		      </c:if>
 	        
 	</div>
 <script type="text/javascript">
-      var pageNum = 1;
-     
-      function btnClick(){
+var pageNum = 1;
+var check = $('.count').val() / 8;
 
-    	  pageNum += 1;
-    	  console.log(pageNum);
+function btnClick(){
+	  pageNum += 1;
+	  
+	  if (pageNum > check) {
+        $(".btn").hide();
+     }
+	  
+	  console.log(pageNum);
+	  console.log(check);
+	  		  
     	  		  
     	  	$.ajax({
     	        type :"POST",
@@ -162,9 +155,15 @@ a:hover {
     	        	  +"<div style='font-size: 13px; color: gray; text-align: left;'>조회수"+tipslist[i].boardVO.hit+"</div></div>"
     	           }
     	           
-    	            $("#table").append(html); 
-    	          
-    	        }, 	        
+    	          if(tipslist.length == 8){
+		        		html += "<div class='btn col-lg-12 text-center'>"  
+		            		 + "<button type='button' class='btn btn-warning' onClick='btnClick()'>더보기</button> </div>";			      
+		        	}
+ 	           
+ 	          		 $('.btn').remove();
+  	            $("#table").append(html); 
+  	          
+  	        }, 	              
     	        //success end
     	         error : function(request, status, error) {
 					alert("code:" + request.status + "\n" + "message:"

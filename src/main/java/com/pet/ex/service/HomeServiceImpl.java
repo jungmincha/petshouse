@@ -44,6 +44,7 @@ public class HomeServiceImpl implements HomeService {
 	@Override
 	public List<ImageVO> getMoreSns(String keyword, Criteria cri) {
 		log.info("getMoreSns");
+		cri.setAmount(8);
 		return mapper.getMoreSns(keyword,cri);
 	}
 	 
@@ -90,8 +91,18 @@ public class HomeServiceImpl implements HomeService {
 		log.info("getGoodsCount");
 		return mapper.getGoodsCount(keyword);
 	}
-	
-
+	//sns 더보기용	
+	@Override
+	public List<BoardVO> getSnsCount(String keyword) {
+		log.info("getSnsCount");
+		return mapper.getSnsCount(keyword);
+	}
+	//sns 더보기용	
+	@Override
+	public List<BoardVO> getTipsCount(String keyword) {
+		log.info("getTipsCount");
+		return mapper.getTipsCount(keyword);
+	}
 
 
 }

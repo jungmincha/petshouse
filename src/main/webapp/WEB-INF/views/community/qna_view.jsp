@@ -107,25 +107,6 @@
 	background-color: #e7ab3c;
 }
 
-a:link {
-	text-decoration: none;
-	color: #333333;
-}
-
-a:visited {
-	text-decoration: none;
-	color: #333333;
-}
-
-a:active {
-	text-decoration: none;
-	color: #333333;
-}
-
-a:hover {
-	text-decoration: none;
-}
-
 #hashtag {
 	font-size: 13px;
 	padding: 0.01px;

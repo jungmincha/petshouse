@@ -348,7 +348,9 @@
 	<!-- 질문과답변 태그 -->
 	<select id="getQnatag" resultMap="boardvo">
    <![CDATA[
-   		select * from board where hashtag like '%'||#{keyword}||'%' and boardtype_id='4' order by pdate desc
+  		 select * from board where hashtag like '%'||#{keyword}||'%' and boardtype_id='4' and pstep=0 
+		or hashtag like '%'||#{keyword}||'%' and boardtype_id='5' and pstep='0' 
+		or hashtag like '%'||#{keyword}||'%' and boardtype_id='2' and pstep='0' order by pdate desc   
    ]]>
 	</select>
 
