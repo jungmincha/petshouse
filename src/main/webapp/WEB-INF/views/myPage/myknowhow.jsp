@@ -158,7 +158,7 @@
     	  		  
     	  	$.ajax({
     	        type :"POST",
-    	        url :"/myPage/moreknow/" + nickname,
+    	        url :"/myPage/knowhow/" + nickname,
     	        data : {
     	        	pageNum: pageNum 
     	        },

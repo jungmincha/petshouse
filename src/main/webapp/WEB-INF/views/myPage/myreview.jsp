@@ -13,6 +13,19 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
+<script>
+   $(document).ready(function() {
+      $.fn.generateStars = function() {
+         return this.each(function(i, e) {
+            $(e).html($('<span/>').width($(e).text() * 16));
+         });
+      };
+
+      // 숫자 평점을 별로 변환하도록 호출하는 함수
+      $('.star-prototype').generateStars();
+   });
+</script>
+
 <Style>
 	.user-profile__container {
 		border-radius: 4px;
@@ -119,10 +132,10 @@
 					<!-- 리뷰 게시글 조회 -->
 					<div class="review row">							
 						<div class="col-12"> 
-							<span style="font-size:20px;font-weight: bold;">리뷰 (${reviewTotal})</span><hr />
-						</div>	
+							<span style="font-size:20px;font-weight:bold;">리뷰 (${reviewTotal})</span><hr />
+						</div>										
 						<c:forEach items="${review}" var="review">
-							<div class="col-lg-4 col-md-4 col-sm-4 wrap--profile text-center">	
+							<div class="col-lg-4 col-md-4 col-sm-4 text-center" style="padding-bottom:20px;">	
 								<a href="/admin/goods_detail/${review.board_id}"> 
 								<img src="/resources/img/admin/goods/${review.goodsVO.thumbnail}"/></a>														
 								<h6 style="padding-top:10px;">${review.goodsVO.goodsname}</h6>
@@ -138,7 +151,7 @@
 					</div>
 					<div class="row">		
 						<div class="col-12 text-center"> 	
-							<c:if test="${reviewTotal > 1}">
+							<c:if test="${reviewTotal > 9}">
 					            <input type="hidden" class="reviewTotal" value="${reviewTotal}" />
 						        <button type="button" class="btn btn-warning" onClick="btnClick()">더보기</button>
 						   </c:if>
@@ -153,7 +166,7 @@
  
       var nickname = $('#member').val();  
       var pageNum = 1;
-      var check = $('.reviewTotal').val() / 1;
+      var check = $('.reviewTotal').val() / 9;
      
       function btnClick(){
     	  pageNum += 1;
@@ -166,28 +179,28 @@
     	  		  
     	  	$.ajax({
     	        type :"POST",
-    	        url :"/myPage/morereview/" + nickname,
+    	        url :"/myPage/review/" + nickname,
     	        data : {
     	        	pageNum: pageNum 
     	        },
     	        success :function(data){
     	          console.log(data);
     	          var review = data.review;
-    	          var reviewTotal = data.reviewTotal;
     	          var rate = data.goodsscore;
 					 	      
     	          html = "";	
 
-    	           for(var i in sns){
+    	           for(var i in review){
     	        	  html += "<div class='col-lg-4 col-md-4 col-sm-4 wrap--profile text-center'>"
 	      	          	   + "<a href='/admin/goods_detail/'" + review[i].board_id + "'><img src='/resources/img/admin/goods/"+review[i].goodsVO.thumbnail + "' /></a>"
-	       	          	   + "<h6 style='padding-top:10px;'>" + review[i].goodsVO.goodsname "</h6>";
-	       	          for(var i in rate){	   
+	       	          	   + "<h6 style='padding-top:10px;'>" + review[i].goodsVO.goodsname + "</h6>";
+	       	          for(var j in rate){	   
 	      	          	   if(review[i].goodsVO.goods_id == rate[j].goodsVO.goods_id){
-	      	          			html += "<span class='star-prototype'>" +  rate[j].avgscore + "</span>"
+	      	          			html += "<span class='star-prototype'> <span class='star' style='width:"+(rate[j].avgscore*16)+"px'> </span></span>" 
 	      	          			     + "&nbsp; <span>리뷰" + rate[j].count + "</span>";
-	      	          	   }
-	       	          }
+	      	          	   } //if end 
+	       	          } //rate foreach end 	           												
+
 	       	     	  html += "</div>"; 
     	        	}//review foreach end      	     	           
     	        	

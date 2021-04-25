@@ -13,20 +13,45 @@
 
 
 <Style>
+	.container{
+		
+	}
+	
+	img{
+		width:320px;
+		height:380px;
+	}
+	
+	.aligner {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height:1200px;
+	}
+	
+	.aligner-item {
+	 	max-width: 50%;
+	}
+	
+	
 </Style>
 
 </head>
-<body style="padding-top: 200px;">
+<body>
 	<!-- header -->
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
 
-	<div class="container">
+	<div class="aligner container">
     	<div class="row">
-			
+    		<div class="aligner-item col-12 text-center"> 	 
+				<img src="/resources/img/admin/board/error.JPG" alt="">
+				<h4 style="margin-bottom:15px;">요청하신 페이지를 찾을 수 없습니다</h4>
+				<a href="/store/home"><h5>&nbsp;홈으로</h5></a> 
+			</div>
 		</div>
 	</div>
 	
-	<%@ include file="/WEB-INF/views/include/footer1.jsp"%>
+	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 </body>
 
 <!-- Js Plugins -->

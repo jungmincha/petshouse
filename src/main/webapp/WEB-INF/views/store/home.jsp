@@ -210,7 +210,7 @@
 
        <!-- Hot Item section Begin -->
          <section class="hotitem">
-            <div class="row" style="margin:0px;">
+            <div class="row">
                <div class="col-sm-3">
                   <div class="product-large set-bg" data-setbg="/resources/img/storehome/hot_banner_01.jpg">
                      <h2>Hot Item</h2>
@@ -287,7 +287,7 @@
                         <p>Secs</p>
                      </div>
                   </div>
-                  <a href="/admin/goods_detail/361" class="primary-btn">Shop Now</a>
+                  <a href="/admin/goods_detail/4325" class="primary-btn">Shop Now</a>
                </div>
             </div>
          </section>

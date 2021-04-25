@@ -125,7 +125,7 @@ public class MyhomeServiceImpl implements MyhomeService {
 	@Override
 	public List<BoardVO> getReviewlist(MemberVO memberVO, Criteria cri) {
 		log.info("getReviewlist");
-		cri.setAmount(1);
+		cri.setAmount(9);
 		return mapper.getReviewlist(memberVO, cri);
 	}
 	
