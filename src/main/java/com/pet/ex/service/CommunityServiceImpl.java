@@ -312,5 +312,10 @@ public class CommunityServiceImpl implements CommunityService {
 		
 	}
 
+	@Override
+	public List<BoardVO> countComment(BoardVO boardVO) {
+		 
+		return mapper.countComment(boardVO);
+	}
 
 }

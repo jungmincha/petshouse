@@ -50,6 +50,8 @@ public interface CommunityService {
 	public int qscount(String keyword);
 
 
+	public List<BoardVO> countComment(BoardVO boardVO);
+	
 	// 댓글 작성 후 ajax로 삽입
 	public BoardVO getComment(int Board_id);
 

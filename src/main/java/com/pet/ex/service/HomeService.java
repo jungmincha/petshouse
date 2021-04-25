@@ -22,7 +22,10 @@ public interface HomeService {
 	public int scount(String keyword);
 
 	public List<BoardVO> getStorerate(Criteria cri);
-
+	public List<BoardVO> countComment(BoardVO boardVO);
+	
+	//상품 페이지용
+	public List<BoardVO> getGoodsCount(String keyword);
 
 
 }

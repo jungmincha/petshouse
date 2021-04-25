@@ -40,7 +40,7 @@ public class HomeController {
 
 	// 글 검색
 	@GetMapping("/search")
-	public ModelAndView search(@RequestParam("keyword") String keyword,  ModelAndView mav,Criteria cri)
+	public ModelAndView search(@RequestParam("keyword") String keyword, BoardVO boardVO, ModelAndView mav,Criteria cri)
 			throws Exception {
 		log.info("search()실행");
 		int qcount = service.qcount(keyword);
@@ -51,6 +51,7 @@ public class HomeController {
 		mav.addObject("gcount", gcount);
 		int scount = service.scount(keyword);
 		mav.addObject("scount", scount);
+		mav.addObject("ccount", service.countComment(boardVO));
 		mav.addObject("moregoods", service.getMoreGoods(keyword, cri));
 		mav.addObject("moreqna", service.getMoreQna(keyword,cri));
 		mav.addObject("moretips", service.getMoreTips(keyword,cri));
@@ -67,7 +68,8 @@ public class HomeController {
 		log.info("moregoods()실행");
 		System.out.println(keyword);
 		int gcount = service.gcount(keyword);
-		mav.addObject("gcount", gcount);
+		mav.addObject("gcount", gcount); //검색 결과 수 뽑을떄
+		mav.addObject("gocount", service.getGoodsCount(keyword)); 
 		mav.addObject("moregoods", service.getMoreGoods(keyword, cri));
 		mav.addObject("rate", service.getStorerate(cri));	
 		mav.setViewName("/home/moregoods");
@@ -93,6 +95,7 @@ public class HomeController {
 		int scount = service.scount(keyword);
 		mav.addObject("scount", scount);
 		System.out.println(keyword);
+		mav.addObject("ccount", service.countComment(boardVO));
 		mav.addObject("moresns", service.getMoreSns(keyword,cri));
 		mav.setViewName("/home/moresns");
 		return mav;

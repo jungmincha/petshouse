@@ -403,6 +403,17 @@
   			 select * from (select * from board where boardtype_id=4 and pstep=0 order by pdate desc) where rownum=1
 	 	]]>
 	</select>
+	
+		<!-- 질답 리스트 댓글 카운트 -->
+	
+	<select id="countComment" resultMap="boardvo">
+	
+			<![CDATA[
+	          		select pgroup , count(*) as count from board where boardtype_id= 4 and pstep=1 group by pgroup
+	  		 ]]>
+	  	 
+	</select>
+	
 
 
 	<!-- 공통 -->

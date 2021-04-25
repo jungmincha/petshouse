@@ -24,6 +24,9 @@ public interface HomeMapper {
 	public int scount(String keyword);
 	
 	public List<BoardVO> getStorerate(Criteria cri);
+	public List<BoardVO> countComment(BoardVO boardVO);
+	//상품 페이징용 
+	public List<BoardVO> getGoodsCount(String keyword);
 
 
 

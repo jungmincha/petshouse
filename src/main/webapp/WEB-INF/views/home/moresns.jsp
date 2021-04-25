@@ -57,21 +57,13 @@
 
 .count {
 	position: absolute;
-	bottom: 80px;
-	right: 30px;
+	bottom: 85px;
+	right: 40px;
 	font-size: 13px;
 	color: #fff;
 	text-shadow: 0 0 4px rgb(0 0 0/ 50%);
 }
 
-.count2 {
-	position: absolute;
-	bottom: 10px;
-	right: 10px;
-	font-size: 13px;
-	color: #fff;
-	text-shadow: 0 0 4px rgb(0 0 0/ 50%);
-}
 #hashtag {
 	font-size: 13px;
 	padding: 0.01px;
@@ -145,7 +137,12 @@ background-color:#dddddd;
 							</div>
 								<div style="font-size : 20px; text-align:center; margin-top:8px;margin-bottom:30px; ">
 							<i class="far fa-heart" style="font-size : 25px;"></i>&nbsp&nbsp${ms.boardVO.plike} 
-							&nbsp&nbsp&nbsp&nbsp<i class="far fa-comment" style="font-size : 25px;"></i></div>
+							&nbsp&nbsp&nbsp&nbsp<c:forEach items="${ccount}" var="count">  
+							<c:if test="${count.pgroup eq ms.boardVO.board_id}">
+							<a href="/commu/sns/${ms.boardVO.board_id}">
+							<i class="far fa-comment"  style="font-size : 25px;"></i>
+							
+							${count.count}</a></c:if></c:forEach></div>
 						</div>
 
 

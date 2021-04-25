@@ -140,7 +140,7 @@ select {
 								<label class="col-sm-3">사이즈</label>
 								<div class="col-sm-9">
 									<input type="text" name="psize" class="form-control"
-										placeholder="사이즈를 입력하세요" aria-describedby="sizeHelp" required>
+										placeholder="사이즈를 입력하세요" aria-describedby="sizeHelp">
 									<div class="invalid-feedback">없으면 공백 추가!</div>
 									<small id="sizeHelp" class="form-text text-muted">예)
 										S,M,L</small>
@@ -152,7 +152,7 @@ select {
 								<div class="col-sm-9">
 									<input type="text" name="pcolor" class="form-control"
 										id="pcolor" placeholder="색상을 입력하세요"
-										aria-describedby="colorHelp" required>
+										aria-describedby="colorHelp">
 									<div class="invalid-feedback">없으면 공백 추가!</div>
 									<small id="colorHelp" class="form-text text-muted">예)
 										빨간색, 노란색 </small>
