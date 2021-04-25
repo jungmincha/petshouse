@@ -104,6 +104,8 @@ public interface CommunityMapper {
 	public void insertComment(BoardVO boardVO);
 	public int qscount(String keyword);
 
+	public List<BoardVO> countComment(BoardVO boardVO);
+	
 	// 질문과 답변 댓글 출력(ajax)
 	public BoardVO getComment(int board_id);
 

@@ -200,11 +200,18 @@ body::-webkit-scrollbar-track {
 								<div>${qna.content}</div>
 							</a>
 							<div style="margin-bottom: 10px;">
-								<span>${qna.memberVO.nickname}</span> <span
+								<span>${qna.memberVO.nickname}&nbsp&nbsp</span> <span
 									style="font-size: 13px; color: gray;"> <fmt:formatDate
-										value="${qna.pdate}" pattern="yy.MM.dd" /></span> <span
-									style="font-size: 13px; color: gray;"> 조회수 ${qna.hit}</span>
-								<c:set var="hashtag" value="${qna.hashtag}" />
+										value="${qna.pdate}" pattern="yy.MM.dd" /></span> 
+								<span
+									style="font-size: 13px; color: gray;"> &nbsp&nbsp조회수 ${qna.hit}&nbsp&nbsp </span>
+								<c:forEach items="${ccount}" var="count">  
+										<c:if test="${not empty count}">
+							<c:if test="${count.pgroup eq qna.board_id}">
+							
+							 <span style="font-size: 13px; color: gray;">댓글${count.count}&nbsp&nbsp</span></c:if></c:if></c:forEach>
+							 
+									<c:set var="hashtag" value="${qna.hashtag}" />
 								<c:set var="tag" value="${fn:split(hashtag, '#')}" />
 								<c:forEach var="t" items="${tag}">
 									<c:if test="${not empty qna.hashtag}">

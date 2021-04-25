@@ -244,10 +244,11 @@ public class CommunityController {
 
 	// 질문과 답변 메인 페이지
 	@RequestMapping("/qna")
-	public ModelAndView qna(Criteria cri, ModelAndView mav) {
+	public ModelAndView qna(Criteria cri,BoardVO boardVO, ModelAndView mav) {
 		mav.addObject("qna", service.getQnaList(cri));
 		int total = service.getTotal(cri);
 		mav.addObject("pageMaker", new PageVO(cri, total));
+		mav.addObject("ccount", service.countComment(boardVO));
 		mav.setViewName("community/qna");
 		return mav;
 

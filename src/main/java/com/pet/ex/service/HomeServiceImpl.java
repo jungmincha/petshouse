@@ -69,14 +69,28 @@ public class HomeServiceImpl implements HomeService {
 		log.info("scount()");
 		return mapper.scount(keyword); 
 	}
-	
+	//별점
 	@Override
 	public List<BoardVO> getStorerate(Criteria cri) {
 		log.info("getStorerate/cri");
 		cri.setAmount(8);
 		return mapper.getStorerate(cri);
 	}
+	
+	//댓글수 
+	@Override
+	public List<BoardVO> countComment(BoardVO boardVO) {
+		 
+		return mapper.countComment(boardVO);
+	}
 
+	//상품글 더보기용	
+	@Override
+	public List<BoardVO> getGoodsCount(String keyword) {
+		log.info("getGoodsCount");
+		return mapper.getGoodsCount(keyword);
+	}
+	
 
 
 
