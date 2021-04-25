@@ -84,19 +84,7 @@ body::-webkit-scrollbar-track {
 	box-shadow: inset 0px 0px 5px white;
 }
 
-#content {
-	display: block;
-	width: auto;
-	margin-top: 0.3rem;
-	margin-bottom: 0.3rem;
-	white-space: normal;
-	font-size: 0.9rem;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	display: -webkit-box;
-	-webkit-line-clamp: 2;
-	-webkit-box-orient: vertical;
-}
+
 
 .input {
 	background-image:
@@ -209,7 +197,7 @@ body::-webkit-scrollbar-track {
 							method="get">
 							<a href="/commu/qna/${qna.board_id}">
 								<div style="font-weight: bold; font-size: 18px; margin-top: 10px;">${qna.title}</div>
-								<div id="content">${qna.content}</div>
+								<div>${qna.content}</div>
 							</a>
 							<div style="margin-bottom: 10px;">
 								<span>${qna.memberVO.nickname}</span> <span

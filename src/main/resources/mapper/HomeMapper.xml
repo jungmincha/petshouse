@@ -246,8 +246,8 @@
 	       select * from(
 		        select rownum as rnum, A.*from (
 		       		select round(avg(ratescore),1) as avgscore, count(*) as count, g.goods_id from board b, goods g where b.goods_id=g.goods_id and b.boardtype_id=8 group by g.goods_id order by count(*) desc
-		       ) A where rownum <= #{pageNum} * #{amount}
-	       )where rnum > (#{pageNum}-1) * #{amount} 
+		       ) A where rownum <= #{pageNum} * 8
+	       )where rnum > (#{pageNum}-1) * 8 
 	   ]]>
 	</select>
 </mapper>

@@ -79,8 +79,10 @@ public class HomeController {
 	public Map<String, Object> goodslist(@RequestParam("keyword") String keyword, Criteria cri) {
 		log.info("morelist");
 		Map<String, Object> list = new HashMap<>();
-		List<BoardVO> goodslist = service.getMoreGoods(keyword, cri);
-		list.put("goodslist", goodslist);
+		List<BoardVO> rate = service.getStorerate(cri);
+		List<BoardVO> moregoods = service.getMoreGoods(keyword, cri);
+		list.put("rate", rate);
+		list.put("moregoods", moregoods);
 		return list;
 	}
 	

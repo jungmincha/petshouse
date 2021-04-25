@@ -12,6 +12,10 @@ import com.pet.ex.vo.PlikeVO;
 
 @Mapper
 public interface CommunityMapper {
+	
+	
+	//노하우 총 개수
+	public List<ImageVO> getTipsCount();
 
 	// 댓글 삭제
 	public void deleteComment(BoardVO boardVO);

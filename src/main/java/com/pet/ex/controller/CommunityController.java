@@ -49,6 +49,7 @@ public class CommunityController {
 	public ModelAndView tips(Criteria cri, ModelAndView mav) {
 		mav.addObject("tips", service.getTipsList(cri));
 		mav.addObject("rate", service.getTipsRate()); // 인기 노하우 슬라이드
+		mav.addObject("tipslistcount", service.getTipsCount());
 		mav.setViewName("community/tips");
 		return mav;
 	}

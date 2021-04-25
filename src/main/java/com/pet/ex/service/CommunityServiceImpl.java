@@ -19,6 +19,14 @@ import lombok.extern.slf4j.Slf4j;
 public class CommunityServiceImpl implements CommunityService {
 
 	public CommunityMapper mapper;
+	
+	//베스트 상품 총 개수	
+	@Override
+	public List<ImageVO> getTipsCount() {
+		log.info("getTipsCount");
+		return mapper.getTipsCount();
+	}
+	
 
 	@Override
 	public void deleteQnaComment(BoardVO boardVO) {

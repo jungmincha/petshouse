@@ -166,11 +166,19 @@
 					and b.board_id=i.board_id
 					and b.category_id =  c.category_id
     				and b.boardtype_id= 5 and b.pstep=0 order by board_id desc
-			    ) A WHERE ROWNUM <= #{pageNum} * 12
-			) WHERE RNUM > (#{pageNum}-1) * 12 
+			    ) A WHERE ROWNUM <= #{pageNum} *  12
+			) WHERE RNUM > (#{pageNum}-1) *  12
 		]]>
 	</select>
 
+
+	<!-- 노하우 총 개수 -->
+	<select id="getTipsCount" resultType="imagevo">
+		<![CDATA[
+	          select count(*) as count from board b, image i  where b.board_id=i.board_id and b.boardtype_id=5 and b.pstep=0 group by b.board_id
+	   ]]>
+	</select>
+	
 	<!-- 노하우 특정글 -->
 	<select id="getboardInfo" resultMap="boardvo">
 
@@ -276,7 +284,7 @@
 		<![CDATA[		
 		SELECT * FROM (
 			     SELECT ROWNUM AS RNUM, A.* FROM (
-			     	select b.board_id, b.title, b.content, b.pdate,b.hit, b.pgroup,b.pstep, b.hashtag, m.member_id, m.nickname, b.boardtype_id, c.category_id, c.categoryname 
+			     	select b.board_id, b.title, substr(b.content, 1, 150) as content, b.pdate,b.hit, b.pgroup,b.pstep, b.hashtag, m.member_id, m.nickname, b.boardtype_id, c.category_id, c.categoryname 
 			     	from  board b , member m, category c
 					where b.member_id = m.member_id
 					and b.category_id =  c.category_id

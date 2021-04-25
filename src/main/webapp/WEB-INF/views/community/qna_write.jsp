@@ -85,7 +85,7 @@
 
 				<div class="col">
 					<input type="text" class="form-control" name="hashtag"
-						maxlength="30" placeholder="해시태그" id="hashtag"
+						maxlength="30" placeholder="#해시태그를 입력해주세요" id="hashtag"
 						aria-describedby="hashtagHelp" />
 				</div>
 			</div>
@@ -95,7 +95,7 @@
 							<div class="col-sm-8">
 								<div class="custom-file">
 									<input type="file" class="custom-file-input" id="file"
-									    multiple="multiple" name="file"
+									     name="file"
 										style="display: block;"> <label
 										class="custom-file-label" for="inputGroupFile02">사진을
 										선택하세요.</label>
@@ -104,15 +104,7 @@
 						</div>
 						
 						
-						<div class="form-group row">
-							<label class="col-sm-6"></label>
-							<div class="input-group col-lg-7 ">
-								<div id='image_preview '>
-									<div id='preview'
-										data-placeholder='이미지를 첨부 하려면 파일 선택 버튼을 클릭하거나 이미지를 드래그앤드롭 하세요 *최대 10장까지'></div>
-								</div>
-							</div>
-						</div>
+					
 						
 
 		<div style="margin-top:30px; float: right;">

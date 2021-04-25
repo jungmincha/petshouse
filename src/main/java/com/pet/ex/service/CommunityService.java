@@ -12,6 +12,9 @@ public interface CommunityService {
 
 	// 질문과 답변 메인 페이지 리스트
 	public List<BoardVO> getQnaList(Criteria cri);
+	
+	//노하우 총 개수
+	public List<ImageVO> getTipsCount();
 
 	// 질문과 답변 특정글
 	public BoardVO getQnaInfo(int board_id);
