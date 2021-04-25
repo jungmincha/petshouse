@@ -13,6 +13,7 @@ public class PayGoodsVO {
 		this.boardVO = new BoardVO();
 	}
 
+	private int paygoods_id;
 	private int amount;
 	private String pcolor;
 	private String psize;

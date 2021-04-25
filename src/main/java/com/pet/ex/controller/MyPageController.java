@@ -144,6 +144,9 @@ public class MyPageController {
 
 		for (PayVO dto : pay) {
 			dto.setPayGoodsVO(myPageService.listPayGoods(dto.getPay_id()));
+			for (PayGoodsVO goods : dto.getPayGoodsVO()) {
+				System.out.println("상품목록 : " + goods.getBoardVO());
+			}
 		}
 		payAjax.put("pay", pay);
 		payAjax.put("pageMaker", new PageVO(cri, total));

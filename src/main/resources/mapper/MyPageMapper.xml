@@ -135,10 +135,12 @@
 	</resultMap>
 
 	<resultMap type="PayGoodsVO" id="paygoodsvo">
+		<result column="paygoods_id" property="paygoods_id" />
 		<result column="pay_id" property="pay_id" />
 		<result column="amount" property="amount" />
 		<result column="pcolor" property="pcolor" />
 		<result column="psize" property="psize" />
+
 		<collection property="boardVO" resultMap="boardvo" />
 	</resultMap>
 
@@ -183,12 +185,12 @@
 	<!-- 결제 후 payGoods에 정보 저장 -->
 	<insert id="insertPayGoods" parameterType="PayGoodsVO">
 		<![CDATA[
-		INSERT INTO payGoods(
+		INSERT INTO payGoods(paygoods_id,
 		pay_id,
 		board_id,amount,psize,pcolor
 		) VALUES
 		(
-
+		paygoods_seq.nextval,
 		#{pay_id}
 		,#{boardVO.board_id},#{amount},#{psize},#{pcolor}
 
