@@ -26,49 +26,25 @@
 	type="text/css">
 <link rel="stylesheet" href="/resources/css/nice-select.css"
 	type="text/css">
-<link rel="stylesheet" href="/resources/css/jquery-ui.min.css"
-	type="text/css">
 <link rel="stylesheet" href="/resources/css/slicknav.min.css"
 	type="text/css">
 <link rel="stylesheet" href="/resources/css/style.css" type="text/css">
 </head>
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
 <style>
-.parent {
-	display: grid;
-	grid-template-columns: repeat(5, 1fr);
-	grid-template-rows: repeat(5, 1fr);
-	grid-column-gap: 0px;
-	grid-row-gap: 0px;
-}
-
-.div1 {
-	grid-area: 2/2/3/5;
-}
 </style>
 
 <body style="padding-top: 180px;">
-	<!-- <div class="container">
+	<div class="container" style="width:1000px;height: 1000px;">
 		<div class="row ">
-			<div class="col-md-12">주문이 완료되었습니다.</div>
+			<div class="col-12 text-center "style="position:absolute;top:50%">회원 가입이 완료되었습니다.</div>
 		</div>
 
 	</div>
-	<h1>회원</h1> -->
 
-	<div class="container">
-		<div class="parent">
-
-			<div class="div1">주문이 완료되었습니다.</div>
-
-		</div>
-
-	</div>
 </body>
 <%@ include file="/WEB-INF/views/include/footer.jsp"%>
-<script src="/resources/js/jquery-3.3.1.min.js"></script>
 <script src="/resources/js/bootstrap.min.js"></script>
-<script src="/resources/js/jquery-ui.min.js"></script>
 <script src="/resources/js/jquery.countdown.min.js"></script>
 <script src="/resources/js/jquery.nice-select.min.js"></script>
 <script src="/resources/js/jquery.zoom.min.js"></script>

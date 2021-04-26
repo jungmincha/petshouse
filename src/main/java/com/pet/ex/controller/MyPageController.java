@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -120,15 +119,16 @@ public class MyPageController {
 
 	// 주문 리스트 조회
 	@GetMapping("/orderList")
-	public ModelAndView orderList(ModelAndView mav, Authentication authentication,String paystate_id) {
-		
+	public ModelAndView orderList(ModelAndView mav, Authentication authentication, String paystate_id) {
+
 		String member_id = authentication.getPrincipal().toString();
 		List<Integer> payCounts = new ArrayList<Integer>();
 		payCounts.add(myPageService.getPayTotal(member_id));
 		for (int i = 1; i <= 8; i++) {
 			payCounts.add(myPageService.getPaystateTotal(member_id, i));
 		}
-		if(paystate_id=="5") {
+
+		if (paystate_id != null && paystate_id.equals("5")) {
 			mav.addObject("paystate", 5);
 		}
 		mav.addObject("payCounts", payCounts);
@@ -170,7 +170,6 @@ public class MyPageController {
 		for (PayVO dto : pay) {
 			dto.setPayGoodsVO(myPageService.listPayGoods(dto.getPay_id()));
 		}
-
 		payAjax.put("pay", pay);
 		payAjax.put("pageMaker", new PageVO(cri, total));
 		return payAjax;
@@ -385,5 +384,10 @@ public class MyPageController {
 
 	}
 
+	@GetMapping("/test")
+	public ModelAndView test(ModelAndView mav) {
+		mav.setViewName("login/registerSuccess");
+		return mav;
+	}
 
 }

@@ -44,6 +44,7 @@
 .pimg {
 	width: 80px;
 	height: 80px;
+	border-radius: 20%;
 }
 
 #pimg {
@@ -240,10 +241,6 @@ a>span {
 	background-color: white;
 }
 
-.paystate {
-	
-}
-
 .paystate>span {
 	color: #e7ab3c;
 }
@@ -267,6 +264,18 @@ a>span {
 
 .pay:hover {
 	font-weight: bold;
+}
+
+.pBtn {
+	color: #34495e;
+	border:2px groove #A9D0F5;
+	background: white;
+	padding: 10px;
+	border-radius: 5%;
+}
+.pBtn:hover{
+	background-color: #FAFAFA;
+	color: #e7ab3c;
 }
 </style>
 <jsp:include page="/WEB-INF/views/include/header.jsp" />
@@ -468,10 +477,12 @@ a>span {
 	function allOrder(pageNum,amount,clas,paystate){
 		$(".pay").removeClass("active");
 		$(clas).addClass("active");
+		
 			var url ="/myPage/orderList/ajax/"+"${paystate}";
 			if(paystate !=null){
 				url="/myPage/orderList/ajax/"+paystate;
 			}
+			console.log(url)
 						$
 								.ajax({
 									url : url,
@@ -529,17 +540,17 @@ a>span {
 														html += "</div> <div class='col-lg-3'  style='text-align: right;'><span style='font-size: 20px'><br>배송준비중</span></div> </div>"
 															break;
 														case 3 :
-															html += "</div> <div class='col-lg-3' style='text-align: right;'><span style='font-size: 20px'><br><button class='btn-light' onclick='delivery("+data.pay[i-1].t_key+","+data.pay[i-1].t_invoice+")'>배송조회</button></span>"
+															html += "</div> <div class='col-lg-3' style='text-align: right;'><span style='font-size: 20px'><br><button class='pBtn' onclick='delivery("+data.pay[i-1].t_key+","+data.pay[i-1].t_invoice+")'>배송조회</button></span>"
 																+ "</div> </div>" 
 																break;
 														case 4 :
-															html += "</div> <div class='col-lg-3' style='text-align: right;'> <span style='font-size: 20px'><button class='btn-light' onclick='delivery("+data.pay[i-1].t_key+","+data.pay[i-1].t_invoice+")'>배송조회</button><br>"
-																+ "<button class='btn-light' style='margin-top:10px;' onclick='orderCheck("+data.pay[i-1].pay_id+")')>구매확정</button></span>"
+															html += "</div> <div class='col-lg-3' style='text-align: right;'> <span style='font-size: 20px'><button class='pBtn' onclick='delivery("+data.pay[i-1].t_key+","+data.pay[i-1].t_invoice+")'>배송조회</button><br>"
+																+ "<button class='pBtn' style='margin-top:10px;' onclick='orderCheck("+data.pay[i-1].pay_id+")')>구매확정</button></span>"
 																+ "</div> </div>"
 																break;
 														case 5 :
 															html += "</div> <div class='col-lg-3' style='text-align: right;'>"
-																+ "<span style='font-size: 20px'><br><button class='btn-light' id='myBtn' onclick='modals("+data.pay[i - 1].payGoodsVO[0].boardVO.goodsVO.goods_id+" ,\""+data.pay[i - 1].payGoodsVO[0].boardVO.goodsVO.thumbnail+"\",\""+data.pay[i-1].payGoodsVO[0].boardVO.goodsVO.goodsname+"\", "+data.pay[i-1].paystateVO.paystate_id+" , \""+option+"\")'>리뷰 작성</button></span>"
+																+ "<span style='font-size: 20px'><br><button class='pBtn' id='myBtn' onclick='modals("+data.pay[i - 1].payGoodsVO[0].boardVO.goodsVO.goods_id+" ,\""+data.pay[i - 1].payGoodsVO[0].boardVO.goodsVO.thumbnail+"\",\""+data.pay[i-1].payGoodsVO[0].boardVO.goodsVO.goodsname+"\", "+data.pay[i-1].paystateVO.paystate_id+" , \""+option+"\")'>리뷰 작성</button></span>"
 																+ "</div> </div>" 
 																break;
 														case 6 :
@@ -549,7 +560,7 @@ a>span {
 																break;
 														case 7 :
 															html += "</div> <div class='col-lg-3' style='text-align: right;'>"
-																+ "<span style='font-size: 20px'>교환처리<br><button class='btn-light' onclick='delivery("+data.pay[i-1].t_key+","+data.pay[i-1].t_invoice+")'>배송조회</button></span> "
+																+ "<span style='font-size: 20px'>교환처리<br><button class='pBtn' onclick='delivery("+data.pay[i-1].t_key+","+data.pay[i-1].t_invoice+")'>배송조회</button></span> "
 																+ "</div> </div>" 
 																break;
 														case 8 :
@@ -587,7 +598,7 @@ a>span {
 																	+ "</span>"
 																	+ "</div> <div class='col-lg-3'  style='text-align: right;'> <br>"
 																	if(data.pay[i-1].paystateVO.paystate_id==5){
-																		html += "<span style='font-size: 20px'><button class='btn-light' id='myBtn' onclick='modals("+data.pay[i - 1].payGoodsVO[j].boardVO.goodsVO.goods_id+" ,\""+data.pay[i - 1].payGoodsVO[j].boardVO.goodsVO.thumbnail+"\",\""+data.pay[i-1].payGoodsVO[j].boardVO.goodsVO.goodsname+"\", "+data.pay[i-1].paystateVO.paystate_id+" , \""+option+"\")'>리뷰 작성</button></span>"
+																		html += "<span style='font-size: 20px'><button class='pBtn' id='myBtn' onclick='modals("+data.pay[i - 1].payGoodsVO[j].boardVO.goodsVO.goods_id+" ,\""+data.pay[i - 1].payGoodsVO[j].boardVO.goodsVO.thumbnail+"\",\""+data.pay[i-1].payGoodsVO[j].boardVO.goodsVO.goodsname+"\", "+data.pay[i-1].paystateVO.paystate_id+" , \""+option+"\")'>리뷰 작성</button></span>"
 																	}
 																	html +="</div>"	
 																
