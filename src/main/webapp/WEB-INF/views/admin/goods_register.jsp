@@ -212,27 +212,6 @@ select {
 
 
 
-								<!-- Modal -->
-								<!-- <div class="modal fade" id="Modal" tabindex="-1" role="dialog"
-									aria-labelledby="ModalLabel" aria-hidden="true">
-									<div class="modal-dialog" role="document">
-										<div class="modal-content">
-											<div class="modal-header">
-												<h5 class="modal-title" id="ModalLabel">확인창</h5>
-												<button type="button" class="close" data-dismiss="modal"
-													aria-label="Close">
-													<span aria-hidden="true">&times;</span>
-												</button>
-											</div>
-											<div class="modal-body">상품등록하시겠습니까?</div>
-											<div class="modal-footer">
-												<button type="button" class="btn btn-secondary"
-													data-dismiss="modal">닫기</button>
-												<button type="submit" class="btn btn-warning"
-													style="background-color: #e7ab3c">등록하기</button>
-											</div>
-										</div>
-									</div> -->
 
 								<div class="col-sm-offset-2 col-sm-6">
 									<input type="button" class="btn btn-block"

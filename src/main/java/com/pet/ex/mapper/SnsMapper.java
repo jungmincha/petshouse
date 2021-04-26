@@ -84,8 +84,8 @@ public interface SnsMapper {
 	public int getCommentsCount(int board_id);
 
 	//sns 총 갯수
-		public  int getSnstotal(BoardVO boardVO);
-		public List<ImageVO> imgCount(ImageVO imageVO);
+	public  int getSnstotal(BoardVO boardVO);
+	public List<ImageVO> imgCount(ImageVO imageVO);
 	public List<BoardVO> countComment(BoardVO boardVO);
 
 }
