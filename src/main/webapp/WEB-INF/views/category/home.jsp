@@ -107,6 +107,42 @@ span.star-prototype>* {
 </style>
 
 
+<!-- 방문자 수 구하는 자바스크립트 -->
+<script>
+
+
+
+expireDate = new Date
+expireDate.setMonth(expireDate.getMonth()+6)
+jcount = eval(cookieVal("jaafarCounter"))
+jcount++
+document.cookie = "jaafarCounter="+jcount+";expires=" + expireDate.toGMTString()
+
+console.log(jcount);
+
+
+function cookieVal(cookieName) {
+	thisCookie = document.cookie.split("; ")
+	for (i=0; i<thisCookie.length; i++){
+		if (cookieName == thisCookie[i].split("=")[0]){
+			return thisCookie[i].split("=")[1]
+		}
+	}
+	return 0
+}
+
+
+
+
+
+
+
+
+
+
+</script>
+<!-- 방문자 수 구하는 자바스크립트  끝-->
+
 
 
 

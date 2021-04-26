@@ -265,21 +265,28 @@ a:hover {
 				</c:if>
 			</div>
 			<div class="col-lg-12 text-center">
-			 
-				<button type="button" class="btn btn-warning" id = "more" onClick="btnClick()">더보기</button>
-				 
+			 	<c:if test="${snsTotal > 8}">
+			 	<input type="hidden" class="snsTotal" value="${snsTotal}" />
+				<button type="button" class="btn btn-warning"  onClick="btnClick()">더보기</button>
+				 </c:if> 
 			</div>
 		</div>
 	</div>
 	<!--  더보기 페이징 처리 -->
 	<script type="text/javascript">
+	
 		var pageNum = 1;
+		var check =$('.snsTotal').val() / 8;
 
 		function btnClick() {
 
 			pageNum += 1;
 			console.log(pageNum);
+			console.log(check);
 
+			if (pageNum > check){
+				$(".btn").hide();
+			}
 			$
 					.ajax({
 						type : "POST",
@@ -289,8 +296,9 @@ a:hover {
 						},
 						success : function(data) {
 							console.log(data);
-							$("#more").empty();
+							
 							var sns = data.sns;
+							var snsTotal = data.snsTotal;
 
 							html = " "
 							for ( var i in sns) {
@@ -316,20 +324,16 @@ a:hover {
 							}
 
 							$("#snslist").append(html);
-							if ((pageNum-1) * 8 + data.length < total)
-								html2 = "<button type='button' class='btn btn-warning' onClick='btnClick()'>더보기</button>"
-								
-									$("#more").append(html2);
-						},
-						//success end
-						error : function(request, status, error) {
-							alert("code:" + request.status + "\n" + "message:"
-									+ request.responseText + "\n" + "error:"
-									+ error);
-						} // ajax 에러 시 end
-					}); //ajax end	 
-		}; //click end
-		
+						 
+						 		 
+						  }, 	        
+			    	        //success end
+			    	        error : function(request, status, error) {
+								alert("code:" + request.status + "\n" + "message:"
+										+ request.responseText + "\n" + "error:" + error);
+							} // ajax 에러 시 end
+			    	    }); //ajax end	 
+			    	}; //click end	
 		
 	</script>
 	<!-- Footer -->

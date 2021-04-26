@@ -167,6 +167,44 @@ window.onscroll = function(e) {
 };
 </script>
 
+
+<style>
+.counter{
+	background-color:black;
+	color:yellow;
+	font-weight:bold;
+}
+</style>
+
+
+
+<script>
+
+expireDate = new Date
+expireDate.setMonth(expireDate.getMonth()+6)
+jcount = eval(cookieVal("jaafarCounter"))
+jcount++
+document.cookie = "jaafarCounter="+jcount+";expires=" + expireDate.toGMTString()
+
+console.log(jcount);
+
+
+function cookieVal(cookieName) {
+	thisCookie = document.cookie.split("; ")
+	for (i=0; i<thisCookie.length; i++){
+		if (cookieName == thisCookie[i].split("=")[0]){
+			return thisCookie[i].split("=")[1]
+		}
+	}
+	return 0
+}
+
+
+
+</script>
+
+
+
 </head>
 <body style="padding-top: 128px">
 
@@ -181,7 +219,7 @@ window.onscroll = function(e) {
 <header>                
     <h1 class="pageTitle">Infinity scroll</h1>
 </header>
-<article>
+<!-- <article>
     <div class="block">
         <p>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem mollitia accusamus sequi ipsa, rerum nam laboriosam, ipsam aperiam deleniti beatae expedita id quisquam veritatis corporis, voluptates ducimus molestiae eum adipisci.
@@ -192,8 +230,14 @@ window.onscroll = function(e) {
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem mollitia accusamus sequi ipsa, rerum nam laboriosam, ipsam aperiam deleniti beatae expedita id quisquam veritatis corporis, voluptates ducimus molestiae eum adipisci.
         </p>
     </div>
-    <!-- 반복 -->
-</article>
+    반복
+</article> -->
+
+
+
+
+당신은 현재페이지에 <script>page_counter(jcount);</script>번 접속하셨습니다.
+
 
 
 

@@ -55,7 +55,7 @@ public class SnsController {
 		
 		mav.addObject("imgCount", service.imgCount(imageVO));
 		mav.addObject("count", service.countComment(boardVO));
-	 
+		mav.addObject("snsTotal", service.getSnstotal(boardVO));
 		mav.setViewName("sns/sns_list");
 
 		return mav;
@@ -63,12 +63,14 @@ public class SnsController {
 	
 	//sns 더보기
 	@PostMapping("/smorelist")
-	public Map<String, Object> sns(@RequestParam("board_id") int board_id, BoardVO boardVO, ImageVO imageVO, Criteria cri) {
+	public Map<String, Object> sns(BoardVO boardVO, ImageVO imageVO, Criteria cri) {
 		log.info("morelist");
 		Map<String, Object> list = new HashMap<>();
 		List<ImageVO> sns = service.getsnsList(cri);
 		list.put("sns", sns);
-		list.put("total", service.getSnstotal(boardVO));
+		list.put("imgCount", service.imgCount(imageVO));
+		list.put("count", service.countComment(boardVO));
+		list.put("snsTotal", service.getSnstotal(boardVO));
 		return list;
 	}
 	
@@ -105,6 +107,7 @@ public class SnsController {
 		Map<String, Object> list = new HashMap<>();
 		List<BoardVO> comment = service.getcommentsList(cri, board_id);
 		list.put("comment", comment);
+		
 		return list;
 	}
 	
@@ -169,7 +172,7 @@ public class SnsController {
 	}
 
 	@GetMapping("/sns/{board_id}")
-	public ModelAndView contentView(@PathVariable("board_id") int board_id,  Authentication authentication ,PlikeVO plikeVO ,BoardVO boardVO, MemberVO memberVO, Criteria cri, ModelAndView mav)
+	public ModelAndView contentView(@PathVariable("board_id") int board_id, ImageVO imageVO, Authentication authentication ,PlikeVO plikeVO ,BoardVO boardVO, MemberVO memberVO, Criteria cri, ModelAndView mav)
 			throws Exception {
 
 		boardVO = service.getBoardInfo(board_id);
@@ -180,25 +183,21 @@ public class SnsController {
 	      }
 		System.out.println(member_id);
 		String present_nickname = service.getPresetnNickname(member_id);//현재 닉네임
-		
-		
+			
 		log.info("SNS_View");
 
-	 
-		log.info("SNS_View");
-
-		 
 		String nickname = service.getNickname(board_id);
-  
-	
+		int count = service.getCommentsCount(board_id);
+		
+		mav.addObject("count",count);
+		mav.addObject("imgCount", service.imgCount(imageVO));  
 		mav.addObject("user",  service.getUserboard(nickname));
 		mav.addObject("sns", service.getBoard(boardVO.getBoard_id()));
 		mav.addObject("img", service.getImg(board_id));
-		 
+		service.hit(boardVO.getBoard_id()); 
 		
-		//좋아요 start
-		//좋아요 출력
-	
+		 
+		//좋아요
 		MemberVO member = new MemberVO();
 		plikeVO.setMemberVO(member);
 		plikeVO.getMemberVO().setMember_id(member_id);
@@ -207,18 +206,10 @@ public class SnsController {
 		plikeVO.setBoardVO(board);
 		plikeVO.getBoardVO().setBoard_id(boardVO.getBoard_id());
 		
-		//좋아요 수 
 		mav.addObject("like_amount", service.getLiketotal(plikeVO.getBoardVO().getBoard_id()));
-		//좋아요 유무 체크
 		mav.addObject("likecheck", service.isLike(plikeVO));
-		//좋아요 리스트 
 		mav.addObject("likelist", service.getLikelist(plikeVO));
 		
-		//좋아요 end
-	 
-	 
-		service.hit(boardVO.getBoard_id());
-
 		mav.setViewName("sns/sns_contentView");
 
 		return mav;

@@ -188,7 +188,12 @@ body {
 }
 
 .pd {
+	position : absolute;
+	
 	float: right;
+	top : 10px;
+	right:5px;
+	font-size: 15px;
 }
 </style>
 <script>
@@ -248,9 +253,9 @@ body {
 							style="padding-top: 7px; padding-left: 7px; font-size: 17px;">
 							${sns.memberVO.nickname}</p>
 
-						<div class="pdate"
-							style="padding-top: 7px; padding-left: 600px; font-size: 15px;">
-							${sns.pdate}</div>
+						<div class="pdate pd">
+							${sns.pdate}
+						</div>
 
 					</div>
 
@@ -264,11 +269,11 @@ body {
 						</div>
 					</c:forEach>
 
-
-
+						<c:forEach items="${imgCount}" var = "imgCount">
+					 <c:if test="${imgCount.boardVO.board_id eq sns.board_id and imgCount.count > 1}"> 
 					<a class="prev" onclick="plusSlides(-1)">❮</a> <a class="next"
 						onclick="plusSlides(1)">❯</a>
-
+						</c:if></c:forEach> 
 
 
 
@@ -420,9 +425,11 @@ body {
 								</div>
 
 								<!-- Modal body -->
-								<div class="likelist modal-body">
+								<div class="likelist modal-body row">
 									<c:forEach items="${likelist}" var="likelist">
-										<p>${likelist.memberVO.nickname}</p>
+										<div class="profile_box" style="margin-left:15px;"><a href="/myPage/${likelist.memberVO.nickname}">
+										<img src="/resources/img/member/profile/${likelist.memberVO.thumbnail}" name="profile"   class="profile" />
+										</div><div style="padding-top:10px;">${likelist.memberVO.nickname}</div></a>
 									</c:forEach>
 								</div>
 
@@ -489,22 +496,22 @@ body {
 								</div>
 								<h4 style="padding-top: 30px; padding-left: 15px;">${sns.memberVO.nickname}</h4>
 								<a href="/myPage/${sns.memberVO.nickname}"
-									style="padding-top: 40px;"> &nbsp 팔로우 </a>
+									style="padding-top: 32px;"> &nbsp 팔로우 </a>
 							</div>
 
 
 
 						</div>
-						<br> <br>
-
-
+						<br>  
+						
+						<div class="col-lg-4"><a href="/myPage/sns?nickname=${sns.memberVO.nickname}" style="float: right; padding-left  ">더보기</a></div>
 						<div class="recent-posts">
-
+							
 							<ul>
-
+									
 								<c:forEach var="user" items="${user}">
-									<a href="/commu/sns/${user.boardVO.board_id}"> <img
-										src="/resources/img/member/sns/${user.imgname}" class="recent"></a>
+									<a href="/commu/sns/${user.boardVO.board_id}"> 
+									<img src="/resources/img/member/sns/${user.imgname}" class="recent"></a>
 								</c:forEach>
 
 							</ul>
@@ -557,7 +564,7 @@ body {
 			<div>
 				<div>
 					<h5>
-						<strong id="count">댓글(${count})</strong>
+						<strong id="count">댓글 ${count} </strong>			 
 					</h5>
 				</div>
 				<div>

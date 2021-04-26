@@ -169,7 +169,7 @@
 	<select id="getSnstotal" resultType="int">
 	
 			<![CDATA[	
-					select count(*) from board where boardtype_id=2 and pstep = 0
+					select count(*) as count from board b where boardtype_id=2 and pstep=0
 			]]>
 		
 	</select>
@@ -179,7 +179,7 @@
 	<select id="getCommentsCount" resultType="int">
 	
 			<![CDATA[
-	       			select count(*) as count   from board where boardtype_id= 2 and pgroup = (select pgroup from board where board_id=#{board_id}) and pstep=1 group by pgroup
+	       			select count(*) as count   from board where boardtype_id= 2 and pgroup = (select pgroup from board where board_id=#{board_id}) and pstep=1  
 	  		 ]]>
 	  		 
 	</select>
@@ -189,7 +189,7 @@
 	 <select id="imgCount" resultMap="imagevo">
 	 
 			<![CDATA[
-	        	 	  select b.board_id , count(imgname) as count from image i, board b where i.board_id=b.board_id and b.boardtype_id=2 group by b.board_id
+	        	 	 select b.board_id , count(imgname) as count from image i, board b where i.board_id=b.board_id and b.boardtype_id=2 group by b.board_id
 	  		 ]]>
 	  		 
 	</select>
@@ -297,7 +297,7 @@
 	<!-- 좋아요 리스트 조회 -->
 	<select id="getLikelist" resultMap="plikevo">
 		<![CDATA[
-		 select p.member_id , m.nickname from plike p , member m where p.member_id = m.member_id and board_id = #{boardVO.board_id}
+		 select p.member_id , m.nickname, m.thumbnail from plike p , member m where p.member_id = m.member_id and board_id = #{boardVO.board_id}
 	        
 	   ]]>
 	</select>
