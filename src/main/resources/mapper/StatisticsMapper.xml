@@ -156,7 +156,7 @@
 	<!-- 일별 통계 -->
 	<select id="getDailySale" resultType="int">
 		<![CDATA[
-			select nvl(sum(payprice), 0) from pay where extract(year from paydate) = 2021 and extract(month from paydate) = 4 and extract(day from paydate) = #{valueOf}
+			select nvl(sum(payprice), 0) from pay where extract(year from paydate) = #{year} and extract(month from paydate) = #{month} and extract(day from paydate) = #{valueOf}
 		]]>
 	</select>
 
@@ -165,7 +165,7 @@
 	<!-- 월별 통계 -->
 	<select id="getMonthSale" resultType="int"> 
 	<![CDATA[ 
-		select nvl(sum(payprice), 0) from pay where extract(year from paydate) = 2021 and extract(month from paydate) = #{valueOf}
+		select nvl(sum(payprice), 0) from pay where extract(year from paydate) = #{year} and extract(month from paydate) = #{valueOf}
 	]]>
 	</select>
 	
