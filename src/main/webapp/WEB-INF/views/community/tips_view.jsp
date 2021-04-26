@@ -165,7 +165,11 @@ margin-bottom:20px;
 .plike{
 left:100%;
 }
-
+.content{
+margin-top: 40px; 
+margin-bottom: 20px;
+min-height:120px;
+}
 </style>
 </head>
 
@@ -227,7 +231,7 @@ left:100%;
 <hr>
 
 
-				<section style="margin-top: 40px; margin-bottom: 20px; min-height:90px;">${tips_view.content}</section>
+				<section class="content">${tips_view.content}</section>
 			
 				<div class="bottom">
 				

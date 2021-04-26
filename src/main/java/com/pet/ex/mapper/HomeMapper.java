@@ -33,5 +33,4 @@ public interface HomeMapper {
 	public List<BoardVO> getTipsCount(String keyword);
 
 
-
 }

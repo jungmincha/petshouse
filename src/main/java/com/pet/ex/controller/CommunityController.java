@@ -296,39 +296,35 @@ public class CommunityController {
 	public ModelAndView write(MultipartHttpServletRequest multi, ImageVO imageVO, BoardVO boardVO, ModelAndView mav)
 			throws IllegalStateException, IOException {
 		log.info("write()실행");
-		service.writeQna(boardVO);
-		BoardVO board = service.getQnaBoard_id();
-		System.out.println(board.getBoard_id());
-
-		String path = multi.getSession().getServletContext().getRealPath("/static/img/qna");
-		path = path.replace("webapp", "resources");
-		File dir = new File(path);
-		if (!dir.isDirectory()) {
-			dir.mkdir();
-		}
-
-		List<MultipartFile> mf = multi.getFiles("file");
-
-		for (int i = 0; i < mf.size(); i++) { // 파일명 중복 검사
-
-			UUID uuid = UUID.randomUUID(); // 파일명 랜덤으로 변경
-
-			String originalfileName = mf.get(i).getOriginalFilename();
-			String ext = FilenameUtils.getExtension(originalfileName);
-			// 저장 될 파일명
-			String imgname = uuid + "." + ext;
-
-			String savePath = path + "\\" + imgname; // 저장 될 파일 경로
-
-			mf.get(i).transferTo(new File(savePath)); // 파일 저장
-			imageVO.setImgname(imgname);
-			
-			imageVO.getBoardVO().setBoard_id(board.getBoard_id());
-			service.ImgInput(imageVO);
-
-		}
-		mav.setView(new RedirectView("/commu/qna", true));
-		return mav;
+		if (multi.getFile("file").getOriginalFilename().equals("")) {
+			service.writeQna(boardVO);
+		      }else {
+				service.writeQna(boardVO);
+				BoardVO board = service.getQnaBoard_id();
+		         String path = multi.getSession().getServletContext().getRealPath("/static/img/qna");
+		         path = path.replace("webapp", "resources");
+		         File dir = new File(path);
+		         if (!dir.isDirectory()) {
+		            dir.mkdir();
+		         }
+		         List<MultipartFile> mf = multi.getFiles("file");
+		         for (int i = 0; i < mf.size(); i++) { // 파일명 중복 검사
+		            UUID uuid = UUID.randomUUID();
+		            // 본래 파일명
+		            String originalfileName = mf.get(i).getOriginalFilename();
+		            String ext = FilenameUtils.getExtension(originalfileName);
+		            String imgname = uuid + "." + ext;
+		            String savePath = path + "\\" + imgname; // 저장 될 파일 경로
+		            mf.get(i).transferTo(new File(savePath)); // 파일 저장
+		           imageVO.setImgname(imgname);
+					
+					imageVO.getBoardVO().setBoard_id(board.getBoard_id());
+					service.ImgInput(imageVO);
+		         }
+		        
+		      }
+		 mav.setView(new RedirectView("/commu/qna", true));
+			return mav;
 	}
 
 	// 질문과 답변 글 검색

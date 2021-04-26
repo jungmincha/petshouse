@@ -202,7 +202,7 @@ body::-webkit-scrollbar-track {
 							<div style="margin-bottom: 10px;">
 								<span>${qna.memberVO.nickname}&nbsp&nbsp</span> <span
 									style="font-size: 13px; color: gray;"> <fmt:formatDate
-										value="${qna.pdate}" pattern="yy.MM.dd" /></span> 
+										value="${qna.pdate}" pattern="yyyy.MM.dd" /></span> 
 								<span
 									style="font-size: 13px; color: gray;"> &nbsp&nbsp조회수 ${qna.hit}&nbsp&nbsp </span>
 								<c:forEach items="${ccount}" var="count">  
@@ -211,7 +211,7 @@ body::-webkit-scrollbar-track {
 							
 							 <span style="font-size: 13px; color: gray;">댓글${count.count}&nbsp&nbsp</span></c:if></c:if></c:forEach>
 							 
-									<c:set var="hashtag" value="${qna.hashtag}" />
+								<c:set var="hashtag" value="${qna.hashtag}" />
 								<c:set var="tag" value="${fn:split(hashtag, '#')}" />
 								<c:forEach var="t" items="${tag}">
 									<c:if test="${not empty qna.hashtag}">
@@ -285,13 +285,13 @@ body::-webkit-scrollbar-track {
 														+ data[i - 1].content
 														+ "</div> <span>"
 														+ data[i - 1].memberVO.nickname
-														+ "</span>"
+														+ "&nbsp&nbsp</span>"
 														+ "<span style='font-size: 13px; color: gray;'>"
-														+ data[i - 1].pdate
-														+ "</span> "
+														+ getFormatDate(data[i - 1].pdate)
+														+ "&nbsp&nbsp</span> "
 														+ "<span style='font-size: 13px; color: gray;'> 조회수 "
 														+ data[i - 1].hit
-														+ "</span>"
+														+ "&nbsp&nbsp</span>"
 														+ "</a>"
 														+ "</td></tbody>"
 
@@ -314,6 +314,14 @@ body::-webkit-scrollbar-track {
 							
 						})
 	</script>
+	
+	   <script>
+		function getFormatDate(date) {
+			
+			var date = date.substr(0, 10);
+			return date; 
+		}	
+	  </script>
 
 	<!-- Footer -->
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>

@@ -109,6 +109,7 @@ public class HomeController {
 		Map<String, Object> list = new HashMap<>();
 		List<ImageVO> moresns = service.getMoreSns(keyword, cri);
 		List<BoardVO> ccount = service.countComment(boardVO);
+		list.put("snscount", service.getSnsCount(keyword));
 		list.put("moresns", moresns);
 		list.put("ccount", ccount);
 		return list;

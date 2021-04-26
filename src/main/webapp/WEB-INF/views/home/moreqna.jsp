@@ -63,6 +63,9 @@
 #hashtag:hover {
 	background-color: #dddddd;
 }
+b{
+color:#FFBF00
+}
 </style>
 <script>
 
@@ -78,7 +81,7 @@
 
 		<input type="hidden" name="keyword" value="${param.keyword}">
 		<h5>
-			<b>'${param.keyword}'</b>에 대한 검색결과 <b>${qcount}건</b>
+			<b>'${param.keyword}'</b>에 대한 검색결과 <b>${qcount}</b>건
 		</h5>
 		<br>
 		<br>

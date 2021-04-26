@@ -137,6 +137,11 @@
 	height: 100%;
 	object-fit: cover;
 }
+.content{
+margin-top: 60px; 
+margin-bottom: 20px;
+min-height:120px;
+}
 </style>
 </head>
 
@@ -198,7 +203,7 @@
 				<c:forEach var="img" items="${img}">
 					<img src="/resources/img/qna/${img.imgname}">
 				</c:forEach>
-						<section style="margin-top: 60px; margin-bottom: 20px;">${qna_view.content}</section>
+						<section class="content">${qna_view.content}</section>
 				<form action="${pageContext.request.contextPath}/search"
 					method="get">
 					<ul class="pd-tags">

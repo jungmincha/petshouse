@@ -32,8 +32,6 @@
 	type="text/css">
 <link rel="stylesheet" href="/resources/css/nice-select.css"
 	type="text/css">
-<link rel="stylesheet" href="/resources/css/jquery-ui.min.css"
-	type="text/css">
 <link rel="stylesheet" href="/resources/css/slicknav.min.css"
 	type="text/css">
 <link rel="stylesheet" href="/resources/css/style.css" type="text/css">
@@ -46,10 +44,7 @@
 <!-- jquery cdn -->
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<link rel="stylesheet" href="/resources/css/select-style.css"
-	type="text/css">
-<link rel="stylesheet" href="/resources/js/select-index.js"
-	type="text/css">
+
 <script type="text/javascript">
 	$(document).ready(function() {
 		$.fn.generateStars = function() {
@@ -101,7 +96,7 @@ hr {
 .count2 {
 	position: absolute;
 	bottom: 90px;
-	right: 40px;
+	right: 50px;
 	font-size: 13px;
 	color: #fff;
 	text-shadow: 0 0 4px rgb(0 0 0/ 50%);
@@ -262,25 +257,21 @@ img {
 							<div class="pi-pic shot">
 								<a href="/commu/sns/${ms.boardVO.board_id}"> <img
 									src="/resources/img/member/sns/${ms.imgname}"
-									style="height: 260px;" alt="" /><span
+									style="height: 250px; width:250px;" alt="" /><span
 									class="count2">조회수 ${ms.boardVO.hit}</span></a>
 							</div>
 							<div
 								style="font-size: 20px; text-align: center; margin-top: 8px; margin-bottom: 30px;">
 								<i class="far fa-heart" style="font-size: 25px;"></i>&nbsp&nbsp${ms.boardVO.plike}
 								&nbsp&nbsp&nbsp&nbsp
-								<c:forEach items="${ccount}" var="count">
-									<c:if test="${count.pgroup eq ms.boardVO.board_id}">
-										<a href="/commu/sns/${ms.boardVO.board_id}"> <i
-											class="far fa-comment" style="font-size: 25px;"></i>
-
-											${count.count}
-										</a>
-									</c:if>
-								</c:forEach>
-							</div>
+								<a href="/commu/sns/${ms.boardVO.board_id}"></a>
+							<i class="far fa-comment"  style="font-size : 25px;"></i>
+							<c:forEach items="${ccount}" var="count">  
+							<c:if test="${count.pgroup eq ms.boardVO.board_id}">
+							${count.count}</c:if></c:forEach></div>
 						</div>
 
+ 
 
 					</c:forEach>
 				</div>

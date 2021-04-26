@@ -30,8 +30,6 @@
 	type="text/css">
 <link rel="stylesheet" href="/resources/css/nice-select.css"
 	type="text/css">
-<link rel="stylesheet" href="/resources/css/jquery-ui.min.css"
-	type="text/css">
 <link rel="stylesheet" href="/resources/css/slicknav.min.css"
 	type="text/css">
 <link rel="stylesheet" href="/resources/css/style.css" type="text/css">
@@ -53,21 +51,34 @@
 #navbars>li:nth-child(1) {
    background-color: #e7ab3c;
 }
+b{
+color:#FFBF00
+}
 .count{
 	position: absolute;
-    bottom: 10px;
+    bottom: 35px;
     right: 20px;
     font-size: 13px;
     color: #fff;
     text-shadow: 0 0 4px rgb(0 0 0 / 50%);
 }
-
+.count2{
+	position: absolute;
+    bottom: 55px;
+    right: 30px;
+    font-size: 13px;
+    color: #fff;
+    text-shadow: 0 0 4px rgb(0 0 0 / 50%);
+}
 #hashtag {
 	font-size: 13px;
 	padding: 0.01px;
 }
 #hashtag:hover{
 background-color:#dddddd;
+}
+img{
+border-radius:8px;
 }
 
 
@@ -86,41 +97,38 @@ background-color:#dddddd;
 		
 		<input type="hidden" name="keyword" value="${param.keyword}">
 		
-		<h5><b>'${param.keyword}'</b>에 대한 검색결과 <b>${tcount}건</b></h5>
+		<h5><b>'${param.keyword}'</b>에 대한 검색결과 <b>${tcount}</b>건</h5>
 			<br><br>
-			<div id="table" class="row text-center"
+			<div id="table" class="row"
 							style="margin-top: 20px; margin-left: 5px;">
 
-							<c:forEach items="${moretips}" var="mt">
-								<div class="product-item col-sm-3">
-									<a href="/commu/tips/${mt.boardVO.board_id}">
-										<div class="pi-pic shot">
-				<img src="/resources/img/tips/${mt.imgname}" alt=""
-								style="border-radius: 5px; height: 150px;">
-								<span class="count">조회수 ${mt.boardVO.hit}</span>
-						</div>
-										<div class="pi-text"
-											style="text-align: left; padding-top: 5px;">
-											<h6 style="font-size: 15px; font-weight: bold;">${mt.boardVO.title}</h6>
-										</div>
-									</a>
-									<div style="font-size: 14px; text-align: left;">${mt.boardVO.memberVO.nickname}</div>
-									
-								</div>
-							</c:forEach>
-
-						</div>
-					 <c:if test="${fn:length(tipscount) > 8}">
+						<c:forEach items="${moretips}" var="mt">
+				<div class="product-item col-sm-6 col-md-4 col-lg-3 ">
+					<div class="pi-pic shot">
+						<a href="/commu/tips/${mt.boardVO.board_id}"> <img
+							src="/resources/img/tips/${mt.imgname}" alt=""
+							style="height: 180px;"> <span
+							class="count">조회수 ${mt.boardVO.hit}</span> 
+							<span
+							style="font-size: 15px; font-weight: bold;">${mt.boardVO.title}</span>
+						</a>
+					</div>
+					<div style="font-size: 14px; text-align: left;">${mt.boardVO.memberVO.nickname}</div>
+				</div>
+			</c:forEach>
+		</div>
+		
+					 
                 <input type="hidden" class="count" value="${fn:length(tipscount)}" />
 	            <div class="col-lg-12 text-center">
 	            	<button type="button" class="btn btn-warning" onClick="btnClick()">더보기</button>
 		        </div>
-		      </c:if>
+		   
 	        
 	</div>
 <script type="text/javascript">
 var pageNum = 1;
-var check = $('.count').val() / 8;
+var check = $('.count').val() / 12;
 
 function btnClick(){
 	  pageNum += 1;
@@ -146,16 +154,16 @@ function btnClick(){
 					
     	          html = " "
     	           for(var i in tipslist){
-    	        	  html  +="<div class='product-item col-sm-3'>"
+    	        	  html  +="<div class='product-item col-sm-6 col-md-4 col-lg-3 '>"
+    	        	  +"<div class='pi-pic shot'>"
     	        	  +"<a href='/commu/tips/"+tipslist[i].boardVO.board_id+"'>"
-    	        	  +"<div class='pi-pic'><img src='/resources/img/tips/"+tipslist[i].imgname+"' alt=''style='border-radius: 5px; height: 150px;'></div>"   	          	
-    	        	  +"<div class='pi-text' style='text-align: left; padding-top: 5px;'>"
-    	        	  +"<h6 style='font-size: 15px; font-weight: bold;'>"+tipslist[i].boardVO.title+"</h6></div></a>"
-    	        	  +"<div style='font-size: 14px; text-align: left;'>"+tipslist[i].boardVO.memberVO.nickname+"</div>"
-    	        	  +"<div style='font-size: 13px; color: gray; text-align: left;'>조회수"+tipslist[i].boardVO.hit+"</div></div>"
+    	        	  +"<img src='/resources/img/tips/"+tipslist[i].imgname+"' alt='' style='height: 180px;'> "
+    	        	  +"<span class='count'>조회수 "+tipslist[i].boardVO.hit+"</span> "
+    	        	  +"<span style='font-size: 15px; font-weight: bold;'> "+tipslist[i].boardVO.title+"</span></a></div>"
+    	        	  +"<div style='font-size: 14px; text-align: left;'> "+tipslist[i].boardVO.memberVO.nickname+"</div></div></div>"
     	           }
     	           
-    	          if(tipslist.length == 8){
+    	          if(tipslist.length == 12){
 		        		html += "<div class='btn col-lg-12 text-center'>"  
 		            		 + "<button type='button' class='btn btn-warning' onClick='btnClick()'>더보기</button> </div>";			      
 		        	}
@@ -181,9 +189,7 @@ function btnClick(){
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 
 	<!-- Js Plugins -->
-	<script src="/resources/js/jquery-3.3.1.min.js"></script>
 	<script src="/resources/js/bootstrap.min.js"></script>
-	<script src="/resources/js/jquery-ui.min.js"></script>
 	<script src="/resources/js/jquery.countdown.min.js"></script>
 	<script src="/resources/js/jquery.nice-select.min.js"></script>
 	<script src="/resources/js/jquery.zoom.min.js"></script>

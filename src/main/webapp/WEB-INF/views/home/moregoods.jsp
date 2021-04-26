@@ -56,6 +56,14 @@ span.star-prototype>*, span.star>* {
 	background-position: 0 0;
 	max-width: 80px;
 	}
+	
+img{
+border-radius:8px;
+}
+
+b{
+color:#FFBF00
+}
 </style>
 
 <script type="text/javascript">
@@ -80,7 +88,7 @@ span.star-prototype>*, span.star>* {
 
 		
 		<input type="hidden" name="keyword" value="${param.keyword}">
-		<h5><b>'${param.keyword}'</b>에 대한 검색결과 <b>${gcount}건</b></h5>
+		<h5><b>'${param.keyword}'</b>에 대한 검색결과 <b>${gcount}</b>건</h5>
 			<br><br>
 			
 				<div id="table" class="row text-center"

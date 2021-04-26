@@ -97,12 +97,12 @@ public class HomeServiceImpl implements HomeService {
 		log.info("getSnsCount");
 		return mapper.getSnsCount(keyword);
 	}
-	//sns 더보기용	
+	//노하우 더보기용	
 	@Override
 	public List<BoardVO> getTipsCount(String keyword) {
 		log.info("getTipsCount");
 		return mapper.getTipsCount(keyword);
 	}
-
+	
 
 }
