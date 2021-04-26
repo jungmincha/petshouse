@@ -96,4 +96,11 @@ public class StoreServiceImpl implements StoreService {
 		log.info("getSns");
 		return mapper.getSns();
 	}
+
+	//해당 SNS 댓글 총 개수
+	@Override
+	public List<BoardVO> getCommentcount() {
+		log.info("getCommentcount");
+		return mapper.getCommentcount();
+	}
 }

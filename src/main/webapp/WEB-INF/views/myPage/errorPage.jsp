@@ -12,11 +12,7 @@
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
 
-<Style>
-	.container{
-		
-	}
-	
+<style>
 	img{
 		width:320px;
 		height:380px;
@@ -34,7 +30,7 @@
 	}
 	
 	
-</Style>
+</style>
 
 </head>
 <body>
@@ -45,8 +41,8 @@
     	<div class="row">
     		<div class="aligner-item col-12 text-center"> 	 
 				<img src="/resources/img/admin/board/error.JPG" alt="">
-				<h4 style="margin-bottom:15px;">요청하신 페이지를 찾을 수 없습니다</h4>
-				<a href="/store/home"><h5>&nbsp;홈으로</h5></a> 
+				<div style="padding-bottom:10px;"><span style="font-size:35px;">&nbsp;요청하신 페이지를 찾을 수 없습니다.</span></div>
+				<a href="/store/home"><span style="color:#e7ab3c; font-size:25px;">&nbsp;&nbsp;<u>홈으로</u></span></a> 
 			</div>
 		</div>
 	</div>
