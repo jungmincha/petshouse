@@ -42,14 +42,14 @@
 	<!-- 팔로워 리스트 조회 -->
 	<select id="getFollowerlist" resultMap="followvo">
 		<![CDATA[
-	        select follower_id from follow where member_id=#{memberVO.member_id}
+	        select * from follow f, member m where f.follower_id=m.nickname and f.member_id=#{memberVO.member_id}
 	   ]]>
 	</select> 
 	
 	<!-- 팔로잉 리스트 조회 -->
-	<select id="getFollowinglist" resultMap="membervo">
+	<select id="getFollowinglist" resultMap="followvo">
 		<![CDATA[
-	        select nickname from member m, follow f where m.member_id=f.member_id and follower_id=#{memberVO.nickname}
+	        select * from member m, follow f where m.member_id=f.member_id and follower_id=#{memberVO.nickname}
 	   ]]>
 	</select>  
 	 
@@ -91,6 +91,13 @@
 	<select id="getSnstotal" resultType="int">
 		<![CDATA[
 	        select count(*) as count from board b where boardtype_id=2 and member_id=#{memberVO.member_id} and pstep=0
+	   ]]>
+	</select>
+	
+	<!-- 해당 SNS 댓글 총 개수 -->
+	<select id="getCommentcount" resultType="BoardVO">
+		<![CDATA[
+	       select pgroup , count(*) as count from board where boardtype_id= 2 and pstep=1 group by pgroup
 	   ]]>
 	</select>  
 	

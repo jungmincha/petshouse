@@ -65,6 +65,7 @@ public class Myhomecontroller {
 		mav.addObject("member", service.getMemberInfo(memberVO.getNickname()));
 		mav.addObject("sns", service.getSnslist(memberVO, cri));
 		mav.addObject("snsTotal", service.getSnstotal(memberVO.getMember_id()));
+		mav.addObject("comment", service.getCommentcount());
 		
 		mav.addObject("knowhow", service.getKnowhowlist(memberVO, cri));
 		mav.addObject("knowhowTotal", service.getKnowhowtotal(memberVO.getMember_id()));
@@ -90,6 +91,7 @@ public class Myhomecontroller {
 		mav.addObject("member", service.getMemberInfo(memberVO.getNickname()));
 		mav.addObject("sns", service.getSnslist(memberVO, cri));
 		mav.addObject("snsTotal", service.getSnstotal(memberVO.getMember_id()));
+		mav.addObject("comment", service.getCommentcount());
 		
 		mav.setViewName("myPage/mysns");
 		return mav;
@@ -104,6 +106,8 @@ public class Myhomecontroller {
 		List<ImageVO> sns = service.getSnslist(memberVO, cri);
 		list.put("sns", sns);
 		list.put("snsTotal", service.getSnstotal(memberVO.getMember_id()));
+		list.put("comment", service.getCommentcount());
+		
 		return list;
 	}
 

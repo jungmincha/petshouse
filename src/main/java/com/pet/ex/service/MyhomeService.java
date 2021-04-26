@@ -44,6 +44,9 @@ public interface MyhomeService {
 	
 	//본인이 작성한 SNS 글개수 조회
 	public int getSnstotal(String member_id);
+	
+	//해당 SNS 댓글 총 개수
+	public List<BoardVO> getCommentcount();
 
 	//본인이 작성한 노하우 조회
 	public List<ImageVO> getKnowhowlist(MemberVO memberVO, Criteria cri);

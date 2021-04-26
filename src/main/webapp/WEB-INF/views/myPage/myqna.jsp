@@ -90,7 +90,7 @@
 					<div class="profile-info">
 						<div class="profile-info__name">
 							<input type="hidden" id="member" value="${member.nickname}" />
-							<h3 style="margin-bottom:10px;">${member.nickname}</h3>
+							<a href="/myPage/${member.nickname}"><h3 style="margin-bottom:10px;">${member.nickname}</h3></a>
 							<p>작성한 질문과답변</p>
 						</div>				
 					</div>

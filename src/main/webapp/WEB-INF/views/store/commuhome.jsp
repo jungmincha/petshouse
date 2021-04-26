@@ -299,12 +299,13 @@
 			 </div>  
              <div class="row">   
 				<c:forEach items="${sns}" var="sns">
-				<div class="col-12 col-lg-3 col-md-4 col-sm-6">
+				<div class="col-12 col-lg-3 col-md-4 col-sm-6 text-center">
 					<div class="user-Info row" style="margin: 0px auto 0px 5px">
 						<div class="profile_box">
-							<img src="/resources/img/member/profile/${sns.boardVO.memberVO.thumbnail}" class="profile">		
+							<a href="/myPage/${sns.boardVO.memberVO.nickname}">
+							<img src="/resources/img/member/profile/${sns.boardVO.memberVO.thumbnail}" class="profile">
 						</div>
-						<p style="padding-top:10px;">${sns.boardVO.memberVO.nickname}</p>
+						<p style="padding-top:10px;">${sns.boardVO.memberVO.nickname}</p></a>	
 						<a href="/myPage/${sns.boardVO.memberVO.nickname}" style="padding:10px 0px 0px 30px;" onclick="checkLogin();">팔로우</a>
 					</div>
 					<div>
@@ -312,12 +313,12 @@
 						<img src="/resources/img/member/sns/${sns.imgname}" style="border-radius:5px; width:250px; height:230px; margin-bottom:0px;"/>
 						<span class="sns_hit">조회수 ${sns.boardVO.hit}</span></a>	
 					</div>
-					<div class="card-body" style="font-size:20px;">		
-						<a href="/commu/sns/${sns.boardVO.board_id}"><i class="far fa-heart"></i>&nbsp;&nbsp;${sns.boardVO.plike}</a> &nbsp;&nbsp;&nbsp;&nbsp;
+					<div class="card-body" style="font-size:17px;">		
+						<a href="/commu/sns/${sns.boardVO.board_id}"><i class="far fa-heart"></i>&nbsp;&nbsp;${sns.boardVO.plike}</a>
 						<c:forEach items="${comment}" var="comment">  
 							<c:if test="${comment.pgroup eq sns.boardVO.board_id}">
 								<a href="/commu/sns/${sns.boardVO.board_id}">
-								<i class="far fa-comment"></i>${comment.count}</a>								
+								<i class="far fa-comment" style="margin-left:15px;"></i>&nbsp;&nbsp;${comment.count}</a>								
 							</c:if>
 						</c:forEach>
 					</div>
