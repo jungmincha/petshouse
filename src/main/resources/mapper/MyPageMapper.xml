@@ -353,9 +353,9 @@
 
 	<!-- 회원 탈퇴 -->
 	<delete id="deleteMember">
-	<![CDATA[
+		<![CDATA[
 		BEGIN
-		delete from plike where member_id=#{member_id}
+		delete from plike where member_id=#{member_id};
 		delete from paygoods where pay_id=(select pay_id from pay where member_id=#{member_id});
 		delete from pay where member_id=#{member_id};
 		delete from image where board_id in (select board_id from board where member_id=#{member_id});
@@ -367,9 +367,20 @@
 		]]>
 	</delete>
 
+	<!-- 날짜 별 포인트 내역 총합 계산 -->
 	<select id="getPointTotalByDate" resultType="int">
 		<![CDATA[
 		select count(*) from point p, pointtype t where member_id=#{member_id} and p.pointtype_id=t.pointtype_id and pdate between #{startDate} and TO_DATE(#{endDate}) + 0.99999  
 		]]>
 	</select>
+
+	<update id="updatePaystate_id">
+		<![CDATA[
+		BEGIN
+		update pay set paystate_id=5 where pay_id=#{pay_id};
+		insert into point( point_id,pscore,pointtype_id, member_id) values(point_seq.nextval,(select earningpoint from pay where pay_id=#{pay_id}),7,(select member_id from pay where pay_id=#{pay_id}));
+		END;
+		]]>
+	</update>
+
 </mapper>

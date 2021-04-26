@@ -225,12 +225,48 @@
 	border-radius: 10px;
 	box-shadow: inset 0px 0px 5px white;
 }
+
 a>p:hover {
 	color: #e7ab3c;
 }
-a>span{
+
+a>span {
 	font-weight: bold;
 	font-size: 19px;
+}
+
+#orderHead {
+	border: 2px groove;
+	background-color: white;
+}
+
+.paystate {
+	
+}
+
+.paystate>span {
+	color: #e7ab3c;
+}
+
+.active {
+	font-weight: bold;
+}
+
+.next {
+	color: #cccccc;
+	font-size: 35px;
+	font-weight: bold;
+	position: absolute;
+	top: 30%;
+	right: -4%;
+}
+
+.pay {
+	cursor: pointer;
+}
+
+.pay:hover {
+	font-weight: bold;
 }
 </style>
 <jsp:include page="/WEB-INF/views/include/header.jsp" />
@@ -241,38 +277,53 @@ a>span{
 	<div class="container" id="orderList">
 		<input type="hidden" id="memberName"
 			value="<sec:authentication property="principal.name"/>">
-
+		<div class="section-title">
+			<h2 style="margin-bottom: 20px; font-size: 30px;">주문 배송 내역</h2>
+		</div>
 		<div class="row">
 			<div class="col-lg-1"></div>
-			<a onclick="allOrder()" style="font-size: 22px">전체 <span
+			<a class="paystate pay" onclick="allOrder(1,10,this)"
+				style="font-size: 22px; padding-bottom: 10px;">전체 <span
 				style="font-size: 22px">${payCounts[0]}</span></a>
 			<div class="col-lg-12">
-				<div class="jumbotron"
-					style="padding-top: 40px; padding-bottom: 70px;">
+				<div id="orderHead" class="jumbotron"
+					style="padding-top: 40px; padding-bottom: 50px;">
 					<div class="row ">
-						<div class="col-lg-2 text-center">
-							<a onclick="listOrder(1)" style="font-size: 22px">결제완료<br>
-								<br> <span style="font-size: 22px">${payCounts[1]}</span></a>
+						<div class="col-lg-2 text-center pay"
+							onclick="allOrder(1,10,this,1)">
+							<a class="paystate" style="font-size: 22px">결제완료<br> <br>
+								<span style="font-size: 22px;">${payCounts[1]}</span></a> <span
+								class="float-right next">></span>
 						</div>
-						<div class="col-lg-2 text-center">
-							<a onclick="listOrder(2)" style="font-size: 22px">배송준비<br>
-								<br> <span style="font-size: 22px">${payCounts[2]}</span></a>
+						<div class="col-lg-2 text-center pay"
+							onclick="allOrder(1,10,this,2)">
+							<a class="paystate" style="font-size: 22px">배송준비<br> <br>
+								<span style="font-size: 22px">${payCounts[2]}</span></a> <span
+								class="float-right next">></span>
 						</div>
-						<div class="col-lg-2 text-center">
-							<a onclick="listOrder(3)" style="font-size: 22px">배송중<br>
-								<br> <span style="font-size: 22px">${payCounts[3]}</span></a>
+						<div class="col-lg-2 text-center pay"
+							onclick="allOrder(1,10,this,3)">
+							<a class="paystate" style="font-size: 22px">배송중<br> <br>
+								<span style="font-size: 22px">${payCounts[3]}</span></a> <span
+								class="float-right next">></span>
 						</div>
-						<div class="col-lg-2 text-center">
-							<a onclick="listOrder(4)" style="font-size: 22px">배송완료<br>
-								<br> <span style="font-size: 22px">${payCounts[4]}</span></a>
+						<div class="col-lg-2 text-center pay"
+							onclick="allOrder(1,10,this,4)">
+							<a class="paystate" style="font-size: 22px">배송완료<br> <br>
+								<span style="font-size: 22px">${payCounts[4]}</span></a> <span
+								class="float-right next">></span>
 						</div>
-						<div class="col-lg-2 text-center">
-							<a onclick="listOrder(5)" style="font-size: 22px">구매확정<br>
-								<br> <span style="font-size: 22px">${payCounts[5]}</span></a>
+						<div class="col-lg-2 text-center pay"
+							onclick="allOrder(1,10,this,5)">
+							<a class="paystate" style="font-size: 22px">구매확정<br> <br>
+								<span style="font-size: 22px">${payCounts[5]}</span></a> <span
+								class="float-right next">></span>
 						</div>
-						<div class="col-lg-2 text-center">
-							<a onclick="listOrder(6)" style="font-size: 22px">교환/환불/취소<br>
+						<div class="col-lg-2 text-center pay"
+							onclick="allOrder(1,10,this,6)">
+							<a class="paystate" style="font-size: 22px">교환/환불/취소<br>
 								<br> <span style="font-size: 22px">${payCounts[6] + payCounts[7] + payCounts[8]}</span></a>
+
 						</div>
 					</div>
 
@@ -329,7 +380,7 @@ a>span{
 						<div class="col-3 pb-pic">
 							<img src="" id="pimg">
 						</div>
-						<div class="col-6">
+						<div class="col-9">
 							<p id="goodsName"></p>
 							<p id="goodsoption" style="font-size: 12px;"></p>
 						</div>
@@ -413,10 +464,14 @@ a>span{
 						allOrder();					
 					});
 
-	// 전체 리스트 조회
-	function allOrder(pageNum,amount){
-		
+	// 리스트 조회
+	function allOrder(pageNum,amount,clas,paystate){
+		$(".pay").removeClass("active");
+		$(clas).addClass("active");
 			var url ="/myPage/orderList/ajax/"+"${paystate}";
+			if(paystate !=null){
+				url="/myPage/orderList/ajax/"+paystate;
+			}
 						$
 								.ajax({
 									url : url,
@@ -428,16 +483,17 @@ a>span{
 									},
 									success : function(data) {
 										$(".payList").remove();
-										$(".pagination").remove();	
+										$("#page").remove();	
 										var html = "";
 										var option ="";
 										console.log(data);
 										for (var i = 1; i <= data.pay.length; i++) {
+											option="";
 											html += "<div class='row payList'> <div class='col-lg-1'> </div> <div class='col-lg-12'>"
 													+ "<div class='blog-details-inner'>"
 													+ "<div class='posted-by'>"
 													if(data.pay[i-1].payGoodsVO.length >1){
-														html += "<button type='button' class='btn ' data-toggle='collapse' data-target='#demo"+i+"'>▼</button>"
+														html += "<button type='button' onclick='changeBtn(this)' class='btn' data-toggle='collapse' data-target='#demo"+i+"'>▼</button>"
 													}
 													html += " <div class='row'> <div class='col-lg-5'> <div class='pb-pic'>"
 													+ "<img src='/resources/img/admin/goods/"+data.pay[i-1].payGoodsVO[0].boardVO.goodsVO.thumbnail+"' class='pimg'> </div>"
@@ -461,29 +517,29 @@ a>span{
 											
 													html +="</div>"
 													+ "</div> <div class='col-lg-1'></div> <div class='col-lg-3' style='text-align: center;'> <br> <span style='font-size: 18px;'>총 금액 : "
-													+ data.pay[i - 1].payprice
+													+ priceFormat(data.pay[i - 1].payprice)
 													+ "원</span><br> <span  style='font-size: 18px;'>수량 : "
 													+ data.pay[i - 1].payGoodsVO[0].amount
 													+ "</span>"
 													switch (data.pay[i-1].paystateVO.paystate_id){
 													case 1 :
-														html += "</div> <div class='col-lg-3'  style='text-align: right;'><span style='font-size: 20px'>상품준비중<br><span style='font-size: 20px'><button onclick='payCancel(\""+data.pay[i-1].receipt_id+"\")'>결제취소</button></span></div> </div>"
+														html += "</div> <div class='col-lg-3'  style='text-align: right;'><span style='font-size: 20px'>상품준비중<br><span style='font-size: 20px'><button class='btn-light' style='margin-top:10px;' onclick='payCancel(\""+data.pay[i-1].receipt_id+"\")'>결제취소</button></span></div> </div>"
 															break;
 														case 2 :
 														html += "</div> <div class='col-lg-3'  style='text-align: right;'><span style='font-size: 20px'><br>배송준비중</span></div> </div>"
 															break;
 														case 3 :
-															html += "</div> <div class='col-lg-3' style='text-align: right;'><span style='font-size: 20px'><br><button onclick='delivery("+data.pay[i-1].t_key+","+data.pay[i-1].t_invoice+")'>배송조회</button></span>"
+															html += "</div> <div class='col-lg-3' style='text-align: right;'><span style='font-size: 20px'><br><button class='btn-light' onclick='delivery("+data.pay[i-1].t_key+","+data.pay[i-1].t_invoice+")'>배송조회</button></span>"
 																+ "</div> </div>" 
 																break;
 														case 4 :
-															html += "</div> <div class='col-lg-3' style='text-align: right;'> <span style='font-size: 20px'><button onclick='delivery("+data.pay[i-1].t_key+","+data.pay[i-1].t_invoice+")'>배송조회</button><br>"
-																+ "<button>구매확정</button></span>"
+															html += "</div> <div class='col-lg-3' style='text-align: right;'> <span style='font-size: 20px'><button class='btn-light' onclick='delivery("+data.pay[i-1].t_key+","+data.pay[i-1].t_invoice+")'>배송조회</button><br>"
+																+ "<button class='btn-light' style='margin-top:10px;' onclick='orderCheck("+data.pay[i-1].pay_id+")')>구매확정</button></span>"
 																+ "</div> </div>"
 																break;
 														case 5 :
 															html += "</div> <div class='col-lg-3' style='text-align: right;'>"
-																+ "<span style='font-size: 20px'><br><button id='myBtn' onclick='modals("+data.pay[i - 1].payGoodsVO[0].boardVO.goodsVO.goods_id+" ,\""+data.pay[i - 1].payGoodsVO[0].boardVO.goodsVO.thumbnail+"\",\""+data.pay[i-1].payGoodsVO[0].boardVO.goodsVO.goodsname+"\", "+data.pay[i-1].paystateVO.paystate_id+" , \""+option+"\")'>리뷰 작성</button></span>"
+																+ "<span style='font-size: 20px'><br><button class='btn-light' id='myBtn' onclick='modals("+data.pay[i - 1].payGoodsVO[0].boardVO.goodsVO.goods_id+" ,\""+data.pay[i - 1].payGoodsVO[0].boardVO.goodsVO.thumbnail+"\",\""+data.pay[i-1].payGoodsVO[0].boardVO.goodsVO.goodsname+"\", "+data.pay[i-1].paystateVO.paystate_id+" , \""+option+"\")'>리뷰 작성</button></span>"
 																+ "</div> </div>" 
 																break;
 														case 6 :
@@ -493,7 +549,7 @@ a>span{
 																break;
 														case 7 :
 															html += "</div> <div class='col-lg-3' style='text-align: right;'>"
-																+ "<span style='font-size: 20px'>교환처리<br><button onclick='delivery("+data.pay[i-1].t_key+","+data.pay[i-1].t_invoice+")'>배송조회</button></span> "
+																+ "<span style='font-size: 20px'>교환처리<br><button class='btn-light' onclick='delivery("+data.pay[i-1].t_key+","+data.pay[i-1].t_invoice+")'>배송조회</button></span> "
 																+ "</div> </div>" 
 																break;
 														case 8 :
@@ -506,8 +562,9 @@ a>span{
 													}
 													if( data.pay[i - 1].payGoodsVO.length>1){
 														html +=" <hr><div class='row collapse in' id='demo"+i+"'> "
-														option ="";
+														
 														for (var j = 1; j < data.pay[i - 1].payGoodsVO.length; j++) {
+															option ="";
 															html += " <div class='col-lg-5'> <div class='pb-pic'>"
 																	+ "<img src='/resources/img/admin/goods/"+data.pay[i-1].payGoodsVO[j].boardVO.goodsVO.thumbnail+"' class='pimg'> </div>"
 																	+ "<div class='pb-text'><a href='/admin/goods_detail/"+data.pay[i-1].payGoodsVO[j].boardVO.board_id+"'>  <p style='font-size: 22px'>"
@@ -530,7 +587,7 @@ a>span{
 																	+ "</span>"
 																	+ "</div> <div class='col-lg-3'  style='text-align: right;'> <br>"
 																	if(data.pay[i-1].paystateVO.paystate_id==5){
-																		html += "<span style='font-size: 20px'><button id='myBtn' onclick='modals("+data.pay[i - 1].payGoodsVO[j].boardVO.goodsVO.goods_id+" ,\""+data.pay[i - 1].payGoodsVO[j].boardVO.goodsVO.thumbnail+"\",\""+data.pay[i-1].payGoodsVO[j].boardVO.goodsVO.goodsname+"\", "+data.pay[i-1].paystateVO.paystate_id+" , \""+option+"\")'>리뷰 작성</button></span>"
+																		html += "<span style='font-size: 20px'><button class='btn-light' id='myBtn' onclick='modals("+data.pay[i - 1].payGoodsVO[j].boardVO.goodsVO.goods_id+" ,\""+data.pay[i - 1].payGoodsVO[j].boardVO.goodsVO.thumbnail+"\",\""+data.pay[i-1].payGoodsVO[j].boardVO.goodsVO.goodsname+"\", "+data.pay[i-1].paystateVO.paystate_id+" , \""+option+"\")'>리뷰 작성</button></span>"
 																	}
 																	html +="</div>"	
 																
@@ -538,12 +595,13 @@ a>span{
 																		html += "<div class='col-lg-12'><br></div>"
 																	}
 														}
+														
 														html +="</div>"	
 													}
 													html +="</div></div></div></div></div>"
 										}
 										
-										html += "<div class='container'><ul class='pagination'  style='justify-content: center;'><c:if test='"+data.pageMaker.prev+"'>"
+										html += "<div class='container' id='page'><ul class='pagination'  style='justify-content: center;'><c:if test='"+data.pageMaker.prev+"'>"
 										+"<li class='page-item'> <a class='page-link' onclick='allOrder("+(data.pageMaker.startPage-1)+","+data.pageMaker.amount+")"'>«</a></li> </c:if>"
 										for(var i = data.pageMaker.startPage; i<=data.pageMaker.endPage;i++){
 										html += "<li class='page-item'> <a class='page-link' onclick='allOrder("+i+","+data.pageMaker.cri.amount+")'>"+i+"</a></li> "	}
@@ -558,297 +616,6 @@ a>span{
 						
 					}
 	
-	// 버튼 클릭시 리스트 조회
-	function listOrder(paystate,pageNum,amount) {
-		
-		
-		$
-				.ajax({
-					url : "/myPage/orderList/ajax/"+paystate,
-					type : "get",
-					data : {
-						pageNum : pageNum,
-						amount : amount
-					},
-					success : function(data) {
-						$(".payList").remove();
-						$(".pagination").remove();	
-						var html = "";
-						var option ="";
-						console.log(data);
-						for (var i = 1; i <= data.pay.length; i++) {
-							html += "<div class='row payList'> <div class='col-lg-1'> </div> <div class='col-lg-12'>"
-									+ "<div class='blog-details-inner'>"
-									+ "<div class='posted-by'>"
-									if(data.pay[i-1].payGoodsVO.length >1){
-										html += "<button type='button' class='btn ' data-toggle='collapse' data-target='#demo"+i+"'>▼</button>"
-									}
-									html += " <div class='row'> <div class='col-lg-5'> <div class='pb-pic'>"
-									+ "<img src='/resources/img/admin/goods/"+data.pay[i-1].payGoodsVO[0].boardVO.goodsVO.thumbnail+"' class='pimg'> </div>"
-									+ "<div class='pb-text'> <a href='#' onclick='orderPopup("+data.pay[i-1].pay_id+",\""+data.pay[i-1].receipt_id+"\")'> <span>"
-									+ data.pay[i - 1].pay_id
-									+ " / "
-									+ getFormatDate(data.pay[i - 1].paydate)
-									+ "</span> </a> <a href='/admin/goods_detail/"+data.pay[i-1].payGoodsVO[0].boardVO.board_id+"'><p style='font-size: 22px'>"
-									+ data.pay[i - 1].payGoodsVO[0].boardVO.goodsVO.goodsname
-									+ "</p></a>"
-									if(data.pay[i - 1].payGoodsVO[0].pcolor != null && data.pay[i - 1].payGoodsVO[0].psize != null){
-										html += "<span style='font-size: 13px'>옵션 - "+data.pay[i - 1].payGoodsVO[0].pcolor+" / "+data.pay[i - 1].payGoodsVO[0].psize+"</span>" 
-										option = "옵션 - "+data.pay[i - 1].payGoodsVO[0].pcolor+" / "+data.pay[i - 1].payGoodsVO[0].psize
-									} else if(data.pay[i - 1].payGoodsVO[0].pcolor != null && data.pay[i - 1].payGoodsVO[0].psize == null){
-										html += "옵션 - "+data.pay[i - 1].payGoodsVO[0].pcolor
-										option = "옵션 - "+data.pay[i - 1].payGoodsVO[0].pcolor
-									} else if(data.pay[i - 1].payGoodsVO[0].pcolor == null && data.pay[i - 1].payGoodsVO[0].psize != null){
-										html += "옵션 - "+data.pay[i - 1].payGoodsVO[0].psize
-										option = "옵션 - "+data.pay[i - 1].payGoodsVO[0].psize
-									}
-							
-									html +="</div>"
-									+ "</div> <div class='col-lg-1'></div> <div class='col-lg-3' style='text-align: center;'> <br> <span style='font-size: 18px;'>총 금액 : "
-									+ data.pay[i - 1].payprice
-									+ "원</span><br> <span  style='font-size: 18px;'>수량 : "
-									+ data.pay[i - 1].payGoodsVO[0].amount
-									+ "</span>"
-									switch (data.pay[i-1].paystateVO.paystate_id){
-									case 1 :
-										html += "</div> <div class='col-lg-3'  style='text-align: right;'><span style='font-size: 20px'>상품준비중<br><span style='font-size: 20px'><button onclick='payCancel(\""+data.pay[i-1].receipt_id+"\")'>결제취소</button></span></div> </div>"
-											break;
-										case 2 :
-										html += "</div> <div class='col-lg-3'  style='text-align: right;'><span style='font-size: 20px'><br>배송준비중</span></div> </div>"
-											break;
-										case 3 :
-											html += "</div> <div class='col-lg-3' style='text-align: right;'><span style='font-size: 20px'><br><button onclick='delivery("+data.pay[i-1].t_key+","+data.pay[i-1].t_invoice+")'>배송조회</button></span>"
-												+ "</div> </div>" 
-												break;
-										case 4 :
-											html += "</div> <div class='col-lg-3' style='text-align: right;'> <span style='font-size: 20px'><button onclick='delivery("+data.pay[i-1].t_key+","+data.pay[i-1].t_invoice+")'>배송조회</button><br>"
-												+ "<button>구매확정</button></span>"
-												+ "</div> </div>"
-												break;
-										case 5 :
-											html += "</div> <div class='col-lg-3' style='text-align: right;'>"
-												+ "<span style='font-size: 20px'><br><button id='myBtn' onclick='modals("+data.pay[i - 1].payGoodsVO[0].boardVO.goodsVO.goods_id+" ,\""+data.pay[i - 1].payGoodsVO[0].boardVO.goodsVO.thumbnail+"\",\""+data.pay[i-1].payGoodsVO[0].boardVO.goodsVO.goodsname+"\", "+data.pay[i-1].paystateVO.paystate_id+" , \""+option+"\")'>리뷰 작성</button></span>"
-												+ "</div> </div>" 
-												break;
-										case 6 :
-											html += "</div> <div class='col-lg-3' style='text-align: right;'>"
-												+ "<span style='font-size: 20px'><br>취소된 결제</span>"
-												+ "</div> </div>" 
-												break;
-										case 7 :
-											html += "</div> <div class='col-lg-3' style='text-align: right;'>"
-												+ "<span style='font-size: 20px'>교환처리<br><button onclick='delivery("+data.pay[i-1].t_key+","+data.pay[i-1].t_invoice+")'>배송조회</button></span> "
-												+ "</div> </div>" 
-												break;
-										case 8 :
-											html += "</div> <div class='col-lg-3' style='text-align: right;'>"
-												+ "<span style='font-size: 20px'><br>환불처리</span>"
-												+ "</div> </div>" 
-												break;
-										default :
-											break;
-									}
-									if( data.pay[i - 1].payGoodsVO.length>1){
-										html +=" <hr><div class='row collapse in' id='demo"+i+"'> "
-										option ="";
-										for (var j = 1; j < data.pay[i - 1].payGoodsVO.length; j++) {
-											html += " <div class='col-lg-5'> <div class='pb-pic'>"
-													+ "<img src='/resources/img/admin/goods/"+data.pay[i-1].payGoodsVO[j].boardVO.goodsVO.thumbnail+"' class='pimg'> </div>"
-													+ "<div class='pb-text'><a href='/admin/goods_detail/"+data.pay[i-1].payGoodsVO[j].boardVO.board_id+"'>  <p style='font-size: 22px'>"
-													+ data.pay[i - 1].payGoodsVO[j].boardVO.goodsVO.goodsname
-													+ "</p></a>"
-													if(data.pay[i - 1].payGoodsVO[j].pcolor != null && data.pay[i - 1].payGoodsVO[j].psize != null){
-														html += "<span style='font-size: 13px'>옵션 - "+data.pay[i - 1].payGoodsVO[j].pcolor+" / "+data.pay[i - 1].payGoodsVO[j].psize+"</span>" 
-														option = "옵션 - "+data.pay[i - 1].payGoodsVO[j].pcolor+" / "+data.pay[i - 1].payGoodsVO[j].psize
-													} else if(data.pay[i - 1].payGoodsVO[j].pcolor != null && data.pay[i - 1].payGoodsVO[j].psize == null){
-														html += "옵션 - "+data.pay[i - 1].payGoodsVO[j].pcolor
-														option = "옵션 - "+data.pay[i - 1].payGoodsVO[j].pcolor
-													} else if(data.pay[i - 1].payGoodsVO[j].pcolor == null && data.pay[i - 1].payGoodsVO[j].psize != null){
-														html += "옵션 - "+data.pay[i - 1].payGoodsVO[j].psize
-														option = "옵션 - "+data.pay[i - 1].payGoodsVO[j].psize
-													}
-													html += "</div>"
-													+ "</div> <div class='col-lg-1'></div> <div class='col-lg-3' style='text-align: center;'> <br>"
-													+ "<span  style='font-size: 18px'>수량 : "
-													+ data.pay[i - 1].payGoodsVO[j].amount
-													+ "</span>"
-													+ "</div> <div class='col-lg-3'  style='text-align: right;'> <br>"
-													if(data.pay[i-1].paystateVO.paystate_id==5){
-														html += "<span style='font-size: 20px'><button id='myBtn' onclick='modals("+data.pay[i - 1].payGoodsVO[j].boardVO.goodsVO.goods_id+" ,\""+data.pay[i - 1].payGoodsVO[j].boardVO.goodsVO.thumbnail+"\",\""+data.pay[i-1].payGoodsVO[j].boardVO.goodsVO.goodsname+"\", "+data.pay[i-1].paystateVO.paystate_id+" , \""+option+"\")'>리뷰 작성</button></span>"
-													}
-													html +="</div>"	
-												
-													if(j < data.pay[i-1].payGoodsVO.length-1){
-														html += "<div class='col-lg-12'><br></div>"
-													}
-										}
-										html +="</div>"	
-									}
-									html +="</div></div></div></div></div>"
-						}
-						html += "<div class='container'><ul class='pagination'  style='justify-content: center;'><c:if test='"+data.pageMaker.prev+"'>"
-						+"<li class='page-item'> <a class='page-link' onclick='listOrder("+paystate+","+(data.pageMaker.startPage-1)+","+data.pageMaker.amount+")"'>«</a></li> </c:if>"
-						for(var i = data.pageMaker.startPage; i<=data.pageMaker.endPage;i++){
-						html += "<li class='page-item'> <a class='page-link' onclick='listOrder("+paystate+","+i+","+data.pageMaker.cri.amount+")'>"+i+"</a></li> "	}
-						html += "<c:if test='${"+data.pageMaker.next +"&&"+ data.pageMaker.endPage+"> 0}'> <li class='page-item'> <a class='page-link' onclick='listOrder("+paystate+","+(data.pageMaker.endPage+1)+","+data.pageMaker.amount+")"'> »</a></li> </c:if></ul></div>"
-						$("#orderList").append(html);
-					}, //ajax 성공 시 
-					error : function(request, status, error) {
-						
-					} // ajax 에러 시 end
-
-				}) }
-	
-	//공백확인용...
-	(function () {
-	'use strict'
-
-	// Fetch all the forms we want to apply custom Bootstrap validation styles to
-	var forms = document.querySelectorAll('.needs-validation')
-
-	// Loop over them and prevent submission
-	Array.prototype.slice.call(forms)
-	.forEach(function (form) {
-	form.addEventListener('submit', function (event) {
-	if (!form.checkValidity()) {
-	event.preventDefault()
-	event.stopPropagation()
-	}
-
-	form.classList.add('was-validated')
-	}, false)
-	})
-	})();
-
-	//사진
-	$(document)
-	.ready(
-	function(e) {
-	$("input[type='file']")
-	.change(
-	function(e) {
-
-	//div 내용 비워주기
-	$('#preview').empty();
-
-	var files = e.target.files;
-	var arr = Array.prototype.slice
-	.call(files);
-
-	//업로드 가능 파일인지 체크
-	for (var i = 0; i < files.length; i++) {
-	if (!checkExtension(
-	files[i].name,
-	files[i].size)) {
-	return false;
-	}
-	}
-
-	preview(arr);
-
-	});//file change
-
-	function checkExtension(fileName, fileSize) {
-
-	var regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");
-	var maxSize = 20971520; //20MB
-
-	if (fileSize >= maxSize) {
-	alert('파일 사이즈 초과');
-	$("input[type='file']").val(""); //파일 초기화
-	return false;
-	}
-
-	if (regex.test(fileName)) {
-	alert('업로드 불가능한 파일이 있습니다.');
-	$("input[type='file']").val(""); //파일 초기화
-	return false;
-	}
-	return true;
-	}
-
-	function preview(arr) {
-	arr
-	.forEach(function(f) {
-
-	//파일명이 길면 파일명...으로 처리
-	var fileName = f.name;
-	if (fileName.length > 10) {
-	fileName = fileName.substring(0, 7)
-	+ "...";
-	}
-
-	//div에 이미지 추가
-	var str = '<div style="display: inline-flex; padding: 10px;">';
-
-	//이미지 파일 미리보기
-	if (f.type.match('image.*')) {
-	var reader = new FileReader(); //파일을 읽기 위한 FileReader객체 생성
-	reader.onload = function(e) { //파일 읽어들이기를 성공했을때 호출되는 이벤트 핸들러
-	//str += '<button type="button" class="delBtn" value="'+f.name+'" style="background: red">x</button><br>';
-	str += '<ul><img src="'+e.target.result+'" title="'+f.name+'" width=300 height=300 />';
-	str += '</ul></div>';
-	$(str).appendTo('#preview');
-	}
-	reader.readAsDataURL(f);
-	}
-	});//arr.forEach
-	}
-	});
-
-	//사진
-	function readImage(input) {
-	// 인풋 태그에 파일이 있는 경우
-	if(input.files && input.files[0]) {
-	// 이미지 파일인지 검사 (생략)
-	// FileReader 인스턴스 생성
-	const reader = new FileReader()
-	// 이미지가 로드가 된 경우
-	reader.onload = e => {
-	const previewImage = document.getElementById("preview-image")
-	
-	}
-	// reader가 이미지 읽도록 하기
-	reader.readAsDataURL(input.files[0])
-	}
-	}
-	// input file에 change 이벤트 부여
-	const thumbnail = document.getElementById("image")
-	thumbnail.addEventListener("change", e => {
-	readImage(e.target)
-	})
-
-	$("#image").change(function(){
-	if(this.files && this.files[0]) {
-	var reader = new FileReader;
-
-	reader.readAsDataURL(this.files[0]);
-	}
-	}); 
-
-	//모달
-	var modal = document.getElementById('myModal');
-
-	var span = document.getElementsByClassName("close")[0];                                          
-
-	function modals(goods_id , thumbnail, title, paystate_id, option){
-		modal.style.display = "block";
-		$("#goods_id").val(goods_id);
-		$("#pimg").attr("src", "/resources/img/admin/goods/"+thumbnail);
-		$("#goodsName").text("상품명 : "+title);
-		$("#paystate_id").val(paystate_id);
-		$("#goodsoption").text(option);
-	}
-
-	span.onclick = function() {
-	modal.style.display = "none";
-	}
-
-	window.onclick = function(event) {
-	if (event.target == modal) {
-	modal.style.display = "none";
-	}
-	}  
 	
 	// 배송조회
 	function delivery(t_code,t_invoice){
@@ -898,6 +665,26 @@ a>span{
 		iniform.action="/myPage/orderList/popup/"+pay_id;
 		iniform.submit();
 	}
+	
+	// 구매확정
+	function orderCheck(pay_id){
+		event.preventDefault();
+		$.ajax({
+			url : "/myPage/orderList/orderSuccess/"+pay_id,
+			type : "post",
+			success : function(data) {
+				alert("구매가 확정되었습니다.리뷰를 작성해주세요.");
+				window.location.assign("/myPage/orderList?paystate_id=5");
+			},
+			error : function(request, status, error){
+				
+				
+			}
+		
+		})
+		
+	}
+	
 	// 결제 취소
 	function payCancel(receipt_id) {
 		console.log("실행");
@@ -921,44 +708,181 @@ a>span{
 		})
 		
     }
-</script>
-<script>
-	//위치기반 인증 자바스크립트 함수
-	function location_auth() {
-
-		try {
-			var member_id = document.getElementById("member_id").value;
-		} catch (e) {
-			console.error(e);
-			alert("로그인 후 이용 가능합니다.");
-			location.href = "/login/login";
+	
+	// 버튼 체인지
+	function changeBtn(clas){
+		if($(clas).text() == "▼"){
+			$(clas).text("▲");
+		}else{
+			$(clas).text("▼");
 		}
-
-		var location_security = document.getElementById("location_security").value;
-		var member_id = document.getElementById("member_id").value;
-		var nickname = document.getElementById("nickname").value;
-		//var location = document.getElementById("location").value; 
-		console.log(location_security);
-
-		if (location_security == null) {
-
-			location.href = "/map/home";
-
-		} else {
-
-			location.href = "/map/board?location=" + location_security
-					+ "&member_id=" + member_id + "&nickname=" + nickname;
-
-			console.log(location_security);
-			console.log(member_id);
-			console.log(nickname);
-
-		}
-
 	}
 	
-
+	// 숫자 콤마찍기
+	function priceFormat(n) {
+		var n = n.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+		return n;
+	}
+	// 콤마 풀기
+	function stringNumberToInt(stringNumber){
+	    return parseInt(stringNumber.replace(/,/g , ''));
+	}
 	
+</script>
+
+
+<script>
+// 리뷰 모달 시작
+// 공백확인용...
+(function () {
+'use strict'
+
+// Fetch all the forms we want to apply custom Bootstrap validation styles to
+var forms = document.querySelectorAll('.needs-validation')
+
+// Loop over them and prevent submission
+Array.prototype.slice.call(forms)
+.forEach(function (form) {
+form.addEventListener('submit', function (event) {
+if (!form.checkValidity()) {
+event.preventDefault()
+event.stopPropagation()
+}
+
+form.classList.add('was-validated')
+}, false)
+})
+})();
+
+//사진
+$(document)
+.ready(
+function(e) {
+$("input[type='file']")
+.change(
+function(e) {
+
+//div 내용 비워주기
+$('#preview').empty();
+
+var files = e.target.files;
+var arr = Array.prototype.slice
+.call(files);
+
+//업로드 가능 파일인지 체크
+for (var i = 0; i < files.length; i++) {
+if (!checkExtension(
+files[i].name,
+files[i].size)) {
+return false;
+}
+}
+
+preview(arr);
+
+});//file change
+
+function checkExtension(fileName, fileSize) {
+
+var regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");
+var maxSize = 20971520; //20MB
+
+if (fileSize >= maxSize) {
+alert('파일 사이즈 초과');
+$("input[type='file']").val(""); //파일 초기화
+return false;
+}
+
+if (regex.test(fileName)) {
+alert('업로드 불가능한 파일이 있습니다.');
+$("input[type='file']").val(""); //파일 초기화
+return false;
+}
+return true;
+}
+
+function preview(arr) {
+arr
+.forEach(function(f) {
+
+//파일명이 길면 파일명...으로 처리
+var fileName = f.name;
+if (fileName.length > 10) {
+fileName = fileName.substring(0, 7)
++ "...";
+}
+
+//div에 이미지 추가
+var str = '<div style="display: inline-flex; padding: 10px;">';
+
+//이미지 파일 미리보기
+if (f.type.match('image.*')) {
+var reader = new FileReader(); //파일을 읽기 위한 FileReader객체 생성
+reader.onload = function(e) { //파일 읽어들이기를 성공했을때 호출되는 이벤트 핸들러
+//str += '<button type="button" class="delBtn" value="'+f.name+'" style="background: red">x</button><br>';
+str += '<ul><img src="'+e.target.result+'" title="'+f.name+'" width=300 height=300 />';
+str += '</ul></div>';
+$(str).appendTo('#preview');
+}
+reader.readAsDataURL(f);
+}
+});//arr.forEach
+}
+});
+
+//사진
+function readImage(input) {
+// 인풋 태그에 파일이 있는 경우
+if(input.files && input.files[0]) {
+// 이미지 파일인지 검사 (생략)
+// FileReader 인스턴스 생성
+const reader = new FileReader()
+// 이미지가 로드가 된 경우
+reader.onload = e => {
+const previewImage = document.getElementById("preview-image")
+
+}
+// reader가 이미지 읽도록 하기
+reader.readAsDataURL(input.files[0])
+}
+}
+// input file에 change 이벤트 부여
+const thumbnail = document.getElementById("image")
+thumbnail.addEventListener("change", e => {
+readImage(e.target)
+})
+
+$("#image").change(function(){
+if(this.files && this.files[0]) {
+var reader = new FileReader;
+
+reader.readAsDataURL(this.files[0]);
+}
+}); 
+
+//모달
+var modal = document.getElementById('myModal');
+
+var span = document.getElementsByClassName("close")[0];                                          
+
+function modals(goods_id , thumbnail, title, paystate_id, option){
+	modal.style.display = "block";
+	$("#goods_id").val(goods_id);
+	$("#pimg").attr("src", "/resources/img/admin/goods/"+thumbnail);
+	$("#goodsName").text("상품명 : "+title);
+	$("#paystate_id").val(paystate_id);
+	$("#goodsoption").text(option);
+}
+
+span.onclick = function() {
+modal.style.display = "none";
+}
+
+window.onclick = function(event) {
+if (event.target == modal) {
+modal.style.display = "none";
+}
+}  
 </script>
 <!-- Js Plugins -->
 <script src="/resources/js/jquery.countdown.min.js"></script>

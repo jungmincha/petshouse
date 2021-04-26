@@ -181,11 +181,20 @@ public class MyPageServiceImpl implements MyPageService {
 		log.info("getPointList()");
 		myPageMapper.deleteMember(member_id);
 	}
-
+	
+	// 날짜별 포인트 내역 총합 가져오기
 	@Override
 	public int getPointTotalByDate(String member_id, String startDate, String endDate, Criteria cri) {
 		log.info("getPointTotalByDate()");
 		return myPageMapper.getPointTotalByDate(member_id, startDate, endDate);
+	}
+	
+	// 구매확정 및 포인트 지급
+	@Override
+	public void updatePaystate_id(String pay_id) {
+		log.info("updatePaystate_id()");
+		myPageMapper.updatePaystate_id(pay_id);
+
 	}
 
 }

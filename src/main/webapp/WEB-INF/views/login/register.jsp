@@ -54,7 +54,7 @@
 }
 
 .filebox {
-	padding-left: 170px;
+	
 }
 
 .filebox label {
@@ -74,6 +74,20 @@
 .filebox img {
 	border-radius: 70%;
 }
+#address-btn {
+	color: #ffffff;
+}
+
+#address-btn:hover {
+	color: #e7ab3c;
+}
+label:hover {
+	color: #e7ab3c;
+}
+#register-btn:hover{
+	color:white;
+	background-color: orange;
+}
 </style>
 </head>
 
@@ -88,14 +102,16 @@
 			<div class="row">
 				<div class="col-lg-6 offset-lg-3">
 					<div class="register-form">
-						<h2>회원가입</h2>
+						<div class="section-title">
+							<h2 style="margin-bottom: 20px; font-size: 30px;">회원가입</h2><br>
+						</div>
 
 						<form action="/login/register/insert" method="post" id="myForm"
 							enctype="multipart/form-data">
-							<div class="filebox">
+							<div class="filebox text-center">
 
 
-								<img style="width: 200px; height: 200px;" id="preview-image"
+								<img style="width: 200px; height: 200px; " id="preview-image"
 									name="preview-image" class="profile_box"
 									src="/resources/img/member/profile/profile.jpg"> <br>
 								<br> <label for="thumbnail"
@@ -153,9 +169,9 @@
 								<label class="control-label" for="address">주소</label>
 								<div class="input-group mb-3">
 									<div class="input-group-prepend">
-										<input type="button" class="form-control" onClick="goPopup();"
-											value="주소검색"
-											style="font-size: 10pt; background-color: #000000; color: #ffffff; font-weight: bold" />
+										<input id="address-btn" type="button" class="form-control"
+											onClick="goPopup();" value="주소검색"
+											style="font-size: 10pt; background-color: #000000; font-weight: bold" />
 									</div>
 									<input class="form-control" type="text"
 										style="font-size: 13pt;" id="address" name="address" readonly />
@@ -176,7 +192,7 @@
 
 							<input type="hidden" name="logintypeVO.logintype_id" value="1">
 							<input type="hidden" name="roleVO.role_id" value="1">
-							<button type="submit" class="site-btn register-btn"
+							<button id="register-btn" type="submit" class="site-btn register-btn"
 								style="font-size: 15pt" onclick="check()">가입완료</button>
 						</form>
 						<br>

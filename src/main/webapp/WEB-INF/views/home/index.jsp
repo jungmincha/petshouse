@@ -95,6 +95,16 @@ img {
 
 		return str;
 	}
+	
+	// 숫자 콤마찍기
+	function priceFormat(n) {
+		var n = n.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+		return n;
+	}
+	// 콤마 풀기
+	function stringNumberToInt(stringNumber){
+	    return parseInt(stringNumber.replace(/,/g , ''));
+	}
 </script>
 <!-- Js Plugins -->
 <script src="/resources/js/jquery-3.3.1.min.js"></script>

@@ -81,6 +81,20 @@
 .filebox img {
 	border-radius: 70%;
 }
+#address-btn {
+	color: #ffffff;
+}
+
+#address-btn:hover {
+	color: #e7ab3c;
+}
+label:hover {
+	color: #e7ab3c;
+}
+#register-btn:hover{
+	color:white;
+	background-color: orange;
+}
 </style>
 </head>
 
@@ -95,7 +109,9 @@
 			<div class="row">
 				<div class="col-lg-6 offset-lg-3">
 					<div class="register-form">
-						<h2>SNS 간편회원가입</h2>
+						<div class="section-title">
+							<h2 style="margin-bottom: 20px; font-size: 30px;">SNS 간편회원가입</h2><br>
+						</div>
 						<h2 style="font-size: 13pt">추가 정보를 입력해주세요</h2>
 						<form action="/login/register/insert" method="post"
 							id="myForm" enctype="multipart/form-data">
@@ -147,9 +163,9 @@
 								<label class="control-label" for="address">주소</label>
 								<div class="input-group mb-3">
 									<div class="input-group-prepend">
-										<input type="button" class="form-control" onClick="goPopup();"
-											value="주소검색"
-											style="font-size: 10pt; background-color: #000000; color: #ffffff; font-weight: bold" />
+											<input id="address-btn" type="button" class="form-control"
+											onClick="goPopup();" value="주소검색"
+											style="font-size: 10pt; background-color: #000000; font-weight: bold" />
 									</div>
 									<input class="form-control" type="text"
 										style="font-size: 13pt;" id="address" name="address" readonly />
@@ -172,7 +188,7 @@
 								value="<sec:authentication property='principal.logintypeVO.logintype_id'/>">
 							<input type="hidden" name="roleVO.role_id" value="1"> <input
 								type="hidden" name="certify" value="Y">
-							<button type="submit" class="site-btn register-btn"
+							<button id="register-btn" type="submit" class="site-btn register-btn"
 								style="font-size: 15pt" onclick="check()">가입완료</button>
 						</form>
 						<br>
@@ -339,6 +355,9 @@
         $("#thumbnail").val(""); 
 		
 	}
+	$(document).ready(function(){
+		defaultImage();
+	})
 </script>
 
 <!-- Js Plugins -->

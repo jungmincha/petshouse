@@ -34,7 +34,7 @@
 }
 
 .filebox {
-	padding-left: 170px;
+	
 }
 
 .filebox label {
@@ -50,9 +50,10 @@
 	border-bottom-color: #e2e2e2;
 	border-radius: .25em;
 }
-#point-btn{
+
+#point-btn {
 	background-color: black;
-	color:white;
+	color: white;
 	border-color: black;
 	font-family: "MY FONT", serif;
 	font: inherit;
@@ -60,14 +61,24 @@
 	padding: 10px;
 	font-size: small;
 }
-#point-btn:hover{
+
+#point-btn:hover {
 	color: #e7ab3c;
 }
-#address-btn{
+
+#address-btn {
 	color: #ffffff;
 }
+
 #address-btn:hover {
 	color: #e7ab3c;
+}
+label:hover {
+	color: #e7ab3c;
+}
+#update-btn:hover{
+	color:white;
+	background-color: orange;
 }
 </style>
 <script type="text/javascript">
@@ -76,18 +87,22 @@
 </head>
 <jsp:include page="/WEB-INF/views/include/header.jsp" />
 <body style="padding-top: 128px">
-
+	
 	<!-- Register Section Begin -->
 	<div class="register-login-section spad">
+		<div class="section-title">
+			<h2 style="margin-bottom: 20px; font-size: 30px;">회원 정보 수정</h2>
+			<br>
+		</div>
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-6 offset-lg-3">
 					<div class="register-form">
-						<h2>회원정보 수정</h2>
+
 
 						<form action="/myPage/updateMember/insert" method="post"
 							id="myForm" enctype="multipart/form-data">
-							<div class="filebox">
+							<div class="filebox text-center">
 
 
 								<img style="width: 200px; height: 200px;" id="preview-image"
@@ -158,8 +173,8 @@
 								<label class="control-label" for="address">주소</label>
 								<div class="input-group mb-3">
 									<div class="input-group-prepend">
-										<input id="address-btn" type="button" class="form-control" onClick="goPopup();"
-											value="주소검색"
+										<input id="address-btn" type="button" class="form-control"
+											onClick="goPopup();" value="주소검색"
 											style="font-size: 10pt; background-color: #000000; font-weight: bold" />
 									</div>
 									<input class="form-control" type="text"
@@ -192,16 +207,16 @@
 
 							<input type="hidden" name="logintypeVO.logintype_id" value="1">
 							<input type="hidden" name="roleVO.role_id" value="1">
-							<button type="submit" class="site-btn register-btn"
+							<button id="update-btn" type="submit" class="site-btn register-btn"
 								style="font-size: 15pt" onclick="check()">수정완료</button>
 							<br> <br>
 							<hr>
 							<br>
-							<button id="point-btn"type="submit" class="float-right"
+							<button id="point-btn" type="submit" class="float-right"
 								style="font-size: 10pt;" onclick="deleteMember()">회원탈퇴</button>
 						</form>
 						<br>
-				
+
 
 					</div>
 				</div>

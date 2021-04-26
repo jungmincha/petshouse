@@ -51,9 +51,10 @@
 	height: 40px;
 	border-radius: 20%;
 }
-#point-btn{
+
+#point-btn {
 	background-color: black;
-	color:white;
+	color: white;
 	border-color: black;
 	font-family: "MY FONT", serif;
 	font: inherit;
@@ -61,12 +62,15 @@
 	padding: 10px;
 	font-size: small;
 }
-#point-btn:hover{
+
+#point-btn:hover {
 	color: #e7ab3c;
 }
-#address-btn{
+
+#address-btn {
 	color: #ffffff;
 }
+
 #address-btn:hover {
 	color: #e7ab3c;
 }
@@ -79,6 +83,9 @@
 
 	<!-- Shopping Cart Section Begin -->
 	<section class="checkout-section spad">
+		<div class="section-title">
+			<h2 style="margin-bottom: 20px; font-size: 30px;">주문결제</h2>
+		</div>
 		<div class="container">
 			<form action="/myPage/payPage/insert" class="checkout-form"
 				name='form' method="post">
@@ -122,7 +129,7 @@
 										<h5 style="font-weight: bold">배송지 정보</h5>
 									</div>
 									<div class="col-lg-6 text-right">
-										<a href="#"onclick="reset()">초기화</a>
+										<a href="#" onclick="reset()">초기화</a>
 									</div>
 								</div>
 
@@ -144,9 +151,9 @@
 								<div class="input-group mb-3">
 									<div class="input-group-prepend">
 
-										<input id="address-btn" type="button" class="form-control" onClick="goPopup();"
-											value="주소검색"
-											style="font-size: 10pt; background-color: #000000;  font-weight: bold" />
+										<input id="address-btn" type="button" class="form-control"
+											onClick="goPopup();" value="주소검색"
+											style="font-size: 10pt; background-color: #000000; font-weight: bold" />
 									</div>
 									<input class="form-control" type="text"
 										style="font-size: 13pt;" id="deliveryaddress"
@@ -169,7 +176,7 @@
 
 									</div>
 									<div class="col-lg-6 text-right">
-										<span>1000포인트 이상부터 사용가능합니다.</span>
+										<span>1,000포인트 이상부터 사용가능합니다.</span>
 									</div>
 								</div>
 
@@ -178,7 +185,7 @@
 							<div class="col-lg-6">
 								<div class="row ">
 									<div class="col-lg-8">
-										<label for="point">사용 가능 포인트 ${point.sum}P</label> <input
+										<label id="pointL" for="point"></label> <input
 											type="text" id="point" />
 									</div>
 									<div class="col-lg-4 ">
@@ -241,14 +248,29 @@
 						for (var i = 0; i < payGoods.length; i++) {
 							html += "<li class='fw-normal'>"
 									+ "<img src='/resources/img/admin/goods/"+payGoods[i].thumbnail+"' class='pimg'>&nbsp;&nbsp;"
-									+ payGoods[i].name
-									+ "&nbsp; x &nbsp; "
+									if(payGoods[i].name.length>11){
+										console.log(payGoods[i].name.length)
+										html += payGoods[i].name.substr(0,11)+".."
+										console.log( payGoods[i].name.substr(0,11).length);
+									}else{
+										html += payGoods[i].name
+									}
+									
+									html += "&nbsp; x &nbsp; "
 									+ payGoods[i].amount
 									+ "<input type='hidden' name='amount' value='"+payGoods[i].amount+"'>"
-									+ " <span>"
-									+ payGoods[i].sum
-									+ "원</span> <br> 옵션 : "+payGoods[i].pcolor+" / "+payGoods[i].psize
-									+ "<input type='hidden' name='goodsSum' value='"+ payGoods[i].sum+"'><input type='hidden' name='goodsName' value='"+ payGoods[i].name+"'>"
+									+ " <span style='padding-top:10px;'>"
+									+ priceFormat(payGoods[i].sum)
+									+ "원</span>" 
+									if(payGoods[i].pcolor !="" && payGoods[i].psize !=""){
+										html += "<br> 옵션 : "+payGoods[i].pcolor+" / "+payGoods[i].psize
+									} else if(payGoods[i].pcolor !="" && payGoods[i].psize ==""){
+										html += "<br> 옵션 : " + payGoods[i].pcolor
+									}else if(payGoods[i].pcolor =="" && payGoods[i].psize !=""){
+										html +=  "<br> 옵션 : " + payGoods[i].psize
+									}
+									
+									html += "<input type='hidden' name='goodsSum' value='"+ payGoods[i].sum+"'><input type='hidden' name='goodsName' value='"+ payGoods[i].name+"'>"
 									+"<input type='hidden' name='psize' value='"+ payGoods[i].psize+"'>"
 									+"<input type='hidden' name='pcolor' value='"+ payGoods[i].pcolor+"'>"
 									+ "<input type='hidden' name='board_id' value='"+ payGoods[i].board_id+"'></li>"
@@ -269,12 +291,12 @@
 							total += parseInt(this.form.goodsSum[i].value);
 						}
 
-						$("#goodsprice1").text(total + "원");
+						$("#goodsprice1").text(priceFormat(total) + "원");
 						$("#goodsprice").val(total);
 
 						// 배송비 계산
 						if (total < 30000) {
-							$("#deliveryPay1").text(2500 + "원")
+							$("#deliveryPay1").text(priceFormat(2500) + "원")
 							$("#deliveryPay").val(2500)
 						} else {
 							$("#deliveryPay1").text(0 + "원")
@@ -316,12 +338,12 @@
 		if("${point.sum}" > goodsprice){
 		    $("#point").val(goodsprice);
 		    $('#payPoint').val("-" + $("#point").val());
-			$('#payPoint1').text("-" + $("#point").val() + "P");
+			$('#payPoint1').text("-" + priceFormat($("#point").val()) + "P");
 			lastTotal();
 		} else if("${point.sum}">999){
 			$("#point").val("${point.sum}");
 			$('#payPoint').val("-" + $("#point").val());
-			$('#payPoint1').text("-" + $("#point").val() + "P");
+			$('#payPoint1').text("-" + priceFormat($("#point").val()) + "P");
 			lastTotal();
 		} else{
 			alert("1000포인트 이상부터 사용가능합니다.");
@@ -336,10 +358,10 @@
 				+ parseInt($("#payPoint").val())
 				+ parseInt($("#deliveryPay").val());
 		$("#lastTotal").val(lastTotal)
-		$("#lastTotal1").text(lastTotal + "원")
+		$("#lastTotal1").text(priceFormat(lastTotal) + "원")
 		// 적립 포인트 계산
-		var innerPoint = Math.floor(lastTotal * 0.01);
-		$("#earningPoint1").text(innerPoint + "P");
+		var innerPoint = Math.floor(parseInt($("#goodsprice").val()) * 0.01);
+		$("#earningPoint1").text(priceFormat(innerPoint) + "P");
 		$("#earningPoint").val(innerPoint);
 	}
 	
@@ -444,16 +466,12 @@
 						},
 						success : function(data) {
 							alert("정상적으로 취소되었습니다.");
-							
+
 						},
 						error : function(request, status, error){
-							
-							
+
 						}
-					
 					})
-					
-					
 				}
 				
 			},
@@ -477,16 +495,9 @@
 				
 				
 			}
-		
-		})
-		
-    
-				
+		})	
 			}
-		
 		})
-		
-		
 	});
 	}
 	
@@ -533,9 +544,15 @@
 			 lastTotal();
 	    } else{
 	    	$('#payPoint').val("-" + $("#point").val());
-			$('#payPoint1').text("-" + $("#point").val() + "P");
+			$('#payPoint1').text("-" + priceFormat($("#point").val()) + "P");
 			lastTotal();
 	    }
+		if(val == ""){
+			 $("#point").val('');
+		        $('#payPoint').val('0');
+				 $('#payPoint1').text('0P');
+				 lastTotal();
+		}
 	})
 	
 	// 고유값 생성
@@ -546,7 +563,18 @@
     return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
 	}
 	
-	
+	// 숫자 콤마찍기
+	function priceFormat(n) {
+		var n = n.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+		return n;
+	}
+	// 콤마 풀기
+	function stringNumberToInt(stringNumber){
+	    return parseInt(stringNumber.replace(/,/g , ''));
+	}
+	$(document).ready(function(){
+		$('#pointL').text(priceFormat("사용 가능 포인트 ${point.sum}P"))
+	})
 </script>
 <!-- Js Plugins -->
 
