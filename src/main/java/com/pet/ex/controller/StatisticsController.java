@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -83,17 +84,21 @@ public class StatisticsController {
 		mav.addObject("monthSale", statisticService.getMonthSales(year)); // 월별
 		mav.addObject("yearSale", statisticService.getYearSales(year)); // 년별
 		
-		mav.addObject("json_dailySale", JSONArray.fromObject(statisticService.getDailySales(year, month)));
-		mav.addObject("json_monthSale", JSONArray.fromObject(statisticService.getMonthSales(year)));
-		mav.addObject("json_yearSale", JSONArray.fromObject(statisticService.getYearSales(year)));
-		
-		
+	
 
 		log.info("년별통계 금액: " + statisticService.getYearSales(year));
 		mav.setViewName("statistics/home");
 
 		return mav;
 	}
+	
+	@GetMapping("/temp")
+	@ResponseBody
+	public Map<Integer, Integer> temp(@RequestParam(value = "month") Integer month) {
+		log.info("month : " + month); //, 로 해서안나옴
+		return statisticService.getDailySales("2021", String.valueOf(month));
+	}
+
 
 
 	

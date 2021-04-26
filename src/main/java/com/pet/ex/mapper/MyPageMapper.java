@@ -82,8 +82,11 @@ public interface MyPageMapper {
 
 	// 회원 정보 수정 (비번포함x)
 	public void updateMemberNoPw(MemberVO member);
-	
+
 	// 포인트 토탈 계산(날짜별)
 	public int getPointTotalByDate(String member_id, String startDate, String endDate);
+	
+	// 구매확정 및 포인트 지급
+	public void updatePaystate_id(String pay_id);
 
 }

@@ -55,20 +55,20 @@
 </sec:authorize>
 <style>
 .top_profile_box {
-	width: 40px;
-	height: 40px;
+	width: 50px;
+	height: 50px;
 }
 
 .top_profile {
-	width: 40px;
-	height: 40px;
-	object-fit: cover;
+	width: 50px;
+	height: 50px;
 	border-radius: 70%;
-	object-fit: cover;
-	height: 40px;
-	object-fit: cover;
+	border: 3px solid white;
 }
+.top_profile:hover{
 
+	border: 3px solid #e7ab3c;
+}
 .top {
 	cursor: pointer;
 	position: fixed;
@@ -91,6 +91,17 @@
 .logo img {
 	width: 180px;
 	height: 50px;
+}
+#home:before {
+	position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 4px;
+    width: 80px;
+    height: 3px;
+    background: #e7ab3c;
+    content: "";
+    margin: 0 auto;
 }
 </style>
 </head>
@@ -129,7 +140,7 @@
 					<div class="col-lg-4 text-right">
 
 						<ul class="nav-right"
-							style="padding-top: 16px; padding-right: 15px">
+							style="padding-top: 15px; padding-right: 15px">
 
 							<sec:authorize access="hasAnyRole('ROLE_USER','ROLE_ADMIN')">
 
@@ -146,8 +157,8 @@
 									href="/myPage/<sec:authentication property="principal.nickname"/>"><sec:authentication
 											property="principal.nickname" />님</a></li>
 							</sec:authorize>
-							<li class="cart-icon"><a href="/myPage/cart" id="cartCount"><i
-									class="icon_bag_alt"></i> </a></li>
+							<li class="cart-icon" ><a href="/myPage/cart" id="cartCount"><i
+									class="icon_bag_alt" ></i> </a></li>
 							<!-- 로그아웃 버튼 -->
 							<sec:authorize access="isAnonymous()">
 								<li><a href="/login/login" class="login-panel">Login</a></li>
@@ -165,17 +176,18 @@
 			<div class="container">
 				<div class="nav-depart">
 					<div class="depart-btn">
-						<i class="ti-menu"></i> <span>MY HOME</span>
+						<i class="ti-menu"></i> <span >MY HOME</span>
 						<ul class="depart-hover">
 							<li class="active"><a href="#">프로필</a></li>
 							<li><a href="#">주문배송내역조회</a></li>
 							<li><a href="#">회원정보수정</a></li>
 						</ul>
 					</div>
+					
 				</div>
 				<nav class="nav-menu mobile-menu">
 					<ul id="navbars">
-						<li><a href="/store/home">Home</a></li>
+						<li id="home"><a href="/store/home" >Home</a></li>
 						<li><a href="/store/commu/home">커뮤니티</a>
 							<ul class="dropdown">
 
@@ -251,10 +263,9 @@
 			</div>
 		</div>
 		<!-- 상단 버튼 -->
-
 	</header>
 	<!-- Header End -->
-
+	
 	<div class="top" onclick="window.scrollTo(0,0);">
 		<i class="fas fa-chevron-circle-up" style="font-size: 30px;"></i>
 	</div>

@@ -23,4 +23,5 @@ public class ImageVO {
 	
 	// 순서대로 정렬
 	private int rnum;
+	private int count;
 }

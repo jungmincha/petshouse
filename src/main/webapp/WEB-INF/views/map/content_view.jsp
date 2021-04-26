@@ -241,7 +241,7 @@ background-color:#dddddd;
 			        					<!-- Modal body -->
 			       						<div class="likelist modal-body">
 			          						<c:forEach items="${likelist}" var="likelist">
-			          							<p>${likelist.memberVO.nickname}</p>          	
+			          							<p><a href="/myPage/${likelist.memberVO.nickname}">${likelist.memberVO.nickname}</a></p>          	
 			          						</c:forEach>
 			        					</div>
 			        

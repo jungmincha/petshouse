@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -119,12 +120,16 @@ public class MyPageController {
 
 	// 주문 리스트 조회
 	@GetMapping("/orderList")
-	public ModelAndView orderList(ModelAndView mav, Authentication authentication) {
+	public ModelAndView orderList(ModelAndView mav, Authentication authentication,String paystate_id) {
+		
 		String member_id = authentication.getPrincipal().toString();
 		List<Integer> payCounts = new ArrayList<Integer>();
 		payCounts.add(myPageService.getPayTotal(member_id));
 		for (int i = 1; i <= 8; i++) {
 			payCounts.add(myPageService.getPaystateTotal(member_id, i));
+		}
+		if(paystate_id=="5") {
+			mav.addObject("paystate", 5);
 		}
 		mav.addObject("payCounts", payCounts);
 		mav.setViewName("/myPage/orderList");
@@ -144,9 +149,7 @@ public class MyPageController {
 
 		for (PayVO dto : pay) {
 			dto.setPayGoodsVO(myPageService.listPayGoods(dto.getPay_id()));
-			for (PayGoodsVO goods : dto.getPayGoodsVO()) {
-				System.out.println("상품목록 : " + goods.getBoardVO());
-			}
+
 		}
 		payAjax.put("pay", pay);
 		payAjax.put("pageMaker", new PageVO(cri, total));
@@ -375,10 +378,12 @@ public class MyPageController {
 		return pointAjax;
 	}
 
-	@GetMapping("/imgTest")
-	public ModelAndView imgTest(ModelAndView mav) {
-		mav.addObject("test", myPageService.getPointList("eril1024@gmail.com"));
-		mav.setViewName("/myPage/imageTagTest");
-		return mav;
+	// 구매확정 및 포인트 지급
+	@PostMapping("/orderList/orderSuccess/{pay_id}")
+	public void orderSuccess(@PathVariable String pay_id) {
+		myPageService.updatePaystate_id(pay_id);
+
 	}
+
+
 }

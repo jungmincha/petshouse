@@ -22,6 +22,10 @@
 #social ul li {
 	display: inline;
 }
+#login-btn:hover{
+	color:white;
+	background-color: orange;
+}
 </style>
 <!-- Google Font -->
 <link
@@ -82,7 +86,7 @@
 										재발급</a>
 								</div>
 							</div>
-							<button type="submit" class="site-btn login-btn">로그인</button>
+							<button id="login-btn" type="submit" class="site-btn login-btn">로그인</button>
 						</form>
 						<div class="switch-login">
 							<a href="/login/register" class="or-login">회원가입</a>

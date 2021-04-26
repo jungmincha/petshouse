@@ -114,6 +114,10 @@ ul, ol {
 /*---------------------
   Helper CSS
 -----------------------*/
+.icon_bag_alt:hover{
+	color: #e7ab3c;
+	
+}
 .section-title {
 	margin-bottom: 40px;
 	text-align: center;
@@ -3223,6 +3227,7 @@ ul, ol {
 .blog-details {
 	padding-top: 72px;
 	padding-bottom: 80px;
+
 }
 
 .blog-details-inner .blog-detail-title {

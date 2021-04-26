@@ -50,19 +50,24 @@
 	width: 70px;
 	height: 70px;
 }
+
 a:link {
 	color: white;
 }
+
 a:visited {
 	color: white;
 }
 </style>
 </head>
 <jsp:include page="/WEB-INF/views/include/header.jsp" />
-<body style="padding-top: 128px">
+<body style="padding-top: 100px">
 
 	<!-- 쇼핑카트 섹션 -->
 	<section class="shopping-cart spad">
+		<div class="section-title">
+			<h2 style="margin-bottom: 20px; font-size: 30px;">장바구니</h2>
+		</div>
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12">
@@ -111,7 +116,7 @@ a:visited {
 									</li>
 								</ul>
 								<a href="#" onclick="payPage()" class="proceed-btn"
-									style='cursor: pointer; font-size: 20px; '>주문하기 </a>
+									style='cursor: pointer; font-size: 20px;'>주문하기 </a>
 							</div>
 						</div>
 					</div>
@@ -179,7 +184,7 @@ a:visited {
 													+ "</h5>"
 													+ "</td>"
 													+ "<td class='p-price first-row text-center' style='color:#000000'>"
-													+ "<input style='border:none; text-align:right; ' type='text' id='a"+i+"' value='"+data[i-1].goodsVO.price+"' readonly size='7px' >"
+													+ "<input style='border:none; text-align:right; ' type='text' id='a"+i+"' value='"+priceFormat(data[i-1].goodsVO.price)+"' readonly size='7px' >"
 													+ "원</td>"
 													+ "<td class='qua-col first-row text-center'>"
 													+ "	<div class='quantity'> <div class='pro-qty'> <span class='dec qtybtn' onclick='total"
@@ -190,14 +195,15 @@ a:visited {
 													+ i
 													+ "(1)'>+</span> </div> </div>"
 													+ "</td> <td class='total-price first-row text-center' style='color:#000000'> "
-											if (pcolor != null && psize != null) {
+											if (pcolor != "" && psize != "") {
+												console.log(pcolor);
 												html += pcolor + " / " + psize
-											} else if (pcolor == null
-													&& psize != null) {
+											} else if (pcolor == ""
+													&& psize != "") {
 												html += psize
 
-											} else if (pcolor != null
-													&& psize == null) {
+											} else if (pcolor != ""
+													&& psize == "") {
 												html += pcolor
 
 											}
@@ -219,7 +225,7 @@ a:visited {
 													+ "{  var num1 = document.getElementById('a"
 													+ i
 													+ "');"
-													+ "var num1s = num1.value; "
+													+ "var num1s = stringNumberToInt(num1.value); "
 													+ "var num1b = parseInt(num1s); var num2 = document.getElementById('b"
 													+ i
 													+ "'); "
@@ -231,7 +237,7 @@ a:visited {
 													+ "').value = num3t; break;"
 													+ "case 'mul': num3t = num1b * num2b; document.getElementById('sum"
 													+ i
-													+ "').value = num3t; break; } }); "
+													+ "').value = priceFormat(num3t); break; } }); "
 													+ "</script"+">"
 											// 상품 별 합 계산()		
 											html += "<script DEFER> function total"
@@ -240,7 +246,7 @@ a:visited {
 													+ "{ var num1 = document.getElementById('a"
 													+ i
 													+ "');"
-													+ "var num1s = num1.value; "
+													+ "var num1s = stringNumberToInt(num1.value); "
 													+ "var num1b = parseInt(num1s); var num2 = document.getElementById('b"
 													+ i
 													+ "'); "
@@ -252,7 +258,7 @@ a:visited {
 													+ "').value = num3t; break;"
 													+ "case 'mul': num3t = num1b * num2b; document.getElementById('sum"
 													+ i
-													+ "').value = num3t;  break; } summary() }; "
+													+ "').value = priceFormat(num3t);  break; } summary() }; "
 													+ "</script"+">"
 
 										}
@@ -308,11 +314,11 @@ a:visited {
 		var count = this.form.board_id.length;
 		for (var i = 1; i < count; i++) {
 			if (this.form.board_id[i].checked == true) {
-				sum += parseInt(this.form.sum[i].value);
+				sum += parseInt(stringNumberToInt(this.form.sum[i].value));
 				console.log(sum)
 			}
 		}
-		$('.total').html(sum + '원');
+		$('.total').html(priceFormat(sum) + '원');
 	}
 
 	// 전체 카트 삭제
@@ -337,7 +343,7 @@ a:visited {
 				goods.psize = this.form.psize[i].value;
 				goods.pcolor = this.form.pcolor[i].value;
 				goods.name = this.form.name[i].value;
-				goods.sum = parseInt(this.form.sum[i].value);
+				goods.sum = parseInt(stringNumberToInt(this.form.sum[i].value));
 				goods.thumbnail = this.form.thumbnail[i].value;
 				payGoods.push(goods);
 			}
@@ -350,6 +356,15 @@ a:visited {
 			window.location.assign("/myPage/payPage");
 		}
 
+	}
+	// 숫자 콤마찍기
+	function priceFormat(n) {
+		var n = n.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+		return n;
+	}
+	// 콤마 풀기
+	function stringNumberToInt(stringNumber){
+	    return parseInt(stringNumber.replace(/,/g , ''));
 	}
 </script>
 <!-- Js Plugins -->

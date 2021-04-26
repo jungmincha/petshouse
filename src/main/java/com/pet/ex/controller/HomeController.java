@@ -95,7 +95,8 @@ public class HomeController {
 		int scount = service.scount(keyword);
 		mav.addObject("scount", scount);
 		System.out.println(keyword);
-		mav.addObject("ccount", service.countComment(boardVO));
+		mav.addObject("snscount", service.getSnsCount(keyword)); 
+		mav.addObject("ccount", service.countComment(boardVO)); //댓글 수
 		mav.addObject("moresns", service.getMoreSns(keyword,cri));
 		mav.setViewName("/home/moresns");
 		return mav;
@@ -103,11 +104,13 @@ public class HomeController {
 	
 	// 검색 ajax 더보기
 	@PostMapping("/snsmorelist")
-	public Map<String, Object> snslist(@RequestParam("keyword") String keyword, Criteria cri) {
+	public Map<String, Object> snslist(@RequestParam("keyword") String keyword, BoardVO boardVO,Criteria cri) {
 		log.info("snslist");
 		Map<String, Object> list = new HashMap<>();
-		List<ImageVO> snslist = service.getMoreSns(keyword, cri);
-		list.put("snslist", snslist);
+		List<ImageVO> moresns = service.getMoreSns(keyword, cri);
+		List<BoardVO> ccount = service.countComment(boardVO);
+		list.put("moresns", moresns);
+		list.put("ccount", ccount);
 		return list;
 	}
 
@@ -131,6 +134,7 @@ public class HomeController {
 		System.out.println(keyword);
 		int tcount = service.tcount(keyword);
 		mav.addObject("tcount", tcount);
+		mav.addObject("tipscount", service.getTipsCount(keyword)); 
 		mav.addObject("moretips", service.getMoreTips(keyword,cri));
 		mav.setViewName("/home/moretips");
 		return mav;

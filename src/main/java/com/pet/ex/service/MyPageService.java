@@ -54,4 +54,6 @@ public interface MyPageService {
 
 	int getPointTotalByDate(String member_id, String startDate, String endDate, Criteria cri);
 
+	void updatePaystate_id(String pay_id);
+
 }

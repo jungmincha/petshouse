@@ -189,7 +189,7 @@
 	 <select id="imgCount" resultMap="imagevo">
 	 
 			<![CDATA[
-	        	 	 select board_id , count(imgname) as count from image group by board_id
+	        	 	  select b.board_id , count(imgname) as count from image i, board b where i.board_id=b.board_id and b.boardtype_id=2 group by b.board_id
 	  		 ]]>
 	  		 
 	</select>
@@ -416,6 +416,7 @@
 	<resultMap type="ImageVO" id="imagevo">
 		<result column="img_id" property="img_id" />
 		<result column="imgname" property="imgname" />
+		<result column="count" property="count" />
 		<collection property="boardVO" resultMap="boardvo" />
 		<collection property="goodsVO" resultMap="goodsvo" />
 	</resultMap>

@@ -101,7 +101,9 @@ span {
 
 	<div class="container">
 		<div class="blog-details-inner">
-			<h2>포인트 사용내역</h2>
+			<div class="section-title">
+				<h2 style="margin-bottom: 20px; font-size: 30px;">포인트 사용 내역</h2><br>
+			</div>
 			<div class="row">
 				<div class="col-md-8">
 
@@ -122,7 +124,7 @@ span {
 				<div class="pb-text">
 					<table class="table">
 						<thead class="thead-dark">
-							<tr >
+							<tr>
 								<th>적립 일자</th>
 								<th>적립 내용</th>
 								<th>포인트</th>
