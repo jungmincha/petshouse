@@ -221,27 +221,19 @@ a:hover {
 				<c:if test="${not empty list}">
 					<c:forEach items="${list}" var="sns">
 					<input type="hidden" name="board_id" value="${boardVO.board_id}">
-
 						<div class=" col-12 col-md-4 col-lg-3">
-
-							<div class="user-Info row" style="margin: 20px auto 2px 5px">
+ 							<div class="user-Info row" style="margin: 20px auto 2px 5px">
 								<div class="profile_box ">
-
-									<img
-										src="/resources/img/member/profile/${sns.boardVO.memberVO.thumbnail}"
-										name="profile" alt="" class="profile" />
+	 								<img src="/resources/img/member/profile/${sns.boardVO.memberVO.thumbnail}" name="profile" alt="" class="profile" />
 								</div>
-								<div style="padding-top: 13px; padding-left: 7px;">${sns.boardVO.memberVO.nickname}
-								</div>
+								<div style="padding-top: 13px; padding-left: 7px;">${sns.boardVO.memberVO.nickname}</div>
 
-								<a href="/myPage/${sns.boardVO.memberVO.nickname}"
-									style="padding-top: 13px; padding-left: 5px;"> · 팔로우</a>
+								<a href="/myPage/${sns.boardVO.memberVO.nickname}" style="padding-top: 13px; padding-left: 5px;"> · 팔로우</a>
 
 							</div>
 
 							<div class="shot">
 								
-								 
 								<c:forEach items="${imgCount}" var = "imgCount">
 								  <c:if test="${imgCount.boardVO.board_id eq sns.boardVO.board_id and imgCount.count > 1}"> 
 								 <i class="far fa-clone clone"></i>
@@ -253,12 +245,15 @@ a:hover {
 								<span class="count">조회수 ${sns.boardVO.hit}</span></a>
 							</div>
 							<div class="card-body" style="font-size : 20px; ">
+							 	<a href="/commu/sns/${sns.boardVO.board_id}"> <i class="far fa-heart"></i>&nbsp&nbsp${sns.boardVO.plike}</a> &nbsp&nbsp&nbsp&nbsp
+									<i class="far fa-comment"></i>
+								<c:forEach items="${count}" var="count">  
+								
+								 <c:if test="${count.pgroup eq sns.boardVO.board_id}"><a href="/commu/sns/${sns.boardVO.board_id}">
 							
-							<a href="/commu/sns/${sns.boardVO.board_id}"> <i class="far fa-heart"></i>&nbsp&nbsp${sns.boardVO.plike}</a> &nbsp&nbsp&nbsp&nbsp
-							<c:forEach items="${count}" var="count">  
-							<c:if test="${count.pgroup eq sns.boardVO.board_id}"><a href="/commu/sns/${sns.boardVO.board_id}"><i class="far fa-comment"></i>
-							
-							${count.count}</a></c:if></c:forEach></div>
+								 ${count.count}</a></c:if></c:forEach>
+							 
+							 	</div>
 
 						</div>
 					</c:forEach>
@@ -274,68 +269,71 @@ a:hover {
 	</div>
 	<!--  더보기 페이징 처리 -->
 	<script type="text/javascript">
-	
-		var pageNum = 1;
-		var check =$('.snsTotal').val() / 8;
+   
+      var pageNum = 1;
+      var check =$('.snsTotal').val() / 8;
 
-		function btnClick() {
+      function btnClick() {
 
-			pageNum += 1;
-			console.log(pageNum);
-			console.log(check);
+         pageNum += 1;
+         console.log(pageNum);
+         console.log(check);
 
-			if (pageNum > check){
-				$(".btn").hide();
-			}
-			$
-					.ajax({
-						type : "POST",
-						url : "/commu/smorelist",
-						data : {
-							pageNum : pageNum
-						},
-						success : function(data) {
-							console.log(data);
-							
-							var sns = data.sns;
-							var snsTotal = data.snsTotal;
+         if (pageNum > check){
+            $(".btn").hide();
+         }
+         $
+               .ajax({
+                  type : "POST",
+                  url : "/commu/smorelist",
+                  data : {
+                     pageNum : pageNum
+                  },
+                  success : function(data) {
+                     console.log(data);
+                     console.log("here");
+                     var sns = data.sns;
+                     var snsTotal = data.snsTotal;
+                     var imgCount = data.imgCount;
+                     var count = data.count;
 
-							html = " "
-							for ( var i in sns) {
-								html += "<div class='card-feed  col-12 col-md-4 col-lg-3'>"
-										+ "<div class='user-Info row' style='margin: 20px auto 0px 5px'>"
-										+ "<div class='profile_box'>"
-										+ "<img src='/resources/img/member/profile/"+sns[i].boardVO.memberVO.thumbnail+"'name='profile' alt='' class='profile' /></div>"
-										+ "<p style='padding:5px;'>"
-										+ sns[i].boardVO.memberVO.nickname
-										+ "</p>"
-										+ "<a href='/myPage/" + sns[i].boardVO.memberVO.nickname + "' style='padding:6px'>팔로우</a>"
-										+ "</div>"
-										+ "<div class='card'>"
-										+ "<a href='/commu/sns/"+sns[i].boardVO.board_id+"'> "
-										+ "<img src='/resources/img/member/sns/"+sns[i].imgname +"' alt='' style='height: 300px;' class='card-img-top i' />"
-
-										+ "<span class='count2'>조회수 "
-										+ sns[i].boardVO.hit
-										+ "</span></a></div>"
-										+ "<div class='card-body'><i class='far fa-heart'></i>"  + sns[i].boardVO.plike + " <i class='far fa-comment'></i>"
-
-										+ "</div></div></div>"
-							}
-
-							$("#snslist").append(html);
-						 
-						 		 
-						  }, 	        
-			    	        //success end
-			    	        error : function(request, status, error) {
-								alert("code:" + request.status + "\n" + "message:"
-										+ request.responseText + "\n" + "error:" + error);
-							} // ajax 에러 시 end
-			    	    }); //ajax end	 
-			    	}; //click end	
-		
-	</script>
+                     html = " ";
+                        for (var i in sns) {
+                           html += "<div class='col-12 col-md-4 col-lg-3'>"
+                                 + "<div class='user-Info row' style='margin: 20px auto 0px 5px;'>"
+                                 + "<div class='profile_box'>"
+                                 + "<img src='/resources/img/member/profile/"+sns[i].boardVO.memberVO.thumbnail+"' name='profile' class='profile' /></div>"
+                                 + "<div style='padding-top: 13px; padding-left: 7px;'>"
+                                 + sns[i].boardVO.memberVO.nickname
+                                 + "</div>"
+                                 + "<a href='/myPage/" + sns[i].boardVO.memberVO.nickname + "' style='padding-top: 13px; padding-left: 5px;'> · 팔로우</a></div>"
+                                 + "<div class='shot'>"
+                                 + "<a href='/commu/sns/"+sns[i].boardVO.board_id+"'>"
+                                 + "<img src='/resources/img/member/sns/"+ sns[i].imgname + "' style='height: 300px;' class='card-img-top i' />"
+                                 + "<span class='count2'>조회수"
+                                 + sns[i].boardVO.hit
+                                 + "</span></a></div>"
+                                 + "<div class='card-body' style='font-size:20px;'><i class='far fa-heart'></i>" + sns[i].boardVO.plike + "&nbsp;&nbsp;&nbsp;&nbsp;";
+                                 
+                                      for(var j in count){
+                                              if(count[j].pgroup == sns[i].boardVO.board_id){
+                                                html += "<a href='/commu/sns/"+sns[i].boardVO.board_id + "'>"
+                                                     + "<i class='far fa-comment' style='font-size : 25px;'></i>"
+                                                      + count[j].count + "</a></div></div>";          
+                                              }
+                                      }//goods foreach end            
+                                    }                                     
+                     $("#snslist").append(html);
+                       },            
+                           //success end
+                            error : function(request, status, error) {
+                           alert("code:" + request.status + "\n" + "message:"
+                                 + request.responseText + "\n" + "error:" + error);
+                        } // ajax 에러 시 end 
+                       }); //ajax end    
+                  };
+      
+   </script>
 	<!-- Footer -->
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 	<!-- Js Plugins -->

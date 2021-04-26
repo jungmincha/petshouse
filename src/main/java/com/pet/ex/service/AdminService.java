@@ -114,11 +114,5 @@ public interface AdminService {
 	public List<BoardVO> getReviewList(BoardVO boardVO, Criteria cri);
 	public ImageVO getReviewImg(int board_id);
 
-	
- 
-	
-
-	
-	
 
 }
