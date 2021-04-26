@@ -139,6 +139,13 @@
 	   ]]>
 	</select>  
 	
+	<!-- 작성한 리뷰의 상품 게시글 번호 조회 -->
+	<select id="getBoardlist" resultMap="boardvo">
+		<![CDATA[
+	         select * from board b, goods g where b.goods_id=g.goods_id and b.boardtype_id=3 and b.goods_id in (select goods_id from board where boardtype_id=8 and member_id=#{memberVO.member_id} group by goods_id)
+	   ]]>
+	</select>  
+	
 	<!-- 상품에 대한 리뷰 점수 평균 -->
 	<select id="getGoodsscore" resultMap="boardvo">
 		<![CDATA[

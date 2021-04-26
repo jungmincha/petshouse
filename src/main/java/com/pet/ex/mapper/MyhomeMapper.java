@@ -64,6 +64,9 @@ public interface MyhomeMapper {
 	//본인이 작성한 리뷰 글개수 조회
 	public int getReviewtotal(String member_id);
 	
+	//작성한 리뷰의 상품 게시글 번호 조회
+	public List<BoardVO> getBoardlist(String member_id);
+	
 	//상품에 대한 리뷰 점수 평균
 	public List<BoardVO> getGoodsscore();
 
@@ -72,6 +75,4 @@ public interface MyhomeMapper {
 
 	//본인이 작성한 질답 글개수 조회
 	public int getQnatotal(String member_id);
-
-
 }

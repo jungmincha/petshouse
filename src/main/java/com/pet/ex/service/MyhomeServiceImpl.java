@@ -136,6 +136,13 @@ public class MyhomeServiceImpl implements MyhomeService {
 		return mapper.getReviewtotal(member_id);
 	}
 	
+	//작성한 리뷰의 상품 게시글 번호 조회
+	@Override
+	public List<BoardVO> getBoardlist(String member_id) {
+		log.info("getBoardlist");
+		return mapper.getBoardlist(member_id);
+	}
+	
 	//해당 SNS 댓글 총 개수
 	@Override
 	public List<BoardVO> getCommentcount() {

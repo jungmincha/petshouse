@@ -72,6 +72,7 @@ public class Myhomecontroller {
 		
 		mav.addObject("review", service.getReviewlist(memberVO, cri));
 		mav.addObject("reviewTotal", service.getReviewtotal(memberVO.getMember_id()));
+		mav.addObject("boardlist", service.getBoardlist(memberVO.getMember_id()));
 		mav.addObject("goodsscore", service.getGoodsscore());
 		
 		mav.addObject("qna", service.getQnalist(memberVO, cri));
@@ -103,9 +104,7 @@ public class Myhomecontroller {
 		log.info("more_sns");
 		memberVO = service.getMemberInfo(memberVO.getNickname());
 		Map<String, Object> list = new HashMap<>();
-		List<ImageVO> sns = service.getSnslist(memberVO, cri);
-		list.put("sns", sns);
-		list.put("snsTotal", service.getSnstotal(memberVO.getMember_id()));
+		list.put("sns", service.getSnslist(memberVO, cri));
 		list.put("comment", service.getCommentcount());
 		
 		return list;
@@ -131,21 +130,20 @@ public class Myhomecontroller {
 		log.info("more_knowhow");
 		memberVO = service.getMemberInfo(memberVO.getNickname());
 		Map<String, Object> list = new HashMap<>();
-		List<ImageVO> knowhow = service.getKnowhowlist(memberVO, cri);
-		list.put("knowhow", knowhow);
-		list.put("knowhowTotal", service.getKnowhowtotal(memberVO.getMember_id()));
+		list.put("knowhow", service.getKnowhowlist(memberVO, cri));
 		return list;
 	}
 	
 	//리뷰 전체 출력
 	@GetMapping("/review")
-	public ModelAndView review(@RequestParam("nickname") String nickname, MemberVO memberVO, Criteria cri, ModelAndView mav) throws Exception {
+	public ModelAndView review(@RequestParam("nickname") String nickname, MemberVO memberVO, BoardVO boardVO, Criteria cri, ModelAndView mav) throws Exception {
 		log.info("review");
 		memberVO.setNickname(nickname);
 		memberVO = service.getMemberInfo(memberVO.getNickname());
 		mav.addObject("member", service.getMemberInfo(memberVO.getNickname()));
 		mav.addObject("review", service.getReviewlist(memberVO, cri));
 		mav.addObject("reviewTotal", service.getReviewtotal(memberVO.getMember_id()));
+		mav.addObject("boardlist", service.getBoardlist(memberVO.getMember_id()));
 		mav.addObject("goodsscore", service.getGoodsscore());
 		
 		mav.setViewName("myPage/myreview");
@@ -158,8 +156,8 @@ public class Myhomecontroller {
 		log.info("more_review");
 		memberVO = service.getMemberInfo(memberVO.getNickname());
 		Map<String, Object> list = new HashMap<>();
-		List<BoardVO> review = service.getReviewlist(memberVO, cri);
-		list.put("review", review);
+		list.put("review", service.getReviewlist(memberVO, cri));
+		list.put("boardlist", service.getBoardlist(memberVO.getMember_id()));
 		list.put("goodsscore", service.getGoodsscore());
 		return list;
 	}
@@ -184,9 +182,7 @@ public class Myhomecontroller {
 		log.info("more_qna");
 		memberVO = service.getMemberInfo(memberVO.getNickname());
 		Map<String, Object> list = new HashMap<>();
-		List<BoardVO> qna = service.getQnalist(memberVO, cri);
-		list.put("qna", qna);
-		list.put("qnaTotal", service.getQnatotal(memberVO.getMember_id()));
+		list.put("qna", service.getQnalist(memberVO, cri));
 		return list;
 	}
 	
@@ -197,19 +193,15 @@ public class Myhomecontroller {
 		memberVO = service.getMemberInfo(memberVO.getNickname());
 		followVO.setMemberVO(memberVO);
 		
-		//System.out.println(memberVO.getNickname());
 		String follower_id = authentication.getPrincipal().toString();	
 		followVO.setFollower_id(service.getFollowernick(follower_id));
-		System.out.println(service.getFollowernick(follower_id));
 
 		Map<String, Object> map = new HashMap<>();
 		try {	
 			service.follow(followVO);
 			map.put("SUCCESS", HttpStatus.OK);
 			map.put("follower", service.getFollowertotal(followVO.getMemberVO().getMember_id()));
-		
-			List<FollowVO> followerlist = service.getFollowerlist(followVO);
-			map.put("followerlist", followerlist);
+			map.put("followerlist", service.getFollowerlist(followVO));
 				
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -224,20 +216,15 @@ public class Myhomecontroller {
 		log.info("unfollow");
 		memberVO = service.getMemberInfo(memberVO.getNickname());
 		followVO.setMemberVO(memberVO);
-		System.out.println(followVO.getMemberVO().getMember_id()); 
 		
-		//System.out.println(memberVO.getNickname());
 		String follower_id = authentication.getPrincipal().toString();	
 		followVO.setFollower_id(service.getFollowernick(follower_id));
-		System.out.println(service.getFollowernick(follower_id));
 			
 		Map<String, Object> map = new HashMap<>();	
 		try {	
 			service.unfollow(followVO);
 			map.put("SUCCESS", HttpStatus.OK);
-			map.put("follower", service.getFollowertotal(followVO.getMemberVO().getMember_id()));
-				
-			//List<FollowVO> followerlist = service.getFollowerlist(followVO);
+			map.put("follower", service.getFollowertotal(followVO.getMemberVO().getMember_id()));				
 			map.put("followerlist", service.getFollowerlist(followVO));
 			
 		} catch (Exception e) {

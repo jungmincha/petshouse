@@ -13,7 +13,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
 <title>beststore</title>
 
-<!-- bootstrap css cdn -->
+<!-- bootstrap css cdn --<!-- > -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" type="text/css" />
 
 <!-- Css Styles -->
@@ -23,12 +23,14 @@
 <link rel="stylesheet" href="/resources/css/elegant-icons.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/owl.carousel.min.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/nice-select.css" type="text/css">
-<link rel="stylesheet" href="/resources/css/jquery-ui.min.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/slicknav.min.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/style.css" type="text/css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 <!-- jquery cdn -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdn.bootpay.co.kr/js/bootpay-3.3.1.min.js" type="application/javascript"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
   <script type="text/javascript">
     $(document).ready(function(){	
@@ -93,17 +95,6 @@
 	    background-position: 0 0;
 	    max-width:80px; 
 	}
-	
-	.top {
-	   background-color: #e7ab3c;
-	   border-radius: 10px;
-	   cursor: pointer; 
-	   position: fixed; 
-	   right: 5px; 
-	   font-size: 15px; 
-	   bottom: 500px;
-	   padding:10px;
-	}	
 	
 	#navbars>li:nth-child(3) {
   		background-color: #e7ab3c;
@@ -205,7 +196,7 @@
 	     function btnClick(){
 	   	  pageNum += 1;
 	   	  
-	   	  if (pageNum > check) {
+	   	  if (pageNum >= check) {
 	             $(".btn").hide();
 	          }
 	   	  
@@ -261,9 +252,7 @@
  	<%@ include file="/WEB-INF/views/include/footer.jsp" %>
  
    <!-- Bootstrap core JavaScript -->
-   <script src="/resources/js/jquery-3.3.1.min.js"></script>
    <script src="/resources/js/bootstrap.min.js"></script>
-   <script src="/resources/js/jquery-ui.min.js"></script>
    <script src="/resources/js/jquery.countdown.min.js"></script>
    <script src="/resources/js/jquery.nice-select.min.js"></script>
    <script src="/resources/js/jquery.zoom.min.js"></script>

@@ -1,19 +1,38 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+   pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
 <title>프로필</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
-<Style>
+<!-- bootstrap css cdn --<!-- > -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" type="text/css" />
+
+<!-- Css Styles -->
+<link rel="stylesheet" href="/resources/css/bootstrap.min.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/font-awesome.min.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/themify-icons.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/elegant-icons.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/owl.carousel.min.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/nice-select.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/slicknav.min.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/style.css" type="text/css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+<!-- jquery cdn -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdn.bootpay.co.kr/js/bootpay-3.3.1.min.js" type="application/javascript"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<style>
 	.user-profile__container {
 		border-radius: 4px;
 		border: 1px solid #dadce0;
@@ -79,8 +98,12 @@
 	#navbars>li:nth-child(4) {
   		background-color: #e7ab3c;
 	}
+	
+	.btn{
+		margin-bottom: 100px;
+	}
 
-</Style>
+</style>
 
 </head>
 <body style="padding-top: 200px;">
@@ -150,7 +173,7 @@
       function btnClick(){
     	  pageNum += 1;
     	  
-    	  if (pageNum > check) {
+    	  if (pageNum >= check) {
               $(".btn").hide();
            }
     	  console.log(pageNum);
@@ -165,13 +188,12 @@
     	        success :function(data){
     	          console.log(data);
     	          var knowhow = data.knowhow;
-    	          var knowhowTotal = data.knowhowTotal;
 					 	      
     	          html = "";	
 
     	           for(var i in knowhow){
     	        	  html += "<div class='col-lg-4 col-md-4 col-sm-4 wrap--profile text-center'>"
-	      	          	   + "<a href='/commu/tips/'" + knowhow[i].boardVO.board_id + "'><img src='/resources/img/tips/"+knowhow[i].imgname + "' /></a>"
+	      	          	   + "<a href='/commu/tips/" + knowhow[i].boardVO.board_id + "'><img src='/resources/img/tips/"+knowhow[i].imgname + "' /></a>"
 	       	          	   + "<span class='knowhow_hit'>조회수" + knowhow[i].boardVO.hit + "</span>"       	         	
 	       	         	   + "<h6 style='padding-top:10px;'>" + knowhow[i].boardVO.title + "</h6></div>";   	          	       	          	
     	        	}//knowhow foreach end      	     	           
@@ -189,21 +211,16 @@
       </script>
 
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
-</body>
 
-<!-- Js Plugins -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-<script src="/resources/js/jquery-3.3.1.min.js"></script>
-<script src="/resources/js/bootstrap.min.js"></script>
-<script src="/resources/js/jquery-ui.min.js"></script>
-<script src="/resources/js/jquery.countdown.min.js"></script>
-<script src="/resources/js/jquery.nice-select.min.js"></script>
-<script src="/resources/js/jquery.zoom.min.js"></script>
-<script src="/resources/js/jquery.dd.min.js"></script>
-<script src="/resources/js/jquery.slicknav.js"></script>
-<script src="/resources/js/owl.carousel.min.js"></script>
-<script src="/resources/js/main.js"></script>
+   <!-- Bootstrap core JavaScript -->
+   <script src="/resources/js/bootstrap.min.js"></script>
+   <script src="/resources/js/jquery.countdown.min.js"></script>
+   <script src="/resources/js/jquery.nice-select.min.js"></script>
+   <script src="/resources/js/jquery.zoom.min.js"></script>
+   <script src="/resources/js/jquery.dd.min.js"></script>
+   <script src="/resources/js/jquery.slicknav.js"></script>
+   <script src="/resources/js/owl.carousel.min.js"></script>
+   <script src="/resources/js/main.js"></script>
+</body>
 </html>												
 														
