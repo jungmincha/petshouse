@@ -87,7 +87,7 @@ public class SnsServiceImpl implements SnsService {
 	@Override
 	public List<ImageVO> getsnsList(Criteria cri) {
 		log.info("getsnsList()");
-		cri.setAmount(8);
+		cri.setAmount(12);
 		return mapper.getsnsList(cri);
 	}
 

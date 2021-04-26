@@ -12,8 +12,6 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>SNS</title>
 
-
-
 <!-- bootstrap css cdn -->
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -151,10 +149,6 @@
 
 		<!-- Category Section End -->
 
-
-
-
-
 		<div id="snslist" class="row text-center">
 		<c:if test="${empty list}">
 							
@@ -188,7 +182,18 @@
 							style="height: 300px;" class="card-img-top i" /><span
 							class="count">조회수 ${sns.boardVO.hit}</span></a>
 					</div>
-					<div class="card-body">좋아요${sns.boardVO.plike}//댓글수</div>
+					<div class="card-body" style="font-size : 20px; ">
+							
+							<a href="/commu/sns/${sns.boardVO.board_id}"> <i class="far fa-heart"></i>&nbsp&nbsp${sns.boardVO.plike}</a> &nbsp&nbsp&nbsp&nbsp
+							<i class="far fa-comment"></i>
+							<c:forEach items="${count}" var="count">  
+							
+							
+							<c:if test="${count.pgroup eq sns.boardVO.board_id}"><a href="/commu/sns/${sns.boardVO.board_id}">
+							
+							 ${count.count}</a></c:if></c:forEach>
+							 
+							 </div>
 
 				</div>
 			</c:forEach></c:if>

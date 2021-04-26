@@ -36,7 +36,6 @@ import com.pet.ex.vo.MemberVO;
 import com.pet.ex.vo.PlikeVO;
 
 import lombok.extern.slf4j.Slf4j;
- 
 
 @Slf4j
 @RestController
@@ -47,12 +46,12 @@ public class SnsController {
 
 	// sns홈
 	@RequestMapping("/sns")
-	public ModelAndView SNS( BoardVO boardVO, Criteria cri, ImageVO imageVO,  ModelAndView mav) throws Exception {
+	public ModelAndView SNS(BoardVO boardVO, Criteria cri, ImageVO imageVO, ModelAndView mav) throws Exception {
 
 		log.info("sns");
-		
+
 		mav.addObject("list", service.getsnsList(cri));
-		
+
 		mav.addObject("imgCount", service.imgCount(imageVO));
 		mav.addObject("count", service.countComment(boardVO));
 		mav.addObject("snsTotal", service.getSnstotal(boardVO));
@@ -60,8 +59,8 @@ public class SnsController {
 
 		return mav;
 	}
-	
-	//sns 더보기
+
+	// sns 더보기
 	@PostMapping("/smorelist")
 	public Map<String, Object> sns(BoardVO boardVO, ImageVO imageVO, Criteria cri) {
 		log.info("morelist");
@@ -73,53 +72,48 @@ public class SnsController {
 		list.put("snsTotal", service.getSnstotal(boardVO));
 		return list;
 	}
-	
-	//sns 카테고리별 조회
-		@PostMapping("/sns/category/{boardVO.categoryVO.category_id}")
-		public ModelAndView snscategoryList(ImageVO imageVO, Criteria cri, ModelAndView mav) {
-			log.info("sns_categoryList");
-		 
-			mav.addObject("list", service.getSnsCategory(imageVO));		
-			mav.setViewName("sns/sns_category");	
-			return mav;	
-		}
-		
-	 
-		/*
-		 * //besthome 카테고리별 상품 더보기
-		 * 
-		 * @PostMapping("/sns/category/morelist/{categoryVO.code}") public Map<String,
-		 * Object> snscatemorelist(BoardVO boardVO, Criteria cri) {
-		 * log.info("snscatemorelist"); Map<String, Object> list = new HashMap<>();
-		 * List<BoardVO> goods = service.getGoodsinfo(); List<BoardVO> rate =
-		 * service.getBestrate(boardVO, cri); list.put("rate", rate); list.put("goods",
-		 * goods); return list; }
-		 */
-	
-	
-	 
-	
+
+	// sns 카테고리별 조회
+	@PostMapping("/sns/category/{boardVO.categoryVO.category_id}")
+	public ModelAndView snscategoryList(ImageVO imageVO, BoardVO boardVO,Criteria cri, ModelAndView mav) {
+		log.info("sns_categoryList");
+
+		mav.addObject("list", service.getSnsCategory(imageVO));
+		mav.addObject("imgCount", service.imgCount(imageVO));
+		mav.addObject("count", service.countComment(boardVO));
+		mav.addObject("snsTotal", service.getSnstotal(boardVO));
+		mav.setViewName("sns/sns_category");
+		return mav;
+	}
+
+	/*
+	 * //besthome 카테고리별 상품 더보기
+	 * 
+	 * @PostMapping("/sns/category/morelist/{categoryVO.code}") public Map<String,
+	 * Object> snscatemorelist(BoardVO boardVO, Criteria cri) {
+	 * log.info("snscatemorelist"); Map<String, Object> list = new HashMap<>();
+	 * List<BoardVO> goods = service.getGoodsinfo(); List<BoardVO> rate =
+	 * service.getBestrate(boardVO, cri); list.put("rate", rate); list.put("goods",
+	 * goods); return list; }
+	 */
 
 	// sns 댓글 더보기
 	@PostMapping("/scmorelist")
 	public Map<String, Object> comment(@RequestParam("board_id") int board_id, Criteria cri) {
+
 		log.info("commentsmorelist");
+
 		Map<String, Object> list = new HashMap<>();
 		List<BoardVO> comment = service.getcommentsList(cri, board_id);
 		list.put("comment", comment);
-		
+
 		return list;
 	}
-	
-
-	
-	
-	
 
 	// sns 등록창
 	@GetMapping("/sns/write_view")
 	public ModelAndView write(ModelAndView mav) throws Exception {
-		
+
 		log.info("write");
 
 		mav.setViewName("sns/sns_write");
@@ -158,6 +152,7 @@ public class SnsController {
 			String savePath = path + "\\" + imgname; // 저장 될 파일 경로
 
 			mf.get(i).transferTo(new File(savePath)); // 파일 저장
+			
 			imageVO.setImgname(imgname);
 			BoardVO board = service.getSnsBoard_id();
 			imageVO.getBoardVO().setBoard_id(board.getBoard_id());
@@ -172,32 +167,32 @@ public class SnsController {
 	}
 
 	@GetMapping("/sns/{board_id}")
-	public ModelAndView contentView(@PathVariable("board_id") int board_id, ImageVO imageVO, Authentication authentication ,PlikeVO plikeVO ,BoardVO boardVO, MemberVO memberVO, Criteria cri, ModelAndView mav)
-			throws Exception {
+	public ModelAndView contentView(@PathVariable("board_id") int board_id, ImageVO imageVO,
+			Authentication authentication, PlikeVO plikeVO, BoardVO boardVO, MemberVO memberVO, Criteria cri,
+			ModelAndView mav) throws Exception {
 
 		boardVO = service.getBoardInfo(board_id);
-		 
+
 		String member_id = "";
-	      if(authentication!=null) {
-	         member_id = authentication.getPrincipal().toString();
-	      }
+		if (authentication != null) {
+			member_id = authentication.getPrincipal().toString();
+		}
 		System.out.println(member_id);
-		String present_nickname = service.getPresetnNickname(member_id);//현재 닉네임
-			
+		String present_nickname = service.getPresetnNickname(member_id);// 현재 닉네임
+
 		log.info("SNS_View");
 
 		String nickname = service.getNickname(board_id);
 		int count = service.getCommentsCount(board_id);
-		
-		mav.addObject("count",count);
-		mav.addObject("imgCount", service.imgCount(imageVO));  
-		mav.addObject("user",  service.getUserboard(nickname));
+
+		mav.addObject("count", count);
+		mav.addObject("imgCount", service.imgCount(imageVO));
+		mav.addObject("user", service.getUserboard(nickname));
 		mav.addObject("sns", service.getBoard(boardVO.getBoard_id()));
 		mav.addObject("img", service.getImg(board_id));
-		service.hit(boardVO.getBoard_id()); 
-		
-		 
-		//좋아요
+		service.hit(boardVO.getBoard_id());
+
+		// 좋아요
 		MemberVO member = new MemberVO();
 		plikeVO.setMemberVO(member);
 		plikeVO.getMemberVO().setMember_id(member_id);
@@ -205,16 +200,16 @@ public class SnsController {
 		BoardVO board = new BoardVO();
 		plikeVO.setBoardVO(board);
 		plikeVO.getBoardVO().setBoard_id(boardVO.getBoard_id());
-		
+
 		mav.addObject("like_amount", service.getLiketotal(plikeVO.getBoardVO().getBoard_id()));
 		mav.addObject("likecheck", service.isLike(plikeVO));
 		mav.addObject("likelist", service.getLikelist(plikeVO));
-		
+
 		mav.setViewName("sns/sns_contentView");
 
 		return mav;
 	}
-	
+
 	// SNS 태그 검색
 	@GetMapping("/sns/hashtag")
 	public ModelAndView snsTag(@RequestParam("keyword") String keyword, ModelAndView mav, BoardVO boardVO)
@@ -224,22 +219,22 @@ public class SnsController {
 		mav.setViewName("sns/sns_hashtag");
 		return mav;
 	}
-	
+
 	// sns 수정페이지
 	@GetMapping("/sns/modify_view")
-	public ModelAndView modify_view(@RequestParam("board_id") int board_id, BoardVO boardVO, ModelAndView mav) throws Exception {
-		
-		 
+	public ModelAndView modify_view(@RequestParam("board_id") int board_id, BoardVO boardVO, ModelAndView mav)
+			throws Exception {
+
 		log.info("modify_view");
-		
+
 		mav.addObject("sns", service.getBoard(boardVO.getBoard_id()));
 		mav.addObject("img", service.getImg(board_id));
-		
+
 		mav.setViewName("sns/sns_modify");
 
 		return mav;
 	}
-	
+
 	// sns 수정
 	@PostMapping("/sns/modify")
 	public ModelAndView modifySNS(BoardVO boardVO, ModelAndView mav) throws Exception {
@@ -248,17 +243,17 @@ public class SnsController {
 		mav.setView(new RedirectView("/commu/sns", true));
 		return mav;
 	}
-	
+
 	// sns 삭제하기
 	@GetMapping("/sns/delete")
-		public ModelAndView deleteSNS(@RequestParam("board_id") int board_id, Criteria cri, ModelAndView mav)
-				throws Exception {
-			log.info("delete()실행");
-			
-			service.deleteSns(board_id);
-			mav.setView(new RedirectView("/commu/sns", true));
-			return mav;
-		}
+	public ModelAndView deleteSNS(@RequestParam("board_id") int board_id, Criteria cri, ModelAndView mav)
+			throws Exception {
+		log.info("delete()실행");
+
+		service.deleteSns(board_id);
+		mav.setView(new RedirectView("/commu/sns", true));
+		return mav;
+	}
 
 	// sns 댓글 작성
 	@PostMapping("/sns/comment")
@@ -272,122 +267,118 @@ public class SnsController {
 		System.out.println(comments);
 		return comments;
 	}
-	
+
 	// 댓글 더보기
-		@PostMapping("/sns/morelist")
-		public Map<String, Object> commentMoreList(@RequestParam("board_id") int board_id, Criteria cri) {
-			log.info("commentMoreList");
-			Map<String, Object> list = new HashMap<>();
-			List<BoardVO> Comment = service.getCommentsList(board_id,cri);
-			list.put("comment", Comment);
-			list.put("commentTotal", service.getCommentsCount(board_id));
-			return list;
-		}
-	
-	//댓글 삭제하기
+	@PostMapping("/sns/morelist")
+	public Map<String, Object> commentMoreList(@RequestParam("board_id") int board_id, Criteria cri) {
+		log.info("commentMoreList");
+		Map<String, Object> list = new HashMap<>();
+		List<BoardVO> Comment = service.getCommentsList(board_id, cri);
+		list.put("comment", Comment);
+		list.put("commentTotal", service.getCommentsCount(board_id));
+		return list;
+	}
+
+	// 댓글 삭제하기
 	@DeleteMapping("/sns/comment/delete/{board_id}")
-		public ResponseEntity<String> deleteComment(BoardVO boardVO) {
+	public ResponseEntity<String> deleteComment(BoardVO boardVO) {
 
-			ResponseEntity<String> entity = null;
-			log.info("delete");
+		ResponseEntity<String> entity = null;
+		log.info("delete");
 
-			try {
-				service.deleteComment(boardVO);
-				System.out.println("===========");
-				entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
-				
-			} catch (Exception e) {
-				
-				e.printStackTrace();
+		try {
+			service.deleteComment(boardVO);
+			System.out.println("===========");
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 
-				entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
-			}
+		} catch (Exception e) {
 
-			return entity;
+			e.printStackTrace();
 
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 
- 
-		//좋아요 기능 -START-
-		//좋아요 입력
-			@PostMapping("/sns/like/{board_id}")
-			public Map<String, Object> like(@PathVariable("board_id") int board_id , Authentication authentication , PlikeVO plikeVO, BoardVO boardVO ,MemberVO memberVO ) {
-				log.info("LIKE");
-				
-				
-			
-				String member_id = authentication.getPrincipal().toString();
-				System.out.println(member_id);
-				String present_nickname = service.getPresetnNickname(member_id);//현재 닉네임
-				//resultmap에 vo 담아주는 거
-				MemberVO member = new MemberVO();
-				plikeVO.setMemberVO(member);
-				plikeVO.getMemberVO().setMember_id(member_id);
-				plikeVO.getMemberVO().setNickname(present_nickname);
-				
-			
-				BoardVO board = new BoardVO();
-				plikeVO.setBoardVO(board);
-				plikeVO.getBoardVO().setBoard_id(boardVO.getBoard_id());
-		
-				//plikeVO.setMember_id(member_id);
-			
-				Map<String, Object> map = new HashMap<>();
-				try {	
-					service.like(plikeVO);
-					map.put("SUCCESS", HttpStatus.OK);
-					map.put("like_amount", service.getLiketotal(plikeVO.getBoardVO().getBoard_id()));
-			
-					List<PlikeVO> likelist =  service.getLikelist(plikeVO);
-					map.put("likelist", likelist);
-					
-					//BOARD테이블의 plike 숫자 증가
-					service.insertplike(boardVO);
-				 
-				} catch (Exception e) {
-					e.printStackTrace();
-					map.put("SUCCESS", HttpStatus.BAD_REQUEST);
-				}
-				return map;
-			}
-			
-			//좋아요 취소
-			@DeleteMapping("/sns/likecancel/{board_id}")
-			public Map<String, Object> likecancel(@PathVariable("board_id") int board_id,  Authentication authentication ,PlikeVO plikeVO, BoardVO boardVO , MemberVO memberVO) {
-				log.info("likecancel");
-				String member_id = authentication.getPrincipal().toString();
-				System.out.println(member_id);
-				String present_nickname = service.getPresetnNickname(member_id);//현재 닉네임
-			
-				//resultmap에 vo 담아주는 거
-				MemberVO member = new MemberVO();
-				plikeVO.setMemberVO(member);
-				plikeVO.getMemberVO().setMember_id(member_id);
-				plikeVO.getMemberVO().setNickname(present_nickname);
-	
-				BoardVO board = new BoardVO();
-				plikeVO.setBoardVO(board);
-				plikeVO.getBoardVO().setBoard_id(boardVO.getBoard_id());
-			
-	
-			
-				Map<String, Object> map = new HashMap<>();	
-				try {	
-					service.likecancel(plikeVO);
-					map.put("SUCCESS", HttpStatus.OK);
-					map.put("like_amount", service.getLiketotal(plikeVO.getBoardVO().getBoard_id()));
-					
-					List<PlikeVO> likelist = service.getLikelist(plikeVO);
-					map.put("likelist", likelist);
-					//BOARD테이블의 plike 숫자 감소
-					service.deleteplike(boardVO);
-				} catch (Exception e) {
-					e.printStackTrace();
-					map.put("SUCCESS", HttpStatus.BAD_REQUEST);
-				}
-				return map;
-			}
-		
-			//좋아요 기능 -END-
+		return entity;
+
+	}
+
+	// 좋아요 기능 -START-
+	// 좋아요 입력
+	@PostMapping("/sns/like/{board_id}")
+	public Map<String, Object> like(@PathVariable("board_id") int board_id, Authentication authentication,
+			PlikeVO plikeVO, BoardVO boardVO, MemberVO memberVO) {
+		log.info("LIKE");
+
+		String member_id = authentication.getPrincipal().toString();
+		System.out.println(member_id);
+		String present_nickname = service.getPresetnNickname(member_id);// 현재 닉네임
+		// resultmap에 vo 담아주는 거
+		MemberVO member = new MemberVO();
+		plikeVO.setMemberVO(member);
+		plikeVO.getMemberVO().setMember_id(member_id);
+		plikeVO.getMemberVO().setNickname(present_nickname);
+
+		BoardVO board = new BoardVO();
+		plikeVO.setBoardVO(board);
+		plikeVO.getBoardVO().setBoard_id(boardVO.getBoard_id());
+
+		// plikeVO.setMember_id(member_id);
+
+		Map<String, Object> map = new HashMap<>();
+		try {
+			service.like(plikeVO);
+			map.put("SUCCESS", HttpStatus.OK);
+			map.put("like_amount", service.getLiketotal(plikeVO.getBoardVO().getBoard_id()));
+
+			List<PlikeVO> likelist = service.getLikelist(plikeVO);
+			map.put("likelist", likelist);
+
+			// BOARD테이블의 plike 숫자 증가
+			service.insertplike(boardVO);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			map.put("SUCCESS", HttpStatus.BAD_REQUEST);
+		}
+		return map;
+	}
+
+	// 좋아요 취소
+	@DeleteMapping("/sns/likecancel/{board_id}")
+	public Map<String, Object> likecancel(@PathVariable("board_id") int board_id, Authentication authentication,
+			PlikeVO plikeVO, BoardVO boardVO, MemberVO memberVO) {
+		log.info("likecancel");
+		String member_id = authentication.getPrincipal().toString();
+		System.out.println(member_id);
+		String present_nickname = service.getPresetnNickname(member_id);// 현재 닉네임
+
+		// resultmap에 vo 담아주는 거
+		MemberVO member = new MemberVO();
+		plikeVO.setMemberVO(member);
+		plikeVO.getMemberVO().setMember_id(member_id);
+		plikeVO.getMemberVO().setNickname(present_nickname);
+
+		BoardVO board = new BoardVO();
+		plikeVO.setBoardVO(board);
+		plikeVO.getBoardVO().setBoard_id(boardVO.getBoard_id());
+
+		Map<String, Object> map = new HashMap<>();
+		try {
+			service.likecancel(plikeVO);
+			map.put("SUCCESS", HttpStatus.OK);
+			map.put("like_amount", service.getLiketotal(plikeVO.getBoardVO().getBoard_id()));
+
+			List<PlikeVO> likelist = service.getLikelist(plikeVO);
+			map.put("likelist", likelist);
+			// BOARD테이블의 plike 숫자 감소
+			service.deleteplike(boardVO);
+		} catch (Exception e) {
+			e.printStackTrace();
+			map.put("SUCCESS", HttpStatus.BAD_REQUEST);
+		}
+		return map;
+	}
+
+	// 좋아요 기능 -END-
 
 }
