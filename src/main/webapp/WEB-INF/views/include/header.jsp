@@ -55,20 +55,20 @@
 </sec:authorize>
 <style>
 .top_profile_box {
-	width: 50px;
-	height: 50px;
+	width: 40px;
+	height: 40px;
 }
 
 .top_profile {
-	width: 50px;
-	height: 50px;
+	width: 40px;
+	height: 40px;
+	object-fit: cover;
 	border-radius: 70%;
-	border: 3px solid white;
+	object-fit: cover;
+	height: 40px;
+	object-fit: cover;
 }
-.top_profile:hover{
 
-	border: 3px solid #e7ab3c;
-}
 .top {
 	cursor: pointer;
 	position: fixed;
@@ -92,17 +92,63 @@
 	width: 180px;
 	height: 50px;
 }
-#home:before {
-	position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 4px;
-    width: 80px;
-    height: 3px;
-    background: #e7ab3c;
-    content: "";
+
+.depart-btn{
+    height: 100%;
     margin: 0 auto;
 }
+
+.depart-btn>li {
+    float: left;
+    width: 25%;
+    line-height: 50px;
+    text-align: center;
+    position: relative;
+}
+
+.depart-btn>li:hover .depart-hover {
+    left: 0;
+}
+
+.depart-btn>li a {
+    display: block;
+}
+
+.depart-btn>li a:hover {
+    color: #fff;
+    font-weight: bold;
+}
+
+.depart-hover {
+    position: absolute;
+    left: -9999px;
+    width: 100%;
+}
+
+.depart-hover>li {
+    position: relative;
+}
+
+.depart-hover>li:hover .M02 {
+    left: 100%;
+}
+
+.depart-hover>li a, .M02>li a {
+    margin: 10px;
+}
+
+.M02 {
+    position: absolute;
+    top: 0;
+    width: 90%;
+    background: #fff;
+    left: -9999px;
+}
+
+.M02>li a:hover {
+    color: #fff;
+}
+
 </style>
 </head>
 
@@ -140,7 +186,7 @@
 					<div class="col-lg-4 text-right">
 
 						<ul class="nav-right"
-							style="padding-top: 15px; padding-right: 15px">
+							style="padding-top: 16px; padding-right: 15px">
 
 							<sec:authorize access="hasAnyRole('ROLE_USER','ROLE_ADMIN')">
 
@@ -157,8 +203,8 @@
 									href="/myPage/<sec:authentication property="principal.nickname"/>"><sec:authentication
 											property="principal.nickname" />님</a></li>
 							</sec:authorize>
-							<li class="cart-icon" ><a href="/myPage/cart" id="cartCount"><i
-									class="icon_bag_alt" ></i> </a></li>
+							<li class="cart-icon"><a href="/myPage/cart" id="cartCount"><i
+									class="icon_bag_alt"></i> </a></li>
 							<!-- 로그아웃 버튼 -->
 							<sec:authorize access="isAnonymous()">
 								<li><a href="/login/login" class="login-panel">Login</a></li>
@@ -176,18 +222,80 @@
 			<div class="container">
 				<div class="nav-depart">
 					<div class="depart-btn">
-						<i class="ti-menu"></i> <span >MY HOME</span>
+						<i class="ti-menu"></i> <span>MY HOME</span>
 						<ul class="depart-hover">
-							<li class="active"><a href="#">프로필</a></li>
-							<li><a href="#">주문배송내역조회</a></li>
-							<li><a href="#">회원정보수정</a></li>
+							<li><a href="/store/commu/category/101?categoryName=고양이 / 사료">고양이</a>
+								<ul class="M02">
+									<li><a href="/store/commu/category/101?categoryName=고양이 / 사료">사료</a></li>
+									<li><a href="/store/commu/category/102?categoryName=고양이 / 간식/영양제">간식/영양제</a></li>
+									<li><a href="/store/commu/category/103?categoryName=고양이 / 리빙">리빙</a></li>
+									<li><a href="/store/commu/category/104?categoryName=고양이 / 케어">케어</a></li>
+									<li><a href="/store/commu/category/105?categoryName=고양이 / 의류/패션">의류/패션</a></li>
+									<li><a href="/store/commu/category/106?categoryName=고양이 / 장난감">장난감</a></li>
+									<li><a href="/store/commu/category/107?categoryName=고양이 / 기타">기타</a></li>
+								</ul>	
+							</li>		
+									
+							<li><a href="/store/commu/category/201?categoryName=강아지 / 사료">강아지</a>
+								<ul class="M02">
+									<li><a href="/store/commu/category/201?categoryName=강아지 / 사료">사료</a></li>
+									<li><a href="/store/commu/category/202?categoryName=강아지 / 간식/영양제">간식/영양제</a></li>
+									<li><a href="/store/commu/category/203?categoryName=강아지 / 리빙">리빙</a></li>
+									<li><a href="/store/commu/category/204?categoryName=강아지 / 케어">케어</a></li>
+									<li><a href="/store/commu/category/205?categoryName=강아지 / 의류/패션">의류/패션</a></li>
+									<li><a href="/store/commu/category/206?categoryName=강아지 / 장난감">장난감</a></li>
+									<li><a href="/store/commu/category/207?categoryName=강아지 / 기타">기타</a></li>
+								</ul>	
+							</li>
+								
+							<li><a href="/store/commu/category/301?categoryName=파충류 / 사료">파충류</a>
+								<ul class="M02">
+									<li><a href="/store/commu/category/301?categoryName=파충류 / 사료">사료</a></li>
+									<li><a href="/store/commu/category/302?categoryName=파충류 / 리빙">리빙</a></li>
+									<li><a href="/store/commu/category/303?categoryName=파충류 / 사육장">사육장</a></li>
+									<li><a href="/store/commu/category/304?categoryName=파충류 / 기타">기타</a></li>
+								</ul>
+							</li>
+									
+							<li><a href="/store/commu/category/401?categoryName=어류 / 어항">어류</a>
+								<ul class="M02">
+									<li><a href="/store/commu/category/401?categoryName=어류 / 어항">어항</a></li>
+									<li><a href="/store/commu/category/402?categoryName=어류 / 수초/수석/유목">수초/수석/유목</a></li>
+									<li><a href="/store/commu/category/403?categoryName=어류 / 먹이">먹이</a></li>
+									<li><a href="/store/commu/category/404?categoryName=어류 / 여과기">여과기</a></li>
+									<li><a href="/store/commu/category/405?categoryName=어류 / 조명">조명</a></li>
+									<li><a href="/store/commu/category/406?categoryName=어류 / 수질/히터">수질/히터</a></li>
+									<li><a href="/store/commu/category/407?categoryName=어류 / 기타">기타</a></li>
+								</ul>
+							</li>
+							
+							<li><a href="/store/commu/category/501?categoryName=조류 / 모이">조류</a>
+								<ul class="M02">
+									<li><a href="/store/commu/category/501?categoryName=조류 / 모이">모이</a></li>
+									<li><a href="/store/commu/category/502?categoryName=조류 / 간식/영양제">간식/영양제</a></li>
+									<li><a href="/store/commu/category/503?categoryName=조류 / 케이지">케이지</a></li>
+									<li><a href="/store/commu/category/504?categoryName=조류 / 리빙">리빙</a></li>
+									<li><a href="/store/commu/category/505?categoryName=조류 / 케어">케어</a></li>
+								</ul>
+							</li>
+							
+							<li><a href="/store/commu/category/601?categoryName=기타 / 사료">기타</a>
+								<ul class="M02">
+									<li><a href="/store/commu/category/601?categoryName=기타 / 사료">사료</a></li>
+									<li><a href="/store/commu/category/602?categoryName=기타 / 간식/영양제">간식/영양제</a></li>
+									<li><a href="/store/commu/category/603?categoryName=기타 / 리빙">리빙</a></li>
+									<li><a href="/store/commu/category/604?categoryName=기타 / 케어">케어</a></li>
+									<li><a href="/store/commu/category/605?categoryName=기타 / 사육장">사육장</a></li>
+									<li><a href="/store/commu/category/606?categoryName=기타 / 젤리">젤리</a></li>
+									<li><a href="/store/commu/category/607?categoryName=기타 / 기타">기타</a></li>
+								</ul>
+							</li>
 						</ul>
 					</div>
-					
 				</div>
 				<nav class="nav-menu mobile-menu">
 					<ul id="navbars">
-						<li id="home"><a href="/store/home" >Home</a></li>
+						<li><a href="/store/home">Home</a></li>
 						<li><a href="/store/commu/home">커뮤니티</a>
 							<ul class="dropdown">
 
@@ -263,9 +371,10 @@
 			</div>
 		</div>
 		<!-- 상단 버튼 -->
+
 	</header>
 	<!-- Header End -->
-	
+
 	<div class="top" onclick="window.scrollTo(0,0);">
 		<i class="fas fa-chevron-circle-up" style="font-size: 30px;"></i>
 	</div>

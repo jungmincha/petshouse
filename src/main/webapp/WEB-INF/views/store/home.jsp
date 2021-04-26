@@ -105,7 +105,7 @@
                      <span>Cat, Toy</span>
                      <h1>Today's HOT</h1>
                      <p></p>
-                     <a href="/store/commu/category/101?categoryName=고양이 / 장난감" class="primary-btn">Shop Now</a>                   
+                     <a href="/store/commu/category/106?categoryName=고양이 / 장난감" class="primary-btn">Shop Now</a>                   
                   </div>
                </div>
             </div>
@@ -119,7 +119,7 @@
                      <span>Dog, Snack</span>
                      <h1 style="color: #d3d3d3">Today's HOT</h1>
                      <p></p>
-                     <a href="/store/commu/category/101?categoryName=강아지 / 간식/영양제" class="primary-btn">Shop Now</a>
+                     <a href="/store/commu/category/202?categoryName=강아지 / 간식/영양제" class="primary-btn">Shop Now</a>
                   </div>
                </div>
             </div>
@@ -133,7 +133,7 @@
                      <span>Dog, Food</span>
                      <h1 style="color: #eeeeee">Today's HOT</h1>
                      <p></p>
-                     <a href="/store/commu/category/101?categoryName=강아지 / 사료" class="primary-btn">Shop Now</a>
+                     <a href="/store/commu/category/201?categoryName=강아지 / 사료" class="primary-btn">Shop Now</a>
                   </div>
                </div>
             </div>
@@ -147,7 +147,7 @@
                      <span>Dog, Clothes</span>
                      <h1 style="color: #eeeeee">Today's HOT</h1>
                      <p></p>
-                     <a href="/store/commu/category/101?categoryName=강아지 / 의류/패션" class="primary-btn">Shop Now</a>
+                     <a href="/store/commu/category/205?categoryName=강아지 / 의류/패션" class="primary-btn">Shop Now</a>
                   </div>
                </div>
             </div>
