@@ -27,6 +27,10 @@ public interface HomeMapper {
 	public List<BoardVO> countComment(BoardVO boardVO);
 	//상품 페이징용 
 	public List<BoardVO> getGoodsCount(String keyword);
+	//sns 페이징용 
+	public List<BoardVO> getSnsCount(String keyword);
+	//sns 페이징용 
+	public List<BoardVO> getTipsCount(String keyword);
 
 
 
