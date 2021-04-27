@@ -241,9 +241,9 @@ public class SnsServiceImpl implements SnsService {
 		}
 		
 		@Override
-		public List<ImageVO> imgCount(ImageVO imageVO) {
+		public List<ImageVO> imgCount(String keyword, ImageVO imageVO) {
 			 
-			return mapper.imgCount(imageVO);
+			return mapper.imgCount(keyword,imageVO);
 		}
 
 

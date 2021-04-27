@@ -87,6 +87,15 @@ b{
 color:#FFBF00
 }
 
+.clone{
+	position: absolute;
+	top: 65px;
+	right: 45px;	
+	opacity: 0.4;
+	font-size : 20px;
+	color : #fff
+
+}
 </style>
 
 </head>
@@ -113,7 +122,7 @@ color:#FFBF00
 				<div id="snslist" class="row text-center">
 					<c:forEach items="${moresns}" var="ms">
 						<div class=" col-12 col-md-4 col-lg-3">
-							<div class="user-Info row" style="margin: 20px auto 0px 5px">
+							<div class="user-Info row" style="margin:10px auto 0px 5px">
 								<div class="profile_box ">
 									<img src="/resources/img/member/profile/${ms.boardVO.memberVO.thumbnail}" name="profile" alt="" class="profile" />
 								</div>
@@ -123,6 +132,11 @@ color:#FFBF00
 							</div>
 
 							<div class="pi-pic shot">
+								<c:forEach items="${imgCount}" var = "imgCount">
+							  <c:if test="${imgCount.boardVO.board_id eq ms.boardVO.board_id and imgCount.count > 1}"> 
+								 <i class="far fa-clone clone"></i>
+								</c:if> </c:forEach>
+							
 								<a href="/commu/sns/${ms.boardVO.board_id}"> 
 								<img src="/resources/img/member/sns/${ms.imgname}" alt="" style="border-radius: 8px;height:250px; width:250px;" />
 								<span class="count">조회수 ${ms.boardVO.hit}</span></a>

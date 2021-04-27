@@ -78,27 +78,25 @@ public class SnsController {
 	public ModelAndView snscategoryList(ImageVO imageVO, BoardVO boardVO,Criteria cri, ModelAndView mav) {
 		log.info("sns_categoryList");
 
-		mav.addObject("list", service.getSnsCategory(imageVO,cri));
+		mav.addObject("list", service.getSnsCategory(imageVO));
 		mav.addObject("imgCount", service.imgCount(imageVO));
 		mav.addObject("count", service.countComment(boardVO));
-		mav.addObject("snsTotal", service.getSnsCatetotal(boardVO));
+		mav.addObject("snsTotal", service.getSnstotal(boardVO));
 		mav.setViewName("sns/sns_category");
 		return mav;
 	}
-	
-	//SNS 카테고리별 상품 더보기 
-	@PostMapping("/best/morelist/{categoryVO.code}")
-	public Map<String, Object> snscategorymoreList(BoardVO boardVO, ImageVO imageVO,  Criteria cri) {
-		log.info("snscategorymoreList");
-		Map<String, Object> list = new HashMap<>();
-		List<ImageVO> sns = service.getSnsCategory(imageVO,cri));
-		list.put("sns", sns);
-		list.put("imgCount", service.imgCount(imageVO));
-		list.put("count", service.countComment(boardVO));
-		list.put("snsTotal", service.getSnstotal(boardVO));
-		return list;
-	}
-	
+
+	/*
+	 * //besthome 카테고리별 상품 더보기
+	 * 
+	 * @PostMapping("/sns/category/morelist/{categoryVO.code}") public Map<String,
+	 * Object> snscatemorelist(BoardVO boardVO, Criteria cri) {
+	 * log.info("snscatemorelist"); Map<String, Object> list = new HashMap<>();
+	 * List<BoardVO> goods = service.getGoodsinfo(); List<BoardVO> rate =
+	 * service.getBestrate(boardVO, cri); list.put("rate", rate); list.put("goods",
+	 * goods); return list; }
+	 */
+
 	// sns 댓글 더보기
 	@PostMapping("/scmorelist")
 	public Map<String, Object> comment(@RequestParam("board_id") int board_id, Criteria cri) {
@@ -214,10 +212,9 @@ public class SnsController {
 
 	// SNS 태그 검색
 	@GetMapping("/sns/hashtag")
-	public ModelAndView snsTag(@RequestParam("keyword") String keyword, ImageVO imageVO, ModelAndView mav, BoardVO boardVO)
+	public ModelAndView snsTag(@RequestParam("keyword") String keyword, ModelAndView mav, BoardVO boardVO)
 			throws Exception {
 		log.info("snsTag()실행");
-		mav.addObject("imgCount", service.imgCount(imageVO));
 		mav.addObject("tag", service.getSnstag(keyword));
 		mav.setViewName("sns/sns_hashtag");
 		return mav;
