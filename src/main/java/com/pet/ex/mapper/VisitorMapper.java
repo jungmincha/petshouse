@@ -13,10 +13,10 @@ public interface VisitorMapper {
 	public void setCount();
 
 	//일별 매출액
-		public Integer getDailySale(String year, String month,String valueOf);
+		public Integer getDailyVisitor(String year, String month,String valueOf);
 		//월별 매출액
-		public Integer getMonthSale(String year, String valueOf);
+		public Integer getMonthVisitor(String year, String valueOf);
 		//연 매출액
-		public int getYearSale(String year);
+		public int getYearVisitor(String year);
 
 }

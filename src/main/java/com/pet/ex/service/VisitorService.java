@@ -38,40 +38,40 @@ public class VisitorService {
 
 		//일별 매출액
 			
-				public Map<Integer, Integer> getDailySales(String year, String month) {
+				public Map<Integer, Integer> getDailyVisitor(String year, String month) {
 					System.out.println("ddddd");
 					Calendar cal = Calendar.getInstance();
 			        cal.set(Integer.parseInt(year), Integer.parseInt(month), 1);
 					
-					Map<Integer, Integer> dailySale = new HashMap<>();
+					Map<Integer, Integer> dailyVisitor = new HashMap<>();
 					
 					for(int i=1; i <= cal.getActualMaximum(Calendar.DAY_OF_MONTH); i++) {
-						dailySale.put(i, visitorMapper.getDailySale(year, month, String.valueOf(i)));
+						dailyVisitor.put(i, visitorMapper.getDailyVisitor(year, month, String.valueOf(i)));
 					}
 					
-					return dailySale;
+					return dailyVisitor;
 				}
 			
 			
 			//월별 매출액
 		
-			public Map<Integer, Integer> getMonthSales(String year) {
+			public Map<Integer, Integer> getMonthVisitor(String year) {
 				
-				Map<Integer, Integer> monthSale = new HashMap<>();
+				Map<Integer, Integer> monthVisitor = new HashMap<>();
 				
 				for(int i= 1; i <13; i++) {
-					monthSale.put(i, visitorMapper.getMonthSale(year, String.valueOf(i)));
+					monthVisitor.put(i, visitorMapper.getMonthVisitor(year, String.valueOf(i)));
 				}
 				
-				return monthSale; 
+				return monthVisitor; 
 			}
 			
 			
 			//연 매출액
 		
-			public int getYearSales(String year) {
+			public int getYearVisitor(String year) {
 				
-				return visitorMapper.getYearSale(year);
+				return visitorMapper.getYearVisitor(year);
 			}
 			
 			

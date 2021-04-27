@@ -11,7 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 @AllArgsConstructor
 public class VisitorDao {
 	
-	private String url = "jdbc:log4jdbc:oracle:thin:@DB202103171352_low?TNS_ADMIN=/wallet"; // 기본적으로 이 3개 기본적으로 복사
+	private String url = "jdbc:log4jdbc:oracle:thin:@DB202103171352_low?TNS_ADMIN=/wallet";
 	private String uid = "ADMIN";
 	private String upw = "Pethouse1234";
 	

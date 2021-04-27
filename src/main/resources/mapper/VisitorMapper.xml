@@ -162,14 +162,14 @@
 	
 	
 	<!-- 일별 -->
-	<select id="getDailySale" resultType="int"> 
+	<select id="getDailyVisitor" resultType="int"> 
 		<![CDATA[ 
 		    	select  count(*) from visitor where extract(year from vdate) =#{year} and extract(month from vdate) =#{month} and extract(day from vdate) = #{valueOf}
 		]]> 
 	</select> 
 	
 	<!-- 월별 -->
-	<select id="getMonthSale" resultType="int"> 
+	<select id="getMonthVisitor" resultType="int"> 
 		<![CDATA[ 
 			 select count(*) from visitor  where extract(year from vdate) = #{year} and extract(month from vdate) = #{valueOf}
 		]]> 
@@ -177,7 +177,7 @@
 
 	
 	<!-- 연별 -->
-	<select id="getYearSale" resultType="int">
+	<select id="getYearVisitor" resultType="int">
 		<![CDATA[
 			select count(*) from visitor where extract(year from vdate) = #{year}
 		]]>

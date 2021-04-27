@@ -83,9 +83,7 @@ public class StatisticsController {
 		mav.addObject("dailySale", statisticService.getDailySales(year, month)); // 일별
 		mav.addObject("monthSale", statisticService.getMonthSales(year)); // 월별
 		mav.addObject("yearSale", statisticService.getYearSales(year)); // 년별
-		
 	
-
 		log.info("년별통계 금액: " + statisticService.getYearSales(year));
 		mav.setViewName("statistics/home");
 

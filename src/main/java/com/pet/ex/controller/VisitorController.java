@@ -54,13 +54,13 @@ public class VisitorController {
 		mav.addObject("month", month);
 		mav.addObject("day", day);
 
-		mav.addObject("dailySale", visitorService.getDailySales(year, month)); // 일별
-		mav.addObject("monthSale", visitorService.getMonthSales(year)); // 월별
-		mav.addObject("yearSale", visitorService.getYearSales(year)); // 년별
+		mav.addObject("dailyVisitor", visitorService.getDailyVisitor(year, month)); // 일별
+		mav.addObject("monthVisitor", visitorService.getMonthVisitor(year)); // 월별
+		mav.addObject("yearVisitor", visitorService.getYearVisitor(year)); // 년별
 		
 	
 
-		log.info("년별통계 금액: " + visitorService.getYearSales(year));
+		log.info("년별통계 금액: " + visitorService.getYearVisitor(year));
 		mav.setViewName("statistics/visitor_home");
 
 		return mav;
@@ -70,7 +70,7 @@ public class VisitorController {
 	@ResponseBody
 	public Map<Integer, Integer> temp(@RequestParam(value = "month") Integer month) {
 		log.info("month : " + month); 
-		return visitorService.getDailySales("2021", String.valueOf(month));
+		return visitorService.getDailyVisitor("2021", String.valueOf(month));
 	}
 
 
