@@ -259,14 +259,14 @@
 									
 									<!-- <input type="hidden" name="location" value="">  -->
 									<sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
-										
-									<input type="hidden" name="member_id" value="<sec:authentication property="principal.member_id"/>">
-								 	<input type="hidden" name="nickname" value="<sec:authentication property="principal.nickname"/>"> 
-									<input type="hidden" name="location" class="location" value=""/> 
+										<%-- <input type="hidden" name="location" value="<sec:authentication property="principal.location"/>"> --%>
+									<input type="hidden" name="member_id" class = "member_id" value="<sec:authentication property="principal.member_id"/>">
+								 	<%-- <input type="hidden" name="nickname" value="<sec:authentication property="principal.nickname"/>">  --%>
+									<input type="hidden" name="location" class = "location" value="<sec:authentication property='principal.location'/>">
 								 	
 											</sec:authorize>
 										<button type="submit" class="site-btn"style="font-size: 20px;" >계속 하기</button>
-												
+													<button type="button" onclick="test()" class="site-btn"style="font-size: 20px;" >위치 입력</button>
 									</div>
 								</div>
 							</form>
@@ -287,7 +287,41 @@
 	<!-- Footer -->
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 
+<script>
 
+function test(){
+	
+
+	var location = $('.location').val();
+	console.log(location);
+	var member_id = $('.member_id').val();
+	console.log(member_id);
+	url ="/map/insert_location"
+	
+	$.ajax({
+		type : 'post', //method
+		url : url, 
+		cache : false,
+		data : {
+			location : location,
+			member_id : member_id,
+		},
+
+		success : function(result) {
+			console.log("result: " + result);
+		
+      },
+      errer : function(e) {
+         console.log(e);
+      }
+   }); //end of ajax
+	
+	
+}
+
+recent_location
+
+</script>
 
 </body>
 </html>

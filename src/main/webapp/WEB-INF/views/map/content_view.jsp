@@ -350,7 +350,7 @@ background-color:#dddddd;
 						
 					</script>
 		
-					<form action="/map/modify" method="get">
+					<form action="/map/modify" method="post">
 						<input id="location" type="hidden" name="location" value="${location}"/> 
 						<input type="hidden" name="member_id" value="<sec:authentication property="principal.member_id"/>">
 						<input type="hidden" id="nickname" name="nickname" value="<sec:authentication property="principal.nickname"/>"> 

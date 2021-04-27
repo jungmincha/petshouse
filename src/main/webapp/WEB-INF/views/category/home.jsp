@@ -107,45 +107,33 @@ span.star-prototype>* {
 </style>
 
 
-<!-- 방문자 수 구하는 자바스크립트 -->
 <script>
+<!-- 방문자 수 구하는 자바스크립트 -->
+	expireDate = new Date
+	expireDate.setMonth(expireDate.getMonth() + 6)
+	jcount = eval(cookieVal("jaafarCounter"))
+	jcount++
+	document.cookie = "jaafarCounter=" + jcount + ";expires="
+			+ expireDate.toGMTString()
 
+	console.log(jcount);
 
+	function cookieVal(cookieName , cookievalue, cookieexp) {
+		
+		var data = new data();
+		date.setTime(date.getTime() + exp*24*60*60*1000);
 
-expireDate = new Date
-expireDate.setMonth(expireDate.getMonth()+6)
-jcount = eval(cookieVal("jaafarCounter"))
-jcount++
-document.cookie = "jaafarCounter="+jcount+";expires=" + expireDate.toGMTString()
-
-console.log(jcount);
-
-
-function cookieVal(cookieName) {
-	thisCookie = document.cookie.split("; ")
-	for (i=0; i<thisCookie.length; i++){
-		if (cookieName == thisCookie[i].split("=")[0]){
-			return thisCookie[i].split("=")[1]
+		
+		
+		thisCookie = document.cookie.split("; ")
+		for (i = 0; i < thisCookie.length; i++) {
+			if (cookieName == thisCookie[i].split("=")[0]) {
+				return thisCookie[i].split("=")[1]
+			}
 		}
+		return 0
 	}
-	return 0
-}
-
-
-
-
-
-
-
-
-
-
 </script>
-<!-- 방문자 수 구하는 자바스크립트  끝-->
-
-
-
-
 
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -235,9 +223,6 @@ function cookieVal(cookieName) {
 
 		console.log('선택된 옵션 value 값='
 				+ target.options[target.selectedIndex].value);
-		
-		
-		
 
 		var category = $("#category").val();
 
@@ -304,15 +289,18 @@ function cookieVal(cookieName) {
 		<div class="container">
 
 
-			<div class="row">
+
+
+
+
+	
 				<div class="col-lg-2">
 
 					<!-- 카테고리 부트스트랩 start -->
 					<div class="sidebar" style="display: block;">
 						<ul class="nav">
 							<li class="submenu">
-								<!-- 고양이 --> <a href="#" style="font-size: 20px;"> <i
-									class="fas fa-cat"></i>${category[0].categoryname}<span
+								<!-- 고양이 --> <a href="#" style="font-size: 20px;"><i class="fas fa-horse-head"></i>${category[0].categoryname}<span
 									class="caret pull-right"></span>
 							</a> <!-- Sub menu -->
 								<ul>
@@ -427,58 +415,52 @@ function cookieVal(cookieName) {
 
 				</div>
 
-
-
-		
-				<div class="col-lg-3">
-
-					
-				<select name="selectBox" id="selectBox"
+	
+				<select name="selectBox" id="selectBox" 
 					style="border: none; font-size: 20px" onchange="chageLangSelect()">
 					<option style="font-size: 20px;" value="rowprice">가격 낮은순</option>
 					<option style="font-size: 20px;" value="highprice">가격 높은순</option>
 					<option style="font-size: 20px;" value="highstar">별점 높은순</option>
 				</select>
-			
-		
+
+
 				<!--가져올 부분-->
+				
+				
 				<div id="input">
+			<c:forEach items="${rate}" var="rate">
+				 <div class="col-lg-3 col-sm-6">
+						<div class="product-item">
+							<div class="pi-text" style="padding: 10px;">
+
+								<c:forEach items="${goods}" var="goods">
+									<c:if test="${rate.goodsVO.goods_id eq goods.goodsVO.goods_id}">
 
 
+										<a href="/admin/goods_detail/${goods.board_id}"> <img
+											src="/resources/img/admin/goods/${goods.goodsVO.thumbnail}"
+											alt="">
+											<h5>${goods.goodsVO.goodsname}</h5>
+										</a>
+										<div class="product-price">${goods.goodsVO.price}원</div>
+									</c:if>
+								</c:forEach>
+								별점 <span class="star-prototype"> ${rate.avgscore}</span>
 
-							<c:forEach items="${rate}" var="rate">
-
-								<div class="product-item">
-									<div class="pi-text" style="padding: 10px;">
-
-										<c:forEach items="${goods}" var="goods">
-											<c:if
-												test="${rate.goodsVO.goods_id eq goods.goodsVO.goods_id}">
-
-
-												<a href="/admin/goods_detail/${goods.board_id}"> <img
-													src="/resources/img/admin/goods/${goods.goodsVO.thumbnail}"
-													alt="">
-													<h5>${goods.goodsVO.goodsname}</h5>
-												</a>
-												<div class="product-price">${goods.goodsVO.price}원</div>
-											</c:if>
-										</c:forEach>
-										별점 <span class="star-prototype"> ${rate.avgscore}</span>
-
-									</div>
-								</div>
-
-							</c:forEach>
-
-
+							</div>
 						</div>
+</div>
+					</c:forEach>
+</div>
 
 
-					</div>
+					
+
 				</div>
-		
-	</div>
+
+
+	
+
 
 
 	</section>
@@ -489,7 +471,7 @@ function cookieVal(cookieName) {
 	<!-- Footer -->
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 	<!-- Bootstrap core JavaScript -->
-	<!--  <script src="/resources/store/vendor/jquery/jquery.min.js"></script>
+	  <script src="/resources/store/vendor/jquery/jquery.min.js"></script>
    <script
       src="/resources/store/vendor/bootstrap/js/bootstrap.bundle.min.js"></script> 
    <script src="/resources/js/jquery-3.3.1.min.js"></script>
@@ -501,7 +483,7 @@ function cookieVal(cookieName) {
    <script src="/resources/js/jquery.dd.min.js"></script>
    <script src="/resources/js/jquery.slicknav.js"></script>
    <script src="/resources/js/owl.carousel.min.js"></script>
-   <script src="/resources/js/main.js"></script>  -->
+   <script src="/resources/js/main.js"></script>  
 
 </body>
 </html>

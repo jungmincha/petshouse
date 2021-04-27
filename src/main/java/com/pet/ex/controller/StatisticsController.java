@@ -95,7 +95,7 @@ public class StatisticsController {
 	@GetMapping("/temp")
 	@ResponseBody
 	public Map<Integer, Integer> temp(@RequestParam(value = "month") Integer month) {
-		log.info("month : " + month); //, 로 해서안나옴
+		log.info("month : " + month); 
 		return statisticService.getDailySales("2021", String.valueOf(month));
 	}
 

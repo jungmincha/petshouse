@@ -162,7 +162,7 @@
 			
 		 SELECT * FROM (
 			    SELECT ROWNUM AS RNUM, A.* FROM (
-      		      select i.imgname, m.nickname,  m.thumbnail, b.hashtag , m.location, b.pdate, b.hit, b.plike, b.board_id, b.content from image i, board b, member m where m.member_id = b.member_id 
+      		      select i.imgname, m.nickname,  m.thumbnail, b.hashtag , b.location, b.pdate, b.hit, b.plike, b.board_id, b.content from image i, board b, member m where m.member_id = b.member_id 
 				 	and i.board_id=b.board_id and b.boardtype_id=7 and b.location = #{location} and pstep=0 and img_id in( 
  					select  min(img_id) as img_id from image where board_id is not null group by board_id) order by b.pdate desc
  					

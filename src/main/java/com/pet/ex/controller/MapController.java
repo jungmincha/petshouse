@@ -70,6 +70,29 @@ public class MapController {
 	}
 	
 	
+
+	
+	
+	  @PostMapping("/insert_location") public ResponseEntity<String>
+	  insert_location(MemberVO memberVO ,BoardVO boardVO) {
+	  
+	  ResponseEntity<String> entity = null; log.info("insert_location");
+	 
+	  try {
+	  
+	  service.insertLoc(memberVO); // 홍제 2동 삽입된
+	  
+	  
+	  entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK); } catch
+	  (Exception e) { e.printStackTrace();
+	  
+	  entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+	  }
+	  
+	  return entity;
+	  
+	  }
+	 
 	
 	
 	// 펫츠타운 위치기반동의 페이지
@@ -85,20 +108,24 @@ public class MapController {
 
 	// 펫츠타운 메인페이지
 	@RequestMapping("/board")
-	public ModelAndView board(String location,ModelAndView mav, Criteria cri, MemberVO memberVO,
+	public ModelAndView board(String location , ModelAndView mav, Criteria cri, MemberVO memberVO,
 			BoardVO boardVO, ImageVO imageVO, PlikeVO plikeVO,  Authentication authentication ) {
 		
 		
 		
-		memberVO.setLocation(location); // 명동 받아옴
-		service.insertLoc(memberVO); // 홍제 2동 삽입된
-		boardVO.setLocation(location); // 여기서도 홍제 2동 삽입됨
+	 // 명동 받아옴
+		System.out.println(location);
+		// 여기서도 홍제 2동 삽입됨
+		//boardVO.setMemberVO(memberVO);
+		System.out.println(memberVO.getLocation());
+	boardVO.setMemberVO(memberVO);
+		
 		
 		mav.addObject("list", service.getList(cri));
 		int total = service.getTotal(cri);
 		mav.addObject("pageMaker", new PageVO(cri, total));
-
-		mav.addObject("location", location);// 위치
+		mav.addObject("location", location);
+		
 
 		
 
