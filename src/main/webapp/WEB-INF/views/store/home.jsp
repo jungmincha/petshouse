@@ -103,8 +103,7 @@
             <div class="single-hero-items set-bg"
                data-setbg="/resources/img/storehome/banner_01.jpg">
                <div class="row">
-                  <div class="col-lg-1"></div>
-                  <div class="col-lg-9">
+                  <div class="col-lg-9 offset-lg-1">
                      <span>Cat, Toy</span>
                      <h1>Today's HOT</h1>
                      <p></p>
@@ -117,8 +116,7 @@
             <div class="single-hero-items set-bg"
                data-setbg="/resources/img/storehome/banner_02.jpg">
                <div class="row">
-                  <div class="col-lg-1"></div>
-                  <div class="col-lg-9">
+                  <div class="col-lg-9 offset-lg-1">
                      <span>Dog, Snack</span>
                      <h1 style="color: #d3d3d3">Today's HOT</h1>
                      <p></p>
@@ -131,8 +129,7 @@
             <div class="single-hero-items set-bg"
                data-setbg="/resources/img/storehome/banner_03.jpg">
                <div class="row">
-                  <div class="col-lg-1"></div>
-                  <div class="col-lg-9">
+                      <div class="col-lg-9 offset-lg-1">
                      <span>Dog, Food</span>
                      <h1 style="color: #eeeeee">Today's HOT</h1>
                      <p></p>
@@ -145,8 +142,7 @@
             <div class="single-hero-items set-bg"
                data-setbg="/resources/img/storehome/banner_04.jpg">
                <div class="row">
-                  <div class="col-lg-1"></div>
-                  <div class="col-lg-9">
+                      <div class="col-lg-9 offset-lg-1">
                      <span>Dog, Clothes</span>
                      <h1 style="color: #eeeeee">Today's HOT</h1>
                      <p></p>
@@ -168,32 +164,32 @@
             </div>
          </div>
            <div class="row">
-            <div class="col-lg-2 col-sm-2">
+            <div class="col-lg-2 col-md-2 col-sm-2">
              <a href="/store/commu/category/101?categoryName=고양이 / 사료">    
                     <img src="/resources/img/category/cat.jpg"></a>
             </div>
 
-            <div class="col-lg-2 col-sm-2">
+            <div class="col-lg-2 col-md-2 col-sm-2">
                   <a href="/store/commu/category/201?categoryName=강아지 / 사료">
                     <img src="/resources/img/category/dog.jpg"></a>
             </div>
 
-            <div class="col-lg-2 col-sm-2">
+            <div class="col-lg-2 col-md-2 col-sm-2">
                   <a href="/store/commu/category/301?categoryName=파충류 / 사료">
                     <img src="/resources/img/category/reptile.jpg"></a>
             </div>
 
-            <div class="col-lg-2 col-sm-2">
+            <div class="col-lg-2 col-md-2 col-sm-2">
                   <a href="/store/commu/category/501?categoryName=조류 / 모이">
                     <img src="/resources/img/category/bird.jpg"></a>
             </div>
 
-            <div class="col-lg-2 col-sm-2">
+            <div class="col-lg-2 col-md-2 col-sm-2">
                   <a href="/store/commu/category/401?categoryName=어류 / 어항">
                      <img src="/resources/img/category/fish.jpg"></a>
             </div>
 
-            <div class="col-lg-2 col-sm-2">
+            <div class="col-lg-2 col-md-2 col-sm-2">
                   <a href="/store/commu/category/601?categoryName=기타 / 사료">
                      <img src="/resources/img/category/other.jpg"></a>
             </div>
@@ -203,7 +199,7 @@
        <!-- Hot Item section Begin -->
          <section class="hotitem">
             <div class="row">
-               <div class="col-sm-3">
+               <div class="col-lg-3 col-sm-3">
                   <div class="product-large set-bg" data-setbg="/resources/img/storehome/hot_banner_01.jpg">
                      <h2>Hot Item</h2>
                      <a href="/store/best">More</a>

@@ -189,9 +189,9 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public MemberVO getMemberdetail(String member_id) {
+	public MemberVO getMemberdetail(String nickname) {
 		log.info("getMemberdetail");
-		return mapper.getMemberdetail(member_id);
+		return mapper.getMemberdetail(nickname);
 	}
 
 	@Override

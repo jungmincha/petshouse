@@ -351,10 +351,10 @@ public class AdminController {
 	}
 
 	// 회원 상세 조회
-	@GetMapping("/member_detail/{member_id}")
+	@GetMapping("/member_detail/{nickname}")
 	public ModelAndView memberdetail(MemberVO memberVO, ModelAndView mav) throws Exception {
 		log.info("member_detail");
-		mav.addObject("info", service.getMemberdetail(memberVO.getMember_id()));
+		mav.addObject("info", service.getMemberdetail(memberVO.getNickname()));
 		mav.setViewName("admin/member_detail");
 
 		return mav;

@@ -82,7 +82,7 @@ public interface AdminMapper {
 
 	public int getMembertotal();
 
-	public MemberVO getMemberdetail(String member_id);
+	public MemberVO getMemberdetail(String nickname);
 
 	public void memberDelete(String member_id);
 

@@ -12,7 +12,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
 <title>회원 목록</title>
 
-<!-- bootstrap css cdn -->
+<!-- bootstrap css cdn --<!-- > -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" type="text/css" />
 
 <!-- Css Styles -->
@@ -22,36 +22,41 @@
 <link rel="stylesheet" href="/resources/css/elegant-icons.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/owl.carousel.min.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/nice-select.css" type="text/css">
-<link rel="stylesheet" href="/resources/css/jquery-ui.min.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/slicknav.min.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/style.css" type="text/css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 <!-- jquery cdn -->
-<script
-   src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdn.bootpay.co.kr/js/bootpay-3.3.1.min.js" type="application/javascript"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <script type="text/javascript">
 
 	$(document).ready(function() {
-		$('.a-delete').click(function(event) {		
-			event.preventDefault();
-		
-			var trObj = $(this).parent().parent();
-
-			$.ajax({
-				type : "DELETE",
-				url : $(this).attr("href"),
-				cache : false,
-				success : function(result) {
-					console.log(result);
-					if (result == "SUCCESS") {
-						$(trObj).remove();
+		$('.a-delete').click(function(event) {	
+			if (confirm("정말 삭제하시겠습니까?") == true) { //확인
+				event.preventDefault();
+			
+				var trObj = $(this).parent().parent();
+	
+				$.ajax({
+					type : "DELETE",
+					url : $(this).attr("href"),
+					cache : false,
+					success : function(result) {
+						console.log(result);
+						if (result == "SUCCESS") {
+							$(trObj).remove();
+						}
+					},
+					error : function(e) {
+						console.log(e);
 					}
-				},
-				error : function(e) {
-					console.log(e);
-				}
-			})
+				})
+			}else { //취소
+				return;
+			}
 		});
 	});
 </script>
@@ -102,12 +107,12 @@
 					
 						<tbody>
 							<c:forEach items="${list}" var="member">
-							<tr onClick="location.href='/admin/member_detail/${member.member_id}'"style="cursor: pointer;">
+							<tr>
 								<td>${member.rnum}</td>
 								<td>${member.name}</td>
-								<td>${member.member_id}</td>
+								<td><a href="/admin/member_detail/${member.nickname}">${member.member_id}</a></td>
 								<td>${member.nickname}</td>
-								<td onclick="event.cancelBubble=true;"><a class="a-delete" data-bid='${member.member_id}'                      
+								<td><a class="a-delete" data-bid='${member.member_id}'                      
 									href="/admin/member_list/${member.member_id}">삭제</a></td>
 							</tr>
 							</c:forEach>

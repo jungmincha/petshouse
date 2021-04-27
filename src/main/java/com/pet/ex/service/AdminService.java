@@ -64,7 +64,7 @@ public interface AdminService {
 	public int getMembertotal();
 	
 	//회원 상세 조회
-	public MemberVO getMemberdetail(String member_id);
+	public MemberVO getMemberdetail(String nickname);
 	
 	//회원 삭제
 	public void memberDelete(String member_id);

@@ -370,12 +370,12 @@
 	<!-- 회원 상세 정보 -->
 	<select id="getMemberdetail" resultType="MemberVO">
 	  <![CDATA[
-	      select member_id, name, tel, nickname, pdate, address, decode(category_id, 1, '고양이', 2, '강아지', 3, '파충류', 4, '어류', 5, '조류', 6, '기타', '없음') as concern from member where member_id=#{member_id}
+	      select member_id, name, tel, nickname, pdate, address, decode(category_id, 1, '고양이', 2, '강아지', 3, '파충류', 4, '어류', 5, '조류', 6, '기타', '없음') as concern from member where nickname=#{nickname}
 	   ]]>
 	</select>
 
 	<!-- 회원 정보 삭제 -->
-	<select id="memberDelete" resultType="MemberVO">
+	<select id="memberDelete">
 	  <![CDATA[
 	      BEGIN
 			delete from paygoods where pay_id=(select pay_id from pay where member_id=#{member_id});
@@ -384,6 +384,7 @@
 			delete from plike where member_id=#{member_id};
 			delete from board where member_id=#{member_id};
 			delete from follow where member_id=#{member_id};
+			delete from follow where follower_id in (select nickname from member where member_id=#{member_id});
 			delete from point where member_id=#{member_id};
 			delete from member where member_id=#{member_id};
 		END;
