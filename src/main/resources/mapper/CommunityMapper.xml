@@ -390,6 +390,7 @@
 			    ) A WHERE ROWNUM <= #{cri.amount}
 			) WHERE RNUM > 0
 		]]>
+		
 	</select>
 
 	<!-- 질문과 답변 댓글 카운트 -->

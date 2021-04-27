@@ -381,12 +381,11 @@ public class MyPageController {
 	@PostMapping("/orderList/orderSuccess/{pay_id}")
 	public void orderSuccess(@PathVariable String pay_id) {
 		myPageService.updatePaystate_id(pay_id);
-
 	}
 
 	@GetMapping("/test")
 	public ModelAndView test(ModelAndView mav) {
-		mav.setViewName("login/registerSuccess");
+		mav.setViewName("myPage/paySuccess");
 		return mav;
 	}
 

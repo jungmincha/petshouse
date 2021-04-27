@@ -32,16 +32,53 @@
 </head>
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
 <style>
+#registerCheck {
+	border-radius: 50%;
+	border: 2px solid white;
+	width: 250px;
+	heigth: 250px;
+}
+
+.login-btn {
+	background-color: #e7ab3c;
+	color: white;
+	border: 1px solid white;
+	padding: 10px;
+	border-radius: 5%;
+}
+
+.login-btn:hover {
+	background-color: orange;
+}
 </style>
 
 <body style="padding-top: 180px;">
-	<div class="container" style="width:1000px;height: 1000px;">
-		<div class="row ">
-			<div class="col-12 text-center "style="position:absolute;top:50%">회원 가입이 완료되었습니다.</div>
-		</div>
+	<div class="container" style="width: 700px; height: 600px;">
+		<form action="/login/login">
+			<div class="row">
+				<div class="col-12 text-center"
+					style="visibility: hidden; padding-bottom: 10px;">회원 가입이
+					완료되었습니다.</div>
+				<div class="col-12 text-center">
+					<img id="registerCheck" src="/resources/img/registerCheck.jpg" />
+				</div>
 
+				<div class="col-12 text-center">
+					<h2>
+						<span style="color: #e7ab3c; line-height: 30px;">펫츠하우스</span> 회원
+						가입이 완료되었습니다.
+					</h2>
+					<br>
+					<h5 style="line-height: 30px;">
+						가입하신 이메일로 인증 메일을 보냈습니다. <br>이메일 인증이 완료되어야 로그인이 가능합니다.<span style="font-weight: bold;"> (소셜 회원가입 시 인증 X)</span>
+					</h5>
+					<br>
+					<button class="login-btn" style="font-size: 30px;">로그인으로</button>
+				</div>
+
+			</div>
+		</form>
 	</div>
-
 </body>
 <%@ include file="/WEB-INF/views/include/footer.jsp"%>
 <script src="/resources/js/bootstrap.min.js"></script>

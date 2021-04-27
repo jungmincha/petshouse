@@ -124,7 +124,8 @@ label:hover {
 
 							<input type="hidden" name="name"
 								value="<sec:authentication property='principal.name' />">
-
+							<input type="hidden" name="socialCheck"
+								value="1">
 							<div class="filebox">
 
 
