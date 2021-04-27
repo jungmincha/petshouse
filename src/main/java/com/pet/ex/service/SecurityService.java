@@ -27,8 +27,11 @@ public interface SecurityService extends UserDetailsService {
 
 	// 멤버조회 (전화번호)
 	MemberVO getMemberByTel(int tel);
-	
+
 	// 회원가입 후 포인트 지급
 	void insertRegisterPoint(String member_id);
+
+	// 비밀번호 변경
+	void updatePassword(String member_id, String password);
 
 }

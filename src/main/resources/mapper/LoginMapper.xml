@@ -232,4 +232,10 @@
 		values(point_seq.nextval,5000,1,#{member_id})
 		]]>
 	</insert>
+
+	<update id="updatePassword">
+		<![CDATA[
+		update member set password=#{password} where member_id=#{member_id}
+		]]>
+	</update>
 </mapper>

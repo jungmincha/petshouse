@@ -14,6 +14,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -196,6 +197,54 @@ public class LoginController {
 		}
 		return mav;
 
+	}
+
+	// 비밀번호 재설정 메일보내기
+	@PostMapping("/passwordChange/{member_id}")
+	public void passwordChange(@PathVariable String member_id) throws Exception {
+		log.info("/login/passwordChange");
+		MemberVO members = securityService.getMember(member_id);
+		StringBuffer emailcontent = new StringBuffer();
+		emailcontent.append("<!DOCTYPE html>");
+		emailcontent.append("<html>");
+		emailcontent.append("<head>");
+		emailcontent.append("</head>");
+		emailcontent.append("<body>");
+		emailcontent.append(" <div"
+				+ "	style=\"font-family: 'MY FONT', 'sans-serif' !important; width: 600px; height: 600px; border-top: 4px solid  #e7ab3c; margin: 100px auto; padding: 30px 0; box-sizing: border-box;\">"
+				+ "	<h1 style=\"margin: 0; padding: 0 5px; font-size: 28px; font-weight: 400;\">"
+				+ "		<span style=\"font-size: 15px; margin: 0 0 10px 3px;\">펫츠하우스</span><br />"
+				+ "		<span style=\"color:  #e7ab3c\">비밀번호 재설정</span> 안내입니다." + "	</h1>\n"
+				+ "	<p style=\"font-size: 16px; line-height: 26px; margin-top: 50px; padding: 0 5px;\">"
+				+ members.getName() + "		님 안녕하세요.<br />" + "		비밀번호 재설정이 요청되었습니다. <br />"
+				+ "		아래 <b style=\"color:  #e7ab3c\">'비밀번호재설정'</b> 버튼을 클릭하여 비밀번호를 재설정 해주세요.<br />" + "		감사합니다."
+				+ "	</p>" + "	<a style=\"color: #FFF; text-decoration: none; text-align: center;\""
+				+ "	href=\"http://localhost:8383/login/passwordChange/certify?member_id=" + members.getMember_id()
+				+ "\" target=\"_blank\">" + "		<p"
+				+ "			style=\"display: inline-block; width: 210px; height: 45px; margin: 30px 5px 40px; background:  #e7ab3c; line-height: 45px; vertical-align: middle; font-size: 16px;\">"
+				+ "			비밀번호 재설정</p>" + "	</a>"
+				+ "	<div style=\"border-top: 1px solid #DDD; padding: 5px;\"></div>" + " </div>");
+		emailcontent.append("</body>");
+		emailcontent.append("</html>");
+		emailService.sendMail(members.getMember_id(), "[펫츠하우스 비밀번호 재설정]", emailcontent.toString());
+
+	}
+
+	// 비빈번호 재설정 메일 인증 후 재설정 페이지로
+	@GetMapping("/passwordChange/certify")
+	public ModelAndView passwordChangeCertify(@RequestParam String member_id, ModelAndView mav) throws Exception {
+		log.info("/login/passwordChange/certify");
+		mav.addObject("member_id", member_id);
+		mav.setViewName("/login/pwChange");
+		return mav;
+	}
+
+	@PostMapping("/passwordChange/change")
+	public ModelAndView passwordChangeChange(String member_id, String password, ModelAndView mav) throws Exception {
+		log.info("/login/passwordChangeChange");
+		securityService.updatePassword(member_id, password);
+		mav.setViewName("/login/login");
+		return mav;
 	}
 
 }

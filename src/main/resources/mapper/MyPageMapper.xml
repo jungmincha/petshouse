@@ -361,6 +361,7 @@
 		delete from image where board_id in (select board_id from board where member_id=#{member_id});
 		delete from board where member_id=#{member_id};
 		delete from follow where member_id=#{member_id};
+        delete from follow where follower_id in (select nickname from member where member_id==#{member_id});
 		delete from point where member_id=#{member_id};
 		delete from member where member_id=#{member_id};
 		END;

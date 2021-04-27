@@ -137,13 +137,12 @@
 	});
 	function goPopup() {
 		event.preventDefault();
-		// 주소검색을 수행할 팝업 페이지를 호출합니다.
-		// 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrLinkUrl.do)를 호출하게 됩니다.
-		var pop = window.open("/popup/pwfindPopup.jsp", "pop",
-				"width=570,height=420, scrollbars=yes, resizable=yes");
+		var _left = Math.ceil(( window.screen.width - 500 )/2);
+		var _top = Math.ceil(( window.screen.height - 350 )/2);
+		window.open("/popup/pwfindPopup.jsp", "pop",
+					"width=500,height=350, scrollbars=yes, resizable=yes, left="+_left+", top="+_top);
+		
 
-		// 모바일 웹인 경우, 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrMobileLinkUrl.do)를 호출하게 됩니다.
-		//var pop = window.open("/popup/jusoPopup.jsp","pop","scrollbars=yes, resizable=yes"); 
 	}
 </script>
 <!-- Js Plugins -->

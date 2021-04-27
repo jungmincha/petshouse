@@ -118,4 +118,13 @@ public class SecurityServiceImpl implements SecurityService {
 		loginMapper.insertRegisterPoint(member_id);
 	}
 
+	@Override
+	public void updatePassword(String member_id, String password) {
+		log.info("updatePassword");
+		String encodedPassword = passwordEncoder.encode(password);
+		password = encodedPassword;
+		loginMapper.updatePassword(member_id, password);
+
+	}
+
 }

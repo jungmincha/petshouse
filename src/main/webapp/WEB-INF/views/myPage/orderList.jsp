@@ -268,12 +268,13 @@ a>span {
 
 .pBtn {
 	color: #34495e;
-	border:2px groove #A9D0F5;
+	border: 2px groove #A9D0F5;
 	background: white;
 	padding: 10px;
 	border-radius: 5%;
 }
-.pBtn:hover{
+
+.pBtn:hover {
 	background-color: #FAFAFA;
 	color: #e7ab3c;
 }

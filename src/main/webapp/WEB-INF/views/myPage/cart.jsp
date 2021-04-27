@@ -184,7 +184,11 @@ a:visited {
 													+ "</h5>"
 													+ "</td>"
 													+ "<td class='p-price first-row text-center' style='color:#000000'>"
-													+ "<input style='border:none; text-align:right; ' type='text' id='a"+i+"' value='"+priceFormat(data[i-1].goodsVO.price)+"' readonly size='7px' >"
+													+ "<input style='border:none; text-align:right; ' type='text' id='a"
+													+ i
+													+ "' value='"
+													+ priceFormat(data[i - 1].goodsVO.price)
+													+ "' readonly size='7px' >"
 													+ "원</td>"
 													+ "<td class='qua-col first-row text-center'>"
 													+ "	<div class='quantity'> <div class='pro-qty'> <span class='dec qtybtn' onclick='total"
@@ -363,8 +367,8 @@ a:visited {
 		return n;
 	}
 	// 콤마 풀기
-	function stringNumberToInt(stringNumber){
-	    return parseInt(stringNumber.replace(/,/g , ''));
+	function stringNumberToInt(stringNumber) {
+		return parseInt(stringNumber.replace(/,/g, ''));
 	}
 </script>
 <!-- Js Plugins -->
