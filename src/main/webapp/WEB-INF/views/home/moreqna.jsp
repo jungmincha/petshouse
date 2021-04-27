@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
@@ -14,41 +13,26 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>펫츠하우스</title>
 
-<link
-	href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap"
-	rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
 
 <!-- Css Styles -->
-<link rel="stylesheet" href="/resources/css/bootstrap.min.css"
-	type="text/css">
-<link rel="stylesheet" href="/resources/css/font-awesome.min.css"
-	type="text/css">
-<link rel="stylesheet" href="/resources/css/themify-icons.css"
-	type="text/css">
-<link rel="stylesheet" href="/resources/css/elegant-icons.css"
-	type="text/css">
-<link rel="stylesheet" href="/resources/css/owl.carousel.min.css"
-	type="text/css">
-<link rel="stylesheet" href="/resources/css/nice-select.css"
-	type="text/css">
-<link rel="stylesheet" href="/resources/css/jquery-ui.min.css"
-	type="text/css">
-<link rel="stylesheet" href="/resources/css/slicknav.min.css"
-	type="text/css">
+<link rel="stylesheet" href="/resources/css/bootstrap.min.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/font-awesome.min.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/themify-icons.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/elegant-icons.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/owl.carousel.min.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/nice-select.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/jquery-ui.min.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/slicknav.min.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/style.css" type="text/css">
 
 <!-- bootstrap css cdn -->
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-	type="text/css" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" type="text/css" />
 
 <!-- jquery cdn -->
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<link rel="stylesheet" href="/resources/css/select-style.css"
-	type="text/css">
-<link rel="stylesheet" href="/resources/js/select-index.js"
-	type="text/css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<link rel="stylesheet" href="/resources/css/select-style.css" type="text/css">
+<link rel="stylesheet" href="/resources/js/select-index.js" type="text/css">
 
 <style>
 #navbars>li:nth-child(1) {
@@ -67,9 +51,7 @@ b{
 color:#FFBF00
 }
 </style>
-<script>
 
-</script>
 </head>
 
 <body style="padding-top: 180px">
@@ -78,13 +60,15 @@ color:#FFBF00
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
 	<div class="container">
 
-
-		
-	<div style="margin-top:30px;">
-		<input type="hidden" name="keyword" value="${param.keyword}">
-		<h5><b>'${param.keyword}'</b>에 대한 검색결과 <b>${qcount}</b>건</h5>
+		<!-- 검색량 출력 -->
+		<div style="margin-top: 30px;">
+			<input type="hidden" name="keyword" value="${param.keyword}">
+			<h5>
+				<b>'${param.keyword}'</b>에 대한 검색결과 <b>${qcount}</b>건
+			</h5>
 			<br><br>
-		</div>	
+		</div>
+		<!-- 검색량 출력 end-->
 		
 		<div id="table">
 
@@ -97,17 +81,17 @@ color:#FFBF00
 						<div>${mq.content}</div>
 					</a>
 					<div style="margin-bottom: 10px;">
-						<span>${mq.memberVO.nickname}</span> <span
-							style="font-size: 13px; color: gray;"><fmt:formatDate
-								value="${mq.pdate}" pattern="yyyy.MM.dd" /></span> <span
-							style="font-size: 13px; color: gray;"> 조회수 ${mq.hit}</span>
+						<span>${mq.memberVO.nickname}</span> 
+						<span style="font-size: 13px; color: gray;">
+						<fmt:formatDate value="${mq.pdate}" pattern="yyyy.MM.dd" /></span> 
+						<span style="font-size: 13px; color: gray;"> 조회수 ${mq.hit}</span>
+						
 						<c:set var="hashtag" value="${mq.hashtag}" />
 						<c:set var="tag" value="${fn:split(hashtag, '#')}" />
 						<c:forEach var="t" items="${tag}">
 							<c:if test="${not empty mq.hashtag}">
 								<span>
-									<button id="hashtag" name="keyword" class="btn btn-disabled"
-										style="" value="${t}"
+									<button id="hashtag" name="keyword" class="btn btn-disabled" style="" value="${t}"
 										onclick="location.href='${pageContext.request.contextPath}/search'">#${t}</button>
 								</span>
 							</c:if>
@@ -149,9 +133,7 @@ color:#FFBF00
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 
 	<!-- Js Plugins -->
-	<script src="/resources/js/jquery-3.3.1.min.js"></script>
 	<script src="/resources/js/bootstrap.min.js"></script>
-	<script src="/resources/js/jquery-ui.min.js"></script>
 	<script src="/resources/js/jquery.countdown.min.js"></script>
 	<script src="/resources/js/jquery.nice-select.min.js"></script>
 	<script src="/resources/js/jquery.zoom.min.js"></script>

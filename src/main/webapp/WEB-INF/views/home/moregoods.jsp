@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
@@ -85,12 +84,17 @@ color:#FFBF00
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
 	<div class="container">
 
-		<div style="margin-top:30px;">
-		<input type="hidden" name="keyword" value="${param.keyword}">
-		<h5><b>'${param.keyword}'</b>에 대한 검색결과 <b>${gcount}</b>건</h5>
+		<!-- 검색량 출력 -->
+		<div style="margin-top: 30px;">
+			<input type="hidden" name="keyword" value="${param.keyword}">
+			<h5>
+				<b>'${param.keyword}'</b>에 대한 검색결과 <b>${gcount}</b>건
+			</h5>
 			<br><br>
-		</div>	
-				<div id="table" class="row text-center"
+		</div>
+		<!-- 검색량 출력 end -->
+		
+		<div id="table" class="row text-center"
 				style="margin-top: 10px; margin-left: 5px;">
 
 				<c:forEach items="${moregoods}" var="mg">
@@ -115,19 +119,17 @@ color:#FFBF00
 					</div>
 				</c:forEach>
 			</div>
-	
-	
- 	<div class="col-lg-12 text-center">	
-			 <c:if test="${fn:length(gocount) > 8}">
-			 <input type="hidden" class="count" value="${gocount}" />
-			 
-				<button type="button" class="btn btn-warning"  onClick="btnClick()">더보기</button>
-			  
-			   </c:if>
-			   </div>
-	        
-	        
-</div>
+
+
+		<div class="col-lg-12 text-center">
+			<c:if test="${fn:length(gocount) > 8}">
+				<input type="hidden" class="count" value="${gocount}" />
+				<button type="button" class="btn btn-warning" onClick="btnClick()">더보기</button>
+			</c:if>
+		</div>
+
+
+	</div>
 	
 	<script>
 	  var pageNum = 1;
