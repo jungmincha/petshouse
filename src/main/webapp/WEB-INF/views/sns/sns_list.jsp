@@ -107,8 +107,8 @@
 
 }
 
-a:hover {
-	
+.btn{
+	margin-bottom: 100px;
 }
 </style>
 <script>
@@ -260,7 +260,7 @@ a:hover {
 				</c:if>
 			</div>
 			<div class="col-lg-12 text-center">
-			 	<c:if test="${snsTotal > 8}">
+			 	<c:if test="${snsTotal > 12}">
 			 	<input type="hidden" class="snsTotal" value="${snsTotal}" />
 				<button type="button" class="btn btn-warning"  onClick="btnClick()">더보기</button>
 				 </c:if> 
@@ -271,7 +271,7 @@ a:hover {
 	<script type="text/javascript">
    
       var pageNum = 1;
-      var check =$('.snsTotal').val() / 8;
+      var check =$('.snsTotal').val() / 12;
 
       function btnClick() {
 
@@ -279,7 +279,7 @@ a:hover {
          console.log(pageNum);
          console.log(check);
 
-         if (pageNum > check){
+         if (pageNum >= check){
             $(".btn").hide();
          }
          $
@@ -293,39 +293,41 @@ a:hover {
                      console.log(data);
                      console.log("here");
                      var sns = data.sns;
-                     var snsTotal = data.snsTotal;
-                     var imgCount = data.imgCount;
                      var count = data.count;
 
-                     html = " ";
-                        for (var i in sns) {
+                     html = "";
+                     
+                     for (var i in sns) {
                            html += "<div class='col-12 col-md-4 col-lg-3'>"
-                                 + "<div class='user-Info row' style='margin: 20px auto 0px 5px;'>"
+                                 + "<div class='user-Info row' style='margin:20px auto 0px 5px;'>"
                                  + "<div class='profile_box'>"
-                                 + "<img src='/resources/img/member/profile/"+sns[i].boardVO.memberVO.thumbnail+"' name='profile' class='profile' /></div>"
-                                 + "<div style='padding-top: 13px; padding-left: 7px;'>"
-                                 + sns[i].boardVO.memberVO.nickname
-                                 + "</div>"
+                                 + "<img src='/resources/img/member/profile/" + sns[i].boardVO.memberVO.thumbnail + "' name='profile' class='profile' /></div>"
+                                 + "<div style='padding-top:13px; padding-left:7px;'>" + sns[i].boardVO.memberVO.nickname + "</div>"
                                  + "<a href='/myPage/" + sns[i].boardVO.memberVO.nickname + "' style='padding-top: 13px; padding-left: 5px;'> · 팔로우</a></div>"
                                  + "<div class='shot'>"
-                                 + "<a href='/commu/sns/"+sns[i].boardVO.board_id+"'>"
+                                 + "<a href='/commu/sns/" + sns[i].boardVO.board_id + "'>"
                                  + "<img src='/resources/img/member/sns/"+ sns[i].imgname + "' style='height: 300px;' class='card-img-top i' />"
-                                 + "<span class='count2'>조회수"
-                                 + sns[i].boardVO.hit
-                                 + "</span></a></div>"
-                                 + "<div class='card-body' style='font-size:20px;'><i class='far fa-heart'></i>" + sns[i].boardVO.plike + "&nbsp;&nbsp;&nbsp;&nbsp;";
-                                 
-                                      for(var j in count){
-                                              if(count[j].pgroup == sns[i].boardVO.board_id){
-                                                html += "<a href='/commu/sns/"+sns[i].boardVO.board_id + "'>"
-                                                     + "<i class='far fa-comment' style='font-size : 25px;'></i>"
-                                                      + count[j].count + "</a></div></div>";          
-                                              }
-                                      }//goods foreach end            
-                                    }                                     
-                     $("#snslist").append(html);
-                       },            
-                           //success end
+                                 + "<span class='count'>조회수" + sns[i].boardVO.hit + "</span></a></div>"                             
+                                 + "<div class='card-body' style='font-size:20px;'>"
+                                 + "<a href='/commu/sns/" + sns[i].boardVO.board_id + "'>" 
+                                 + "<i class='far fa-heart'></i>&nbsp;&nbsp;" + sns[i].boardVO.plike + "</a>&nbsp;&nbsp;&nbsp;&nbsp;"
+                                 + "<i class='far fa-comment'></i>";
+                            
+                            for(var j in count){
+                                if(count[j].pgroup == sns[i].boardVO.board_id){
+                                     html += "<a href='/commu/sns/" + sns[i].boardVO.board_id + "'>"
+                                          + count[j].count + "</a>";          
+                                }
+                            }//count foreach end 
+                            
+                            html += "</div></div>";
+                            
+                      }                                     
+                    	 
+                      $("#snslist").append(html);
+                       	
+                  },//success end
+                  
                             error : function(request, status, error) {
                            alert("code:" + request.status + "\n" + "message:"
                                  + request.responseText + "\n" + "error:" + error);

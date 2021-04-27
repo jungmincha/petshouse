@@ -138,9 +138,7 @@
    <%@ include file="/WEB-INF/views/include/footer.jsp"%>
 
    <!-- Bootstrap core JavaScript -->
-   <script src="/resources/js/jquery-3.3.1.min.js"></script>
    <script src="/resources/js/bootstrap.min.js"></script>
-   <script src="/resources/js/jquery-ui.min.js"></script>
    <script src="/resources/js/jquery.countdown.min.js"></script>
    <script src="/resources/js/jquery.nice-select.min.js"></script>
    <script src="/resources/js/jquery.zoom.min.js"></script>
