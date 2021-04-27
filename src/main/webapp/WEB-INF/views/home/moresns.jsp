@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
@@ -14,42 +13,30 @@
 <title>펫츠하우스</title>
 <!-- Css Styles -->
 <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
-<link
-	href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap"
-	rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
 
 <!-- Css Styles -->
-<link rel="stylesheet" href="/resources/css/bootstrap.min.css"
-	type="text/css">
-<link rel="stylesheet" href="/resources/css/font-awesome.min.css"
-	type="text/css">
-<link rel="stylesheet" href="/resources/css/themify-icons.css"
-	type="text/css">
-<link rel="stylesheet" href="/resources/css/elegant-icons.css"
-	type="text/css">
-<link rel="stylesheet" href="/resources/css/owl.carousel.min.css"
-	type="text/css">
-<link rel="stylesheet" href="/resources/css/nice-select.css"
-	type="text/css">
-<link rel="stylesheet" href="/resources/css/slicknav.min.css"
-	type="text/css">
+<link rel="stylesheet" href="/resources/css/bootstrap.min.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/font-awesome.min.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/themify-icons.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/elegant-icons.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/owl.carousel.min.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/nice-select.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/slicknav.min.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/style.css" type="text/css">
 
 <!-- bootstrap css cdn -->
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-	type="text/css" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" type="text/css" />
 
 <!-- jquery cdn -->
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 <style>
 
 #hashtag:hover{
 background-color:#dddddd;
 }
+
 #navbars>li:nth-child(1) {
    background-color: #e7ab3c;
 }
@@ -62,6 +49,7 @@ background-color:#dddddd;
 	color: #fff;
 	text-shadow: 0 0 4px rgb(0 0 0/ 50%);
 }
+
 .count2 {
 	position: absolute;
 	bottom: 85px;
@@ -94,13 +82,13 @@ background-color:#dddddd;
 	height: 40px;
 	object-fit: cover;
 }
+
 b{
 color:#FFBF00
 }
-</style>
-<script>
 
-</script>
+</style>
+
 </head>
 
 <body style="padding-top: 180px">
@@ -112,38 +100,34 @@ color:#FFBF00
 		
 		<input type="hidden" name="keyword" value="${param.keyword}">
 		
-		<div style="margin-top:30px;">
-		<input type="hidden" name="keyword" value="${param.keyword}">
-		<h5><b>'${param.keyword}'</b>에 대한 검색결과 <b>${scount}</b>건</h5>
+		<!-- 검색량 출력 -->
+		<div style="margin-top: 30px;">
+			<input type="hidden" name="keyword" value="${param.keyword}">
+			<h5>
+				<b>'${param.keyword}'</b>에 대한 검색결과 <b>${scount}</b>건
+			</h5>
 			<br><br>
-		</div>	
+		</div>
+		<!-- 검색량 출력 end-->
 
 				<div id="snslist" class="row text-center">
 					<c:forEach items="${moresns}" var="ms">
 						<div class=" col-12 col-md-4 col-lg-3">
-
 							<div class="user-Info row" style="margin: 20px auto 0px 5px">
 								<div class="profile_box ">
-
-									<img
-										src="/resources/img/member/profile/${ms.boardVO.memberVO.thumbnail}"
-										name="profile" alt="" class="profile" />
+									<img src="/resources/img/member/profile/${ms.boardVO.memberVO.thumbnail}" name="profile" alt="" class="profile" />
 								</div>
 								<div style="padding: 7px">${ms.boardVO.memberVO.nickname }
 								</div>
-								<a href="/myPage/${ms.boardVO.memberVO.nickname}"
-									style="padding: 7px;"> 팔로우</a>
-
-
+								<a href="/myPage/${ms.boardVO.memberVO.nickname}" style="padding: 7px;"> 팔로우</a>
 							</div>
 
 							<div class="pi-pic shot">
-								<a href="/commu/sns/${ms.boardVO.board_id}"> <img
-									src="/resources/img/member/sns/${ms.imgname}" alt=""
-										style="border-radius: 8px;height:250px; width:250px;" /><span
-									class="count">조회수 ${ms.boardVO.hit}</span></a>
+								<a href="/commu/sns/${ms.boardVO.board_id}"> 
+								<img src="/resources/img/member/sns/${ms.imgname}" alt="" style="border-radius: 8px;height:250px; width:250px;" />
+								<span class="count">조회수 ${ms.boardVO.hit}</span></a>
 							</div>
-								<div style="font-size : 20px; text-align:center; margin-top:8px;margin-bottom:30px; ">
+							<div style="font-size : 20px; text-align:center; margin-top:8px;margin-bottom:30px; ">
 							<i class="far fa-heart" style="font-size : 25px;"></i>&nbsp&nbsp${ms.boardVO.plike} 
 							&nbsp&nbsp&nbsp&nbsp
 
@@ -153,21 +137,18 @@ color:#FFBF00
 							<c:if test="${count.pgroup eq ms.boardVO.board_id}">
 							${count.count}</c:if></c:forEach></div>
 						</div>
-
- 
-
-
 					</c:forEach>
 				</div>
-				<div class="col-lg-12 text-center">	
-			 <c:if test="${fn:length(snscount) > 8}">
-			 <input type="hidden" class="count" value="${snscount}" />
-			 
-				<button type="button" class="btn btn-warning"  onClick="btnClick()">더보기</button>
-			  
-			   </c:if>
-			   </div>
+
+		<div class="col-lg-12 text-center">
+			<c:if test="${fn:length(snscount) > 8}">
+				<input type="hidden" class="count" value="${snscount}" />
+				<button type="button" class="btn btn-warning" onClick="btnClick()">더보기</button>
+			</c:if>
+		</div>
 	</div>
+	<!-- end -->
+	
 <!--  더보기 페이징 처리 -->
 	<script type="text/javascript">
 	
@@ -181,8 +162,7 @@ color:#FFBF00
 			if (pageNum > check){
 				$(".btn").hide();
 			}
-			$
-					.ajax({
+			$.ajax({
 						type : "POST",
 						url : "/snsmorelist",
 						data : {

@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
@@ -14,39 +13,25 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>질문과 답변</title>
 
-<link
-	href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap"
-	rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
 
 <!-- Css Styles -->
-<link rel="stylesheet" href="/resources/css/bootstrap.min.css"
-	type="text/css">
-<link rel="stylesheet" href="/resources/css/font-awesome.min.css"
-	type="text/css">
-<link rel="stylesheet" href="/resources/css/themify-icons.css"
-	type="text/css">
-<link rel="stylesheet" href="/resources/css/elegant-icons.css"
-	type="text/css">
-<link rel="stylesheet" href="/resources/css/owl.carousel.min.css"
-	type="text/css">
-<link rel="stylesheet" href="/resources/css/nice-select.css"
-	type="text/css">
-<link rel="stylesheet" href="/resources/css/jquery-ui.min.css"
-	type="text/css">
-<link rel="stylesheet" href="/resources/css/slicknav.min.css"
-	type="text/css">
+<link rel="stylesheet" href="/resources/css/bootstrap.min.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/font-awesome.min.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/themify-icons.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/elegant-icons.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/owl.carousel.min.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/nice-select.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/slicknav.min.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/style.css" type="text/css">
 
 <!-- bootstrap css cdn -->
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-	type="text/css" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" type="text/css" />
 
 <!-- jquery cdn -->
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
 <style>
 #navbars>li:nth-child(2) {
 	background-color: #e7ab3c;
@@ -83,8 +68,6 @@ body::-webkit-scrollbar-track {
 	border-radius: 10px;
 	box-shadow: inset 0px 0px 5px white;
 }
-
-
 
 .input {
 	background-image:
@@ -130,14 +113,12 @@ body::-webkit-scrollbar-track {
 	<!-- Header -->
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
 
-
 	<sec:authorize access="hasAnyRole('ROLE_USER','ROLE_ADMIN')">
 		<input type="hidden" id="member_id"
 			value="<sec:authentication property="principal.member_id"/>">
 	</sec:authorize>
 
 	<!-- 질문과 답변 검색창 -->
-
 	<div class="jumbotron">
 		<a class="qna-subtitle" href="/commu/qna">
 			<h3>
@@ -156,11 +137,11 @@ body::-webkit-scrollbar-track {
 			</div>
 		</form>
 	</div>
-
 	<!-- 질문과 답변 검색창 end -->
+	
 	<div class="container">
+	
 		<!-- 동물 카테고리 글쓰기 버튼 -->
-
 		<div style="float: right;">
 			<button class="btn btn-outline-secondary" id="qw"
 				onclick="location.href='${pageContext.request.contextPath}qna/write'">질문
@@ -171,7 +152,6 @@ body::-webkit-scrollbar-track {
 
 			<select id="selectPet" class="form-control"
 				name="categoryVO.category_id" style="text-align-last: center">
-
 				<option value="0">동물</option>
 				<option value="1">고양이</option>
 				<option value="2">강아지</option>
@@ -180,10 +160,8 @@ body::-webkit-scrollbar-track {
 				<option value="5">어류</option>
 				<option value="6">기타</option>
 			</select>
-
-
+			
 		</div>
-
 		<!-- 동물 카테고리 글쓰기 버튼 end -->
 
 
@@ -193,8 +171,7 @@ body::-webkit-scrollbar-track {
 			<c:forEach items="${qna}" var="qna">
 				<tbody id="qnaList">
 					<td>
-						<form action="${pageContext.request.contextPath}/search"
-							method="get">
+						<form action="${pageContext.request.contextPath}/search" method="get">
 							<a href="/commu/qna/${qna.board_id}">
 								<div style="font-weight: bold; font-size: 18px; margin-top: 10px;">${qna.title}</div>
 								<div>${qna.content}</div>
@@ -203,21 +180,20 @@ body::-webkit-scrollbar-track {
 								<span>${qna.memberVO.nickname}&nbsp&nbsp</span> <span
 									style="font-size: 13px; color: gray;"> <fmt:formatDate
 										value="${qna.pdate}" pattern="yyyy.MM.dd" /></span> 
-								<span
-									style="font-size: 13px; color: gray;"> &nbsp&nbsp조회수 ${qna.hit}&nbsp&nbsp </span>
+								<span style="font-size: 13px; color: gray;"> &nbsp&nbsp조회수 ${qna.hit}&nbsp&nbsp </span>
 								<c:forEach items="${ccount}" var="count">  
-										<c:if test="${not empty count}">
-							<c:if test="${count.pgroup eq qna.board_id}">
-							
-							 <span style="font-size: 13px; color: gray;">댓글${count.count}&nbsp&nbsp</span></c:if></c:if></c:forEach>
+									<c:if test="${not empty count}">
+									<c:if test="${count.pgroup eq qna.board_id}">
+									<span style="font-size: 13px; color: gray;">댓글${count.count}&nbsp&nbsp</span></c:if></c:if></c:forEach>
 							 
 								<c:set var="hashtag" value="${qna.hashtag}" />
 								<c:set var="tag" value="${fn:split(hashtag, '#')}" />
 								<c:forEach var="t" items="${tag}">
 									<c:if test="${not empty qna.hashtag}">
-										<span><button id="hashtag" name="keyword"
-												class="btn btn-disabled" value="${t}"
-												onclick="location.href='${pageContext.request.contextPath}/search'">#${t}</button></span>
+										<span>
+										<button id="hashtag" name="keyword" class="btn btn-disabled" value="${t}"
+												onclick="location.href='${pageContext.request.contextPath}/search'">#${t}</button>
+										</span>
 									</c:if>
 								</c:forEach>
 							</div>
@@ -328,9 +304,7 @@ body::-webkit-scrollbar-track {
 	</div>
 
 	<!-- Js Plugins -->
-	<script src="/resources/js/jquery-3.3.1.min.js"></script>
 	<script src="/resources/js/bootstrap.min.js"></script>
-	<script src="/resources/js/jquery-ui.min.js"></script>
 	<script src="/resources/js/jquery.countdown.min.js"></script>
 	<script src="/resources/js/jquery.nice-select.min.js"></script>
 	<script src="/resources/js/jquery.zoom.min.js"></script>

@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -12,39 +11,26 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>펫츠하우스</title>
 <script src="/resources/ckeditor/ckeditor.js"></script>
-<link
-	href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap"
-	rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
 
 <!-- Css Styles -->
-<link rel="stylesheet" href="/resources/css/bootstrap.min.css"
-	type="text/css">
-<link rel="stylesheet" href="/resources/css/font-awesome.min.css"
-	type="text/css">
-<link rel="stylesheet" href="/resources/css/themify-icons.css"
-	type="text/css">
-<link rel="stylesheet" href="/resources/css/elegant-icons.css"
-	type="text/css">
-<link rel="stylesheet" href="/resources/css/owl.carousel.min.css"
-	type="text/css">
-<link rel="stylesheet" href="/resources/css/nice-select.css"
-	type="text/css">
-<link rel="stylesheet" href="/resources/css/jquery-ui.min.css"
-	type="text/css">
-<link rel="stylesheet" href="/resources/css/slicknav.min.css"
-	type="text/css">
+<link rel="stylesheet" href="/resources/css/bootstrap.min.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/font-awesome.min.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/themify-icons.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/elegant-icons.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/owl.carousel.min.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/nice-select.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/jquery-ui.min.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/slicknav.min.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/style.css" type="text/css">
 
-
 <!-- bootstrap css cdn -->
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-	type="text/css" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" type="text/css" />
 
 <!-- jquery cdn -->
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <style>
+
 #navbars>li:nth-child(2) {
    background-color: #e7ab3c;
 }
@@ -76,8 +62,6 @@ select {
 	background-color: #f5f5f5;
 	border-radius: 10px;
 }
-
- 
 
 #preview:empty:before {
 	content: attr(data-placeholder);
@@ -152,11 +136,11 @@ label {
 			<textarea id="editor4" name="content"></textarea>
 
 			
-				<script>
+			<script>
 				CKEDITOR.replace('editor4');
 			</script>
+			
 			<div class="form-group row">
-
 				<div class="col">
 					<input type="text" class="form-control" name="hashtag"
 						maxlength="30" placeholder="해시태그" id="hashtag"
@@ -170,8 +154,6 @@ label {
 			</div>
 		</form>
 	</div>
-
-
 
 	<!-- Footer -->
 	<div style="margin-top: 100px">
@@ -282,10 +264,9 @@ label {
 )('preview', 'file')
 
 </script>
+
 	<!-- Js Plugins -->
-	<script src="/resources/js/jquery-3.3.1.min.js"></script>
 	<script src="/resources/js/bootstrap.min.js"></script>
-	<script src="/resources/js/jquery-ui.min.js"></script>
 	<script src="/resources/js/jquery.countdown.min.js"></script>
 	<script src="/resources/js/jquery.nice-select.min.js"></script>
 	<script src="/resources/js/jquery.zoom.min.js"></script>

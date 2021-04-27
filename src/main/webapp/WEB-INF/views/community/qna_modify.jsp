@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -12,27 +11,16 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>${qna_view.title}수정하기</title>
 
-<link
-	href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap"
-	rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
 
 <!-- Css Styles -->
-<link rel="stylesheet" href="/resources/css/bootstrap.min.css"
-	type="text/css">
-<link rel="stylesheet" href="/resources/css/font-awesome.min.css"
-	type="text/css">
-<link rel="stylesheet" href="/resources/css/themify-icons.css"
-	type="text/css">
-<link rel="stylesheet" href="/resources/css/elegant-icons.css"
-	type="text/css">
-<link rel="stylesheet" href="/resources/css/owl.carousel.min.css"
-	type="text/css">
-<link rel="stylesheet" href="/resources/css/nice-select.css"
-	type="text/css">
-<link rel="stylesheet" href="/resources/css/jquery-ui.min.css"
-	type="text/css">
-<link rel="stylesheet" href="/resources/css/slicknav.min.css"
-	type="text/css">
+<link rel="stylesheet" href="/resources/css/bootstrap.min.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/font-awesome.min.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/themify-icons.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/elegant-icons.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/owl.carousel.min.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/nice-select.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/slicknav.min.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/style.css" type="text/css">
 
 <!-- bootstrap css cdn -->

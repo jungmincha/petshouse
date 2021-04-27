@@ -157,7 +157,7 @@
 
 	<!-- 노하우 게시판 리스트 -->
 	<select id="getTipsList" resultMap="imagevo">
-	<![CDATA[		
+		<![CDATA[		
 		SELECT * FROM (
 			     SELECT ROWNUM AS RNUM, A.* FROM (
 			     	select i.imgname,b.board_id, b.title, b.content, b.pdate,b.hit, b.pgroup,b.pstep, b.hashtag, m.member_id, m.nickname, b.boardtype_id, c.category_id, c.categoryname 
@@ -181,11 +181,9 @@
 	
 	<!-- 노하우 특정글 -->
 	<select id="getboardInfo" resultMap="boardvo">
-
 		 <![CDATA[ 
 			select * from Board where board_id = #{board_id} and boardtype_id=5
 		]]>
-
 	</select>
 
 	<!-- 노하우 특정글 -->
@@ -245,8 +243,6 @@
 		]]>
 	</select>
 
-
-
 	<!-- 노하우 댓글 작성 후 ajax로 출력 -->
 	<select id="getTipsComment" resultMap="boardvo">
    <![CDATA[
@@ -275,8 +271,6 @@
   			 select * from (select * from board where boardtype_id=5 and pstep=0 order by pdate desc) where rownum=1
 	 	]]>
 	</select>
-
-
 
 
 	<!-- 질문과답변 메인 페이지 -->
@@ -311,21 +305,21 @@
 
 	<!-- 질문과 답변 카테고리에 해당하는 글 끌고오기 -->
 	<select id="getPetQna" resultMap="boardvo"> 
- 	<![CDATA[
+ 		<![CDATA[
 			select b.board_id, b.title, b.content, b.pdate,b.hit, b.pgroup, b.pstep, b.category_id,b.hashtag, m.member_id, m.nickname, b.boardtype_id, c.category_id, c.categoryname
 			from  board b , member m, category c
 			where b.member_id = m.member_id
 			and b.category_id =  c.category_id
     		and b.boardtype_id= 4 and b.pstep=0 and c.category_id=#{category_id} order by board_id desc
 			  
- 	]]>
+ 		]]>
 	</select>
 
 	<!-- 질문과답변 검색 -->
 	<select id="getQnasearch" resultMap="boardvo">
-   <![CDATA[
-   		select * from board b, member m where b.member_id=m.member_id and b.content like '%'||#{keyword}||'%' and b.boardtype_id='4' and b.pstep='0' or b.member_id=m.member_id and b.title like '%'||#{keyword}||'%' and b.boardtype_id='4' and b.pstep='0' order by b.pdate desc
-   ]]>
+   		<![CDATA[
+   			select * from board b, member m where b.member_id=m.member_id and b.content like '%'||#{keyword}||'%' and b.boardtype_id='4' and b.pstep='0' or b.member_id=m.member_id and b.title like '%'||#{keyword}||'%' and b.boardtype_id='4' and b.pstep='0' order by b.pdate desc
+   		]]>
 	</select>
 	
 		<!-- 질문과 답변 검색 카운트 -->
@@ -333,33 +327,31 @@
 		<![CDATA[
 	         select count(*) as count  	
 	         from  board 
-				where content like '%'||#{keyword}||'%' and pstep='0' and boardtype_id='4' or title like '%'||#{keyword}||'%' and boardtype_id='4'
+			 where content like '%'||#{keyword}||'%' and pstep='0' and boardtype_id='4' or title like '%'||#{keyword}||'%' and boardtype_id='4'
 	  	 ]]>
 	</select> 
 
 	<!-- 질문과 답변 글쓰기 (이미지 추가해야함) -->
 	<insert id="writeQna" parameterType="boardvo">
-	<![CDATA[
-		insert into board(board_id, title, content, pdate,hit, pgroup, pstep, hashtag, member_id, boardtype_id , category_id)
-		values (board_seq.nextval, #{title}, #{content}, sysdate, 0, board_seq.currval, 0,  #{hashtag}, #{memberVO.member_id}, 4 , #{categoryVO.category_id})
- 	]]>
+		<![CDATA[
+			insert into board(board_id, title, content, pdate,hit, pgroup, pstep, hashtag, member_id, boardtype_id , category_id)
+			values (board_seq.nextval, #{title}, #{content}, sysdate, 0, board_seq.currval, 0,  #{hashtag}, #{memberVO.member_id}, 4 , #{categoryVO.category_id})
+ 		]]>
 	</insert>
 
 	<!-- 질문과답변 태그 -->
 	<select id="getQnatag" resultMap="boardvo">
-   <![CDATA[
-  		 select * from board where hashtag like '%'||#{keyword}||'%' and boardtype_id='4' and pstep=0 
-		or hashtag like '%'||#{keyword}||'%' and boardtype_id='5' and pstep='0' 
-		or hashtag like '%'||#{keyword}||'%' and boardtype_id='2' and pstep='0' order by pdate desc   
-   ]]>
+   		<![CDATA[
+  			 select * from board where hashtag like '%'||#{keyword}||'%' and boardtype_id='4' and pstep=0 
+		     or hashtag like '%'||#{keyword}||'%' and boardtype_id='5' and pstep='0' 
+			 or hashtag like '%'||#{keyword}||'%' and boardtype_id='2' and pstep='0' order by pdate desc   
+   		]]>
 	</select>
 
 	<!-- 질문과답변 토탈카운트 페이징 처리하려고 데려옴.. -->
 	<select id="getTotalCount" resultType="int">
 		<![CDATA[	
-		select count(*) from board 
-		where 
-		boardtype_id= 4 and pstep=0
+			select count(*) from board where boardtype_id= 4 and pstep=0
 		]]>
 	</select>
 

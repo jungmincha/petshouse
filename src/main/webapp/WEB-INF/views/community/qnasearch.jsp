@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
@@ -14,36 +13,23 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>펫츠하우스</title>
 
-<link
-	href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap"
-	rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
 
 <!-- Css Styles -->
-<link rel="stylesheet" href="/resources/css/bootstrap.min.css"
-	type="text/css">
-<link rel="stylesheet" href="/resources/css/font-awesome.min.css"
-	type="text/css">
-<link rel="stylesheet" href="/resources/css/themify-icons.css"
-	type="text/css">
-<link rel="stylesheet" href="/resources/css/elegant-icons.css"
-	type="text/css">
-<link rel="stylesheet" href="/resources/css/owl.carousel.min.css"
-	type="text/css">
-<link rel="stylesheet" href="/resources/css/nice-select.css"
-	type="text/css">
-<link rel="stylesheet" href="/resources/css/slicknav.min.css"
-	type="text/css">
+<link rel="stylesheet" href="/resources/css/bootstrap.min.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/font-awesome.min.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/themify-icons.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/elegant-icons.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/owl.carousel.min.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/nice-select.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/slicknav.min.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/style.css" type="text/css">
 
 <!-- bootstrap css cdn -->
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-	type="text/css" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" type="text/css" />
 
 <!-- jquery cdn -->
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 <style>
 #navbars>li:nth-child(2) {
@@ -70,6 +56,7 @@
 	font-size: 13px;
 	padding: 0.01px;
 }
+
 #hashtag:hover{
 background-color:#dddddd;
 }
@@ -96,7 +83,6 @@ color:#FFBF00
 
 </style>
 
-
 </head>
 
 <body style="padding-top:180px">
@@ -106,63 +92,69 @@ color:#FFBF00
 
 	<!-- 질문과 답변 검색창 -->
 
-		<div class="jumbotron">
-			<a class="qna-subtitle" href="/commu/qna">
-				<h3><b>질문과 답변</b></h3>
-			</a>
-			<div style="font-size:15px">내 반려동물에 대한 모든 궁금증을 남겨보세요!</div><br>
-			
-			<form action="${pageContext.request.contextPath}/commu/qnasearch"
-				method="post">
-				<div class="search" >
-				<input rel="search" class="input form-control mr-sm-8" type="text" name="keyword"
-						style="text-align: center;" value="${param.keyword}">
-				</div>
-			</form>
-		</div>
+	<div class="jumbotron">
+		<a class="qna-subtitle" href="/commu/qna">
+			<h3>
+				<strong>질문과 답변</strong>
+			</h3>
+		</a>
+		<div style="font-size: 15px">내 반려동물에 대한 모든 궁금증을 남겨보세요!</div>
+		<br>
 
+		<form action="${pageContext.request.contextPath}/commu/qnasearch"
+			method="post">
+			<div class="search">
+				<input rel="search" class="input form-control mr-sm-8" type="text"
+					name="keyword" style="text-align: center;" value="${param.keyword}">
+			</div>
+		</form>
+	</div>
 
-	<!-- 게시글 끌고와야함 글 제목, 사진?, 작성자, 날짜, 댓글수, 해시태그? 그리고 테이블은 td만 쓰면 될듯..? -->
 
 	<div class="container">
-	
-	<div style="margin-top:30px;">
-		<input type="hidden" name="keyword" value="${param.keyword}">
-		<h5><b>'${param.keyword}'</b>에 대한 검색결과 <b>${qscount}</b>건</h5>
-			<br><br>
-		</div>	
 
+		<div style="margin-top: 30px;">
+			<input type="hidden" name="keyword" value="${param.keyword}">
+			<h5>
+				<b>'${param.keyword}'</b>에 대한 검색결과 <b>${qscount}</b>건
+			</h5>
+			<br> <br>
+		</div>
+
+<!-- 검색결과 -->
 		<table class="table">
 			<c:forEach items="${qsearch}" var="qs">
 				<tbody>
-					<td><a href="/commu/qna/${qs.board_id}">
-							<form action="${pageContext.request.contextPath}/search" method="get">
+					<td>				
+							<!-- 해시태그용 폼 태그-->
+							<form action="${pageContext.request.contextPath}/search" method="get"> 
+							
+							<a href="/commu/qna/${qs.board_id}">
 								<div style="font-weight: bold; font-size: 18px;">${qs.title}</div>
-							
-									<div id="content">${qs.content}</div>
-									<span>${qs.memberVO.nickname}</span>
-									<span style="font-size: 13px; color: gray;"><fmt:formatDate
-										value="${qs.pdate}" pattern="yy.MM.dd" /></span></span>
-									<span style="font-size: 13px; color: gray;"> 조회수 ${qs.hit}</span>
-									<c:set var="hashtag" value="${qs.hashtag}" />
-									<c:set var="tag" value="${fn:split(hashtag, '#')}" />
-									<c:forEach var="t" items="${tag}">
-										
-										<c:if test="${not empty qs.hashtag}">
-										<span><button id="hashtag" name="keyword"
-												class="btn btn-disabled" 
-												value="${t}"
-												onclick="location.href='${pageContext.request.contextPath}/search'">#${t}</button></span>
+								<div id="content">${qs.content}</div>
+							</a>
+								<span>${qs.memberVO.nickname}</span> 
+								<span style="font-size: 13px; color: gray;">
+								<fmt:formatDate value="${qs.pdate}" pattern="yy.MM.dd" /></span>
+								<span style="font-size: 13px; color: gray;"> 조회수 ${qs.hit}</span>
+								
+								<c:set var="hashtag" value="${qs.hashtag}" />
+								<c:set var="tag" value="${fn:split(hashtag, '#')}" />
+								<c:forEach var="t" items="${tag}">
+									<c:if test="${not empty qs.hashtag}">
+										<span>
+										<button id="hashtag" name="keyword" class="btn btn-disabled" value="${t}"
+												onclick="location.href='${pageContext.request.contextPath}/search'">#${t}</button>
+										</span>
 									</c:if>
-									</c:forEach>
-
-							
+								</c:forEach>
 							</form>
-					</a></td>
+					</td>
 				</tbody>
 			</c:forEach>
 		</table>
-		</div>
+	</div>
+<!-- 검색결과 end-->
 
 	<!-- Footer -->
 	<div style="margin-top:80px;">

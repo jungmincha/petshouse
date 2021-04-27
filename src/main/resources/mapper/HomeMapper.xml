@@ -266,22 +266,18 @@
 	</select>
 	
 		<!-- SNS 리스트 댓글 카운트 -->
-	
 	<select id="countComment" resultMap="boardvo">
-	
-			<![CDATA[
-	          		select pgroup , count(*) as count from board where boardtype_id= 2 and pstep=1 group by pgroup
-	  		 ]]>
-	  	 
+		<![CDATA[
+	         select pgroup , count(*) as count from board where boardtype_id= 2 and pstep=1 group by pgroup
+	   ]]> 
 	</select>
 	
 		<!-- 상품 더보기용  -->
 	<select id="getGoodsCount" resultType="boardvo">
 		<![CDATA[
-	           select count(*) as count  	
-	         from  board b, goods g 
-				where b.goods_id=g.goods_id
-				 and goodsname like '%'||#{keyword}||'%' and boardtype_id='3' group by b.board_id
+	        select count(*) as count from  board b, goods g 
+			where b.goods_id=g.goods_id
+			and goodsname like '%'||#{keyword}||'%' and boardtype_id='3' group by b.board_id
 	   ]]>
 	</select>
 	
@@ -289,27 +285,25 @@
 		<!--sns 더보기용  -->
 	<select id="getSnsCount" resultType="imagevo">
 		<![CDATA[
-	          select count(*) as count  	
-	         from  board b, image i where b.board_id=i.board_id 
+	         select count(*) as count from  board b, image i where b.board_id=i.board_id 
 	         and b.hashtag like '%'||#{keyword}||'%' and b.boardtype_id='2' group by b.board_id
 	   ]]>
 	</select>
 	
-			<!--노하우 더보기용  -->
+		<!--노하우 더보기용  -->
 	<select id="getTipsCount" resultType="boardvo">
 		<![CDATA[
-	           select count(*) as count  	
-	         from  board 
-				where title like '%'||#{keyword}||'%' and pstep='0' and boardtype_id='5' group by board_id
+	        select count(*) as count  from  board 
+			where title like '%'||#{keyword}||'%' and pstep='0' and boardtype_id='5' group by board_id
 	   ]]>
 	</select>
 	
-				<!--질답 더보기용  -->
+		<!--질답 더보기용  -->
 	<select id="getQnaCount" resultType="boardvo">
 		<![CDATA[
-	          select count(*) as count  	
-	         from  board 
-				where content like '%'||#{keyword}||'%' and pstep='0' and boardtype_id='4' or title like '%'||#{keyword}||'%' and boardtype_id='4' group by board_id
+	        select count(*) as count  from  board 
+			where content like '%'||#{keyword}||'%' and pstep='0' and boardtype_id='4' 
+			or title like '%'||#{keyword}||'%' and boardtype_id='4' group by board_id
 	   ]]>
 	</select>
 	

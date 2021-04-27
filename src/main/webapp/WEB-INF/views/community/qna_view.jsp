@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
@@ -16,37 +15,23 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>${qna_view.title}</title>
 
-<link
-	href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap"
-	rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
 
 <!-- Css Styles -->
-<link rel="stylesheet" href="/resources/css/bootstrap.min.css"
-	type="text/css">
-<link rel="stylesheet" href="/resources/css/font-awesome.min.css"
-	type="text/css">
-<link rel="stylesheet" href="/resources/css/themify-icons.css"
-	type="text/css">
-<link rel="stylesheet" href="/resources/css/elegant-icons.css"
-	type="text/css">
-<link rel="stylesheet" href="/resources/css/owl.carousel.min.css"
-	type="text/css">
-<link rel="stylesheet" href="/resources/css/nice-select.css"
-	type="text/css">
-<link rel="stylesheet" href="/resources/css/jquery-ui.min.css"
-	type="text/css">
-<link rel="stylesheet" href="/resources/css/slicknav.min.css"
-	type="text/css">
+<link rel="stylesheet" href="/resources/css/bootstrap.min.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/font-awesome.min.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/themify-icons.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/elegant-icons.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/owl.carousel.min.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/nice-select.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/slicknav.min.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/style.css" type="text/css">
 
 <!-- bootstrap css cdn -->
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-	type="text/css" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" type="text/css" />
 
 <!-- jquery cdn -->
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 <!-- 수정 삭제 경고창 -->
 
@@ -102,6 +87,7 @@
 	}
 </script>
 <!-- 수정 삭제 경고창 end-->
+
 <style>
 #navbars>li:nth-child(2) {
 	background-color: #e7ab3c;
@@ -143,8 +129,8 @@ margin-bottom: 20px;
 min-height:120px;
 }
 </style>
-</head>
 
+</head>
 
 <body style="padding-top: 170px">
 
@@ -189,45 +175,36 @@ min-height:120px;
 				<div class="row user_info">
 
 					<div class="profile_box" style="margin-left: 16px;">
-						<a href="/myPage/${qna_view.memberVO.nickname}"><img
-							src="/resources/img/member/profile/${qna_view.memberVO.thumbnail}"
-							name="profile" alt="" class="profile" /> &nbsp&nbsp</a>
+						<a href="/myPage/${qna_view.memberVO.nickname}">
+						<img src="/resources/img/member/profile/${qna_view.memberVO.thumbnail}" name="profile" alt="" class="profile" /> &nbsp&nbsp
+						</a>
 					</div>
-					<span class="nickname" style="padding: 6px;"> <b>
-							${qna_view.memberVO.nickname} &nbsp&nbsp</b></span>
-
+					<span class="nickname" style="padding: 6px;"> <b>${qna_view.memberVO.nickname} &nbsp&nbsp</b></span>
 				</div>
-			
 
 				<hr> 
 				<c:forEach var="img" items="${img}">
 					<img src="/resources/img/qna/${img.imgname}">
 				</c:forEach>
 						<section class="content">${qna_view.content}</section>
-				<form action="${pageContext.request.contextPath}/search"
-					method="get">
-					<ul class="pd-tags">
+				<form action="${pageContext.request.contextPath}/search" method="get">
 						<c:set var="hashtag" value="${qna_view.hashtag}" />
 						<c:set var="tag" value="${fn:split(hashtag, '#')}" />
 						<c:forEach var="t" items="${tag}">
 							<c:if test="${not empty qna_view.hashtag}">
 								<span>
-									<button id="hashtag" name="keyword" class="btn btn-disabled"
-										value="${t}"
+									<button id="hashtag" name="keyword" class="btn btn-disabled" value="${t}"
 										onclick="location.href='${pageContext.request.contextPath}/search'">#${t}</button>
 								</span>
 							</c:if>
 						</c:forEach>
-
-					</ul>
-				</form> <span style="color: gray;"><fmt:formatDate
-						value="${qna_view.pdate}" pattern="yyyy.MM.dd" /></span> <span
-				style="color: gray">조회수 ${qna_view.hit}</span>
+				</form> 
+				<span style="color: gray;"><fmt:formatDate value="${qna_view.pdate}" pattern="yyyy.MM.dd" /></span> 
+				<span style="color: gray">조회수 ${qna_view.hit}</span>
 			</td>
 		</table>
 
 	</div>
-
 
 	<div class="container">
 
@@ -237,7 +214,6 @@ min-height:120px;
 				<strong id="count"> 댓글 ${qcount}</strong> <br> <br>
 			</div>
 			<div class="table" style="margin-bottom: 50px;">
-
 				<div class="row">
 					<div class="col-11">
 						<textarea style="resize: none;" class="form-control" id="content"
@@ -251,15 +227,16 @@ min-height:120px;
 			</div>
 		</div>
 	</div>
+	
 	<sec:authorize access="hasAnyRole('ROLE_USER','ROLE_ADMIN')">
 	<sec:authentication property="principal" var="pinfo" />
 	</sec:authorize>
+	
 	<div class="container" style="margin-bottom: 10px;">
 		<div id="comments"></div>
 	</div>
 
 	<div class="container">
-
 		<div class="later col-lg-12 text-center" id="page"></div>
 	</div>
 
@@ -416,6 +393,7 @@ min-height:120px;
 			}
 
 		}
+		
 		function transferTime(times) {
 			var now = new Date();
 
@@ -452,16 +430,13 @@ min-height:120px;
 		}
 	</script>
 
-
-	<div style="margin-top: 20px;">
 		<!-- Footer -->
+	<div style="margin-top: 20px;">
 		<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 	</div>
 
 	<!-- Js Plugins -->
-	<script src="/resources/js/jquery-3.3.1.min.js"></script>
 	<script src="/resources/js/bootstrap.min.js"></script>
-	<script src="/resources/js/jquery-ui.min.js"></script>
 	<script src="/resources/js/jquery.countdown.min.js"></script>
 	<script src="/resources/js/jquery.nice-select.min.js"></script>
 	<script src="/resources/js/jquery.zoom.min.js"></script>

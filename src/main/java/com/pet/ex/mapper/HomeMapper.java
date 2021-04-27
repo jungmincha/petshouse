@@ -29,7 +29,7 @@ public interface HomeMapper {
 	public List<BoardVO> getGoodsCount(String keyword);
 	//sns 페이징용 
 	public List<BoardVO> getSnsCount(String keyword);
-	//sns 페이징용 
+	//노하우 페이징용 
 	public List<BoardVO> getTipsCount(String keyword);
 
 
