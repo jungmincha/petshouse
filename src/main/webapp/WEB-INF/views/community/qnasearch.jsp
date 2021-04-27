@@ -31,8 +31,6 @@
 	type="text/css">
 <link rel="stylesheet" href="/resources/css/nice-select.css"
 	type="text/css">
-<link rel="stylesheet" href="/resources/css/jquery-ui.min.css"
-	type="text/css">
 <link rel="stylesheet" href="/resources/css/slicknav.min.css"
 	type="text/css">
 <link rel="stylesheet" href="/resources/css/style.css" type="text/css">
@@ -92,6 +90,10 @@ width:50%;
 margin-left:25%;
 }
 
+b{
+color:#FFBF00
+}
+
 </style>
 
 
@@ -123,8 +125,12 @@ margin-left:25%;
 	<!-- 게시글 끌고와야함 글 제목, 사진?, 작성자, 날짜, 댓글수, 해시태그? 그리고 테이블은 td만 쓰면 될듯..? -->
 
 	<div class="container">
-<input type="hidden" name="keyword" value="${param.keyword}">
-	<h5><b>'${param.keyword}'</b>에 대한 검색결과 <b>${qscount}건</b></h5><br><br>
+	
+	<div style="margin-top:30px;">
+		<input type="hidden" name="keyword" value="${param.keyword}">
+		<h5><b>'${param.keyword}'</b>에 대한 검색결과 <b>${qscount}</b>건</h5>
+			<br><br>
+		</div>	
 
 		<table class="table">
 			<c:forEach items="${qsearch}" var="qs">
@@ -159,6 +165,9 @@ margin-left:25%;
 		</div>
 
 	<!-- Footer -->
+	<div style="margin-top:80px;">
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
+	</div>
+
 </body>
 </html>

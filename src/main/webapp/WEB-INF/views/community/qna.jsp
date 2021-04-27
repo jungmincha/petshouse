@@ -72,7 +72,7 @@ body::-webkit-scrollbar {
 }
 
 body::-webkit-scrollbar-thumb {
-	background-color: #CCCCCC;
+	background-color: #CCC;
 	border-radius: 10px;
 	background-clip: padding-box;
 	border: 2px solid transparent;
@@ -278,12 +278,12 @@ body::-webkit-scrollbar-track {
 
 												html += "<tbody id='qnaList'><td>"
 														+ "<a href='/commu/qna/"+data[i - 1].board_id+"'>"
-														+ "<div style='font-weight: bold; font-size: 18px;'>"
+														+ "<div style='font-weight: bold; font-size: 18px; margin-top: 10px;'>"
 														+ data[i - 1].title
 														+ "</div>"
 														+ "<div>"
 														+ data[i - 1].content
-														+ "</div> <span>"
+														+ "</div></a> <div style='margin-bottom: 10px;'><span>"
 														+ data[i - 1].memberVO.nickname
 														+ "&nbsp&nbsp</span>"
 														+ "<span style='font-size: 13px; color: gray;'>"
@@ -292,8 +292,7 @@ body::-webkit-scrollbar-track {
 														+ "<span style='font-size: 13px; color: gray;'> 조회수 "
 														+ data[i - 1].hit
 														+ "&nbsp&nbsp</span>"
-														+ "</a>"
-														+ "</td></tbody>"
+														+ "</div></td></tbody>"
 
 											}
 											html += "</table>"
@@ -324,7 +323,9 @@ body::-webkit-scrollbar-track {
 	  </script>
 
 	<!-- Footer -->
+	<div style="margin-top:30px;">
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
+	</div>
 
 	<!-- Js Plugins -->
 	<script src="/resources/js/jquery-3.3.1.min.js"></script>

@@ -97,8 +97,12 @@ border-radius:8px;
 		
 		<input type="hidden" name="keyword" value="${param.keyword}">
 		
+		<div style="margin-top:30px;">
+		<input type="hidden" name="keyword" value="${param.keyword}">
 		<h5><b>'${param.keyword}'</b>에 대한 검색결과 <b>${tcount}</b>건</h5>
 			<br><br>
+		</div>	
+			
 			<div id="table" class="row"
 							style="margin-top: 20px; margin-left: 5px;">
 
@@ -118,10 +122,13 @@ border-radius:8px;
 			</c:forEach>
 		</div>
 		
-					 
-                <input type="hidden" class="count" value="${fn:length(tipscount)}" />
-	            <div class="col-lg-12 text-center">
+				<div class="col-lg-12 text-center"> 
+			
+			<%-- 	 <c:if test="${fn:length(tipscount) > 12}"> --%>
+                <input type="hidden" class="count" value="${tipscount}" />
+	          
 	            	<button type="button" class="btn btn-warning" onClick="btnClick()">더보기</button>
+		     <%--     </c:if> --%>
 		        </div>
 		   
 	        
@@ -150,20 +157,22 @@ function btnClick(){
     	        },
     	        success :function(data){
     	           console.log(data);
-    	           var tipslist = data.tipslist;
+    	           var moretips = data.moretips;
+    	           var tipscount = data.tipscount;
 					
-    	          html = " "
-    	           for(var i in tipslist){
+    	          html = "";
+    	           for(var i in moretips){
     	        	  html  +="<div class='product-item col-sm-6 col-md-4 col-lg-3 '>"
-    	        	  +"<div class='pi-pic shot'>"
-    	        	  +"<a href='/commu/tips/"+tipslist[i].boardVO.board_id+"'>"
-    	        	  +"<img src='/resources/img/tips/"+tipslist[i].imgname+"' alt='' style='height: 180px;'> "
-    	        	  +"<span class='count'>조회수 "+tipslist[i].boardVO.hit+"</span> "
-    	        	  +"<span style='font-size: 15px; font-weight: bold;'> "+tipslist[i].boardVO.title+"</span></a></div>"
-    	        	  +"<div style='font-size: 14px; text-align: left;'> "+tipslist[i].boardVO.memberVO.nickname+"</div></div></div>"
+    	        		  	+"<div class='pi-pic shot'>"
+    	        		 	 +"<a href='/commu/tips/"+moretips[i].boardVO.board_id+"'> "
+    	        		 	 +"<img src='/resources/img/tips/"+moretips[i].imgname+"' alt='' style='height: 180px;'> "
+    	        		 	 +"<span class='count'>조회수"+ moretips[i].boardVO.hit+"</span> "
+    	        		 	 +"<span style='font-size: 15px; font-weight: bold;'>"+moretips[i].boardVO.title+"</span></a></div>"
+    	        			 +"<div style='font-size: 14px; text-align: left;'>"+moretips[i].boardVO.memberVO.nickname+"</div></div></div>";
+
     	           }
     	           
-    	          if(tipslist.length == 12){
+    	          if(moretips.length == 12){
 		        		html += "<div class='btn col-lg-12 text-center'>"  
 		            		 + "<button type='button' class='btn btn-warning' onClick='btnClick()'>더보기</button> </div>";			      
 		        	}

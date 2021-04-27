@@ -23,7 +23,6 @@
 <link rel="stylesheet" href="/resources/css/elegant-icons.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/owl.carousel.min.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/nice-select.css" type="text/css">
-<link rel="stylesheet" href="/resources/css/jquery-ui.min.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/slicknav.min.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/style.css" type="text/css">
 
@@ -86,13 +85,13 @@ color:#FFBF00
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
 	<div class="container">
 
-		
+		<div style="margin-top:30px;">
 		<input type="hidden" name="keyword" value="${param.keyword}">
 		<h5><b>'${param.keyword}'</b>에 대한 검색결과 <b>${gcount}</b>건</h5>
 			<br><br>
-			
+		</div>	
 				<div id="table" class="row text-center"
-				style="margin-top: 20px; margin-left: 5px;">
+				style="margin-top: 10px; margin-left: 5px;">
 
 				<c:forEach items="${moregoods}" var="mg">
 					<div class="product-item col-sm-3">
@@ -118,12 +117,14 @@ color:#FFBF00
 			</div>
 	
 	
- <c:if test="${fn:length(gocount) > 8}">
-                <input type="hidden" class="count" value="${fn:length(gocount)}" />
-	            <div class="col-lg-12 text-center">
-	            	<button type="button" class="btn btn-warning" onClick="btnClick()">더보기</button>
-		        </div>
-		      </c:if>
+ 	<div class="col-lg-12 text-center">	
+			 <c:if test="${fn:length(gocount) > 8}">
+			 <input type="hidden" class="count" value="${gocount}" />
+			 
+				<button type="button" class="btn btn-warning"  onClick="btnClick()">더보기</button>
+			  
+			   </c:if>
+			   </div>
 	        
 	        
 </div>
@@ -155,24 +156,23 @@ color:#FFBF00
     	           var moregoods = data.moregoods;
     	           
 					
-    	          html = " "
+    	          html = "";
     	           for(var i in moregoods){
     	        	  html  +="<div class='product-item col-sm-3'><div class='pi-pic'>"
-    	        		 	  +"<a href='/admin/goods_detail/"+moregoods[i].board_id+"'>"
-    	        			  +"<img src='/resources/img/admin/goods/"+moregoods[i].goodsVO.thumbnail+"' alt=''></a></div>"
-    	        			  +"<div class='pi-text'>"
-    	        			  +"<a href='/admin/goods_detail/"+moregoods[i].board_id+"'>"
-    	        			  +"<h5>"+moregoods[i].goodsVO.goodsname+"</h5></a>"
-    	        			  +"<div class='product-price'>"+moregoods[i].goodsVO.price+"원</div>";
+    	        		 	 +"<a href='/admin/goods_detail/"+moregoods[i].board_id+"'>"
+    	        		 	 +"<img src='/resources/img/admin/goods/"+moregoods[i].goodsVO.thumbnail+"' alt=''></a></div>"
+    	        		 	 +"<div class='pi-text'><a href='/admin/goods_detail/"+moregoods[i].board_id+"'><h5>"+moregoods[i].goodsVO.goodsname+"</h5></a>"
+    	        		 	 +"<div class='product-price'>"+moregoods[i].goodsVO.price+"원</div>";
     	        	  for(var j in rate){
   	       	          	if(rate[j].goodsVO.goods_id == moregoods[i].goodsVO.goods_id){
-    	           html+="<span class='star-prototype'> <span class='star' style='width:"+(rate[j].avgscore*16)+"px'> </span>" + "</span>" 
-    	                +" <span> &nbsp; 리뷰" + rate[j].count+"</span></div></div></div>";
-  	       	          	
-  	       	          	
-  	       	          	}
-    	        	  }//goods foreach end      	   
-    	           } 
+    	           html+="<span class='star-prototype'><span class='star' style='width:"+(rate[j].avgscore*16)+"px'> </span></span>"
+    	          		 +"<span> &nbsp;리뷰" + rate[j].count+"</span>";
+  	       	          }//if end
+  	       	        
+    	        	  }//rate end   
+    	        	  
+    	        	  html+="</div></div></div>";
+    	           } //mg end
     	           
     	          
    	           if(rate.length == 8){
@@ -194,12 +194,11 @@ color:#FFBF00
    </script>
 
 	<!-- Footer -->
+	<div style="margin-top:40px;">
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
-
+</div>
 	<!-- Js Plugins -->
-	<script src="/resources/js/jquery-3.3.1.min.js"></script>
 	<script src="/resources/js/bootstrap.min.js"></script>
-	<script src="/resources/js/jquery-ui.min.js"></script>
 	<script src="/resources/js/jquery.countdown.min.js"></script>
 	<script src="/resources/js/jquery.nice-select.min.js"></script>
 	<script src="/resources/js/jquery.zoom.min.js"></script>

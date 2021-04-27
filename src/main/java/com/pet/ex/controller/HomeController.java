@@ -146,8 +146,9 @@ public class HomeController {
 	public Map<String, Object> tipslist(@RequestParam("keyword") String keyword, Criteria cri) {
 		log.info("morelist");
 		Map<String, Object> list = new HashMap<>();
-		List<ImageVO> tipslist = service.getMoreTips(keyword, cri);
-		list.put("tipslist", tipslist);
+		List<ImageVO> moretips = service.getMoreTips(keyword, cri);
+		list.put("moretips", moretips);
+		list.put("tipscount", service.getTipsCount(keyword));
 		return list;
 	}
 

@@ -175,10 +175,10 @@ img {
 	<div class="container">
 
 		<div id="total"></div>
-		<input type="hidden" id="gcount" value="${gcount}"> <input
-			type="hidden" id="tcount" value="${tcount}"> <input
-			type="hidden" id="qcount" value="${qcount}"> <input
-			type="hidden" id="scount" value="${scount}">
+		<input type="hidden" id="gcount" value="${gcount}"> 
+		<input type="hidden" id="tcount" value="${tcount}"> 
+		<input type="hidden" id="qcount" value="${qcount}"> 
+		<input type="hidden" id="scount" value="${scount}">
 
 		<c:if test="${gcount != 0}">
 			<form action="${pageContext.request.contextPath}/moregoods"

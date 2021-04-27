@@ -64,7 +64,7 @@ background-color:#dddddd;
 }
 .count2 {
 	position: absolute;
-	bottom: 130px;
+	bottom: 85px;
 	right: 40px;
 	font-size: 13px;
 	color: #fff;
@@ -112,10 +112,11 @@ color:#FFBF00
 		
 		<input type="hidden" name="keyword" value="${param.keyword}">
 		
-		<h5><b>'${param.keyword}'</b>에 대한 검색결과 <b >${scount}</b>건</h5>
+		<div style="margin-top:30px;">
+		<input type="hidden" name="keyword" value="${param.keyword}">
+		<h5><b>'${param.keyword}'</b>에 대한 검색결과 <b>${scount}</b>건</h5>
 			<br><br>
-		
-
+		</div>	
 
 				<div id="snslist" class="row text-center">
 					<c:forEach items="${moresns}" var="ms">
@@ -158,13 +159,14 @@ color:#FFBF00
 
 					</c:forEach>
 				</div>
-					
+				<div class="col-lg-12 text-center">	
 			 <c:if test="${fn:length(snscount) > 8}">
-			 <input type="hidden" class="count" value="${fn:length(snscount)}" />
-			 <div class="col-lg-12 text-center">
+			 <input type="hidden" class="count" value="${snscount}" />
+			 
 				<button type="button" class="btn btn-warning"  onClick="btnClick()">더보기</button>
-			  </div>
+			  
 			   </c:if>
+			   </div>
 	</div>
 <!--  더보기 페이징 처리 -->
 	<script type="text/javascript">
@@ -175,8 +177,6 @@ color:#FFBF00
 		function btnClick() {
 
 			pageNum += 1;
-			console.log(pageNum);
-			console.log(check);
 
 			if (pageNum > check){
 				$(".btn").hide();
@@ -195,35 +195,36 @@ color:#FFBF00
 							var moresns = data.moresns;
 							var snscount = data.snscount;
 
-							html = " "
+							html = "";
 							for ( var i in moresns) {
-								html += "<div class='col-12 col-md-4 col-lg-3'>"
-										+ "<div class='user-Info row' style='margin: 20px auto 0px 5px'>"
-										+ "<div class='profile_box'>"
-										+ "<img src='/resources/img/member/profile/"+moresns[i].boardVO.memberVO.thumbnail+"'name='profile' alt='' class='profile' /></div>"
-										+"<div style='padding: 7px'>"+moresns[i].boardVO.memberVO.nickname+"</div>"
-										+"<a href='/myPage/" + moresns[i].boardVO.memberVO.nickname+"' style='padding: 7px;'> 팔로우</a></div>"
-										+"<div class='pi-pic shot'> <a href='/commu/sns/" + moresns[i].boardVO.board_id+"'> "
-										+"<img src='/resources/img/member/sns/" + moresns[i].imgname+"' alt='' style='border-radius: 8px;height:250px; width:250px;' />"
-										+"<span class='count2'>조회수 " + moresns[i].boardVO.hit+"</span></a></div>"
-										+"<div style='font-size : 25px; text-align:center; margin-top:8px;margin-bottom:30px; '>"
-										+ "<div  style='font-size : 20px; text-align:center; margin-top:8px;margin-bottom:30px;'><i class='far fa-heart'style='font-size : 25px;'></i>"  + moresns[i].boardVO.plike + "&nbsp&nbsp&nbsp&nbsp"
-										+"<i class='far fa-comment'  style='font-size : 25px;'></i>"
-										+ "</div>";
+								html +="<div class=' col-12 col-md-4 col-lg-3'>"
+									+"<div class='user-Info row' style='margin: 20px auto 0px 5px'><div class='profile_box '>"
+									+"<img src='/resources/img/member/profile/"+moresns[i].boardVO.memberVO.thumbnail+"' name='profile' alt='' class='profile' /></div>"
+									+"<div style='padding: 7px'>"+moresns[i].boardVO.memberVO.nickname+"</div>"
+									+"<a href='/myPage/"+moresns[i].boardVO.memberVO.nickname+"' style='padding: 7px;'> 팔로우</a></div>"
+									+"<div class='pi-pic shot'><a href='/commu/sns/"+moresns[i].boardVO.board_id+"'> "
+									+"<img src='/resources/img/member/sns/"+moresns[i].imgname+"' alt='' style='border-radius: 8px;height:250px; width:250px;' />"
+									+"<span class='count'>조회수"+moresns[i].boardVO.hit+"</span></a></div>"
+									+"<div style='font-size : 20px; text-align:center; margin-top:8px;margin-bottom:30px; '>"
+									+"<i class='far fa-heart' style='font-size : 25px;'></i>&nbsp&nbsp"+moresns[i].boardVO.plike+" &nbsp&nbsp&nbsp&nbsp"
+									+"<a href='/commu/sns/"+moresns[i].boardVO.board_id+"'></a>"
+									+"<i class='far fa-comment'  style='font-size : 25px;'></i>";
+										
 						   for(var j in count){
 						  	       	   	if(count[j].pgroup == moresns[i].boardVO.board_id){
 						    	           html+= count[j].count
-						    	           +"</div></div></div>";
+						    	           +"</div>";
 							}
 						   }
-							}
 							
+						   html += "</div></div>";
 						    
-				   	           if(moresns.length == 8){
-						        		html += "<div class='btn col-lg-12 text-center'>"  
-						            		 + "<button type='button' class='btn btn-warning' onClick='btnClick()'>더보기</button> </div>";			      
-						        	}
-				   	           
+				   	  
+						}
+							 if(moresns.length == 8){
+					        		html += "<div class='btn col-lg-12 text-center'>"  
+					            		 + "<button type='button' class='btn btn-warning' onClick='btnClick()'>더보기</button> </div>";			      
+					        	}
 				   	           
 							 $('.btn').remove();
 							$("#snslist").append(html);

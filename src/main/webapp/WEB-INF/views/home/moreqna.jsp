@@ -79,12 +79,13 @@ color:#FFBF00
 	<div class="container">
 
 
+		
+	<div style="margin-top:30px;">
 		<input type="hidden" name="keyword" value="${param.keyword}">
-		<h5>
-			<b>'${param.keyword}'</b>에 대한 검색결과 <b>${qcount}</b>건
-		</h5>
-		<br>
-		<br>
+		<h5><b>'${param.keyword}'</b>에 대한 검색결과 <b>${qcount}</b>건</h5>
+			<br><br>
+		</div>	
+		
 		<div id="table">
 
 			<c:forEach items="${moreqna}" var="mq">

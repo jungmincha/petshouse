@@ -324,7 +324,7 @@
 	<!-- 질문과답변 검색 -->
 	<select id="getQnasearch" resultMap="boardvo">
    <![CDATA[
-   		select * from board where content like '%'||#{keyword}||'%' and boardtype_id='4' and pstep='0' or title like '%'||#{keyword}||'%' and boardtype_id='4' order by pdate desc
+   		select * from board b, member m where b.member_id=m.member_id and b.content like '%'||#{keyword}||'%' and b.boardtype_id='4' and b.pstep='0' or b.member_id=m.member_id and b.title like '%'||#{keyword}||'%' and b.boardtype_id='4' and b.pstep='0' order by b.pdate desc
    ]]>
 	</select>
 	
