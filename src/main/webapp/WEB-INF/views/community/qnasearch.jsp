@@ -42,6 +42,16 @@
 	margin-top:-29px;
 }
 
+#content {
+	font-size:0.9rem;
+     overflow: hidden;
+     text-overflow: ellipsis;
+     display: -webkit-box;
+     -webkit-line-clamp: 2; 
+     -webkit-box-orient: vertical;
+
+}
+
 #hashtag {
 	font-size: 13px;
 	padding: 0.01px;
@@ -120,8 +130,8 @@ color:#FFBF00
 							<form action="${pageContext.request.contextPath}/search" method="get"> 
 							
 							<a href="/commu/qna/${qs.board_id}">
-								<div style="font-weight: bold; font-size: 18px; margin-bottom:3px;">${qs.title}</div>
-								<div style=" margin-bottom:3px;">${qs.content}</div>
+								<div style="font-weight: bold; font-size: 18px;">${qs.title}</div>
+								<div id="content">${qs.content}</div>
 							</a>
 								<span>${qs.memberVO.nickname}</span> 
 								<span style="font-size: 13px; color: gray;">

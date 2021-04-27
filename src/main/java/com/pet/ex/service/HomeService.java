@@ -30,7 +30,6 @@ public interface HomeService {
 	public List<BoardVO> getSnsCount(String keyword);
 	//sns 페이징용 
 	public List<BoardVO> getTipsCount(String keyword);
-	public List<ImageVO> imgCount(ImageVO imageVO);
 
 	
 

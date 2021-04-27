@@ -211,8 +211,8 @@
  		or
  		b.board_id=i.board_id 
    		and b.member_id=m.member_id
-   		and b.content like '%'||#{keyword}||'%' and b.boardtype_id='2' and img_id in( 
- 		select  min(img_id) as img_id from image where board_id is not null group by board_id)order by b.pdate desc
+   		and b.title like '%'||#{keyword}||'%' and b.boardtype_id='2' and img_id in( 
+ 		select  min(img_id) as img_id from image where board_id is not null group by board_id)
    		      ) A WHERE ROWNUM <= #{cri.pageNum} * 8
 			) WHERE RNUM > (#{cri.pageNum}-1) * 8
 
@@ -286,9 +286,7 @@
 	<select id="getSnsCount" resultType="imagevo">
 		<![CDATA[
 	         select count(*) as count from  board b, image i where b.board_id=i.board_id 
-	         and b.hashtag like '%'||#{keyword}||'%' and b.boardtype_id='2' 
-			or b.board_id=i.board_id 
-	         and b.content like '%'||#{keyword}||'%' and b.boardtype_id='2' group by b.board_id
+	         and b.hashtag like '%'||#{keyword}||'%' and b.boardtype_id='2' group by b.board_id
 	   ]]>
 	</select>
 	
@@ -307,16 +305,6 @@
 			where content like '%'||#{keyword}||'%' and pstep='0' and boardtype_id='4' 
 			or title like '%'||#{keyword}||'%' and boardtype_id='4' group by board_id
 	   ]]>
-	</select>
-	
-		<!-- SNS 이미지 카운트 -->
-	 <select id="imgCount" resultMap="imagevo">
-		<![CDATA[
-	        select b.board_id , count(imgname) as count 
-	        from image i, board b 
-	        where i.board_id=b.board_id 
-	        and b.boardtype_id=2 group by b.board_id
-	  	]]>
 	</select>
 	
 	

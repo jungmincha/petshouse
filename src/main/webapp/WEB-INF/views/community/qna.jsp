@@ -173,8 +173,8 @@ body::-webkit-scrollbar-track {
 					<td>
 						<form action="${pageContext.request.contextPath}/search" method="get">
 							<a href="/commu/qna/${qna.board_id}">
-								<div style="font-weight: bold; font-size: 18px; margin-top: 10px; margin-bottom:3px;">${qna.title}</div>
-								<div style="margin-bottom:3px;">${qna.content}</div>
+								<div style="font-weight: bold; font-size: 18px; margin-top: 10px;">${qna.title}</div>
+								<div>${qna.content}</div>
 							</a>
 							<div style="margin-bottom: 10px;">
 								<span>${qna.memberVO.nickname}&nbsp&nbsp</span> <span
@@ -254,10 +254,10 @@ body::-webkit-scrollbar-track {
 
 												html += "<tbody id='qnaList'><td>"
 														+ "<a href='/commu/qna/"+data[i - 1].board_id+"'>"
-														+ "<div style='font-weight: bold; font-size: 18px; margin-top: 10px; margin-bottom:3px;'>"
+														+ "<div style='font-weight: bold; font-size: 18px; margin-top: 10px;'>"
 														+ data[i - 1].title
 														+ "</div>"
-														+ "<div style='margin-bottom:3px;'>"
+														+ "<div>"
 														+ data[i - 1].content
 														+ "</div></a> <div style='margin-bottom: 10px;'><span>"
 														+ data[i - 1].memberVO.nickname

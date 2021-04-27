@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -11,47 +12,57 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>${notice_view.title}수정하기</title>
 <script src="/resources/ckeditor/ckeditor.js"></script>
-<link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap"
+	rel="stylesheet">
 
 <!-- Css Styles -->
-<link rel="stylesheet" href="/resources/css/bootstrap.min.css" type="text/css">
-<link rel="stylesheet" href="/resources/css/font-awesome.min.css" type="text/css">
-<link rel="stylesheet" href="/resources/css/themify-icons.css" type="text/css">
-<link rel="stylesheet" href="/resources/css/elegant-icons.css" type="text/css">
-<link rel="stylesheet" href="/resources/css/owl.carousel.min.css" type="text/css">
-<link rel="stylesheet" href="/resources/css/nice-select.css" type="text/css">
-<link rel="stylesheet" href="/resources/css/slicknav.min.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/bootstrap.min.css"
+	type="text/css">
+<link rel="stylesheet" href="/resources/css/font-awesome.min.css"
+	type="text/css">
+<link rel="stylesheet" href="/resources/css/themify-icons.css"
+	type="text/css">
+<link rel="stylesheet" href="/resources/css/elegant-icons.css"
+	type="text/css">
+<link rel="stylesheet" href="/resources/css/owl.carousel.min.css"
+	type="text/css">
+<link rel="stylesheet" href="/resources/css/nice-select.css"
+	type="text/css">
+<link rel="stylesheet" href="/resources/css/jquery-ui.min.css"
+	type="text/css">
+<link rel="stylesheet" href="/resources/css/slicknav.min.css"
+	type="text/css">
 <link rel="stylesheet" href="/resources/css/style.css" type="text/css">
 
 <!-- bootstrap css cdn -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" type="text/css" />
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	type="text/css" />
 
 <!-- jquery cdn -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 <style>
 #navbars>li:nth-child(3) {
    background-color: #e7ab3c;
-	}
-
-textarea::-webkit-scrollbar {
+}
+  textarea::-webkit-scrollbar {
     width: 10px;
-	}
-  
+  }
 textarea::-webkit-scrollbar-thumb {
     background-color: #666666;
     border-radius: 10px;
     background-clip: padding-box;
     border: 2px solid transparent;
-	}
-
+  }
 textarea::-webkit-scrollbar-track {
     background-color: #CCCCCC;
     border-radius: 10px;
     box-shadow: inset 0px 0px 5px white;
   }
 </style>
-
 </head>
 
 <body style="padding-top:180px">
@@ -193,7 +204,9 @@ textarea::-webkit-scrollbar-track {
 	</div>
 
 	<!-- Js Plugins -->
+	<script src="/resources/js/jquery-3.3.1.min.js"></script>
 	<script src="/resources/js/bootstrap.min.js"></script>
+	<script src="/resources/js/jquery-ui.min.js"></script>
 	<script src="/resources/js/jquery.countdown.min.js"></script>
 	<script src="/resources/js/jquery.nice-select.min.js"></script>
 	<script src="/resources/js/jquery.zoom.min.js"></script>

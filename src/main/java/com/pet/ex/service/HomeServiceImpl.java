@@ -104,9 +104,5 @@ public class HomeServiceImpl implements HomeService {
 		return mapper.getTipsCount(keyword);
 	}
 	
-	@Override
-	public List<ImageVO> imgCount(ImageVO imageVO) {
-		 
-		return mapper.imgCount(imageVO);
-	}
+
 }
