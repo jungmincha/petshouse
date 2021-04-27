@@ -246,7 +246,7 @@ public class SnsController {
 
 	// sns 삭제하기
 	@GetMapping("/sns/delete")
-	public ModelAndView deleteSNS(@RequestParam("board_id") int board_id, Criteria cri, ModelAndView mav)
+	public ModelAndView deleteSNS(@RequestParam("board_id") int board_id , ModelAndView mav)
 			throws Exception {
 		log.info("delete()실행");
 

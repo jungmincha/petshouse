@@ -40,7 +40,7 @@ import com.pet.ex.page.PageVO;
 import lombok.extern.slf4j.Slf4j;
 import net.sf.json.JSONArray;
 
-//
+
 @Slf4j
 @RestController
 @RequestMapping("/admin")
@@ -283,7 +283,7 @@ public class AdminController {
 		
 	}
 
-	@GetMapping("/board/{board_id}")
+	@GetMapping("/board/modify_view")
 	public ModelAndView boardModify(@PathVariable("board_id") int board_id, BoardVO boardVO, CategoryVO categoryVO,
 			ModelAndView mav) {
 
@@ -297,6 +297,19 @@ public class AdminController {
 		mav.setViewName("admin/board_modify");
 
 		return mav;
+	}
+	
+	@DeleteMapping("/board/delete")
+	public ModelAndView boardDelete(@RequestParam("board_id") int board_id , BoardVO boardVO, ModelAndView mav)
+			throws Exception {
+
+		log.info("delete()실행");
+		
+			service.boardDelete(boardVO.getGoodsVO().getGoods_id());
+
+			mav.setView(new RedirectView("/store/home", true));
+			return mav;
+
 	}
 
 	// 상품게시글 상세조회

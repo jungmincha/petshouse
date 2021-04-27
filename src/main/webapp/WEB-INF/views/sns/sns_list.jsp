@@ -245,7 +245,7 @@
 								<span class="count">조회수 ${sns.boardVO.hit}</span></a>
 							</div>
 							<div class="card-body" style="font-size : 20px; ">
-							 	<a href="/commu/sns/${sns.boardVO.board_id}"> <i class="far fa-heart"></i>&nbsp&nbsp${sns.boardVO.plike}</a> &nbsp&nbsp&nbsp&nbsp
+							 	<a href="/commu/sns/${sns.boardVO.board_id}"> <i class="far fa-heart"></i>&nbsp&nbsp${sns.boardVO.plike}</a> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 									<i class="far fa-comment"></i>
 								<c:forEach items="${count}" var="count">  
 								
@@ -311,7 +311,7 @@
                                  + "<div class='card-body' style='font-size:20px;'>"
                                  + "<a href='/commu/sns/" + sns[i].boardVO.board_id + "'>" 
                                  + "<i class='far fa-heart'></i>&nbsp;&nbsp;" + sns[i].boardVO.plike + "</a>&nbsp;&nbsp;&nbsp;&nbsp;"
-                                 + "<i class='far fa-comment'></i>";
+                                 + "<i class='far fa-comment'></i>&nbsp&nbsp";
                             
                             for(var j in count){
                                 if(count[j].pgroup == sns[i].boardVO.board_id){

@@ -14,6 +14,7 @@ import com.pet.ex.vo.PlikeVO;
 @Mapper
 public interface SnsMapper {
 
+	
 	public void snsBoardInput(BoardVO boardVO);
 
 	public BoardVO getSnsBoard_id();

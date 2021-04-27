@@ -174,8 +174,6 @@ public class AdminServiceImpl implements AdminService {
 
 	
 	
-	
-	
 	/* 회원관리 */
 	@Override
 	public List<MemberVO> getMemberlist(Criteria cri) {
@@ -308,6 +306,13 @@ public class AdminServiceImpl implements AdminService {
 	      log.info("getReviewImg()");
 	      return mapper.getReviewImg(board_id);
 	   }
+
+	@Override
+	public void boardDelete(int goods_id) {
+		
+		mapper.imgDelete(goods_id);
+		mapper.boardDelete(goods_id);
+	}
 	   
 
 }

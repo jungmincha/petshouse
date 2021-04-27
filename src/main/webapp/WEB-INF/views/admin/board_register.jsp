@@ -13,21 +13,21 @@
 
 
 <style>
- 
- 
- 
-
 .file {
 	width: 500px;
 	height: 500px;
 }
 
- 
+h2 {
+	text-align: center;
+}
+
 #file {
 	display: none;
 }
+
 #preview {
-	width: 700px;
+	width: 730px;
 	min-height: 180px;
 	padding: 10px;
 	background-color: #f5f5f5;
@@ -52,7 +52,7 @@
 
 
 	<!-- Page Content -->
-	<div class="container">
+	<div class="container" style="min-height: 800px;">
 		<div class="col-lg-12">
 			<form id="board" name="board" enctype="multipart/form-data"
 				action="${pageContext.request.contextPath}/admin/board/register"
@@ -61,57 +61,56 @@
 				<fieldset>
 					<h2>상품 게시글 등록</h2>
 
-					<input type="submit" class="btn"
-						style="background-color: #e7ab3c; float: right;" value="게시글등록">
+					<input type="submit" class="btn btn-outline-secondary col-sm-1"
+						style="position: fixed; top: 170px; right: 350px;" value="게시글등록">
 
-					<div class="form-group row" style="padding-top:70px;">
+					<div class="form-group row" style="padding-top: 70px;">
 						<label class="col-sm-2">등록되지 않은 상품</label>
-						 <div class="col-sm-8">
-						 <select class="form-control" id="goodsVO.goods_id" name="goodsVO.goods_id">
-							 <c:forEach items="${goods}" var="goods">
-								<option value="${goods.goods_id}">
-									${goods.goods_id}/${goods.goodsname}/${goods.price}/${goods.pcolor}/${goods.psize}/${goods.categoryVO.categoryname}/${goods.categoryVO.sortname}
-									/${goods.stockVO.stockname}</option>
-							</c:forEach>
-						</select>
+						<div class="col-sm-8" style="padding-left: 15px;">
+							<select class="form-control" id="goodsVO.goods_id"
+								name="goodsVO.goods_id">
+								<c:forEach items="${goods}" var="goods">
+									<option value="${goods.goods_id}">
+										${goods.goods_id}/${goods.goodsname}/${goods.price}/${goods.pcolor}/${goods.psize}/${goods.categoryVO.categoryname}/${goods.categoryVO.sortname}
+										/${goods.stockVO.stockname}</option>
+								</c:forEach>
+							</select>
 						</div>
 					</div>
-
-
+ 
 					<div class="form-group row">
-						<label class="col-sm-2">상세설명</label>
-						<div class="col-sm-8">
-							<textarea name="content" cols="25" rows="5" class="form-control"
-								required></textarea>
-						</div>
-					</div>
-					
-					
-					<div class="form-group row ">
-						<div class="col-sm-2">사진</div>
+						<label class="col-sm-2" style="padding-left: 40px;">상세사진</label>
 						<div class="col-sm-8">
 							<div class="custom-file">
 								<input type="file" class="custom-file-input" id="btnAtt"
 									multiple="multiple" name="btnAtt" style="display: block;"
-									required> 
-									<label class="custom-file-label">사진을 선택하세요.</label>
+									required> <label class="custom-file-label">사진을
+									선택하세요.</label>
 							</div>
 						</div>
 					</div>
-
-
-
+ 
 					<div class="form-group row">
 						<label class="col-sm-2"></label>
-						<div class="input-group col-lg-7 ">
-							<div id='image_preview '>
-								<div id='preview'
+						<div class="input-group col-lg-7">
+							<div id="image_preview">
+								<div id="preview"
 									data-placeholder='이미지를 첨부 하려면 파일 선택 버튼을 클릭하거나 이미지를 드래그앤드롭 하세요 *최대 10장까지'></div>
 							</div>
 						</div>
 					</div>
 
- 
+					<div class="form-group row">
+						<label class="col-sm-2" style="padding-left: 40px;">상세설명</label>
+						<div class="col-sm-8">
+								<div class="custom-file">
+										<input type="file" class="custom-file-input" id="content"
+											name="content"  style="display: block;"> <label
+											class="custom-file-label" for="inputGroupFile02">Choose
+											file</label>
+									</div>
+						</div>
+					</div>
 
 
 				</fieldset>
@@ -119,10 +118,10 @@
 		</div>
 	</div>
 
- 
+
 	<!-- Footer -->
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
- 
+
 
 	<script>
 	
@@ -254,6 +253,6 @@
 
 
 </script>
- 
+
 </body>
 </html>

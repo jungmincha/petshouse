@@ -50,7 +50,7 @@ p {
 }
 
 .i {
-	width: 269px;
+	width: 279px;
 	height: 269px;
 	object-fit: cover;
 }
@@ -185,15 +185,30 @@ body {
 
 .likeamount {
 	color: black;
+	font-size : 18px;
+	padding-bottom : 5px;
+}
+
+a{
+font-size : 15px;
+
 }
 
 .pd {
 	position : absolute;
-	
 	float: right;
 	top : 10px;
 	right:5px;
+	 
+}
+
+.more{
+
+	min-height:10px;
+	float: right;
+ 	color : #e7ab3c;
 	font-size: 15px;
+
 }
 </style>
 <script>
@@ -265,7 +280,7 @@ body {
 						<div class="mySlides">
 
 							<img src="/resources/img/member/sns/${img.imgname}"
-								style="width: 780px; height: 450px; object-fit: cover; border-radius: 10px;">
+								style="width: 800px; height: 450px; object-fit: cover; border-radius: 10px;">
 						</div>
 					</c:forEach>
 
@@ -299,7 +314,7 @@ body {
 									<a href="javascript:void(0);" class="like"
 										style="cursor: hand;" onclick="like();"><img
 										src="/resources/img/location/before_like.png"
-										style="width: 35px;  "></a>
+										style="width: 41px; "></a>
 									
 
 								</div>
@@ -310,7 +325,7 @@ body {
 									<a href="javascript:void(0);" class="likecancel"
 										style="cursor: hand;" onclick="likecancel();"><img
 										src="/resources/img/location/after_like.png"
-										style="width:35px; "></a>
+										style="width:41px;"></a>
 										
 								</div>
 							</c:if>
@@ -318,7 +333,7 @@ body {
 							
 								<div class="profile-info" ></div>
 									<a href="#likeModal" class="like_amount" data-toggle="modal"
-									style="float: right; padding:10px; font-size:15px;">  ${like_amount}  </a>
+									style="float: right; padding-left:5px; font-size:17px;">  ${like_amount}  </a>
 							</div>
 						
 						</div></div>
@@ -361,7 +376,7 @@ body {
 											$('.like').remove();
 											$('.profile-info')
 													.append(
-															'<a href="javascript:void(0);" class="likecancel" style="cursor:hand;  padding-left:30px;" onclick="likecancel();"><img src="/resources/img/location/after_like.png" style="width:30px;"></a>');
+															'<a href="javascript:void(0);" class="likecancel" style="cursor:hand;  padding-left:30px;" onclick="likecancel();"><img src="/resources/img/location/after_like.png" style="width:25px;"></a>');
 										},
 										error : function(e) {
 											console.log(e);
@@ -404,7 +419,7 @@ body {
 											$('.likecancel').remove();
 											$('.profile-info')
 													.append(
-															'<a href="javascript:void(0);" class="like" style="cursor:hand;  padding-left:30px;" onclick="like();"><img src="/resources/img/location/before_like.png" style="width:30px; "></a>');
+															'<a href="javascript:void(0);" class="like" style="cursor:hand;  padding-left:30px;" onclick="like();"><img src="/resources/img/location/before_like.png" style="width:25px; "></a>');
 										},
 										error : function(e) {
 											console.log(e);
@@ -452,7 +467,7 @@ body {
 						</div>
 
 
-					<div style="padding-top: 30px; min-height: 100px;">
+					<div style="padding-top: 30px; min-height: 95px;">
 						${sns.content}</div>
 
 					<form action="${pageContext.request.contextPath}/commu/sns/hashtag"
@@ -488,7 +503,7 @@ body {
 
 						<div class="archive-posts">
 
-							<div class="row" style="padding-top:50px;">
+							<div class="row" style="padding-top:50px; min-height:200px;">
 								<div class="profile_box2">
 									<img
 										src="/resources/img/member/profile/${sns.memberVO.thumbnail}"
@@ -496,15 +511,15 @@ body {
 								</div>
 								<h4 style="padding-top: 30px; padding-left: 15px;">${sns.memberVO.nickname}</h4>
 								<a href="/myPage/${sns.memberVO.nickname}"
-									style="padding-top: 32px;"> &nbsp 팔로우 </a>
+									style="padding-top: 33px; font-size : 16px; color:#e7ab3c;"> &nbsp 팔로우 </a>
 							</div>
 
 
 
 						</div>
-						<br>  
+						<br><div class="col-lg-4 more"><a href="/myPage/sns?nickname=${sns.memberVO.nickname}" style="color:#e7ab3c;" >더보기</a></div><br>
 						
-						<div class="col-lg-4"><a href="/myPage/sns?nickname=${sns.memberVO.nickname}" style="float: right; padding-left  ">더보기</a></div>
+						
 						<div class="recent-posts">
 							
 							<ul>

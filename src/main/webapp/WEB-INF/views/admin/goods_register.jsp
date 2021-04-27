@@ -13,37 +13,8 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 
-<!-- <script language="javascript">
-
-/* $(document).ready(function(){
-	//상품 등록 유효성검사
-	$("#check").click(function(){
-		var name = $("#goodsname").val();	
-		
-		if(name == ""){
-			alert("상품명을 입력해주세요.");
-			name.focus();
-		}
-		
-		
-	});
-});	
- */
-//Example starter JavaScript for disabling form submissions if there are invalid fields
-  $(function() {
-    $(".sub").click(function() {
-      var valid = true;
- 
-      $("input[type=text]").each(function() {
-        if ($.trim($(this).val()) == '') {
-          valid = false;
-          $(this).css("background": "red");
-        }
-      })
-    })
-  })
-	</script> -->
 <style>
+
 .table_center {
 	display: table;
 	margin: 50px auto;
@@ -87,7 +58,7 @@ select {
 	<!-- Page Content -->
 
 
-	<div class="col-lg-30">
+	<div class="col-lg-12">
 		<form id="goods" name="goods" class="needs-validation" enctype="multipart/form-data"
 			action="${pageContext.request.contextPath}/admin/goods/register"
 			method="post">
@@ -298,7 +269,7 @@ select {
 					cate1Obj.categoryname = jsonData[i].categoryname;
 					cate1Arr.push(cate1Obj);
 				}
-			}
+			} 
 
 			// 1차 분류 셀렉트 박스에 데이터 삽입
 			var cate1Select = $("select.category1")

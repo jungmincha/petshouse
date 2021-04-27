@@ -229,12 +229,16 @@ h2 {
 			<div class="row">
 
 				<div class="col-lg-12">
+<input type="hidden" name="board_id" value="${goods.board_id}"> 
+				 
+		<div style="float: right">
+			<button type="button" id="modify_button" class="btn btn-warning"
+				onclick="modify_event();">수정</button>
 
-					<form action="modify" method="post">
-						<!-- input ajax 시작하는 곳! -->
-						<div id="input" class="row">
-
-
+			<button type="button" id="delete_button" class="btn btn-warning"
+				onclick="button_event();">삭제</button>
+		</div>
+						
 							<div class="col-lg-6">
 								<div class="product-pic-zoom">
 									<img class="product-big-img" height="600px;"
@@ -288,6 +292,8 @@ h2 {
 										</c:if>
 
 									</div>
+									
+								
 									<div class="pd-desc" style="margin: 20px 0px;">
 										<small>${goods.goodsVO.description}</small>
 										<h4 style="margin: 30px 0px;">
@@ -323,7 +329,7 @@ h2 {
 														<input id="pcolor" type="radio" name="pcolor" value="${c}" />
 														<label for="pcolor">${c} </label>
 													</div>
-												</c:forEach>
+												</c:forEach></div>
 										</c:if>
 
 
@@ -548,15 +554,49 @@ h2 {
 			</div>
 
 			<!-- input ajax 끝나는 곳! -->
-			</form>
-		</div>
-		</div>
-		</div>
+		 
 
 	</section>
 	<!-- Product Shop Section End -->
 
 	<script>
+	
+	<!-- 수정 삭제 경고창 -->
+	<script type="text/javascript">
+		function button_event() {
+			if (confirm("정말 삭제하시겠습니까?") == true) { //확인
+				var board_id = $('#board_id').val();
+				var url = "/commu/tdelete/" + board_id;
+				
+				$.ajax({
+					type : "DELETE",
+					url : url,
+					cache : false,
+					success : function(result) {
+						console.log(result);
+						if (result == "SUCCESS") {
+							$(location).attr('href', '/store/home')
+						}
+					},
+					error : function(e) {
+						console.log(e);
+					}
+				})
+				
+			} else { //취소
+				return;
+			}
+		}
+
+		function modify_event() {
+			if (confirm("수정하시겠습니까?") == true) { //확인
+				location.href = '${pageContext.request.contextPath}/admin/board/modify_view?board_id=${goods.board_id}'
+			} else { //취소
+				return;
+			}
+		}
+	</script>
+	
 $(function(){
 //    이미지 클릭시 해당 이미지 모달
    $(".imgC").click(function(){
