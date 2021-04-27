@@ -163,14 +163,6 @@ public class LoginController {
 		}
 	}
 
-	// 이메일 확인 페이지 이동
-	@GetMapping("/email")
-	public ModelAndView emailPage(ModelAndView mav) {
-		log.info("/login/email");
-		mav.setViewName("/login/email");
-		return mav;
-	}
-
 	// 이메일 인증 certify확인
 	@GetMapping(value = "/email/certify")
 	@Transactional

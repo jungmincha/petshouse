@@ -90,7 +90,7 @@ public class MyPageController {
 
 	// 결제 후 결제 정보 삽입
 	@PostMapping("/payPage/insert")
-	public ModelAndView insertPay(ModelAndView mav, PayVO pay, HttpServletRequest request) {
+	public ModelAndView insertPay(ModelAndView mav, PayVO pay, HttpServletRequest request, String payname) {
 		log.info("/payPage/insert");
 		String[] amounts = request.getParameterValues("amount");
 		String[] board_ids = request.getParameterValues("board_id");
@@ -112,7 +112,8 @@ public class MyPageController {
 			myPageService.insertPayGoods(payGoodsVO);
 
 		}
-
+		mav.addObject("pay", myPageService.getPay_id(pay.getMemberVO().getMember_id()));
+		mav.addObject("payname", payname);
 		mav.setViewName("/myPage/paySuccess");
 		return mav;
 	}

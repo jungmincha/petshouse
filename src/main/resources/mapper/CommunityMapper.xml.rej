@@ -1,0 +1,9 @@
+diff a/src/main/resources/mapper/CommunityMapper.xml b/src/main/resources/mapper/CommunityMapper.xml	(rejected hunks)
+@@ -390,6 +390,7 @@
+ 			    ) A WHERE ROWNUM <= #{cri.amount}
+ 			) WHERE RNUM > 0
+ 		]]>
++		
+ 	</select>
+ 
+ 	<!-- 질문과 답변 댓글 카운트 -->

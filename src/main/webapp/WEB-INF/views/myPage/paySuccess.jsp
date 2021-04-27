@@ -4,6 +4,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,6 +34,12 @@
 </head>
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
 <style>
+#registerCheck {
+	border-radius: 50%;
+	border: 2px solid white;
+	width: 250px;
+	heigth: 250px;
+}
 
 .login-btn {
 	background-color: #e7ab3c;
@@ -44,17 +52,17 @@
 .login-btn:hover {
 	background-color: orange;
 }
-
 </style>
 
-<body style="padding-top: 180px;">
-	<div class="container" style="width: 700px; height: 600px;">
-		<form action="/login/login">
+<body style="padding-top: 150px;">
+
+	<div class="container" style="width: 1100px; height: 900px;">
+		<form action="/store/home">
 			<div class="row">
 				<div class="col-12 text-center"
 					style="visibility: hidden; padding-bottom: 10px;">.</div>
 				<div class="col-12 text-center">
-				
+					<img id="registerCheck" src="/resources/img/paySuccess.png" />
 				</div>
 
 				<div class="col-12 text-center">
@@ -63,10 +71,65 @@
 							완료되었습니다.</span>
 					</h2>
 					<br>
-					<h5 style="line-height: 30px;">
-						가입하신 이메일로 인증 메일을 보냈습니다. <br>이메일 인증이 완료되어야 로그인이 가능합니다.<span
-							style="font-weight: bold;"> (소셜 회원가입 시 인증 X)</span>
-					</h5>
+					<br>
+					<br>
+					<h2 class="text-left"
+						style="padding-bottom: 10px; font-size: 30px;">결제내역</h2>
+					<table class="table">
+						<thead>
+							<tr>
+								<th>거래일시</th>
+								<th>상품명</th>
+								<th>총 상품 금액</th>
+								<th>배송비</th>
+								<th>포인트 사용</th>
+								<th>총 결제 금액</th>
+								<th>적립 포인트</th>
+							</tr>
+						</thead>
+
+						<tbody>
+							<tr>
+								<td>${fn:substring(pay.paydate,0,19)}</td>
+								<td>${payname}</td>
+								<td><fmt:formatNumber value="${pay.goodsprice }"
+										pattern="#,###" />원</td>
+								<c:choose>
+									<c:when test="${pay.goodsprice<30000 }">
+										<td>2,500원</td>
+									</c:when>
+									<c:otherwise>
+										<td>0원</td>
+									</c:otherwise>
+								</c:choose>
+								<td><fmt:formatNumber value="${pay.usepoint }"
+										pattern="#,###" />원</td>
+								<td><fmt:formatNumber value="${pay.payprice }"
+										pattern="#,###" />원</td>
+								<td>${pay.earningpoint }P</td>
+							</tr>
+
+						</tbody>
+					</table>
+					<br>
+					<h2 class="text-left" style="padding-bottom: 10px; font-size: 30px;">배송지 정보</h2>
+					<table class="table">
+						<thead>
+							<tr>
+								<th>이름</th>
+								<th>전화번호</th>
+								<th>배송지</th>
+							</tr>
+						</thead>
+
+						<tbody>
+							<tr>
+								<td>${pay.deliveryname}</td>
+								<td>${pay.deliverytel}</td>
+								<td>${pay.deliveryaddress }</td>
+							</tr>
+						</tbody>
+					</table>
 					<br>
 					<button class="login-btn" style="font-size: 30px;">홈으로</button>
 				</div>
@@ -74,6 +137,7 @@
 			</div>
 		</form>
 	</div>
+
 </body>
 <%@ include file="/WEB-INF/views/include/footer.jsp"%>
 <script src="/resources/js/bootstrap.min.js"></script>

@@ -185,8 +185,8 @@
 							<div class="col-lg-6">
 								<div class="row ">
 									<div class="col-lg-8">
-										<label id="pointL" for="point"></label> <input
-											type="text" id="point" />
+										<label id="pointL" for="point"></label> <input type="text"
+											id="point" />
 									</div>
 									<div class="col-lg-4 ">
 										<button id="point-btn" onclick="usePoint()">전액사용</button>
@@ -212,8 +212,6 @@
 									<input type="hidden" name="goodsName">
 									<input type="hidden" name="amount">
 									<input type="hidden" name="board_id">
-									<input type="hidden" name="receipt_id" id="receipt_id">
-									<input type="hidden" name="paydate" id="paydate">
 									<input type="hidden" name="psize">
 									<input type="hidden" name="pcolor">
 								</ul>
@@ -227,6 +225,10 @@
 						</div>
 					</div>
 				</div>
+				<!-- 결제 정보  -->
+				<input type="hidden" name="receipt_id" id="receipt_id"> <input
+					type="hidden" name="paydate" id="paydate"> <input
+					type="hidden" name="payname" id="payname">
 			</form>
 		</div>
 	</section>
@@ -450,7 +452,7 @@
 					msg += '결제 금액 : ' + verify.data.price;
 					$("#paydate").val(verify.data.purchased_at)
 					$("#receipt_id").val(verify.data.receipt_id);
-					alert(msg);
+					$('#payname').val(verify.data.name);
 					document.form.submit();
 				}
 				else{
