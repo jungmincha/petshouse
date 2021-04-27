@@ -19,7 +19,6 @@
 		<result column="hashtag" property="hashtag" />
 		<result column="pgroup" property="pgroup" />
 		<result column="pstep" property="pstep" />
-		<result column="pindent" property="pindent" />
 		<result column="ratescore" property="ratescore" />
 		<result column="avgscore" property="avgscore" />
 		<result column="count" property="count" />
@@ -61,12 +60,15 @@
 		<result column="thumbnail" property="thumbnail" />
 		<result column="image3d" property="image3d" />
 		<result column="count" property="count" />
+		<result column="pcheck" property="pcheck" />
 		<collection property="stockVO" resultMap="stockvo" />
 		<collection property="categoryVO" resultMap="categoryvo" />
 	</resultMap>
 
 	<resultMap type="ImageVO" id="imagevo">
+		<result column="img_id" property="img_id" />
 		<result column="imgname" property="imgname" />
+		<result column="count" property="count" />
 		<collection property="boardVO" resultMap="boardvo" />
 		<collection property="goodsVO" resultMap="goodsvo" />
 	</resultMap>
@@ -84,8 +86,10 @@
 		<result column="tel" property="tel" />
 		<result column="address" property="address" />
 		<result column="trycount" property="trycount" />
+		<result column="thumbnail" property="thumbnail" />
 		<result column="enable" property="enable" />
 		<result column="certify" property="certify" />
+		<result column="pdate" property="pdate" />
 		<collection property="roleVO" resultMap="rolevo" />
 		<collection property="logintypeVO" resultMap="logintypevo" />
 		<collection property="categoryVO" resultMap="categoryvo" />
@@ -144,6 +148,13 @@
 		<collection property="boardVO" resultMap="boardvo" />
 	</resultMap>
 
+	<!-- 좋아요 resultmap -->
+	<resultMap type="PlikeVO" id="plikevo">
+		<result column="plike_id" property="plike_id" />
+		<result column="count" property="count" />
+		<collection property="memberVO" resultMap="membervo" />
+		<collection property="boardVO" resultMap="boardvo" />
+	</resultMap>
 
 	<!-- 고양이,강아지 등 대분류 카테고리 이름 얻는 mapper -->
 
@@ -164,20 +175,25 @@
 	<!-- 소분류 별로 분류해 카테고리 홈에 뿌려주는 mapper -->
 	<select id="getSmallGoods" resultMap="boardvo"> 
      <![CDATA[ 
-		 select g.thumbnail , g.goods_id, g.goodsname, TO_CHAR(g.price,'99,999') as price, b.board_id , pdate , g.category_id from board b, goods g 
-		 where b.goods_id=g.goods_id and b.boardtype_id=3 and g.category_id=#{getCategory_id} ORDER BY pdate desc
+			 select  g.goodsname,b.pdate ,b.board_id ,g.goods_id, g.price,g.thumbnail,
+                c.code from board b, goods g, category c  where b.goods_id=g.goods_id 
+                and g.category_id=c.category_id and c.code=c.code and b.boardtype_id=3 and g.category_id=#{getCategory_id} group by g.goodsname, b.pdate, b.board_id, g.goods_id, g.price, 
+				g.thumbnail, c.code
     ]]>
 	</select>
 
 
 
 
-	<!-- 전체 상품을 최신순으로 조회해서 뿌려주는 mapper -->
+	<!-- 전체 상품을  조회해서 뿌려주는 mapper -->
 	<select id="getboard" resultMap="boardvo"> 
      <![CDATA[ 
  
-	  select g.thumbnail , g.goods_id, g.goodsname, TO_CHAR(g.price,'99,999') as price, b.board_id from board b, goods g 
-	  where b.goods_id=g.goods_id and b.boardtype_id=3 
+	 		  	select  g.goodsname,b.pdate ,b.board_id ,g.goods_id, g.price,g.thumbnail,
+                c.code from board b, goods g, category c  where b.goods_id=g.goods_id 
+                and g.category_id=c.category_id and c.code=c.code and b.boardtype_id=3 group by g.goodsname, b.pdate, b.board_id, g.goods_id, g.price, 
+g.thumbnail, c.code
+		    
  
 	]]>
 	</select>
@@ -185,31 +201,103 @@
 	<!-- 리뷰 별점 mapper -->
 	<select id="getStorerate" resultMap="boardvo">
 		<![CDATA[
-	      
-		     
-		           select round(avg(ratescore),1) as avgscore, count(*) as count, goods_id from board where boardtype_id=8
-		            group by goods_id order by count(*) 
-		       
+	              select round(avg(ratescore),1) as avgscore, count(*) as count, g.goods_id , g.goodsname, g.price, g.thumbnail
+                    from board b, goods g where b.goods_id=g.goods_id and b.boardtype_id=8 group by g.goods_id, g.goodsname ,g.price,g.thumbnail      
 	   ]]>
 	</select>
+	
+	
+<!-- 카테고리별 리뷰 별점 mapper -->
+	<select id="getStoreSmallrate" resultMap="boardvo">
+		<![CDATA[
+	              select round(avg(ratescore),1) as avgscore, count(*) as count, g.goods_id , g.goodsname, g.price, g.thumbnail
+                    from board b, goods g where b.goods_id=g.goods_id and b.boardtype_id=8 and g.category_id = #{g.category_id} group by g.goods_id, g.goodsname ,g.price,g.thumbnail      
+	   ]]>
+	</select>
+	
+	
+	<!-- 가격 낮은순(별점 리뷰 포함) mapper -->
+	<select id="getStoreRowrate" resultMap="boardvo">
+		<![CDATA[
+	              select round(avg(ratescore),1) as avgscore, count(*) as count, g.goods_id , g.goodsname, g.price, g.thumbnail
+                    from board b, goods g where b.goods_id=g.goods_id and b.boardtype_id=8 group by g.goods_id, g.goodsname ,g.price,g.thumbnail order by g.price asc      
+	   ]]>
+	</select>
+	
+	<!-- 가격 높은순(별점 리뷰 포함) mapper -->
+	<select id="getStoreHighrate" resultMap="boardvo">
+		<![CDATA[
+	              select round(avg(ratescore),1) as avgscore, count(*) as count, g.goods_id , g.goodsname, g.price, g.thumbnail
+                    from board b, goods g where b.goods_id=g.goods_id and b.boardtype_id=8 group by g.goods_id, g.goodsname ,g.price,g.thumbnail order by g.price desc    
+	   ]]>
+	</select>
+	
+	
+	
 
 	<!-- 별점 높은순 mapper -->
 	<select id="gethighStar" resultMap="boardvo"> 
      <![CDATA[ 
-	
 	select * from(
 		           select round(avg(ratescore),1) as avgscore, count(*) as count, goods_id
                    from board where boardtype_id=8 group by goods_id)order by avgscore desc
 	
 	]]>
 	</select>
+	
+	<!-- 리뷰 많은순 mapper -->
+	<select id="gethighReview" resultMap="boardvo"> 
+     <![CDATA[ 
+	select * from(
+		           select round(avg(ratescore),1) as avgscore, count(*) as count, goods_id
+                   from board where boardtype_id=8 group by goods_id)order by count desc
+	
+	]]>
+	</select>
+	
+	
+	
+	
+	<!-- 소분류 별점 높은순 mapper -->
+	<select id="getSmallhighStar" resultMap="boardvo"> 
+     <![CDATA[ 
+	 select round(avg(ratescore),1) as avgscore, count(*) as count, g.goods_id , g.goodsname, g.price, g.thumbnail
+                    from board b, goods g where b.goods_id=g.goods_id and b.boardtype_id=8 and g.category_id = #{g.category_id}
+                    group by g.goods_id, g.goodsname ,g.price,g.thumbnail order by avgscore desc
+	
+	]]>
+	</select>
+	
+	
+<!-- 소분류 별점 높은순 mapper -->
+	<select id="getSmallhighReview" resultMap="boardvo"> 
+     <![CDATA[ 
+	 select round(avg(ratescore),1) as avgscore, count(*) as count, g.goods_id , g.goodsname, g.price, g.thumbnail
+                    from board b, goods g where b.goods_id=g.goods_id and b.boardtype_id=8 and g.category_id = #{g.category_id}
+                    group by g.goods_id, g.goodsname ,g.price,g.thumbnail order by count desc
+	
+	]]>
+	</select>
 
 
 
+	<!-- 카테고리 가격 낮은순 mapper -->
+<select id="getSmallPriceRowrate" resultMap="boardvo">
+		<![CDATA[
+	              select round(avg(ratescore),1) as avgscore, count(*) as count, g.goods_id , g.goodsname, g.price, g.thumbnail
+                    from board b, goods g where b.goods_id=g.goods_id and b.boardtype_id=8 and g.category_id = #{g.category_id} group by g.goods_id, g.goodsname ,g.price,g.thumbnail 
+                    order by g.price asc     
+	   ]]>
+	</select>
 
-
-
-
+<!-- 카테고리 가격 높은순 mapper -->
+<select id="getSmallPriceHightrate" resultMap="boardvo">
+		<![CDATA[
+	              select round(avg(ratescore),1) as avgscore, count(*) as count, g.goods_id , g.goodsname, g.price, g.thumbnail
+                    from board b, goods g where b.goods_id=g.goods_id and b.boardtype_id=8 and g.category_id = #{g.category_id} group by g.goods_id, g.goodsname ,g.price,g.thumbnail 
+                    order by g.price desc     
+	   ]]>
+	</select>
 
 
 
@@ -217,19 +305,23 @@
 	<!-- category 상품에 대한 높은 가격순 -->
 	<select id="gethighprice" resultMap="boardvo"> 
      <![CDATA[ 
-	  select g.thumbnail, g.goods_id, g.goodsname, TO_CHAR(g.price,'99,999') as price, b.board_id ,pdate from board b, goods g
- where b.goods_id=g.goods_id and b.boardtype_id=3 ORDER BY price DESC
+		select  g.goodsname,b.pdate ,b.board_id ,g.goods_id, g.price,g.thumbnail,
+                c.code from board b, goods g, category c  where b.goods_id=g.goods_id 
+                and g.category_id=c.category_id and c.code=c.code and b.boardtype_id=3 group by g.goodsname, b.pdate, b.board_id, g.goods_id, g.price, 
+g.thumbnail, c.code
 	]]>
 	</select>
 
 
 
 
-
+<!-- category 상품에 대한 낮은 가격순 -->
 	<select id="getrowprice" resultMap="boardvo"> 
      <![CDATA[ 
-	  select  g.thumbnail, g.goods_id, g.goodsname, TO_CHAR(g.price,'99,999') as price, b.board_id ,pdate from board b, goods g
- where b.goods_id=g.goods_id and b.boardtype_id=3 ORDER BY price ASC
+	 	select  g.goodsname,b.pdate ,b.board_id ,g.goods_id, g.price,g.thumbnail,
+                c.code from board b, goods g, category c  where b.goods_id=g.goods_id 
+                and g.category_id=c.category_id and c.code=c.code and b.boardtype_id=3 group by g.goodsname, b.pdate, b.board_id, g.goods_id, g.price, 
+g.thumbnail, c.code
 	]]>
 	</select>
 

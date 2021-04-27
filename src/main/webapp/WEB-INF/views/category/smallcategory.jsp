@@ -15,60 +15,41 @@
 <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
 
 <style>
-.tab-item {
-	width: 1000;
-}
-
-a {
+	a {
 	cursor: pointer;
-}
-
-select {
-	width: 120px;
-	height: 30px;
-	font-size: 18px;
-}
-
-.hero-items {
-	padding-top: 150px;
-}
-
-.single-hero-items {
-	max-height: 580px;
-}
-
-.category, .hotitem {
-	padding-top: 40px;
-}
-
-.product-item {
-	padding-top: 20px;
-}
-
-.recommended {
-	padding-top: 60px;
-}
-
-.best {
-	padding: 80px;
-}
-
-.product-item img {
-	width: 200px;
-	height: 280px;
-}
-
-span.star-prototype, span.star-prototype>* {
-	height: 16px;
-	background: url(http://i.imgur.com/YsyS5y8.png) 0 -16px repeat-x;
-	display: inline-block;
-}
-
-span.star-prototype>* {
-	background-position: 0 0;
-	max-width: 80px;
-}
-</style>
+	}
+    .single-banner{
+    	padding-bottom: 40px;
+    }
+    
+    .product-item{
+    	padding-top: 40px;
+    }
+    
+    .section-title{
+    	padding-top: 150px;
+    }
+    
+    .product-item img{
+    	width: 200px;
+    	height: 280px;
+    }
+      
+    span.star-prototype, span.star-prototype > * {
+    height: 16px; 
+    background: url(http://i.imgur.com/YsyS5y8.png) 0 -16px repeat-x;
+    display: inline-block;
+	}
+ 
+	span.star-prototype > * {
+	    background-position: 0 0;
+	    max-width:80px; 
+	}
+	
+	#navbars>li:nth-child(3) {
+  		background-color: #e7ab3c;
+	}
+  </style>
 
 
 <script type="text/javascript">
@@ -187,67 +168,46 @@ span.star-prototype>* {
 <body style="padding-top: 128px">
 
 
-
+			<div class="row">
+			<div class="col-md-10">
 
 	<c:forEach items="${sgname}" var="sgname">
-		<h3>${sgname}</h3>
+	<p style="padding-left:20px;">${sgname}</p>
 	</c:forEach>
 
-	<br />
-
 	<c:forEach items="${smallCategory_id}" var="smallCategory_id">
-
-
-		<select name="selectBox2" id="selectBox2"
-			style="border: none; font-size: 20px"
+		<select name="selectBox2" id="selectBox2"style="border: none; font-size: 20px; padding-left:15px;"
 			onchange="chageLangSelect('${smallCategory_id}')">
+			<option style="font-size: 20px;" value="home_return">카테고리</option>
+			<option style="font-size: 20px;" value="home_return">홈으로</option>
 			<option style="font-size: 20px;" value="srowprice">가격 낮은순</option>
 			<option style="font-size: 20px;" value="shighprice">가격 높은순</option>
 			<option style="font-size: 20px;" value="shighstar">별점 높은순</option>
+			<option style="font-size: 20px;" value="shighreview">리뷰 많은순</option>
 		</select>
 	</c:forEach>
+</div>
 
-
-	<%-- 			<div class="dropdown">
-     <button type="button" style="font-size:20px; color:black;background-color:white; border:none; " class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-    카테고리
-    </button>
-    <div class="dropdown-menu">
-    <a class="dropdown-item" style="font-size:20px;" href="/category/home">최신순</a>
-    
-<c:forEach items="${smallCategory_id}" var="smallCategory_id" >
-			
-  <a class="dropdown-item" style="font-size:20px;" href="#" onclick="select_submit('srowprice' , '${smallCategory_id}' )">가격 낮은순</a>
-
-  <a class="dropdown-item" style="font-size:20px;" href="#" onclick="select_submit('shighprice' , '${smallCategory_id}' )">가격 높은순</a>
-   <a class="dropdown-item" style="font-size:20px;" href="#r" onclick="select_submit('shighstar' , '${smallCategory_id}' )">별점 높은순</a>
-     </c:forEach>
-  
-    
-    </div>
-  </div> --%>
-
-
-
-	<c:forEach items="${smallgoods}" var="goods" varStatus="status">
-
-		<div class="product-item">
-			<div class="pi-pic"></div>
-			<div class="pi-text" style="padding: 10px;">
-
-
-
-				<a href="/admin/goods_detail/${goods.board_id}"> <img
-					src="/resources/img/admin/goods/${goods.goodsVO.thumbnail}" alt="">
-					<h5>${goods.goodsVO.goodsname}</h5>
-				</a>
-				<div class="product-price">${goods.goodsVO.price}원</div>
-				별점 <span class="star-prototype">${rate[status.index].avgscore}</span>
-
+	
+	<c:forEach items="${rate}" var="rate">
+			<div class="product-item">
+				<div class="pi-text" style="padding: 10px;">
+					<c:forEach items="${smallgoods}" var="goods">
+					<c:if test="${rate.goodsVO.goods_id eq goods.goodsVO.goods_id}">
+					<a href="/admin/goods_detail/${goods.board_id}"> 
+						<img src="/resources/img/admin/goods/${goods.goodsVO.thumbnail}" alt="">
+						<h5>${goods.goodsVO.goodsname}</h5>
+					</a>
+					<div class="product-price">${goods.goodsVO.price}원</div>
+					</c:if>
+					</c:forEach>
+					별점 <span class="star-prototype"> ${rate.avgscore}</span>
+					<span> &nbsp; 리뷰 ${rate.count}</span> 
+				</div>
 			</div>
-		</div>
-	</c:forEach>
+			</c:forEach>
+	
+	</div>
 
-	z
 </body>
 </html>

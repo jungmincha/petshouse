@@ -175,61 +175,47 @@ span.star-prototype>* {
 
 <body style="padding-top: 128px">
 
-	<c:forEach items="${sgname}" var="sgname">
-		<h3>${sgname}</h3>
-	</c:forEach>
 
+			<div class="row">
+			<div class="col-md-10">
+
+	<c:forEach items="${sgname}" var="sgname">
+	<p style="padding-left:20px;">${sgname}</p>
+	</c:forEach>
+	
 	<br />
 
 	<c:forEach items="${smallCategory_id}" var="smallCategory_id">
-		<select name="selectBox2" id="selectBox2"
-			style="border: none; font-size: 20px"
+		<select name="selectBox2" id="selectBox2"style="border: none; font-size: 20px; padding-left:15px;"
 			onchange="chageLangSelect('${smallCategory_id}')">
-			<option style="font-size: 20px;" value="srowprice" selected>가격
-				낮은순</option>
+			<option style="font-size: 20px;" value="home_return">카테고리</option>
+			<option style="font-size: 20px;" value="home_return">홈으로</option>
+			<option style="font-size: 20px;" value="srowprice">가격 낮은순</option>
 			<option style="font-size: 20px;" value="shighprice">가격 높은순</option>
 			<option style="font-size: 20px;" value="shighstar">별점 높은순</option>
+			<option style="font-size: 20px;" value="shighreview">리뷰 많은순</option>
 		</select>
 	</c:forEach>
-
-	<%-- <div class="dropdown">
-     <button type="button" style="font-size:20px; color:black;background-color:white; border:none; " class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-    카테고리
-    </button>
-    <div class="dropdown-menu">
-    <a class="dropdown-item" style="font-size:20px;" href="/category/home">최신순</a>
-    
-<c:forEach items="${smallCategory_id}" var="smallCategory_id" >
-			
-  <a class="dropdown-item" style="font-size:20px;" href="#" onclick="select_submit('srowprice' , '${smallCategory_id}' )">가격 낮은순</a>
-
-  <a class="dropdown-item" style="font-size:20px;" href="#" onclick="select_submit('shighprice' , '${smallCategory_id}' )">가격 높은순</a>
-   <a class="dropdown-item" style="font-size:20px;" href="#r" onclick="select_submit('shighstar' , '${smallCategory_id}' )">별점 높은순</a>
-     </c:forEach>
-  
-    
-    </div>
-  </div> --%>
-
-	<c:forEach items="${smallgoods}" var="goods" varStatus="status">
-
-		<div class="product-item">
-			<div class="pi-pic"></div>
-			<div class="pi-text" style="padding: 10px;">
-
-
-
-				<a href="/admin/goods_detail/${goods.board_id}"> <img
-					src="/resources/img/admin/goods/${goods.goodsVO.thumbnail}" alt="">
-					<h5>${goods.goodsVO.goodsname}</h5>
-				</a>
-				<div class="product-price">${goods.goodsVO.price}원</div>
-				별점 <span class="star-prototype">${rate[status.index].avgscore}</span>
-				&nbsp; <span>리뷰 ${rate[status.index].count}</span>
+	</div>
+	
+	<c:forEach items="${rate}" var="rate">
+			<div class="product-item">
+				<div class="pi-text" style="padding: 10px;">
+					<c:forEach items="${smallgoods}" var="goods">
+					<c:if test="${rate.goodsVO.goods_id eq goods.goodsVO.goods_id}">
+					<a href="/admin/goods_detail/${goods.board_id}"> 
+						<img src="/resources/img/admin/goods/${goods.goodsVO.thumbnail}" alt="">
+						<h5>${goods.goodsVO.goodsname}</h5>
+					</a>
+					<div class="product-price">${goods.goodsVO.price}원</div>
+					</c:if>
+					</c:forEach>
+					별점 <span class="star-prototype"> ${rate.avgscore}</span>
+					<span> &nbsp; 리뷰 ${rate.count}</span> 
+				</div>
 			</div>
-		</div>
-	</c:forEach>
-
+			</c:forEach>
+	</div>
 
 </body>
 </html>
