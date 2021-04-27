@@ -102,7 +102,7 @@
 	top: 80px;
 	right: 25px;	
 	opacity: 0.4;
-	font-size : 25px;
+	font-size : 20px;
 	color : #fff
 
 }
@@ -228,7 +228,7 @@
 								</div>
 								<div style="padding-top: 13px; padding-left: 7px;">${sns.boardVO.memberVO.nickname}</div>
 
-								<a href="/myPage/${sns.boardVO.memberVO.nickname}" style="padding-top: 13px; padding-left: 5px;"> · 팔로우</a>
+								<a href="/myPage/${sns.boardVO.memberVO.nickname}" style="padding-top: 13px; padding-left: 5px; color:#e7ab3c;"> · 팔로우</a>
 
 							</div>
 
@@ -245,17 +245,20 @@
 								<span class="count">조회수 ${sns.boardVO.hit}</span></a>
 							</div>
 							<div class="card-body" style="font-size : 20px; ">
-							 	<a href="/commu/sns/${sns.boardVO.board_id}"> <i class="far fa-heart"></i>&nbsp&nbsp${sns.boardVO.plike}</a> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-									<i class="far fa-comment"></i>
+							 	<a href="/commu/sns/${sns.boardVO.board_id}"> <i class="far fa-heart"></i>&nbsp&nbsp${sns.boardVO.plike}</a> 
+							 	&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+								<a href="/commu/sns/${sns.boardVO.board_id}"><i class="far fa-comment"></i>
 								<c:forEach items="${count}" var="count">  
+									 <c:if test="${count.pgroup eq sns.boardVO.board_id}">
+													
+														 ${count.count}
+									</c:if> </c:forEach></a>
 								
-								 <c:if test="${count.pgroup eq sns.boardVO.board_id}"><a href="/commu/sns/${sns.boardVO.board_id}">
-							
-								 ${count.count}</a></c:if></c:forEach>
+								 </div>
 							 
 							 	</div>
 
-						</div>
+						 
 					</c:forEach>
 				</c:if>
 			</div>
@@ -294,6 +297,7 @@
                      console.log("here");
                      var sns = data.sns;
                      var count = data.count;
+                     var imgCount = data.imgCount;
 
                      html = "";
                      
@@ -303,20 +307,28 @@
                                  + "<div class='profile_box'>"
                                  + "<img src='/resources/img/member/profile/" + sns[i].boardVO.memberVO.thumbnail + "' name='profile' class='profile' /></div>"
                                  + "<div style='padding-top:13px; padding-left:7px;'>" + sns[i].boardVO.memberVO.nickname + "</div>"
-                                 + "<a href='/myPage/" + sns[i].boardVO.memberVO.nickname + "' style='padding-top: 13px; padding-left: 5px;'> · 팔로우</a></div>"
-                                 + "<div class='shot'>"
-                                 + "<a href='/commu/sns/" + sns[i].boardVO.board_id + "'>"
+                                 + "<a href='/myPage/" + sns[i].boardVO.memberVO.nickname + "' style='padding-top: 13px; padding-left: 5px; color:#e7ab3c;'> · 팔로우</a></div>"
+                                 + "<div class='shot'>";
+                                 for(var j in imgCount){
+                                	 if(imgCount[j].boardVO.board_id == sns[i].boardVO.board_id && imgCount[j].count > 1){
+                                		 html += "<i class = 'far fa-clone clone'></i>";
+                                		 
+                                	 }
+                                	 
+                                 }
+                                 
+                             html += "<a href='/commu/sns/" + sns[i].boardVO.board_id + "'>"
                                  + "<img src='/resources/img/member/sns/"+ sns[i].imgname + "' style='height: 300px;' class='card-img-top i' />"
                                  + "<span class='count'>조회수" + sns[i].boardVO.hit + "</span></a></div>"                             
                                  + "<div class='card-body' style='font-size:20px;'>"
                                  + "<a href='/commu/sns/" + sns[i].boardVO.board_id + "'>" 
                                  + "<i class='far fa-heart'></i>&nbsp;&nbsp;" + sns[i].boardVO.plike + "</a>&nbsp;&nbsp;&nbsp;&nbsp;"
-                                 + "<i class='far fa-comment'></i>&nbsp&nbsp";
+                                 + "<i class='far fa-comment'></i>&nbsp;&nbsp;";
                             
-                            for(var j in count){
-                                if(count[j].pgroup == sns[i].boardVO.board_id){
+                            for(var z in count){
+                                if(count[z].pgroup == sns[i].boardVO.board_id){
                                      html += "<a href='/commu/sns/" + sns[i].boardVO.board_id + "'>"
-                                          + count[j].count + "</a>";          
+                                          + count[z].count + "</a>";          
                                 }
                             }//count foreach end 
                             

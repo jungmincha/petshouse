@@ -177,6 +177,11 @@
 					</div>
 
 					<div class="shot">
+						<c:forEach items="${imgCount}" var = "imgCount">
+							 <c:if test="${imgCount.boardVO.board_id eq sns.boardVO.board_id and imgCount.count > 1}"> 
+							  <i class="far fa-clone clone"></i>
+								 </c:if> 
+								 </c:forEach> 
 						<a href="/commu/sns/${sns.boardVO.board_id}"> <img
 							src="/resources/img/member/sns/${sns.imgname }" alt=""
 							style="height: 300px;" class="card-img-top i" /><span
@@ -199,6 +204,13 @@
 			</c:forEach></c:if>
 		</div>
 
+
+ 		<c:if test="${fn:length(count) > 12}">
+		          <div class="col-lg-12 text-center">
+		         	  <input type="hidden" class="count" value="${fn:length(count)}" />
+		          	  <button type="button" class="btn btn-warning" onClick="btnClick()">더보기</button>
+			      </div>   
+		     </c:if> 
 	</div>
 
 

@@ -108,7 +108,7 @@ body {
 
 /* Position the "next button" to the right */
 .next {
-	right: 0;
+	right: 15px;
 	border-radius: 3px 0 0 3px;
 }
 
@@ -198,7 +198,7 @@ font-size : 15px;
 	position : absolute;
 	float: right;
 	top : 10px;
-	right:5px;
+	right:15px;
 	 
 }
 

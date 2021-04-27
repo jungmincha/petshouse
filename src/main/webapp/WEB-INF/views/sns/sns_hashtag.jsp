@@ -11,7 +11,7 @@
 <meta name="keywords" content="Fashi, unica, creative, html">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>{keyword}</title>
+<title>${param.keyword}의 SNS </title>
 
 <link
 	href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap"
@@ -98,7 +98,9 @@
 
 }
 
-
+h5 {
+	padding-top : 15px;
+}
 </style>
 <script>
 	//로그인 체크
@@ -160,8 +162,9 @@
 		<div class="container" style="min-height:1500px;">
 	
 	
-		<h2>SNS</h2>
 		
+		<input type="hidden" name="keyword" value="${param.keyword}">
+		<div class="row"><h2>SNS</h2>&nbsp&nbsp<h5><b>'${param.keyword}'</b>에 대한 검색결과 </h5></div>
 
 
 			<div class="row ">
@@ -197,7 +200,7 @@
 		<input type="hidden" id="member_id"
 			value="<sec:authentication property="principal.member_id"/>">
 		</sec:authorize>
-	
+			
  		 
 			<div id="snslist" class = "row text-center"> 
 			<c:forEach items="${tag}" var="sns">
@@ -218,6 +221,10 @@
 					</div>
 					 
 					<div class="shot">
+					<c:forEach items="${imgCount}" var = "imgCount">
+								  <c:if test="${imgCount.boardVO.board_id eq sns.boardVO.board_id and imgCount.count > 1}"> 
+								 <i class="far fa-clone clone"></i>
+								  </c:if> </c:forEach> 
 						<a href="/commu/sns/${sns.boardVO.board_id}"> <img
 							src="/resources/img/member/sns/${sns.imgname }" alt=""
 							style="height: 300px;" class="card-img-top i" /><span class="count">조회수 ${sns.boardVO.hit}</span></a></div>

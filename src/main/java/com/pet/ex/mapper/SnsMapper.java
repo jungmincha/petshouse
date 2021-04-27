@@ -77,7 +77,7 @@ public interface SnsMapper {
 
 	public List<ImageVO> getsnsmoreList(Criteria cri);
 
-	public List<ImageVO> getSnsCategory(ImageVO imageVO);
+	public List<ImageVO> getSnsCategory(ImageVO imageVO, Criteria cri);
 
 	
 	public List<BoardVO> getCommentsList(int board_id, Criteria cri);
@@ -88,5 +88,7 @@ public interface SnsMapper {
 	public  int getSnstotal(BoardVO boardVO);
 	public List<ImageVO> imgCount(ImageVO imageVO);
 	public List<BoardVO> countComment(BoardVO boardVO);
+
+	public List<BoardVO> getSnsCatetotal(BoardVO boardVO);
 
 }

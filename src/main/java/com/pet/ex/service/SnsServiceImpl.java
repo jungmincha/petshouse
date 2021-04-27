@@ -209,9 +209,10 @@ public class SnsServiceImpl implements SnsService {
 
 		
 		@Override
-		public List<ImageVO> getSnsCategory(ImageVO imageVO) {
+		public List<ImageVO> getSnsCategory(ImageVO imageVO, Criteria cri) {
 			log.info("getSnsCategory");
-			return mapper.getSnsCategory(imageVO);
+			cri.setAmount(12);
+			return mapper.getSnsCategory(imageVO, cri);
 		}
 
 		@Override
@@ -231,6 +232,12 @@ public class SnsServiceImpl implements SnsService {
 		public int getSnstotal(BoardVO boardVO) {
 			 
 			return mapper.getSnstotal(boardVO);
+		}
+		
+		@Override
+		public List<BoardVO> getSnsCatetotal(BoardVO boardVO) {
+			 
+			return mapper.getSnsCatetotal(boardVO);
 		}
 		
 		@Override
