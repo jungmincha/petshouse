@@ -60,21 +60,19 @@
 
 
 	<div class="page-content">
-	
-	
 
-		<div class="col-lg-2">
+
+
+		<div class="col-lg-2" style="padding-left: 50px">
 			<div class="sidebar" style="display: block;">
-			
+
 				<ul class="nav">
-				
-					<li><a href="/statistics/main/home" style="font-size: 20px;"> 매출액 통계<span
-							class="caret pull-right"></span>
-					</a></li>
-					
-					<li><a href="/visitor/main/home" style="font-size: 20px;"> 방문자수 통계<span
-							class="caret pull-right"></span>
-					</a></li>
+
+					<li><a href="/statistics/main/home" style="font-size: 20px;">
+							매출액 통계 </a></li>
+
+					<li><a href="/visitor/main/home" style="font-size: 20px;">
+							방문자 통계 </a></li>
 				</ul>
 
 			</div>
@@ -82,27 +80,24 @@
 
 
 
-	<div class="row">
-	<div class="col-md-12">
-		<!-- 일별 -->
-		<select class="form-control" id="choice-month" style="width: 200px">
-			<c:forEach var="i" begin="1" end="12">
-				<option value="${i}" <c:if test="${i eq month}">selected</c:if>>
-					${i} 월</option>
-			</c:forEach>
-		</select> <br>
-		</div>
+		<div class="row">
+			<div class="col-md-10">
+				<!-- 일별 -->
+				<select class="form-control" id="choice-month" style="width: 200px">
+					<c:forEach var="i" begin="1" end="12">
+						<option value="${i}" <c:if test="${i eq month}">selected</c:if>>
+							${i} 월</option>
+					</c:forEach>
+				</select> <br>
+			</div>
 		</div>
 
 		<div class="row">
-			<div class="col-md-6">
-
-
-
-				<!-- BAR CHART -->
+			<div class="col-md-5">
+			<!-- BAR CHART -->
 				<div class="card card-info">
 					<div class="card-header" style="background-color: #81F781;">
-						<h3 class="card-title" style="color:black;">일별 매출액</h3>
+						<h3 class="card-title" style="color: black;">일별 매출액</h3>
 						<div class="card-tools">
 							<button type="button" class="btn btn-tool"
 								data-card-widget="collapse">
@@ -128,9 +123,10 @@
 			<!-- /.card -->
 
 			<!-- BAR CHART -->
-			<div class="col-md-6">
+			<div class="col-md-5">
+			<div class="card card-success">
 				<div class="card-header" style="background-color: #e7ab3c;">
-					<h3 class="card-title"  style="color:black;">월별 매출액</h3>
+					<h3 class="card-title" style="color: black;">월별 매출액</h3>
 					<div class="card-tools">
 						<button type="button" class="btn btn-tool"
 							data-card-widget="collapse">
@@ -152,16 +148,16 @@
 				<!-- /.card-body -->
 
 			</div>
-
+			</div>
 			<!-- /.card -->
 
 
 
 			<!-- BAR CHART -->
-			<div class="col-md-6">
+			<div class="col-md-5">
 				<div class="card card-success">
 					<div class="card-header" style="background-color: #e7ab3c;">
-						<h3 class="card-title"  style="color:black;">연도별 매출액</h3>
+						<h3 class="card-title" style="color: black;">연도별 매출액</h3>
 						<div class="card-tools">
 							<button type="button" class="btn btn-tool"
 								data-card-widget="collapse">
@@ -187,10 +183,10 @@
 
 
 			<!-- DONUT CHART -->
-			<div class="col-md-6">
+			<div class="col-md-5">
 				<div class="card card-danger">
 					<div class="card-header">
-						<h3 class="card-title"  style="color:black;">월별 매출액</h3>
+						<h3 class="card-title" style="color: black;">월별 매출액</h3>
 
 						<div class="card-tools">
 							<button type="button" class="btn btn-tool"
@@ -213,10 +209,10 @@
 			<!-- /.card -->
 
 			<!-- PIE CHART -->
-			<div class="col-md-6">
+			<div class="col-md-5">
 				<div class="card card-danger">
-					<div class="card-header" style="background-color:#A5DF00;">
-						<h3 class="card-title"  style="color:black;">연도별 매출액</h3>
+					<div class="card-header" style="background-color: #A5DF00;">
+						<h3 class="card-title" style="color: black;">연도별 매출액</h3>
 
 						<div class="card-tools">
 							<button type="button" class="btn btn-tool"
@@ -238,11 +234,11 @@
 			</div>
 
 
-			<div class="col-md-6">
+			<div class="col-md-5">
 				<!-- AREA CHART -->
 				<div class="card card-success">
 					<div class="card-header">
-						<h3 class="card-title" style="color:black;">일별 매출액</h3>
+						<h3 class="card-title" style="color: black;">일별 매출액</h3>
 
 						<div class="card-tools">
 							<button type="button" class="btn btn-tool"

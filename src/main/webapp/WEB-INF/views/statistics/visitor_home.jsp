@@ -38,8 +38,8 @@
 <!-- Theme style -->
 <link rel="stylesheet"
 	href="/resources/AdminLTE-master/dist/css/adminlte.min.css">
-	
-	<link href="/resources/sidemenu/bootstrap/css/bootstrap.min.css"
+
+<link href="/resources/sidemenu/bootstrap/css/bootstrap.min.css"
 	rel="stylesheet">
 <!-- styles -->
 <link href="/resources/sidemenu/css/styles.css" rel="stylesheet">
@@ -56,202 +56,211 @@
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
 
 
-	
+
 	<div class="page-content">
 
-		<div class="col-lg-2">
+		<div class="col-lg-2" style="padding-left: 50px">
 			<div class="sidebar" style="display: block;">
 				<ul class="nav">
-					<li><a href="/statistics/main/home" style="font-size: 20px;"> 매출액 통계<span
-							class="caret pull-right"></span>
-					</a></li>
-					
-					<li><a href="/visitor/main/home" style="font-size: 20px;"> 방문자수 통계<span
-							class="caret pull-right"></span>
-					</a></li>
+					<li><a href="/statistics/main/home" style="font-size: 20px;">
+							매출액 통계 </a></li>
+
+					<li><a href="/visitor/main/home" style="font-size: 20px;">
+							방문자 통계 </a></li>
 				</ul>
 
 			</div>
 		</div>
-		 
 
-						<div class="row">
-						<div class="col-md-12">
-						<!-- 일별 -->
-						<select class="form-control" id="choice-month" style="width: 200px">
-						<c:forEach var="i" begin="1" end="12">
+
+		<div class="row">
+			<div class="col-md-10">
+				<!-- 일별 -->
+				<select class="form-control" id="choice-month" style="width: 200px">
+					<c:forEach var="i" begin="1" end="12">
 						<option value="${i}" <c:if test="${i eq month}">selected</c:if>>
-						${i} 월</option>
-						</c:forEach>
-						</select> <br>
-						</div>
-						</div>
-						
-						  <div class="row">
-          					<div class="col-md-6">
-						
-						<!-- BAR CHART -->
-						<div class="card card-info">
-							<div class="card-header">
-								<h3 class="card-title" style="color:black;">일별 방문자수</h3>
-								<div class="card-tools">
-									<button type="button" class="btn btn-tool"
-										data-card-widget="collapse">
-										<i class="fas fa-minus"></i>
-									</button>
-									<button type="button" class="btn btn-tool"
-										data-card-widget="remove">
-										<i class="fas fa-times"></i>
-									</button>
-								</div>
-							</div>
-
-							 <div class="card-body">
-                <div class="chart">
-                  <canvas id="lineChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-                </div>
-							</div>
-							</div>
-							<!-- /.card-body -->
-
-						</div>
-						<!-- /.card -->
-
-						<!-- BAR CHART -->
-						<div class="col-md-6">
-							<div class="card-header" style="background-color:#9A2EFE;">
-								<h3 class="card-title"  style="color:black;">월별 방문자수</h3>
-								<div class="card-tools">
-									<button type="button" class="btn btn-tool"
-										data-card-widget="collapse">
-										<i class="fas fa-minus"></i>
-									</button>
-									<button type="button" class="btn btn-tool"
-										data-card-widget="remove">
-										<i class="fas fa-times"></i>
-									</button>
-								</div>
-							</div>
-
-							<div class="card-body">
-								<div class="chart">
-									<canvas id="barMonthChart"
-										style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-								</div>
-							</div>
-							<!-- /.card-body -->
-
-						</div>
-					
-						<!-- /.card -->
-						
-						
-
-						<!-- BAR CHART -->
-							<div class="col-md-6">
-						<div class="card card-success">
-							<div class="card-header">
-								<h3 class="card-title" style="color:black;">연도별 방문자수</h3>
-								<div class="card-tools">
-									<button type="button" class="btn btn-tool"
-										data-card-widget="collapse">
-										<i class="fas fa-minus"></i>
-									</button>
-									<button type="button" class="btn btn-tool"
-										data-card-widget="remove">
-										<i class="fas fa-times"></i>
-									</button>
-								</div>
-							</div>
-
-							<div class="card-body">
-								<div class="chart">
-									<canvas id="barYearChart"
-										style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-								</div>
-							</div>
-							<!-- /.card-body -->
-</div>
-						</div>
-						<!-- /.card -->
-						
-						
-						<!-- DONUT CHART -->
-						<div class="col-md-6">
-            <div class="card card-danger">
-              <div class="card-header">
-                <h3 class="card-title" style="color:black;">월별 방문자수</h3>
-
-                <div class="card-tools">
-                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                    <i class="fas fa-minus"></i>
-                  </button>
-                  <button type="button" class="btn btn-tool" data-card-widget="remove">
-                    <i class="fas fa-times"></i>
-                  </button>
-                </div>
-              </div>
-              <div class="card-body">
-                <canvas id="donutChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-              </div>
-              <!-- /.card-body -->
-            </div>
-            </div>
-            <!-- /.card -->
-
-            <!-- PIE CHART -->
-            <div class="col-md-6">
-            <div class="card card-danger">
-              <div class="card-header">
-                <h3 class="card-title" style="color:black;">연도별 방문자수</h3>
-
-                <div class="card-tools">
-                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                    <i class="fas fa-minus"></i>
-                  </button>
-                  <button type="button" class="btn btn-tool" data-card-widget="remove">
-                    <i class="fas fa-times"></i>
-                  </button>
-                </div>
-              </div>
-              <div class="card-body">
-                <canvas id="pieChart2" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-              </div>
-              <!-- /.card-body -->
-            </div>
+							${i} 월</option>
+					</c:forEach>
+				</select> <br>
 			</div>
-			
+		</div>
 
-			 <div class="col-md-6">
-            <!-- AREA CHART -->
-            <div class="card card-success">
-              <div class="card-header">
-                <h3 class="card-title" style="color:black;">일별 방문자수</h3>
+		<div class="row">
+		
+			<div class="col-md-5" >
+				<!-- BAR CHART -->
+				<div class="card card-info">
+					<div class="card-header">
+						<h3 class="card-title" style="color: black;">일별 방문자수</h3>
+						<div class="card-tools">
+							<button type="button" class="btn btn-tool"
+								data-card-widget="collapse">
+								<i class="fas fa-minus"></i>
+							</button>
+							<button type="button" class="btn btn-tool"
+								data-card-widget="remove">
+								<i class="fas fa-times"></i>
+							</button>
+						</div>
+					</div>
 
-                <div class="card-tools">
-                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                    <i class="fas fa-minus"></i>
-                  </button>
-                  <button type="button" class="btn btn-tool" data-card-widget="remove">
-                    <i class="fas fa-times"></i>
-                  </button>
-                </div>
-              </div>
-              <div class="card-body">
-                <div class="chart">
-                  <canvas id="areaChart2" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-                </div>
-              </div>
-              <!-- /.card-body -->
-            </div>
-            </div>
-						 
-				 
-
+					<div class="card-body">
+						<div class="chart">
+							<canvas id="lineChart"
+								style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+						</div>
 					</div>
 				</div>
-		
-			<!-- chart End -->
+				<!-- /.card-body -->
+
+			</div>
+			<!-- /.card -->
+
+			<!-- BAR CHART -->
+			<div class="col-md-5">
+			<div class="card card-success">
+				<div class="card-header" style="background-color: #9A2EFE;">
+					<h3 class="card-title" style="color: black;">월별 방문자수</h3>
+					<div class="card-tools">
+						<button type="button" class="btn btn-tool"
+							data-card-widget="collapse">
+							<i class="fas fa-minus"></i>
+						</button>
+						<button type="button" class="btn btn-tool"
+							data-card-widget="remove">
+							<i class="fas fa-times"></i>
+						</button>
+					</div>
+				</div>
+
+				<div class="card-body">
+					<div class="chart">
+						<canvas id="barMonthChart"
+							style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+					</div>
+				</div>
+				<!-- /.card-body -->
+			</div>
+			</div>
+
+			<!-- /.card -->
+
+
+
+			<!-- BAR CHART -->
+			<div class="col-md-5">
+				<div class="card card-success">
+					<div class="card-header">
+						<h3 class="card-title" style="color: black;">연도별 방문자수</h3>
+						<div class="card-tools">
+							<button type="button" class="btn btn-tool"
+								data-card-widget="collapse">
+								<i class="fas fa-minus"></i>
+							</button>
+							<button type="button" class="btn btn-tool"
+								data-card-widget="remove">
+								<i class="fas fa-times"></i>
+							</button>
+						</div>
+					</div>
+
+					<div class="card-body">
+						<div class="chart">
+							<canvas id="barYearChart"
+								style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+						</div>
+					</div>
+					<!-- /.card-body -->
+				</div>
+			</div>
+			<!-- /.card -->
+
+
+			<!-- DONUT CHART -->
+			<div class="col-md-5">
+				<div class="card card-danger">
+					<div class="card-header">
+						<h3 class="card-title" style="color: black;">월별 방문자수</h3>
+
+						<div class="card-tools">
+							<button type="button" class="btn btn-tool"
+								data-card-widget="collapse">
+								<i class="fas fa-minus"></i>
+							</button>
+							<button type="button" class="btn btn-tool"
+								data-card-widget="remove">
+								<i class="fas fa-times"></i>
+							</button>
+						</div>
+					</div>
+					<div class="card-body">
+						<canvas id="donutChart"
+							style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+					</div>
+					<!-- /.card-body -->
+				</div>
+			</div>
+			<!-- /.card -->
+
+			<!-- PIE CHART -->
+			<div class="col-md-5">
+				<div class="card card-danger">
+					<div class="card-header">
+						<h3 class="card-title" style="color: black;">연도별 방문자수</h3>
+
+						<div class="card-tools">
+							<button type="button" class="btn btn-tool"
+								data-card-widget="collapse">
+								<i class="fas fa-minus"></i>
+							</button>
+							<button type="button" class="btn btn-tool"
+								data-card-widget="remove">
+								<i class="fas fa-times"></i>
+							</button>
+						</div>
+					</div>
+					<div class="card-body">
+						<canvas id="pieChart2"
+							style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+					</div>
+					<!-- /.card-body -->
+				</div>
+			</div>
+
+
+			<div class="col-md-5">
+				<!-- AREA CHART -->
+				<div class="card card-success">
+					<div class="card-header">
+						<h3 class="card-title" style="color: black;">일별 방문자수</h3>
+
+						<div class="card-tools">
+							<button type="button" class="btn btn-tool"
+								data-card-widget="collapse">
+								<i class="fas fa-minus"></i>
+							</button>
+							<button type="button" class="btn btn-tool"
+								data-card-widget="remove">
+								<i class="fas fa-times"></i>
+							</button>
+						</div>
+					</div>
+					<div class="card-body">
+						<div class="chart">
+							<canvas id="areaChart2"
+								style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+						</div>
+					</div>
+					<!-- /.card-body -->
+				</div>
+			</div>
+
+
+
+		</div>
+	</div>
+
+	<!-- chart End -->
 
 
 
@@ -259,9 +268,9 @@
 
 
 
-	
-	 <!-- Footer -->
-   <%@ include file="/WEB-INF/views/include/footer.jsp"%>
+
+	<!-- Footer -->
+	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 
 
 </body>
@@ -381,7 +390,7 @@
 					      datasets: [
 					        {
 					          label               : '일별 통계',
-					          backgroundColor : ['#DF013A', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
+					          backgroundColor : ['#d2d6de', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
 					
 					          data                : dayData
 					        }
