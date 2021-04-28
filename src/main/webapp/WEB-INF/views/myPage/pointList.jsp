@@ -102,7 +102,8 @@ span {
 	<div class="container">
 		<div class="blog-details-inner">
 			<div class="section-title">
-				<h2 style="margin-bottom: 20px; font-size: 30px;">포인트 사용 내역</h2><br>
+				<h2 style="margin-bottom: 20px; font-size: 30px;">포인트 사용 내역</h2>
+				<br>
 			</div>
 			<div class="row">
 				<div class="col-md-8">
@@ -144,79 +145,103 @@ span {
 </body>
 <script type="text/javascript">
 	function getPointList(pageNum, amount) {
-			
+
 		var startDate = $("#datepicker").val();
 		var endDate = $("#datepicker2").val();
 
-		$.ajax({
-			url : "/myPage/pointList/ajax",
-			type : "get",
-			data : {
-				startDate : startDate,
-				endDate : endDate,
-				pageNum : pageNum,
-				amount : amount
-			},
-			success : function(data) {
-				console.log(data);
-				$("#pointList").empty();
-				$("#page").empty();	
-				html = "";
-				for (var i = 0; i < data.pointList.length; i++) {
-					html += "<tr >" + "<td>" +  getFormatDate(data.pointList[i].pdate)
-							+ "</td>" + "<td>"
-							+ data.pointList[i].pointtypeVO.pointtypename + "</td>"
-					if (data.pointList[i].pscore < 0) {
-						html += "<td style='color: red;'>" + data.pointList[i].pscore
-								+ "</td>"
-					} else {
-						html += "<td>" + data.pointList[i].pscore + "</td>"
-					}
-					html += "</tr>"
-				}
-				html2 = "<ul class='pagination'  style='justify-content: center;'><c:if test='"+data.pageMaker.prev+"'>"
-				+"<li class='page-item'> <a class='page-link' onclick='getPointList("+(data.pageMaker.startPage-1)+","+data.pageMaker.amount+")"'>«</a></li> </c:if>"
-				for(var i = data.pageMaker.startPage; i<=data.pageMaker.endPage;i++){
-				html2 += "<li class='page-item'> <a class='page-link' onclick='getPointList("+i+","+data.pageMaker.cri.amount+")'>"+i+"</a></li> "	}
-				html2 += "<c:if test='${"+data.pageMaker.next +"&&"+ data.pageMaker.endPage+"> 0}'> <li class='page-item'> <a class='page-link' onclick='getPointList("+(data.pageMaker.endPage+1)+","+data.pageMaker.amount+")"'> »</a></li> </c:if></ul>"
-				$("#page").append(html2);
-				$("#pointList").append(html);
-			}, //ajax 성공 시 end
+		$
+				.ajax({
+					url : "/myPage/pointList/ajax",
+					type : "get",
+					data : {
+						startDate : startDate,
+						endDate : endDate,
+						pageNum : pageNum,
+						amount : amount
+					},
+					success : function(data) {
+						console.log(data);
+						$("#pointList").empty();
+						$("#page").empty();
+						html = "";
+						for (var i = 0; i < data.pointList.length; i++) {
+							html += "<tr >"
+									+ "<td>"
+									+ getFormatDate(data.pointList[i].pdate)
+									+ "</td>"
+									+ "<td>"
+									+ data.pointList[i].pointtypeVO.pointtypename
+									+ "</td>"
+							if (data.pointList[i].pscore < 0) {
+								html += "<td style='color: red;'>"
+										+ data.pointList[i].pscore + "</td>"
+							} else {
+								html += "<td>" + data.pointList[i].pscore
+										+ "</td>"
+							}
+							html += "</tr>"
+						}
+						html2 = "<ul class='pagination'  style='justify-content: center;'>"
+						if (data.pageMaker.prev) {
+							html2 += "<li class='page-item'> <a class='page-link' onclick='getPointList("
+									+ (data.pageMaker.startPage - 1)
+									+ ","
+									+ data.pageMaker.amount
+									+ ")'>prev</a></li>"
+						}
+						for (var i = data.pageMaker.startPage; i <= data.pageMaker.endPage; i++) {
+							html2 += "<li class='page-item'> <a class='page-link' onclick='getPointList("
+									+ i
+									+ ","
+									+ data.pageMaker.cri.amount
+									+ ")'>" + i + "</a></li>"
+						}
+						if (data.pageMaker.next && data.pageMaker.endPage > 0) {
+							html2 += "<li class='page-item'> <a class='page-link' onclick='getPointList("
+									+ (data.pageMaker.endPage + 1)
+									+ ","
+									+ data.pageMaker.amount
+									+ ")'> next</a></li>"
+						}
 
-			error : function(request, status, error) {
-				alert("code:" + request.status + "\n" + "message:"
-						+ request.responseText + "\n" + "error:" + error);
+						html2 += "</ul>"
+						$("#page").append(html2);
+						$("#pointList").append(html);
+					}, //ajax 성공 시 end
 
-			} // ajax 에러 시 end
+					error : function(request, status, error) {
+						alert("code:" + request.status + "\n" + "message:"
+								+ request.responseText + "\n" + "error:"
+								+ error);
 
-		});// end
+					} // ajax 에러 시 end
+
+				});// end
 	}
-	
+
 	$(document).ready(function() {
-		
+
 		let today = new Date();
 		let year = today.getFullYear();
 		let month = today.getMonth() + 1;
 		let date = today.getDate();
 		today = year + '-' + month + '-' + date;
-		var lastMonth = year + '-' + (month-1) + '-' + date;
+		var lastMonth = year + '-' + (month - 1) + '-' + date;
 		$("#datepicker").val(lastMonth);
 		$("#datepicker2").val(today);
-		getPointList(1,10);
-		
+		getPointList(1, 10);
+
 	})
 	function getFormatDate(times) {
 		var setTime = new Date(times);
 
-		var returnDate = setTime.getFullYear()+"-"+ (setTime.getMonth()+1)+"-"+setTime.getDate();
+		var returnDate = setTime.getFullYear() + "-" + (setTime.getMonth() + 1)
+				+ "-" + setTime.getDate();
 		//var date = date.substr(0, 19);
 		//var date = date.split("T");
 		//var date = date[0] + " " + date[1];
 		return returnDate;
 	}
-
-	
-	
 </script>
 <jsp:include page="/WEB-INF/views/include/footer.jsp" />
 <!-- Js Plugins -->

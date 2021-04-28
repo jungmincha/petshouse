@@ -608,6 +608,7 @@ ul, ol {
 
 .nav-item .nav-depart {
 	float: left;
+	
 }
 
 .nav-item .nav-depart .depart-btn {
@@ -650,12 +651,10 @@ ul, ol {
 .nav-item .nav-depart .depart-btn .depart-hover {
 	position: absolute;
 	width: 100%;
-	background: #fff;
+	background: rgba(59,59,59,0.95);
 	left: 0;
 	top: 62px;
-	opacity: 0;
 	visibility: hidden;
-	padding-bottom: 29px;
 	-webkit-box-shadow: 0 13px 32px rgba(51, 51, 51, 0.1);
 	box-shadow: 0 13px 32px rgba(51, 51, 51, 0.1);
 	-webkit-transition: all 0.3s;
@@ -674,7 +673,7 @@ ul, ol {
 .nav-item .nav-depart .depart-btn .depart-hover li a {
 	display: block;
 	font-size: 16px;
-	color: #000000;
+	color: white;
 	padding-left: 40px;
 	padding-top: 16px;
 	padding-right: 30px;
@@ -685,6 +684,7 @@ ul, ol {
 
 .nav-item .nav-depart .depart-btn .depart-hover li a:hover {
 	color: #e7ab3c;
+	background-color: white;
 }
 
 .nav-item .nav-menu {
