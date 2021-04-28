@@ -31,6 +31,7 @@ public interface HomeMapper {
 	public List<BoardVO> getSnsCount(String keyword);
 	//노하우 페이징용 
 	public List<BoardVO> getTipsCount(String keyword);
+	public List<ImageVO> imgCount(ImageVO imageVO);
 
 
 }

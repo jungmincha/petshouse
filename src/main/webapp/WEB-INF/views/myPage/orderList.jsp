@@ -612,12 +612,16 @@ a>span {
 													}
 													html +="</div></div></div></div></div>"
 										}
-										
-										html += "<div class='container' id='page'><ul class='pagination'  style='justify-content: center;'><c:if test='"+data.pageMaker.prev+"'>"
-										+"<li class='page-item'> <a class='page-link' onclick='allOrder("+(data.pageMaker.startPage-1)+","+data.pageMaker.amount+")"'>«</a></li> </c:if>"
+										html += "<div class='container' id='page'> <ul class='pagination'  style='justify-content: center;'>"
+										if(data.pageMaker.prev){
+											html += "<li class='page-item'> <a class='page-link' onclick='allOrder("+(data.pageMaker.startPage-1)+","+data.pageMaker.amount+")'>prev</a></li>"
+										}
 										for(var i = data.pageMaker.startPage; i<=data.pageMaker.endPage;i++){
 										html += "<li class='page-item'> <a class='page-link' onclick='allOrder("+i+","+data.pageMaker.cri.amount+")'>"+i+"</a></li> "	}
-										html += "<c:if test='${"+data.pageMaker.next +"&&"+ data.pageMaker.endPage+"> 0}'> <li class='page-item'> <a class='page-link' onclick='allOrder("+(data.pageMaker.endPage+1)+","+data.pageMaker.amount+")"'> »</a></li> </c:if></ul></div>"	
+										if(data.pageMaker.next && data.pageMaker.endPage>0){
+											html += "<li class='page-item'> <a class='page-link' onclick='allOrder("+(data.pageMaker.endPage+1)+","+data.pageMaker.amount+")'>next</a></li>"
+										}
+										html += "</ul><br></div>"	
 										$("#orderList").append(html);
 									}, //ajax 성공 시 
 									error : function(request, status, error) {

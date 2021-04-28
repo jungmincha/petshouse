@@ -127,6 +127,7 @@
 
 .depart-hover>li {
     position: relative;
+    height: 60px;
 }
 
 .depart-hover>li:hover .M02 {
@@ -134,14 +135,14 @@
 }
 
 .depart-hover>li a, .M02>li a {
-    margin: 10px;
+    
 }
 
 .M02 {
     position: absolute;
     top: 0;
-    width: 90%;
-    background: #fff;
+    width: 100%;
+    background: rgba(59,59,59,0.95);
     left: -9999px;
 }
 

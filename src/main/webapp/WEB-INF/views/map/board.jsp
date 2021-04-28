@@ -212,7 +212,10 @@ body::-webkit-scrollbar-track {
 									    <div class="profile_box ">
 										<img src="/resources/img/member/profile/${list.boardVO.memberVO.thumbnail}" name="profile" alt="" class="profile" />
 										</div>
-										<div style="padding:7px"> ${list.boardVO.memberVO.nickname} </div>	
+										<div style="padding:7px"> ${list.boardVO.memberVO.nickname} 
+										<a href="/myPage/${list.boardVO.memberVO.nickname}" style="padding-top: 13px; padding-left: 5px; color:#e7ab3c;">팔로우</a>
+										</div>	
+									
 										</div>
 						
 											<!-- 게시글 정보 -->

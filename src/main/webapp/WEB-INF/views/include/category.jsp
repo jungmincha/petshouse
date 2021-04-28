@@ -14,18 +14,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>Insert title here</title>
- <script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- Bootstrap -->
-<link href="/resources/sidemenu/bootstrap/css/bootstrap.min.css"
-	rel="stylesheet">
+<link href="/resources/sidemenu/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <!-- styles -->
 <link href="/resources/sidemenu/css/styles.css" rel="stylesheet">
-<script
-	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<link
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
-	rel="stylesheet">
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- font-awesome -->
+<script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" data-search-pseudo-elements></script>
 <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
 
 <!-- Include all compiled plugins (below), or include individual files as needed -->

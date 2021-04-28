@@ -83,7 +83,7 @@ background-color:#dddddd;
 
  <script type="text/javascript">
 		// 댓글 작성 및 ajax로 댓글 불러오기
-		function getComment() {
+	/* 	function getComment() {
 			
 			var member_id = $("#member_id").val();
 			console.log(member_id);
@@ -162,7 +162,7 @@ background-color:#dddddd;
 			})
 
 		}
-		
+		 */
 		
 
 		function button_event() {
@@ -410,10 +410,217 @@ background-color:#dddddd;
 								</tr>
 							</table>
 						</div> <!-- container end -->
-					</form>      
+					</form>  
+					
+					 <!-- 댓글 start -->
+					<div class="container">
+
+		<input type="hidden" id="pgroup" value="${content_view.board_id}">
+		<div>
+			<div>
+				<strong id="count"> 댓글 ${qcount}</strong> <br> <br>
+			</div>
+			<div class="table" style="margin-bottom: 50px;">
+				<div class="row">
+					<div class="col-11">
+						<textarea style="resize: none;" class="form-control" id="content"
+							placeholder="댓글을 입력하세요 (최대 200자)"></textarea>
+					</div>
+					<div class="col-1">
+						<button style="height: 60px; width: 80px; margin-left: -30px;"
+							id="cw" class="btn btn-outline-secondary" onClick="getComment()">등록</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<sec:authorize access="hasAnyRole('ROLE_USER','ROLE_ADMIN')">
+	<sec:authentication property="principal" var="pinfo" />
+	</sec:authorize>
+	
+	<div class="container" style="margin-bottom: 10px;">
+		<div id="comments"></div>
+	</div>
+
+	<div class="container">
+		<div class="later col-lg-12 text-center" id="page"></div>
+	</div>
+					
+		<script>
+		$(document).ready(function() {
+			$('#content').on('keyup', function() {
+				if ($(this).val().length > 200) {
+					$(this).val($(this).val().substring(0, 200));
+				}
+			});
+
+		});
+	</script>			
+					
+	<script type="text/javascript">
+		//timerID = setTimeout("getListComment()", 3);
+		var start = 0;
+		$(document).ready(function() {
+			getListComment();
+
+		})
+
+		function getListComment(type) {
+			if (type == 2) {
+
+			} else {
+				start += 5;
+			}
+			console.log(start)
+
+			console.log("실행");
+			$
+					.ajax({
+						type : "POST",
+						url : "/map/cmorelist",
+						data : {
+							amount : start,
+							board_id : "${content_view.board_id}"
+						},
+						success : function(data) {
+							$("#comments").empty();
+							$("#page").empty();
+							console.log(data);
+							var comments = data.comments;
+
+							html = " "
+							for ( var i in comments) {
+								html += "<div>"
+								if ("${pinfo.nickname}" == comments[i].memberVO.nickname) {
+									html += "<a class='a-del' style='float:right;' href='/map/map_view/delete/" + comments[i].board_id + "'><b>삭제</b></a>"
+								} else {
+									html += "<a style='float:right; visibility:hidden;'>여백</a>"
+								}
+
+								html += "<div class='row'>"
+										+ "<div class='profile_box'>"
+										+ "<a href='/myPage/"+comments[i].memberVO.nickname+"'>"
+										+ "<img src='/resources/img/member/profile/"+comments[i].memberVO.thumbnail+"'name='profile' alt='' class='profile' />"
+										+ "</a></div><div style='padding-top:10px; padding-left:10px;'><b>"
+										+ "<a href='/myPage/"+comments[i].memberVO.nickname+"'>"
+										+ comments[i].memberVO.nickname
+										+ "</a></b></div></div>"
+										+ "<div style='padding-left:60px;'>"
+										+ comments[i].content + "</div>"
+										+ "<div style='padding-left:60px;'>"
+										+ transferTime(comments[i].pdate)
+										+ "</div><hr></div>"
+
+							}
+							$("#count").text("댓글 " + data.commentTotal + "개");
+							$("#comments").append(html);
+							console.log(data.commentTotal);
+							if (data.comments.length < data.commentTotal) {
+								html2 = "<button type='button' class='btn btn-warning' onClick='getListComment()'>더보기</button>"
+
+								$("#page").append(html2);
+
+							} else {
+
+							}
+
+						},
+					});
+		}
+		// 댓글 작성 및 ajax로 댓글 불러오기
+		function getComment() {
+
+			var member_id = $("#member_id").val();
+			var thumbnail = $("#thumbnail").val();
+			console.log(member_id);
+			var pgroup = $("#pgroup").val();
+			var content = $("#content").val();
+			console.log(content);
+			$.ajax({
+				url : "/map/map_view/insert",
+				type : "post",
+				data : {
+					member_id : member_id,
+					pgroup : pgroup,
+					content : content,
+					thumbnail : thumbnail
+				},
+				success : function(data) {
+
+					document.getElementById("content").value = '';
+					getListComment(2);
+				},
+			})
+
+		}
+		// 댓글 삭제
+		$(document).on('click', '.a-del', function() {
+			//id는 한번만 calss는 여러번 선택 가능.
+
+			//하나의 id는 한 문서에서 한 번만 사용이 가능(가장 마지막 혹은 처음게 선택). 하나의 class는 
+
+			event.preventDefault();
+
+			$.ajax({
+				type : 'DELETE', //method
+				url : $(this).attr("href"), //주소를 받아오는 것이 두 번째 포인트.
+				cache : false,
+				success : function(result) {
+					console.log("result: " + result);
+					if (result == "SUCCESS") {
+						alert("삭제되었습니다.");
+						getListComment(2);
+					}
+				},
+				error : function(e) {
+					console.log(e)
+				}
+			}); //end of ajax
+		}); // 삭제 종료	
+		</script>
+		
+		<script>
+		function transferTime(times) {
+			var now = new Date();
+
+			var sc = 1000;
+			var today = new Date(times);
+			//지나간 초
+			var pastSecond = parseInt((now - today) / sc, 10);
+
+			var date;
+			var hour;
+			var min;
+			var str = "";
+
+			var restSecond = 0;
+			if (pastSecond > 86400) {
+				date = parseInt(pastSecond / 86400, 10);
+				restSecond = pastSecond % 86400;
+				str = date + "일 ";
+
+			} else if (pastSecond > 3600) {
+				hour = parseInt(pastSecond / 3600, 10);
+				restSecond = pastSecond % 3600;
+				str = str + hour + "시간 전";
+
+			} else if (pastSecond > 60) {
+				min = parseInt(pastSecond / 60, 10);
+				restSecond = pastSecond % 60;
+				str = str + min + "분 전";
+			} else {
+				str = pastSecond + "초 전";
+			}
+
+			return str;
+		}
+		
+		</script>
+		
     
     
-					<!-- 댓글  -->   	
+				<%-- 	<!-- 댓글  start -->   	
 					<div class="container">
 						
 						<!-- 댓글작성 -->
@@ -429,12 +636,13 @@ background-color:#dddddd;
 							<table class="table" style="margin-bottom: 50px;">
 								<tr>
 								<td class="row">
-									<textarea style="resize: none;" class="form-control col-11" id="content" placeholder="댓글을 입력하세요"></textarea>
+									<textarea style="resize: none;" class="form-control col-11" id="content" placeholder="댓글을 입력하세요(최대 200자)"></textarea>
 									<button id="cw" class="col-1 btn btn-outline-secondary" onClick="getComment()">등록</button>
 								</td>
 								</tr>
 							</table>
 							</div>
+						</div>
 						</div>
 						<!-- 댓글작성 -->
 						
@@ -466,14 +674,15 @@ background-color:#dddddd;
 									<div>${dto.pdate}</div>
 									<hr>
 								</div>
+								
 							</c:forEach>
-						</div>
+						
 					</div>
-					<!-- 댓글  -->
+					<!-- 댓글  end --> --%>
       
 				</div>           
 			</div>
-		</div>
+			</div>
 	</section>
   
    <!-- Footer -->
@@ -516,7 +725,7 @@ background-color:#dddddd;
 	</script>
    
    
-   <script type="text/javascript">
+  <!--  <script type="text/javascript">
 	// 댓글 삭제
 	$(".a-del").click(function(event) { //id는 한번만 calss는 여러번 선택 가능
 		event.preventDefault(); 
@@ -541,7 +750,7 @@ background-color:#dddddd;
 	   }); //end of ajax
 	 }); // 삭제 종료
    
-   </script>
+   </script> -->
    
 	<script src="/resources/js/jquery-3.3.1.min.js"></script>
 	<script src="/resources/js/bootstrap.min.js"></script>

@@ -82,6 +82,10 @@ public interface MapMapper {
 	public List<ImageVO> getPhoto(int board_id);
 
 	public List<PlikeVO> getAllLikelist(PlikeVO plikeVO);
+	//댓글더보기
+	public List<BoardVO> getcommentsList(Criteria cri, int board_id);
+	//댓글 카운트
+	public int qcount(int board_id);
 
 
 

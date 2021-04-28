@@ -294,6 +294,7 @@ function test(){
 
 	var location = $('.location').val();
 	console.log(location);
+	alert(location+"이 입력되었습니다")
 	var member_id = $('.member_id').val();
 	console.log(member_id);
 	url ="/map/insert_location"
