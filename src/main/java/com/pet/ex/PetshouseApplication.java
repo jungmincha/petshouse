@@ -8,7 +8,7 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 
 
 
-@ServletComponentScan
+@ServletComponentScan//등록된 리스너 스캔
 @SpringBootApplication
 public class PetshouseApplication {
 

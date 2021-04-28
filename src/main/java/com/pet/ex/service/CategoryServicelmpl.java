@@ -114,22 +114,58 @@ public class CategoryServicelmpl implements CategoryService {
 		// TODO Auto-generated method stub
 		return mapper.gethighstarGoods(category_id);
 	}
+	
+	//가격 낮은순(별점 리뷰 포함)
+	@Override
+	public List<BoardVO> getStoreRowrate() {
+		log.info("getStoreRowrate()...");
+		return mapper.getStoreRowrate();
+	}
+	//가격 높은순(별점 리뷰 포함)
+	@Override
+	public List<BoardVO> getStoreHighrate() {
+		log.info("getStoreHighrate()...");
+		return mapper.getStoreHighrate();
+	}
+	//카테고리별 조회(별점 리뷰 포함)
+	@Override
+	public List<BoardVO> getStoreSmallrate(int getCategory_id) {
+		log.info("getStoreSmallrate()...");
+		return mapper.getStoreSmallrate(getCategory_id);
+	}
+	//소분류 가격 낮은거 부터 조회(별점 리뷰 포함)
+	@Override
+	public List<BoardVO> getSmallPriceRowrate(int category_id) {
+		log.info("getSmallPriceRowrate()...");
+		return mapper.getSmallPriceRowrate(category_id);
+	}
+	//소분류 가격 높은거 부터 조회(별점 리뷰 포함)
+	@Override
+	public List<BoardVO> getSmallPriceHightrate(int category_id) {
+		log.info("getSmallPriceHightrate()...");
+		return mapper.getSmallPriceHightrate(category_id);
+	}
+	//소분류 별점순(별점 리뷰 포함)
+	@Override
+	public List<BoardVO> getSmallhighStar(int category_id) {
+		log.info("getSmallhighStar()...");
+		return mapper.getSmallhighStar(category_id);
+	}
+	//리뷰 많은순(별점 리뷰 포함)
+	@Override
+	public List<BoardVO> gethighReview() {
+		log.info("gethighReview()...");
+		return mapper.gethighReview();
+	}
+	//소분류 리뷰 많은순(별점 리뷰 포함)
+	@Override
+	public List<BoardVO> getSmallhighReview(int category_id) {
+		log.info("getSmallhighReview()...");
+		return mapper.getSmallhighReview(category_id);
+	}
 
 	
 
-
-	
-
-	/*
-	 * @Override public List<BoardVO> getStorerate() {
-	 * 
-	 * return mapper.getStorerate(); }
-	 * 
-	 */
-	
-	
-	
-	
 
 	
 
