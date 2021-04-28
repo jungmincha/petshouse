@@ -404,6 +404,18 @@ public class MapController {
 		return entity;
 
 	}
+	
+	
+	// 댓글 더보기
+		@PostMapping("/cmorelist")
+		public Map<String, Object> comments(@RequestParam("board_id") int board_id, Criteria cri) {
+			log.info("commentsmorelist");
+			Map<String, Object> list = new HashMap<>();
+			List<BoardVO> comments = service.getcommentsList(cri, board_id);
+			list.put("comments", comments);
+			list.put("commentTotal", service.qcount(board_id));
+			return list;
+		}
 
 	// content_view 에서 게시글 삭제
 	@RequestMapping("/delete")

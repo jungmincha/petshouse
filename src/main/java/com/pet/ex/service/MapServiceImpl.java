@@ -290,6 +290,22 @@ public class MapServiceImpl implements MapService {
 	}
 
 
+	//댓글더보기
+	@Override
+	public List<BoardVO> getcommentsList(Criteria cri, int board_id) {
+	log.info("getcommentsList...");
+		return mapper.getcommentsList(cri,board_id);
+	}
+
+
+	//댓글 카운트
+	@Override
+	public int qcount(int board_id) {
+		log.info("qcount...");
+		return mapper.qcount(board_id);
+	}
+
+
 
 	
 
