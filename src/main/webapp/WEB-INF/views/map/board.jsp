@@ -205,7 +205,7 @@ body::-webkit-scrollbar-track {
 						
 							<tbody id="mapList">
 								<td>
-								<a href="/map/board/${list.boardVO.board_id}?location=${location}&member_id=${member_id}">
+								
 										
 										<!-- 회원 썸네일 -->
 										<div class="user-Info row" style="margin: 20px auto 0px 5px">
@@ -226,21 +226,23 @@ body::-webkit-scrollbar-track {
 											<br>	
 											<br>							
 											<!-- 게시글 이미지 썸네일 -->			
-											<div>
-											<img src="/resources/img/location/${list.imgname}" style="width: 780px; height: 450px; object-fit: cover; border-radius: 10px;">
 										
+											<a href="/map/board/${list.boardVO.board_id}?location=${location}&member_id=${member_id}">
+											<img src="/resources/img/location/${list.imgname}" style="width: 780px; height: 450px; object-fit: cover; border-radius: 10px;">
+											
 											<br>	
 											<br>
-											<div style="font-size:20px;">${list.boardVO.content}</div></a>
+											<div style="font-size:20px;">${list.boardVO.content}</div>
+											</a>
 								
 								 <!-- 해시태그 --> 
-									<c:set var="hashtag" value="${list.boardVO.hashtag}" />
+								<%-- 	<c:set var="hashtag" value="${list.boardVO.hashtag}" />
 									<c:set var="tag" value="${fn:split(hashtag, ' ')}" /> 
 									<c:forEach var="t" items="${tag}">
 									<span><button id="hashtag" name="keyword" class="btn btn-disabled" style="" value="${t}"
 									onclick="location.href='${pageContext.request.contextPath}/map/qnatag'">${t}</button></span>
-									</c:forEach>
-								
+									</c:forEach> 
+								 --%>
 								</td>
 							</tbody>
 						</c:forEach>
@@ -405,6 +407,7 @@ window.onscroll = function(e) {
 							console.log("너의 해시태그는 뭐니?" + hashtag);
 							console.log("너의 장소는 뭐니?" + location);
 							console.log("너의 아이디는 뭐니?" + member_id);
+						
 							
 							var target = document.getElementById("hashtag");
 
@@ -418,9 +421,6 @@ window.onscroll = function(e) {
 							}else{
 							
 								var url = "/map/location/tag";
-					
-						
-
 							
 						//	var url = "/map/location/tag";
 						
@@ -432,56 +432,61 @@ window.onscroll = function(e) {
 											location : location,
 										},
 										success : function(data) {
-
+												
 											console.log(data);
 											$(".table").empty();
 											//var html = "<table class='table'>";
-											for (var i = 1; i <= data.length; i++) {
-
+											for (var i = 0; i <= data.length; i++) {
+												
+												
+												
+											
 												var html =  "<table class='table'>"
 										        	+
 										   			"<tbody id='mapList'>"
 													+
 													"<td>"
-													+
-													"<a href='/map/board/"+ data[i - 1].boardVO.board_id+ + "?location=${location}&member_id=${member_id}'>"
 													+			
 													"<div class='user-Info row' style='margin: 20px auto 0px 5px'>"
 													+
 													"<div class='profile_box'>"
 													+
-													"<img src='/resources/img/member/profile/" + data[i - 1].boardVO.memberVO.thumbnail+ "' name='profile' alt='' class='profile'/>"
+													"<img src='/resources/img/member/profile/" + data[i].boardVO.memberVO.thumbnail+ "' name='profile' alt='' class='profile'/>"
 													+
 													"</div>"
 													+
-													"<div style='padding:7px'>" + data[i - 1].boardVO.memberVO.nickname 
+													"<div style='padding:7px'>" + data[i].boardVO.memberVO.nickname 
+													+
+													"<a href='/myPage/" + data[i].boardVO.memberVO.nickname + "'style='padding-top: 13px; padding-left: 5px; color:#e7ab3c;'>팔로우</a>"
 													+
 													"</div>"	
 													+
-													"</div>"
+													"</div>"											
 													+
-													"<span style='font-size: 13px; color: gray;'>" + data[i - 1].boardVO.pdate + "</span>"
+													"<span style='font-size: 13px; color: gray;'>" + transferTime(data[i].boardVO.pdate) + "</span>"
 													+			
-													"<span style='font-size: 13px; color: gray;'>조회수" + data[i - 1].boardVO.hit + "</span>"
+													"<span style='font-size: 13px; color: gray;'>조회수" + data[i].boardVO.hit + "</span>"
 													+
-													"<span style='font-size: 13px; color: gray;'>좋아요" + data[i - 1].boardVO.plike +  "</span>"
+													"<span style='font-size: 13px; color: gray;'>좋아요" + data[i].boardVO.plike +  "</span>"
 													+
-													"<span style='font-size: 13px; color: gray;'>" + data[i - 1].boardVO.hashtag +  "</span>"
+													"<span style='font-size: 13px; color: gray;'>" + data[i].boardVO.hashtag +  "</span>"
 													+
 													"<br>"	
 													+
 													"<br>"			
 													+ 
-														
+													"<a href='/map/board/"+ data[i].boardVO.board_id+ "?location=${location}&member_id=${member_id}'>"
+													+
+	
 													"<div>"
 													+
-													"<img src='/resources/img/location/" +  data[i - 1].imgname + "'style='width: 780px; height: 450px; object-fit: cover; border-radius: 10px;'>"
+													"<img src='/resources/img/location/" +  data[i].imgname + "'style='width: 780px; height: 450px; object-fit: cover; border-radius: 10px;'>"
 													+
 													"<br>"	
 													+
 													"<br>"		
 													+
-													"<div style='font-size:20px;'>"  + data[i - 1].boardVO.content 
+													"<div style='font-size:20px;'>"  + data[i].boardVO.content 
 													+
 													"</div>"
 													+
@@ -511,6 +516,17 @@ window.onscroll = function(e) {
 									})
 							}})
 	</script>
+	
+	<script>
+	function transferTime(times) {
+			
+				
+			var times = times.substr(0, 10);
+			return times; 
+	
+		} 
+		
+		</script>
 
 
 

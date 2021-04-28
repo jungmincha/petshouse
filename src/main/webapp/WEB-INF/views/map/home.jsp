@@ -53,7 +53,10 @@
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b62a0e8c19705dc2950e1a83c5590311&libraries=services"></script>
 <script>
 	window.onload = function() {
-
+		
+		
+		$("#latitude").hide();//화면에 표시된 위도 경도 숨김처리
+		$("#longitude").hide();
 		// Geolocation API에 액세스할 수 있는지를 확인
 		if (navigator.geolocation) {
 			//위치 정보를 얻기
@@ -212,24 +215,27 @@
 	<section class="contact-section spad">
 		<div class="container">
 			<div class="row">
-				<div class="col-lg-5">
+				<div class="col-lg-12">
 					<div class="map_wrap">
-						<div id="map" style="width: 500px; height: 350px;"></div>
+						<div id="map" style="width: 1100px; height: 800px;"></div>
 						<div class="hAddr">
 
 							<span id="centerAddr"></span>
 						</div>
 
 
-						<ul>
-							<li><span id="latitude"></span>(나중에 hidden처리)
-							</li>
-							<li><span id="longitude"></span></li>
+							<!-- 위도 경도 -->
+							<span id="latitude"></span>
+							<span id="longitude"></span>
 
-						</ul>
+						
 					</div>
 				</div>
-				<div class="col-lg-6 offset-lg-1">
+					
+					</div>
+			
+					<div class="row" style="padding-top:500px;">
+					<div class="col-lg-12">
 					<div class="contact-form">
 						<div class="leave-comment">
 							<h4>펫츠타운 위치기반 이용 약관</h4>
@@ -250,11 +256,14 @@
 							<span id="address" style="font-weight: bold; font-size: 20px;"></span>
 							이 맞으면 '계속 하기'을 눌러주세요.
 							</p>
+							</div>
+							</div>
+							</div>
+							</div>
 							
-							
-		
+									
 							<form action="/map/board" method="get">
-								<div class="row">
+									<div class="row">
 									<div class="col-lg-12">
 									
 									<!-- <input type="hidden" name="location" value="">  -->
@@ -270,18 +279,9 @@
 									</div>
 								</div>
 							</form>
-							
-						</div>
-					</div>
-					
-				</div>
+				
 		</div>
-		<div class="row">
-		<div class="col-lg-12">
-		</div>
-		</div>
-		
-		
+	
 	</section>
 
 	<!-- Footer -->
@@ -294,7 +294,7 @@ function test(){
 
 	var location = $('.location').val();
 	console.log(location);
-	alert(location+"이 입력되었습니다")
+	alert()
 	var member_id = $('.member_id').val();
 	console.log(member_id);
 	url ="/map/insert_location"
