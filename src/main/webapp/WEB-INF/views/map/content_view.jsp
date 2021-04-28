@@ -223,7 +223,8 @@ background-color:#dddddd;
       					</div>
       					
       					<div class="row col-lg-12">
-      						<div class="profile-info_follow-state">    		 	
+      						<div class="profile-info_follow-state">
+      						    		 	
             					<a href="#likeModal" class="like_amount" data-toggle="modal" style="float:right;"><span>좋아요${like_amount}</span></a>
 	        				</div>
 
