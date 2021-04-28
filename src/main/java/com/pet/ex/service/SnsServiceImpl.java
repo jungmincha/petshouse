@@ -235,9 +235,9 @@ public class SnsServiceImpl implements SnsService {
 		}
 		
 		@Override
-		public List<BoardVO> getSnsCatetotal(BoardVO boardVO) {
+		public List<BoardVO> getSnsCatetotal(ImageVO imageVO) {
 			 
-			return mapper.getSnsCatetotal(boardVO);
+			return mapper.getSnsCatetotal(imageVO);
 		}
 		
 		@Override

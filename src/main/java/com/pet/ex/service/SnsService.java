@@ -100,7 +100,7 @@ public interface SnsService {
 
 	public List<ImageVO> imgCount(ImageVO imageVO);
 
-	public List<BoardVO> getSnsCatetotal(BoardVO boardVO);
+	public List<BoardVO> getSnsCatetotal(ImageVO imageVO);
 
  
  

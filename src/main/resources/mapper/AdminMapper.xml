@@ -282,8 +282,8 @@
 
 	<insert id="boardInput" parameterType="boardvo"> 
 	<![CDATA[ 
-	   insert into board (board_id,  title, plike, hit,   pgroup, pstep,   member_id, boardtype_id, goods_id)   
-       values (board_seq.nextval , #{title} , 0,0, board_seq.currval,0, 'admin@naver.com', 3, #{goodsVO.goods_id})    
+	   insert into board (board_id,  content, plike, hit,   pgroup, pstep,   member_id, boardtype_id, goods_id)   
+       values (board_seq.nextval , #{content} , 0,0, board_seq.currval,0, 'admin@naver.com', 3, #{goodsVO.goods_id})    
 	]]>
 	</insert>
 	

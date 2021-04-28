@@ -136,7 +136,7 @@
 		var form = {
 			category_id : category_id
 		};
-		var url = "/commu/sns/category/" + id;
+		var url = "/commu/sns/category/" + category_id;
 
 		$.ajax({
 			type : "POST",

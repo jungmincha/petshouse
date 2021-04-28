@@ -118,7 +118,7 @@
 			 <![CDATA[ 
 			 	SELECT * FROM (
 			  		   SELECT ROWNUM AS RNUM, A.* FROM (
-		 		    select i.imgname, m.nickname,  c.category_id, m.thumbnail, b.hit, b.plike, b.board_id, b.content from image i, board b, member m, category c where b.category_id=c.category_id and c.category_id=#{boardVO.categoryVO.category_id} and m.member_id = b.member_id 
+		 		    select i.imgname, m.nickname,  c.category_id, m.thumbnail, b.hit, b.plike, b.board_id, b.content from image i, board b, member m, category c where b.category_id=c.category_id and c.category_id=#{imageVO.boardVO.categoryVO.category_id} and m.member_id = b.member_id 
 				 	and i.board_id=b.board_id and b.boardtype_id=2 and pstep=0 and img_id in( 
  					select  min(img_id) as img_id from image where board_id is not null group by board_id) order by b.pdate desc
  				)A WHERE ROWNUM <= #{cri.pageNum} * #{cri.amount}
@@ -182,7 +182,7 @@
 	<select id="getSnsCatetotal" resultType="BoardVO">
 	
 			<![CDATA[
-	       			select count(*) as count from board b, category c where boardtype_id=2 and c.category_id = b.category_id and b.category_id=#{boardVO.categoryVO.category_id} group by b.board_id
+	       			select count(*) as count from board b, category c where boardtype_id=2 and c.category_id = b.category_id and b.category_id=#{boardVO.categoryVO.category_id} group by board_id
 	  		 ]]>
 	  		 
 	</select>
