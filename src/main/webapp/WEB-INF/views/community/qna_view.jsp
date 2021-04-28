@@ -158,7 +158,15 @@ min-height:120px;
 			</div>
 			<h3 class="qnatitle" style="font-weight: bold; margin-bottom: 10px;">${qna_view.title}</h3>
 		</div>
+	<!-- 관리자에게만 작성버튼 띄우기 -->
+			<sec:authorize access="hasAnyRole('ROLE_ADMIN')">
+				<button type="button" id="modify_button" class="btn btn-warning"
+				onclick="modify_event();">수정</button>
 
+			<button type="button" id="delete_button" class="btn btn-warning"
+				onclick="button_event();">삭제</button>
+			</sec:authorize>
+	<!-- 관리자에게만 작성버튼 띄우기 end-->			
 
 		<div style="float: right">
 			<button type="button" id="modify_button" class="btn btn-warning"
