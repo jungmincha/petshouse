@@ -140,6 +140,16 @@ img {
 	float: right;
 	font-size: 17px;
 }
+
+.clone{
+	position: absolute;
+	top: 65px;
+	right: 45px;	
+	opacity: 0.4;
+	font-size : 20px;
+	color : #fff
+
+}
 </style>
 
 
@@ -255,6 +265,12 @@ img {
 							</div>
 
 							<div class="pi-pic shot">
+							
+							<c:forEach items="${imgCount}" var = "imgCount">
+							  <c:if test="${imgCount.boardVO.board_id eq sns.boardVO.board_id and imgCount.count > 1}"> 
+								 <i class="far fa-clone clone"></i>
+								</c:if> </c:forEach>
+							
 								<a href="/commu/sns/${ms.boardVO.board_id}"> <img
 									src="/resources/img/member/sns/${ms.imgname}"
 									style="height: 250px; width:250px;" alt="" /><span
