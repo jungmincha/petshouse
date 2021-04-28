@@ -158,7 +158,7 @@
 			</c:if>
 			<c:if test="${not empty list}">
 			<c:forEach items="${list}" var="sns">
-
+			<input type="hidden" name="category_id" value="${sns.boardVO.categoryVO.category_id}">
 				<div class=" col-12 col-md-4 col-lg-3">
 
 					<div class="user-Info row" style="margin: 20px auto 0px 5px">
@@ -205,25 +205,100 @@
 		</div>
 
 
- 		<c:if test="${fn:length(count) > 12}">
+ 			<c:if test="${fn:length(snsTotal) > 12}">
 		          <div class="col-lg-12 text-center">
-		         	  <input type="hidden" class="count" value="${fn:length(count)}" />
+		         	  <input type="hidden" class="snsTotal" value="${fn:length(snsTotal)}" />
 		          	  <button type="button" class="btn btn-warning" onClick="btnClick()">더보기</button>
 			      </div>   
 		     </c:if> 
 	</div>
+	
+	   
+   <!--  더보기 페이징 처리 -->
+   <script type="text/javascript">
 
+      var pageNum = 1;
+      var check =$('.snsTotal').val() / 12;
 
-	<!-- Bootstrap core JavaScript -->
-	<script src="/resources/js/jquery-3.3.1.min.js"></script>
-	<script src="/resources/js/bootstrap.min.js"></script>
-	<script src="/resources/js/jquery-ui.min.js"></script>
-	<script src="/resources/js/jquery.countdown.min.js"></script>
-	<script src="/resources/js/jquery.nice-select.min.js"></script>
-	<script src="/resources/js/jquery.zoom.min.js"></script>
-	<script src="/resources/js/jquery.dd.min.js"></script>
-	<script src="/resources/js/jquery.slicknav.js"></script>
-	<script src="/resources/js/owl.carousel.min.js"></script>
-	<script src="/resources/js/main.js"></script>
+      function btnClick() {
+
+         pageNum += 1;
+         console.log(pageNum);
+         console.log(check);
+
+         if (pageNum >= check){
+            $(".btn").hide();
+         }
+         
+         var category_id = $('.category_id').val();   
+         console.log(category_id);
+    	 var url = "/commu/sns/morelist/"+ category_id; 	
+    	 
+         $
+               .ajax({
+                  type : "POST",
+                  url : url,
+                  data : {
+                     pageNum : pageNum,
+                     category_id: category_id                  
+                  },
+                  success : function(data) {
+                     console.log(data);
+                     console.log("here");
+                     var sns = data.sns;
+                     var count = data.count;
+                     var imgCount = data.imgCount;
+
+                     html = "";
+                     
+                     for (var i in sns) {
+                           html += "<div class='col-12 col-md-4 col-lg-3'>"
+                                 + "<div class='user-Info row' style='margin:20px auto 0px 5px;'>"
+                                 + "<div class='profile_box'>"
+                                 + "<img src='/resources/img/member/profile/" + sns[i].boardVO.memberVO.thumbnail + "' name='profile' class='profile' /></div>"
+                                 + "<div style='padding-top:13px; padding-left:7px;'>" + sns[i].boardVO.memberVO.nickname + "</div>"
+                                 + "<a href='/myPage/" + sns[i].boardVO.memberVO.nickname + "' style='padding-top: 13px; padding-left: 5px; color:#e7ab3c;'> · 팔로우</a></div>"
+                                 + "<div class='shot'>";
+                                 for(var j in imgCount){
+                                    if(imgCount[j].boardVO.board_id == sns[i].boardVO.board_id && imgCount[j].count > 1){
+                                       html += "<i class = 'far fa-clone clone'></i>";
+                                       
+                                    }
+                                    
+                                 }
+                                 
+                             html += "<a href='/commu/sns/" + sns[i].boardVO.board_id + "'>"
+                                 + "<img src='/resources/img/member/sns/"+ sns[i].imgname + "' style='height: 300px;' class='card-img-top i' />"
+                                 + "<span class='count'>조회수" + sns[i].boardVO.hit + "</span></a></div>"                             
+                                 + "<div class='card-body' style='font-size:20px;'>"
+                                 + "<a href='/commu/sns/" + sns[i].boardVO.board_id + "'>" 
+                                 + "<i class='far fa-heart'></i>&nbsp;&nbsp;" + sns[i].boardVO.plike + "</a>&nbsp;&nbsp;&nbsp;&nbsp;"
+                                 + "<i class='far fa-comment'></i>&nbsp;&nbsp;";
+                            
+                            for(var z in count){
+                                if(count[z].pgroup == sns[i].boardVO.board_id){
+                                     html += "<a href='/commu/sns/" + sns[i].boardVO.board_id + "'>"
+                                          + count[z].count + "</a>";          
+                                }
+                            }//count foreach end 
+                            
+                            html += "</div></div>";
+                            
+                      }                                     
+                        
+                      $("#snslist").append(html);
+                          
+                  },//success end
+                  
+                            error : function(request, status, error) {
+                           alert("code:" + request.status + "\n" + "message:"
+                                 + request.responseText + "\n" + "error:" + error);
+                        } // ajax 에러 시 end 
+                       }); //ajax end    
+                  };
+      
+   </script>
+	
+
 </body>
 </html>

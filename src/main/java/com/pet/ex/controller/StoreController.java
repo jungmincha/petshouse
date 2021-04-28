@@ -32,10 +32,10 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/store")
 public class StoreController {
 	@Autowired
-	StoreService service;
+	private StoreService service;
 	
 	@Autowired
-	CategoryService categoryService;
+	private CategoryService categoryService;
 
 	//storehome 이동
 	@GetMapping("/home")

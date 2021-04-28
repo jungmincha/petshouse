@@ -77,25 +77,26 @@ public class SnsController {
 	@PostMapping("/sns/category/{boardVO.categoryVO.category_id}")
 	public ModelAndView snscategoryList(ImageVO imageVO, BoardVO boardVO,Criteria cri, ModelAndView mav) {
 		log.info("sns_categoryList");
+		System.out.println(imageVO.getBoardVO().getCategoryVO().getCategory_id());
 
 		mav.addObject("list", service.getSnsCategory(imageVO,cri));
 		mav.addObject("imgCount", service.imgCount(imageVO));
 		mav.addObject("count", service.countComment(boardVO));
-		mav.addObject("snsTotal", service.getSnsCatetotal(boardVO));
+		mav.addObject("snsTotal", service.getSnsCatetotal(imageVO));
 		mav.setViewName("sns/sns_category");
 		return mav;
 	}
 	
 	//SNS 카테고리별 상품 더보기 
-	@PostMapping("/best/morelist/{categoryVO.code}")
+	@PostMapping("/sns/morelist/{boardVO.categoryVO.category_id}")
 	public Map<String, Object> snscategorymoreList(BoardVO boardVO, ImageVO imageVO,  Criteria cri) {
 		log.info("snscategorymoreList");
 		Map<String, Object> list = new HashMap<>();
-		List<ImageVO> sns = service.getSnsCategory(imageVO,cri));
+		List<ImageVO> sns = service.getSnsCategory(imageVO,cri);
 		list.put("sns", sns);
 		list.put("imgCount", service.imgCount(imageVO));
 		list.put("count", service.countComment(boardVO));
-		list.put("snsTotal", service.getSnstotal(boardVO));
+		list.put("snsTotal", service.getSnsCatetotal(imageVO));
 		return list;
 	}
 	
