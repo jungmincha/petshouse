@@ -34,17 +34,6 @@
 #navbars>li:nth-child(2) {
    background-color: #e7ab3c;
 }
-select {
-	width: 100px; /* 원하는 너비설정 */
-	padding: .4em .5em; /* 여백으로 높이 설정 */
-	font-family: inherit; /* 폰트 상속 */
-	background: url('이미지 경로') no-repeat 95% 50%;
-	/* 네이티브 화살표를 커스텀 화살표로 대체 */
-	border-radius: 5px; /* iOS 둥근모서리 제거 */
-	-webkit-appearance: none; /* 네이티브 외형 감추기 */
-	-moz-appearance: none;
-	appearance: none;
-}
 
 .box {
 	margin: 50px auto;

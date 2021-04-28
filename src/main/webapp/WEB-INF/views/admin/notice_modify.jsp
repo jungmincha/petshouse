@@ -34,22 +34,7 @@
    background-color: #e7ab3c;
 	}
 
-textarea::-webkit-scrollbar {
-    width: 10px;
-	}
-  
-textarea::-webkit-scrollbar-thumb {
-    background-color: #666666;
-    border-radius: 10px;
-    background-clip: padding-box;
-    border: 2px solid transparent;
-	}
 
-textarea::-webkit-scrollbar-track {
-    background-color: #CCCCCC;
-    border-radius: 10px;
-    box-shadow: inset 0px 0px 5px white;
-  }
 </style>
 
 </head>

@@ -596,7 +596,7 @@ h2 {
 			}
 		}
 	</script>
-	
+	<script>
 $(function(){
 //    이미지 클릭시 해당 이미지 모달
    $(".imgC").click(function(){

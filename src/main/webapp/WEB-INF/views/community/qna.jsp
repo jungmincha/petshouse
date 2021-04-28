@@ -52,23 +52,6 @@
 	background-color: #F2EFFB;
 }
 
-body::-webkit-scrollbar {
-	width: 15px;
-}
-
-body::-webkit-scrollbar-thumb {
-	background-color: #CCC;
-	border-radius: 10px;
-	background-clip: padding-box;
-	border: 2px solid transparent;
-}
-
-body::-webkit-scrollbar-track {
-	background-color: #FFF;
-	border-radius: 10px;
-	box-shadow: inset 0px 0px 5px white;
-}
-
 .input {
 	background-image:
 		url(https://cdn1.iconfinder.com/data/icons/hawcons/32/698627-icon-111-search-256.png);
