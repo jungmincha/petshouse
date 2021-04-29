@@ -32,19 +32,6 @@
 <script src="https://cdn.bootpay.co.kr/js/bootpay-3.3.1.min.js" type="application/javascript"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-<script>
-   $(document).ready(function() {
-      $.fn.generateStars = function() {
-         return this.each(function(i, e) {
-            $(e).html($('<span/>').width($(e).text() * 16));
-         });
-      };
-
-      // 숫자 평점을 별로 변환하도록 호출하는 함수
-      $('.star-prototype').generateStars();
-   });
-</script>
-
 <style>
 	.hero-items {
 	   padding-top: 150px;
@@ -91,6 +78,20 @@
 	}
 
 </style>
+
+<script>
+   $(document).ready(function() {
+      $.fn.generateStars = function() {
+         return this.each(function(i, e) {
+            $(e).html($('<span/>').width($(e).text() * 16));
+         });
+      };
+
+      // 숫자 평점을 별로 변환하도록 호출하는 함수
+      $('.star-prototype').generateStars();
+   });
+</script>
+
 </head>
 
 <body>
@@ -275,7 +276,7 @@
                         <p>Secs</p>
                      </div>
                   </div>
-                  <a href="/admin/goods_detail/4325" class="primary-btn">Shop Now</a>
+                  <a href="/admin/goods_detail/5384" class="primary-btn">Shop Now</a>
                </div>
             </div>
          </section>
@@ -332,26 +333,26 @@
 		</div>
       <!-- /.container -->
       
-     <!-- 더보기 페이징 처리 -->
-     <script>
-      var pageNum = 1;
-      var check = $('.count').val() / 8;
+<!-- 더보기 페이징 처리 -->
+<script>
+	var pageNum = 1;
+	var check = $('.count').val() / 8;
      
-      function btnClick(){
-    	  pageNum += 1;
+	function btnClick(){
+		pageNum += 1;
     	  
-    	  if (pageNum >= check) {
-              $(".btn").hide();
-           }
+		if (pageNum >= check) {
+			$(".btn").hide();
+		}
     	  
-    	  console.log(pageNum);
-    	  console.log(check);
+		console.log(pageNum);
+		console.log(check);
     	  		  
-    	  	$.ajax({
-    	        type :"POST",
-    	        url :"/store/morelist",
-    	        data : {
-    	        	pageNum: pageNum 
+		$.ajax({
+			type :"POST",
+			url :"/store/morelist",
+			data : {
+				pageNum: pageNum 
     	        },
     	        success :function(data){
     	           console.log(data);

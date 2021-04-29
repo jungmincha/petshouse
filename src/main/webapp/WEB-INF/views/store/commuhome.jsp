@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
@@ -31,19 +30,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdn.bootpay.co.kr/js/bootpay-3.3.1.min.js" type="application/javascript"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
-<script>
-   $(document).ready(function() {
-      $.fn.generateStars = function() {
-         return this.each(function(i, e) {
-            $(e).html($('<span/>').width($(e).text() * 16));
-         });
-      };
-
-      // 숫자 평점을 별로 변환하도록 호출하는 함수
-      $('.star-prototype').generateStars(); 
-   });
-</script>
 
 <style>
     .instagram-photo{
@@ -127,6 +113,20 @@
 	}
 
 </style>
+
+<script>
+   $(document).ready(function() {
+      $.fn.generateStars = function() {
+         return this.each(function(i, e) {
+            $(e).html($('<span/>').width($(e).text() * 16));
+         });
+      };
+
+      // 숫자 평점을 별로 변환하도록 호출하는 함수
+      $('.star-prototype').generateStars(); 
+   });
+</script>
+
 </head>
 
 <body style="padding-top:200px">

@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -30,6 +29,28 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdn.bootpay.co.kr/js/bootpay-3.3.1.min.js" type="application/javascript"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<style>
+	.table {
+		display: table;
+		margin: 40px auto;
+		width: 700px;
+		font-size: 20px;
+		font-stretch: extra-condensed;
+		text-align: center;
+	}
+	
+	h2 {
+		text-align: center;
+	}
+	
+	.member{
+		padding-top:200px;
+	}
+	
+	#navbars>li:nth-child(5) {
+  		background-color: #e7ab3c;
+	}
+</style>
 
 <script type="text/javascript">
 
@@ -61,28 +82,6 @@
 	});
 </script>
 
-<style>
-	.table {
-		display: table;
-		margin: 40px auto;
-		width: 700px;
-		font-size: 20px;
-		font-stretch: extra-condensed;
-		text-align: center;
-	}
-	
-	h2 {
-		text-align: center;
-	}
-	
-	.member{
-		padding-top:200px;
-	}
-	
-	#navbars>li:nth-child(5) {
-  		background-color: #e7ab3c;
-	}
-</style>
 </head>
 
 <body>
