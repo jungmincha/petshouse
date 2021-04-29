@@ -73,12 +73,18 @@
 #address-btn:hover {
 	color: #e7ab3c;
 }
+
 label:hover {
 	color: #e7ab3c;
 }
-#update-btn:hover{
-	color:white;
+
+#update-btn:hover {
+	color: white;
 	background-color: orange;
+}
+
+#navbars>li:nth-child(4) {
+	background-color: #e7ab3c;
 }
 </style>
 <script type="text/javascript">
@@ -87,7 +93,7 @@ label:hover {
 </head>
 <jsp:include page="/WEB-INF/views/include/header.jsp" />
 <body style="padding-top: 128px">
-	
+
 	<!-- Register Section Begin -->
 	<div class="register-login-section spad">
 		<div class="section-title">
@@ -207,8 +213,9 @@ label:hover {
 
 							<input type="hidden" name="logintypeVO.logintype_id" value="1">
 							<input type="hidden" name="roleVO.role_id" value="1">
-							<button id="update-btn" type="submit" class="site-btn register-btn"
-								style="font-size: 15pt" onclick="check()">수정완료</button>
+							<button id="update-btn" type="submit"
+								class="site-btn register-btn" style="font-size: 15pt"
+								onclick="check()">수정완료</button>
 							<br> <br>
 							<hr>
 							<br>

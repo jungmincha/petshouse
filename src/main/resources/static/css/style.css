@@ -621,7 +621,6 @@ ul, ol {
 
 .nav-item .nav-depart .depart-btn:hover .depart-hover {
 	top: 52px;
-	opacity: 1;
 	visibility: visible;
 	z-index: 99;
 }
@@ -657,13 +656,17 @@ ul, ol {
 	visibility: hidden;
 	-webkit-box-shadow: 0 13px 32px rgba(51, 51, 51, 0.1);
 	box-shadow: 0 13px 32px rgba(51, 51, 51, 0.1);
-	-webkit-transition: all 0.3s;
-	-o-transition: all 0.3s;
-	transition: all 0.3s;
+
 }
 
 .nav-item .nav-depart .depart-btn .depart-hover li {
 	list-style: none;
+	
+}
+.nav-item .nav-depart .depart-btn .depart-hover li:hover {
+	background-color: white;
+	color: #e7ab3c;
+	
 }
 
 .nav-item .nav-depart .depart-btn .depart-hover li.active a {
@@ -677,14 +680,12 @@ ul, ol {
 	padding-left: 40px;
 	padding-top: 16px;
 	padding-right: 30px;
-	-webkit-transition: all 0.3s;
-	-o-transition: all 0.3s;
-	transition: all 0.3s;
+
+
 }
 
 .nav-item .nav-depart .depart-btn .depart-hover li a:hover {
 	color: #e7ab3c;
-	background-color: white;
 }
 
 .nav-item .nav-menu {
@@ -713,9 +714,7 @@ ul, ol {
 	border-right: 2px solid #3b3b3b;
 	text-transform: uppercase;
 	padding: 16px 42px 15px;
-	-webkit-transition: all 0.3s;
-	-o-transition: all 0.3s;
-	transition: all 0.3s;
+
 }
 
 .nav-item .nav-menu li:hover>a {

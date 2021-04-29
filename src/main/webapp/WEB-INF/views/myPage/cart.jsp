@@ -7,7 +7,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+<meta name="_csrf_parameter" content="${_csrf.parameterName}" />
+<meta name="_csrf_header" content="${_csrf.headerName}" />
 <meta charset="UTF-8">
 <meta name="description" content="Fashi Template">
 <meta name="keywords" content="Fashi, unica, creative, html">
@@ -142,6 +143,7 @@ a:visited {
 						//ajax 호출
 						$
 								.ajax({
+								
 									url : "/myPage/cartList",
 									type : "post",
 									dataType : 'json',
