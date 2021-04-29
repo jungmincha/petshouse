@@ -223,7 +223,7 @@
 			<div class="container">
 				<div class="nav-depart">
 					<div class="depart-btn">
-						<i class="ti-menu"></i> <span>MY HOME</span>
+						<i class="ti-menu "></i> <span>&nbsp;&nbsp;카테고리</span>
 						<ul class="depart-hover">
 							<li><a
 								href="/store/commu/category/101?categoryName=고양이 / 사료">고양이</a></li>
@@ -299,8 +299,7 @@
 					<span onclick="closeSidebar()"
 						class="w3-button w3-display-topright w3-large">X</span> <br>
 					<div class="w3-padding w3-center">
-						<img class="w3-circle" src="img_avatar.jpg" alt="avatar"
-							style="width: 75%">
+						
 					</div>
 				</div>
 				<a class="w3-bar-item w3-button" href="#">Movies</a> <a
