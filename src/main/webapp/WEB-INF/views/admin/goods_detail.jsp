@@ -232,11 +232,10 @@ h2 {
 <input type="hidden" name="board_id" value="${goods.board_id}"> 
 				 
 		<div style="float: right">
-			<button type="button" id="modify_button" class="btn btn-warning"
-				onclick="modify_event();">수정</button>
-
+			 
 			<button type="button" id="delete_button" class="btn btn-warning"
 				onclick="button_event();">삭제</button>
+				
 		</div>
 						
 							<div class="col-lg-6">
@@ -566,7 +565,7 @@ h2 {
 		function button_event() {
 			if (confirm("정말 삭제하시겠습니까?") == true) { //확인
 				var board_id = $('#board_id').val();
-				var url = "/commu/tdelete/" + board_id;
+				var url = "/admin/goods_detail/" + board_id;
 				
 				$.ajax({
 					type : "DELETE",
@@ -588,12 +587,7 @@ h2 {
 			}
 		}
 
-		function modify_event() {
-			if (confirm("수정하시겠습니까?") == true) { //확인
-				location.href = '${pageContext.request.contextPath}/admin/board/modify_view?board_id=${goods.board_id}'
-			} else { //취소
-				return;
-			}
+	
 		}
 	</script>
 	<script>

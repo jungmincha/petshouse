@@ -89,6 +89,7 @@ public interface SnsMapper {
 	public List<ImageVO> imgCount(ImageVO imageVO);
 	public List<BoardVO> countComment(BoardVO boardVO);
 
+ 
 	public List<BoardVO> getSnsCatetotal(ImageVO imageVO);
-
+ 
 }

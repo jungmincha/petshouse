@@ -98,6 +98,16 @@
 
 }
 
+.clone{
+	position: absolute;
+	top: 80px;
+	right: 25px;	
+	opacity: 0.4;
+	font-size : 20px;
+	color : #fff
+
+}
+
 h5 {
 	padding-top : 15px;
 }
@@ -164,7 +174,7 @@ h5 {
 	
 		
 		<input type="hidden" name="keyword" value="${param.keyword}">
-		<div class="row"><h2>SNS</h2>&nbsp&nbsp<h5><b>'${param.keyword}'</b>에 대한 검색결과 </h5></div>
+		<div class="row"><h2>SNS</h2>&nbsp&nbsp<h5><b>&nbsp&nbsp-&nbsp'${param.keyword}'&nbsp</b>&nbsp과 관련된 게시글 </h5></div>
 
 
 			<div class="row ">
@@ -214,11 +224,11 @@ h5 {
 								src="/resources/img/member/profile/${sns.boardVO.memberVO.thumbnail}"
 								name="profile" alt="" class="profile" />
 						</div>
-						<div style="padding:7px"> ${sns.boardVO.memberVO.nickname } </div>
-					<a href="/myPage/${sns.boardVO.memberVO.nickname}" style="padding:7px;"> 팔로우</a>
-						 
-		
-					</div>
+						<div style="padding-top: 13px; padding-left: 7px;">${sns.boardVO.memberVO.nickname}</div>
+
+								<a href="/myPage/${sns.boardVO.memberVO.nickname}" style="padding-top: 13px; padding-left: 5px; color:#e7ab3c;"> · 팔로우</a>
+
+							</div>
 					 
 					<div class="shot">
 					<c:forEach items="${imgCount}" var = "imgCount">
@@ -228,10 +238,17 @@ h5 {
 						<a href="/commu/sns/${sns.boardVO.board_id}"> <img
 							src="/resources/img/member/sns/${sns.imgname }" alt=""
 							style="height: 300px;" class="card-img-top i" /><span class="count">조회수 ${sns.boardVO.hit}</span></a></div>
-						<div class="card-body">
-							 
-							좋아요${sns.boardVO.plike}//댓글수
-						</div>
+						<div class="card-body" style="font-size : 20px; ">
+							 	<a href="/commu/sns/${sns.boardVO.board_id}"> <i class="far fa-heart"></i>&nbsp&nbsp${sns.boardVO.plike}</a> 
+							 	&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+								<a href="/commu/sns/${sns.boardVO.board_id}"><i class="far fa-comment"></i>
+								<c:forEach items="${count}" var="count">  
+									 <c:if test="${count.pgroup eq sns.boardVO.board_id}">
+													
+														 ${count.count}
+									</c:if> </c:forEach></a>
+								
+								 </div>
 					 
 				</div>
 			</c:forEach>

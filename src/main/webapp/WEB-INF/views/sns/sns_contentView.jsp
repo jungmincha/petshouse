@@ -189,10 +189,7 @@ body {
 	padding-bottom : 5px;
 }
 
-a{
-font-size : 15px;
-
-}
+ 
 
 .pd {
 	position : absolute;
@@ -467,7 +464,7 @@ font-size : 15px;
 						</div>
 
 
-					<div style="padding-top: 30px; min-height: 95px;">
+					<div style="padding-top: 30px; padding-left: 20px;  min-height: 95px; font-size : 17px;">
 						${sns.content}</div>
 
 					<form action="${pageContext.request.contextPath}/commu/sns/hashtag"

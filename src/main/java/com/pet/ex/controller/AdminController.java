@@ -299,11 +299,11 @@ public class AdminController {
 		return mav;
 	}
 	
-	@DeleteMapping("/board/delete")
+	@GetMapping("/board/delete")
 	public ModelAndView boardDelete(@RequestParam("board_id") int board_id , BoardVO boardVO, ModelAndView mav)
 			throws Exception {
 
-		log.info("delete()실행");
+		log.info("deleteBoard()실행");
 		
 			service.boardDelete(boardVO.getGoodsVO().getGoods_id());
 

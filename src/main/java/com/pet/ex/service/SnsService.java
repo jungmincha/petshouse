@@ -82,8 +82,11 @@ public interface SnsService {
 	public List<BoardVO> getSnstag(String keyword);
 
 	public List<ImageVO> getsnsmoreList(Criteria cri);
-
+	
+	//카테고리별 SNS 조회
 	public List<ImageVO> getSnsCategory(ImageVO imageVO, Criteria cri);
+	//카테고리별 SNS 총 개수
+	public List<BoardVO> getSnsCatetotal(ImageVO imageVO);
 
 	public List<BoardVO> getCommentsList(int board_id, Criteria cri);
 
@@ -93,17 +96,13 @@ public interface SnsService {
 	//sns 총 갯수
 	public  int getSnstotal(BoardVO boardVO);
 
- 
- 
-
+  
 	public List<BoardVO> countComment(BoardVO boardVO);
 
 	public List<ImageVO> imgCount(ImageVO imageVO);
+	
 
-	public List<BoardVO> getSnsCatetotal(ImageVO imageVO);
-
- 
- 
+	 
 
 
  

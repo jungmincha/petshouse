@@ -253,4 +253,6 @@ public class SnsServiceImpl implements SnsService {
 			 
 			return mapper.countComment(boardVO);
 		}
+
+	 
 }

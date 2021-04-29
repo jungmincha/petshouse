@@ -179,10 +179,12 @@
 	</select>
 	
 	<!-- 카테고리별 SNS 총 개수 -->
-	<select id="getSnsCatetotal" resultType="BoardVO">
+	<select id="getSnsCatetotal" resultType="imageVO">
 	
 			<![CDATA[
+
 	       			select count(*) as count from board b, category c where boardtype_id=2 and c.category_id = b.category_id and b.category_id=#{boardVO.categoryVO.category_id} group by board_id
+
 	  		 ]]>
 	  		 
 	</select>
