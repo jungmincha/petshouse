@@ -294,9 +294,9 @@ function test(){
 
 	var location = $('.location').val();
 	console.log(location);
-	alert()
-	var member_id = $('.member_id').val();
-	console.log(member_id);
+	alert(location + "이 입력되었습니다");
+	var member_id = $('.nickname').val();
+	console.log(nickname);
 	url ="/map/insert_location"
 	
 	$.ajax({
@@ -305,7 +305,7 @@ function test(){
 		cache : false,
 		data : {
 			location : location,
-			member_id : member_id,
+			nickname : nickname,
 		},
 
 		success : function(result) {

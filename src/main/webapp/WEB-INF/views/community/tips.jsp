@@ -41,10 +41,7 @@
 <!-- jquery cdn -->
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<link rel="stylesheet" href="/resources/css/select-style.css"
-	type="text/css">
-<link rel="stylesheet" href="/resources/js/select-index.js"
-	type="text/css">
+
 
 <script>
 	//로그인 체크
@@ -107,9 +104,9 @@ border-radius:8px;
 
 		<!--인기노하우 슬라이드-->
 		<div class="filter-control">
-			<ul>
-				<li class="active">인기 노하우</li>
-			</ul>
+			 <div class="section-title">
+                  <h2 class="category">인기 노하우</h2>
+               </div>
 		</div>
 
 		<div class="product-slider owl-carousel" id="box">

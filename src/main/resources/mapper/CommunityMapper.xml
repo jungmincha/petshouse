@@ -453,7 +453,7 @@
 	<!-- 노하우, 질답 글 수정 -->
 	<select id="modify">
 		<![CDATA[
-			update board set title=#{title},content=#{content},hashtag=#{hashtag} where board_id = #{board_id}
+			update board set title=#{title},content=#{content},hashtag=#{hashtag}, category_id=#{categoryVO.category_id} where board_id = #{board_id}
 		]]>
 	</select>
 

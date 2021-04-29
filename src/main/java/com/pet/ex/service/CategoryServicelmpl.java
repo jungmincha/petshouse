@@ -1,9 +1,8 @@
 package com.pet.ex.service;
 
-import java.util.List; 
+import java.util.List;
 
 import org.springframework.stereotype.Service;
-
 
 import com.pet.ex.mapper.CategoryMapper;
 
@@ -13,7 +12,6 @@ import com.pet.ex.vo.GoodsVO;
 
 import lombok.AllArgsConstructor;
 
-
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -22,7 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 public class CategoryServicelmpl implements CategoryService {
 
 	CategoryMapper mapper;
-	
+
 	/*
 	 * @Override public List<GoodsVO> getGoods() {
 	 * 
@@ -31,7 +29,7 @@ public class CategoryServicelmpl implements CategoryService {
 
 	@Override
 	public List<CategoryVO> getCategory() {
-		
+
 		log.info("getCategory...");
 		return mapper.getCategory();
 	}
@@ -50,9 +48,9 @@ public class CategoryServicelmpl implements CategoryService {
 
 	@Override
 	public List<BoardVO> getSmallGoods(int getCategory_id) {
-	
+
 		log.info("getSmallGoods...");
-		
+
 		return mapper.getSmallGoods(getCategory_id);
 	}
 
@@ -66,7 +64,7 @@ public class CategoryServicelmpl implements CategoryService {
 	public List<BoardVO> gethighprice() {
 		log.info("gethighprice...");
 		return mapper.gethighprice();
-	
+
 	}
 
 	@Override
@@ -77,9 +75,7 @@ public class CategoryServicelmpl implements CategoryService {
 
 	@Override
 	public List<BoardVO> getshighprice(int category_id) {
-		
-		
-		
+
 		log.info("getshighprice(...");
 		return mapper.getshighprice(category_id);
 	}
@@ -97,9 +93,8 @@ public class CategoryServicelmpl implements CategoryService {
 	}
 
 	@Override
-	public List<BoardVO> getrowSmallGoods (int category_id) {
-		
-		
+	public List<BoardVO> getrowSmallGoods(int category_id) {
+
 		return mapper.getrowSmallGoods(category_id);
 	}
 
@@ -114,59 +109,61 @@ public class CategoryServicelmpl implements CategoryService {
 		// TODO Auto-generated method stub
 		return mapper.gethighstarGoods(category_id);
 	}
-	
-	//가격 낮은순(별점 리뷰 포함)
+
+	// 가격 낮은순(별점 리뷰 포함)
 	@Override
 	public List<BoardVO> getStoreRowrate() {
 		log.info("getStoreRowrate()...");
 		return mapper.getStoreRowrate();
 	}
-	//가격 높은순(별점 리뷰 포함)
+
+	// 가격 높은순(별점 리뷰 포함)
 	@Override
 	public List<BoardVO> getStoreHighrate() {
 		log.info("getStoreHighrate()...");
 		return mapper.getStoreHighrate();
 	}
-	//카테고리별 조회(별점 리뷰 포함)
+
+	// 카테고리별 조회(별점 리뷰 포함)
 	@Override
 	public List<BoardVO> getStoreSmallrate(int getCategory_id) {
 		log.info("getStoreSmallrate()...");
 		return mapper.getStoreSmallrate(getCategory_id);
 	}
-	//소분류 가격 낮은거 부터 조회(별점 리뷰 포함)
+
+	// 소분류 가격 낮은거 부터 조회(별점 리뷰 포함)
 	@Override
 	public List<BoardVO> getSmallPriceRowrate(int category_id) {
 		log.info("getSmallPriceRowrate()...");
 		return mapper.getSmallPriceRowrate(category_id);
 	}
-	//소분류 가격 높은거 부터 조회(별점 리뷰 포함)
+
+	// 소분류 가격 높은거 부터 조회(별점 리뷰 포함)
 	@Override
 	public List<BoardVO> getSmallPriceHightrate(int category_id) {
 		log.info("getSmallPriceHightrate()...");
 		return mapper.getSmallPriceHightrate(category_id);
 	}
-	//소분류 별점순(별점 리뷰 포함)
+
+	// 소분류 별점순(별점 리뷰 포함)
 	@Override
 	public List<BoardVO> getSmallhighStar(int category_id) {
 		log.info("getSmallhighStar()...");
 		return mapper.getSmallhighStar(category_id);
 	}
-	//리뷰 많은순(별점 리뷰 포함)
+
+	// 리뷰 많은순(별점 리뷰 포함)
 	@Override
 	public List<BoardVO> gethighReview() {
 		log.info("gethighReview()...");
 		return mapper.gethighReview();
 	}
-	//소분류 리뷰 많은순(별점 리뷰 포함)
+
+	// 소분류 리뷰 많은순(별점 리뷰 포함)
 	@Override
 	public List<BoardVO> getSmallhighReview(int category_id) {
 		log.info("getSmallhighReview()...");
 		return mapper.getSmallhighReview(category_id);
 	}
-
-	
-
-
-	
 
 }

@@ -84,15 +84,6 @@ table th {
 #navbars>li:nth-child(4) {
 	background-color: #e7ab3c;
 }
-
-@font-face {
-	font-family: "MY FONT";
-	src: url("/resources/fonts/Cafe24Ssurround.ttf")
-}
-
-span {
-	font-family: "MY FONT", serif;
-}
 </style>
 </head>
 
@@ -116,7 +107,11 @@ span {
 
 				</div>
 				<div class="col-md-4 text-right">
-					<h4>사용가능 포인트 : ${pointSum.sum} P</h4>
+					<h4>
+						사용가능 포인트 :
+						<fmt:formatNumber value="${pointSum.sum}" pattern="#,###" />
+						P
+					</h4>
 				</div>
 			</div>
 
@@ -174,10 +169,12 @@ span {
 									+ "</td>"
 							if (data.pointList[i].pscore < 0) {
 								html += "<td style='color: red;'>"
-										+ data.pointList[i].pscore + "</td>"
+										+ priceFormat(data.pointList[i].pscore)
+										+ "P</td>"
 							} else {
-								html += "<td>" + data.pointList[i].pscore
-										+ "</td>"
+								html += "<td>"
+										+ priceFormat(data.pointList[i].pscore)
+										+ "P</td>"
 							}
 							html += "</tr>"
 						}
@@ -241,6 +238,11 @@ span {
 		//var date = date.split("T");
 		//var date = date[0] + " " + date[1];
 		return returnDate;
+	}
+	// 숫자 콤마찍기
+	function priceFormat(n) {
+		var n = n.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+		return n;
 	}
 </script>
 <jsp:include page="/WEB-INF/views/include/footer.jsp" />

@@ -165,10 +165,7 @@ body::-webkit-scrollbar-track {
 					<!-- 글작성 폼 -->
 					<form action="/map/write_view" method="get">
 						<!-- 전달할 값들 -->
-						<input id="location" type="hidden" name="location"
-							value="${location}" /> <input type="hidden" id="member_id"
-							name="member_id"
-							value="<sec:authentication property="principal.member_id"/>">
+						<input id="location" type="hidden" name="location" value="${location}" /> 
 				
 
 
@@ -227,7 +224,7 @@ body::-webkit-scrollbar-track {
 											<br>							
 											<!-- 게시글 이미지 썸네일 -->			
 										
-											<a href="/map/board/${list.boardVO.board_id}?location=${location}&member_id=${member_id}">
+											<a href="/map/board/${list.boardVO.board_id}?location=${location}">
 											<img src="/resources/img/location/${list.imgname}" style="width: 780px; height: 450px; object-fit: cover; border-radius: 10px;">
 											
 											<br>	

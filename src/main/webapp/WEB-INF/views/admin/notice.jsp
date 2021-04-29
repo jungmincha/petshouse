@@ -65,7 +65,7 @@
 			 	</div> 
 			</sec:authorize>
 
-				<table class="table">
+				<table class="table" style="text-align:center;">
 					<thead>
 						<tr>
 							<th>번호</th>

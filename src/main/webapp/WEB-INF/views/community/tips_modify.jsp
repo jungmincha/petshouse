@@ -50,7 +50,20 @@
 		<form action="${pageContext.request.contextPath}/commu/tmodify" method="post" enctype="multipart/form-data">
 
 			<input type="hidden" name="board_id" value="${tips_view.board_id}" />
-			<input class="form-control" type="text" style=" margin-bottom: 20px;" name="title" value="${tips_view.title}" />
+			<div class="row">
+				<select class=" form-control col-2" name="categoryVO.category_id"
+					style="height: 38px; margin-left: 15px; margin-right:30px;">
+					<option value="${tips_view.categoryVO.category_id}">${tips_view.categoryVO.categoryname}</option>
+					<option value="1">고양이</option>
+					<option value="2">강아지</option>
+					<option value="3">파충류</option>
+					<option value="4">조류</option>
+					<option value="5">어류</option>
+					<option value="6">기타</option>
+				</select> 
+				<input type="text" class="form-control col-9" name="title"
+					value="${tips_view.title}" style="margin-bottom: 20px;">
+			</div>
 
 			
 

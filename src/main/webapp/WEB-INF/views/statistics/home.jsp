@@ -13,8 +13,7 @@
 <title>매출액 통계</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <!-- ChartJS -->
 <script src="/resources/AdminLTE-master/plugins/chart.js/Chart.min.js"></script>
@@ -43,12 +42,8 @@
 <!-- styles -->
 <link href="/resources/sidemenu/css/styles.css" rel="stylesheet">
 
-<style>
-.container {
-	text-align: center;
-	margin: auto;
-}
-</style>
+
+
 </head>
 <body style="padding-top: 180px">
 
@@ -288,6 +283,9 @@
 <script src="/resources/AdminLTE-master/dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="/resources/AdminLTE-master/dist/js/demo.js"></script>
+
+
+
 <script>
   var chart;
   

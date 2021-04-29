@@ -44,11 +44,7 @@
 <!-- styles -->
 <link href="/resources/sidemenu/css/styles.css" rel="stylesheet">
 
-<style>
-.container {
-	text-align: center;
-	margin: auto;
-}
+
 </style>
 </head>
 <body style="padding-top: 180px">

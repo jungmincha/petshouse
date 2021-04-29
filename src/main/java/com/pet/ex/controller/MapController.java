@@ -106,39 +106,39 @@ public class MapController {
 	
 	
 
-	// 펫츠타운 메인페이지
-	@RequestMapping("/board")
-	public ModelAndView board(String location , ModelAndView mav, Criteria cri, MemberVO memberVO,
-			BoardVO boardVO, ImageVO imageVO, PlikeVO plikeVO,  Authentication authentication ) {
-		
-		
-		
-	 // 명동 받아옴
-		System.out.println(location);
-		// 여기서도 홍제 2동 삽입됨
-		//boardVO.setMemberVO(memberVO);
-		System.out.println(memberVO.getLocation());
-	boardVO.setMemberVO(memberVO);
-		
-		
-		mav.addObject("list", service.getList(cri));
-		int total = service.getTotal(cri);
-		mav.addObject("pageMaker", new PageVO(cri, total));
-		mav.addObject("location", location);
-		
+		// 펫츠타운 메인페이지
+		@RequestMapping("/board")
+		public ModelAndView board(String location , ModelAndView mav, Criteria cri, MemberVO memberVO,
+				BoardVO boardVO, ImageVO imageVO, PlikeVO plikeVO,  Authentication authentication ) {
+			
+			
+			
+		 // 명동 받아옴
+			System.out.println(location);
+			// 여기서도 홍제 2동 삽입됨
+			//boardVO.setMemberVO(memberVO);
+			System.out.println(memberVO.getLocation());
+		boardVO.setMemberVO(memberVO);
+			
+			
+			mav.addObject("list", service.getList(cri));
+			int total = service.getTotal(cri);
+			mav.addObject("pageMaker", new PageVO(cri, total));
+			mav.addObject("location", location);
+			
 
-		
+			
 
-		// mav.addObject("image" );
-		mav.addObject("like_print", service.getLikeprint());
-		
-		mav.addObject("jsonList", JSONArray.fromObject(service.getList(cri)));
-		
-		
-		mav.setViewName("map/board");
-		
-		return mav;
-	}
+			// mav.addObject("image" );
+			mav.addObject("like_print", service.getLikeprint());
+			
+			mav.addObject("jsonList", JSONArray.fromObject(service.getList(cri)));
+			
+			
+			mav.setViewName("map/board");
+			
+			return mav;
+		}
 
 	// 글작성 양식
 	@GetMapping("/write_view")
@@ -221,36 +221,37 @@ public class MapController {
 	}
 
 	// 메인페이지에서 게시글 작성
-	@RequestMapping("/write") // 글작성 폼에서 정보입력(즉, insert)
-	public ModelAndView write(
+		@RequestMapping("/write") // 글작성 폼에서 정보입력(즉, insert)
+		public ModelAndView write(
 
-			String location, String member_id, ModelAndView mav, ImageVO imageVO, BoardVO boardVO,
-			MemberVO memberVO, Criteria cri, MultipartHttpServletRequest multi) throws Exception
+				String location, String member_id, ModelAndView mav, ImageVO imageVO, BoardVO boardVO,
+				MemberVO memberVO, Criteria cri, MultipartHttpServletRequest multi) throws Exception
 
-	{
-		log.info("write");
+		{
+			log.info("write");
 
-		MemberVO member = new MemberVO();
-		boardVO.setMemberVO(member);
-		boardVO.getMemberVO().setLocation(location);
-		boardVO.getMemberVO().setMember_id(member_id);
+			MemberVO member = new MemberVO();
+			boardVO.setMemberVO(member);
+			boardVO.getMemberVO().setLocation(location);
+			boardVO.getMemberVO().setMember_id(member_id);
 
 
-		service.write(boardVO);
+			service.write(boardVO);
 
-		mav.addObject("list", service.getList(cri));
+			mav.addObject("list", service.getList(cri));
 
-		int total = service.getTotal(cri);
+			int total = service.getTotal(cri);
 
-		mav.addObject("pageMaker", new PageVO(cri, total));
+			mav.addObject("pageMaker", new PageVO(cri, total));
 
-		memberVO.setLocation(location);
+			memberVO.setLocation(location);
 
-		service.insertLoc(memberVO);
+			service.insertLoc(memberVO);
 
-		mav.addObject("location", location);
+			mav.addObject("location", location);
 
-		mav.addObject("member_id", member_id);
+			mav.addObject("member_id", member_id);
+
 	
 
 		// 사진 업로드

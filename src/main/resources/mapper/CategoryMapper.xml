@@ -185,7 +185,7 @@
 
 
 
-	<!-- 전체 상품을  조회해서 뿌려주는 mapper -->
+	<!-- 전체 상품을 조회해서 뿌려주는 mapper -->
 	<select id="getboard" resultMap="boardvo"> 
      <![CDATA[ 
  
@@ -205,25 +205,28 @@ g.thumbnail, c.code
                     from board b, goods g where b.goods_id=g.goods_id and b.boardtype_id=8 group by g.goods_id, g.goodsname ,g.price,g.thumbnail      
 	   ]]>
 	</select>
-	
-	
-<!-- 카테고리별 리뷰 별점 mapper -->
+
+
+	<!-- 카테고리별 리뷰 별점 mapper -->
 	<select id="getStoreSmallrate" resultMap="boardvo">
 		<![CDATA[
 	              select round(avg(ratescore),1) as avgscore, count(*) as count, g.goods_id , g.goodsname, g.price, g.thumbnail
                     from board b, goods g where b.goods_id=g.goods_id and b.boardtype_id=8 and g.category_id = #{g.category_id} group by g.goods_id, g.goodsname ,g.price,g.thumbnail      
 	   ]]>
 	</select>
-	
-	
+
+
 	<!-- 가격 낮은순(별점 리뷰 포함) mapper -->
 	<select id="getStoreRowrate" resultMap="boardvo">
 		<![CDATA[
-	              select round(avg(ratescore),1) as avgscore, count(*) as count, g.goods_id , g.goodsname, g.price, g.thumbnail
-                    from board b, goods g where b.goods_id=g.goods_id and b.boardtype_id=8 group by g.goods_id, g.goodsname ,g.price,g.thumbnail order by g.price asc      
-	   ]]>
+		select g.goods_id , g.goodsname,g.price,g.thumbnail ,round(avg(ratescore),1) as avgscore, count(*) as count
+		  
+		from board b, goods g where b.goods_id=g.goods_id and b.boardtype_id=8
+		group by g.goods_id, g.goodsname ,g.price,g.thumbnail order by g.price
+		asc
+ 		]]>
 	</select>
-	
+
 	<!-- 가격 높은순(별점 리뷰 포함) mapper -->
 	<select id="getStoreHighrate" resultMap="boardvo">
 		<![CDATA[
@@ -231,9 +234,9 @@ g.thumbnail, c.code
                     from board b, goods g where b.goods_id=g.goods_id and b.boardtype_id=8 group by g.goods_id, g.goodsname ,g.price,g.thumbnail order by g.price desc    
 	   ]]>
 	</select>
-	
-	
-	
+
+
+
 
 	<!-- 별점 높은순 mapper -->
 	<select id="gethighStar" resultMap="boardvo"> 
@@ -244,7 +247,7 @@ g.thumbnail, c.code
 	
 	]]>
 	</select>
-	
+
 	<!-- 리뷰 많은순 mapper -->
 	<select id="gethighReview" resultMap="boardvo"> 
      <![CDATA[ 
@@ -254,10 +257,10 @@ g.thumbnail, c.code
 	
 	]]>
 	</select>
-	
-	
-	
-	
+
+
+
+
 	<!-- 소분류 별점 높은순 mapper -->
 	<select id="getSmallhighStar" resultMap="boardvo"> 
      <![CDATA[ 
@@ -267,9 +270,9 @@ g.thumbnail, c.code
 	
 	]]>
 	</select>
-	
-	
-<!-- 소분류 별점 높은순 mapper -->
+
+
+	<!-- 소분류 별점 높은순 mapper -->
 	<select id="getSmallhighReview" resultMap="boardvo"> 
      <![CDATA[ 
 	 select round(avg(ratescore),1) as avgscore, count(*) as count, g.goods_id , g.goodsname, g.price, g.thumbnail
@@ -282,7 +285,7 @@ g.thumbnail, c.code
 
 
 	<!-- 카테고리 가격 낮은순 mapper -->
-<select id="getSmallPriceRowrate" resultMap="boardvo">
+	<select id="getSmallPriceRowrate" resultMap="boardvo">
 		<![CDATA[
 	              select round(avg(ratescore),1) as avgscore, count(*) as count, g.goods_id , g.goodsname, g.price, g.thumbnail
                     from board b, goods g where b.goods_id=g.goods_id and b.boardtype_id=8 and g.category_id = #{g.category_id} group by g.goods_id, g.goodsname ,g.price,g.thumbnail 
@@ -290,8 +293,8 @@ g.thumbnail, c.code
 	   ]]>
 	</select>
 
-<!-- 카테고리 가격 높은순 mapper -->
-<select id="getSmallPriceHightrate" resultMap="boardvo">
+	<!-- 카테고리 가격 높은순 mapper -->
+	<select id="getSmallPriceHightrate" resultMap="boardvo">
 		<![CDATA[
 	              select round(avg(ratescore),1) as avgscore, count(*) as count, g.goods_id , g.goodsname, g.price, g.thumbnail
                     from board b, goods g where b.goods_id=g.goods_id and b.boardtype_id=8 and g.category_id = #{g.category_id} group by g.goods_id, g.goodsname ,g.price,g.thumbnail 
@@ -315,7 +318,7 @@ g.thumbnail, c.code
 
 
 
-<!-- category 상품에 대한 낮은 가격순 -->
+	<!-- category 상품에 대한 낮은 가격순 -->
 	<select id="getrowprice" resultMap="boardvo"> 
      <![CDATA[ 
 	 	select  g.goodsname,b.pdate ,b.board_id ,g.goods_id, g.price,g.thumbnail,
@@ -327,24 +330,20 @@ g.thumbnail, c.code
 
 	<select id="getshighprice" resultMap="boardvo"> 
      <![CDATA[ 
-	
 	 select g.thumbnail, g.goods_id, g.goodsname, TO_CHAR(g.price,'99,999') as price, b.board_id , pdate , g.category_id from board b, goods g 
 	 where b.goods_id=g.goods_id and b.boardtype_id=3
   	and g.category_id=#{g.category_id} ORDER BY price desc
-	
 	]]>
 	</select>
 
-
-
-<!-- 소분류 상품에 대한 낮은 가격순 -->
+	<!-- 소분류 상품에 대한 낮은 가격순 -->
 	<select id="getrowSmallGoods" resultMap="boardvo"> 
      <![CDATA[ 
 		 select g.thumbnail, g.goods_id, g.goodsname, TO_CHAR(g.price,'99,999') as price, b.board_id , g.category_id from board b, goods g 
 		 where b.goods_id=g.goods_id and b.boardtype_id=3 and g.category_id= #{g.category_id} ORDER BY price asc
     ]]>
 	</select>
-	
+
 	<!-- 소분류 상품에 대한 높은 가격순 -->
 	<select id="gethighSmallGoods" resultMap="boardvo"> 
      <![CDATA[ 
@@ -354,7 +353,7 @@ g.thumbnail, c.code
 	</select>
 
 
-<!-- 소분류 상품에 대한 높은 별점 -->
+	<!-- 소분류 상품에 대한 높은 별점 -->
 	<select id="gethighstarGoods" resultMap="boardvo"> 
      <![CDATA[ 
 		 select g.thumbnail, g.goods_id, g.goodsname, TO_CHAR(g.price,'99,999') as price, b.board_id , g.category_id from board b, goods g 
