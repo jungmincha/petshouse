@@ -11,7 +11,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Insert title here</title>
+<title>카테고리</title>
 
 <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -349,12 +349,39 @@ span.star-prototype>* {
 				</div>
 
 			</c:forEach>
+			
 		</div>
+
+	<!-- 페이징 -->
+		<%-- <div class="ul">
+			<ul class="pagination justify-content-center"
+				style="padding-bottom: 50px; padding-top: 50px;">
+				<c:if test="${pageMaker.prev}">
+					<li class="page-item"><a class="page-link"
+						href="home${pageMaker.makeQuery(pageMaker.startPage - 1) }">
+							Previous</a></li>
+				</c:if>
+
+				<c:forEach begin="${pageMaker.startPage }"
+					end="${pageMaker.endPage }" var="idx">
+					<c:out value="${pageMaker.cri.pageNum == idx?'':''}" />
+					<li class="page-item"><a class="page-link"
+						href="home${pageMaker.makeQuery(idx)}">${idx}</a></li>
+				</c:forEach>
+
+				<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
+					<li class="page-item"><a class="page-link"
+						href="home${pageMaker.makeQuery(pageMaker.endPage +1) }">Next</a></li>
+				</c:if>
+			</ul>
+		</div> --%>
+
 
 
 	</div>
 	<!-- container end -->
-
+	
+	
 
 
 	<!-- Footer -->

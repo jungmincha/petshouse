@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>펫츠타운</title>
 
 
 <style>
@@ -261,12 +261,13 @@
 							</div>
 							</div>
 							
-									
+							<input type="hidden" name="location2" class = "location2" value="">  
+							
 							<form action="/map/board" method="get">
 									<div class="row">
 									<div class="col-lg-12">
 									
-									<!-- <input type="hidden" name="location" value="">  -->
+									 
 									<sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
 										<%-- <input type="hidden" name="location" value="<sec:authentication property="principal.location"/>"> --%>
 									<input type="hidden" name="member_id" class = "member_id" value="<sec:authentication property="principal.member_id"/>">
@@ -275,7 +276,7 @@
 								 	
 											</sec:authorize>
 										<button type="submit" class="site-btn"style="font-size: 20px;" >계속 하기</button>
-													<button type="button" onclick="test()" class="site-btn"style="font-size: 20px;" >위치 입력</button>
+										<!-- <button type="button" onclick="test()" class="site-btn"style="font-size: 20px;" >위치 입력</button> -->
 									</div>
 								</div>
 							</form>
@@ -292,11 +293,11 @@
 function test(){
 	
 
-	var location = $('.location').val();
+	var location = $('.location2').val();
 	console.log(location);
 	alert(location + "이 입력되었습니다");
-	var member_id = $('.nickname').val();
-	console.log(nickname);
+	var member_id = $('.member_id').val();
+	console.log(member_id);
 	url ="/map/insert_location"
 	
 	$.ajax({
@@ -305,7 +306,7 @@ function test(){
 		cache : false,
 		data : {
 			location : location,
-			nickname : nickname,
+			member_id : member_id,
 		},
 
 		success : function(result) {

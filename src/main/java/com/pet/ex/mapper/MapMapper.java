@@ -86,6 +86,8 @@ public interface MapMapper {
 	public List<BoardVO> getcommentsList(Criteria cri, int board_id);
 	//댓글 카운트
 	public int qcount(int board_id);
+	//현재 장소
+	public String getPresetnLocation(String member_id);
 
 
 

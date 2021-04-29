@@ -79,9 +79,10 @@ public class MapController {
 	  ResponseEntity<String> entity = null; log.info("insert_location");
 	 
 	  try {
+		  
 	  
 	  service.insertLoc(memberVO); // 홍제 2동 삽입된
-	  
+	 System.out.println(memberVO.getLocation());
 	  
 	  entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK); } catch
 	  (Exception e) { e.printStackTrace();
@@ -108,24 +109,28 @@ public class MapController {
 
 		// 펫츠타운 메인페이지
 		@RequestMapping("/board")
-		public ModelAndView board(String location , ModelAndView mav, Criteria cri, MemberVO memberVO,
+		public ModelAndView board(String location , String member_id ,ModelAndView mav, Criteria cri, MemberVO memberVO,
 				BoardVO boardVO, ImageVO imageVO, PlikeVO plikeVO,  Authentication authentication ) {
 			
-			
-			
+			//String member_id = authentication.getPrincipal().toString();
+			String present_location = service.getPresetnLocation(member_id);//현재 닉네임
+			memberVO.setLocation(present_location);
 		 // 명동 받아옴
-			System.out.println(location);
+		//	System.out.println(location);
 			// 여기서도 홍제 2동 삽입됨
 			//boardVO.setMemberVO(memberVO);
 			System.out.println(memberVO.getLocation());
-		boardVO.setMemberVO(memberVO);
+			System.out.println("현재 당신의 위치는?" + present_location);
+			boardVO.setMemberVO(memberVO);
 			
-			
+		
+			System.out.println(memberVO.getLocation());
+			service.insertLoc(memberVO);
 			mav.addObject("list", service.getList(cri));
 			int total = service.getTotal(cri);
 			mav.addObject("pageMaker", new PageVO(cri, total));
 			mav.addObject("location", location);
-			
+			mav.addObject("member_id", member_id);
 
 			
 

@@ -373,28 +373,24 @@
 			location.href = "/login/login";
 		}
 
-		location.href = "/map/home";
-		/* var location_security = document.getElementById("location_security").value;
-		var member_id = document.getElementById("member_id").value;
+		var location_security = document.getElementById("location_security").value;
+		var nickname = document.getElementById("member_id").value;
 		//var location = document.getElementById("location").value; 
 		console.log(location_security);
 
-		if (location_security != null) {
+		if (location_security == 'null') {
+
+			location.href = "/map/home";
+
+		} else {
 
 			location.href = "/map/board?location=" + location_security
-			+ "&member_id=" + member_id;
+					+ "&member_id=" + member_id;
 
 			console.log(location_security);
 			console.log(member_id);
 
-			
-
-		} else{
-			
-			location.href = "/map/home";
-
-			
-		} */
+		}
 
 	}
 	function openSidebar() {
