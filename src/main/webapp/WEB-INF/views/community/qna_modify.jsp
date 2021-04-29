@@ -36,21 +36,7 @@
 #navbars>li:nth-child(2) {
    background-color: #e7ab3c;
 }
-body::-webkit-scrollbar {
-    width: 10px;
-  }
-body::-webkit-scrollbar-thumb {
-    background-color: #666666;
-    border-radius: 10px;
-    background-clip: padding-box;
-    border: 2px solid transparent;
-  }
-body::-webkit-scrollbar-track {
-    background-color: #CCCCCC;
-    border-radius: 10px;
-    box-shadow: inset 0px 0px 5px white;
-  }
-  
+
   textarea::-webkit-scrollbar {
     width: 10px;
   }
@@ -65,6 +51,7 @@ textarea::-webkit-scrollbar-track {
     border-radius: 10px;
     box-shadow: inset 0px 0px 5px white;
   }
+
 </style>
 </head>
 
@@ -75,13 +62,23 @@ textarea::-webkit-scrollbar-track {
 
 	<div class="container" style="width: 800px;">
 
-    <h4> 글 수정하기</h4>
+    <h4 style=" margin-bottom:30px;"> 글 수정하기</h4>
 		<form action="${pageContext.request.contextPath}/commu/modify"
 			method="post">
 			<input type="hidden" name="board_id" value="${qna_view.board_id}" />
-			<div >
-				
-			<input type="text" class="form-control col-12" style=" margin-top:30px;margin-bottom: 20px;"  name="title"value="${qna_view.title}" />
+			<div class="row">
+				<select class=" form-control col-2" name="categoryVO.category_id"
+					style="height: 38px; margin-left: 15px; margin-right:30px;">
+					<option value="${qna_view.categoryVO.category_id}">${qna_view.categoryVO.categoryname}</option>
+					<option value="1">고양이</option>
+					<option value="2">강아지</option>
+					<option value="3">파충류</option>
+					<option value="4">조류</option>
+					<option value="5">어류</option>
+					<option value="6">기타</option>
+				</select> 
+				<input type="text" class="form-control col-9" name="title"
+					value="${qna_view.title}" style="margin-bottom: 20px;">
 			</div>
 			<textarea class="form-control col" name="content"
 				style="width: 800px; height: 400px; margin-bottom: 20px; resize: none;" value="${qna_view.content}">${qna_view.content}</textarea>
