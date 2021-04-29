@@ -101,11 +101,7 @@ public class AdminServiceImpl implements AdminService {
 		mapper.goodsDelete(goods_id);
 	}
 
-//	@Override
-//	public void fileUpload(String imgname) {
-//		 
-//		mapper.fileUpload(imgname);
-//	}
+ 
 
 	/* 상품게시글관리 */
 
@@ -121,6 +117,14 @@ public class AdminServiceImpl implements AdminService {
 		mapper.boardInput(boardVO);
 	 
 
+	}
+	
+	@Override
+	public void boardDelete(int goods_id) {
+		
+		
+		mapper.imgboardDelete(goods_id);
+		mapper.boardDelete(goods_id);
 	}
 
 	 
@@ -307,12 +311,7 @@ public class AdminServiceImpl implements AdminService {
 	      return mapper.getReviewImg(board_id);
 	   }
 
-	@Override
-	public void boardDelete(int goods_id) {
-		
-		mapper.imgDelete(goods_id);
-		mapper.boardDelete(goods_id);
-	}
+	
 	   
 
 }

@@ -48,7 +48,8 @@ public interface AdminService {
 	public void detailInput(ImageVO imageVO);
 	public void updateCheck(BoardVO boardVO);
 	
-	
+	//상품 게시글 삭제
+	public void boardDelete(int goods_id);
 	
 	//상품 게시글 상세조회
 	public BoardVO getBoard(int board_id);
@@ -114,7 +115,7 @@ public interface AdminService {
 	public List<BoardVO> getReviewList(BoardVO boardVO, Criteria cri);
 	public ImageVO getReviewImg(int board_id);
 	
-	public void boardDelete(int board_id);
+	
 
 
 }

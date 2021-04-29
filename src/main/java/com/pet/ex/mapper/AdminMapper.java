@@ -135,6 +135,8 @@ public interface AdminMapper {
 		// 리뷰 리스트
 		public List<BoardVO> getReviewList(BoardVO boardVO, Criteria cri);
 
+		public void imgboardDelete(int board_id);
+
 	
 
 	

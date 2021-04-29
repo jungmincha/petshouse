@@ -299,16 +299,26 @@ public class AdminController {
 		return mav;
 	}
 	
-	@GetMapping("/board/delete")
-	public ModelAndView boardDelete(@RequestParam("board_id") int board_id , BoardVO boardVO, ModelAndView mav)
-			throws Exception {
+	@DeleteMapping("/board/{goods_id}")
+	public ResponseEntity<String> boardDelete(BoardVO boardVO, ModelAndView mav) {
+			 
 
-		log.info("deleteBoard()실행");
-		
+		ResponseEntity<String> entity = null;
+		log.info("boardDelete");
+
+		try {
+			
 			service.boardDelete(boardVO.getGoodsVO().getGoods_id());
 
-			mav.setView(new RedirectView("/store/home", true));
-			return mav;
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+
+		return entity;
+
 
 	}
 
@@ -376,7 +386,7 @@ public class AdminController {
 		return entity;
 	}
 
-	/////////////////////////////////////////////////////////
+
 	// 공지사항
 	// 공지사항 리스트 출력
 	@RequestMapping("/notice")

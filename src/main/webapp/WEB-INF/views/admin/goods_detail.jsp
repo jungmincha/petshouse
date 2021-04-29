@@ -56,8 +56,8 @@
       var goods = new Object();
       goods.board_id = '${goods.board_id}';
       goods.amount = parseInt($("#amount").val());
-      goods.psize = $(".activeSize").text();
-      goods.pcolor = $(".activeColor").text();
+      goods.psize = $(".activeSize").val();
+      goods.pcolor = $(".activeColor").val();
       console.log(goods);
       cart.push(goods);
       console.log(cart);
@@ -72,6 +72,16 @@
    
 </script>
 <style>
+
+select {
+
+      text-align-last: center; 
+      text-align: center; 
+      -ms-text-align-last: center; 
+      -moz-text-align-last: center;
+
+    }
+    
 .profile_box {
 	width: 30px;
 	height: 30px;
@@ -150,6 +160,8 @@ h2 {
 	height: 150px;
 }
 
+
+
  
 
 .imgList {
@@ -210,6 +222,13 @@ h2 {
 	margin-left: 28px;
 	margin-top: 1px;
 }
+
+.pt{
+	 width: 140px;
+ 	 height: 150px;
+	 object-fit: cover;
+
+}
 </style>
 
 </head>
@@ -230,12 +249,12 @@ h2 {
 
 				<div class="col-lg-12">
 <input type="hidden" name="board_id" value="${goods.board_id}"> 
-				 
+<input type="hidden" name="goods_id" value="${goods.goodsVO.goods_id}"> 				 
 		<div style="float: right">
-			 
+			 <sec:authorize access="hasAnyRole('ROLE_ADMIN')">
 			<button type="button" id="delete_button" class="btn btn-warning"
 				onclick="button_event();">삭제</button>
-				
+				</sec:authorize>
 		</div>
 						
 							<div class="col-lg-6">
@@ -248,17 +267,16 @@ h2 {
 									</div>
 								</div>
 								<div class="product-thumbs">
-									<div class="product-thumbs-track ps-slider owl-carousel">
+									<div class="product-thumbs-track ps-slider owl-carousel ">
 										<div class="pt active"
 											data-imgbigurl="/resources/img/admin/goods/${goods.goodsVO.thumbnail}">
-											<img
-												src="/resources/img/admin/goods/${goods.goodsVO.thumbnail}"
-												width="1270" alt="">
+											<img src="/resources/img/admin/goods/${goods.goodsVO.thumbnail}" style="width:140px;  height: 150px; object-fit: cover;"
+												   alt="">
 										</div>
 										<c:forEach var="goods" items="${img}">
 											<div class="pt"
 												data-imgbigurl="/resources/img/admin/board/${goods.imgname}">
-												<img src="/resources/img/admin/board/${goods.imgname}"
+												<img src="/resources/img/admin/board/${goods.imgname}" style="width:140px; height: 150px; object-fit: cover;"
 													alt="">
 											</div>
 										</c:forEach>
@@ -317,57 +335,47 @@ h2 {
 									</div>
 
 
-									<div
-										style="min-height: 120px; padding-top: 115px; float: fixed;">
+									<div style=" min-height : 200px; padding-top: 52px; float: fixed;">
 										<c:if test="${not empty goods.goodsVO.pcolor}">
 											<div class="pd-color-choose">
-												<c:set var="pcolor" value="${goods.goodsVO.pcolor}" />
-												<c:set var="color" value="${fn:split(pcolor, ',')}" />
-												<c:forEach var="c" items="${color}">
-													<div class="color-item">
-														<input id="pcolor" type="radio" name="pcolor" value="${c}" />
-														<label for="pcolor">${c} </label>
-													</div>
-												</c:forEach></div>
+												<select class="form-control" id="pcolor" name="pcolor" style="width:200px;" > 
+													<c:set var="pcolor" value="${goods.goodsVO.pcolor}" />
+													<c:set var="color" value="${fn:split(pcolor, ',')}" />
+													<c:forEach var="c" items="${color}">
+													 	<option value="${c}">${c}</option>
+													 </c:forEach>
+												</select>
+											</div>
 										</c:if>
 
 
 
 										<script type="text/javascript">
-                              $(".pd-color-choose .color-item label")
-                                    .on(
-                                          'click',
+                             				 $(".pd-color-choose .color-item label").on('click',
                                           function() {
-                                             $(
-                                                   ".pd-color-choose .color-item label")
-                                                   .removeClass(
-                                                         'activeColor');
-                                             $(this).addClass(
-                                                   'activeColor');
+                                             $(".pd-color-choose .color-item label").removeClass('activeColor');
+                                             $(this).addClass('activeColor');
                                           });
-                           </script>
+                          				 </script>
 
 										<c:if test="${not empty goods.goodsVO.psize}">
 											<div class="pd-size-choose">
-												<c:set var="psize" value="${goods.goodsVO.psize}" />
-												<c:set var="size" value="${fn:split(psize, ',')}" />
-												<c:forEach var="s" items="${size}">
-													<div class="sc-item">
-														<input type="radio" id="psize" name="psize" value="${s}" />
-														<label for="size">${s}</label>
-													</div>
-												</c:forEach>
+											 	<select class="form-control" id="pcolor" name="pcolor"  style="width:200px;" > 
+													<c:set var="psize" value="${goods.goodsVO.psize}" />
+													<c:set var="size" value="${fn:split(psize, ',')}" />
+													<c:forEach var="s" items="${size}">
+														 <option value="${s}">${s}</option>
+													</c:forEach>
+												</select>
 											</div>
 										</c:if>
 
-										<div class="quantity" style="float: fixed;">
+										<div class="quantity" style="position : absolute; top:500px; ">
 											<div class="pro-qty">
 												<span class="dec qtybtn">-</span> <input id="amount"
 													type="text" value="1"> <span class="inc qtybtn">+</span>
-
 											</div>
-											<div onclick="inputCart()" class="primary-btn pd-cart"
-												style="cursor: pointer;">Add To Cart</div>
+											<div onclick="inputCart()" class="primary-btn pd-cart" style="cursor: pointer;">Add To Cart</div>
 
 										</div>
 									</div>
@@ -396,7 +404,7 @@ h2 {
 										<div class="col-lg-7">
 
 
-											<img src="/resources/img/file/cat1.jpg" alt="">
+											${goods.content}
 
 										</div>
 									</div>
@@ -564,8 +572,8 @@ h2 {
 	<script type="text/javascript">
 		function button_event() {
 			if (confirm("정말 삭제하시겠습니까?") == true) { //확인
-				var board_id = $('#board_id').val();
-				var url = "/admin/goods_detail/" + board_id;
+				var goods_id = $('#goods_id').val();
+				var url = "/admin/board/" + goods_id;
 				
 				$.ajax({
 					type : "DELETE",
