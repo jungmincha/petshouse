@@ -247,25 +247,18 @@
 		]]>
 	</update>
 
-	<!-- 상품관련 게시글 삭제 -->
-	<!-- <delete id="reviewDelete" parameterType="boardvo"> <![CDATA[ delete 
-		from board where goods_id = #{goods_id} where boardtype_id=8 ]]> </delete> -->
-	<delete id="imgDelete" parameterType="imagevo">
-	   <![CDATA[
-	     	delete from image where goods_id = #{goods_id} 
-	   ]]>
-	</delete>
-	
-	<delete id="boardDelete" parameterType="boardvo">
-	   <![CDATA[
-	     	delete from board where goods_id = #{goods_id} 
-	   ]]>
-	</delete>
-
+	<!-- 상품 삭제 -->
+	  
 	<delete id="goodsDelete" parameterType="goodsvo">
+	
 	   <![CDATA[
-	     	delete from goods where goods_id = #{goods_id}
+	   		BEGIN
+	  	    delete from image where goods_id = #{goods_id};
+	   		delete from board where goods_id = #{goods_id};
+	     	delete from goods where goods_id = #{goods_id};
+	     	END;
 	   ]]>
+	   
 	</delete>
 
 	<!-- 상품게시글관리 -->
@@ -346,7 +339,18 @@
     ]]>
 	</select>
 
- 
+ 	<!-- 상품게시글 삭제 -->
+	  
+	<delete id="boardDelete" parameterType="imagevo">
+	
+	   <![CDATA[
+	   		BEGIN
+	  	    delete from image where goods_id = #{goodsVO.goods_id};
+	   		delete from board where goods_id = #{goodsVO.goods_id};
+	     	END;
+	   ]]>
+	   
+	</delete>
 
 
 

@@ -96,8 +96,7 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public void goodsDelete(int goods_id) {
 
-		mapper.imgDelete(goods_id);
-		mapper.boardDelete(goods_id);
+		 
 		mapper.goodsDelete(goods_id);
 	}
 
@@ -123,7 +122,7 @@ public class AdminServiceImpl implements AdminService {
 	public void boardDelete(int goods_id) {
 		
 		
-		mapper.imgboardDelete(goods_id);
+	 
 		mapper.boardDelete(goods_id);
 	}
 

@@ -34,6 +34,8 @@
 <link
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
 	rel="stylesheet">
+<!-- jquery cdn -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 
 
@@ -249,7 +251,7 @@ h2 {
 
 				<div class="col-lg-12">
 <input type="hidden" name="board_id" value="${goods.board_id}"> 
-<input type="hidden" name="goods_id" value="${goods.goodsVO.goods_id}"> 				 
+<input type="hidden" name="goodsVO.goods_id" value="${goods.goodsVO.goods_id}"> 				 
 		<div style="float: right">
 			 <sec:authorize access="hasAnyRole('ROLE_ADMIN')">
 			<button type="button" id="delete_button" class="btn btn-warning"
@@ -565,15 +567,14 @@ h2 {
 
 	</section>
 	<!-- Product Shop Section End -->
-
-	<script>
+ 
 	
 	<!-- 수정 삭제 경고창 -->
 	<script type="text/javascript">
 		function button_event() {
 			if (confirm("정말 삭제하시겠습니까?") == true) { //확인
-				var goods_id = $('#goods_id').val();
-				var url = "/admin/board/" + goods_id;
+				var board_id = $('#board_id').val();
+				var url = "/admin/board/" + board_id;
 				
 				$.ajax({
 					type : "DELETE",
@@ -596,7 +597,7 @@ h2 {
 		}
 
 	
-		}
+		
 	</script>
 	<script>
 $(function(){
