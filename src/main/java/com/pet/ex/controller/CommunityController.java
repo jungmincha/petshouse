@@ -121,6 +121,21 @@ public class CommunityController {
 		log.info("tips_pet()실행");
 		return list;
 	}
+	
+
+	//  카테고리별 조회
+	@PostMapping("/tips/category/{boardVO.categoryVO.category_id}")
+	public ModelAndView tipscategoryList(ImageVO imageVO, BoardVO boardVO, Criteria cri, ModelAndView mav) {
+		log.info("tips_categoryList");
+		System.out.println(imageVO.getBoardVO().getCategoryVO().getCategory_id());
+
+		mav.addObject("catetips", service.getTipsCategory(imageVO,cri));
+		mav.addObject("catetipsTotal", service.getTipsCatetotal(imageVO));
+		mav.setViewName("community/tips_category");
+		
+		return mav;
+	}
+	
 
 	// 노하우 글쓰기 페이지
 	@GetMapping("/tips/write")
@@ -541,7 +556,7 @@ public class CommunityController {
     public void postCKEditorImgUpload(HttpServletRequest req, HttpServletResponse res, @RequestParam MultipartFile upload) throws Exception {
      log.info("post CKEditor img upload");
      String uploadPath = req.getSession().getServletContext().getRealPath("/static/img/tips");
-   
+     uploadPath = uploadPath.replace("webapp", "resources");
      System.out.println("uploadPath  : "+uploadPath);
      // 랜덤 문자 생성
      UUID uid = UUID.randomUUID();

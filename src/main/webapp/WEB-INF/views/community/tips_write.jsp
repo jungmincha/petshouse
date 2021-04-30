@@ -127,7 +127,7 @@ margin-top:20px;
 
 					//CKEDITOR.replace와 id("description")를 잘 적어주면 그 태그가 smart editor 스타일로 바뀌게 된다. 
 					 
-					    filebrowserUploadUrl : '${pageContext.request.contextPath}/tips/write'
+					    filebrowserUploadUrl : '${pageContext.request.contextPath}/commu/ckUpload'
 
 					//파일을 업로드 해야하기 때문에 filebrowserUploadUrl을 사용하고, 서버쪽에 코드를 완성해주어야 한다.
 

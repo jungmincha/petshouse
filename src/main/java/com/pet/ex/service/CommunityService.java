@@ -129,5 +129,11 @@ public interface CommunityService {
 	//board테이블의 plike 숫자 감소
 	public void deleteplike(BoardVO boardVO);
 
+	/*
+	 * public List<ImageVO> getTipsCategory(ImageVO imageVO, Criteria cri);
+	 * 
+	 * public List<BoardVO> getTipsCatetotal(ImageVO imageVO);
+	 */
+
 	
 }

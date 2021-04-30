@@ -60,7 +60,31 @@
 		
 	});
 </script>
+<script type="text/javascript">
+	function fire_ajax_submit(id) {
+		console.log(id);
+		var category_id = id;
+		var form = {
+			category_id : category_id
+		};
+		var url = "/commu/tips/category/" + category_id;
 
+		$.ajax({
+			type : "POST",
+			contentType : 'application/json; charset=utf-8',
+			url : url,
+			data : JSON.stringify(form),
+			cache : false,
+			success : function(data) {
+				console.log("SUCCESS : ", data);
+				$('#input').html(data);
+			},
+			error : function(e) {
+				console.log("ERROR : ", e);
+			}
+		});
+	}
+</script>
 <style>
 #navbars>li:nth-child(2) {
 	background-color: #e7ab3c;
@@ -128,7 +152,39 @@ border-radius:8px;
 		</div>
 		<!--인기 노하우 슬라이드 end -->
 
+	<div class="row ">
+				<div class="col-sm-2">
+					<a href="#" onclick="fire_ajax_submit(1);"> <img
+						src="/resources/img/category/cat.jpg"></a>
+				</div>
 
+				<div class="col-sm-2">
+					<a href="#" onclick="fire_ajax_submit(2);"> <img
+						src="/resources/img/category/dog.jpg"></a>
+				</div>
+
+				<div class="col-sm-2">
+					<a href="#" onclick="fire_ajax_submit(3);"> <img
+						src="/resources/img/category/reptile.jpg"></a>
+				</div>
+
+				<div class="col-sm-2">
+					<a href="#" onclick="fire_ajax_submit(4);"> <img
+						src="/resources/img/category/bird.jpg"></a>
+				</div>
+
+				<div class="col-sm-2">
+					<a href="#" onclick="fire_ajax_submit(5);"> <img
+						src="/resources/img/category/fish.jpg"></a>
+				</div>
+
+				<div class="col-sm-2">
+					<a href="#" onclick="fire_ajax_submit(6);"> <img
+						src="/resources/img/category/other.jpg"></a>
+				</div>
+			</div>
+
+			<!-- Category Section End -->
 		<!-- 동물 카테고리, 글쓰기 버튼 -->
 	<div style="padding-top:30px; margin-bottom:110px; ">
 		

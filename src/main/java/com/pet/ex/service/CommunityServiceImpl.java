@@ -317,5 +317,15 @@ public class CommunityServiceImpl implements CommunityService {
 		 
 		return mapper.countComment(boardVO);
 	}
+	
 
-}
+	
+	/*
+	 * @Override public List<BoardVO> getTipsCatetotal(ImageVO imageVO) {
+	 * 
+	 * return mapper.getTipsCatetotal(imageVO); }
+	 * 
+	 * @Override public List<ImageVO> getTipsCategory(ImageVO imageVO, Criteria cri)
+	 * { log.info("getTipsCategory"); return mapper.getTipsCategory(imageVO, cri); }
+	 * }
+	 */}
