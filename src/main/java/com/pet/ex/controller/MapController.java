@@ -301,7 +301,7 @@ public class MapController {
 	// 게시글 수정
 	@RequestMapping("/modify") // 글작성 폼에서 정보수정(즉, update)
 	public ModelAndView modify(String location, String member_id, ModelAndView mav, ImageVO imageVO,
-			BoardVO boardVO, MemberVO memberVO, Criteria cri, MultipartHttpServletRequest multi) throws Exception
+			BoardVO boardVO, MemberVO memberVO, Criteria cri) throws Exception
 
 	{
 		log.info("modify");
