@@ -74,6 +74,7 @@
 .filebox img {
 	border-radius: 70%;
 }
+
 #address-btn {
 	color: #ffffff;
 }
@@ -81,11 +82,13 @@
 #address-btn:hover {
 	color: #e7ab3c;
 }
+
 label:hover {
 	color: #e7ab3c;
 }
-#register-btn:hover{
-	color:white;
+
+#register-btn:hover {
+	color: white;
 	background-color: orange;
 }
 </style>
@@ -103,15 +106,15 @@ label:hover {
 				<div class="col-lg-6 offset-lg-3">
 					<div class="register-form">
 						<div class="section-title">
-							<h2 style="margin-bottom: 20px; font-size: 30px;">회원가입</h2><br>
+							<h2 style="margin-bottom: 20px; font-size: 30px;">회원가입</h2>
+							<br>
 						</div>
 
-						<form action="/login/register/insert" method="post" id="myForm"
-							enctype="multipart/form-data">
+						<form action="/login/register/insert" method="post" id="myForm" enctype="multipart/form-data">
+							
 							<div class="filebox text-center">
 
-
-								<img style="width: 200px; height: 200px; " id="preview-image"
+								<img style="width: 200px; height: 200px;" id="preview-image"
 									name="preview-image" class="profile_box"
 									src="/resources/img/member/profile/profile.jpg"> <br>
 								<br> <label for="thumbnail"
@@ -183,7 +186,6 @@ label:hover {
 									class="form-control" id="category"
 									name="categoryVO.category_id" style="font-size: 16px">
 									<c:forEach items="${category}" var="category">
-
 										<option value="${category.category_id}">${category.categoryname }</option>
 									</c:forEach>
 
@@ -192,8 +194,9 @@ label:hover {
 
 							<input type="hidden" name="logintypeVO.logintype_id" value="1">
 							<input type="hidden" name="roleVO.role_id" value="1">
-							<button id="register-btn" type="submit" class="site-btn register-btn"
-								style="font-size: 15pt" onclick="check()">가입완료</button>
+							<button id="register-btn" type="submit"
+								class="site-btn register-btn" style="font-size: 15pt"
+								onclick="check()">가입완료</button>
 						</form>
 						<br>
 						<div class="switch-login">
@@ -212,7 +215,6 @@ label:hover {
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 
 </body>
-
 <script>
 	//아이디 입력란에 keyup 이벤트가 일어 났을때 실행할 함수 등록 
 	$("#member_id")

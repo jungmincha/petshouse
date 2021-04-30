@@ -18,10 +18,9 @@
 		<sec:authentication property="principal" var="member" />
 		<form id="email_form">
 			<input type="text" name="certify" value="${member.certify}">
-			<input type="hidden" name="member_id" value="${member.member_id}"> <input
-				type="hidden" name="name" value="${member.name}">
+			<input type="hidden" name="member_id" value="${member.member_id}">
+			<input type="hidden" name="name" value="${member.name}">
 		</form>
-
 	</sec:authorize>
 
 	<button id="email_send_buttton">이메일 인증하기</button>

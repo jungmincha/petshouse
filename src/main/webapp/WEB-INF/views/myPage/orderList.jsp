@@ -602,6 +602,7 @@ a>span {
 																	+ data.pay[i - 1].payGoodsVO[j].amount
 																	+ "</span>"
 																	+ "</div> <div class='col-lg-3'  style='text-align: right;'> <br>"
+																	
 																	if(data.pay[i-1].paystateVO.paystate_id==5){
 																		html += "<span style='font-size: 20px'><button class='pBtn' id='myBtn' onclick='modals("+data.pay[i - 1].payGoodsVO[j].boardVO.goodsVO.goods_id+" ,\""+data.pay[i - 1].payGoodsVO[j].boardVO.goodsVO.thumbnail+"\",\""+data.pay[i-1].payGoodsVO[j].boardVO.goodsVO.goodsname+"\", "+data.pay[i-1].paystateVO.paystate_id+" , \""+option+"\")'>리뷰 작성</button></span>"
 																	}
@@ -610,6 +611,7 @@ a>span {
 																	if(j < data.pay[i-1].payGoodsVO.length-1){
 																		html += "<div class='col-lg-12'><br></div>"
 																	}
+																	
 														}
 														
 														html +="</div>"	
@@ -629,7 +631,7 @@ a>span {
 										$("#orderList").append(html);
 									}, //ajax 성공 시 
 									error : function(request, status, error) {
-										
+										console.log(error);
 									} // ajax 에러 시 end
 
 								});

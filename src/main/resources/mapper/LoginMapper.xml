@@ -11,13 +11,11 @@
 	<resultMap type="LoginTypeVO" id="logintypevo">
 		<result column="logintype_id" property="logintype_id" />
 		<result column="logintypename" property="logintypename" />
-
 	</resultMap>
 
 	<resultMap type="CategoryVO" id="categoryvo">
 		<result column="category_id" property="category_id" />
 		<result column="categoryname" property="categoryname" />
-
 	</resultMap>
 
 	<resultMap type="MemberVO" id="membervo">
@@ -89,17 +87,20 @@
 	<!-- 로그인 성공시 비밀번호 틀린횟수 초기화 -->
 	<update id="updateResetTryCount" parameterType="String">
 		<![CDATA[
+		
 		UPDATE member
 		SET
 		trycount = 0
 		WHERE
 		member_id = #{member_id}
-			]]>
+		
+		]]>
 	</update>
 
 	<!-- 회원가입 insert -->
 	<insert id="insertMember" parameterType="MemberVO">
-			<![CDATA[
+		<![CDATA[
+		
 		insert into member
 		(
 		member_id

@@ -147,9 +147,11 @@
 	<!-- 장바구니에 담긴 상품목록 가져오기 -->
 	<select id="getBoard" parameterType="String" resultMap="boardvo">
 		<![CDATA[
+		
 		select *
 		from board b, goods g where board_id=#{board_id} and
 		b.goods_id=g.goods_id
+		
 		 ]]>
 	</select>
 
@@ -175,10 +177,10 @@
 	<!-- 최신 결제정보를 가져옴(1개) -->
 	<select id="getPay_id" parameterType="String" resultMap="payvo">
 		<![CDATA[
+		
 		select *
-		from (select * from pay where member_id=#{memberVO.member_id} order
-		by
-		paydate desc) where rownum=1
+		from (select * from pay where member_id=#{memberVO.member_id} order by 	paydate desc) where rownum=1
+	
 		]]>
 	</select>
 
@@ -193,7 +195,6 @@
 		paygoods_seq.nextval,
 		#{pay_id}
 		,#{boardVO.board_id},#{amount},#{psize},#{pcolor}
-
 		)
 		]]>
 	</insert>
@@ -227,28 +228,42 @@
 
 	<!-- 총 결제 내역 갯수 가져오기 -->
 	<select id="getPayTotal" resultType="int">
-		<![CDATA[ select count(*) from pay where member_id = #{member_id} ]]>
+		<![CDATA[ 
+		
+		select count(*) from pay where member_id = #{member_id}
+		
+		]]>
 	</select>
 
 	<!-- 결제 상태별 갯수 가져오기 -->
 	<select id="getPaystateTotal" resultType="int">
-		<![CDATA[ select count(*) from pay where member_id = #{member_id} and paystate_id=#{paystate_id} ]]>
+		<![CDATA[ 
+		
+		select count(*) from pay where member_id = #{member_id} and paystate_id=#{paystate_id} 
+		
+		]]>
 	</select>
 
 	<!-- payGoods리스트 가져오기 -->
 	<select id="listPayGoods" resultMap="paygoodsvo">
-		<![CDATA[ select * from payGoods p, board b, goods g where p.board_id=b.board_id and pay_id=#{pay_id} and b.goods_id=g.goods_id ]]>
+		<![CDATA[ 
+		
+		select * from payGoods p, board b, goods g where p.board_id=b.board_id and pay_id=#{pay_id} and b.goods_id=g.goods_id
+		
+		]]>
 	</select>
 
 	<!-- 결제 상태별 주문 리스트 -->
 	<select id="listPaystateOrder" resultMap="payvo">
 		<![CDATA[
+		
 		select * from (
-		select rownum rnum, a.*
+		
 		from (select * from pay order by paydate desc) a where rownum <=
 		#{cri.pageNum} * #{cri.amount} and member_id=#{member_id} and
 		paystate_id=#{paystate_id}
 		) where rnum > (#{cri.pageNum}-1) * #{cri.amount}
+		
 		]]>
 	</select>
 

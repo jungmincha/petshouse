@@ -63,7 +63,6 @@
 								<div class="col-md-6">
 									<div class="ci-text">
 
-
 										<span>결제번호 / 결제일자</span>
 										<p>${pay.pay_id}&nbsp;/&nbsp;${payDetail.data.purchased_at}</p>
 
@@ -116,7 +115,6 @@
 										        배송비 : 0원
 										    	</c:otherwise>
 
-
 											</c:choose>
 
 										</p>
@@ -148,13 +146,16 @@
 										<p class="pi">
 
 											<c:choose>
-												<c:when
+											
+												<c:when								
 													test="${payDetail.data.payment_data.card_quota eq 00}">
 													        일시불
-													    </c:when>
+												</c:when>
+												
 												<c:otherwise>
      														  ${payDetail.data.payment_data.card_quota}개월
-   														 </c:otherwise>
+   												</c:otherwise>
+   												
 											</c:choose>
 										</p>
 

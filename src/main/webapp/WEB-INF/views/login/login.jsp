@@ -5,8 +5,6 @@
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 
-
-
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -141,8 +139,6 @@
 		var _top = Math.ceil(( window.screen.height - 350 )/2);
 		window.open("/popup/pwfindPopup.jsp", "pop",
 					"width=500,height=350, scrollbars=yes, resizable=yes, left="+_left+", top="+_top);
-		
-
 	}
 </script>
 <!-- Js Plugins -->

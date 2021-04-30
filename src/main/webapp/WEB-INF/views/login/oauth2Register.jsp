@@ -5,7 +5,7 @@
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
-<html lang="zxx">
+<html>
 
 <head>
 <meta charset="UTF-8">
@@ -81,6 +81,7 @@
 .filebox img {
 	border-radius: 70%;
 }
+
 #address-btn {
 	color: #ffffff;
 }
@@ -88,11 +89,13 @@
 #address-btn:hover {
 	color: #e7ab3c;
 }
+
 label:hover {
 	color: #e7ab3c;
 }
-#register-btn:hover{
-	color:white;
+
+#register-btn:hover {
+	color: white;
 	background-color: orange;
 }
 </style>
@@ -110,11 +113,13 @@ label:hover {
 				<div class="col-lg-6 offset-lg-3">
 					<div class="register-form">
 						<div class="section-title">
-							<h2 style="margin-bottom: 20px; font-size: 30px;">SNS 간편회원가입</h2><br>
+							<h2 style="margin-bottom: 20px; font-size: 30px;">SNS 간편회원가입</h2>
+							<br>
 						</div>
 						<h2 style="font-size: 13pt">추가 정보를 입력해주세요</h2>
-						<form action="/login/register/insert" method="post"
-							id="myForm" enctype="multipart/form-data">
+						<form action="/login/register/insert" method="post" id="myForm"
+							enctype="multipart/form-data">
+
 
 							<input type="hidden" name="member_id"
 								value="<sec:authentication property='principal.member_id'/>">
@@ -124,16 +129,12 @@ label:hover {
 
 							<input type="hidden" name="name"
 								value="<sec:authentication property='principal.name' />">
-							<input type="hidden" name="socialCheck"
-								value="1">
+							<input type="hidden" name="socialCheck" value="1">
 							<div class="filebox">
-
-
+							
 								<img style="width: 200px; height: 200px;" id="preview-image"
-									name="preview-image" class="profile_box"
-									>
-
-								<br> <br> <label for="thumbnail"
+									name="preview-image" class="profile_box"> <br> <br>
+								<label for="thumbnail"
 									style="font-size: 17px; text-align: center; font-weight: bold;">수정하기</label>
 								<label
 									style="font-size: 17px; text-align: center; font-weight: bold;"
@@ -144,8 +145,7 @@ label:hover {
 									<input type="file" class="custom-file-input" id="thumbnail"
 										name="file" multiple="multiple" style="display: block;">
 								</div>
-								<input type="hidden" name="thumbnail" id="thumbnail2"
-									value="">
+								<input type="hidden" name="thumbnail" id="thumbnail2" value="">
 							</div>
 							<div class="group-input">
 								<label class="control-label" for="nickname">닉네임</label> <input
@@ -164,7 +164,7 @@ label:hover {
 								<label class="control-label" for="address">주소</label>
 								<div class="input-group mb-3">
 									<div class="input-group-prepend">
-											<input id="address-btn" type="button" class="form-control"
+										<input id="address-btn" type="button" class="form-control"
 											onClick="goPopup();" value="주소검색"
 											style="font-size: 10pt; background-color: #000000; font-weight: bold" />
 									</div>
@@ -189,8 +189,10 @@ label:hover {
 								value="<sec:authentication property='principal.logintypeVO.logintype_id'/>">
 							<input type="hidden" name="roleVO.role_id" value="1"> <input
 								type="hidden" name="certify" value="Y">
-							<button id="register-btn" type="submit" class="site-btn register-btn"
-								style="font-size: 15pt" onclick="check()">가입완료</button>
+							<button id="register-btn" type="submit"
+								class="site-btn register-btn" style="font-size: 15pt"
+								onclick="check()">가입완료</button>
+								
 						</form>
 						<br>
 						<div class="switch-login">
@@ -354,8 +356,8 @@ label:hover {
          previewImage.src = "/resources/img/member/profile/profile.jpg";
          $("#thumbnail2").val("profile.jpg");
         $("#thumbnail").val(""); 
-		
 	}
+	
 	$(document).ready(function(){
 		defaultImage();
 	})

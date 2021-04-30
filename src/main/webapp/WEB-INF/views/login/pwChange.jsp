@@ -51,6 +51,7 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
 <style>
+
 .email-btn {
 	border: 1px solid;
 	background-color: #e7ab3c;
@@ -62,6 +63,7 @@
 .email-btn:hover {
 	background-color: orange;
 }
+
 </style>
 <body>
 	<br>
@@ -73,7 +75,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-6 offset-lg-3">
-					<div class="register-form ㅅㄷㅌ">
+					<div class="register-form ">
 						<form action="/login/passwordChange/change" method="post"
 							id="myForm">
 							<input type="hidden" name="member_id" value="${member_id}" />
