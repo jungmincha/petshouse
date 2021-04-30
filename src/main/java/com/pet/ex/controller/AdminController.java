@@ -345,6 +345,19 @@ public class AdminController {
 		return mav;
 
 	}
+	
+	@PostMapping("/rmorelist")
+	public Map<String, Object> review(@RequestParam("goods_id") int goods_id, BoardVO boardVO,Criteria cri) {
+		log.info("reviewmorelist");
+		boardVO.getGoodsVO().setGoods_id(goods_id);
+		System.out.println(boardVO.getGoodsVO().getGoods_id());
+		Map<String, Object> list = new HashMap<>();
+		List<BoardVO> review = service.getReviewList(boardVO, cri);
+		list.put("review", review);
+		list.put("one", service.getRateone(boardVO.getGoodsVO().getGoods_id()));
+		return list;
+	}
+	
 
 	// 회원 목록 조회
 	@GetMapping("/member_list")
