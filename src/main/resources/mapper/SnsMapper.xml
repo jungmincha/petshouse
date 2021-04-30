@@ -78,18 +78,15 @@
 
 	<!-- SNS 게시글 삭제(이미지,게시글) -->
 	
-	<delete id="deleteImg" parameterType="imagevo">
-	
-	   		<![CDATA[
-	     		delete from image where board_id = #{board_id} 
-	   		]]>
-	   		
-	</delete>
-
 	<delete id="deleteBoard" parameterType="boardvo">
 	
 	  		 <![CDATA[
-	     		delete from board where board_id = #{board_id}
+	  		 	BEGIN
+	  		 	delete from plike where board_id = #{board_id};
+	  		 	delete from image where board_id = #{board_id};
+	  		 	delete from board where pstep=1 and pgroup = #{board_id};
+	     		delete from board where board_id = #{board_id};
+					  	
 	  		 ]]>
 	  		 
 	</delete>

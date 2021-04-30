@@ -123,7 +123,6 @@ public class SnsServiceImpl implements SnsService {
 	@Override
 	public void deleteSns(int board_id) {
 
-		mapper.deleteImg(board_id);
 		mapper.deleteBoard(board_id);
 
 	}

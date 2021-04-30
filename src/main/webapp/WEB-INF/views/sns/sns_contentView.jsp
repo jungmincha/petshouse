@@ -185,27 +185,22 @@ body {
 
 .likeamount {
 	color: black;
-	font-size : 18px;
-	padding-bottom : 5px;
+	font-size: 18px;
+	padding-bottom: 5px;
 }
-
- 
 
 .pd {
-	position : absolute;
+	position: absolute;
 	float: right;
-	top : 10px;
-	right:15px;
-	 
+	top: 10px;
+	right: 15px;
 }
 
-.more{
-
-	min-height:10px;
+.more {
+	min-height: 10px;
 	float: right;
- 	color : #e7ab3c;
+	color: #e7ab3c;
 	font-size: 15px;
-
 }
 </style>
 <script>
@@ -265,9 +260,7 @@ body {
 							style="padding-top: 7px; padding-left: 7px; font-size: 17px;">
 							${sns.memberVO.nickname}</p>
 
-						<div class="pdate pd">
-							${sns.pdate}
-						</div>
+						<div class="pdate pd">${sns.pdate}</div>
 
 					</div>
 
@@ -281,11 +274,13 @@ body {
 						</div>
 					</c:forEach>
 
-						<c:forEach items="${imgCount}" var = "imgCount">
-					 <c:if test="${imgCount.boardVO.board_id eq sns.board_id and imgCount.count > 1}"> 
-					<a class="prev" onclick="plusSlides(-1)">❮</a> <a class="next"
-						onclick="plusSlides(1)">❯</a>
-						</c:if></c:forEach> 
+					<c:forEach items="${imgCount}" var="imgCount">
+						<c:if
+							test="${imgCount.boardVO.board_id eq sns.board_id and imgCount.count > 1}">
+							<a class="prev" onclick="plusSlides(-1)">❮</a>
+							<a class="next" onclick="plusSlides(1)">❯</a>
+						</c:if>
+					</c:forEach>
 
 
 
@@ -298,42 +293,44 @@ body {
 								<input type="hidden" id="board_id" value="${board_id}" />
 							</div>
 						</div>
-						 
-						
-						<div class="row col-lg-12" style="padding-left:20px;">
-							 
+
+
+						<div class="row col-lg-12" style="padding-left: 20px;">
+
 							<!-- 본인이 좋아요 누른 게시글이 아닌 경우 좋아요 버튼 발생 이미 눌렀던 경우는 좋아요 취소버튼 발생하게 구현해야 할것!-->
 							<div class="row">
-							
-							
-							<c:if test="${likecheck == 0}">
-								<div class="col-lg-12">
-									<a href="javascript:void(0);" class="like"
-										style="cursor: hand;" onclick="like();"><img
-										src="/resources/img/location/before_like.png"
-										style="width: 41px; "></a>
-									
 
-								</div>
-							</c:if>
 
-							<c:if test="${likecheck != 0}">
-								<div class="col-lg-12">
-									<a href="javascript:void(0);" class="likecancel"
-										style="cursor: hand;" onclick="likecancel();"><img
-										src="/resources/img/location/after_like.png"
-										style="width:41px;"></a>
-										
-								</div>
-							</c:if>
-							<div class="profile-info_follow-state row  ">
-							
-								<div class="profile-info" ></div>
+								<c:if test="${likecheck == 0}">
+									<div class="col-lg-12">
+										<a href="javascript:void(0);" class="like"
+											style="cursor: hand;" onclick="like();"><img
+											src="/resources/img/location/before_like.png"
+											style="width: 41px;"></a>
+
+
+									</div>
+								</c:if>
+
+								<c:if test="${likecheck != 0}">
+									<div class="col-lg-12">
+										<a href="javascript:void(0);" class="likecancel"
+											style="cursor: hand;" onclick="likecancel();"><img
+											src="/resources/img/location/after_like.png"
+											style="width: 41px;"></a>
+
+									</div>
+								</c:if>
+								<div class="profile-info_follow-state row  ">
+
+									<div class="profile-info"></div>
 									<a href="#likeModal" class="like_amount" data-toggle="modal"
-									style="float: right; padding-left:5px; font-size:17px;">  ${like_amount}  </a>
+										style="float: right; padding-left: 5px; font-size: 17px;">
+										${like_amount} </a>
+								</div>
+
 							</div>
-						
-						</div></div>
+						</div>
 						<!-- row col-lg-12 end -->
 					</div>
 					<!-- profile-info end -->
@@ -439,9 +436,13 @@ body {
 								<!-- Modal body -->
 								<div class="likelist modal-body row">
 									<c:forEach items="${likelist}" var="likelist">
-										<div class="profile_box" style="margin-left:15px;"><a href="/myPage/${likelist.memberVO.nickname}">
-										<img src="/resources/img/member/profile/${likelist.memberVO.thumbnail}" name="profile"   class="profile" />
-										</div><div style="padding-top:10px;">${likelist.memberVO.nickname}</div></a>
+										<div class="profile_box" style="margin-left: 15px;">
+											<a href="/myPage/${likelist.memberVO.nickname}"> <img
+												src="/resources/img/member/profile/${likelist.memberVO.thumbnail}"
+												name="profile" class="profile" />
+										</div>
+										<div style="padding-top: 10px;">${likelist.memberVO.nickname}</div>
+										</a>
 									</c:forEach>
 								</div>
 
@@ -458,13 +459,14 @@ body {
 					<!-- like list Modal end -->
 
 					<div class="row user_info"></div>
-				<div style="float: right;">
+					<div style="float: right;">
 
-							<span style="color: gray"> 조회수 ${sns.hit}</span>
-						</div>
+						<span style="color: gray"> 조회수 ${sns.hit}</span>
+					</div>
 
 
-					<div style="padding-top: 30px; padding-left: 20px;  min-height: 95px; font-size : 17px;">
+					<div
+						style="padding-top: 30px; padding-left: 20px; min-height: 95px; font-size: 17px;">
 						${sns.content}</div>
 
 					<form action="${pageContext.request.contextPath}/commu/sns/hashtag"
@@ -500,7 +502,7 @@ body {
 
 						<div class="archive-posts">
 
-							<div class="row" style="padding-top:50px; min-height:200px;">
+							<div class="row" style="padding-top: 50px; min-height: 200px;">
 								<div class="profile_box2">
 									<img
 										src="/resources/img/member/profile/${sns.memberVO.thumbnail}"
@@ -508,22 +510,28 @@ body {
 								</div>
 								<h4 style="padding-top: 30px; padding-left: 15px;">${sns.memberVO.nickname}</h4>
 								<a href="/myPage/${sns.memberVO.nickname}"
-									style="padding-top: 33px; font-size : 16px; color:#e7ab3c;"> &nbsp 팔로우 </a>
+									style="padding-top: 33px; font-size: 16px; color: #e7ab3c;">
+									&nbsp 팔로우 </a>
 							</div>
 
 
 
 						</div>
-						<br><div class="col-lg-4 more"><a href="/myPage/sns?nickname=${sns.memberVO.nickname}" style="color:#e7ab3c;" >더보기</a></div><br>
-						
-						
+						<br>
+						<div class="col-lg-4 more">
+							<a href="/myPage/sns?nickname=${sns.memberVO.nickname}"
+								style="color: #e7ab3c;">더보기</a>
+						</div>
+						<br>
+
+
 						<div class="recent-posts">
-							
+
 							<ul>
-									
+
 								<c:forEach var="user" items="${user}">
-									<a href="/commu/sns/${user.boardVO.board_id}"> 
-									<img src="/resources/img/member/sns/${user.imgname}" class="recent"></a>
+									<a href="/commu/sns/${user.boardVO.board_id}"> <img
+										src="/resources/img/member/sns/${user.imgname}" class="recent"></a>
 								</c:forEach>
 
 							</ul>
@@ -535,7 +543,14 @@ body {
 								<sec:authentication property="principal" var="buttonhidden" />
 								<sec:authorize access="isAuthenticated()">
 								</sec:authorize>
-
+								<!-- 관리자에게만 작성버튼 띄우기 -->
+								<sec:authorize access="hasAnyRole('ROLE_ADMIN')">
+									 
+									<button type="button" id="delete_button"
+										class="btn btn-warning" onclick="button_event();">삭제</button>
+										
+								</sec:authorize>
+								<!-- 관리자에게만 작성버튼 띄우기 end-->
 								<!-- 현재 접속된 닉네임과 댓글보드에 저장된 닉네임을 비교해서 일치 하면 보이게 함 -->
 								<c:if test="${buttonhidden.nickname eq sns.memberVO.nickname}">
 
@@ -576,7 +591,7 @@ body {
 			<div>
 				<div>
 					<h5>
-						<strong id="count">댓글 ${count} </strong>			 
+						<strong id="count">댓글 ${count} </strong>
 					</h5>
 				</div>
 				<div>

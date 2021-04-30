@@ -1,4 +1,4 @@
-package com.pet.ex.controller;
+ package com.pet.ex.controller;
 
 import java.io.File;
 import java.io.IOException;
@@ -299,7 +299,7 @@ public class AdminController {
 		return mav;
 	}
 	
-	@DeleteMapping("/board/{goods_id}")
+	@DeleteMapping("/board/{board_id}")
 	public ResponseEntity<String> boardDelete(BoardVO boardVO, ModelAndView mav) {
 			 
 
