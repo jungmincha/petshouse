@@ -51,7 +51,7 @@ public class SnsController {
 		log.info("sns");
 
 		mav.addObject("list", service.getsnsList(cri));
-
+		
 		mav.addObject("imgCount", service.imgCount(imageVO));
 		mav.addObject("count", service.countComment(boardVO));
 		mav.addObject("snsTotal", service.getSnstotal(boardVO));

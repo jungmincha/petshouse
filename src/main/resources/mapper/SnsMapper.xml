@@ -176,7 +176,7 @@
 	</select>
 	
 	<!-- 카테고리별 SNS 총 개수 -->
-	<select id="getSnsCatetotal" resultType="imageVO">
+	<select id="getSnsCatetotal" resultType="int">
 	
 			<![CDATA[
 
