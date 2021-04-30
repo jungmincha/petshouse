@@ -199,12 +199,12 @@
    <![CDATA[
      select * from(
 	        select rownum as rnum, A.*from (
-			select i.imgname, b.board_id, b.title, substr(b.content, 1, 10) as content, b.pdate,b.hit, m.thumbnail,b.pgroup,b.pstep, b.hashtag, m.member_id, m.nickname, b.boardtype_id, c.category_id, c.categoryname 
+			select i.imgname, b.board_id, b.title, substr(b.content, 1, 10) as content,b.plike, b.pdate,b.hit, m.thumbnail,b.pgroup,b.pstep, b.hashtag, m.member_id, m.nickname, b.boardtype_id, c.category_id, c.categoryname 
 			from  board b , member m, category c, image i
 			where b.member_id = m.member_id
 			and b.board_id=i.board_id
 			and b.category_id =  c.category_id
-    		and b.boardtype_id= 5 and b.pstep=0 order by hit desc	 
+    		and b.boardtype_id= 5 and b.pstep=0 order by b.plike desc	 
     		  ) A where rownum <= 10
 	      )where rnum > 0 			
    ]]>
@@ -419,7 +419,7 @@
 	<!--노하우, 질답 글 삭제 -->
 	<delete id="delete">
 		<![CDATA[
-			delete from board where board_id = #{board_id} 
+			delete from board where pgroup=#{board_id} 
 		]]>
 	</delete>
 

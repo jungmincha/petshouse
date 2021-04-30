@@ -147,8 +147,8 @@
 	<!-- 이미지 업로드 -->
 	<insert id="uploadFile">
 	 <![CDATA[
-    INSERT INTO
-       IMAGE(imgname, board_id, goods_id) VALUES (#{imgname}, 357, 119)
+	    INSERT INTO
+	       IMAGE(imgname, board_id, goods_id) VALUES (#{imgname}, 357, 119)
 	 ]]>
 	</insert>
 

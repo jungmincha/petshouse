@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>펫츠타운</title>
 
 <!-- bootstrap css cdn -->
 <link rel="stylesheet"
@@ -249,12 +249,12 @@ body::-webkit-scrollbar-track {
 				<!-- </article> -->
     			
     			<!-- 페이징 -->
-		<div class="ul">
+		<%-- <div class="ul">
 			<ul class="pagination justify-content-center"
 				style="padding-bottom: 50px; padding-top: 50px;">
 				<c:if test="${pageMaker.prev}">
 					<li class="page-item"><a class="page-link"
-						href="qna${pageMaker.makeQuery(pageMaker.startPage - 1) }">
+						href="board${pageMaker.makeQuery(pageMaker.startPage - 1) }">
 							Previous</a></li>
 				</c:if>
 
@@ -262,15 +262,15 @@ body::-webkit-scrollbar-track {
 					end="${pageMaker.endPage }" var="idx">
 					<c:out value="${pageMaker.cri.pageNum == idx?'':''}" />
 					<li class="page-item"><a class="page-link"
-						href="qna${pageMaker.makeQuery(idx)}">${idx}</a></li>
+						href="board${pageMaker.makeQuery(idx)}">${idx}</a></li>
 				</c:forEach>
 
 				<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
 					<li class="page-item"><a class="page-link"
-						href="qna${pageMaker.makeQuery(pageMaker.endPage +1) }">Next</a></li>
+						href="board${pageMaker.makeQuery(pageMaker.endPage +1) }">Next</a></li>
 				</c:if>
 			</ul>
-		</div>
+		</div> --%>
 
 
 

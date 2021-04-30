@@ -27,6 +27,7 @@ public class MapServiceImpl implements MapService {
 	@Override
 	public List<ImageVO>getList(Criteria cri) {
 	log.info("getList...");
+	//cri.setAmount(5);
 		return mapper.getList(cri);
 	}
 
@@ -303,6 +304,14 @@ public class MapServiceImpl implements MapService {
 	public int qcount(int board_id) {
 		log.info("qcount...");
 		return mapper.qcount(board_id);
+	}
+
+
+	//현재 장소
+	@Override
+	public String getPresetnLocation(String member_id) {
+		log.info("getPresetnLocation...");
+		return mapper.getPresetnLocation(member_id);
 	}
 
 

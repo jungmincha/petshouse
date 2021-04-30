@@ -188,19 +188,28 @@
 	<!-- 전체 상품을 조회해서 뿌려주는 mapper -->
 	<select id="getboard" resultMap="boardvo"> 
      <![CDATA[ 
- 
+  
 	 		  	select  g.goodsname,b.pdate ,b.board_id ,g.goods_id, g.price,g.thumbnail,
                 c.code from board b, goods g, category c  where b.goods_id=g.goods_id 
                 and g.category_id=c.category_id and c.code=c.code and b.boardtype_id=3 group by g.goodsname, b.pdate, b.board_id, g.goods_id, g.price, 
-g.thumbnail, c.code
+				g.thumbnail, c.code
+				
 		    
  
 	]]>
 	</select>
 
+	<select id="getTotal" resultType="int">
+    <![CDATA[	
+		select count(*) from board where boardtype_id= 3 and pstep=0
+	]]>
+	</select>
+
+
 	<!-- 리뷰 별점 mapper -->
 	<select id="getStorerate" resultMap="boardvo">
 		<![CDATA[
+		
 	              select round(avg(ratescore),1) as avgscore, count(*) as count, g.goods_id , g.goodsname, g.price, g.thumbnail
                     from board b, goods g where b.goods_id=g.goods_id and b.boardtype_id=8 group by g.goods_id, g.goodsname ,g.price,g.thumbnail      
 	   ]]>

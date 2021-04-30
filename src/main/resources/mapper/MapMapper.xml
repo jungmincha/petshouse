@@ -402,6 +402,13 @@
    ]]>
 	</select>
 	
+		<!-- 현재 장소-->
+	<select id="getPresetnLocation" resultType="String">
+   <![CDATA[
+     select location from member where member_id=#{member_id}
+   ]]>
+	</select>
+	
 		<!-- 최신글 rownum으로 잡기 (댓글 조회를 막기 위해 hashtag가 null이 아닌것들 중에서 조회한다)-->
 	<select id="getLocationBoard_id" resultType="boardvo">
 
