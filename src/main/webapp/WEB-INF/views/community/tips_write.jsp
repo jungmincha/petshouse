@@ -9,8 +9,10 @@
 <meta name="keywords" content="Fashi, unica, creative, html">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>펫츠하우스</title>
-<script src="/resources/ckeditor/ckeditor.js"></script>
+<title>노하우 글쓰기</title>
+<!-- <script src="/resources/ckeditor/ckeditor.js"></script> -->
+<script src="//cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
+<script src = "/resources/ckeditor/ckeditor.js"></script>
 <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
 
 <!-- Css Styles -->
@@ -66,8 +68,8 @@
 	width: 1000px;
 }
 
-label {
-	text-align: cente;
+#hashtag{
+margin-top:20px;
 }
 </style>
 </head>
@@ -85,26 +87,21 @@ label {
 				value="<sec:authentication property='principal.member_id'/>">
 			<h2 style="margin-top: 30px;">노하우</h2><br>
 
-	<div class="form-group row ">
-						
-							<div class="col-sm-8">
+					<div class="form-group row ">
+							<div class="col-lg-8">
 								<div class="custom-file">
 									<input type="file" class="custom-file-input" id="file"
-									    multiple="multiple" name="file"
+									     name="file"
 										style="display: block;" required> <label
-										class="custom-file-label" for="inputGroupFile02">표지를 장식할 사진을 골라주세요! </label>
+										class="custom-file-label">표지를 장식할 사진을 골라주세요! </label>
 								</div>
 							</div>
 						</div>
 						
 						
-						<div class="form-group row">
-							<label class="col-sm-6"></label>
-							<div class="input-group col-lg-7 ">
-								<div id='image_preview '>
-									<div id='preview'
-										data-placeholder='표지 권장 사이즈 1200x400'></div>
-								</div>
+						<div class="form-group row">	
+							<div class="input-group col-lg-8 ">
+								<div id='preview' data-placeholder='표지 권장 사이즈 1200x400'></div>
 							</div>
 						</div>
 						
@@ -119,20 +116,29 @@ label {
 					<option value="6">기타</option>
 				</select> 
 				<input type="text" maxlength="30" class="form-control" name="title"
-					placeholder="제목을 입력해주세요 최대(30자)" style="margin-bottom: 20px; width: 628px;">
+					placeholder="제목을 입력해주세요 최대(30자)" style="margin-bottom: 20px; width: 628px;" required>
 			</div>
 
-			<textarea id="editor4" name="content"></textarea>
+			<textarea id="editor4" name="content" required></textarea>
 
 			
 			<script>
-				CKEDITOR.replace('editor4');
-			</script>
+				CKEDITOR.replace('editor4',{
+
+					//CKEDITOR.replace와 id("description")를 잘 적어주면 그 태그가 smart editor 스타일로 바뀌게 된다. 
+					 
+					    filebrowserUploadUrl : '${pageContext.request.contextPath}/tips/write'
+
+					//파일을 업로드 해야하기 때문에 filebrowserUploadUrl을 사용하고, 서버쪽에 코드를 완성해주어야 한다.
+
+					});
+					</script>
+			
 			
 			<div class="form-group row">
 				<div class="col">
 					<input type="text" class="form-control" name="hashtag"
-						maxlength="30" placeholder="해시태그" id="hashtag"
+						maxlength="30" placeholder="#해시태그를 입력해주세요" id="hashtag"
 						aria-describedby="hashtagHelp" />
 				</div>
 			</div>
