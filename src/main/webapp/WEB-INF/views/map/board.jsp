@@ -148,6 +148,7 @@ body::-webkit-scrollbar-track {
 
 
 
+
 	<!-- Contact Section Begin -->
 	<section class="contact-section spad">
 		<div class="container">
@@ -232,19 +233,132 @@ body::-webkit-scrollbar-track {
 											<div style="font-size:20px;">${list.boardVO.content}</div>
 											</a>
 								
-								 <!-- 해시태그 --> 
-								<%-- 	<c:set var="hashtag" value="${list.boardVO.hashtag}" />
-									<c:set var="tag" value="${fn:split(hashtag, ' ')}" /> 
-									<c:forEach var="t" items="${tag}">
-									<span><button id="hashtag" name="keyword" class="btn btn-disabled" style="" value="${t}"
-									onclick="location.href='${pageContext.request.contextPath}/map/qnatag'">${t}</button></span>
-									</c:forEach> 
-								 --%>
+								
 								</td>
 							</tbody>
 						</c:forEach>
 
 					</table> 
+					
+					 <c:if test="${listTotal > 8}">
+	            <div class="btn col-lg-12 text-center">  
+	          	    <input type="hidden" class="listTotal" value="${listTotal}" />
+	            	<button type="button" class="btn btn-warning" onClick="btnClick()">더보기</button>
+		        </div>
+		       </c:if>
+		       
+		       
+		         <!-- 더보기 페이징 처리 -->
+     <script>
+     var pageNum = 1;
+     var check = $('.listTotal').val() / 8;
+
+    
+	     function btnClick(){
+	   	  pageNum += 1;
+	   	  
+	   	  if (pageNum >= check) {
+	             $(".btn").hide();
+	          }
+	   	  
+	   	  console.log(pageNum);
+	   	  console.log(check);
+	   	 console.log("${location}");	  
+    	  	$.ajax({
+    	        type :"POST",
+    	        url :"/map/morelist",
+    	        data : {
+    	        	pageNum: pageNum,
+    	        	location : "${location}"
+    	     
+    	        	
+    	        },
+    	        success :function(data){
+    	           console.log(data);
+    	           var list = data.list;
+    	         
+					
+    	          html = "";
+    	          
+    	           for(var i = 0 ; i < list.length ; i++){
+    	        	   
+    	        	   
+    	        		var html =  "<table class='table'>"
+				        	+
+				   			"<tbody id='mapList'>"
+							+
+							"<td>"
+							+			
+							"<div class='user-Info row' style='margin: 20px auto 0px 5px'>"
+							+
+							"<div class='profile_box'>"
+							+
+							"<img src='/resources/img/member/profile/" + list[i].boardVO.memberVO.thumbnail+ "' name='profile' alt='' class='profile'/>"
+							+
+							"</div>"
+							+
+							"<div style='padding:7px'>" + list[i].boardVO.memberVO.nickname 
+							+
+							"<a href='/myPage/" + list[i].boardVO.memberVO.nickname + "'style='padding-top: 13px; padding-left: 5px; color:#e7ab3c;'>팔로우</a>"
+							+
+							"</div>"	
+							+
+							"</div>"											
+							+
+							"<span style='font-size: 13px; color: gray;'>" + transferTime(list[i].boardVO.pdate) + "</span>"
+							+			
+							"<span style='font-size: 13px; color: gray;'>조회수" + list[i].boardVO.hit + "</span>"
+							+
+							"<span style='font-size: 13px; color: gray;'>좋아요" + list[i].boardVO.plike +  "</span>"
+							+
+							"<span style='font-size: 13px; color: gray;'>" + list[i].boardVO.hashtag +  "</span>"
+							+
+							"<br>"	
+							+
+							"<br>"			
+							+ 
+							"<a href='/map/board/"+ list[i].boardVO.board_id+ "?location=${location}&member_id=${member_id}'>"
+							+
+
+							"<div>"
+							+
+							"<img src='/resources/img/location/" +  list[i].imgname + "'style='width: 780px; height: 450px; object-fit: cover; border-radius: 10px;'>"
+							+
+							"<br>"	
+							+
+							"<br>"		
+							+
+							"<div style='font-size:20px;'>"  + list[i].boardVO.content 
+							+
+							"</div>"
+							+
+							"</a>"
+							+	
+							"</td>"
+							+
+							"</tbody>"
+							+
+							"</table>" ;
+							
+    	            } //bestrate foreach end
+    	           
+	   	        	if(list.length == 8){
+		        		html += "<div class='btn col-lg-12 text-center'>"  
+		            		 + "<button type='button' class='btn btn-warning' onClick='btnClick()'>더보기</button> </div>";			      
+		        	}
+     
+    	           	$('.btn').remove();
+    	            $('.table').append(html); 
+    	          
+    	        }, //success end       
+    	        
+    	         error : function(request, status, error) {
+					alert("code:" + request.status + "\n" + "message:"
+							+ request.responseText + "\n" + "error:" + error);
+				} // ajax 에러 시 end
+    	    }); //ajax end	 
+    	}; //click end	
+      </script>
 
 				<!-- </article> -->
     			
@@ -281,31 +395,8 @@ body::-webkit-scrollbar-track {
 	</section>
 	
 <!-- 	
-	<script type="text/javascript">	
-	
-	var json = JSON.parse('${jsonList}');
-	 var list_length = Object.keys(json).length;
- 	window.onload=function() {
 	
 	
-	//컨트롤러에서 json에 담아온 list 객체를 변수선언해준다.
-	 var json = JSON.parse('${jsonList}');
-	console.log(json);
-	//변수 json의 길이를 구해준다.
-	 var list_length = Object.keys(json).length;
-
-
-	for(var i = 0 ; i <= list_length ; i++){
-		
-		console.log(json[i].boardVO.content);
-		console.log(json[i].boardVO.memberVO.nickname);
-		console.log(json[i].boardVO.memberVO.thumbnail);
-		console.log(json[i].imgname);
-		 
-	 
-	
-} 
-
 
 
 //스크롤 바닥 감지

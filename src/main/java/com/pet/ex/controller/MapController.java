@@ -109,10 +109,10 @@ public class MapController {
 
 		// 펫츠타운 메인페이지
 		@RequestMapping("/board")
-		public ModelAndView board(String location , String member_id ,ModelAndView mav, Criteria cri, MemberVO memberVO,
+		public ModelAndView board( String location, ModelAndView mav, Criteria cri, MemberVO memberVO,
 				BoardVO boardVO, ImageVO imageVO, PlikeVO plikeVO,  Authentication authentication ) {
 			
-			//String member_id = authentication.getPrincipal().toString();
+			String member_id = authentication.getPrincipal().toString();
 			String present_location = service.getPresetnLocation(member_id);//현재 닉네임
 			memberVO.setLocation(present_location);
 		 // 명동 받아옴
@@ -131,9 +131,8 @@ public class MapController {
 			mav.addObject("pageMaker", new PageVO(cri, total));
 			mav.addObject("location", location);
 			mav.addObject("member_id", member_id);
-
+			mav.addObject("listTotal", service.getListTotal(boardVO));
 			
-
 			// mav.addObject("image" );
 			mav.addObject("like_print", service.getLikeprint());
 			
@@ -143,6 +142,20 @@ public class MapController {
 			mav.setViewName("map/board");
 			
 			return mav;
+		}
+		
+		
+		//게시글 더보기 
+		@PostMapping("/morelist")
+		public Map<String, Object> morelocation(Criteria cri , BoardVO boardVO) {
+			log.info("morelist");
+			Map<String, Object> list = new HashMap<>();
+			List<ImageVO> morelist = service.getList(cri);
+		
+			list.put("list", morelist);
+			list.put("listTotal", service.getListTotal(boardVO));
+
+			return list;
 		}
 
 	// 글작성 양식

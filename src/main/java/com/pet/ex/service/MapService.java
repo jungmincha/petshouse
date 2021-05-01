@@ -92,6 +92,9 @@ public interface MapService {
 	//현재 장소
 	public String getPresetnLocation(String member_id);
 
+	public int getListTotal(BoardVO boardVO);
+	
+
 	
 
 	
