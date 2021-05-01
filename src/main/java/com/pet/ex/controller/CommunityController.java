@@ -123,18 +123,20 @@ public class CommunityController {
 	}
 	
 
-	//  카테고리별 조회
-	@PostMapping("/tips/category/{boardVO.categoryVO.category_id}")
-	public ModelAndView tipscategoryList(ImageVO imageVO, BoardVO boardVO, Criteria cri, ModelAndView mav) {
-		log.info("tips_categoryList");
-		System.out.println(imageVO.getBoardVO().getCategoryVO().getCategory_id());
-
-		mav.addObject("catetips", service.getTipsCategory(imageVO,cri));
-		mav.addObject("catetipsTotal", service.getTipsCatetotal(imageVO));
-		mav.setViewName("community/tips_category");
-		
-		return mav;
-	}
+	/*
+	 * // 카테고리별 조회
+	 * 
+	 * @PostMapping("/tips/category/{boardVO.categoryVO.category_id}") public
+	 * ModelAndView tipscategoryList(ImageVO imageVO, BoardVO boardVO, Criteria cri,
+	 * ModelAndView mav) { log.info("tips_categoryList");
+	 * System.out.println(imageVO.getBoardVO().getCategoryVO().getCategory_id());
+	 * 
+	 * mav.addObject("catetips", service.getTipsCategory(imageVO,cri));
+	 * mav.addObject("catetipsTotal", service.getTipsCatetotal(imageVO));
+	 * mav.setViewName("community/tips_category");
+	 * 
+	 * return mav; }
+	 */
 	
 
 	// 노하우 글쓰기 페이지
