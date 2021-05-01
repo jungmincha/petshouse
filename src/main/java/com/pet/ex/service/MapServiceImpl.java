@@ -27,7 +27,7 @@ public class MapServiceImpl implements MapService {
 	@Override
 	public List<ImageVO>getList(Criteria cri) {
 	log.info("getList...");
-	cri.setAmount(8);
+	cri.setAmount(5);
 		return mapper.getList(cri);
 	}
 
@@ -117,7 +117,9 @@ public class MapServiceImpl implements MapService {
 
 
 	@Override
-	public List<ImageVO> getHashtag(BoardVO boardVO) {
+	public List<ImageVO> getHashtag(BoardVO boardVO ) {
+		
+
 	
 		return mapper.getHashtag(boardVO);
 	}

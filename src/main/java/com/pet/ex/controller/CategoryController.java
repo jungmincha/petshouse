@@ -126,6 +126,7 @@ public class CategoryController {
 		System.out.println(name1);
 
 		// 소분류 값 추출하는 로직 -end
+		
 		System.out.println("카테고리 아이디 = "+ categoryvo.getCategory_id());
 		for(int i =0;i<cate.size();i++) {
 			System.out.println(cate.get(i).getBoard_id());
@@ -140,7 +141,6 @@ public class CategoryController {
 			throws Exception {
 
 		mav.addObject("goods", service.gethighprice());
-
 		mav.addObject("rate", service.getStoreHighrate());
 		mav.addObject("category", service.getCategory());
 		mav.addObject("smallcategory", service.getScategory());

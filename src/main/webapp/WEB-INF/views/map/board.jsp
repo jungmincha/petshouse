@@ -152,14 +152,25 @@ body::-webkit-scrollbar-track {
 	<!-- Contact Section Begin -->
 	<section class="contact-section spad">
 		<div class="container">
+		
+		
+			<div class="row">
+			<div class="col-lg-12">
+				<div class="section-title">
+					<h2>펫츠타운</h2>
+				</div>
+			</div>
+		</div>
+		
+		
 			<div class="row">
 				<div class="col-lg-12">
 
 					<!-- 위치 다시 선정하기 -->
-					<select id="sel" style="border: none; font-size: 22px;">
+					<select class="form-control col-sm-2" id="sel" style= "font-size: 18px;">
 						<option value='${location}' selected>${location}</option>
 						<option value="relocaion">위치 다시 설정하기</option>
-					</select> <br> <br>
+					</select> <br>
 
 		
 
@@ -190,7 +201,7 @@ body::-webkit-scrollbar-track {
 						</div>
 					</form>
 	
-					<br/>
+				
 				
     
   
@@ -198,14 +209,11 @@ body::-webkit-scrollbar-track {
 				<!-- 	<article> -->
 
 						<!-- board 테이블 -->
-						<table class="table">
+						<div id="table" >
 						<c:forEach items="${list}" var="list">
 						
-							<tbody id="mapList">
-								<td>
-								
-										
-										<!-- 회원 썸네일 -->
+					
+											<!-- 회원 썸네일 -->
 										<div class="user-Info row" style="margin: 20px auto 0px 5px">
 									    <div class="profile_box ">
 										<img src="/resources/img/member/profile/${list.boardVO.memberVO.thumbnail}" name="profile" alt="" class="profile" />
@@ -234,13 +242,13 @@ body::-webkit-scrollbar-track {
 											</a>
 								
 								
-								</td>
-							</tbody>
+							
+						
 						</c:forEach>
 
-					</table> 
+					</div> 
 					
-					 <c:if test="${listTotal > 8}">
+					 <c:if test="${listTotal > 5}">
 	            <div class="btn col-lg-12 text-center">  
 	          	    <input type="hidden" class="listTotal" value="${listTotal}" />
 	            	<button type="button" class="btn btn-warning" onClick="btnClick()">더보기</button>
@@ -251,7 +259,7 @@ body::-webkit-scrollbar-track {
 		         <!-- 더보기 페이징 처리 -->
      <script>
      var pageNum = 1;
-     var check = $('.listTotal').val() / 8;
+     var check = $('.listTotal').val() / 5;
 
     
 	     function btnClick(){
@@ -278,17 +286,11 @@ body::-webkit-scrollbar-track {
     	           var list = data.list;
     	         
 					
-    	          html = "";
-    	          
-    	           for(var i = 0 ; i < list.length ; i++){
-    	        	   
-    	        	   
-    	        		var html =  "<table class='table'>"
+    	          html = ""    	          
+    	        	    for(var i in list){	   
+    	        			 html += "<div id='table'>"
 				        	+
-				   			"<tbody id='mapList'>"
-							+
-							"<td>"
-							+			
+				   			
 							"<div class='user-Info row' style='margin: 20px auto 0px 5px'>"
 							+
 							"<div class='profile_box'>"
@@ -333,22 +335,19 @@ body::-webkit-scrollbar-track {
 							"</div>"
 							+
 							"</a>"
-							+	
-							"</td>"
+							
 							+
-							"</tbody>"
-							+
-							"</table>" ;
+							"</div>" 
 							
     	            } //bestrate foreach end
     	           
-	   	        	if(list.length == 8){
+	   	        	if(list.length == 5){
 		        		html += "<div class='btn col-lg-12 text-center'>"  
 		            		 + "<button type='button' class='btn btn-warning' onClick='btnClick()'>더보기</button> </div>";			      
 		        	}
      
     	           	$('.btn').remove();
-    	            $('.table').append(html); 
+    	            $('#table').append(html); 
     	          
     	        }, //success end       
     	        
@@ -360,32 +359,7 @@ body::-webkit-scrollbar-track {
     	}; //click end	
       </script>
 
-				<!-- </article> -->
-    			
-    			<!-- 페이징 -->
-		<%-- <div class="ul">
-			<ul class="pagination justify-content-center"
-				style="padding-bottom: 50px; padding-top: 50px;">
-				<c:if test="${pageMaker.prev}">
-					<li class="page-item"><a class="page-link"
-						href="board${pageMaker.makeQuery(pageMaker.startPage - 1) }">
-							Previous</a></li>
-				</c:if>
-
-				<c:forEach begin="${pageMaker.startPage }"
-					end="${pageMaker.endPage }" var="idx">
-					<c:out value="${pageMaker.cri.pageNum == idx?'':''}" />
-					<li class="page-item"><a class="page-link"
-						href="board${pageMaker.makeQuery(idx)}">${idx}</a></li>
-				</c:forEach>
-
-				<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-					<li class="page-item"><a class="page-link"
-						href="board${pageMaker.makeQuery(pageMaker.endPage +1) }">Next</a></li>
-				</c:if>
-			</ul>
-		</div> --%>
-
+				
 
 
 				</div>
@@ -492,6 +466,7 @@ window.onscroll = function(e) {
 							var hashtag = $(this).val();
 							var location = $('#location').val();
 							var member_id = $('#member_id').val();
+							
 							console.log("너의 해시태그는 뭐니?" + hashtag);
 							console.log("너의 장소는 뭐니?" + location);
 							console.log("너의 아이디는 뭐니?" + member_id);
@@ -522,19 +497,16 @@ window.onscroll = function(e) {
 										success : function(data) {
 												
 											console.log(data);
-											$(".table").empty();
+											$("#table").empty();
 											//var html = "<table class='table'>";
 											for (var i = 0; i <= data.length; i++) {
 												
 												
 												
 											
-												var html =  "<table class='table'>"
+												var html =  "<div id='table'>"
 										        	+
-										   			"<tbody id='mapList'>"
-													+
-													"<td>"
-													+			
+										   			
 													"<div class='user-Info row' style='margin: 20px auto 0px 5px'>"
 													+
 													"<div class='profile_box'>"
@@ -579,14 +551,11 @@ window.onscroll = function(e) {
 													"</div>"
 													+
 													"</a>"
-													+	
-													"</td>"
+												
 													+
-													"</tbody>"
-													+
-													"</table>" ;
+													"</div>" ;
 													
-													$('table').append(html); 
+													$('#table').append(html); 
 													
 											}
 											

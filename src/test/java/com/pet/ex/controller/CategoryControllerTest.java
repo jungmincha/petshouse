@@ -37,17 +37,9 @@ public class CategoryControllerTest {
     @Setter(onMethod_ = { @Autowired })
     private WebApplicationContext ctx;
 	ObjectMapper mapper;
-	
 
     private MockMvc mockMvc;
-    
-    /*
-    MockMvc란? 실제 객체와 비슷하지만 테스트에 필요한 기능만 가지는 가짜 객체를 만들어서
-        애플리케이션 서버에 배포하지 않고도 스프링 MVC 동작을 재현할 수 있는 클래스를 의미.
-        즉 컨트롤러를 테스트할 수있게 만든 가짜 객체(톰캣이 아닌 가상환경을 만들어서 테스트 진행)
-    */
-
-
+   
     @Autowired 
     CategoryController categoryController;
 
@@ -56,7 +48,6 @@ public class CategoryControllerTest {
 	   this.mockMvc = MockMvcBuilders.webAppContextSetup(ctx).build();
     }
    
-   
    	@Test
 	public void categoryTest() throws Exception {//mvc가 잘 작동되는지 확인한다.
 		
@@ -64,10 +55,8 @@ public class CategoryControllerTest {
 			.andReturn()
 			.getModelAndView()
 			.getViewName();
-		
 	}
     
-   	
    	@Test//이동대상 경로를 검증하는 테스트
 	public void category_viewTest() throws Exception {
 	   

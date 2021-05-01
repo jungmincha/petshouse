@@ -37,7 +37,7 @@ public interface MapService {
 	public void insertComment(BoardVO boardVO);
 
 	public BoardVO getComment(int Board_id);
-
+	//해시태그별로 게시판 뿌리기
 	public List<ImageVO> getHashtag(BoardVO boardVO);
 
 	public void fileUpload(String imgname);

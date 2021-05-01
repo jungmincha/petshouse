@@ -37,7 +37,7 @@ public interface MapMapper {
 
 	public BoardVO getComment(int board_id);
 
-	public List<ImageVO> getHashtag(BoardVO boardVO);
+	public List<ImageVO> getHashtag(BoardVO boardVO );
 
 	public void fileUpload(String imgname);
 

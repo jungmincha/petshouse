@@ -67,11 +67,12 @@
 
 	<div class="container" style="width: 800px;">
 
-		<select id="sel" style="border: none; font-size: 22px;">
-			<option value='${location}' selected>${location}</option>
-			<option value="relocaion">위치 다시 설정하기</option>
+			<!-- 위치 다시 선정하기 -->
+					<select class="form-control col-sm-2" id="sel" style= "font-size: 18px;">
+						<option value='${location}' selected>${location}</option>
+						<option value="relocaion">위치 다시 설정하기</option>
+					</select> <br>
 
-		</select> <br> <br>
 
 
 

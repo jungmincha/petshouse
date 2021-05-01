@@ -336,47 +336,6 @@ public class MapController {
 
 		service.modify(boardVO);
 
-		/*
-		 * String path =
-		 * multi.getSession().getServletContext().getRealPath("/static/img/location");
-		 * 
-		 * path = path.replace("webapp", "resources");
-		 * 
-		 * File dir = new File(path); if (!dir.isDirectory()) { dir.mkdir(); }
-		 * 
-		 * List<MultipartFile> mf = multi.getFiles("file");
-		 * 
-		 * 
-		 * for (int i = 0; i < mf.size(); i++) { // 파일명 중복 검사
-		 * 
-		 * UUID uuid = UUID.randomUUID(); // 파일명 랜덤으로 변경
-		 * 
-		 * String originalfileName = mf.get(i).getOriginalFilename(); String ext =
-		 * FilenameUtils.getExtension(originalfileName); //저장 될 파일명 String
-		 * imgname=uuid+"."+ext;
-		 * 
-		 * 
-		 * String savePath = path + "\\" + imgname; // 저장 될 파일 경로
-		 * 
-		 * 
-		 * 
-		 * System.out.println(
-		 * "============================================================================="
-		 * ); System.out.println(savePath);
-		 * 
-		 * mf.get(i).transferTo(new File(savePath)); // 파일 저장
-		 * imageVO.setImgname(imgname);
-		 * imageVO.getBoardVO().setBoard_id(boardVO.getBoard_id()); System.out.println(
-		 * "============================================================================="
-		 * ); System.out.println(boardVO.getBoard_id());
-		 * 
-		 * service.detailInput(imageVO);
-		 * 
-		 * 
-		 * 
-		 * }
-		 */
-
 		mav.setViewName("redirect:board");
 		return mav;
 
