@@ -598,7 +598,7 @@ public class CommunityController {
       
       //String callback = req.getParameter("CKEditorFuncNum");
       printWriter = res.getWriter();
-      String fileUrl = "/ckUpload/" + uid + "_" +fileName; // 작성화면
+      String fileUrl = "/resources/img/tips/" + uid + "_" +fileName; // 작성화면
       // 업로드시 메시지 출력
 //      JsonObject json = new JsonObject();
 //      json.addProperty("uploaded", 1);
