@@ -123,20 +123,34 @@ public class CommunityController {
 	}
 	
 
-	/*
-	 * // 카테고리별 조회
-	 * 
-	 * @PostMapping("/tips/category/{boardVO.categoryVO.category_id}") public
-	 * ModelAndView tipscategoryList(ImageVO imageVO, BoardVO boardVO, Criteria cri,
-	 * ModelAndView mav) { log.info("tips_categoryList");
-	 * System.out.println(imageVO.getBoardVO().getCategoryVO().getCategory_id());
-	 * 
-	 * mav.addObject("catetips", service.getTipsCategory(imageVO,cri));
-	 * mav.addObject("catetipsTotal", service.getTipsCatetotal(imageVO));
-	 * mav.setViewName("community/tips_category");
-	 * 
-	 * return mav; }
-	 */
+	
+	  // 카테고리별 조회
+	  @PostMapping("/tips/category/{boardVO.categoryVO.category_id}") 
+	  public ModelAndView tipscategoryList(ImageVO imageVO, BoardVO boardVO, Criteria cri,ModelAndView mav) { 
+		log.info("tips_categoryList");
+	  System.out.println(imageVO.getBoardVO().getCategoryVO().getCategory_id());
+	  mav.addObject("rate", service.getTipsRate()); // 인기 노하우 슬라이드
+	  
+	  mav.addObject("catetips", service.getTipsCategory(imageVO,cri));
+	  mav.addObject("catetipsTotal", service.getTipsCatetotal(imageVO));
+	  mav.setViewName("community/tips_category");
+	  
+	  return mav; 
+	  
+	  }
+	 
+	//SNS 카테고리별 상품 더보기 
+	@PostMapping("/tips/catemorelist/{boardVO.categoryVO.category_id}")
+	public Map<String, Object> tipscategorymoreList(BoardVO boardVO, ImageVO imageVO,  Criteria cri) {
+		log.info("tipscategorymoreList");
+		Map<String, Object> list = new HashMap<>();
+		List<ImageVO> catetips = service.getTipsCategory(imageVO, cri);
+		list.put("catetips", catetips);
+		list.put("catetipsTotal", service.getTipsCatetotal(imageVO));
+		
+		return list;
+		
+		}
 	
 
 	// 노하우 글쓰기 페이지
@@ -338,7 +352,7 @@ public class CommunityController {
 
 				imageVO.getBoardVO().setBoard_id(board.getBoard_id());
 				service.ImgInput(imageVO);
-				
+				  System.out.println("test url : "+multi.getSession().getServletContext().getRealPath("static/img/qna"));
 			}
 
 		}
@@ -576,7 +590,7 @@ public class CommunityController {
       byte[] bytes = upload.getBytes();
       
       // 업로드 경로
-      String ckUploadPath = uploadPath + File.separator + File.separator + uid + "_" +fileName;
+      String ckUploadPath = uploadPath + File.separator  + uid + "_" +fileName;
       
       out = new FileOutputStream(new File(ckUploadPath));
       out.write(bytes);

@@ -89,11 +89,11 @@ public interface CommunityMapper {
 	// 질문과 답변 댓글 페이징
 	public List<BoardVO> getcommentsList(Criteria cri, int board_id);
 	
-	/*
-	 * public List<ImageVO> getTipsCategory(ImageVO imageVO, Criteria cri);
-	 * 
-	 * public List<BoardVO> getTipsCatetotal(ImageVO imageVO);
-	 */
+	
+	  public List<ImageVO> getTipsCategory(ImageVO imageVO, Criteria cri);
+	  
+	  public List<BoardVO> getTipsCatetotal(ImageVO imageVO);
+	 
 
 
 	//좋아요

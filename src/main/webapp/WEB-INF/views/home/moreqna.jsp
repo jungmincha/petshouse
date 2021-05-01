@@ -104,34 +104,14 @@ color:#FFBF00
 
 		</div>
 
-		<div class="ul">
-			<ul class="pagination justify-content-center"
-				style="padding-bottom: 50px; padding-top: 50px;">
-				<c:if test="${pageMaker.prev}">
-					<li class="page-item"><a class="page-link"
-						href="moreqna${pageMaker.makeQuery(pageMaker.startPage - 1) }">
-							Previous</a></li>
-				</c:if>
-
-				<c:forEach begin="${pageMaker.startPage }"
-					end="${pageMaker.endPage }" var="idx">
-					<c:out value="${pageMaker.cri.pageNum == idx?'':''}" />
-					<li class="page-item"><a class="page-link"
-						href="moreqna${pageMaker.makeQuery(idx)}">${idx}</a></li>
-				</c:forEach>
-
-				<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-					<li class="page-item"><a class="page-link"
-						href="moreqna${pageMaker.makeQuery(pageMaker.endPage +1) }">Next</a></li>
-				</c:if>
-			</ul>
-		</div>
+	
 	</div>
 
 
 	<!-- Footer -->
+	<div style="margin-top:50px;">
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
-
+	</div>
 	<!-- Js Plugins -->
 	<script src="/resources/js/bootstrap.min.js"></script>
 	<script src="/resources/js/jquery.countdown.min.js"></script>

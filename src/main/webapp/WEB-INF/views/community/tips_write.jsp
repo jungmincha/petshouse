@@ -12,7 +12,7 @@
 <title>노하우 글쓰기</title>
 <!-- <script src="/resources/ckeditor/ckeditor.js"></script> -->
 <script src="//cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
-<script src = "/resources/ckeditor/ckeditor.js"></script>
+<script src = "${pageContext.request.contextPath}/resources/ckeditor/ckeditor.js"></script>
 <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
 
 <!-- Css Styles -->

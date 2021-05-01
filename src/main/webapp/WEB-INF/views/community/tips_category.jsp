@@ -110,25 +110,15 @@
 img{
 border-radius:8px;
 }
-
 .row button{
-background-color: #E6E6E6;
+background-color:#E6E6E6;
 }
 </style>
 </head>
 
 <body style="padding-top: 180px">
 
-	<!-- Header -->
-	<%@ include file="/WEB-INF/views/include/header.jsp"%>
-
-	<sec:authorize access="hasAnyRole('ROLE_USER','ROLE_ADMIN')">
-		<input type="hidden" id="member_id"
-			value="<sec:authentication property="principal.member_id"/>">
-	</sec:authorize>
-
-
-	<div id="input" class="container">
+	<div class="container">
 
 		<!--인기노하우 슬라이드-->
 		<div class="filter-control">
@@ -158,7 +148,7 @@ background-color: #E6E6E6;
 
 			<!-- Category Section End -->
 		<!-- 동물 카테고리, 글쓰기 버튼 -->
-	<div style="padding-top:50px; margin-bottom:110px; ">
+	<div  style="padding-top:50px; margin-bottom:110px; ">
 		
 		<div style="float: right;">
 			<button class="btn btn-outline-secondary" id="tw"
@@ -186,30 +176,31 @@ background-color: #E6E6E6;
 
 
 		<!-- 노하우 리스트 -->
-		<div id="table" class="row"
+		<div  id="table" class="row"
 			style="margin-top: 1rem; margin-bottom:1rem;">
 
-			<c:forEach items="${tips}" var="tp">
+			<c:forEach items="${catetips}" var="ct">
+			<input type="hidden" class="category_id" value="${ct.boardVO.categoryVO.category_id}">
 				<div class="product-item col-sm-6 col-md-4 col-lg-3 ">
 					<div class="pi-pic shot">
-						<a href="/commu/tips/${tp.boardVO.board_id}"> <img
-							src="/resources/img/tips/${tp.imgname}" alt=""
+						<a href="/commu/tips/${ct.boardVO.board_id}"> <img
+							src="/resources/img/tips/${ct.imgname}" alt=""
 							style="height: 180px;"> <span
-							class="count">조회수 ${tp.boardVO.hit}</span> 
+							class="count">조회수 ${ct.boardVO.hit}</span> 
 							<span
-							style="font-size: 15px; font-weight: bold;">${tp.boardVO.title}</span>
+							style="font-size: 15px; font-weight: bold;">${ct.boardVO.title}</span>
 						</a>
 					</div>
-					<div style="font-size: 14px; text-align: left;">${tp.boardVO.memberVO.nickname}</div>
+					<div style="font-size: 14px; text-align: left;">${ct.boardVO.memberVO.nickname}</div>
 				</div>
 			</c:forEach>
 		</div>
 		<!-- 노하우 리스트 end -->
 
 		<!-- 더보기 버튼 -->
-	   <c:if test="${fn:length(tipslistcount) > 12}">
-                <input type="hidden" class="count" value="${fn:length(tipslistcount)}" />
-	            <div class="later col-lg-12 text-center">
+	   <c:if test="${fn:length(catetipsTotal) > 12}">
+	   <div class="later col-lg-12 text-center">
+                <input type="hidden" class="count" value="${fn:length(catetipsTotal)}" />
 	            	<button type="button" class="btn btn-warning" onClick="btnClick()">더보기</button>
 		        </div>
 		      </c:if>
@@ -217,120 +208,71 @@ background-color: #E6E6E6;
 
 	</div>
 
-	<!-- 페이징 -->
-	<script>
+<script type="text/javascript">
+
       var pageNum = 1;
-      var check = $('.count').val() / 12;
-     
-      function btnClick(){
-    	  event.preventDefault();
-    	  pageNum += 1;
-    		  
-    	  if (pageNum > check) {
-              $(".btn").hide();
-           }
-    	  
-    	  console.log(pageNum);
-    	  console.log(check);
-    	  		  
-    	  	$.ajax({
-    	        type :"POST",
-    	        url :"/commu/morelist",
-    	        data : {
-    	        	pageNum: pageNum 
-    	        },
-    	        success :function(data){
-    	           console.log(data);
-    	           var tips= data.tips;
-    	     
-					
-    	         html = " "
-    	           for(var i in tips){
-    	        	   html +="<div class='product-item col-sm-6 col-md-4 col-lg-3 '>"
-    	  					+"<div class='pi-pic shot'>"
-    	  					+"<a href='/commu/tips/"+tips[i].boardVO.board_id+"'> "
-    	  					+"<img src='/resources/img/tips/"+tips[i].imgname+"' alt='' style='height: 180px;'> "
-    	  					+"<span class='count'>조회수 "+tips[i].boardVO.hit+"</span> "
-    	  					+"<span style='font-size: 15px; font-weight: bold;'>"+tips[i].boardVO.title+"</span></div>"
-    	  					+"<div style='font-size: 14px; text-align: left;'>"+tips[i].boardVO.memberVO.nickname+"</div>"
-    	  					+"</div>"
+      var check =$('.count').val() / 12;
 
-    	           
+      function btnClick() {
 
-    	        	}//tips foreach end      	   
+         pageNum += 1;
+         console.log(pageNum);
+         console.log(check);
 
-    	   
-    	       
-    	           $("#table").append(html); 
-    	          
-    	        }, 	        
-    	        //success end
-    	        error : function(request, status, error) {
-					alert("code:" + request.status + "\n" + "message:"
-							+ request.responseText + "\n" + "error:" + error);
-				} // ajax 에러 시 end
-    	    }); //ajax end	 
-    	}; //click end	
-   
-		// 카테고리에 해당하는 동물의 글
-		$('#selectPet')
-				.change(
-						function() {
-							var category_id = $(this).val();
-							console.log(category_id);
+         if (pageNum >= check){
+            $(".btn").hide();
+         }
+         
+         var category_id = $('.category_id').val();   
+         console.log(category_id);
+        var url = "/commu/tips/catemorelist/"+ category_id;    
+        
+         $
+               .ajax({
+                  type : "POST",
+                  url : url,
+                  data : {
+                     pageNum : pageNum,
+                     category_id: category_id                  
+                  },
+                  success : function(data) {
+                     console.log(data);
+                     console.log("here");
+                     var catetips = data.catetips;
 
-							$
-									.ajax({
-										url : "/commu/tips/pet",
-										type : "get",
-										data : {
-											category_id : category_id,
-										},
-										success : function(data) {
 
-											console.log(data);
-											$("#table").remove();
-											var html = "<div id='table' class='row' style='margin-top: 1rem;text-align: left; margin-bottom:1rem;'>"
-											for (var i = 1; i <= data.length; i++) {
-
-												html +="<div class='product-item col-sm-6 col-md-4 col-lg-3'>"
-													+"<div class='pi-pic shot'>"
-													 +"<a href='/commu/tips/"+data[i - 1].boardVO.board_id+"'>"
-													+"<img src='/resources/img/tips/"+data[i - 1].imgname+"' alt=''style='height: 180px;'>"
-													+"<span class='count'>조회수"+data[i - 1].boardVO.hit+"</span>"
-												
-													+"<span style='font-size: 15px; font-weight: bold;'>"+data[i - 1].boardVO.title+"</span></a></div>"
-													+"<div style='font-size: 14px;text-align: left;'>"+data[i - 1].boardVO.memberVO.nickname+"</div>"
-													+"</div>"
-				     					
-									     					
-											}
-											html += "</div>"
-											$(".later").prepend(html);
-
-										}, //ajax 성공 시 end
-
-									/* 	error : function(request, status, error) {
-											alert("code:" + request.status
-													+ "\n" + "message:"
-													+ request.responseText
-													+ "\n" + "error:" + error);
-
-										} // ajax 에러 시 end */
-
-									})
-						})
-	</script>
-
-	<!-- Footer -->
-	<div style="margin-top: 100px">
-		<%@ include file="/WEB-INF/views/include/footer.jsp"%>
-	</div>
-
+                     html = "";
+                     
+                     for (var i in catetips) {
+                           html +="<div class='product-item col-sm-6 col-md-4 col-lg-3 '>"
+    	  						+"<div class='pi-pic shot'>"
+    	  						+"<a href='/commu/tips/"+catetips[i].boardVO.board_id+"'> "
+    	  						+"<img src='/resources/img/tips/"+catetips[i].imgname+"' alt='' style='height: 180px;'> "
+    	  						+"<span class='count'>조회수 "+catetips[i].boardVO.hit+"</span> "
+    	  						+"<span style='font-size: 15px; font-weight: bold;'>"+catetips[i].boardVO.title+"</span></div>"
+    	  						+"<div style='font-size: 14px; text-align: left;'>"+catetips[i].boardVO.memberVO.nickname+"</div>"
+    	  						+"</div>"
+                                       
+                                    }
+                                    
+                                 }
+                            
+                      }                                     
+                        
+                      $("#table").append(html);
+                          
+                  },//success end
+                  
+                            error : function(request, status, error) {
+                           alert("code:" + request.status + "\n" + "message:"
+                                 + request.responseText + "\n" + "error:" + error);
+                        } // ajax 에러 시 end 
+                       }); //ajax end    
+                  };
+      
+   </script>
 	<!-- Js Plugins -->
-	<script src="/resources/js/jquery-3.3.1.min.js"></script>
 	<script src="/resources/js/bootstrap.min.js"></script>
-	<script src="/resources/js/jquery-ui.min.js"></script>
 	<script src="/resources/js/jquery.countdown.min.js"></script>
 	<script src="/resources/js/jquery.nice-select.min.js"></script>
 	<script src="/resources/js/jquery.zoom.min.js"></script>
@@ -338,6 +280,5 @@ background-color: #E6E6E6;
 	<script src="/resources/js/jquery.slicknav.js"></script>
 	<script src="/resources/js/owl.carousel.min.js"></script>
 	<script src="/resources/js/main.js"></script>
-
 </body>
 </html>
