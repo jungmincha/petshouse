@@ -88,6 +88,9 @@ public interface MapMapper {
 	public int qcount(int board_id);
 	//현재 장소
 	public String getPresetnLocation(String member_id);
+	//리스트 객체 수 구하기
+	public int getListTotal(BoardVO boardVO);
+
 
 
 

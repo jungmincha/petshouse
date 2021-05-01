@@ -1,7 +1,7 @@
 package com.pet.ex.service;
 
 
-import static org.junit.jupiter.api.Assertions.assertNotNull; 
+import static org.junit.jupiter.api.Assertions.assertNotNull;  
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

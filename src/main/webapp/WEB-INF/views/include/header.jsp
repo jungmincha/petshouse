@@ -374,7 +374,7 @@
 		}
 
 		var location_security = document.getElementById("location_security").value;
-		var nickname = document.getElementById("member_id").value;
+		var member_id = document.getElementById("member_id").value;
 		//var location = document.getElementById("location").value; 
 		console.log(location_security);
 
@@ -383,12 +383,19 @@
 			location.href = "/map/home";
 
 		} else {
-
-			location.href = "/map/board?location=" + location_security
-					+ "&member_id=" + member_id;
-
 			console.log(location_security);
 			console.log(member_id);
+			
+			location.href="/map/board/?location="+location_security+"&member_id=" + member_id;
+			
+			
+		/* 	document.write('<form action="/map/board" id="post_test" method="post"><input type="hidden" id="location" name="location" value="'+ location_security +'"><input type="hidden" id="member_id" name="member_id" value="'+ member_id +'"></form>');
+			document.getElementById("post_test").submit();
+ */
+			
+
+		
+			
 
 		}
 

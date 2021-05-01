@@ -179,6 +179,15 @@
 		]]>
 	</select>
 
+<!-- 리스트 객체 수 구하기 -->
+<select id="getListTotal" resultType="int"> 
+		<![CDATA[ 
+			
+		select count(*) as count from image i, board b, member m where m.member_id = b.member_id 
+				 	and i.board_id=b.board_id and b.boardtype_id=7 and b.location = #{location} and pstep=0 and img_id in( 
+ 					select  min(img_id) as img_id from image where board_id is not null group by board_id)
+		]]>
+	</select>
 
 
 

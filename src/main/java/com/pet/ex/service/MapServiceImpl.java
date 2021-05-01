@@ -27,7 +27,7 @@ public class MapServiceImpl implements MapService {
 	@Override
 	public List<ImageVO>getList(Criteria cri) {
 	log.info("getList...");
-	//cri.setAmount(5);
+	cri.setAmount(8);
 		return mapper.getList(cri);
 	}
 
@@ -313,6 +313,16 @@ public class MapServiceImpl implements MapService {
 		log.info("getPresetnLocation...");
 		return mapper.getPresetnLocation(member_id);
 	}
+
+
+//리스트 객체 수 구하기
+	@Override
+	public int getListTotal(BoardVO boardVO) {
+		log.info("getListTotal...");
+		return mapper.getListTotal(boardVO);
+	}
+
+
 
 
 

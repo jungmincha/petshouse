@@ -96,11 +96,7 @@ public class MapControllerTest {
    				.andReturn()
    				.getModelAndView()
    				.getViewName();
-
-   				
-   	
-   	
-		
+ 			
 	}
    
    	
@@ -115,6 +111,7 @@ public class MapControllerTest {
    				.andReturn()
    				.getModelAndView()
    				.getViewName();
+   	
    	}
   
    	
@@ -130,7 +127,8 @@ public class MapControllerTest {
    			.andReturn()
 			.getModelAndView()
 			.getViewName();
-   	}
+  
+	}
     
     
 }
