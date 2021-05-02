@@ -384,10 +384,4 @@ public class MyPageController {
 		myPageService.updatePaystate_id(pay_id);
 	}
 
-	@GetMapping("/test")
-	public ModelAndView test(ModelAndView mav) {
-		mav.setViewName("myPage/paySuccess");
-		return mav;
-	}
-
 }

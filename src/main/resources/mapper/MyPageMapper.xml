@@ -258,7 +258,7 @@
 		<![CDATA[
 		
 		select * from (
-		
+		        select rownum rnum, a.*
 		from (select * from pay order by paydate desc) a where rownum <=
 		#{cri.pageNum} * #{cri.amount} and member_id=#{member_id} and
 		paystate_id=#{paystate_id}

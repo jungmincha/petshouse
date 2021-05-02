@@ -631,7 +631,7 @@ a>span {
 										$("#orderList").append(html);
 									}, //ajax 성공 시 
 									error : function(request, status, error) {
-										console.log(error);
+										
 									} // ajax 에러 시 end
 
 								});

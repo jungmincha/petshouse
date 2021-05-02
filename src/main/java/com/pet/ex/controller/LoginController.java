@@ -48,10 +48,10 @@ public class LoginController {
 	@GetMapping("/register")
 	public ModelAndView join(ModelAndView mav) {
 		log.info("login/register");
-		
+
 		mav.addObject("category", loginService.listCategory());
 		mav.setViewName("/login/register");
-		
+
 		return mav;
 	}
 
@@ -59,10 +59,10 @@ public class LoginController {
 	@RequestMapping("/login")
 	public ModelAndView login(@RequestParam(value = "msg", required = false) String msg, ModelAndView mav) {
 		log.info("login/login");
-		
+
 		mav.addObject("msg", msg);
 		mav.setViewName("/login/login");
-		
+
 		return mav;
 
 	}
@@ -71,10 +71,10 @@ public class LoginController {
 	@PostMapping("/register/idCheck")
 	public String idCheck(@RequestParam String inputId) throws Exception {
 		log.info("/register/idCheck");
-		
+
 		MemberVO member = securityService.getMember(inputId);
 		String canUse = member != null ? "" : "Y";
-		
+
 		return canUse;
 	}
 
@@ -82,10 +82,10 @@ public class LoginController {
 	@PostMapping("/register/nicknameCheck")
 	public String nicknameCheck(@RequestParam String nickname) throws Exception {
 		log.info("/register/nicknameCheck");
-		
+
 		MemberVO member = securityService.getMemberByNickname(nickname);
 		String canUse = member != null ? "" : "Y";
-		
+
 		return canUse;
 	}
 
@@ -93,18 +93,11 @@ public class LoginController {
 	@PostMapping("/register/telCheck")
 	public String telCheck(@RequestParam int tel) throws Exception {
 		log.info("/register/telCheck");
-		
+
 		MemberVO member = securityService.getMemberByTel(tel);
 		String canUse = member != null ? "" : "Y";
-		
+
 		return canUse;
-	}
-
-	// 비밀번호 재발급
-	@RequestMapping("/findPw")
-	public ModelAndView findpw(ModelAndView mav) {
-
-		return mav;
 	}
 
 	// 회원가입 작성 후 INSERT
