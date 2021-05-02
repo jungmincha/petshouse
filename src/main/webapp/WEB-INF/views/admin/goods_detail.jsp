@@ -14,11 +14,12 @@
 <meta name="author" content="">
 <title>상품조회</title>
 <!-- 제이쿼리 사용하는 cnd -->
-<script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://code.jquery.com/jquery-2.2.4.min.js" type="text/javascript"></script> 
+
+<!-- jquery cdn -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="/resources/sidemenu/https://code.jquery.com/jquery.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="/resources/sidemenu/bootstrap/js/bootstrap.min.js"></script>
 <script src="/resources/sidemenu/js/custom.js"></script>
@@ -30,12 +31,7 @@
 	rel="stylesheet">
 <!-- styles -->
 <link href="/resources/sidemenu/css/styles.css" rel="stylesheet">
-
-<link
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
-	rel="stylesheet">
-<!-- jquery cdn -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+ 
 
 
 
@@ -250,13 +246,13 @@ h2 {
 			<div class="row">
 
 				<div class="col-lg-12">
-<input type="hidden" name="board_id" value="${goods.board_id}"> 
-<input type="hidden" name="goodsVO.goods_id" value="${goods.goodsVO.goods_id}"> 				 
+			<input type="hidden" name="board_id" value="${goods.board_id}"> 
+			<input type="hidden" name="goods_id" value="${goods.goodsVO.goods_id}"> 				 
 		<div style="float: right">
-			 <sec:authorize access="hasAnyRole('ROLE_ADMIN')">
+			<%--  <sec:authorize access="hasAnyRole('ROLE_ADMIN')"> --%>
 			<button type="button" id="delete_button" class="btn btn-warning"
 				onclick="button_event();">삭제</button>
-				</sec:authorize>
+				<%-- </sec:authorize> --%>
 		</div>
 						
 							<div class="col-lg-6">
@@ -415,74 +411,31 @@ h2 {
 
 							<!--                   리뷰 탭2                -->
 
-							<div class="tab-pane fade" id="tab-2" role="tabpanel" value=8>
-								<div class="customer-review-option">
+                     <div class="tab-pane fade" id="tab-2" role="tabpanel" value=8>
+                        <div class="customer-review-option">
 
-									<c:if test="${one.goodsVO.goods_id eq goods.goodsVO.goods_id}">
-										<span style="font-size: 19px;"><b> &nbsp; ${one.count}개의
-											리뷰</b></span>
-									</c:if>
-									<hr>
+                           <c:if test="${one.goodsVO.goods_id eq goods.goodsVO.goods_id}">
+                              <span style="font-size: 19px;"><b> &nbsp; ${one.count}개의
+                                 리뷰</b></span>
+                           </c:if>
+                           <hr>
 
-									<div class="comment-option">
+                           
 
-										<c:forEach items="${review}" var="review">
-											<div class="co-item">
-												<div class="avatar-text">
-													<div class="at-rating">
-														<div class="row">
-															<div class="profile_box">
-																<a href="/myPage/${review.memberVO.nickname}"> 
-																<img src="/resources/img/member/profile/${review.memberVO.thumbnail}"
-																	name="profile" alt="" class="profile" /></a>
-															</div>
-															<div style="padding-top: 8px; padding-left: 5px; font-size: 15px;">
-																<b>${review.memberVO.nickname}</b> 
-																<span class="star-prototype" value="${review.ratescore}">${review.ratescore}</span>
-															</div>
-														</div>
-														
-													</div>
+                              <div class="container" style="margin-bottom: 10px;">
+                                    <div id="comments"></div>
+                              </div>
 
-													<c:if test="${not empty review.title}">
-														<div class="imgList">
-															<span class="imgC"> <img
-																style="margin-left: 28px; width: 100px; height: 100px; border-radius: 5px;"
-																src="/resources/img/member/review/${review.title}"
-																alt="" />
-															</span>
-														</div>
-													</c:if>
+                              <div class="container">
+                                 <div class="col-lg-12 text-center" id="page"></div>
+                              </div>
 
-													<div id="bottom">
-														<div>${review.content}</div>
-														<div style="color: gray">
-															<fmt:formatDate value="${review.pdate}"
-																pattern="yy.MM.dd" />
-														</div>
-													</div>
+                           
 
-													<!-- 이미지 모달창 -->
-													<div class="modal">
-														<button>&times;</button>
-														<div class="modalBox">
-															<img src="/resources/img/member/review/${review.title}"
-																alt="">
-														</div>
-													</div>
-													<!-- 이미지 모달창 end-->
+                        </div>
 
-												</div>
-											</div>
-											<hr>
-										</c:forEach>
-
-									</div>
-
-								</div>
-
-							</div>
-									<!--                   리뷰 탭2 end               -->
+                     </div>
+                           <!--                   리뷰 탭2 end               -->
 
 
 
@@ -573,8 +526,8 @@ h2 {
 	<script type="text/javascript">
 		function button_event() {
 			if (confirm("정말 삭제하시겠습니까?") == true) { //확인
-				var board_id = $('#board_id').val();
-				var url = "/admin/board/" + board_id;
+				var goods_id = $('#goods_id').val();
+				var url = "/admin/board/" + goods_id;
 				
 				$.ajax({
 					type : "DELETE",
@@ -633,6 +586,81 @@ $(function(){
   });
 });
 </script>
+<script type="text/javascript">
+
+      //timerID = setTimeout("getListComment()", 3);
+      var start = 0;
+      $(document).ready(function() {
+         getListReview();
+
+      })
+
+      function getListReview(type) {
+         if (type == 2) {
+
+         } else {
+            start += 5;
+         }
+         console.log(start)
+
+         console.log("실행");
+         $
+               .ajax({
+                  type : "POST",
+                  url : "/admin/rmorelist",
+                  data : {
+                     amount : start,
+                     goods_id : "${goods.goodsVO.goods_id}" //goods_id 면 goodsVO.goods_id
+                  },
+                  success : function(data) {
+                     $("#comments").empty();   //댓글부분
+                     $("#page").empty();    //더보기
+                     console.log(data);
+                     var review = data.review;
+
+                     html = " "
+                     for ( var i in review) {
+                        html +="<div class='co-item'><div class='avatar-text'><div class='at-rating'><div class='row'><div class='profile_box'>"
+                              +"<a href='/myPage/"+review[i].memberVO.nickname+"'> "
+                              +"<img src='/resources/img/member/profile/"+review[i].memberVO.thumbnail+"' name='profile' alt='' class='profile' /></a></div>"
+                              +"<div style='padding-top: 8px; padding-left: 5px; font-size: 15px;'>"
+                              +"<b>"+review[i].memberVO.nickname+"</b>"
+                              +"<span class='star-prototype'> <span class='star' style='width:"+(review[i].ratescore*16)+"px'> </span></div></div></div>"
+                           
+                              
+                        if ( null != review[i].title) {
+                           html +="<div class='imgList'>"
+                               +"<span class='imgC'> <img style='margin-left: 28px; width: 100px; height: 100px; border-radius: 5px;' src='/resources/img/member/review/"+review[i].title+"' alt='' /> </span></div>"
+                        } else {
+                           
+                        }
+
+                        html += "<div id='bottom'><div>"+review[i].content+"</div><div style='color: gray'>"+review[i].pdate+"</div></div>"
+                           +"<div class='modal'>"
+                           +"<button>&times;</button>"
+                           +"<div class='modalBox'>"
+                           +"<img src='/resources/img/member/review/"+review[i].title+"' alt=''></div></div>"
+                           +"</div></div><hr>"
+
+                     }
+                     html +="</div>";
+                        
+                     $("#comments").append(html);
+                     console.log(data.one);
+                     if (data.review.length < data.one.count) {
+                        html2 = "<button type='button' class='btn btn-warning' onClick='getListReview()'>더보기</button>"
+
+                        $("#page").append(html2);
+
+                     } else {
+
+                     }
+
+                  },
+               });
+      }
+
+</script>
 
 	<script src="/resources/js/jquery-3.3.1.min.js"></script>
 	<script src="/resources/js/bootstrap.min.js"></script>
@@ -644,7 +672,7 @@ $(function(){
 	<script src="/resources/js/jquery.slicknav.js"></script>
 	<script src="/resources/js/owl.carousel.min.js"></script>
 	<script src="/resources/js/main.js"></script>
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 	<script

@@ -15,7 +15,7 @@
 <meta name="keywords" content="Fashi, unica, creative, html">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>Insert title here</title>
+<title>카테고리별 상품</title>
 <!-- Google Font -->
 <link
 	href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap"
@@ -149,13 +149,13 @@ td{
 			  
 
 			<!--  카테고리 부트스트랩 end -->
-			<c:if test="${empty list2}">
+			<c:if test="${empty catelist}">
 							
 							<div class="col-12" style="margin:250px auto; font-size : 30px; text-align: center;">
 								<div>등록된 상품이 없습니다.</div>
 							</div>
 			</c:if>
-			<c:if test="${not empty list2}">
+			<c:if test="${not empty catelist}">
 			
 			<div class="col-lg-12">
 				 <div class="section-title">
@@ -178,7 +178,7 @@ td{
 							<th>삭제</th>
 						</tr>
 						</thead>
-					<c:forEach items="${list2}" var="goods">
+					<c:forEach items="${catelist}" var="goods">
 							<tbody id="goodsList">
 							<tr onClick="location.href='/admin/goods/${goods.goods_id}'" style="cursor: pointer;">
 								<td>${goods.goods_id}</td>

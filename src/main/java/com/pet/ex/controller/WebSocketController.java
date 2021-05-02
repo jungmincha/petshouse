@@ -49,6 +49,16 @@ public class WebSocketController {
 		return mov;
 	}
 	
+	@GetMapping("/roomup")
+	public ModelAndView roomup(ModelAndView mov) {
+		log.info("==========현재 채팅방의 수 : " + String.valueOf(roomList.size())+ "==============");
+		
+		mov.addObject("roomList", roomList);
+		mov.setViewName("/chat/roomup");
+		
+		return mov;
+	}
+	
 	@GetMapping("/room/list")
 	public Set<String> getRoomList () {
 

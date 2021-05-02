@@ -102,29 +102,51 @@
 
 <style>
  
+ body {
+  font-family: "Lato", sans-serif;
+}
+
+.sidenav {
+  height: 60%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 150px;
+  left: 0;
+  background-color: #f5f5f5;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+  opacity: 0.7;
+}
+
+.sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #fffff;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
  
- 
-#navbars>li:nth-child(3) {
-   background-color: #e7ab3c;
-}
-a:link {
-	text-decoration: none;
-	color: #333333;
-}
 
-a:visited {
-	text-decoration: none;
-	color: #333333;
-}
-
-a:active {
-	text-decoration: none;
-	color: #333333;
-}
-
-a:hover {
-	text-decoration: none;
-}
 
 tr{
 	font-size : 16px;
@@ -141,22 +163,43 @@ td{
 
 <body style="padding-top: 200px">
 
-
+  
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
-
+ 
 	<!-- Page Content -->
 	<!-- Product Shop Section Begin -->
 
+<div id="mySidenav" class="sidenav">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  <a href="/admin/goods">상품관리</a>
+  <a href="/admin/member_list">회원관리</a>
+  <a href="/room">채팅관리</a>
+  <a href="/statistics/main/home">통   계</a>
 
+</div>
+
+
+<span style="font-size:30px;cursor:pointer; position: fixed; top:160px; left : 190px; color:#a6a1a1;" onclick="openNav()"> 관리자홈</span>
+
+<script>
+function openNav() {
+  document.getElementById("mySidenav").style.width = "180px";
+}
+
+function closeNav() {
+  document.getElementById("mySidenav").style.width = "0";
+}
+</script>
+   
 
 
 	<div class="container">
 
 		<div class="row">
 
-			<div class="col-lg-2">
+			  <div class="col-lg-2">
 				<%@ include file="/WEB-INF/views/include/category.jsp"%>
-			</div>
+			</div>  
 			 
 			<div class="col-lg-10">
 				<div id="input">
