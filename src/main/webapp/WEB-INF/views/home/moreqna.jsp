@@ -58,7 +58,7 @@ color:#FFBF00
 
 	<!-- Header -->
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
-	<div class="container">
+	<div class="container" style="min-height:600px;">
 
 		<!-- 검색량 출력 -->
 		<div style="margin-top: 30px;">

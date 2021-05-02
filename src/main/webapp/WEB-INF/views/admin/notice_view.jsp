@@ -120,7 +120,7 @@
 
 				<hr>
 
-				<section style="margin-top: 60px; margin-bottom: 20px;">${notice_view.content}</section>
+				<section style="margin-top: 60px; min-height:300px; margin-bottom: 20px;">${notice_view.content}</section>
 
 				<c:forEach items="${img}" var="notice">
 					<div class="mySlides">

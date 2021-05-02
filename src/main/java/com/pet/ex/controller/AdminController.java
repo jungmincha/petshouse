@@ -433,46 +433,52 @@ public class AdminController {
 		return mav;
 	}
 
-	// 공지사항 글 작성하기
-	@PostMapping("/notice/register")
-	public ModelAndView no_write(MultipartHttpServletRequest multi, BoardVO boardVO, ImageVO imageVO, ModelAndView mav)
-			throws IllegalStateException, IOException {
-		log.info("no_write()실행");
-		service.writeNotice(boardVO);
+	  // 공지사항 글 작성하기
+	   @PostMapping("/notice/register")
+	   public ModelAndView no_write(MultipartHttpServletRequest multi, BoardVO boardVO, ImageVO imageVO, ModelAndView mav)
+	         throws IllegalStateException, IOException {
+	      log.info("no_write()실행");
 
-		String path = multi.getSession().getServletContext().getRealPath("/static/img/admin/notice");
 
-		path = path.replace("webapp", "resources");
+	      
+	      if (multi.getFile("file").getOriginalFilename().equals("")) {
+	         service.writeNotice(boardVO);
+	      } else {
+	         service.writeNotice(boardVO);
+	         BoardVO board = service.getNoticeBoard_id();
+	      String path = multi.getSession().getServletContext().getRealPath("/static/img/admin/notice");
 
-		File dir = new File(path);
-		if (!dir.isDirectory()) {
-			dir.mkdir();
-		}
+	      path = path.replace("webapp", "resources");
 
-		List<MultipartFile> mf = multi.getFiles("file");
+	      File dir = new File(path);
+	      if (!dir.isDirectory()) {
+	         dir.mkdir();
+	      }
 
-		for (int i = 0; i < mf.size(); i++) { // 파일명 중복 검사
+	      List<MultipartFile> mf = multi.getFiles("file");
 
-			UUID uuid = UUID.randomUUID(); // 파일명 랜덤으로 변경
+	      for (int i = 0; i < mf.size(); i++) { // 파일명 중복 검사
 
-			String originalfileName = mf.get(i).getOriginalFilename();
-			String ext = FilenameUtils.getExtension(originalfileName);
-			// 저장 될 파일명
-			String imgname = uuid + "." + ext;
+	         UUID uuid = UUID.randomUUID(); // 파일명 랜덤으로 변경
 
-			String savePath = path + "\\" + imgname; // 저장 될 파일 경로
+	         String originalfileName = mf.get(i).getOriginalFilename();
+	         String ext = FilenameUtils.getExtension(originalfileName);
+	         // 저장 될 파일명
+	         String imgname = uuid + "." + ext;
 
-			mf.get(i).transferTo(new File(savePath)); // 파일 저장
-			imageVO.setImgname(imgname);
-			BoardVO board = service.getNoticeBoard_id();
-			imageVO.getBoardVO().setBoard_id(board.getBoard_id());
-			service.NoticeImgInput(imageVO);
-		}
+	         String savePath = path + "\\" + imgname; // 저장 될 파일 경로
 
-		mav.setView(new RedirectView("/admin/notice", true));
+	         mf.get(i).transferTo(new File(savePath)); // 파일 저장
+	         imageVO.setImgname(imgname);
 
-		return mav;
-	}
+	         imageVO.getBoardVO().setBoard_id(board.getBoard_id());
+	         service.NoticeImgInput(imageVO);
+	      }
+	      }
+	      mav.setView(new RedirectView("/admin/notice", true));
+
+	      return mav;
+	   }
 
 	// 공지사항 삭제
 	@DeleteMapping("/ndelete/{board_id}")

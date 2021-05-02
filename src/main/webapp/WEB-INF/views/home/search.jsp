@@ -150,31 +150,12 @@ img {
 	color : #fff
 
 }
+
+#searchzero{
+text-align:center;
+margin-top:100px;
+}
 </style>
-
-
-<script>
-		$(document).ready(function(){
-			function add(){
-				var gc = $('#gcount').val();
-				var tc = $('#tcount').val();
-				var qc = $('#qcount').val();
-				var sc = $('#scount').val();
-			
-			
-				var add = parseInt(gc)+parseInt(tc)+parseInt(qc)+parseInt(sc);
-				console.log(add);
-				
-				var total = document.createElement('div');
-				total.id = "ddd"
-				
-				document.getElementById("table").appendChild(total);
-			
-				
-			}
-			add();
-		 });
-	</script>
 
 </head>
 
@@ -182,13 +163,20 @@ img {
 
 	<!-- Header -->
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
-	<div class="container">
+	<div class="container" style="min-height:600px;">
 
 		<div id="total"></div>
 		<input type="hidden" id="gcount" value="${gcount}"> 
 		<input type="hidden" id="tcount" value="${tcount}"> 
 		<input type="hidden" id="qcount" value="${qcount}"> 
 		<input type="hidden" id="scount" value="${scount}">
+
+<c:if test="${gcount == 0 && tcount==0 && qcount ==0 && scount ==0}">
+
+					<div id="searchzero" class="col-12">
+						 <img  src="/resources/img/storehome/search.png">
+					</div>
+				</c:if>
 
 		<c:if test="${gcount != 0}">
 			<form action="${pageContext.request.contextPath}/moregoods"

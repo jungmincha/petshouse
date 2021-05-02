@@ -126,13 +126,13 @@
 .content{
 margin-top: 60px; 
 margin-bottom: 20px;
-min-height:120px;
+min-height:150px;
 }
 </style>
 
 </head>
 
-<body style="padding-top: 170px">
+<body style="padding-top: 170px;">
 
 	<!-- Header -->
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>

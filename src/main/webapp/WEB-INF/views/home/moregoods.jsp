@@ -82,7 +82,7 @@ color:#FFBF00
 
 	<!-- Header -->
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
-	<div class="container">
+	<div class="container" style="min-height:600px;">
 
 		<!-- 검색량 출력 -->
 		<div style="margin-top: 30px;">
@@ -100,8 +100,8 @@ color:#FFBF00
 				<c:forEach items="${moregoods}" var="mg">
 					<div class="product-item col-sm-3">
 						<div class="pi-pic">
-							<a href="/admin/goods_detail/${mg.board_id}"><img
-								src="/resources/img/admin/goods/${mg.goodsVO.thumbnail}" alt=""></a>
+							<a href="/admin/goods_detail/${mg.board_id}">
+							<img src="/resources/img/admin/goods/${mg.goodsVO.thumbnail}" alt="" style="height:260px;"></a>
 						</div>
 
 						<div class="pi-text">

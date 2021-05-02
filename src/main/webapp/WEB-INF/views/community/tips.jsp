@@ -158,7 +158,7 @@ background-color: #E6E6E6;
 
 			<!-- Category Section End -->
 		<!-- 동물 카테고리, 글쓰기 버튼 -->
-	<div style="padding-top:50px; margin-bottom:110px; ">
+	<div style="padding-top:80px; margin-bottom:50px; ">
 		
 		<div style="float: right;">
 			<button class="btn btn-outline-secondary" id="tw"
@@ -186,8 +186,7 @@ background-color: #E6E6E6;
 
 
 		<!-- 노하우 리스트 -->
-		<div id="table" class="row"
-			style="margin-top: 1rem; margin-bottom:1rem;">
+		<div id="table" class="row">
 
 			<c:forEach items="${tips}" var="tp">
 				<div class="product-item col-sm-6 col-md-4 col-lg-3 ">
@@ -273,7 +272,7 @@ background-color: #E6E6E6;
     	}; //click end	
    
 		// 카테고리에 해당하는 동물의 글
-		$('#selectPet')
+	/* 	$('#selectPet')
 				.change(
 						function() {
 							var category_id = $(this).val();
@@ -310,16 +309,16 @@ background-color: #E6E6E6;
 
 										}, //ajax 성공 시 end
 
-									/* 	error : function(request, status, error) {
+										error : function(request, status, error) {
 											alert("code:" + request.status
 													+ "\n" + "message:"
 													+ request.responseText
 													+ "\n" + "error:" + error);
 
-										} // ajax 에러 시 end */
+										} // ajax 에러 시 end 
 
 									})
-						})
+						}) */
 	</script>
 
 	<!-- Footer -->

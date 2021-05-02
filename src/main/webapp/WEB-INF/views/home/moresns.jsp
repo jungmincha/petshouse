@@ -104,7 +104,7 @@ color:#FFBF00
 
 	<!-- Header -->
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
-	<div class="container">
+	<div class="container" style="min-height:600px;">
 
 		
 		<input type="hidden" name="keyword" value="${param.keyword}">

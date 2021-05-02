@@ -53,7 +53,7 @@
 
 	<div class="container">
 	<div class="row">
-	<h3 style="margin-bottom:15px;">공지 사항</h3>      
+	<h3 style="margin-bottom:30px;margin-top:30px;">공지 사항</h3>      
 		
 		
   			<!-- 관리자에게만 작성버튼 띄우기 -->
@@ -99,7 +99,7 @@
 
 
 		<!-- 페이징 -->
-		<div class="ul">
+		<div class="ul" style="margin-top:50px;margin-bottom:100px;">
 			<ul class="pagination justify-content-center"
 				style="padding-bottom: 50px; padding-top: 50px;">
 				<c:if test="${pageMaker.prev}">

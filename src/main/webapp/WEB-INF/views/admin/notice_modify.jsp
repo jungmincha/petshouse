@@ -34,7 +34,6 @@
    background-color: #e7ab3c;
 	}
 
-
 </style>
 
 </head>
@@ -44,17 +43,14 @@
 	<!-- Header -->
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
 
-	<div class="container" style="width: 800px;">
-
+	<div class="container" style=" margin-top:30px;width: 800px;">
+<h4 style="margin-bottom:30px;"> 공지사항 수정</h4>
 		<form action="${pageContext.request.contextPath}/admin/notice/update"
 			method="post" enctype="multipart/form-data">
 			<input type="hidden" name="board_id" value="${notice_view.board_id}" />
-			<input type="text" class="form-control" style=" margin-bottom: 20px;"  name="title"value="${notice_view.title}" />
-				<textarea id="editor4" name="content">${notice_view.content}</textarea>
+			<input type="text" class="form-control" style="margin-bottom: 20px;"  name="title" value="${notice_view.title}" />
+				<textarea  class="form-control col-12" style="margin-bottom: 20px; height:400px; resize: none;" name="content">${notice_view.content}</textarea>
 
-			<script>
-				CKEDITOR.replace('editor4');
-			</script>
 			<!-- 					<div class="form-group row">
 								<label class="col-sm-3" for="detail_img">상품상세사진</label>
 								<div class="input-group col-sm-9">
