@@ -53,15 +53,15 @@
 </style>
 </head>
 
-<body>
+<body style="padding-top: 40px;">
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
 	
 	<!--Container Begin -->
-	<div class="container"> 
+	<div class="container" style="min-height: 800px;"> 
 		<div class="row">
 		    <div class="col-lg-12">
-				<h2 class="member">회원 상세 정보</h2>
-					<table class="table">						
+				<h2 class="member"">회원 상세 정보</h2>
+					<table class="table">					
 						<tbody>
 							<tr>
 								<td>이름</td>

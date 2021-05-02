@@ -106,6 +106,19 @@
 	    text-shadow: 0 0 4px rgb(0 0 0 / 50%);
 	}
 	
+	.total {
+		color: #FFBF00;
+		font-weight: bold;
+		font-size: 20px;
+	}
+	
+	.more{
+		float: right; 
+		padding: 10px 20px 0px 0px;
+		color: #FFBF00;
+		font-size: 16px;
+	}
+	
 	a:link {
 		text-decoration: none;
 		color: #333333;
@@ -247,7 +260,7 @@
 						<!-- 본인 계정인 경우 수정 버튼 발생, principal로 확인-->	   	
 						<c:if test="${member.member_id eq follower_id}">
 							<div class="profile-info__actions" style = "padding-top : 50px;">
-								<a class="btn btn-warning" href="/myPage/view" style="color:black">설정</a>
+								<a class="btn btn-warning" href="/myPage/updateMember" style="color:black">설정</a>
 							</div>
 						</c:if>
 								
@@ -275,7 +288,7 @@
 					<div class="sns row">
 						<c:if test="${empty sns}">
 							<div class="col-12"> 
-								<span style="font-size:20px;font-weight: bold;">SNS (${snsTotal})</span><hr />		
+								<span style="font-size:20px;font-weight: bold;">SNS </span> <span class="total">${snsTotal}</span><hr />		
 							</div>
 							<div class="col-12 sns_container">
 								<div>SNS를 작성해주세요</div>
@@ -283,8 +296,8 @@
 						</c:if>
 						<c:if test="${not empty sns}">							
 							<div class="col-12"> 
-								<span style="font-size:20px;font-weight: bold;">SNS (${snsTotal})</span>
-								<a href="/myPage/sns?nickname=${member.nickname}" style="float: right; padding-right:20px;">더보기</a><hr />		
+								<span style="font-size:20px;font-weight: bold;">SNS </span> <span class="total">${snsTotal}</span>
+								<a href="/myPage/sns?nickname=${member.nickname}" class="more">더보기</a><hr />		
 							</div>	
 							<c:forEach items="${sns}" var="sns">
 								<c:if test="${sns.rnum le 3}">
@@ -310,7 +323,7 @@
 					<div class="knowhow row">	
 						<c:if test="${empty knowhow}">
 							<div class="col-12"> 
-								<span style="font-size:20px;font-weight: bold;">노하우 (${knowhowTotal})</span><hr />		
+								<span style="font-size:20px;font-weight: bold;">노하우 </span> <span class="total">${knowhowTotal}</span><hr />		
 							</div>
 							<div class="col-12 knowhow_container">
 								<div>노하우를 작성해주세요</div>
@@ -318,8 +331,8 @@
 						</c:if>
 						<c:if test="${not empty knowhow}">							
 							<div class="col-12"> 
-								<span style="font-size:20px;font-weight: bold;">노하우 (${knowhowTotal})</span>
-								<a href="/myPage/knowhow?nickname=${member.nickname}" style="float: right; padding-right:20px;">더보기</a><hr />		
+								<span style="font-size:20px;font-weight: bold;">노하우 </span> <span class="total">${knowhowTotal}</span>
+								<a href="/myPage/knowhow?nickname=${member.nickname}" class="more">더보기</a><hr />	
 							</div>	
 							<c:forEach items="${knowhow}" var="knowhow">
 								<c:if test="${knowhow.rnum le 3}">
@@ -338,7 +351,7 @@
 					<div class="review row">
 						<c:if test="${empty review}">
 							<div class="col-12"> 
-								<span style="font-size:20px;font-weight: bold;">리뷰 (${reviewTotal})</span><hr />							
+								<span style="font-size:20px;font-weight: bold;">리뷰 </span> <span class="total">${reviewTotal}</span><hr />							
 							</div>	
 							<div class="col-12 review_container">
 								<div>리뷰를 작성해주세요</div>
@@ -346,8 +359,8 @@
 						</c:if>
 						<c:if test="${not empty review}">
 							<div class="col-12"> 
-								<span style="font-size:20px;font-weight: bold;">리뷰 (${reviewTotal})</span>
-								<a href="/myPage/review?nickname=${member.nickname}" style="float: right; padding-right:20px;">더보기</a><hr />						
+								<span style="font-size:20px;font-weight: bold;">리뷰 </span> <span class="total">${reviewTotal}</span>
+								<a href="/myPage/review?nickname=${member.nickname}" class="more">더보기</a><hr />						
 							</div>	
 							<c:forEach items="${review}" var="review">
 								<c:if test="${review.rnum le 3}">
@@ -376,7 +389,7 @@
 					<div class="qna row">
 						<c:if test="${empty qna}">
 							<div class="col-12"> 
-								<span style="font-size:20px;font-weight: bold;">질문과답변 (${qnaTotal})</span><hr />							
+								<span style="font-size:20px;font-weight: bold;">질문과답변 </span> <span class="total">${qnaTotal}</span><hr />							
 							</div>	
 							<div class="col-12 qna_container">
 								<div>질문과답변을 작성해주세요</div>
@@ -384,8 +397,8 @@
 						</c:if>
 						<c:if test="${not empty qna}">
 							<div class="col-12"> 
-								<span style="font-size:20px;font-weight: bold;">질문과답변 (${qnaTotal})</span>
-								<a href="/myPage/qna?nickname=${member.nickname}" style="float: right; padding-right:20px;">더보기</a><hr />		
+								<span style="font-size:20px;font-weight: bold;">질문과답변 </span> <span class="total">${qnaTotal}</span>
+								<a href="/myPage/qna?nickname=${member.nickname}" class="more">더보기</a><hr />		
 							</div>	
 							<div class="col-12"> 
 								<c:forEach items="${qna}" var="qna">

@@ -89,7 +89,6 @@
    	var member_id = $("#member_id").val();
    	
    	
-	$('.btn').click(function(e){
    	$('#canvas').click(function(e){
    		
    		//로그인 여부 체크
@@ -154,7 +153,6 @@
 		    }
     	});//ajax end
    	});//click end
-	});
    });
    </script>  
   
@@ -225,7 +223,7 @@
  				<div id="board">
  					<img class="roulette" src="/resources/img/commuhome/roulette.jpg">
 	 				<div id="pin"></div>
-	 				<button type="button" class="btn btn-warning" onClick="btnClick()">더보기</button>
+	 			
 	 				<canvas id="canvas" width="1000px" height="1000px"></canvas>	
  				</div>
  				</div>

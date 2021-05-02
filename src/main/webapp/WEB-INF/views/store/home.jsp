@@ -289,7 +289,7 @@
                      <h2>Best Products</h2>
                	  </div>
             </div>
-            <div class="cate row">
+            <div class="cate row" style="padding-bottom: 30px;">
             	<c:forEach items="${rate}" var="rate">
                   <div class="col-lg-3 col-sm-6">
                      <div class="product-item">                   
@@ -323,7 +323,7 @@
              
               <c:if test="${fn:length(count) > 8}">
                 <input type="hidden" class="count" value="${fn:length(count)}" />
-	            <div class="col-lg-12 text-center">
+	            <div class="col-lg-12 text-center" style="padding-bottom: 80px;">  
 	            	<button type="button" class="btn btn-warning" onClick="btnClick()">더보기</button>
 		        </div>
 		      </c:if>
