@@ -248,12 +248,11 @@ h2 {
 				<div class="col-lg-12">
 			<input type="hidden" name="board_id" value="${goods.board_id}"> 
 			<input type="hidden" name="goods_id" value="${goods.goodsVO.goods_id}"> 				 
-		<div style="float: right">
-			<%--  <sec:authorize access="hasAnyRole('ROLE_ADMIN')"> --%>
-			<button type="button" id="delete_button" class="btn btn-warning"
-				onclick="button_event();">삭제</button>
-				<%-- </sec:authorize> --%>
-		</div>
+			<div style="float: right">
+			<sec:authorize access="hasAnyRole('ROLE_ADMIN')">  W
+			<button type="button" id="delete_button" class="btn btn-warning" onclick="button_event();">삭제</button>
+		    </sec:authorize>  
+			</div>
 						
 							<div class="col-lg-6">
 								<div class="product-pic-zoom">
@@ -327,9 +326,7 @@ h2 {
 													무료배송)</small>
 											</p>
 											<small>※ 재고상태 : ${goods.goodsVO.stockVO.stockname}</small></br>
-
 										</div>
-
 									</div>
 
 
@@ -377,7 +374,6 @@ h2 {
 
 										</div>
 									</div>
-
 								</div>
 							</div>
 						</div>
@@ -400,10 +396,7 @@ h2 {
 								<div class="product-content">
 									<div class="row">
 										<div class="col-lg-7">
-
-
 											${goods.content}
-
 										</div>
 									</div>
 								</div>
@@ -412,16 +405,12 @@ h2 {
 							<!--                   리뷰 탭2                -->
 
                      <div class="tab-pane fade" id="tab-2" role="tabpanel" value=8>
-                        <div class="customer-review-option">
+                        <div class="customer-review-option" style="width:900px; float:left;">
 
-                           <c:if test="${one.goodsVO.goods_id eq goods.goodsVO.goods_id}">
-                              <span style="font-size: 19px;"><b> &nbsp; ${one.count}개의
-                                 리뷰</b></span>
-                           </c:if>
-                           <hr>
-
-                           
-
+                          	 <c:if test="${one.goodsVO.goods_id eq goods.goodsVO.goods_id}">
+                              	<span style="font-size: 19px;"><b> &nbsp; ${one.count}개의 리뷰</b></span>
+                           	</c:if>
+                          	 <hr>
                               <div class="container" style="margin-bottom: 10px;">
                                     <div id="comments"></div>
                               </div>
@@ -429,27 +418,19 @@ h2 {
                               <div class="container">
                                  <div class="col-lg-12 text-center" id="page"></div>
                               </div>
-
-                           
-
                         </div>
-
                      </div>
                            <!--                   리뷰 탭2 end               -->
+					<div class="tab-pane fade" id="tab-3" role="tabpanel">
 
+							<br> <br>
+							<div class="shoppingguide" style="width:900px; float:left;">
 
-
-							<div class="tab-pane fade" id="tab-3" role="tabpanel">
-
-
-								<br> <br>
-								<div class="shoppingguide">
-
-									<table>
+							<table>
 
 										<colgroup>
 											<col style="width: 20%;">
-											<col style="width: 80%;">
+											<col style="width: 60%;">
 										</colgroup>
 										<tbody>
 											<tr>

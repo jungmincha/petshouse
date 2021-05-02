@@ -269,24 +269,26 @@
 								<li><a href="/store/event">이벤트</a></li>
 							</ul></li>
 
-						<li><sec:authorize
-								access="hasAnyRole('ROLE_USER','ROLE_ADMIN')">
-								<a
-									href="/myPage/<sec:authentication property="principal.nickname"/>">마이페이지</a>
-								<ul class="dropdown">
-									<li><a href="/myPage/orderList">주문배송내역</a></li>
-									<li><a href="/myPage/pointList">포인트</a></li>
-									<li><a href="/myPage/updateMember">회원정보수정</a></li>
-								</ul>
-							</sec:authorize></li>
+					   <sec:authorize access="hasAnyRole('ROLE_USER')">
+                     <li><a
+                        href="/myPage/<sec:authentication property="principal.nickname"/>">마이페이지</a>
+                        <ul class="dropdown">
+                           <li><a href="/myPage/orderList">주문배송내역</a></li>
+                           <li><a href="/myPage/pointList">포인트</a></li>
+                           <li><a href="/myPage/updateMember">회원정보수정</a></li>
+                        </ul></li>
+                  </sec:authorize>
 
-						<li><a href="/admin/home">관리자페이지</a>
-							<ul class="dropdown">
+                  <sec:authorize access="hasAnyRole('ROLE_ADMIN')">
+                     <li><a href="/admin/home">관리자페이지</a>
+                        <ul class="dropdown">
 
-								<li><a href="/admin/goods">상품관리</a></li>
-								<li><a href="/admin/member_list">회원관리</a></li>
-								<li><a href="/statistics/main/home">통계</a></li>
-							</ul></li>
+                           <li><a href="/admin/goods">상품관리</a></li>
+                           <li><a href="/admin/member_list">회원관리</a></li>
+                           <li><a href="/room">문의채팅방</a></li>
+                           <li><a href="/statistics/main/home">통계</a></li>
+                        </ul></li>
+                  </sec:authorize>
 
 					</ul>
 				</nav>
@@ -341,8 +343,8 @@
 	</sec:authorize>
 	<sec:authorize access="hasAnyRole('ROLE_ADMIN')">
 		<div class="chat">
-			<a href="${pageContext.request.contextPath}/room"
-				onclick="window.open(this.href,'팝업창','width=600,height=670');return false;"><i
+			<a href="${pageContext.request.contextPath}/roomup"
+				onclick="window.open(this.href,'팝업창','width=510,height=610');return false;"><i
 				class="fas fa-paw"></i></a>
 		</div>
 	</sec:authorize>

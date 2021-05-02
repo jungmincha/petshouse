@@ -182,7 +182,7 @@ public class AdminServiceImpl implements AdminService {
 	public List<MemberVO> getMemberlist(Criteria cri) {
 		log.info("Memberlist");
 		cri.setAmount(20);
-		return mapper.getMemberlist(cri);
+		return mapper.getMemberlist(cri);   
 	}
 
 	@Override
