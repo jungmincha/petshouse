@@ -299,7 +299,7 @@ public class AdminController {
 		return mav;
 	}
 	
-	@DeleteMapping("/board/{board_id}")
+	@DeleteMapping("/board/{goods_id}")
 	public ResponseEntity<String> boardDelete(BoardVO boardVO, ModelAndView mav) {
 			 
 

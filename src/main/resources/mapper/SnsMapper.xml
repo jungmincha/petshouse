@@ -86,7 +86,7 @@
 	  		 	delete from image where board_id = #{board_id};
 	  		 	delete from board where pstep=1 and pgroup = #{board_id};
 	     		delete from board where board_id = #{board_id};
-					  	
+				END;  	
 	  		 ]]>
 	  		 
 	</delete>

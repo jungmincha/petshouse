@@ -23,7 +23,7 @@
 			margin: 0 auto;
 			padding: 5px;
 		}
-		.container h3{
+		.container h2{
 			text-align: center;
 			padding: 5px 5px 5px 15px;
 			color: #E6A55A;
@@ -169,7 +169,7 @@
 	<!-- Page Content -->
  
 <div class="container">
-		<h3>채팅방</h3>
+		<h2>채팅목록</h2>
 		<div id="roomContainer" class="roomContainer">
 			<table id="roomList" class="roomList"></table>
 		</div>

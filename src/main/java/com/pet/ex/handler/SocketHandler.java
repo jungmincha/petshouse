@@ -34,10 +34,9 @@ public class SocketHandler extends TextWebSocketHandler {
 		return obj;
 	}
 	
-	//메시지 발송
-	@Override 
+	@Override
 	public void handleTextMessage(WebSocketSession session, TextMessage message) {
-		
+		//메시지 발송
 		String msg = message.getPayload();
 		JSONObject obj = jsonToObjectParser(msg);
 		String username = (String) obj.get("username");
@@ -120,7 +119,7 @@ public class SocketHandler extends TextWebSocketHandler {
 	//소켓 종료
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
-		
+		// 소켓 종료
 		if(roomList.size() > 0) {
 			for(int i = 0; i < roomList.size(); i++) {
 				JSONObject obj = new JSONObject();
