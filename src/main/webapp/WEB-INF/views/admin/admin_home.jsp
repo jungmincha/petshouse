@@ -38,200 +38,51 @@
 	type="text/css">
 <link rel="stylesheet" href="/resources/css/style.css" type="text/css">
 
-    <!-- jQuery UI -->
-    <link href="https://code.jquery.com/ui/1.10.3/themes/redmond/jquery-ui.css" rel="stylesheet" media="screen">
 
-    <!-- Bootstrap -->
-    <link href="/resources/sidemenu/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <!-- styles -->
-    <link href="/resources/sidemenu/css/styles.css" rel="stylesheet">
-     <link href="/resources/sidemenu/css/stats.css" rel="stylesheet">
+
 <style>
 
-.container{
-	text-align: center;
-	margin : auto;
-
+#sidebar { font-size: 14px; z-index: 100; 
+-webkit-transform: translate3d(-300px,0,0);
+-moz-transform: translate3d(-300px,0,0);
+transform: translate3d(-300px,0,0);
+-webkit-transition: all 0.2s;
+-moz-transition: all 0.2s;
+-ms-transition: all 0.2s;
+-o-transition: all 0.2s;
+transition: all 0.2s;
 }
 
+html.open #sidebar { overflow-y: auto;
+-webkit-transform: translate3d(0,0,0);
+-moz-transform: translate3d(0,0,0);
+transform: translate3d(0,0,0);
+-webkit-transition: all 0.2s;
+-moz-transition: all 0.2s;
+-ms-transition: all 0.2s;
+-o-transition: all 0.2s;
+transition: all 0.2s;
+}
+
+#sidebar-toggle { display: block; position: fixed; left: 10px; bottom: 10px; width: 50px; height: 50px; line-height: 55px; text-align: center; color: #555; background-color: #f1f1f1; border-radius: 10px; opacity: 0.9; box-shadow: 0 0 10px #aaa; z-index: 101; }
+
+
 </style>
+
 </head>
 <body style="padding-top:180px">
 
-	<%@ include file="/WEB-INF/views/include/header.jsp"%>
+<div id="sidebar">
+    content
+</div>
 
+<div id="sidebar-toggle">사이드바 열기</div>
+<script>
+ $("#sidebar-toggle").click(function(){
+  $("html").toggleClass("open");
+});
+	</script>
 
-   <div class ="container">
-<div class="col-lg-12">
-	 
-		  	<div class="row">
-  				<div class="col-lg-6">
-  					<div class="content-box-large">
-		  				<div class="panel-heading">
-							<div class="panel-title">상품관리</div>
-							
-							<div class="panel-options">
-								<a href="#" data-rel="collapse"><i class="glyphicon glyphicon-refresh"></i></a>
-								<a href="#" data-rel="reload"><i class="glyphicon glyphicon-cog"></i></a>
-							</div>
-						</div>
-		  				<div class="panel-body">
-		  					<table class="table table-hover">
-				              <thead>
-				                <tr>
-				                  <th>#</th>
-				                  <th>First Name</th>
-				                  <th>Last Name</th>
-				                  <th>Username</th>
-				                </tr>
-				              </thead>
-				              <tbody>
-				                <tr>
-				                  <td>1</td>
-				                  <td>Mark</td>
-				                  <td>Otto</td>
-				                  <td>@mdo</td>
-				                </tr>
-				                <tr>
-				                  <td>2</td>
-				                  <td>Jacob</td>
-				                  <td>Thornton</td>
-				                  <td>@fat</td>
-				                </tr>
-				                <tr>
-				                  <td>3</td>
-				                  <td>Larry</td>
-				                  <td>the Bird</td>
-				                  <td>@twitter</td>
-				                </tr>
-				              </tbody>
-				            </table>
-		  				</div>
-		  			</div>
-  				</div>
-  				<div class="col-lg-6">
-  					<div class="content-box-large">
-		  				<div class="panel-heading">
-							<div class="panel-title">회원관리</div>
-							
-							<div class="panel-options">
-								<a href="#" data-rel="collapse"><i class="glyphicon glyphicon-refresh"></i></a>
-								<a href="#" data-rel="reload"><i class="glyphicon glyphicon-cog"></i></a>
-							</div>
-						</div>
-		  				<div class="panel-body">
-		  					<table class="table table-hover">
-				              <thead>
-				                <tr>
-				                  <th>#</th>
-				                  <th>First Name</th>
-				                  <th>Last Name</th>
-				                  <th>Username</th>
-				                </tr>
-				              </thead>
-				              <tbody>
-				                <tr>
-				                  <td>1</td>
-				                  <td>Mark</td>
-				                  <td>Otto</td>
-				                  <td>@mdo</td>
-				                </tr>
-				                <tr>
-				                  <td>2</td>
-				                  <td>Jacob</td>
-				                  <td>Thornton</td>
-				                  <td>@fat</td>
-				                </tr>
-				                <tr>
-				                  <td>3</td>
-				                  <td>Larry</td>
-				                  <td>the Bird</td>
-				                  <td>@twitter</td>
-				                </tr>
-				              </tbody>
-				            </table>
-		  				</div>
-		  			</div>
-  				</div>
-  			</div>
-
-  		 
-  			</div>
-
-  		 
-
-  			<div class="content-box-large">
-  				<div class="content-box-large">
-  				<div class="panel-heading">
-					<div class="panel-title">Morris.js Bar & Donut</div>
-					
-					<div class="panel-options">
-						<a href="#" data-rel="collapse"><i class="glyphicon glyphicon-refresh"></i></a>
-						<a href="#" data-rel="reload"><i class="glyphicon glyphicon-cog"></i></a>
-					</div>
-				</div>
-  				<div class="panel-body">
-  					<div class="row">
-  						<div class="col-md-6">
-  							<div id="hero-bar" style="height: 230px;"></div>
-  						</div>
-  						<div class="col-md-3">
-  							<div id="hero-donut" style="height: 230px;"></div>
-  						</div>
-  						<div class="col-md-3">
-  							<div id="hero-donut2" style="height: 230px;"></div>
-  						</div>
-  					</div>
-  				</div>
-  			</div>
-
-		  </div>
-		
- 
-
-	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
-
-
-
-
-<!-- Js Plugins -->
-<!-- <script src="/resources/js/jquery-3.3.1.min.js"></script>
-<script src="/resources/js/bootstrap.min.js"></script>
-<script src="/resources/js/jquery-ui.min.js"></script>
-<script src="/resources/js/jquery.countdown.min.js"></script>
-<script src="/resources/js/jquery.nice-select.min.js"></script>
-<script src="/resources/js/jquery.zoom.min.js"></script>
-<script src="/resources/js/jquery.dd.min.js"></script>
-<script src="/resources/js/jquery.slicknav.js"></script>
-<script src="/resources/js/owl.carousel.min.js"></script>
-<script src="/resources/js/main.js"></script> -->
-
-
-  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://code.jquery.com/jquery.js"></script>
-    <!-- jQuery UI -->
-    <script src="https://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="/resources/sidemenu/bootstrap/js/bootstrap.min.js"></script>
-
-    <script src="/resources/sidemenu/vendors/datatables/js/jquery.dataTables.min.js"></script>
-  <link rel="stylesheet" href="/resources/sidemenu/vendors/morris/morris.css">
-    <script src="/resources/sidemenu/vendors/datatables/dataTables.bootstrap.js"></script>
-    <script src="/resources/sidemenu/vendors/morris/morris.min.js"></script>
-     <script src="/resources/sidemenu/vendors/jquery.knob.js"></script>
-    <script src="/resources/sidemenu/vendors/raphael-min.js"></script>
-    <script src="/resources/sidemenu/vendors/morris/morris.min.js"></script>
-
-    <script src="/resources/sidemenu/vendors/flot/jquery.flot.js"></script>
-    <script src="/resources/sidemenu/vendors/flot/jquery.flot.categories.js"></script>
-    <script src="/resources/sidemenu/vendors/flot/jquery.flot.pie.js"></script>
-
-    <script src="/resources/sidemenu/vendors/flot/jquery.flot.stack.js"></script>
-    <script src="/resources/sidemenu/vendors/flot/jquery.flot.resize.js"></script>
-
-    <script src="/resources/sidemenu/js/custom.js"></script>
-    <script src="/resources/sidemenu/js/tables.js"></script>
-    <script src="/resources/sidemenu/js/stats.js"></script>
  </body>
 </html>
  

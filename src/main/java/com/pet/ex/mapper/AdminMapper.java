@@ -21,7 +21,7 @@ public interface AdminMapper {
 	
 	public int getTotalGoods(Criteria cri);
 	
-	public List<GoodsVO> getList2(int category_id, Criteria cri);
+	public List<GoodsVO> getCatelist(int category_id, Criteria cri);
 	
 	public int getTotalCateGoods(int category_id, Criteria cri);
 	

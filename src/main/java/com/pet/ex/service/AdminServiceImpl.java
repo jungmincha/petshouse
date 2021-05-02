@@ -38,10 +38,10 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public List<GoodsVO> getList2(int category_id, Criteria cri) {
+	public List<GoodsVO> getCatelist(int category_id, Criteria cri) {
 		
 		cri.setAmount(5);
-		return mapper.getList2(category_id, cri);
+		return mapper.getCatelist(category_id, cri);
 	}
 
 	@Override

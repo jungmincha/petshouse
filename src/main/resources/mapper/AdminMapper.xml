@@ -173,7 +173,7 @@
 	  	 ]]>
 	</select>
 
-	<select id="getList2" resultMap="goodsvo"> 
+	<select id="getCatelist" resultMap="goodsvo"> 
 	  	 <![CDATA[     
 	  	 select * from (
    					 select rownum as rnum, a.* 

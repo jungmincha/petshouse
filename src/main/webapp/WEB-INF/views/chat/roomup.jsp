@@ -32,7 +32,7 @@
 		}
 		.roomContainer{
 			background-color: #E6A55A; 
-			width: 1000px;
+			width: 400px;
 			height: 500px;
 			overflow: auto;
 			margin : 0 auto;
@@ -46,7 +46,6 @@
 			color: #E6A55A;
 		}
 		.roomList td{
-		
 			border: 1px solid #E6A55A;
 			background-color: #fff;
 			text-align: left;
@@ -164,12 +163,9 @@
  
 
 </head>
-<body style="padding-top: 200px; margin: auto;">
+<body>
 
-  
-	<%@ include file="/WEB-INF/views/include/header.jsp"%>
- 
-
+   
 	<!-- Page Content -->
  
 <div class="container">
@@ -180,9 +176,7 @@
 	</div>
  
  
-	<!-- Footer -->
-	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
- 
+	 
  
 </body>
 </html>

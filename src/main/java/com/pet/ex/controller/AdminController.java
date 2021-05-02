@@ -82,7 +82,7 @@ public class AdminController {
 	public ModelAndView goodsNcategory(@RequestBody GoodsVO goodsvo, Criteria cri, CategoryVO categoryVO,
 			ModelAndView mav) {
 
-		mav.addObject("list2", service.getList2(categoryVO.getCategory_id(),cri));
+		mav.addObject("catelist", service.getCatelist(categoryVO.getCategory_id(),cri));
 		mav.addObject("category", service.getCatengoods());
 		mav.addObject("sort", service.getSort(categoryVO));
 		
