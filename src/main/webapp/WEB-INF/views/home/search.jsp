@@ -164,7 +164,19 @@ margin-top:90px;
 	<!-- Header -->
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
 	<div class="container" style="min-height:600px;">
-
+	<input type="hidden" name="keyword" value="${param.keyword}">
+		
+		
+		<div id="cap">
+		
+		</div>
+		<!-- 검색량 출력 -->
+		<div  style="margin-top: 30px;">
+			<h5>
+				<b>'${param.keyword}'</b>에 대한 검색결과 <span><b id="totalcount" style="color: #FFBF00;"> </b>건</span>
+			</h5>
+			<br><br>
+		</div>
 		<div id="total"></div>
 		<input type="hidden" id="gcount" value="${gcount}"> 
 		<input type="hidden" id="tcount" value="${tcount}"> 
@@ -366,6 +378,27 @@ margin-top:90px;
 		</div>
 	</div>
 
+
+<script>
+$(document).ready(function(){
+	
+		var gc = $('#gcount').val();
+		var sc = $('#scount').val();
+		var qc = $('#qcount').val();
+		var tc = $('#tcount').val();
+		
+		var add = parseInt(gc)+parseInt(sc)+parseInt(qc)+parseInt(tc);
+		console.log(add);
+		
+		var total = document.createElement('span');
+		total.id="ddd"
+		
+		document.getElementById("totalcount").appendChild(total);
+		
+		$('#ddd').text(add)
+	
+});
+</script>
 	<!-- Blog Section End -->
 
 	<div style="margin-top: 90px;">

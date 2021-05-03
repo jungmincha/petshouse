@@ -60,31 +60,7 @@
 		
 	});
 </script>
-<script type="text/javascript">
-	function fire_ajax_submit(id) {
-		console.log(id);
-		var category_id = id;
-		var form = {
-			category_id : category_id
-		};
-		var url = "/commu/tips/category/" + category_id;
 
-		$.ajax({
-			type : "POST",
-			contentType : 'application/json; charset=utf-8',
-			url : url,
-			data : JSON.stringify(form),
-			cache : false,
-			success : function(data) {
-				console.log("SUCCESS : ", data);
-				$('#input').html(data);
-			},
-			error : function(e) {
-				console.log("ERROR : ", e);
-			}
-		});
-	}
-</script>
 <style>
 #navbars>li:nth-child(2) {
 	background-color: #e7ab3c;
@@ -183,12 +159,10 @@ background-color:#E6E6E6;
 			<input type="hidden" class="category_id" value="${ct.boardVO.categoryVO.category_id}">
 				<div class="product-item col-sm-6 col-md-4 col-lg-3 ">
 					<div class="pi-pic shot">
-						<a href="/commu/tips/${ct.boardVO.board_id}"> <img
-							src="/resources/img/tips/${ct.imgname}" alt=""
-							style="height: 180px;"> <span
-							class="count">조회수 ${ct.boardVO.hit}</span> 
-							<span
-							style="font-size: 15px; font-weight: bold;">${ct.boardVO.title}</span>
+						<a href="/commu/tips/${ct.boardVO.board_id}"> 
+						<img src="/resources/img/tips/${ct.imgname}" alt="" style="height: 180px;"> 
+							<span class="count">조회수 ${ct.boardVO.hit}</span> 
+							<span style="font-size: 15px; font-weight: bold;">${ct.boardVO.title}</span>
 						</a>
 					</div>
 					<div style="font-size: 14px; text-align: left;">${ct.boardVO.memberVO.nickname}</div>
@@ -199,13 +173,12 @@ background-color:#E6E6E6;
 
 		<!-- 더보기 버튼 -->
 	   <c:if test="${fn:length(catetipsTotal) > 12}">
-	   <div class="later col-lg-12 text-center">
+	   <div class=" col-lg-12 text-center">
                 <input type="hidden" class="count" value="${fn:length(catetipsTotal)}" />
 	            	<button id="morebtn" type="button" class="btn btn-disabled" onClick="btnClick()">더보기 <i class="fa fa-caret-down"aria-hidden="true"></i></button>
 		        </div>
 		      </c:if>
-	    
-
+	
 	</div>
 
 <script type="text/javascript">
@@ -237,7 +210,7 @@ background-color:#E6E6E6;
                   },
                   success : function(data) {
                      console.log(data);
-                     console.log("here");
+                   
                      var catetips = data.catetips;
 
 
@@ -245,13 +218,13 @@ background-color:#E6E6E6;
                      
                      for (var i in catetips) {
                            html +="<div class='product-item col-sm-6 col-md-4 col-lg-3 '>"
-    	  						+"<div class='pi-pic shot'>"
-    	  						+"<a href='/commu/tips/"+catetips[i].boardVO.board_id+"'> "
-    	  						+"<img src='/resources/img/tips/"+catetips[i].imgname+"' alt='' style='height: 180px;'> "
-    	  						+"<span class='count'>조회수 "+catetips[i].boardVO.hit+"</span> "
-    	  						+"<span style='font-size: 15px; font-weight: bold;'>"+catetips[i].boardVO.title+"</span></div>"
-    	  						+"<div style='font-size: 14px; text-align: left;'>"+catetips[i].boardVO.memberVO.nickname+"</div>"
-    	  						+"</div>"
+    	  						 +"<div class='pi-pic shot'>"
+    	  						 +"<a href='/commu/tips/"+catetips[i].boardVO.board_id+"'> "
+    	  						 +"<img src='/resources/img/tips/"+catetips[i].imgname+"' alt='' style='height: 180px;'> "
+    	  						 +"<span class='count'>조회수 "+catetips[i].boardVO.hit+"</span> "
+    	  						 +"<span style='font-size: 15px; font-weight: bold;'>"+catetips[i].boardVO.title+"</span></div>"
+    	  						 +"<div style='font-size: 14px; text-align: left;'>"+catetips[i].boardVO.memberVO.nickname+"</div>"
+    	  						 +"</div>"
                                        
                                     }
                                     
