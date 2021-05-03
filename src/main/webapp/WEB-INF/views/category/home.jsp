@@ -130,7 +130,7 @@ span.star-prototype>* {
 			cache : false,
 			success : function(data) {
 				console.log("SUCCESS : ", data);
-
+				$("#changeLang").remove();
 				$('#input').html(data);
 				console.log(id);
 				console.log(name);
@@ -164,7 +164,7 @@ span.star-prototype>* {
 			cache : false,
 			success : function(data) {
 				console.log("SUCCESS : ", data);
-
+				
 				$('#input').html(data);
 			},
 			error : function(e) {
@@ -311,7 +311,7 @@ span.star-prototype>* {
 		<!--  카테고리 부트스트랩 end -->
 
 		<!--가져올 부분-->
-		<div class="row">
+		<div class="row" id="changeLang">
 			<div class="col-md-10">
 
 				<select name="selectBox" id="selectBox"
@@ -337,7 +337,10 @@ span.star-prototype>* {
 							alt="">
 							<h5>${goods.goodsVO.goodsname}</h5>
 						</a>
-						<div class="product-price"><fmt:formatNumber value="${goods.goodsVO.price}" pattern="#,###" />원</div>
+						<div class="product-price">
+							<fmt:formatNumber value="${goods.goodsVO.price}" pattern="#,###" />
+							원
+						</div>
 						<c:forEach items="${rate}" var="rate">
 							<c:if test="${rate.goodsVO.goods_id eq goods.goodsVO.goods_id}">
 								
@@ -349,10 +352,10 @@ span.star-prototype>* {
 				</div>
 
 			</c:forEach>
-			
+
 		</div>
 
-	<!-- 페이징 -->
+		<!-- 페이징 -->
 		<%-- <div class="ul">
 			<ul class="pagination justify-content-center"
 				style="padding-bottom: 50px; padding-top: 50px;">
@@ -380,8 +383,8 @@ span.star-prototype>* {
 
 	</div>
 	<!-- container end -->
-	
-	
+
+
 
 
 	<!-- Footer -->

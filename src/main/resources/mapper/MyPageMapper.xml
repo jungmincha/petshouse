@@ -97,7 +97,7 @@
 		<result column="deliverytel" property="deliverytel" />
 		<result column="receipt_id" property="receipt_id" />
 		<result column="goodsprice" property="goodsprice" />
-		<result column="t_key" property="t_key" />
+		<result column="t_code" property="t_code" />
 		<result column="t_invoice" property="t_invoice" />
 		<collection property="paystateVO" resultMap="paystatevo" />
 		<collection property="memberVO" resultMap="membervo" />

@@ -545,11 +545,11 @@ a>span {
 														html += "</div> <div class='col-lg-3'  style='text-align: right;'><span style='font-size: 20px'><br>배송준비중</span></div> </div>"
 															break;
 														case 3 :
-															html += "</div> <div class='col-lg-3' style='text-align: right;'><span style='font-size: 20px'><br><button class='pBtn' onclick='delivery("+data.pay[i-1].t_key+","+data.pay[i-1].t_invoice+")'>배송조회</button></span>"
+															html += "</div> <div class='col-lg-3' style='text-align: right;'><span style='font-size: 20px'><br><button class='pBtn' onclick='delivery("+data.pay[i-1].t_code+","+data.pay[i-1].t_invoice+")'>배송조회</button></span>"
 																+ "</div> </div>" 
 																break;
 														case 4 :
-															html += "</div> <div class='col-lg-3' style='text-align: right;'> <span style='font-size: 20px'><button class='pBtn' onclick='delivery("+data.pay[i-1].t_key+","+data.pay[i-1].t_invoice+")'>배송조회</button><br>"
+															html += "</div> <div class='col-lg-3' style='text-align: right;'> <span style='font-size: 20px'><button class='pBtn' onclick='delivery("+data.pay[i-1].t_code+","+data.pay[i-1].t_invoice+")'>배송조회</button><br>"
 																+ "<button class='pBtn' style='margin-top:10px;' onclick='orderCheck("+data.pay[i-1].pay_id+")')>구매확정</button></span>"
 																+ "</div> </div>"
 																break;
@@ -565,7 +565,7 @@ a>span {
 																break;
 														case 7 :
 															html += "</div> <div class='col-lg-3' style='text-align: right;'>"
-																+ "<span style='font-size: 20px'>교환처리<br><button class='pBtn' onclick='delivery("+data.pay[i-1].t_key+","+data.pay[i-1].t_invoice+")'>배송조회</button></span> "
+																+ "<span style='font-size: 20px'>교환처리<br><button class='pBtn' onclick='delivery("+data.pay[i-1].t_code+","+data.pay[i-1].t_invoice+")'>배송조회</button></span> "
 																+ "</div> </div>" 
 																break;
 														case 8 :

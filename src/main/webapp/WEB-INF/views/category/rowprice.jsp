@@ -144,7 +144,7 @@ span.star-prototype>* {
 			success : function(data) {
 
 				console.log("SUCCESS : ", data);
-
+				$("#changeLang").remove();
 				$('#input').html(data);
 				console.log(id);
 				console.log(name);
@@ -153,7 +153,6 @@ span.star-prototype>* {
 			},
 			error : function(e) {
 				console.log("ERROR : ", e);
-
 			}
 		});
 

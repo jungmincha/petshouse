@@ -23,41 +23,42 @@
 <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
 
 <style>
-	a {
+a {
 	cursor: pointer;
-	}
-    .single-banner{
-    	padding-bottom: 40px;
-    }
-    
-    .product-item{
-    	padding-top: 40px;
-    }
-    
-    .section-title{
-    	padding-top: 150px;
-    }
-    
-    .product-item img{
-    	width: 200px;
-    	height: 280px;
-    }
-      
-    span.star-prototype, span.star-prototype > * {
-    height: 16px; 
-    background: url(http://i.imgur.com/YsyS5y8.png) 0 -16px repeat-x;
-    display: inline-block;
-	}
- 
-	span.star-prototype > * {
-	    background-position: 0 0;
-	    max-width:80px; 
-	}
-	
-	#navbars>li:nth-child(3) {
-  		background-color: #e7ab3c;
-	}
-  </style>
+}
+
+.single-banner {
+	padding-bottom: 40px;
+}
+
+.product-item {
+	padding-top: 40px;
+}
+
+.section-title {
+	padding-top: 150px;
+}
+
+.product-item img {
+	width: 200px;
+	height: 280px;
+}
+
+span.star-prototype, span.star-prototype>* {
+	height: 16px;
+	background: url(http://i.imgur.com/YsyS5y8.png) 0 -16px repeat-x;
+	display: inline-block;
+}
+
+span.star-prototype>* {
+	background-position: 0 0;
+	max-width: 80px;
+}
+
+#navbars>li:nth-child(3) {
+	background-color: #e7ab3c;
+}
+</style>
 
 
 <script type="text/javascript">
@@ -86,7 +87,7 @@
 			success : function(data) {
 
 				console.log("SUCCESS : ", data);
-
+				
 				$('#input').html(data);
 				console.log(id);
 				console.log(name);
@@ -127,7 +128,7 @@
 			success : function(data) {
 
 				console.log("SUCCESS : ", data);
-
+				$("#changeLang").remove();
 				$('#input').html(data);
 				console.log(id);
 				console.log(name);
@@ -205,25 +206,26 @@
 	<!-- header -->
 
 
-	
-				<c:forEach items="${rate}" var="rate">
-						<div class="product-item">
-							<div class="pi-text" style="padding: 10px;">
 
-								<c:forEach items="${goods}" var="goods">
-									<c:if test="${rate.goodsVO.goods_id eq goods.goodsVO.goods_id}">
-									<a href="/admin/goods_detail/${goods.board_id}"> <img src="/resources/img/admin/goods/${goods.goodsVO.thumbnail}"
-											alt="">
-											<h5>${goods.goodsVO.goodsname}</h5>
-										</a>
-										<div class="product-price">${goods.goodsVO.price}원</div>
-									</c:if>
-								</c:forEach>
-								별점 <span class="star-prototype"> ${rate.avgscore}</span>
+	<c:forEach items="${rate}" var="rate">
+		<div class="product-item">
+			<div class="pi-text" style="padding: 10px;">
 
-							</div>
-						</div>
-						</c:forEach>
-		
+				<c:forEach items="${goods}" var="goods">
+					<c:if test="${rate.goodsVO.goods_id eq goods.goodsVO.goods_id}">
+						<a href="/admin/goods_detail/${goods.board_id}"> <img
+							src="/resources/img/admin/goods/${goods.goodsVO.thumbnail}"
+							alt="">
+							<h5>${goods.goodsVO.goodsname}</h5>
+						</a>
+						<div class="product-price">${goods.goodsVO.price}원</div>
+					</c:if>
+				</c:forEach>
+				별점 <span class="star-prototype"> ${rate.avgscore}</span>
+
+			</div>
+		</div>
+	</c:forEach>
+
 </body>
 </html>

@@ -101,7 +101,7 @@ span.star-prototype>* {
 			success : function(data) {
 
 				console.log("SUCCESS : ", data);
-
+				$("#changeLang").remove();
 				$('#input').html(data);
 				console.log(id);
 
