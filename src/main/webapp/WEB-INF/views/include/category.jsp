@@ -16,7 +16,7 @@
 <title>Insert title here</title>
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- Bootstrap -->
-<link href="/resources/sidemenu/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
 <!-- styles -->
 <link href="/resources/sidemenu/css/styles.css" rel="stylesheet">
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -75,7 +75,7 @@ $.ajax({
  <body>
  
 		
-    <div class="sidebar" style="display: block;" >
+    <div class="sidebar" style="display: block; padding-top:150px; " >
                 <ul class="nav">
                    <li class="submenu">
                  

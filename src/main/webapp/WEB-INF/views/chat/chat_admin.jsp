@@ -26,16 +26,18 @@
  <style>
 	.chating .me{
 		text-align: right;
+		color:#B68421;
 	}
 	
 	.chating .others{
 		text-align: left;
+		color:#5E7286;
 	}
 	
 	#chating {
 		height: 500px;
 		overflow: scroll;
-		background-color: 	#E6A55A	;
+		
 	}
 	
 	.inputTable{

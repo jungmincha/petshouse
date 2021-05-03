@@ -17,31 +17,7 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>카테고리별 상품</title>
 <!-- Google Font -->
-<link
-	href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap"
-	rel="stylesheet">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<!-- Css Styles -->
-<link rel="stylesheet" href="/resources/css/bootstrap.min.css"
-	type="text/css">
-<link rel="stylesheet" href="/resources/css/font-awesome.min.css"
-	type="text/css">
-<link rel="stylesheet" href="/resources/css/themify-icons.css"
-	type="text/css">
-<link rel="stylesheet" href="/resources/css/elegant-icons.css"
-	type="text/css">
-<link rel="stylesheet" href="/resources/css/owl.carousel.min.css"
-	type="text/css">
-<link rel="stylesheet" href="/resources/css/nice-select.css"
-	type="text/css">
-<link rel="stylesheet" href="/resources/css/jquery-ui.min.css"
-	type="text/css">
-<link rel="stylesheet" href="/resources/css/slicknav.min.css"
-	type="text/css">
-<link rel="stylesheet" href="/resources/css/style.css" type="text/css">
-
-
+ 
 <script type="text/javascript">
 	$(document).ready(function() {
 		$('.a-delete').click(function(event) {
@@ -104,43 +80,39 @@
 
 <style>
  
- 
-#navbars>li:nth-child(3) {
-   background-color: #e7ab3c;
-}
-a:link {
-	text-decoration: none;
-	color: #333333;
-}
-
-a:visited {
-	text-decoration: none;
-	color: #333333;
-}
-
-a:active {
-	text-decoration: none;
-	color: #333333;
-}
-
-a:hover {
-	text-decoration: none;
-}
-
-tr{
-	font-size : 18px;
-	font-weight: bold;
-	text-align: center;
-}
-td{
-	font-size : 15px;
-	text-align: center;
+.table {
+		display: table;
+		width: 800px;
+		font-size: 20px;
+		font-stretch: extra-condensed;
+		text-align: center;
 	}
+	
+	h2 {
+		text-align: center;
+		padding-bottom: 20px;
+	}
+	
+	.goods{
+		padding-top:100px;
+	}
+
+tr {
+	font-size: 16px;
+	text-align: center;
+}
+
+th {
+	font-size: 15px;
+	text-align: center;
+}
 </style>
+
 </head>
 
 
-<body style="padding-top: 50px">
+<body id="page-top" >
+
 
 
 
@@ -158,13 +130,18 @@ td{
 			<c:if test="${not empty catelist}">
 			
 			<div class="col-lg-12">
-				 <div class="section-title">
-					<h2 style="margin-bottom:20px;">상품 관리</h2>
+			
+				 <div class="goods">
+					<h2>상품 관리</h2>
 				 </div>
-				<div class="col-lg-10">
-								<a class="btn btn-outline-secondary col-sm-1 " style="position:fixed; top:200px; right:200px;" href="/admin/board/registerView">상품게시글등록</a> 
-								<a class="btn btn-outline-secondary col-sm-1 " style="position:fixed; top:170px; right:200px;" href="/admin/goods/registerView">상품등록</a>
-				 </div>
+				<div class="col-lg-8">
+									<a class="btn btn-outline-secondary col-sm-1 "
+										style="position: fixed; top: 80px; right: 150px;"
+										href="/admin/board/registerView">상품게시글등록</a> <a
+										class="btn btn-outline-secondary col-sm-1 "
+										style="position: fixed; top: 120px; right: 150px;"
+										href="/admin/goods/registerView">상품등록</a>
+								</div>
 				 
 					<table class="table table-hover">
 					<thead>
@@ -233,10 +210,10 @@ td{
 
 
 
-
+<script src="/resources/AdminLTE-master/dist/js/demo.js"></script>
 <!-- Js Plugins -->
 <script src="/resources/js/jquery-3.3.1.min.js"></script>
-<script src="/resources/js/bootstrap.min.js"></script>
+
 <script src="/resources/js/jquery-ui.min.js"></script>
 <script src="/resources/js/jquery.countdown.min.js"></script>
 <script src="/resources/js/jquery.nice-select.min.js"></script>

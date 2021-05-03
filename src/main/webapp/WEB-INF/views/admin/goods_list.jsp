@@ -22,8 +22,7 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- Css Styles -->
-<link rel="stylesheet" href="/resources/css/bootstrap.min.css"
-	type="text/css">
+ 
 <link rel="stylesheet" href="/resources/css/font-awesome.min.css"
 	type="text/css">
 <link rel="stylesheet" href="/resources/css/themify-icons.css"
@@ -282,7 +281,7 @@ function closeNav() {
 
 <!-- Js Plugins -->
 <script src="/resources/js/jquery-3.3.1.min.js"></script>
-<script src="/resources/js/bootstrap.min.js"></script>
+
 <script src="/resources/js/jquery-ui.min.js"></script>
 <script src="/resources/js/jquery.countdown.min.js"></script>
 <script src="/resources/js/jquery.nice-select.min.js"></script>
