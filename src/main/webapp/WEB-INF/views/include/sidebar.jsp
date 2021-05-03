@@ -30,39 +30,23 @@
     <link href="/resources/admin/css/sb-admin-2.min.css" rel="stylesheet">
 
  
-<style>
-sidebar{
-	background-color: #4e73df;
-}
+ 
 
-.logo img {
-	width: 190px;
-	height: 60px;
-	margin : auto;
-	padding-left:50px;
-	padding-top:10px;
-
-}
-
-</style>
-
-<body id="page-top">
+<body>
 
 	<!-- Page Wrapper -->
 	<div id="wrapper">
 
 		<!-- Sidebar -->
 		<ul
-			class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
+			class="navbar-nav bg-gradient-primary2 sidebar sidebar-dark accordion"
 			id="accordionSidebar">
 
 			<!-- Sidebar - Brand -->
 		 
 			 <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
-                </div>
+                 
                 <div class="sidebar-brand-text mx-3">관리자모드 <sup></sup></div>
             </a>
 		 
@@ -81,16 +65,16 @@ sidebar{
 
 				<!-- Nav Item - Charts -->
 			<li class="nav-item"><a class="nav-link" href="/admin/goods">
-					<i class="fas fa-fw fa-table"></i> <span>상품관리</span>
+					<i class="fas fa-fw fa-table"></i> <b>상품관리</b>
 			</a></li>
 
 			<!-- Nav Item - Tables -->
 			<li class="nav-item"><a class="nav-link" href="/admin/member_list"> <i
-					class="fas fa-fw fa-table"></i> <span>회원관리</span></a></li>
+					class="fas fa-fw fa-table"></i> <b>회원관리</b></a></li>
 
 			<!-- Nav Item - Tables -->
 			<li class="nav-item"><a class="nav-link" href="/room"> <i
-					class="fas fa-fw fa-table"></i> <span>1:1 문의채팅</span></a></li>
+					class="fas fa-fw fa-table"></i> <b>1:1 문의채팅</b></a></li>
 
 			<!-- Divider -->
 			<hr class="sidebar-divider d-none d-md-block">
@@ -100,7 +84,7 @@ sidebar{
 			<li class="nav-item"><a class="nav-link collapsed" href="#"
 				data-toggle="collapse" data-target="#collapsePages"
 				aria-expanded="true" aria-controls="collapsePages"> <i
-					class="fas fa-fw fa-chart-area"></i> <span>통계</span>
+					class="fas fa-fw fa-chart-area"></i> <b>통계</b>
 			</a>
 				<div id="collapsePages" class="collapse"
 					aria-labelledby="headingPages" data-parent="#accordionSidebar">

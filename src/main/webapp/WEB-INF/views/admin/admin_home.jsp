@@ -113,12 +113,13 @@ th {
 	font-size: 15px;
 	text-align: center;
 }
+
 </style>
 
 </head>
 </head>
 
-<body id="page-top" >
+<body>
 
 
 			<!-- Main Content -->

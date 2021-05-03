@@ -101,50 +101,9 @@
 
 <style>
  
- body {
-  font-family: "Lato", sans-serif;
-}
 
-.sidenav {
-  height: 60%;
-  width: 0;
-  position: fixed;
-  z-index: 1;
-  top: 150px;
-  left: 0;
-  background-color: #f5f5f5;
-  overflow-x: hidden;
-  transition: 0.5s;
-  padding-top: 60px;
-  opacity: 0.7;
-}
 
-.sidenav a {
-  padding: 8px 8px 8px 32px;
-  text-decoration: none;
-  font-size: 25px;
-  color: #fffff;
-  display: block;
-  transition: 0.3s;
-}
 
-.sidenav a:hover {
-  color: #f1f1f1;
-}
-
-.sidenav .closebtn {
-  position: absolute;
-  top: 0;
-  right: 25px;
-  font-size: 36px;
-  margin-left: 50px;
-}
-
-@media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
-}
- 
 
 
 tr{

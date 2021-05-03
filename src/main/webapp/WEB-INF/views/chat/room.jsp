@@ -13,6 +13,7 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+ <link href="/resources/admin/css/sb-admin-2.min.css" rel="stylesheet">
 <style>
 		*{
 			margin:0;
