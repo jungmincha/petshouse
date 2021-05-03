@@ -2,8 +2,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html lang>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<!DOCTYPE html >
+<html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport"
@@ -182,24 +183,24 @@ span.star-prototype>* {
 
 
 
-	<c:forEach items="${rate}" var="rate">
-
+	<c:forEach items="${goods}" var="goods">
 		<div class="product-item">
 			<div class="pi-text" style="padding: 10px;">
-
-				<c:forEach items="${goods}" var="goods">
+				<a href="/admin/goods_detail/${goods.board_id}"> <img
+					src="/resources/img/admin/goods/${goods.goodsVO.thumbnail}" alt="">
+					<h5>${goods.goodsVO.goodsname}</h5>
+				</a>
+				<div class="product-price">
+					<fmt:formatNumber value="${goods.goodsVO.price}" pattern="#,###" />
+					원
+				</div>
+				<c:forEach items="${rate}" var="rate">
 					<c:if test="${rate.goodsVO.goods_id eq goods.goodsVO.goods_id}">
-						<a href="/admin/goods_detail/${goods.board_id}"> <img
-							src="/resources/img/admin/goods/${goods.goodsVO.thumbnail}"
-							alt="">
-							<h5>${goods.goodsVO.goodsname}</h5>
-						</a>
-						<div class="product-price">${goods.goodsVO.price}원</div>
+								
+								별점 <span class="star-prototype"> ${rate.avgscore}</span>
+						<span>&nbsp; 리뷰 ${rate.count}</span>
 					</c:if>
 				</c:forEach>
-				별점 <span class="star-prototype"> ${rate.avgscore}</span> <span>
-					&nbsp; 리뷰 ${rate.count}</span>
-
 			</div>
 		</div>
 

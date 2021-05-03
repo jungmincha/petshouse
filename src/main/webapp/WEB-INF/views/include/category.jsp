@@ -20,7 +20,7 @@
 <!-- styles -->
 <link href="/resources/sidemenu/css/styles.css" rel="stylesheet">
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
+ 
 <!-- font-awesome -->
 <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" data-search-pseudo-elements></script>
 <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>

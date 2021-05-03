@@ -2,8 +2,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html lang>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<!DOCTYPE html >
+<html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport"
@@ -134,18 +135,15 @@ span.star-prototype>* {
 			category : category,
 			id : id,
 		};
-		
-		
-		if(target.options[target.selectedIndex].value=='home_return'){
-			var url = "/category/"
-				+ target.options[target.selectedIndex].value;	
-			
-		}else{
-		
 
-		var url = "/category/small/"
-				+ target.options[target.selectedIndex].value;
-		
+		if (target.options[target.selectedIndex].value == 'home_return') {
+			var url = "/category/" + target.options[target.selectedIndex].value;
+
+		} else {
+
+			var url = "/category/small/"
+					+ target.options[target.selectedIndex].value;
+
 		}
 		$.ajax({
 			type : "POST",
@@ -187,46 +185,53 @@ span.star-prototype>* {
 <body style="padding-top: 128px">
 
 	<div class="row">
-	<div class="col-md-10">
+		<div class="col-md-10">
 
-	<c:forEach items="${sgname}" var="sgname">
-	<p style="padding-left:20px;">${sgname}</p>
-	</c:forEach>
+			<c:forEach items="${sgname}" var="sgname">
+				<p style="padding-left: 20px;">${sgname}</p>
+			</c:forEach>
 
-	<br />
-
-
-	<c:forEach items="${smallCategory_id}" var="smallCategory_id">
-		<select name="selectBox2" id="selectBox2"style="border: none; font-size: 20px; padding-left:15px;"
-			onchange="chageLangSelect('${smallCategory_id}')">
-			<option style="font-size: 20px;" value="home_return">카테고리</option>
-			<option style="font-size: 20px;" value="home_return">홈으로</option>
-			<option style="font-size: 20px;" value="srowprice">가격 낮은순</option>
-			<option style="font-size: 20px;" value="shighprice">가격 높은순</option>
-			<option style="font-size: 20px;" value="shighstar">별점 높은순</option>
-			<option style="font-size: 20px;" value="shighreview">리뷰 많은순</option>
-		</select>
-	</c:forEach>
-	</div>
+			<br />
 
 
-	<c:forEach items="${rate}" var="rate">
+			<c:forEach items="${smallCategory_id}" var="smallCategory_id">
+				<select name="selectBox2" id="selectBox2"
+					style="border: none; font-size: 20px; padding-left: 15px;"
+					onchange="chageLangSelect('${smallCategory_id}')">
+					<option style="font-size: 20px;" value="home_return">카테고리</option>
+					<option style="font-size: 20px;" value="home_return">홈으로</option>
+					<option style="font-size: 20px;" value="srowprice">가격 낮은순</option>
+					<option style="font-size: 20px;" value="shighprice">가격 높은순</option>
+					<option style="font-size: 20px;" value="shighstar">별점 높은순</option>
+					<option style="font-size: 20px;" value="shighreview">리뷰
+						많은순</option>
+				</select>
+			</c:forEach>
+		</div>
+
+
+		<c:forEach items="${smallgoods}" var="goods">
 			<div class="product-item">
 				<div class="pi-text" style="padding: 10px;">
-					<c:forEach items="${smallgoods}" var="goods">
-					<c:if test="${rate.goodsVO.goods_id eq goods.goodsVO.goods_id}">
-					<a href="/admin/goods_detail/${goods.board_id}"> 
-						<img src="/resources/img/admin/goods/${goods.goodsVO.thumbnail}" alt="">
+					<a href="/admin/goods_detail/${goods.board_id}"> <img
+						src="/resources/img/admin/goods/${goods.goodsVO.thumbnail}" alt="">
 						<h5>${goods.goodsVO.goodsname}</h5>
 					</a>
-					<div class="product-price">${goods.goodsVO.price}원</div>
-					</c:if>
+					<div class="product-price">
+						<fmt:formatNumber value="${goods.goodsVO.price}" pattern="#,###" />
+						원
+					</div>
+					<c:forEach items="${rate}" var="rate">
+						<c:if test="${rate.goodsVO.goods_id eq goods.goodsVO.goods_id}">
+								
+								별점 <span class="star-prototype"> ${rate.avgscore}</span>
+							<span>&nbsp; 리뷰 ${rate.count}</span>
+						</c:if>
 					</c:forEach>
-					별점 <span class="star-prototype"> ${rate.avgscore}</span>
-					<span> &nbsp; 리뷰 ${rate.count}</span> 
 				</div>
 			</div>
-			</c:forEach>
+
+		</c:forEach>
 	</div>
 
 

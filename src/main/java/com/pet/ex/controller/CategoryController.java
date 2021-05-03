@@ -89,16 +89,15 @@ public class CategoryController {
 	@RequestMapping("/smallcategory/{category_id}")
 	public ModelAndView smallcategory(@RequestBody String name, GoodsVO goodsvo, BoardVO boardvo, ModelAndView mav,
 			CategoryVO categoryvo) {
-		
-		List<BoardVO> cate =  service.getSmallGoods(categoryvo.getCategory_id());
+
+		List<BoardVO> cate = service.getSmallGoods(categoryvo.getCategory_id());
 		mav.addObject("smallgoods", cate);
-		
+
 		mav.addObject("rate", service.getStorerate());
 		mav.addObject("category", service.getCategory());
 		mav.addObject("rate", service.getStoreSmallrate(categoryvo.getCategory_id()));
 		mav.addObject("smallcategory", service.getScategory());
-		
-		
+
 		// 소분류 값 추출하는 로직 -start
 
 		name = name.substring(9);
@@ -126,9 +125,9 @@ public class CategoryController {
 		System.out.println(name1);
 
 		// 소분류 값 추출하는 로직 -end
-		
-		System.out.println("카테고리 아이디 = "+ categoryvo.getCategory_id());
-		for(int i =0;i<cate.size();i++) {
+
+		System.out.println("카테고리 아이디 = " + categoryvo.getCategory_id());
+		for (int i = 0; i < cate.size(); i++) {
 			System.out.println(cate.get(i).getBoard_id());
 		}
 		return mav;
@@ -156,20 +155,13 @@ public class CategoryController {
 	@PostMapping("/rowprice")
 	public ModelAndView rowcategory(GoodsVO goodsvo, ModelAndView mav, CategoryVO categoryvo, BoardVO boardvo)
 			throws Exception {
-		List<BoardVO> rate = service.getStoreRowrate();
 
-		mav.addObject("rate", rate);
-
+		mav.addObject("goods", service.getrowprice());
+		mav.addObject("rate", service.getStoreRowrate());
+		mav.addObject("category", service.getCategory());
+		mav.addObject("smallcategory", service.getScategory());
 		mav.setViewName("category/rowprice");
-		System.out.println(rate.size());
-		for (int i = 0; i < rate.size(); i++) {
-			System.out.println("---------------------------------------------------------" + i + "번");
-			System.out.println(rate.get(i).getAvgscore());
-			System.out.println(rate.get(i).getCount());
-			System.out.println(rate.get(i).getGoodsVO().getGoods_id());
-			// System.out.println(rate.get(i).getGoodsVO().getGoodsname());
-			// System.out.println(rate.get(i).getGoodsVO().getPrice());
-		}
+
 		log.info("rowprice...");
 
 		return mav;

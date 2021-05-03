@@ -164,7 +164,7 @@ span.star-prototype>* {
 			cache : false,
 			success : function(data) {
 				console.log("SUCCESS : ", data);
-				
+
 				$('#input').html(data);
 			},
 			error : function(e) {
