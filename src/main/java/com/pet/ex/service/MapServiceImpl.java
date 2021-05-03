@@ -326,6 +326,25 @@ public class MapServiceImpl implements MapService {
 
 
 
+	@Override
+	public void delete_content_plike(int board_id) {
+		log.info("delete_content_plike...");
+		mapper.delete_content_plike(board_id);
+
+		
+	}
+
+
+	//글 삭제시 좋아요 삭제
+	@Override
+	public void delete_pgroup(int pgroup) {
+		log.info("delete_pgroup...");
+		mapper.delete_pgroup(pgroup);
+		
+	}
+
+
+
 
 
 	

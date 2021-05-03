@@ -90,6 +90,10 @@ public interface MapMapper {
 	public String getPresetnLocation(String member_id);
 	//리스트 객체 수 구하기
 	public int getListTotal(BoardVO boardVO);
+	//좋아요 board테이블에서 삭제
+	public void delete_content_plike(int board_id);
+	//글 삭제시 좋아요 삭제
+	public void delete_pgroup(int pgroup);
 
 
 

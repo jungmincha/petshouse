@@ -229,6 +229,18 @@
   		 ]]>
 		</select>
 		
+		<!-- boardTable 좋아요  삭제 -->
+		<select id="delete_content_plike">
+  	 <![CDATA[
+    	delete from plike where board_id=#{board_id}
+
+  		 ]]>
+		</select>
+		
+		
+		
+		
+		
 	
  <!--   update member set location = #{location} WHERE member_id=#{member_id} -->
 <insert id="insertLoc">
@@ -302,6 +314,9 @@
 			update board set content=#{content} where board_id = #{board_id}
 		]]>
 	</select>
+	
+	
+	
 
 
 <!-- 댓글삭제 -->
@@ -320,7 +335,11 @@
 	</select>
 	
 	
-	
+	<select id="delete_pgroup">
+   <![CDATA[
+    delete from board where pgroup = #{pgroup}
+   ]]>
+	</select>
 
 	<!-- 다중이미지업로드 -->
 	<insert id="detailInput" parameterType="imagevo">

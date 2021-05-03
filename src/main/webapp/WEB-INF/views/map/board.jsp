@@ -140,7 +140,7 @@ body::-webkit-scrollbar-track {
 </style>
 
 </head>
-<body style="padding-top: 128px">
+<body style="padding-top: 128px ;">
 
 	<!-- header -->
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
@@ -167,7 +167,7 @@ body::-webkit-scrollbar-track {
 				<div class="col-lg-12">
 
 					<!-- 위치 다시 선정하기 -->
-					<select class="form-control col-sm-2" id="sel" style= "font-size: 18px;">
+					<select class="form-control col-sm-2" id="sel" style= "font-size: 18px; ">
 						<option value='${location}' selected>${location}</option>
 						<option value="relocaion">위치 다시 설정하기</option>
 					</select> <br>
@@ -194,10 +194,10 @@ body::-webkit-scrollbar-track {
 								<option value="여행">여행</option>
 								<option value="기타">기타</option>
 
-							</select> <span class="col-sm-9"></span>
+							</select> <span class="col-sm-5"></span>
 
 							<button class="btn btn-outline-secondary col-sm-1" id="qw"
-								style="margin-left: 65px;" type="submit">글 작성</button>
+								style="margin-left: 100px;" type="submit">글 작성</button>
 						</div>
 					</form>
 	
@@ -238,7 +238,7 @@ body::-webkit-scrollbar-track {
 											
 											<br>	
 											<br>
-											<div style="font-size:20px;">${list.boardVO.content}</div>
+											<div style="font-size:20px ;width:780px;">${list.boardVO.content}</div>
 											</a>
 								
 								
@@ -251,7 +251,7 @@ body::-webkit-scrollbar-track {
 					 <c:if test="${listTotal > 5}">
 	            <div class="btn col-lg-12 text-center">  
 	          	    <input type="hidden" class="listTotal" value="${listTotal}" />
-	            	<button type="button" class="btn btn-warning" onClick="btnClick()">더보기</button>
+	            	<button type="button" class="btn btn-warning" id="btn btn-warning" onClick="btnClick()" style="margin-right: 350px;">더보기</button>
 		        </div>
 		       </c:if>
 		       
@@ -266,7 +266,7 @@ body::-webkit-scrollbar-track {
 	   	  pageNum += 1;
 	   	  
 	   	  if (pageNum >= check) {
-	             $(".btn").hide();
+	             $("#btn").hide();
 	          }
 	   	  
 	   	  console.log(pageNum);
@@ -339,14 +339,14 @@ body::-webkit-scrollbar-track {
 							+
 							"</div>" 
 							
-    	            } //bestrate foreach end
+    	            } //bestrate foreach end			
     	           
 	   	        	if(list.length == 5){
 		        		html += "<div class='btn col-lg-12 text-center'>"  
-		            		 + "<button type='button' class='btn btn-warning' onClick='btnClick()'>더보기</button> </div>";			      
+		            		 + "<button type='button' class='btn btn-warning' id='btn btn-warning' style='margin-right: 350px;' onClick='btnClick()'>더보기</button> </div>";			      
 		        	}
      
-    	           	$('.btn').remove();
+    	           	$('#btn').remove();
     	            $('#table').append(html); 
     	          
     	        }, //success end       

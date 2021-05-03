@@ -86,12 +86,12 @@
 				<select name="hashtag" id="hashtag" class=" form-control col-2"
 					style="height: 38px; margin-left: 15px; margin-right: 10px;">
 					<option value="우리동네질문">우리동네질문</option>
-					<option value="분실/실종센터">분실/실종센터</option>
-					<option value="일상">일상</option>
-					<option value="맛집">맛집</option>
-					<option value="취미생활">취미생활</option>
-					<option value="여행">여행</option>
-					<option value="기타">기타</option>
+								<option value="분실/실종센터">분실/실종센터</option>
+								<option value="일상">일상</option>
+								<option value="맛집">맛집</option>
+								<option value="취미생활">취미생활</option>
+								<option value="여행">여행</option>
+								<option value="기타">기타</option>
 				</select> 
 				
 				
@@ -114,7 +114,7 @@
 			
 					<div class="form-group row">
 						<label class="col-sm-2"></label>
-						<div class="input-group col-lg-7 ">
+						<div class="input-group col-lg-12 ">
 							<div id='image_preview '>
 								<div id='preview'
 									data-placeholder='이미지를 첨부 하려면 파일 선택 버튼을 클릭하거나 이미지를 드래그앤드롭 하세요 *최대 10장까지'></div>

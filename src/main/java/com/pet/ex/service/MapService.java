@@ -77,13 +77,13 @@ public interface MapService {
 	public void deleteplike(BoardVO boardVO);
 	//현재 닉네임 가져오는 서비스
 	public String getPresetnNickname(String member_id);
-
+	//현재 정보를 가져오는 서비스
 	public BoardVO getLocationBoard_id();
-
+	//이미지 삭제
 	public void depeteimage(int board_id);
-
+	//이미지 출력
 	public List<ImageVO> getPhoto(int board_id);
-
+	//좋아요 리스트
 	public List<PlikeVO> getAllLikelist(PlikeVO plikeVO);
 	//댓글더보기
 	public List<BoardVO> getcommentsList(Criteria cri, int board_id);
@@ -93,6 +93,10 @@ public interface MapService {
 	public String getPresetnLocation(String member_id);
 
 	public int getListTotal(BoardVO boardVO);
+	//컨텐트뷰 좋아요 삭제
+	public void delete_content_plike(int board_id);
+	//글 삭제시 좋아요 삭제
+	public void delete_pgroup(int pgroup);
 	
 
 	
