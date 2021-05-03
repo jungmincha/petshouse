@@ -69,7 +69,7 @@ public class MyPageController {
 
 	// 장바구니 목록 불러오기 (ajax)
 	@PostMapping(value = "/cartList", produces = "application/json; charset=utf8")
-	public List<BoardVO> cartList2(@RequestBody List<Map<String, Object>> param) {
+	public List<BoardVO> cartList(@RequestBody List<Map<String, Object>> param) {
 		log.info("/myPage/cartList");
 		List<BoardVO> board = new ArrayList<BoardVO>();
 		for (Map<String, Object> cart : param) {

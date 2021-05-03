@@ -101,6 +101,7 @@ public class LoginController {
 	}
 
 	// 회원가입 작성 후 INSERT
+	@Transactional
 	@PostMapping("/register/insert")
 	public ModelAndView setInsertMember(MultipartHttpServletRequest multi, MemberVO member, ModelAndView mav,
 			String socialCheck) throws Exception {

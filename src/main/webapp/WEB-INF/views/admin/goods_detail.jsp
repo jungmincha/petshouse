@@ -54,8 +54,8 @@
       var goods = new Object();
       goods.board_id = '${goods.board_id}';
       goods.amount = parseInt($("#amount").val());
-      goods.psize = $(".activeSize").val();
-      goods.pcolor = $(".activeColor").val();
+      goods.psize = $("#psize").val();
+      goods.pcolor = $("#pcolor").val();
       console.log(goods);
       cart.push(goods);
       console.log(cart);
@@ -249,7 +249,7 @@ h2 {
 			<input type="hidden" name="board_id" value="${goods.board_id}"> 
 			<input type="hidden" name="goods_id" value="${goods.goodsVO.goods_id}"> 				 
 			<div style="float: right">
-			<sec:authorize access="hasAnyRole('ROLE_ADMIN')">  W
+			<sec:authorize access="hasAnyRole('ROLE_ADMIN')">  
 			<button type="button" id="delete_button" class="btn btn-warning" onclick="button_event();">삭제</button>
 		    </sec:authorize>  
 			</div>
@@ -355,7 +355,7 @@ h2 {
 
 										<c:if test="${not empty goods.goodsVO.psize}">
 											<div class="pd-size-choose">
-											 	<select class="form-control" id="pcolor" name="pcolor"  style="width:200px;" > 
+											 	<select class="form-control" id="psize" name="psize"  style="width:200px;" > 
 													<c:set var="psize" value="${goods.goodsVO.psize}" />
 													<c:set var="size" value="${fn:split(psize, ',')}" />
 													<c:forEach var="s" items="${size}">

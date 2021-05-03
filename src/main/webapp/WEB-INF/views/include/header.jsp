@@ -167,7 +167,7 @@
 				<div class="row" style="height: 70px">
 					<div class="col-lg-3 " style="padding-left: 50px">
 						<div class="logo">
-							<a href="/home"> <img src="/resources/img/logo.png" alt="">
+							<a href="/store/home"> <img src="/resources/img/logo.png" alt="">
 							</a>
 						</div>
 					</div>
