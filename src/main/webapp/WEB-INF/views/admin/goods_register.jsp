@@ -12,7 +12,7 @@
 <title>register</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-
+ <link href="/resources/admin/css/sb-admin-2.min.css" rel="stylesheet">
 <style>
 
 .table_center {
