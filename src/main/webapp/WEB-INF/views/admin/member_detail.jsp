@@ -29,6 +29,26 @@
 		text-align: center;
 	}
 	
+	a:link {
+		text-decoration: none;
+		color: #333333;
+		float: right;
+	}
+	
+	a:visited {
+		text-decoration: none;
+		color: #333333;
+	}
+	
+	a:active {
+		text-decoration: none;
+		color: #333333;
+	}
+	
+	a:hover {
+		text-decoration: none;
+	}
+	
 	#navbars>li:nth-child(5) {
   		background-color: #e7ab3c;
 	}
@@ -74,9 +94,15 @@
 								<td>${info.address}</td>
 							</tr>
 						</tbody>
-					</table>      
+					</table> 
+			<div class="row">
+				<div class="col-12">
+			    	<a href="/admin/member_list">목록으로</a>    
+			    </div>
+			</div>		
              </div>
         </div>
+
     </div>
     <!-- Container End -->
 	     

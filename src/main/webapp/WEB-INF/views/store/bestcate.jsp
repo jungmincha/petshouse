@@ -170,10 +170,11 @@
                </c:forEach> 
             </div>  
             
-             <c:if test="${fn:length(count) > 8}" style="padding-bottom: 80px;"> 
-		          <div class="col-lg-12 text-center">
+             <c:if test="${fn:length(count) > 8}">
+		          <div class="col-lg-12 text-center" style="padding-bottom: 80px;">
 		         	  <input type="hidden" class="count" value="${fn:length(count)}" />
-		          	  <button type="button" class="btn btn-warning" onClick="btnClick()">더보기</button>
+		          	  	<button id="morebtn" type="button" class="btn btn-disabled" onClick="btnClick()">더보기 
+		           		<i class="fa fa-caret-down"aria-hidden="true"></i></button>
 			      </div>   
 		     </c:if> 
 	      
@@ -222,7 +223,7 @@
     	           
     	           if(rate.length == 8){
 		        		html += "<div class='btn col-lg-12 text-center'>"  
-		            		 + "<button type='button' class='btn btn-warning' onClick='btnClick()'>더보기</button> </div>";			      
+		        			 + "<button id='morebtn' type='button' class='btn btn-disabled' onClick='btnClick()'>더보기<i class='fa fa-caret-down' aria-hidden='true'></i></button></div>";					      
 		        	}
 	    
 	   	           	$('.btn').remove();

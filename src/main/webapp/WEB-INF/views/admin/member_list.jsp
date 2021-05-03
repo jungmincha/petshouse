@@ -32,7 +32,7 @@
 		display: table;
 		margin: auto;
 		width: 1000px;
-		font-size: 20px;
+		font-size: 17px;
 		font-stretch: extra-condensed;
 		text-align: center;
 	}

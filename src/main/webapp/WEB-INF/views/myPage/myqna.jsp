@@ -150,7 +150,8 @@
 						<div class="col-12 text-center"> 	
 							<c:if test="${qnaTotal > 10}">
 					            <input type="hidden" class="qnaTotal" value="${qnaTotal}" />
-						        <button type="button" class="btn btn-warning" onClick="btnClick()">더보기</button>
+						        <button id="morebtn" type="button" class="btn btn-disabled" onClick="btnClick()">더보기 
+		            			<i class="fa fa-caret-down"aria-hidden="true"></i></button>
 						   </c:if>
 						</div>	
 					</div>
