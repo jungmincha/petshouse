@@ -92,15 +92,13 @@ $(function() {
 				<option value="기타">기타</option>
 				</select> 
 				
-				<input type="text" value ="${content_view.title}" class="form-control" name="title"
-					placeholder="제목" style="margin-bottom: 20px; width: 628px;">
+				
 			</div>
 
 
 
 
-<input placeholder="닉네임" class="form-control" id="nickname" 
-type="text" name="nickname" style="margin-bottom: 20px; width: 770px;" value="${nickname}">
+
 
 
 <textarea class="form-control col" name="content" placeholder="내용" 

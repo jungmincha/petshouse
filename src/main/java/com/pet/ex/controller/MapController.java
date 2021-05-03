@@ -403,7 +403,10 @@ public class MapController {
 		log.info("delete");
 		
 		service.depeteimage(board_id);
+		service.delete_content_plike(board_id);
+		service.delete_pgroup(board_id);
 		service.inputDelete(board_id);
+		
 		memberVO.setLocation(location);
 
 		service.insertLoc(memberVO);
