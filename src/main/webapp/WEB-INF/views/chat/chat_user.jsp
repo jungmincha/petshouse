@@ -17,10 +17,19 @@
 	
 	#chating .me{
 		text-align: right;
+		position: relative;
+		color:#5E7286;
+		padding: 6px;
+		min-width : 5px;
 	}
 	
 	#chating .others{
 		text-align: left;
+		position: relative;
+		padding: 6px;
+		color:#B68421;
+		min-width : 5px;
+		 
 	}
 	
 	#chating {

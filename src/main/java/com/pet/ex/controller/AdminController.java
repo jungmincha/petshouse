@@ -72,7 +72,7 @@ public class AdminController {
 		log.info("total" + total);
 		mav.addObject("pageMaker", new PageVO(cri, total));
 
-		mav.setViewName("admin/goods_list");
+		mav.setViewName("admin/admin_home");
 
 		return mav;
 	}

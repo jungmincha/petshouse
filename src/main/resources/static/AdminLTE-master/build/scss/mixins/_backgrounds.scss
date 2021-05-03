@@ -22,7 +22,7 @@
       &:not(:disabled):not(.disabled).active,
       &:active,
       &.active {
-        background-color: darken($color, 10%) !important;
+        background-color: darken($color, 10%);
         border-color: darken($color, 12.5%);
         color: color-yiq(darken($color, 10%));
       }
@@ -31,10 +31,7 @@
 }
 
 // Background Gradient Variant
-@mixin background-gradient-variant($name, $color) {
-  .bg-gradient-#{$name} {
-    background: $color linear-gradient(180deg, mix($body-bg, $color, 15%), $color) repeat-x !important;
-    color: color-yiq($color);
+
 
     &.btn {
       &.disabled,

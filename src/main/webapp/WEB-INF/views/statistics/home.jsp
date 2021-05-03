@@ -37,17 +37,17 @@
 <link rel="stylesheet"
 	href="/resources/AdminLTE-master/dist/css/adminlte.min.css">
 
-<link href="/resources/sidemenu/bootstrap/css/bootstrap.min.css"
-	rel="stylesheet">
-<!-- styles -->
-<link href="/resources/sidemenu/css/styles.css" rel="stylesheet">
 
-
+<style>
+sidebar{
+	background-color: #4e73df;
+}</style>
 
 </head>
-<body style="padding-top: 180px">
+<body id="page-top" >
 
-	<%@ include file="/WEB-INF/views/include/header.jsp"%>
+
+	<%@ include file="/WEB-INF/views/include/sidebar.jsp"%>
 
 
 
@@ -57,24 +57,7 @@
 	<div class="page-content">
 
 
-
-		<div class="col-lg-2" style="padding-left: 50px">
-			<div class="sidebar" style="display: block;">
-
-				<ul class="nav">
-
-					<li><a href="/statistics/main/home" style="font-size: 20px;">
-							매출액 통계 </a></li>
-
-					<li><a href="/visitor/main/home" style="font-size: 20px;">
-							방문자 통계 </a></li>
-				</ul>
-
-			</div>
-		</div>
-
-
-
+ 	
 		<div class="row">
 			<div class="col-md-10">
 				<!-- 일별 -->
@@ -269,10 +252,7 @@
 
 
 
-
-	<!-- Footer -->
-	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
-
+ 
 
 </body>
 

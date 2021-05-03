@@ -13,25 +13,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
 <title>회원 상세 정보</title>
 
-<!-- bootstrap css cdn --<!-- > -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" type="text/css" />
-
-<!-- Css Styles -->
-<link rel="stylesheet" href="/resources/css/bootstrap.min.css" type="text/css">
-<link rel="stylesheet" href="/resources/css/font-awesome.min.css" type="text/css">
-<link rel="stylesheet" href="/resources/css/themify-icons.css" type="text/css">
-<link rel="stylesheet" href="/resources/css/elegant-icons.css" type="text/css">
-<link rel="stylesheet" href="/resources/css/owl.carousel.min.css" type="text/css">
-<link rel="stylesheet" href="/resources/css/nice-select.css" type="text/css">
-<link rel="stylesheet" href="/resources/css/slicknav.min.css" type="text/css">
-<link rel="stylesheet" href="/resources/css/style.css" type="text/css">
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-
-<!-- jquery cdn -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="https://cdn.bootpay.co.kr/js/bootpay-3.3.1.min.js" type="application/javascript"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
+ 
 <style>
 	.member{
 		padding-top:200px;
@@ -54,7 +36,7 @@
 </head>
 
 <body style="padding-top: 40px;">
-	<%@ include file="/WEB-INF/views/include/header.jsp"%>
+	<%@ include file="/WEB-INF/views/include/sidebar.jsp"%>
 	
 	<!--Container Begin -->
 	<div class="container" style="min-height: 800px;"> 
@@ -98,18 +80,8 @@
     </div>
     <!-- Container End -->
 	     
-   <!-- Footer -->
-   <%@ include file="/WEB-INF/views/include/footer.jsp"%>
-
-   <!-- Bootstrap core JavaScript -->
-   <script src="/resources/js/bootstrap.min.js"></script>
-   <script src="/resources/js/jquery.countdown.min.js"></script>
-   <script src="/resources/js/jquery.nice-select.min.js"></script>
-   <script src="/resources/js/jquery.zoom.min.js"></script>
-   <script src="/resources/js/jquery.dd.min.js"></script>
-   <script src="/resources/js/jquery.slicknav.js"></script>
-   <script src="/resources/js/owl.carousel.min.js"></script>
-   <script src="/resources/js/main.js"></script>
+  
+ 
 </body>
 </html>
 

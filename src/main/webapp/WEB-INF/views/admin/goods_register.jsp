@@ -46,13 +46,13 @@ select {
 </style>
 
 </head>
-<body style="padding-top:180px">
+<body  >
 
 
 
-	<!-- header -->
+	 
 
-	<%@ include file="/WEB-INF/views/include/header.jsp"%>
+	<%@ include file="/WEB-INF/views/include/sidebar.jsp"%>
 
 
 	<!-- Page Content -->
@@ -328,9 +328,6 @@ select {
 							});
 			
 			</script>
-
-	<!-- Footer -->
-	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
-
+ 
 </body>
 </html>

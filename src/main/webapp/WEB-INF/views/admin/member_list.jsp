@@ -11,29 +11,27 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
 <title>회원 목록</title>
 
-<!-- bootstrap css cdn --<!-- > -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" type="text/css" />
+<!-- Google Font -->
+<link
+	href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap"
+	rel="stylesheet">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- Custom fonts for this template-->
+<link href="/resources/admin/vendor/fontawesome-free/css/all.min.css"
+	rel="stylesheet" type="text/css">
+<link
+	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+	rel="stylesheet">
 
-<!-- Css Styles -->
-<link rel="stylesheet" href="/resources/css/bootstrap.min.css" type="text/css">
-<link rel="stylesheet" href="/resources/css/font-awesome.min.css" type="text/css">
-<link rel="stylesheet" href="/resources/css/themify-icons.css" type="text/css">
-<link rel="stylesheet" href="/resources/css/elegant-icons.css" type="text/css">
-<link rel="stylesheet" href="/resources/css/owl.carousel.min.css" type="text/css">
-<link rel="stylesheet" href="/resources/css/nice-select.css" type="text/css">
-<link rel="stylesheet" href="/resources/css/slicknav.min.css" type="text/css">
-<link rel="stylesheet" href="/resources/css/style.css" type="text/css">
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<!-- Custom styles for this template-->
+<link href="/resources/admin/css/sb-admin-2.min.css" rel="stylesheet">
 
-<!-- jquery cdn -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="https://cdn.bootpay.co.kr/js/bootpay-3.3.1.min.js" type="application/javascript"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <style>
 	.table {
 		display: table;
-		margin: 40px auto;
-		width: 700px;
+		margin: auto;
+		width: 1000px;
 		font-size: 20px;
 		font-stretch: extra-condensed;
 		text-align: center;
@@ -41,10 +39,11 @@
 	
 	h2 {
 		text-align: center;
+		padding-bottom: 20px;
 	}
 	
 	.member{
-		padding-top:200px;
+		padding-top:100px;
 	}
 	
 	#navbars>li:nth-child(5) {
@@ -84,9 +83,16 @@
 
 </head>
 
-<body>
-	<%@ include file="/WEB-INF/views/include/header.jsp"%>
-	
+<body id="page-top">
+
+	<!-- Page Wrapper -->
+
+
+			<%@ include file="/WEB-INF/views/include/sidebar.jsp"%>
+		<!-- End of Sidebar -->
+
+		 
+
 	<!-- Container Begin -->
 	<div class="container"> 
 		<div class="row">
@@ -138,18 +144,22 @@
 	</div>
     <!-- Container End  -->  
     
-   <!-- Footer -->
-   <%@ include file="/WEB-INF/views/include/footer.jsp"%>
+  <script src="/resources/AdminLTE-master/dist/js/demo.js"></script>
+			<!-- Bootstrap core JavaScript-->
+			<script src="/resources/admin/vendor/jquery/jquery.min.js"></script>
+			<script
+				src="/resources/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-   <!-- Bootstrap core JavaScript -->
-   <script src="/resources/js/bootstrap.min.js"></script>
-   <script src="/resources/js/jquery.countdown.min.js"></script>
-   <script src="/resources/js/jquery.nice-select.min.js"></script>
-   <script src="/resources/js/jquery.zoom.min.js"></script>
-   <script src="/resources/js/jquery.dd.min.js"></script>
-   <script src="/resources/js/jquery.slicknav.js"></script>
-   <script src="/resources/js/owl.carousel.min.js"></script>
-   <script src="/resources/js/main.js"></script>
+			<!-- Core plugin JavaScript-->
+			<script
+				src="/resources/admin/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+			<!-- Custom scripts for all pages-->
+			<script src="/resources/admin/js/sb-admin-2.min.js"></script>
+ 
+			<!-- Page level custom scripts -->
+			<script src="/resources/admin/js/demo/chart-area-demo.js"></script>
+			<script src="/resources/admin/js/demo/chart-pie-demo.js"></script>
 </body>
 </html>
 

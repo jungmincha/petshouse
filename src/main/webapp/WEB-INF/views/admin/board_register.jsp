@@ -47,13 +47,11 @@ h2 {
 </style>
 
 </head>
-<body style="padding-top: 180px">
+<body  >
 
 
 
-	<!-- header -->
-
-	<%@ include file="/WEB-INF/views/include/header.jsp"%>
+	<%@ include file="/WEB-INF/views/include/sidebar.jsp"%>
 
 
 	<!-- Page Content -->
@@ -122,10 +120,6 @@ h2 {
 			</form>
 		</div>
 	</div>
-
- 
-	<!-- Footer -->
-	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
  
 
 	<script>
