@@ -107,7 +107,7 @@ $(function() {
 <input type="file" name="file" multiple="multiple"/>
    
 </div>
-
+	
 <input style="margin-bottom: 20px; width: 300px;"  placeholder="전송" class="form-control" type = "submit" value = "작성 완료" >
 
 <a style="margin-bottom: 20px; width: 300px; text-align: center;"  class="form-control" href = "/map/board?location=${location}&nickname=${nickname}&member_id=${member_id}">목록으로</a>

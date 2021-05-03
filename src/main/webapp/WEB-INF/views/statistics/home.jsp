@@ -39,27 +39,44 @@
 
 
 <style>
+
 sidebar{
-	background-color: #4e73df;
-}</style>
+	background-color: #4e73df;	
+}
+
+h2 {
+	margin-right:80px;
+	text-align: center;
+	padding-bottom: 20px;
+}
+	
+.member{
+
+	padding-top:100px;
+}
+
+.page-content{
+
+	margin-left:100px;
+}
+
+</style>
 
 </head>
 <body id="page-top" >
 
+<div class="row">
 
 	<%@ include file="/WEB-INF/views/include/sidebar.jsp"%>
 
+<div class="col-md-11">
 
-
-
-
+	<h2 class="member">매출액 통계</h2>
 
 	<div class="page-content">
 
 
- 	
-		<div class="row">
-			<div class="col-md-10">
+		
 				<!-- 일별 -->
 				<select class="form-control" id="choice-month" style="width: 200px">
 					<c:forEach var="i" begin="1" end="12">
@@ -67,8 +84,8 @@ sidebar{
 							${i} 월</option>
 					</c:forEach>
 				</select> <br>
-			</div>
-		</div>
+			
+	
 
 		<div class="row">
 			<div class="col-md-5">
@@ -238,21 +255,14 @@ sidebar{
 					<!-- /.card-body -->
 				</div>
 			</div>
-
+			</div>
 
 
 		</div>
 	</div>
-
+</div>
 	<!-- chart End -->
 
-
-
-
-
-
-
- 
 
 </body>
 

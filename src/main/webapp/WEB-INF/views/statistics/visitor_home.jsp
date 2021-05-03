@@ -43,22 +43,38 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- Custom fonts for this template-->
  
+ <style>
+ h2 {
+	margin-right:80px;
+	text-align: center;
+	padding-bottom: 20px;
+	}
+	
+.member{
+
+	padding-top:100px;
+	}
+	
+.page-content{
+
+	margin-left:100px;
+}	
+ 
+ </style>
 
 
 </head>
 <body id="page-top" >
 
- <%@ include file="/WEB-INF/views/include/sidebar.jsp"%>
+	<div class="row">
 
- 
-		
+	<%@ include file="/WEB-INF/views/include/sidebar.jsp"%>
 
-	  <div class="page-content">
+	<div class="col-md-11">
 
-	 
+	<h2 class="member">방문자 통계</h2>
 
-		<div class="row">
-			<div class="col-md-10">
+	<div class="page-content">
 				<!-- 일별 -->
 				<select class="form-control" id="choice-month" style="width: 200px">
 					<c:forEach var="i" begin="1" end="12">
@@ -66,8 +82,8 @@
 							${i} 월</option>
 					</c:forEach>
 				</select> <br>
-			</div>
-		</div>
+		
+
 
 		<div class="row">
 		
@@ -239,8 +255,8 @@
 				</div>
 			</div>
 
-
-
+	</div>
+</div>
 		</div>
 	</div>
 
