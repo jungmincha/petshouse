@@ -11,7 +11,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>펫츠하우스</title>
-
+<script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
 
 <!-- Css Styles -->
@@ -108,11 +108,9 @@ border-radius:8px;
 			</c:forEach>
 		</div>
 		
-				<div class="col-lg-12 text-center"> 
-			<%-- 	 <c:if test="${fn:length(tipscount) > 12}"> --%>
+				<div class="col-lg-12 text-center" style="margin-bottom:50px;"> 	
                 <input type="hidden" class="count" value="${tipscount}" />
-					<button type="button" class="btn btn-warning" onClick="btnClick()">더보기</button>
-		     <%--     </c:if> --%>
+					<button type="button" class="btn btn-disabled" onClick="btnClick()">더보기 <i class="fa fa-caret-down" aria-hidden="true"></i></button>
 		        </div>
 
 	</div>
@@ -158,7 +156,7 @@ function btnClick(){
     	           
     	          if(moretips.length == 12){
 		        		html += "<div class='btn col-lg-12 text-center'>"  
-		            		 + "<button type='button' class='btn btn-warning' onClick='btnClick()'>더보기</button> </div>";			      
+		            		 + "<button type='button' class='btn btn-disabled' onClick='btnClick()'>더보기 <i class='fa fa-caret-down' aria-hidden='true'></i></button> </div>";			      
 		        	}
  	           
  	          		 $('.btn').remove();

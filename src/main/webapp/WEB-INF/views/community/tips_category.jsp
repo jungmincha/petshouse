@@ -201,7 +201,7 @@ background-color:#E6E6E6;
 	   <c:if test="${fn:length(catetipsTotal) > 12}">
 	   <div class="later col-lg-12 text-center">
                 <input type="hidden" class="count" value="${fn:length(catetipsTotal)}" />
-	            	<button type="button" class="btn btn-warning" onClick="btnClick()">더보기</button>
+	            	<button type="button" class="btn btn-disabled" onClick="btnClick()">더보기 <i class="fa fa-caret-down"aria-hidden="true"></i></button>
 		        </div>
 		      </c:if>
 	    

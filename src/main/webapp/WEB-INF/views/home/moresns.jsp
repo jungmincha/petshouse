@@ -154,10 +154,10 @@ color:#FFBF00
 					</c:forEach>
 				</div>
 
-		<div class="col-lg-12 text-center">
+		<div class="col-lg-12 text-center" style="margin-bottom:50px;">
 			<c:if test="${fn:length(snscount) > 8}">
 				<input type="hidden" class="count" value="${snscount}" />
-				<button type="button" class="btn btn-warning" onClick="btnClick()">더보기</button>
+				<button type="button" class="btn btn-disabled" onClick="btnClick()">더보기 <i class="fa fa-caret-down" aria-hidden="true"></i></button>
 			</c:if>
 		</div>
 	</div>
@@ -217,7 +217,7 @@ color:#FFBF00
 						}
 							 if(moresns.length == 8){
 					        		html += "<div class='btn col-lg-12 text-center'>"  
-					            		 + "<button type='button' class='btn btn-warning' onClick='btnClick()'>더보기</button> </div>";			      
+					            		 + "<button type='button' class='btn btn-disabled' onClick='btnClick()'>더보기 <i class='fa fa-caret-down' aria-hidden='true'></i></button> </div>";			      
 					        	}
 				   	           
 							 $('.btn').remove();

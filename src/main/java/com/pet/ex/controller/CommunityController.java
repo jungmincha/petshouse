@@ -108,20 +108,16 @@ public class CommunityController {
 	}
 
 	// 노하우 동물 글 페이지 출력
-	@GetMapping("/tips/pet")
-	public List<ImageVO> tips_pet(int category_id, Criteria cri) throws Exception {
-
-		List<ImageVO> list = new ArrayList<ImageVO>();
-		if (category_id == 0) { // 0번이면 전체 리스트를 뿌려준다
-			list = service.getTipsList(cri);
-		} else {
-			list = service.getPetTips(category_id);
-		}
-
-		log.info("tips_pet()실행");
-		return list;
-	}
-	
+	/*
+	 * @GetMapping("/tips/pet") public List<ImageVO> tips_pet(int category_id,
+	 * Criteria cri) throws Exception {
+	 * 
+	 * List<ImageVO> list = new ArrayList<ImageVO>(); if (category_id == 0) { //
+	 * 0번이면 전체 리스트를 뿌려준다 list = service.getTipsList(cri); } else { list =
+	 * service.getPetTips(category_id); }
+	 * 
+	 * log.info("tips_pet()실행"); return list; }
+	 */
 
 	
 	  // 카테고리별 조회
@@ -139,7 +135,7 @@ public class CommunityController {
 	  
 	  }
 	 
-	//SNS 카테고리별 상품 더보기 
+	// 카테고리별 글 더보기 
 	@PostMapping("/tips/catemorelist/{boardVO.categoryVO.category_id}")
 	public Map<String, Object> tipscategorymoreList(BoardVO boardVO, ImageVO imageVO,  Criteria cri) {
 		log.info("tipscategorymoreList");
