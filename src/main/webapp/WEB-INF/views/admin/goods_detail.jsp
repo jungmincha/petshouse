@@ -370,7 +370,7 @@ h2 {
 												<span class="dec qtybtn">-</span> <input id="amount"
 													type="text" value="1"> <span class="inc qtybtn">+</span>
 											</div>
-											<div onclick="inputCart()" class="primary-btn pd-cart" style="cursor: pointer;">Add To Cart</div>
+											<div onclick="inputCart()" class="primary-btn pd-cart" style="cursor: pointer; background-color: #FFC81E;">Add To Cart</div>
 
 										</div>
 									</div>
@@ -384,10 +384,10 @@ h2 {
 					<div class="tab-item" style="width: 1000px;">
 						<ul class="nav" role="tablist">
 							<li><a class="active" data-toggle="tab" href="#tab-1"
-								role="tab"> 상세정보 </a></li>
-							<li><a data-toggle="tab" href="#tab-2" role="tab"> 고객리뷰
+								role="tab" style="width:335px; text-align:center;"> 상세정보 </a></li>
+							<li><a data-toggle="tab" href="#tab-2" role="tab" style="width:335px; text-align:center;"> 고객리뷰
 							</a></li>
-							<li><a data-toggle="tab" href="#tab-3" role="tab">주문가이드</a></li>
+							<li><a data-toggle="tab" href="#tab-3" role="tab" style="width:330px; text-align:center;">주문가이드</a></li>
 						</ul>
 					</div>
 					<div class="tab-item-content">
@@ -395,8 +395,10 @@ h2 {
 							<div class="tab-pane fade-in active" id="tab-1" role="tabpanel">
 								<div class="product-content">
 									<div class="row">
-										<div class="col-lg-7">
-											${goods.content}
+										<div class="col-lg-12">
+											 
+											<img src="/resources/img/admin/goods/츄통령.jpg">
+											
 										</div>
 									</div>
 								</div>
@@ -437,7 +439,7 @@ h2 {
 										<tbody>
 											<tr>
 												<th scope="row" style="text-align:center;">상품결제정보</th>
-												<td><p>
+												<td ><p>
 														고액결제의 경우 안전을 위해 카드사에서 확인전화를 드릴 수도 있습니다. 확인과정에서 도난 카드의 사용이나
 														타인 명의의 주문등 정상적인 주문이 아니라고 판단될 경우 임의로 주문을 보류 또는 취소할 수 있습니다.
 														&nbsp; <br> <br>무통장 입금은 상품 구매 대금은 PC뱅킹, 인터넷뱅킹,
