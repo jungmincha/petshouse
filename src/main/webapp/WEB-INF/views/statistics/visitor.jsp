@@ -64,17 +64,16 @@
 
 
 </head>
-<body id="page-top" >
+<body>
 
 	<div class="row">
 
 	<%@ include file="/WEB-INF/views/include/sidebar.jsp"%>
 
-	<div class="col-md-11">
+	<div class="page-content col-md-10">
 
 	<h2 class="member">방문자 통계</h2>
 
-	<div class="page-content">
 				<!-- 일별 -->
 				<select class="form-control" id="choice-month" style="width: 200px">
 					<c:forEach var="i" begin="1" end="12">
@@ -255,10 +254,10 @@
 				</div>
 			</div>
 
-	</div>
-</div>
 		</div>
-	</div>
+		</div>
+		</div>
+
 
 	<!-- chart End -->
 

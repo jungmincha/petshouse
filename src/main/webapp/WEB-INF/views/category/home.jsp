@@ -32,8 +32,7 @@
 
 <!-- font-awesome -->
 <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"	rel="stylesheet"> -->
-<script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js"
-	data-search-pseudo-elements></script>
+<script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js"data-search-pseudo-elements></script>
 
 <!-- styles -->
 <link href="/resources/sidemenu/css/styles.css" rel="stylesheet">
