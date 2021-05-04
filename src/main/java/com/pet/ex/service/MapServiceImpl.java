@@ -345,6 +345,14 @@ public class MapServiceImpl implements MapService {
 
 
 
+	@Override
+	public List<ImageVO> getcateList(Criteria cri) {
+		cri.setAmount(5);
+		return mapper.getcateList(cri);
+	}
+
+
+
 
 
 	

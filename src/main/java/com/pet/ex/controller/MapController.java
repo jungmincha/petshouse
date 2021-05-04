@@ -114,7 +114,7 @@ public class MapController {
 			
 			String member_id = authentication.getPrincipal().toString();
 			String present_location = service.getPresetnLocation(member_id);//현재 닉네임
-			memberVO.setLocation(present_location);
+			memberVO.setLocation(location);
 		 // 명동 받아옴
 		//	System.out.println(location);
 			// 여기서도 홍제 2동 삽입됨
@@ -157,6 +157,23 @@ public class MapController {
 
 			return list;
 		}
+		
+		//카테고리별로 게시글 더보기 
+				@PostMapping("/cate_morelist")
+				public Map<String, Object> cate_morelocation(Criteria cri , BoardVO boardVO) {
+					log.info("cate_morelist");
+					Map<String, Object> list = new HashMap<>();
+					List<ImageVO> cate_morelist = service.getcateList(cri);
+				
+					list.put("list",cate_morelist);
+					list.put("listTotal", service.getListTotal(boardVO));
+
+					return list;
+		
+		
+				}
+		
+		
 
 	// 글작성 양식
 	@GetMapping("/write_view")
@@ -423,7 +440,7 @@ public class MapController {
 
 	// 해시태그 (수정중)
 	@GetMapping("/location/tag")
-	public List<ImageVO> tag(String hashtag, String location, Criteria cri, BoardVO boardVO , ImageVO imageVO) throws Exception {
+	public List<ImageVO> tag(String hashtag, String location, Criteria cri, BoardVO boardVO , ImageVO imageVO , Model model) throws Exception {
 
 		List<ImageVO> list = new ArrayList<ImageVO>();
 
@@ -436,6 +453,8 @@ public class MapController {
 			imageVO.getBoardVO().setMemberVO(member);
 			imageVO.getBoardVO().getMemberVO().setLocation(location);
 			imageVO.getBoardVO().setHashtag(hashtag);
+		
+			
 			list = service.getHashtag(boardVO);
 		}
 

@@ -17,42 +17,42 @@ public interface MapService {
 
 	//위치기반 홈 리스트
 	public List<ImageVO> getList(Criteria cri);
-	
+	//게시판 전체 숫자
 	public int getTotal(Criteria cri);
-
+	//글작성
 	public void write(BoardVO boardVO);
-
+	//글내용
 	public BoardVO content_view(int board_id);
-
+	//글삭제(board_id)
 	public void inputDelete(int board_id);
-
+	//펫츠타운 현재 위치 인증
 	public void insertLoc(MemberVO memberVO);
 
 	public List<MemberVO> getMemberList(String getMember_id);
 
 	public List<BoardVO> getSerchList(Criteria cri);
-
+	//댓글리스트
 	public List<BoardVO> listComment(int board_id);
-
+	//댓글작성
 	public void insertComment(BoardVO boardVO);
 
 	public BoardVO getComment(int Board_id);
 	//해시태그별로 게시판 뿌리기
-	public List<ImageVO> getHashtag(BoardVO boardVO);
-
+	public List<ImageVO> getHashtag(BoardVO boardVO );
+	//파일업로드
 	public void fileUpload(String imgname);
-
+	//이미지 업로드
 	public void detailInput(ImageVO imageVO);
-
+	//글 수정
 	public void modify(BoardVO boardVO);
-
+	//댓글 삭제
 	public void deleteComment(BoardVO boardVO);
-	
+	//조회수
 	public void hit(int board_id);
 
 	
 	
-
+	//다중이미지 (list)처리
 	public List<ImageVO> imageupload(ImageVO imageVO);
 	
 	
@@ -97,6 +97,8 @@ public interface MapService {
 	public void delete_content_plike(int board_id);
 	//글 삭제시 좋아요 삭제
 	public void delete_pgroup(int pgroup);
+	//카테고리별로 더보기
+	public List<ImageVO> getcateList(Criteria cri);
 	
 
 	

@@ -196,7 +196,7 @@ body::-webkit-scrollbar-track {
 
 							</select> <span class="col-sm-5"></span>
 
-							<button class="btn btn-outline-secondary col-sm-1" id="qw"
+							<button class="form-control col-sm-1" id="qw"
 								style="margin-left: 100px;" type="submit">글 작성</button>
 						</div>
 					</form>
@@ -238,7 +238,7 @@ body::-webkit-scrollbar-track {
 											
 											<br>	
 											<br>
-											<div style="font-size:20px ;width:780px;">${list.boardVO.content}</div>
+											<div style="font-size:20px ;width:780px; ">${list.boardVO.content}</div>
 											</a>
 								
 								
@@ -248,25 +248,35 @@ body::-webkit-scrollbar-track {
 
 					</div> 
 					
-					 <c:if test="${listTotal > 5}">
+					  <c:if test="${listTotal > 5}">
 	            <div class="btn col-lg-12 text-center">  
 	          	    <input type="hidden" class="listTotal" value="${listTotal}" />
-	            	<button type="button" class="btn btn-warning" id="btn btn-warning" onClick="btnClick()" style="margin-right: 350px;">더보기</button>
+	            	<button type="button" class="btn btn-warning" onClick="btnClick()" style="margin-right: 350px;">더보기</button>
 		        </div>
 		       </c:if>
+		     
+		       
+		    
+		       
 		       
 		       
 		         <!-- 더보기 페이징 처리 -->
      <script>
+     
+     
+    
+    
      var pageNum = 1;
+       
      var check = $('.listTotal').val() / 5;
 
-    
+
 	     function btnClick(){
 	   	  pageNum += 1;
 	   	  
 	   	  if (pageNum >= check) {
-	             $("#btn").hide();
+	        
+	             $(".btn").hide();
 	          }
 	   	  
 	   	  console.log(pageNum);
@@ -330,7 +340,7 @@ body::-webkit-scrollbar-track {
 							+
 							"<br>"		
 							+
-							"<div style='font-size:20px;'>"  + list[i].boardVO.content 
+							"<div style='font-size:20px; width:780px;'>"  + list[i].boardVO.content 
 							+
 							"</div>"
 							+
@@ -343,10 +353,10 @@ body::-webkit-scrollbar-track {
     	           
 	   	        	if(list.length == 5){
 		        		html += "<div class='btn col-lg-12 text-center'>"  
-		            		 + "<button type='button' class='btn btn-warning' id='btn btn-warning' style='margin-right: 350px;' onClick='btnClick()'>더보기</button> </div>";			      
+		            		 + "<button type='button' class='btn btn-warning' style='margin-right: 350px;' onClick='btnClick()'>더보기</button> </div>";			      
 		        	}
      
-    	           	$('#btn').remove();
+    	           	$('.btn').remove();
     	            $('#table').append(html); 
     	          
     	        }, //success end       
@@ -356,11 +366,12 @@ body::-webkit-scrollbar-track {
 							+ request.responseText + "\n" + "error:" + error);
 				} // ajax 에러 시 end
     	    }); //ajax end	 
-    	}; //click end	
+    	
+     }; //click end	
       </script>
-
-				
-
+      
+     
+		       	    
 
 				</div>
 
@@ -460,9 +471,15 @@ window.onscroll = function(e) {
 	
 
 	<script type="text/javascript">
+	
+	var listTotal = ${listTotal};
+	
 		$('#hashtag')
 				.change(
 						function() {
+							
+							//카테고리를 선택하면 카테고리 더보기를 할 수있는 창이 다시 보인다.
+					
 							var hashtag = $(this).val();
 							var location = $('#location').val();
 							var member_id = $('#member_id').val();
@@ -484,21 +501,30 @@ window.onscroll = function(e) {
 							}else{
 							
 								var url = "/map/location/tag";
+								
 							
 						//	var url = "/map/location/tag";
+						
+						
 						
 							$.ajax({
 										url : url,
 										type : "get",
 										data : {
 											hashtag : hashtag,
-											location : location,
+											location : location
+										
 										},
 										success : function(data) {
-												
+											
+									     	$('.btn').remove();
 											console.log(data);
 											$("#table").empty();
 											//var html = "<table class='table'>";
+											
+							
+											
+											
 											for (var i = 0; i <= data.length; i++) {
 												
 												
@@ -531,7 +557,9 @@ window.onscroll = function(e) {
 													+
 													"<span style='font-size: 13px; color: gray;'>" + data[i].boardVO.hashtag +  "</span>"
 													+
-													"<br>"	
+													"<br>"
+													+
+													"<input id='hashtag' type='hidden' name='hashtag' value='"+data[i].boardVO.hashtag+"'/>"
 													+
 													"<br>"			
 													+ 
@@ -546,7 +574,7 @@ window.onscroll = function(e) {
 													+
 													"<br>"		
 													+
-													"<div style='font-size:20px;'>"  + data[i].boardVO.content 
+													"<div style='font-size:20px; width:780px;'>"  + data[i].boardVO.content 
 													+
 													"</div>"
 													+
@@ -555,11 +583,15 @@ window.onscroll = function(e) {
 													+
 													"</div>" ;
 													
-													$('#table').append(html); 
+										
 													
-											}
+												$('#table').append(html); 
+												
+												
 											
-
+											}				
+									
+											
 										}, //ajax 성공 시 end
 
 										error : function(request, status, error) {
@@ -573,6 +605,10 @@ window.onscroll = function(e) {
 									})
 							}})
 	</script>
+	
+	
+	
+	
 	
 	<script>
 	function transferTime(times) {

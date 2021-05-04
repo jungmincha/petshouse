@@ -94,6 +94,8 @@ public interface MapMapper {
 	public void delete_content_plike(int board_id);
 	//글 삭제시 좋아요 삭제
 	public void delete_pgroup(int pgroup);
+	//카테고리별로 더보기
+	public List<ImageVO> getcateList(Criteria cri);
 
 
 

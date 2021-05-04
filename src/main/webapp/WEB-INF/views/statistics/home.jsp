@@ -73,7 +73,7 @@ h2 {
 
 	<h2 class="member">매출액 통계</h2>
 
-	<div class="page-content">
+	<div class="page-content">	
 
 
 		
