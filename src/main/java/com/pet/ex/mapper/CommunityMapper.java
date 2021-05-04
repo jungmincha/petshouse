@@ -90,9 +90,9 @@ public interface CommunityMapper {
 	public List<BoardVO> getcommentsList(Criteria cri, int board_id);
 	
 	
-	  public List<ImageVO> getTipsCategory(ImageVO imageVO, Criteria cri);
+	public List<ImageVO> getTipsCategory(ImageVO imageVO, Criteria cri);
 	  
-	  public List<BoardVO> getTipsCatetotal(ImageVO imageVO);
+	public List<BoardVO> getTipsCatetotal(ImageVO imageVO);
 	 
 
 

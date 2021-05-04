@@ -273,7 +273,7 @@
 						})
 	</script>
 	
-	   <script>
+	  <script>
 		function getFormatDate(date) {
 			
 			var date = date.substr(0, 10);

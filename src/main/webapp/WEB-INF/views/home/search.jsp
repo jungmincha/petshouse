@@ -353,8 +353,8 @@ margin-top:90px;
 							</a>
 							<div style="margin-bottom: 10px;">
 								<span>${qs.memberVO.nickname}</span> <span
-									style="font-size: 13px; color: gray;"><fmt:formatDate
-										value="${qs.pdate}" pattern="yyyy.MM.dd" /></span> <span
+									style="font-size: 13px; color: gray;">
+									<fmt:formatDate value="${qs.pdate}" pattern="yyyy.MM.dd" /></span> <span
 									style="font-size: 13px; color: gray;"> 조회수 ${qs.hit}</span>
 								<c:set var="hashtag" value="${qs.hashtag}" />
 								<c:set var="tag" value="${fn:split(hashtag, '#')}" />

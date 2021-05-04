@@ -7,8 +7,7 @@ import com.pet.ex.vo.BoardVO;
 import com.pet.ex.vo.GoodsVO;
 import com.pet.ex.vo.ImageVO;
 
-public interface HomeService {
-	
+public interface HomeService {	
 
 	//검색과 더보기
 	public List<BoardVO> getMoreGoods(String keyword, Criteria cri);
@@ -31,8 +30,4 @@ public interface HomeService {
 	//sns 페이징용 
 	public List<BoardVO> getTipsCount(String keyword);
 	public List<ImageVO> imgCount(ImageVO imageVO);
-
-	
-
-
 }
