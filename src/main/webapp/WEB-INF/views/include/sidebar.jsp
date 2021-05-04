@@ -90,8 +90,8 @@
 					aria-labelledby="headingPages" data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
 
-						<a class="collapse-item" href="/statistics/main/home">매출액 통계</a> <a
-							class="collapse-item" href="/visitor/main/home">방문자 통계</a>
+						<a class="collapse-item" href="/statistics/income">매출액 통계</a> <a
+							class="collapse-item" href="/statistics/visitor">방문자 통계</a>
 
 
 					</div>

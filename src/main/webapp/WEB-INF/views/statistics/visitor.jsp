@@ -302,7 +302,7 @@
    
     function loadChart(month) {
 		$.ajax({
-			url: '/visitor/temp',
+			url: '/statistics/temp',
 			async: false,
 			data: {month : month},
 			success: function(data) {

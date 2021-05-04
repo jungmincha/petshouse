@@ -35,10 +35,12 @@
 <link rel="stylesheet" href="/resources/css/style.css" type="text/css">
 
 <!-- jquery cdn -->
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	
+	<!-- font-awesome -->
+<script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js"data-search-pseudo-elements></script>
 
-
+<!-- 위치 다시 선정하기 -->
 <script>
 	$(function() {
 
@@ -163,14 +165,28 @@ body::-webkit-scrollbar-track {
 		</div>
 		
 		
-			<div class="row">
-				<div class="col-lg-12">
+			<div class="row" style="padding-top:30px;">
+				<div class="col-lg-12" style="margin-left:160px;">
 
 					<!-- 위치 다시 선정하기 -->
-					<select class="form-control col-sm-2" id="sel" style= "font-size: 18px; ">
-						<option value='${location}' selected>${location}</option>
-						<option value="relocaion">위치 다시 설정하기</option>
-					</select> <br>
+					<i class="fas fa-paw"></i><span style= "font-size: 18px;"> ${location}</span>
+					<br> <br>
+					<i class="fas fa-paw"></i><a href="/map/home"><span style= "font-size: 18px;"> 위치 다시 설정하기</span></a>
+					<br> <br>
+					
+					<div class="col-lg-12"><!--이게 먼저 오게! -->
+						<div class="row">
+						
+						<button class="form-control col-sm-1" href="#" onclick="cate_ajax_submit('전체');">전체</button>&nbsp&nbsp
+						<button class="form-control col-sm-1"  href="#" onclick="cate_ajax_submit('우리동네질문');"><p style="font-size:12px;">우리동네질문</p></button>&nbsp&nbsp
+						<button class="form-control col-sm-1"  href="#" onclick="cate_ajax_submit('분실/실종');"><p style="font-size:15px;">분실/실종</p></button>&nbsp&nbsp
+						<button class="form-control col-sm-1"  href="#" onclick="cate_ajax_submit('일상');">일상</button>&nbsp&nbsp
+						<button class="form-control col-sm-1"  href="#" onclick="cate_ajax_submit('맛집');">맛집</button>&nbsp&nbsp
+						<button class="form-control col-sm-1"  href="#" onclick="cate_ajax_submit('취미생활');">취미생활</button>&nbsp&nbsp
+						<button class="form-control col-sm-1" href="#" onclick="cate_ajax_submit('여행');">여행</button>&nbsp&nbsp
+						<button class="form-control col-sm-1"  href="#" onclick="cate_ajax_submit('기타');">기타</button>
+						</div>
+						</div>
 
 		
 
@@ -179,10 +195,10 @@ body::-webkit-scrollbar-track {
 						<!-- 전달할 값들 -->
 						<input id="location" type="hidden" name="location" value="${location}" /> 
 				
-
-
+					
+						
 						<!-- 커뮤니티 카테고리별 분류 셀렉트 BOX -->
-						<div class=" row" style="padding-bottom: 30px;">
+					<!-- 	<div class=" row" style="padding-bottom: 30px;">
 							<select name="hashtag" id="hashtag" class="form-control col-sm-1"
 								style="margin-left: 15px; text-align-last: center; font-size: 18px;">
 								<option value="전체">전체</option>
@@ -195,11 +211,11 @@ body::-webkit-scrollbar-track {
 								<option value="기타">기타</option>
 
 							</select> <span class="col-sm-5"></span>
-
-							<button class="form-control col-sm-1" id="qw"
-								style="margin-left: 100px;" type="submit">글 작성</button>
-						</div>
-					</form>
+						</div> -->
+					
+							<button class="form-control col-sm-1" id="qw" style="position: fixed; top: 170px; right: 100px;" type="submit">글 작성</button>
+					
+							</form>
 	
 				
 				
@@ -211,7 +227,8 @@ body::-webkit-scrollbar-track {
 						<!-- board 테이블 -->
 						<div id="table" >
 						<c:forEach items="${list}" var="list">
-						
+										
+										<hr style="width: 820px;">
 					
 											<!-- 회원 썸네일 -->
 										<div class="user-Info row" style="margin: 20px auto 0px 5px">
@@ -222,38 +239,33 @@ body::-webkit-scrollbar-track {
 										<a href="/myPage/${list.boardVO.memberVO.nickname}" style="padding-top: 13px; padding-left: 5px; color:#e7ab3c;">팔로우</a>
 										</div>	
 									
-										</div>
-						
+										</div><br>
 											<!-- 게시글 정보 -->
-											<span style="font-size: 13px; color: gray;"><fmt:formatDate value="${list.boardVO.pdate}" pattern="yyyy.MM.dd" /></span>
-											<span style="font-size: 13px; color: gray;"> 조회수${list.boardVO.hit}</span>
-											<span style="font-size: 13px; color: gray;"> 좋아요${list.boardVO.plike}</span>
-											<span style="font-size: 13px; color: gray;">${list.boardVO.hashtag}</span>
+											<span class="pdate pd" style="font-size: 15px; color: gray;"><fmt:formatDate value="${list.boardVO.pdate}" pattern="yyyy.MM.dd" /></span>
+											<span style="font-size: 15px; color: gray;">&nbsp&nbsp조회수${list.boardVO.hit}</span>
+											<span style="font-size: 15px; color: gray;">&nbsp&nbsp좋아요${list.boardVO.plike}</span>
+											<span style="font-size: 15px; color: gray;">&nbsp&nbsp${list.boardVO.hashtag}</span>
 											<br>	
 											<br>							
 											<!-- 게시글 이미지 썸네일 -->			
 										
 											<a href="/map/board/${list.boardVO.board_id}?location=${location}">
-											<img src="/resources/img/location/${list.imgname}" style="width: 780px; height: 450px; object-fit: cover; border-radius: 10px;">
-											
+											<img src="/resources/img/location/${list.imgname}" style="width: 820px; height: 450px; object-fit: cover; border-radius: 10px;">
+											</a>
 											<br>	
 											<br>
-											<div style="font-size:20px ;width:780px; ">${list.boardVO.content}</div>
-											</a>
+											<div style="font-size:20px ;width:820px; ">${list.boardVO.content}</div>
 								
-								
-							
-						
-						</c:forEach>
+									</c:forEach>
 
-					</div> 
+									</div> 
 					
-					  <c:if test="${listTotal > 5}">
-	            <div class="btn col-lg-12 text-center">  
-	          	    <input type="hidden" class="listTotal" value="${listTotal}" />
-	            	<button type="button" class="btn btn-warning" onClick="btnClick()" style="margin-right: 350px;">더보기</button>
-		        </div>
-		       </c:if>
+					  		<c:if test="${listTotal > 5}">
+	            			<div class="btn col-lg-12 text-center">  
+	          	    		<input type="hidden" class="listTotal" value="${listTotal}" />
+	            				<button type="button" class="btn btn-warning" onClick="btnClick()" style="margin-right: 350px;">더보기</button>
+		        				</div>
+		       					</c:if>
 		     
 		       
 		    
@@ -299,8 +311,9 @@ body::-webkit-scrollbar-track {
     	          html = ""    	          
     	        	    for(var i in list){	   
     	        			 html += "<div id='table'>"
+    	        			+
+    	        			"<hr style='width: 820px;'>"
 				        	+
-				   			
 							"<div class='user-Info row' style='margin: 20px auto 0px 5px'>"
 							+
 							"<div class='profile_box'>"
@@ -315,15 +328,15 @@ body::-webkit-scrollbar-track {
 							+
 							"</div>"	
 							+
-							"</div>"											
+							"</div><br>"											
 							+
-							"<span style='font-size: 13px; color: gray;'>" + transferTime(list[i].boardVO.pdate) + "</span>"
+							"<span style='font-size: 15px; color: gray;'>" + transferTime(list[i].boardVO.pdate) + "</span>"
 							+			
-							"<span style='font-size: 13px; color: gray;'>조회수" + list[i].boardVO.hit + "</span>"
+							"<span style='font-size: 15px; color: gray;'>&nbsp&nbsp조회수" +  list[i].boardVO.hit + "</span>"
 							+
-							"<span style='font-size: 13px; color: gray;'>좋아요" + list[i].boardVO.plike +  "</span>"
+							"<span style='font-size: 15px; color: gray;'>&nbsp&nbsp좋아요" +  list[i].boardVO.plike +  "</span>"
 							+
-							"<span style='font-size: 13px; color: gray;'>" + list[i].boardVO.hashtag +  "</span>"
+							"<span style='font-size: 15px; color: gray;'>&nbsp&nbsp" +  list[i].boardVO.hashtag +  "</span>"
 							+
 							"<br>"	
 							+
@@ -334,18 +347,18 @@ body::-webkit-scrollbar-track {
 
 							"<div>"
 							+
-							"<img src='/resources/img/location/" +  list[i].imgname + "'style='width: 780px; height: 450px; object-fit: cover; border-radius: 10px;'>"
+							"<img src='/resources/img/location/" +  list[i].imgname + "'style='width: 820px; height: 450px; object-fit: cover; border-radius: 10px;'>"
+							+
+							"</a>"
 							+
 							"<br>"	
 							+
 							"<br>"		
 							+
-							"<div style='font-size:20px; width:780px;'>"  + list[i].boardVO.content 
+							"<div style='font-size:20px; width:820px;'>"  + list[i].boardVO.content 
 							+
 							"</div>"
-							+
-							"</a>"
-							
+						
 							+
 							"</div>" 
 							
@@ -472,15 +485,15 @@ window.onscroll = function(e) {
 
 	<script type="text/javascript">
 	
-	var listTotal = ${listTotal};
+
 	
-		$('#hashtag')
-				.change(
-						function() {
+	/* 	$('#hashtag')
+				.change( */
+						function cate_ajax_submit(hashtag) {
 							
 							//카테고리를 선택하면 카테고리 더보기를 할 수있는 창이 다시 보인다.
 					
-							var hashtag = $(this).val();
+					
 							var location = $('#location').val();
 							var member_id = $('#member_id').val();
 							
@@ -489,11 +502,11 @@ window.onscroll = function(e) {
 							console.log("너의 아이디는 뭐니?" + member_id);
 						
 							
-							var target = document.getElementById("hashtag");
+						//	var target = document.getElementById("hashtag");
 
-							console.log('선택된 옵션 value 값='+ target.options[target.selectedIndex].value);
+						//	console.log('선택된 옵션 value 값='+ target.options[target.selectedIndex].value);
 							
-							if(target.options[target.selectedIndex].value=="전체"){
+							if(hashtag=="전체"){
 							console.log("success");
 
 							window.location = "/map/board?location="+location+"&member_id=" + member_id;
@@ -522,17 +535,15 @@ window.onscroll = function(e) {
 											$("#table").empty();
 											//var html = "<table class='table'>";
 											
-							
-											
-											
-											for (var i = 0; i <= data.length; i++) {
+										for (var i = 0; i <= data.length; i++) {
 												
 												
 												
 											
 												var html =  "<div id='table'>"
+													+
+													"<hr style='width: 820px;'>"
 										        	+
-										   			
 													"<div class='user-Info row' style='margin: 20px auto 0px 5px'>"
 													+
 													"<div class='profile_box'>"
@@ -547,15 +558,15 @@ window.onscroll = function(e) {
 													+
 													"</div>"	
 													+
-													"</div>"											
+													"</div><br>"											
 													+
-													"<span style='font-size: 13px; color: gray;'>" + transferTime(data[i].boardVO.pdate) + "</span>"
+													"<span style='font-size: 15px; color: gray;'>" + transferTime(data[i].boardVO.pdate) + "</span>"
 													+			
-													"<span style='font-size: 13px; color: gray;'>조회수" + data[i].boardVO.hit + "</span>"
+													"<span style='font-size: 15px; color: gray;'>&nbsp&nbsp조회수" + data[i].boardVO.hit + "</span>"
 													+
-													"<span style='font-size: 13px; color: gray;'>좋아요" + data[i].boardVO.plike +  "</span>"
+													"<span style='font-size: 15px; color: gray;'>&nbsp&nbsp좋아요" + data[i].boardVO.plike +  "</span>"
 													+
-													"<span style='font-size: 13px; color: gray;'>" + data[i].boardVO.hashtag +  "</span>"
+													"<span style='font-size: 15px; color: gray;'>&nbsp&nbsp" + data[i].boardVO.hashtag +  "</span>"
 													+
 													"<br>"
 													+
@@ -568,29 +579,24 @@ window.onscroll = function(e) {
 	
 													"<div>"
 													+
-													"<img src='/resources/img/location/" +  data[i].imgname + "'style='width: 780px; height: 450px; object-fit: cover; border-radius: 10px;'>"
+													"<img src='/resources/img/location/" +  data[i].imgname + "'style='width: 820px; height: 450px; object-fit: cover; border-radius: 10px;'>"
+													+
+													"</a>"
 													+
 													"<br>"	
 													+
 													"<br>"		
 													+
-													"<div style='font-size:20px; width:780px;'>"  + data[i].boardVO.content 
+													"<div style='font-size:20px; width:820px;'>"  + data[i].boardVO.content 
 													+
 													"</div>"
-													+
-													"</a>"
-												
+													
 													+
 													"</div>" ;
 													
-										
-													
 												$('#table').append(html); 
-												
-												
 											
 											}				
-									
 											
 										}, //ajax 성공 시 end
 
@@ -602,8 +608,11 @@ window.onscroll = function(e) {
 
 										} // ajax 에러 시 end
 
-									})
-							}})
+									
+							})
+							}
+				}
+							
 	</script>
 	
 	
@@ -611,13 +620,44 @@ window.onscroll = function(e) {
 	
 	
 	<script>
-	function transferTime(times) {
-			
-				
-			var times = times.substr(0, 10);
-			return times; 
-	
-		} 
+	$(".pdate").each(function() {
+		var times = transferTime($(this).text());
+		$(this).text(times);
+	});
+		function transferTime(times) {
+			var now = new Date();
+
+			var sc = 1000;
+			var today = new Date(times);
+			//지나간 초
+			var pastSecond = parseInt((now - today) / sc, 10);
+
+			var date;
+			var hour;
+			var min;
+			var str = "";
+
+			var restSecond = 0;
+			if (pastSecond > 86400) {
+				date = parseInt(pastSecond / 86400, 10);
+				restSecond = pastSecond % 86400;
+				str = date + "일 ";
+
+			} else if (pastSecond > 3600) {
+				hour = parseInt(pastSecond / 3600, 10);
+				restSecond = pastSecond % 3600;
+				str = str + hour + "시간 전";
+
+			} else if (pastSecond > 60) {
+				min = parseInt(pastSecond / 60, 10);
+				restSecond = pastSecond % 60;
+				str = str + min + "분 전";
+			} else {
+				str = pastSecond + "초 전";
+			}
+
+			return str;
+		}
 		
 		</script>
 

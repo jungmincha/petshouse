@@ -33,6 +33,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import com.pet.ex.service.AdminService;
 import com.pet.ex.service.FileService;
 import com.pet.ex.service.StatisticsService;
+import com.pet.ex.service.VisitorService;
 import com.pet.ex.vo.BoardVO;
 import com.pet.ex.vo.CategoryVO;
 import com.pet.ex.vo.GoodsVO;
@@ -56,8 +57,11 @@ public class StatisticsController {
 
 	@Autowired
 	private StatisticsService statisticService;
+	
+	@Autowired
+	private VisitorService visitorService;
 
-	@GetMapping("/main/home")
+	@GetMapping("/income")
 	public ModelAndView adminDonationStat(ModelAndView mav)throws Exception {
 
 		
@@ -85,7 +89,7 @@ public class StatisticsController {
 		mav.addObject("yearSale", statisticService.getYearSales(year)); // 년별
 	
 		log.info("년별통계 금액: " + statisticService.getYearSales(year));
-		mav.setViewName("statistics/home");
+		mav.setViewName("statistics/income");
 
 		return mav;
 	}
@@ -95,6 +99,41 @@ public class StatisticsController {
 	public Map<Integer, Integer> temp(@RequestParam(value = "month") Integer month) {
 		log.info("month : " + month); 
 		return statisticService.getDailySales("2021", String.valueOf(month));
+	}
+	
+	@GetMapping("/visitor")
+	public ModelAndView visitorStat(ModelAndView mav)throws Exception {
+
+		
+		SimpleDateFormat yy = new SimpleDateFormat("yyyy");
+		SimpleDateFormat mm = new SimpleDateFormat("MM"); 
+		SimpleDateFormat dd = new SimpleDateFormat("dd");
+
+		Date time = new Date(); 
+
+
+		String year = yy.format(time);
+	
+		String month = mm.format(time);
+		
+		String day = dd.format(time);
+
+		log.info("오늘날짜: " + year + "년 " + month + "월 " + day + "일");
+
+		mav.addObject("year", year);
+		mav.addObject("month", month);
+		mav.addObject("day", day);
+
+		mav.addObject("dailyVisitor", visitorService.getDailyVisitor(year, month)); // 일별
+		mav.addObject("monthVisitor", visitorService.getMonthVisitor(year)); // 월별
+		mav.addObject("yearVisitor", visitorService.getYearVisitor(year)); // 년별
+		
+	
+
+		log.info("년별통계 금액: " + visitorService.getYearVisitor(year));
+		mav.setViewName("statistics/visitor");
+
+		return mav;
 	}
 
 
