@@ -220,7 +220,7 @@
                               <c:forEach items="${goods}" var="goods">
                                <c:if test="${rate.goodsVO.goods_id eq goods.goodsVO.goods_id}">
                                  <a href="/admin/goods_detail/${goods.board_id}"><img src="/resources/img/admin/goods/${goods.goodsVO.thumbnail}" alt=""></a>
-                                	 <div class="sale">BEST ${rate.rnum}</div>
+                                	 <div class="sale">BEST&nbsp;&nbsp;${rate.rnum}</div>
                                  </c:if>
                                </c:forEach>  
                               </div>
@@ -298,7 +298,7 @@
                            <c:forEach items="${goods}" var="goods">
                                  <c:if test="${goods.goodsVO.goods_id eq rate.goodsVO.goods_id}">
                                     <a href="/admin/goods_detail/${goods.board_id}"><img src="/resources/img/admin/goods/${goods.goodsVO.thumbnail}" alt=""></a>   
-	                           		<div class="sale">Best ${rate.rnum}</div>		                         
+	                           		<div class="sale">Best&nbsp;&nbsp;${rate.rnum}</div>		                         
 	                        	</c:if>
 	                        </c:forEach>
                        	</div>
@@ -366,12 +366,12 @@
     	        	for(var j in goods){
 	       	          	if(goods[j].goodsVO.goods_id == rate[i].goodsVO.goods_id){
 	       	          	html +="<a href='/admin/goods_detail/" + goods[j].board_id + "'><img src='/resources/img/admin/goods/"+goods[j].goodsVO.thumbnail + "'>"
-	       	          		 + "<div class='sale'>Best" + rate[i].rnum + "</div>"       
+	       	          		 + "<div class='sale'>Best&nbsp;&nbsp;" + rate[i].rnum + "</div>"       
 	       	          		 + "</div> <div class='pi-text'> <div class='catagory-name'> </div>"
 	       	         	 	 + "<a href='/admin/goods_detail/" + goods[j].board_id + "'> <h5>" + goods[j].goodsVO.goodsname + "</h5></a>"
 	       	         	 	 + "<div class='product-price'>" + goods[j].goodsVO.price + "원</div>"
 	       	        	 	 + "<span class='star-prototype'> <span class='star' style='width:"+(rate[i].avgscore*16)+"px'> </span>" + "</span>"       	         	
-	       	         	 	 + "<span> &nbsp; 리뷰" + rate[i].count + "</span> </div> </div> </div> </div>";       	          	       	          	
+	       	         	 	 + "<span> &nbsp; 리뷰 " + rate[i].count + "</span> </div> </div> </div> </div>";       	          	       	          	
 	       	          	}//if end 
     	        	}//goods foreach end      	   
     	           } //bestrate foreach end

@@ -212,50 +212,7 @@
               </div>
           </div>         
     <!-- Popularity Section End -->
-
-     <!-- Category Section Begin -->
-      <div class="Category container">
-         <div class="row">
-            <div class="col-lg-12">
-               <div class="section-title">
-                  <h2>Category</h2>
-               </div>
-            </div>
-         </div>
-         <div class="row">
-            <div class="col-sm-2">
-             <a href="/store/commu/category/101?categoryName=고양이 / 사료">    
-                    <img src="/resources/img/category/cat.jpg"></a>
-            </div>
-
-            <div class="col-sm-2">
-                  <a href="/store/commu/category/201?categoryName=강아지 / 사료">
-                    <img src="/resources/img/category/dog.jpg"></a>
-            </div>
-
-            <div class="col-sm-2">
-                  <a href="/store/commu/category/301?categoryName=파충류 / 사료">
-                    <img src="/resources/img/category/reptile.jpg"></a>
-            </div>
-
-            <div class="col-sm-2">
-                  <a href="/store/commu/category/501?categoryName=조류 / 모이">
-                    <img src="/resources/img/category/bird.jpg"></a>
-            </div>
-
-            <div class="col-sm-2">
-                  <a href="/store/commu/category/401?categoryName=어류 / 어항">
-                     <img src="/resources/img/category/fish.jpg"></a>
-            </div>
-
-            <div class="col-sm-2">
-                  <a href="/store/commu/category/601?categoryName=기타 / 사료">
-                     <img src="/resources/img/category/other.jpg"></a>
-            </div>
-       	</div>
-       </div>
-      <!-- Category Section End -->
-
+    
       <!-- Knowhow Section Begin -->
   		  <div class="knowhow container">
             <div class="row">
@@ -273,7 +230,6 @@
                         		<a href="/commu/tips/${knowhow.boardVO.board_id}">
                                 <img src="/resources/img/tips/${knowhow.imgname}" style="border-radius:5px; height:200px;" alt=""></a>
                                 <span class="knowhow_hit">조회수 ${knowhow.boardVO.hit}</span>
-                                 <div class="sale">BEST ${knowhow.boardVO.rnum}</div>
                             </div>
                         <div class="latest-text">
                         	<div class="tag-list">                    		                     

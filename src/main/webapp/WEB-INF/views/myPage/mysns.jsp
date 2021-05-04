@@ -70,11 +70,17 @@
 	
 	.sns_hit{
 		position: absolute;
-	    bottom: 55px;
+	    bottom: 45px;
 	    right: 35px;
 	    font-size: 15px;
 	    color: #fff;
 	    text-shadow: 0 0 4px rgb(0 0 0 / 50%);
+	}
+	
+	.total {
+		color: #FFBF00;
+		font-weight: bold;
+		font-size: 20px;
 	}
 	
 	a:link {
@@ -112,7 +118,7 @@
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
 
 	<div class="container">
-    	<div class="row">
+    	<div class="row" style="margin-bottom:200px;">
 			<div class="col-lg-3 wrap--profile">	
 				<form id="myPage" name="myPage" action="${pageContext.request.contextPath}/commu/thumbnail" method="post">
 					<sec:authorize access="hasAnyRole('ROLE_USER','ROLE_ADMIN')">
@@ -141,12 +147,12 @@
 					<!-- SNS 게시글 조회 -->
 					<div class="sns row">							
 						<div class="col-12"> 
-							<span style="font-size:20px;font-weight: bold;">SNS (${snsTotal})</span><hr />
+							<span style="font-size:20px;font-weight: bold;">SNS </span> <span class="total">${snsTotal}</span><hr />
 						</div>	
 						<c:forEach items="${sns}" var="sns">
 							<div class="col-lg-4 col-md-4 col-sm-4 wrap--profile text-center">	
 								<a href="/commu/sns/${sns.boardVO.board_id}"> 
-									<img src="/resources/img/member/sns/${sns.imgname}" style="margin:15px 0px 10px 0px;"/></a>								
+									<img src="/resources/img/member/sns/${sns.imgname}" style="margin:20px 0px 10px 0px;"/></a>								
 									<span class="sns_hit">조회수 ${sns.boardVO.hit}</span>					
 									<a href="/commu/sns/${sns.boardVO.board_id}"><i class="far fa-heart" style="font-size:20px;"></i>&nbsp;&nbsp;${sns.boardVO.plike}</a>
 										
@@ -204,7 +210,7 @@
     	           for(var i in sns){
     	        	  html += "<div class='col-lg-4 col-md-4 col-sm-4 wrap--profile text-center'>"
 	      	          	   + "<a href='/commu/sns/" + sns[i].boardVO.board_id + "'>" 
-	      	          	   + "<img src='/resources/img/member/sns/"+sns[i].imgname + "' style='margin:15px 0px 10px 0px;'/></a>"
+	      	          	   + "<img src='/resources/img/member/sns/"+sns[i].imgname + "' style='margin:20px 0px 10px 0px;'/></a>"
 	       	          	   + "<span class='sns_hit'>조회수" + sns[i].boardVO.hit + "</span>" 
 	       	          	   + "<a href='/commu/sns/" + sns[i].boardVO.board_id + "'>"
 	       	          	   + "<i class='far fa-heart' style='font-size:20px;'></i>&nbsp;&nbsp;" + sns[i].boardVO.plike + "</a>";

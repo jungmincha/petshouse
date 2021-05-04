@@ -16,7 +16,7 @@
  
 <style>
 	.member{
-		padding-top:200px;
+		padding-top:100px;
 		text-align: center;
 	}
 	
@@ -55,15 +55,15 @@
 </style>
 </head>
 
-<body style="padding-top: 40px;">
+<body>
 	<%@ include file="/WEB-INF/views/include/sidebar.jsp"%>
 	
 	<!--Container Begin -->
-	<div class="container" style="min-height: 800px;"> 
-		<div class="row">
+	<div class="container">
+		<div class="row" style="margin-bottom:200px;">
 		    <div class="col-lg-12">
 				<h2 class="member"">회원 상세 정보</h2>
-					<table class="table">					
+					<table class="table" style="margin-bottom:30px;">			
 						<tbody>
 							<tr>
 								<td>이름</td>

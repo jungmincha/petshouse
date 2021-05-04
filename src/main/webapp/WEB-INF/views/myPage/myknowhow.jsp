@@ -69,11 +69,17 @@
 	
 	.knowhow_hit{
 		position: absolute;
-	    bottom: 65px;
+	    bottom: 50px;
 	    right: 35px;
 	    font-size: 15px;
 	    color: #fff;
 	    text-shadow: 0 0 4px rgb(0 0 0 / 50%);
+	}
+	
+	.total {
+		color: #FFBF00;
+		font-weight: bold;
+		font-size: 20px;
 	}
 	
 	a:link {
@@ -110,8 +116,8 @@
 	<!-- header -->
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
 
-	<div class="container" style="min-height: 900px;">
-    	<div class="row">
+	<div class="container" >
+    	<div class="row" style="margin-bottom:200px;">
 			<div class="col-lg-3 wrap--profile">	
 				<form id="myPage" name="myPage" action="${pageContext.request.contextPath}/commu/thumbnail" method="post">
 					<sec:authorize access="hasAnyRole('ROLE_USER','ROLE_ADMIN')">
@@ -140,12 +146,12 @@
 					<!-- 노하우 게시글 조회 -->
 					<div class="knowhow row">							
 						<div class="col-12"> 
-							<span style="font-size:20px;font-weight: bold;">노하우 (${knowhowTotal})</span><hr />
+							<span style="font-size:20px;font-weight: bold;">노하우 </span><span class="total">${knowhowTotal}</span><hr />
 						</div>	
 						<c:forEach items="${knowhow}" var="knowhow">
 							<div class="col-lg-4 col-md-4 col-sm-4 wrap--profile text-center">	
 								<a href="/commu/tips/${knowhow.boardVO.board_id}">
-								<img src="/resources/img/tips/${knowhow.imgname}" alt=""></a>								
+								<img src="/resources/img/tips/${knowhow.imgname}" alt="" style="margin-top:25px;"></a>								
 								<span class="knowhow_hit">조회수 ${knowhow.boardVO.hit}</span>
 								<h6 style="padding-top:10px;">${knowhow.boardVO.title}</h6>
 							</div>
@@ -194,7 +200,7 @@
 
     	           for(var i in knowhow){
     	        	  html += "<div class='col-lg-4 col-md-4 col-sm-4 wrap--profile text-center'>"
-	      	          	   + "<a href='/commu/tips/" + knowhow[i].boardVO.board_id + "'><img src='/resources/img/tips/"+knowhow[i].imgname + "' /></a>"
+	      	          	   + "<a href='/commu/tips/" + knowhow[i].boardVO.board_id + "'><img src='/resources/img/tips/"+knowhow[i].imgname + "' style='margin-top:25px;' /></a>"
 	       	          	   + "<span class='knowhow_hit'>조회수" + knowhow[i].boardVO.hit + "</span>"       	         	
 	       	         	   + "<h6 style='padding-top:10px;'>" + knowhow[i].boardVO.title + "</h6></div>";   	          	       	          	
     	        	}//knowhow foreach end      	     	           

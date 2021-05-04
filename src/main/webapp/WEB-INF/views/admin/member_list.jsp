@@ -43,7 +43,7 @@
 	}
 	
 	.member{
-		padding-top:100px;
+		padding-top:80px;
 	}
 	
 	#navbars>li:nth-child(5) {
@@ -95,7 +95,7 @@
 
 	<!-- Container Begin -->
 	<div class="container"> 
-		<div class="row">
+		<div class="row" style="margin-bottom:150px;">
 		    <div class="col-lg-12">
 				<h2 class="member">회원 관리</h2>
 				

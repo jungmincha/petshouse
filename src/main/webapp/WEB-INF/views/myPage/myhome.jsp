@@ -90,7 +90,7 @@
 	
 	.sns_hit{
 		position: absolute;
-	    bottom: 55px;
+	    bottom: 50px;
 	    right: 35px;
 	    font-size: 15px;
 	    color: #fff;
@@ -99,7 +99,7 @@
 	
 	.knowhow_hit{
 		position: absolute;
-	    bottom: 60px;
+	    bottom: 45px;
 	    right: 35px;
 	    font-size: 15px;
 	    color: #fff;
@@ -207,6 +207,10 @@
 										        
 									<!-- Modal body -->
 									<div class="followerlist modal-body row">
+									 <c:if test="${empty followerlist}">
+								    	<span style="margin:15px;">팔로워 회원이 없습니다.</span>
+								    </c:if>
+								     <c:if test="${not empty followerlist}">	
                            				<c:forEach items="${followerlist}" var="followerlist">
                               				<div class="profile_box" style="margin-left:15px;">
                               					<a href="/myPage/${followerlist.memberVO.nickname}">
@@ -214,11 +218,12 @@
                               				</div>
                               				<div style="padding-top:10px;">${followerlist.follower_id}</div></a>
                           				</c:forEach>
+                          			</c:if>
                         			</div>
 
 									<!-- Modal footer -->
 									<div class="modal-footer">
-										<button type="button" class="btn btn-warning" style="background-color: #e7ab3c" data-dismiss="modal">닫기</button>
+										<button type="button" class="btn" style="background-color: #FFC81E; color:black;" data-dismiss="modal">닫기</button>
 									</div>            
 								</div>
 							</div>
@@ -238,6 +243,11 @@
 								        
 								    <!-- Modal body -->
 								    <div class="modal-body row">
+								    <c:if test="${empty followinglist}">
+								    	<span style="margin:15px;">팔로잉 회원이 없습니다.</span>
+								    </c:if>
+								    
+								    <c:if test="${not empty followinglist}">		
 								        <c:forEach items="${followinglist}" var="followinglist">
                               				<div class="profile_box" style="margin-left:15px;">
                               					<a href="/myPage/${followinglist.memberVO.nickname}">
@@ -245,12 +255,12 @@
                               				</div>
                               				<div style="padding-top:10px;">${followinglist.memberVO.nickname}</div></a>
                           				</c:forEach>
-								        
+                          			</c:if>							        
 								    </div>
 								        
 								    <!-- Modal footer -->
 								    <div class="modal-footer">
-								        <button type="button" class="btn btn-warning" style="background-color: #e7ab3c" data-dismiss="modal">닫기</button>
+								        <button type="button" class="btn" style="background-color: #FFC81E; color:black;" data-dismiss="modal">닫기</button>
 								    </div>
 								 </div>
 							</div>
@@ -260,7 +270,7 @@
 						<!-- 본인 계정인 경우 수정 버튼 발생, principal로 확인-->	   	
 						<c:if test="${member.member_id eq follower_id}">
 							<div class="profile-info__actions" style = "padding-top : 50px;">
-								<a class="btn btn-warning" href="/myPage/updateMember" style="color:black">설정</a>
+								<a class="btn" href="/myPage/updateMember" style="background-color: #FFC81E; color:black;">설정</a>
 							</div>
 						</c:if>
 								
@@ -268,12 +278,12 @@
 						<c:if test="${member.member_id ne follower_id}">	
 							<c:if test="${followcheck == 0}">							
 								<div class="profile-info__actions" style = "padding-top : 50px;">
-					        		<button type="button" class="follow btn-warning" onclick="follow();">팔로우</button>
+					        		<button type="button" class="follow btn" style="background-color: #FFC81E; color:black;" onclick="follow();">팔로우</button>
 						        </div>	   
 					        </c:if>		
 				    	    <c:if test="${followcheck != 0}">							
 								<div class="profile-info__actions" style = "padding-top : 50px;">
-					     			<button type="button" class="unfollow btn-warning" onclick="unfollow();">언팔로우</button>
+					     			<button type="button" class="unfollow btn" style="background-color: #FFC81E; color:black;" onclick="unfollow();">언팔로우</button>
 								</div>	   
 							</c:if>		
 						</c:if>					
@@ -457,7 +467,7 @@
 		           $('.followerlist').empty();
 		           $('.followerlist').append(html);
 		           $('.follow').remove();	          
-		           $('.profile-info').append('<button type="button" class="unfollow btn-warning" onclick="unfollow();">언팔로우</button>');               
+		           $('.profile-info').append('<button type="button" class="unfollow btn" style="background-color: #FFC81E; color:black;" onclick="unfollow();">언팔로우</button>');               
 		        },  
 
 		        error: function(e){
@@ -490,7 +500,7 @@
 			        $('.followerlist').empty();
 			        $('.followerlist').append(html);
 		            $('.unfollow').remove();		           
-		            $('.profile-info').append('<button type="button" class="follow btn-warning" onclick="follow();">팔로우</button>'); 
+		            $('.profile-info').append('<button type="button" class="follow btn" style="background-color: #FFC81E; color:black;" onclick="follow();">팔로우</button>'); 
 		        },
 		        error: function(e){
 			    	console.log(e);

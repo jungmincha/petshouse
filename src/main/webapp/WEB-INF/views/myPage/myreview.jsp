@@ -81,6 +81,12 @@
 		border-radius: 8px;
 	}
 	
+	.total {
+		color: #FFBF00;
+		font-weight: bold;
+		font-size: 20px;
+	}
+	
 	a:link {
 		text-decoration: none;
 		color: #333333;
@@ -126,8 +132,8 @@
 	<!-- header -->
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
 
-	<div class="container" style="min-height: 900px;">
-    	<div class="row">
+	<div class="container">
+    	<div class="row" style="margin-bottom:200px;">
 			<div class="col-lg-3 wrap--profile">	
 				<form id="myPage" name="myPage" action="${pageContext.request.contextPath}/commu/thumbnail" method="post">
 					<sec:authorize access="hasAnyRole('ROLE_USER','ROLE_ADMIN')">
@@ -156,7 +162,7 @@
 					<!-- 리뷰 게시글 조회 -->
 					<div class="review row">							
 						<div class="col-12"> 
-							<span style="font-size:20px;font-weight:bold;">리뷰 (${reviewTotal})</span><hr />
+							<span style="font-size:20px;font-weight:bold;">리뷰 </span><span class="total">${reviewTotal}</span><hr />
 						</div>										
 						<c:forEach items="${review}" var="review">
 							<div class="col-lg-4 col-md-4 col-sm-4 text-center" style="padding-bottom:20px;">	
