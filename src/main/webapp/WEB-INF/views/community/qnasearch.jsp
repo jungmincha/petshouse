@@ -70,7 +70,10 @@ margin-left:25%;
 b{
 color:#FFBF00
 }
-
+#searchzero{
+text-align:center;
+margin-top:90px;
+}
 </style>
 
 </head>
@@ -113,6 +116,15 @@ color:#FFBF00
 
 <!-- 검색결과 -->
 		<table class="table">
+		
+		<c:if test="${qscount ==0}">
+
+					<div id="searchzero" class="col-12">
+						 <img  src="/resources/img/storehome/search.png">
+					</div>
+				</c:if>
+		
+		
 			<c:forEach items="${qsearch}" var="qs">
 				<tbody>
 					<td>				

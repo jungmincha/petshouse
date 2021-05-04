@@ -126,7 +126,7 @@
 	
 		<!-- 동물 카테고리 글쓰기 버튼 -->
 		<div style="float: right;">
-			<button class="btn btn-outline-secondary" id="qw"
+			<button class="btn" id="qw" style="background-color:#FFC81E;"
 				onclick="location.href='${pageContext.request.contextPath}qna/write'">질문
 				작성</button>
 		</div>

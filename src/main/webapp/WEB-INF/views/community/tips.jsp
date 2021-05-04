@@ -114,6 +114,8 @@ border-radius:8px;
 .row button{
 background-color: #E6E6E6;
 }
+
+
 </style>
 </head>
 
@@ -161,7 +163,7 @@ background-color: #E6E6E6;
 	<div style="padding-top:80px; margin-bottom:50px; ">
 		
 		<div style="float: right;">
-			<button class="btn btn-outline-secondary" id="tw"
+			<button class="btn" style="background-color:#FFC81E;"id="tw"
 				onclick="location.href='${pageContext.request.contextPath}tips/write'">노하우
 				작성</button>
 		</div>
