@@ -418,6 +418,8 @@ h2 {
                               <div class="container">
                                  <div class="col-lg-12 text-center" id="page"></div>
                               </div>
+                        
+ 
                         </div>
                      </div>
                            <!--                   리뷰 탭2 end               -->
@@ -567,6 +569,13 @@ $(function(){
   });
 });
 </script>
+  <script>
+		function getFormatDate(date) {
+			
+			var date = date.substr(0, 10);
+			return date; 
+		}	
+	  </script>
 <script type="text/javascript">
 
       //timerID = setTimeout("getListComment()", 3);
@@ -616,7 +625,7 @@ $(function(){
                            
                         }
 
-                        html += "<div id='bottom'><div>"+review[i].content+"</div><div style='color: gray'>"+review[i].pdate+"</div></div>"
+                        html += "<div id='bottom'><div>"+review[i].content+"</div><div style='color: gray'>"+getFormatDate(review[i].pdate)+"</div></div>"
                            +"<div class='modal'>"
                            +"<button>&times;</button>"
                            +"<div class='modalBox'>"
@@ -629,7 +638,7 @@ $(function(){
                      $("#comments").append(html);
                      console.log(data.one);
                      if (data.review.length < data.one.count) {
-                        html2 = "<button type='button' class='btn btn-warning' onClick='getListReview()'>더보기</button>"
+                        html2 = "<button type='button' class='btn btn-disabled' onClick='getListReview()'>더보기 <i class='fa fa-caret-down' aria-hidden='true'></i></button>"
 
                         $("#page").append(html2);
 

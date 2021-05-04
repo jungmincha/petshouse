@@ -160,16 +160,16 @@ min-height:150px;
 		</div>
 	<!-- 관리자에게만 작성버튼 띄우기 -->
 			<sec:authorize access="hasAnyRole('ROLE_ADMIN')">
-			<button type="button" id="delete_button" class="btn btn-warning"
+			<button type="button" id="delete_button" class="btn btn-outline-secondary"
 				onclick="button_event();">삭제</button>
 			</sec:authorize>
 	<!-- 관리자에게만 작성버튼 띄우기 end-->			
 
 		<div style="float: right">
-			<button type="button" id="modify_button" class="btn btn-warning"
+			<button type="button" id="modify_button" class="btn btn-outline-secondary"
 				onclick="modify_event();">수정</button>
 
-			<button type="button" id="delete_button" class="btn btn-warning"
+			<button type="button" id="delete_button" class="btn btn-outline-secondary"
 				onclick="button_event();">삭제</button>
 		</div>
 
@@ -211,7 +211,7 @@ min-height:150px;
 
 	</div>
 
-	<div class="container">
+	<div class="container" >
 
 		<input type="hidden" id="pgroup" value="${qna_view.board_id}">
 		<div>
@@ -316,7 +316,7 @@ min-height:150px;
 							$("#comments").append(html);
 							console.log(data.commentTotal);
 							if (data.comments.length < data.commentTotal) {
-								html2 = "<button type='button' class='btn btn-warning' onClick='getListComment()'>더보기</button>"
+								html2 = "<button type='button' class='btn btn-disabled' onClick='getListComment()'>더보기 <i class='fa fa-caret-down' aria-hidden='true'></i></button>"
 
 								$("#page").append(html2);
 
@@ -358,7 +358,6 @@ min-height:150px;
 			//id는 한번만 calss는 여러번 선택 가능.
 
 			//하나의 id는 한 문서에서 한 번만 사용이 가능(가장 마지막 혹은 처음게 선택). 하나의 class는 
-
 			event.preventDefault();
 
 			$.ajax({
@@ -436,7 +435,7 @@ min-height:150px;
 	</script>
 
 		<!-- Footer -->
-	<div style="margin-top: 20px;">
+	<div style="margin-top: 200px;">
 		<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 	</div>
 

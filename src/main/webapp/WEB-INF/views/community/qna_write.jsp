@@ -107,10 +107,10 @@
 					
 						
 
-		<div style="margin-top:30px; float: right;">
-			<button type="submit" class="btn btn-warning">질문 등록</button>
-			<a class="btn btn-warning" href="/commu/qna">취소</a>
-		</div>
+			<div style="margin-top:30px; float: right;">
+				<button type="submit" class="btn btn-warning">질문 등록</button>
+				<a class="btn btn-warning" href="/commu/qna">취소</a>
+			</div>
 		
 		</form>
 	</div>

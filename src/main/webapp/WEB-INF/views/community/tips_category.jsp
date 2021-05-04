@@ -213,7 +213,6 @@ background-color:#E6E6E6;
                    
                      var catetips = data.catetips;
 
-
                      html = "";
                      
                      for (var i in catetips) {

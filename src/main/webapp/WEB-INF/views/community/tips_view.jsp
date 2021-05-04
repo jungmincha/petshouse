@@ -205,17 +205,17 @@ min-height:120px;
 
 <!-- 관리자에게만 작성버튼 띄우기 -->
 			<sec:authorize access="hasAnyRole('ROLE_ADMIN')">		
-			<button type="button" id="delete_button" class="btn btn-warning"
+			<button type="button" id="delete_button" class="btn btn-outline-secondary"
 				onclick="button_event();">삭제</button>
 			</sec:authorize>
 <!-- 관리자에게만 작성버튼 띄우기 end-->			
 			
 
 		<div style="float: right">
-			<button type="button" id="modify_button" class="btn btn-warning"
+			<button type="button" id="modify_button" class="btn btn-outline-secondary"
 				onclick="modify_event();">수정</button>
 
-			<button type="button" id="delete_button" class="btn btn-warning"
+			<button type="button" id="delete_button" class="btn btn-outline-secondary"
 				onclick="button_event();">삭제</button>
 		</div>
 
@@ -449,7 +449,7 @@ $(document).ready(function(){
 							$("#count").text("댓글 " + data.commentTotal + "개");
 							$("#tcomment").append(html);
 							if (data.tcomment.length < data.commentTotal) {
-								html2 = "<button type='button' class='btn btn-warning' onClick='getListComment()'>더보기</button>"
+								html2 = "<button type='button' class='btn btn-disabled' onClick='getListComment()'>더보기 <i class='fa fa-caret-down' aria-hidden='true'></i></button>"
 
 								$("#page").append(html2);
 
@@ -653,7 +653,7 @@ $(document).ready(function(){
 						};//likecancel end
 					</script>
 
-	<div style="margin-top: 20px;">
+	<div style="margin-top: 200px;">
 		<!-- Footer -->
 		<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 	</div>

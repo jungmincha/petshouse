@@ -53,6 +53,7 @@ public class CommunityController {
 	// 노하우 메인 페이지
 	@RequestMapping("/tips")
 	public ModelAndView tips(Criteria cri, ModelAndView mav) {
+		
 		mav.addObject("tips", service.getTipsList(cri));
 		mav.addObject("rate", service.getTipsRate()); // 인기 노하우 슬라이드
 		mav.addObject("tipslistcount", service.getTipsCount());
@@ -62,12 +63,12 @@ public class CommunityController {
 
 	// 노하우 특정 글 페이지 출력
 	@GetMapping("/tips/{board_id}")
-	public ModelAndView tips_view(@PathVariable("board_id") int board_id, BoardVO boardVO,
-			Authentication authentication, PlikeVO plikeVO, Criteria cri, ModelAndView mav) throws Exception {
-
-		boardVO = service.getBoardInfo(board_id);
-
+	public ModelAndView tips_view(@PathVariable("board_id") int board_id, BoardVO boardVO,		
+		Authentication authentication, PlikeVO plikeVO, Criteria cri, ModelAndView mav) throws Exception {
 		log.info("tips_view()실행");
+		
+		boardVO = service.getBoardInfo(board_id);
+		
 		int count = service.tcount(board_id);
 
 		mav.addObject("tips_view", service.getBoard(boardVO.getBoard_id()));
@@ -123,22 +124,24 @@ public class CommunityController {
 	  // 카테고리별 조회
 	  @PostMapping("/tips/category/{boardVO.categoryVO.category_id}") 
 	  public ModelAndView tipscategoryList(ImageVO imageVO, BoardVO boardVO, Criteria cri,ModelAndView mav) { 
-		log.info("tips_categoryList");
-	  System.out.println(imageVO.getBoardVO().getCategoryVO().getCategory_id());
-	  mav.addObject("rate", service.getTipsRate()); // 인기 노하우 슬라이드
-	  
-	  mav.addObject("catetips", service.getTipsCategory(imageVO,cri));
-	  mav.addObject("catetipsTotal", service.getTipsCatetotal(imageVO));
-	  mav.setViewName("community/tips_category");
-	  
-	  return mav; 
-	  
+	
+		 log.info("tips_categoryList");
+		  
+		 System.out.println(imageVO.getBoardVO().getCategoryVO().getCategory_id());
+		 mav.addObject("rate", service.getTipsRate()); // 인기 노하우 슬라이드
+		  
+		 mav.addObject("catetips", service.getTipsCategory(imageVO,cri));
+		 mav.addObject("catetipsTotal", service.getTipsCatetotal(imageVO));
+		 mav.setViewName("community/tips_category");
+		  
+		  return mav;	  
 	  }
 	 
 	// 카테고리별 글 더보기 
 	@PostMapping("/tips/catemorelist/{boardVO.categoryVO.category_id}")
 	public Map<String, Object> tipscategorymoreList(BoardVO boardVO, ImageVO imageVO,  Criteria cri) {
 		log.info("tipscategorymoreList");
+		
 		Map<String, Object> list = new HashMap<>();
 		List<ImageVO> catetips = service.getTipsCategory(imageVO, cri);
 		list.put("catetips", catetips);
@@ -146,7 +149,7 @@ public class CommunityController {
 		
 		return list;
 		
-		}
+	}
 	
 
 	// 노하우 글쓰기 페이지
@@ -200,9 +203,11 @@ public class CommunityController {
 	public ModelAndView tmodify_page(@RequestParam("board_id") int board_id, BoardVO boardVO, ModelAndView mav)
 			throws Exception {
 		log.info("tmodify_page()실행");
+		
 		mav.addObject("tips_view", service.getBoard(boardVO.getBoard_id()));
 		mav.addObject("img", service.getImg(board_id));
 		mav.setViewName("community/tips_modify");
+		
 		return mav;
 	}
 
@@ -210,17 +215,19 @@ public class CommunityController {
 	@PostMapping("/tmodify")
 	public ModelAndView tmodify(BoardVO boardVO, ModelAndView mav) throws Exception {
 		log.info("tmodify()실행");
+		
 		service.tmodify(boardVO);
 		mav.setView(new RedirectView("/commu/tips", true));
+		
 		return mav;
 	}
 
 	// 노하우 글 삭제하기
 	@DeleteMapping("/tdelete/{board_id}")
 	public ResponseEntity<String> tipsDelete(BoardVO boardVO, Model model) {
-
-		ResponseEntity<String> entity = null;
 		log.info("delete");
+		
+		ResponseEntity<String> entity = null;
 
 		try {
 			service.ImgDelete(boardVO.getBoard_id());
@@ -228,8 +235,8 @@ public class CommunityController {
 
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 		} catch (Exception e) {
+			
 			e.printStackTrace();
-
 			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 
@@ -246,6 +253,7 @@ public class CommunityController {
 		service.insertTipsComment(boardVO);
 		BoardVO tcomment = service.getTipsComment(boardVO.getPgroup());
 		System.out.println(tcomment);
+		
 		return tcomment;
 	}
 
@@ -253,10 +261,12 @@ public class CommunityController {
 	@PostMapping("/tmorelist")
 	public Map<String, Object> tipscomment(@RequestParam("board_id") int board_id, Criteria cri) {
 		log.info("commentmorelist");
+		
 		Map<String, Object> list = new HashMap<>();
 		List<BoardVO> tcomment = service.getTipsCommentList(board_id, cri);
 		list.put("tcomment", tcomment);
 		list.put("commentTotal", service.tcount(board_id));
+		
 		return list;
 	}
 
@@ -264,20 +274,24 @@ public class CommunityController {
 	@PostMapping("/morelist")
 	public Map<String, Object> tips(Criteria cri) {
 		log.info("morelist");
+		
 		Map<String, Object> list = new HashMap<>();
 		List<ImageVO> tips = service.getTipsList(cri);
 		list.put("tips", tips);
+		
 		return list;
 	}
 
 	// 질문과 답변 메인 페이지
 	@RequestMapping("/qna")
 	public ModelAndView qna(Criteria cri, BoardVO boardVO, ModelAndView mav) {
+		
 		mav.addObject("qna", service.getQnaList(cri));
 		int total = service.getTotal(cri);
 		mav.addObject("pageMaker", new PageVO(cri, total));
 		mav.addObject("ccount", service.countComment(boardVO));
 		mav.setViewName("community/qna");
+		
 		return mav;
 
 	}
@@ -286,6 +300,7 @@ public class CommunityController {
 	@GetMapping("/qna/{board_id}")
 	public ModelAndView qna_view(@PathVariable("board_id") int board_id, BoardVO boardVO, Criteria cri,
 			ModelAndView mav) throws Exception {
+		
 		boardVO = service.getQnaInfo(board_id);
 		log.info("qna_view()실행");
 		mav.addObject("qna_view", service.getQnaBoard(boardVO.getBoard_id()));
@@ -294,20 +309,23 @@ public class CommunityController {
 		mav.addObject("qcount", qcount);
 		service.hit(boardVO.getBoard_id());
 		mav.setViewName("community/qna_view");
+		
 		return mav;
 	}
 
 	// 질문과 답변 동물 글 페이지 출력
 	@GetMapping("/qna/pet")
 	public List<BoardVO> qna_pet(int category_id, Criteria cri) throws Exception {
+		
+		log.info("qna_pet()실행");
+		
 		List<BoardVO> list = new ArrayList<BoardVO>();
 		if (category_id == 0) {
 			list = service.getQnaList(cri);
 		} else {
 			list = service.getPetQna(category_id);
 		}
-
-		log.info("qna_pet()실행");
+		
 		return list;
 	}
 
@@ -323,7 +341,9 @@ public class CommunityController {
 	@PostMapping("/qna/write")
 	public ModelAndView write(MultipartHttpServletRequest multi, ImageVO imageVO, BoardVO boardVO, ModelAndView mav)
 			throws IllegalStateException, IOException {
+		
 		log.info("write()실행");
+		
 		if (multi.getFile("file").getOriginalFilename().equals("")) {
 			service.writeQna(boardVO);
 		} else {
@@ -361,10 +381,12 @@ public class CommunityController {
 	public ModelAndView qnasearch(@RequestParam("keyword") String keyword, ModelAndView mav, BoardVO boardVO)
 			throws Exception {
 		log.info("qsearch()실행");
+		
 		int qscount = service.qscount(keyword);
 		mav.addObject("qscount", qscount);
 		mav.addObject("qsearch", service.getQnasearch(keyword));
 		mav.setViewName("/community/qnasearch");
+		
 		return mav;
 	}
 
@@ -567,6 +589,7 @@ public class CommunityController {
     @PostMapping("/ckUpload")
     public void postCKEditorImgUpload(HttpServletRequest req, HttpServletResponse res, @RequestParam MultipartFile upload) throws Exception {
      log.info("post CKEditor img upload");
+     
      String uploadPath = req.getSession().getServletContext().getRealPath("/static/img/tips");
      uploadPath = uploadPath.replace("webapp", "resources");
      System.out.println("uploadPath  : "+uploadPath);

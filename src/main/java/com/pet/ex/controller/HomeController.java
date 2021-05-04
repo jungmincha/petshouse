@@ -43,12 +43,16 @@ public class HomeController {
 	public ModelAndView search(@RequestParam("keyword") String keyword, ImageVO imageVO, BoardVO boardVO, ModelAndView mav,Criteria cri)
 			throws Exception {
 		log.info("search()실행");
+		
 		int qcount = service.qcount(keyword);
 		mav.addObject("qcount", qcount);
+		
 		int tcount = service.tcount(keyword);
 		mav.addObject("tcount", tcount);
+		
 		int gcount = service.gcount(keyword);
 		mav.addObject("gcount", gcount);
+		
 		int scount = service.scount(keyword);
 		mav.addObject("scount", scount);
 		mav.addObject("ccount", service.countComment(boardVO));
@@ -59,6 +63,7 @@ public class HomeController {
 		mav.addObject("moresns", service.getMoreSns(keyword,cri));
 		mav.addObject("rate", service.getStorerate(cri));	
 		mav.setViewName("/home/search");
+		
 		return mav;
 	}
 
@@ -67,7 +72,9 @@ public class HomeController {
 	public ModelAndView moregoods(@RequestParam("keyword") String keyword,  ImageVO imageVO,Criteria cri, ModelAndView mav,
 			BoardVO boardVO) throws Exception {
 		log.info("moregoods()실행");
+		
 		System.out.println(keyword);
+		
 		int gcount = service.gcount(keyword);
 		mav.addObject("gcount", gcount); //검색 결과 수 뽑을떄
 		mav.addObject("imgCount", service.imgCount(imageVO));
@@ -75,6 +82,7 @@ public class HomeController {
 		mav.addObject("moregoods", service.getMoreGoods(keyword, cri));
 		mav.addObject("rate", service.getStorerate(cri));	
 		mav.setViewName("/home/moregoods");
+		
 		return mav;
 	}
 
