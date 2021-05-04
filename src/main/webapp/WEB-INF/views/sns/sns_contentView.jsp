@@ -555,10 +555,10 @@ body {
 								<c:if test="${buttonhidden.nickname eq sns.memberVO.nickname}">
 
 									<button id="modify_button" type="button"
-										class="btn" style="background-color: #FFC81E;  color:black;" onclick="modify_event();">수정</button>
+										class="btn btn-warning" onclick="modify_event();">수정</button>
 
 									<button id="delete_button" type="button"
-										class="btn" style="background-color: #FFC81E;  color:black;" onclick="button_event();">삭제</button>
+										class="btn btn-warning" onclick="button_event();">삭제</button>
 								</c:if>
 							</sec:authorize>
 
@@ -698,7 +698,7 @@ body {
 								$("#comment").append(html);
 								console.log(data.commentTotal);
 								if (data.comment.length < data.commentTotal) {
-									html2 = "<button type='button' class='btn btn-disabled' onClick='getListComment()'>더보기 <i class='fa fa-caret-down' aria-hidden='true'></i></button>"
+									html2 = "<button type='button' class='btn btn-warning' onClick='getListComment()'>더보기</button>"
 
 									$("#page").append(html2);
 

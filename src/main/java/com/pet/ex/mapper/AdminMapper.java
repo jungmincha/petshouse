@@ -39,6 +39,10 @@ public interface AdminMapper {
 	
 	public void goodsModify(GoodsVO goodsVO);
 
+	/* public void reviewDelete(int goods_id); */
+	
+	public void imgDelete(int goods_id);
+
 	public void boardDelete(int goods_id);
 
 	public void goodsDelete(int goods_id);

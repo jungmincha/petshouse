@@ -31,19 +31,9 @@
 
  
  
-<Style>
 
-.logo {
-	width: 210px;
-	height: 50px;
-	
-}
-
-</Style>
 <body>
 
-
-  
 	<!-- Page Wrapper -->
 	<div id="wrapper">
 
@@ -55,9 +45,9 @@
 			<!-- Sidebar - Brand -->
 		 
 			 <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/store/home">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
                  
-                <div class="sidebar-brand-text mx-3"><h3>관리자모드</h3> <sup></sup></div>
+                <div class="sidebar-brand-text mx-3">관리자모드 <sup></sup></div>
             </a>
 		 
 
@@ -83,8 +73,7 @@
 					class="fas fa-fw fa-table"></i> <b>회원관리</b></a></li>
 
 			<!-- Nav Item - Tables -->
-			<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/roomup"
-				onclick="window.open(this.href,'팝업창','width=510,height=610');return false;"> <i
+			<li class="nav-item"><a class="nav-link" href="/room"> <i
 					class="fas fa-fw fa-table"></i> <b>1:1 문의채팅</b></a></li>
 
 			<!-- Divider -->
@@ -107,28 +96,9 @@
 
 					</div>
 				</div></li>
-				<div style="margin: 80px; font-size:15px;">
-			<sec:authorize access="isAnonymous()">
-								<li><a href="/login/login" style="color:white;" class="login-panel">Login</a></li>
-							</sec:authorize>
-			<sec:authorize access="hasAnyRole('ROLE_ADMIN')">
-				 <a href="/login/logout"  style="color:white;" class="login-panel">Logout</a>
-			</sec:authorize></div>
-		 	
-		 	
-		 	<div class="col-lg-1">
-						<%-- <div class="advanced-search" style=" padding-top:110px; padding-bottom:30px;">
+		 
 
-							<form action="${pageContext.request.contextPath}/search"
-								class="input-group" method="get">
-								<input type="text" name="keyword" placeholder="펫츠하우스 통합검색">
-							
-							</form>
-							
-						</div> --%>
-						<a href="/store/home">
-						<img src="/resources/img/logo.png" class="logo" alt=""></a>
-					</div>
+		 
 
 
 		</ul>

@@ -75,8 +75,8 @@ $.ajax({
  <body>
  
 		
-    <div class="sidebar" style="display: block; padding-top:100px; width: 180px!important;" >
-                <ul class="nav" style="width:160px;">
+    <div class="sidebar" style="display: block; padding-top:150px; " >
+                <ul class="nav">
                    <li class="submenu">
                  
     				<br><br>
@@ -102,7 +102,7 @@ $.ajax({
                        
                         
                   <!-- 강아지 -->
-                   <ul class="nav" style="width:160px;">
+                   <ul class="nav">
                    <li class="submenu">
                      <a href="#" style ="font-size: 20px;"> 
                      <i class="fas fa-dog"></i>${category[1].categoryname}<span class="caret pull-right"></span>
@@ -124,7 +124,7 @@ $.ajax({
                     
                     
                   <!-- 조류 -->
-                      <ul class="nav" style="width:160px;">
+                      <ul class="nav">
                    <li class="submenu">
                   <a href="#" style ="font-size: 20px;">
                      <i class="fas fa-frog"></i>${category[2].categoryname}<span class="caret pull-right"></span>
@@ -145,7 +145,7 @@ $.ajax({
                     
                     
                         <!-- 어류 -->
-                            <ul class="nav" style="width:160px;">
+                            <ul class="nav">
                    <li class="submenu">
                         <a href="#" style ="font-size: 20px;">
                             <i class="fas fa-fish"></i>${category[3].categoryname}<span class="caret pull-right"></span>
@@ -166,7 +166,7 @@ $.ajax({
                           </ul>
                     
                         <!-- 파충류 -->
-                         <ul class="nav" style="width:160px;">
+                         <ul class="nav">
                  	     <li class="submenu">
                           <a href="#" style ="font-size: 20px;">
                             <i class="fas fa-crow"></i>${category[4].categoryname}<span class="caret pull-right"></span>
@@ -187,7 +187,7 @@ $.ajax({
                            
                     
                        <!-- 기타 -->
-                        <ul class="nav" style="width:160px;">
+                        <ul class="nav">
                         <li class="submenu">
                           <a href="#" style ="font-size: 20px;">
                             <i class="fas fa-paw"></i>${category[5].categoryname}<span class="caret pull-right"></span>

@@ -174,7 +174,7 @@ h5 {
 	
 		
 		<input type="hidden" name="keyword" value="${param.keyword}">
-		<div class="row"><h2>SNS</h2>&nbsp&nbsp<h5><b>&nbsp&nbsp-&nbsp'${param.keyword}'&nbsp</b>&nbsp 관련된 게시글 </h5></div>
+		<div class="row"><h2>SNS</h2>&nbsp&nbsp<h5><b>&nbsp&nbsp-&nbsp'${param.keyword}'&nbsp</b>&nbsp과 관련된 게시글 </h5></div>
 
 
 			<div class="row ">

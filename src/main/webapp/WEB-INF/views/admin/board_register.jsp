@@ -24,7 +24,6 @@
 
 h2 {
 	text-align: center;
-	padding-top : 50px;
 }
 
 
@@ -64,8 +63,8 @@ h2 {
 				<fieldset>
 					<h2>상품 게시글 등록</h2>
 
-					<input type="button" class="btn"
-					style="background-color: #FFC81E;  color:black; float: right;" value="게시글등록">
+					<input type="submit" class="btn"
+						style="background-color: #e7ab3c; float: right;" value="게시글등록">
 
 					<div class="form-group row" style="padding-top:70px;">
 						<label class="col-sm-2">등록되지 않은 상품</label>

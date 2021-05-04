@@ -108,7 +108,7 @@ select {
 							</div>
 
 							<div class="form-group row">
-								<label class="col-sm-3">옵션 1</label>
+								<label class="col-sm-3">사이즈</label>
 								<div class="col-sm-9">
 									<input type="text" name="psize" class="form-control"
 										placeholder="사이즈를 입력하세요" aria-describedby="sizeHelp">
@@ -119,7 +119,7 @@ select {
 							</div>
 
 							<div class="form-group row">
-								<label class="col-sm-3">옵션 2</label>
+								<label class="col-sm-3">색상</label>
 								<div class="col-sm-9">
 									<input type="text" name="pcolor" class="form-control"
 										id="pcolor" placeholder="색상을 입력하세요"
@@ -176,7 +176,7 @@ select {
 							<div class="form-group row">
 								<div class="col-sm-offset-2 col-sm-6">
 									<button type="submit" class="btn btn-block" id="check"
-										style="background-color: #FFC81E;  color:black;">상품등록</button>
+										style="background-color: #e7ab3c">상품등록</button>
 									<%-- 	data-toggle="modal"
 										data-target="#Modal"  --%>
 								</div>
@@ -186,7 +186,7 @@ select {
 
 								<div class="col-sm-offset-2 col-sm-6">
 									<input type="button" class="btn btn-block"
-										style="background-color: #FFC81E;  color:black;" value="상품목록"
+										style="background-color: #e7ab3c" value="상품목록"
 										onClick="location.href='${pageContext.request.contextPath}/admin/goods'">
 								</div>
 							</div>

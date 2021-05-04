@@ -14,20 +14,16 @@
 <title>상품조회</title>
 
 <style>
-
 .table_center {
 	display: table;
-	margin: auto;
-	padding-left : 500px;
+	margin: 50px auto;
 	width: 1000px;
 	font-size: 15px;
 	font-stretch: extra-condensed;
 }
 
- 
 h2 {
 	text-align: center;
-	padding-top: 50px;
 }
 
 select {
@@ -46,8 +42,6 @@ select {
 	margin: 50px auto;
 	width: 500px;
 }
-
- 
 </style>
 
 </head>
@@ -55,23 +49,23 @@ select {
 
 
 
-	 
+	<!-- header -->
 
 	<%@ include file="/WEB-INF/views/include/sidebar.jsp"%>
 
 	<!-- Page Content -->
 
-	 
+	<div class="col-lg-30">
 		<form action="${pageContext.request.contextPath}/admin/goods/update"
 			method="post" enctype="multipart/form-data">
 			<input type="hidden" name="goods_id" id="goods_id"
 				value="${goods.goods_id}"> 
 				<input type="hidden" name="thumbnail" value="${goods.thumbnail}">
-			<div class="col-lg-12" style="padding-left:150px;">
+			<div class="col-lg-30">
 
 				<fieldset>
-					<table class="table_center" cellpadding="20" >
-						<td colspan="20" >
+					<table class="table_center" cellpadding="20">
+						<td colspan="20">
 							<h2>상품 조회</h2>
 						</td>
 						<tr>
@@ -89,7 +83,9 @@ select {
 											<label class="custom-file-label" for="inputGroupFile02">
 												Choose file </label>
 										</div>
-										 
+										<div class="input-group-append">
+											<span class="input-group-text">Upload</span>
+										</div>
 									</div>
 								</div>
 								<div class="form-group row">
@@ -101,7 +97,7 @@ select {
 									<div class="col-sm-9">${goods.goodsname}</div>
 								</div>
 								<div class="form-group row">
-									<label class="col-sm-3">가   격</label>
+									<label class="col-sm-3">가격</label>
 									<div class="col-sm-9">
 										<input type="text" id="price" name="price"
 											class="form-control" value="${goods.price}"
@@ -111,7 +107,7 @@ select {
 								</div>
 
 								<div class="form-group row">
-									<label class="col-sm-3">옵션 1</label>
+									<label class="col-sm-3">사이즈</label>
 									<div class="col-sm-9">
 										<input type="text" id="psize" name="psize"
 											class="form-control" aria-describedby="sizeHelp"
@@ -121,7 +117,7 @@ select {
 								</div>
 
 								<div class="form-group row">
-									<label class="col-sm-3">옵션 2</label>
+									<label class="col-sm-3">색상</label>
 									<div class="col-sm-9">
 										<input type="text" name="pcolor" id="pcolor"
 											class="form-control" aria-describedby="colorHelp"
@@ -179,7 +175,7 @@ select {
 									<div class="col-sm-offset-2 col-sm-6">
 										<input type="button" class="btn btn-block" data-toggle="modal"
 											data-target="#Modal" onclick=ex()
-											style="background-color: #FFC81E;  color:black;" value="상품정보수정">
+											style="background-color: #e7ab3c" value="상품정보수정">
 									</div>
 									<!-- Modal -->
 									<div class="modal fade" id="Modal" tabindex="-1" role="dialog"
@@ -198,14 +194,14 @@ select {
 													<button type="button" class="btn btn-secondary"
 														data-dismiss="modal">닫기</button>
 													<button type="submit" class="btn btn-warning"
-														style="background-color: #FFC81E;  color:black;">수정하기</button>
+														style="background-color: #e7ab3c">수정하기</button>
 												</div>
 											</div>
 										</div>
 									</div>
 									<div class="col-sm-offset-2 col-sm-6">
 										<input type="button" class="btn btn-block"
-											style="background-color: #FFC81E;  color:black;" value="상품목록"
+											style="background-color: #e7ab3c" value="상품목록"
 											onClick="location.href='${pageContext.request.contextPath}/admin/goods'">
 
 									</div>
@@ -218,7 +214,7 @@ select {
 				</fieldset>
 			</div>
 		</form>
-	 
+	</div>
 
 
 	<script>
