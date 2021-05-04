@@ -84,12 +84,12 @@
 			<div class="row">
 				<select name="hashtag" id="hashtag" class=" form-control col-2"
 					style="height: 38px; margin-left: 15px; margin-right: 10px;">
-					<option value="우리동네질문">우리동네질문</option>
-								<option value="분실/실종센터">분실/실종센터</option>
-								<option value="일상">일상</option>
-								<option value="맛집">맛집</option>
-								<option value="취미생활">취미생활</option>
-								<option value="여행">여행</option>
+					<option value="우리동네">우리동네</option>
+								<option value="분실/실종">분실/실종</option>
+								<option value="동물병원">동물병원</option>
+								<option value="산책로">산책로</option>
+								<option value="나눔마켓">나눔마켓</option>
+								<option value="애완용품샵">애완용품샵</option>
 								<option value="기타">기타</option>
 				</select> 
 				
