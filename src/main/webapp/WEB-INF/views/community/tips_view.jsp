@@ -133,7 +133,7 @@ margin-bottom:20px;
 }
 
 #hashtag {
-	font-size: 15px;
+	font-size: 16px;
 	padding: 0.01px;
 }
 
@@ -212,10 +212,10 @@ min-height:120px;
 			
 
 		<div style="float: right">
-			<button type="button" id="modify_button" class="btn btn-outline-secondary"
+			<button type="button" id="modify_button" class="btn" style="background-color:#FFC81E;"
 				onclick="modify_event();">수정</button>
 
-			<button type="button" id="delete_button" class="btn btn-outline-secondary"
+			<button type="button" id="delete_button" class="btn" style="background-color:#FFC81E;"
 				onclick="button_event();">삭제</button>
 		</div>
 
@@ -279,7 +279,7 @@ min-height:120px;
 					 <form action="${pageContext.request.contextPath}/search"
 							method="get">
 					
-							<span> <fmt:formatDate
+							<span style="margin-top:5px;"> <fmt:formatDate
 										value="${tips_view.pdate}" pattern="yy.MM.dd" /></span> &nbsp&nbsp
 							<span> 조회수 ${tips_view.hit}</span>&nbsp&nbsp
 								<c:set var="hashtag" value="${tips_view.hashtag}" />

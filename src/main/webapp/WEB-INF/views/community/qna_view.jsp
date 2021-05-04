@@ -94,7 +94,7 @@
 }
 
 #hashtag {
-	font-size: 13px;
+	font-size: 16px;
 	padding: 0.01px;
 }
 
@@ -160,16 +160,16 @@ min-height:150px;
 		</div>
 	<!-- 관리자에게만 작성버튼 띄우기 -->
 			<sec:authorize access="hasAnyRole('ROLE_ADMIN')">
-			<button type="button" id="delete_button" class="btn btn-outline-secondary"
+			<button type="button" id="delete_button" class="btn" style="background-color:#FFC81E;"
 				onclick="button_event();">삭제</button>
 			</sec:authorize>
 	<!-- 관리자에게만 작성버튼 띄우기 end-->			
 
 		<div style="float: right">
-			<button type="button" id="modify_button" class="btn btn-outline-secondary"
+			<button type="button" id="modify_button" class="btn" style="background-color:#FFC81E;"
 				onclick="modify_event();">수정</button>
 
-			<button type="button" id="delete_button" class="btn btn-outline-secondary"
+			<button type="button" id="delete_button" class="btn" style="background-color:#FFC81E;"
 				onclick="button_event();">삭제</button>
 		</div>
 
@@ -204,7 +204,7 @@ min-height:150px;
 							</c:if>
 						</c:forEach>
 				</form> 
-				<span style="color: gray;"><fmt:formatDate value="${qna_view.pdate}" pattern="yyyy.MM.dd" /></span> 
+				<span style="color: gray; margin-top:5px;"><fmt:formatDate value="${qna_view.pdate}" pattern="yyyy.MM.dd" /></span> 
 				<span style="color: gray">조회수 ${qna_view.hit}</span>
 			</td>
 		</table>

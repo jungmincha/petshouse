@@ -96,10 +96,10 @@
 
 		<sec:authorize access="hasAnyRole('ROLE_ADMIN')">
 			<div style="float: right">
-				<button type="button" id="modify_button" class="btn btn-warning"
+				<button type="button" id="modify_button" class="btn" style="background-color:#FFC81E;"
 					onclick="modify_event();">수정</button>
 
-				<button type="button" id="delete_button" class="btn btn-warning"
+				<button type="button" id="delete_button" class="btn" style="background-color:#FFC81E;"
 					onclick="button_event();">삭제</button>
 			</div>
 		</sec:authorize>
