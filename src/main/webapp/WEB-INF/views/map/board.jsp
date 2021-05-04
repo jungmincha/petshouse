@@ -233,7 +233,7 @@ body::-webkit-scrollbar-track {
 										</div><br>
 											<!-- 게시글 정보 -->
 											<div class="row col-lg-12">
-											<p class="pdate pd" style="font-size: 15px; color: gray;"><fmt:formatDate value="${list.boardVO.pdate}" pattern="yyyy.MM.dd" /></p>
+											<p class="pdate" style="font-size: 15px; color: gray;">${list.boardVO.pdate}</p>
 											<p style="font-size: 15px; color: gray;">&nbsp&nbsp좋아요${list.boardVO.plike}</p>
 											<p style="font-size: 15px; color: gray;">&nbsp&nbsp${list.boardVO.hashtag}</p>
 											<p style="font-size: 15px; color: gray;">&nbsp&nbsp조회수${list.boardVO.hit}</p>
