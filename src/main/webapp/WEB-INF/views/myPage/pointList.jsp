@@ -81,6 +81,16 @@ table th {
 	font-size: 20px;
 }
 
+.selectBtn {
+	background-color: #FFC81E;
+	color: black;
+	border: 1px solid white;
+	padding: 4px;
+	border-radius: 5%;
+	
+
+}
+
 #navbars>li:nth-child(4) {
 	background-color: #e7ab3c;
 }
@@ -102,7 +112,7 @@ table th {
 					<span> 날짜조회 : <input type="text" id="datepicker"
 						style="width: 100px" value=""> ~ <input type="text"
 						id="datepicker2" style="width: 100px" value="">
-						<button class='btn btn-info' onclick="getPointList(1,10)">조회하기</button>
+						<button class='selectBtn' onclick="getPointList(1,10)">조회하기</button>
 					</span>
 
 				</div>
@@ -115,7 +125,7 @@ table th {
 				</div>
 			</div>
 
-			<div class="posted-by">
+			<div class="posted-by" style="padding-bottom: 20px;">
 
 				<div class="pb-text">
 					<table class="table">
@@ -172,7 +182,7 @@ table th {
 										+ priceFormat(data.pointList[i].pscore)
 										+ "P</td>"
 							} else {
-								html += "<td>"
+								html += "<td style='color:#6495ED;'>"
 										+ priceFormat(data.pointList[i].pscore)
 										+ "P</td>"
 							}

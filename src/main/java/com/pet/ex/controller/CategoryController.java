@@ -176,7 +176,7 @@ public class CategoryController {
 		mav.addObject("rate", service.gethighStar());// 별점 리뷰 조회
 		mav.addObject("category", service.getCategory());
 		mav.addObject("smallcategory", service.getScategory());
-		mav.setViewName("category/highprice");
+		mav.setViewName("category/highstar");
 
 		log.info("highstar...");
 

@@ -56,4 +56,6 @@ public interface MyPageService {
 
 	void updatePaystate_id(String pay_id);
 
+	void updatePayGoodsReview(String paygoods_id);
+
 }

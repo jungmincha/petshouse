@@ -183,27 +183,31 @@ span.star-prototype>* {
 
 
 
-	<c:forEach items="${goods}" var="goods">
-		<div class="product-item">
-			<div class="pi-text" style="padding: 10px;">
-				<a href="/admin/goods_detail/${goods.board_id}"> <img
-					src="/resources/img/admin/goods/${goods.goodsVO.thumbnail}" alt="">
-					<h5>${goods.goodsVO.goodsname}</h5>
-				</a>
-				<div class="product-price">
-					<fmt:formatNumber value="${goods.goodsVO.price}" pattern="#,###" />
-					원
-				</div>
-				<c:forEach items="${rate}" var="rate">
-					<c:if test="${rate.goodsVO.goods_id eq goods.goodsVO.goods_id}">
-								
-								별점 <span class="star-prototype"> ${rate.avgscore}</span>
-						<span>&nbsp; 리뷰 ${rate.count}</span>
-					</c:if>
-				</c:forEach>
-			</div>
-		</div>
+	<c:forEach items="${rate}" var="rate">
+		<c:forEach items="${goods}" var="goods">
+			<c:if test="${rate.goodsVO.goods_id eq goods.goodsVO.goods_id}">
+				<div class="product-item">
+					<div class="pi-text" style="padding: 10px;">
 
+						<a href="/admin/goods_detail/${goods.board_id}"> <img
+							src="/resources/img/admin/goods/${goods.goodsVO.thumbnail}"
+							alt="">
+							<h5>${goods.goodsVO.goodsname}</h5>
+						</a>
+						<div class="product-price">
+							<fmt:formatNumber value="${goods.goodsVO.price}" pattern="#,###" />
+							원
+						</div>
+
+
+
+						별점 <span class="star-prototype"> ${rate.avgscore}</span> <span>&nbsp;
+							리뷰 ${rate.count}</span>
+
+					</div>
+				</div>
+			</c:if>
+		</c:forEach>
 	</c:forEach>
 
 
