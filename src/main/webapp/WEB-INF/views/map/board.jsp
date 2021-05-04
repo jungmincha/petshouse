@@ -96,16 +96,7 @@ a:hover {
 	background-color: #dddddd;
 }
 
-.top {
-	background-color: #e7ab3c;
-	border-radius: 10px;
-	cursor: pointer;
-	position: fixed;
-	right: 5px;
-	font-size: 15px;
-	bottom: 500px;
-	padding: 10px;
-}
+
 
 body::-webkit-scrollbar {
 	width: 10px;
@@ -171,19 +162,19 @@ body::-webkit-scrollbar-track {
 					<!-- 위치 다시 선정하기 -->
 					<i class="fas fa-paw"></i><span style= "font-size: 18px;"> ${location}</span>
 					<br> <br>
-					<i class="fas fa-paw"></i><a href="/map/home"><span style= "font-size: 18px;"> 위치 다시 설정하기</span></a>
+					<i class="fas fa-paw"></i><a href="/map/home"><span style= "font-size: 15px;"> 위치 다시 설정하기</span></a>
 					<br> <br>
 					
 					<div class="col-lg-12"><!--이게 먼저 오게! -->
 						<div class="row">
 						
 						<button class="form-control col-sm-1" href="#" onclick="cate_ajax_submit('전체');">전체</button>&nbsp&nbsp
-						<button class="form-control col-sm-1"  href="#" onclick="cate_ajax_submit('우리동네질문');"><p style="font-size:12px;">우리동네질문</p></button>&nbsp&nbsp
-						<button class="form-control col-sm-1"  href="#" onclick="cate_ajax_submit('분실/실종');"><p style="font-size:15px;">분실/실종</p></button>&nbsp&nbsp
-						<button class="form-control col-sm-1"  href="#" onclick="cate_ajax_submit('일상');">일상</button>&nbsp&nbsp
-						<button class="form-control col-sm-1"  href="#" onclick="cate_ajax_submit('맛집');">맛집</button>&nbsp&nbsp
-						<button class="form-control col-sm-1"  href="#" onclick="cate_ajax_submit('취미생활');">취미생활</button>&nbsp&nbsp
-						<button class="form-control col-sm-1" href="#" onclick="cate_ajax_submit('여행');">여행</button>&nbsp&nbsp
+						<button class="form-control col-sm-1"  href="#" onclick="cate_ajax_submit('우리동네');">우리동네</button>&nbsp&nbsp
+						<button class="form-control col-sm-1"  href="#" onclick="cate_ajax_submit('분실/실종');">분실/실종</button>&nbsp&nbsp
+						<button class="form-control col-sm-1"  href="#" onclick="cate_ajax_submit('동물병원');">동물병원</button>&nbsp&nbsp
+						<button class="form-control col-sm-1"  href="#" onclick="cate_ajax_submit('산책로');">산책로</button>&nbsp&nbsp
+						<button class="form-control col-sm-1"  href="#" onclick="cate_ajax_submit('나눔마켓');">나눔마켓</button>&nbsp&nbsp
+						<button class="form-control col-sm-1" href="#" onclick="cate_ajax_submit('애완용품샵');">애완용품샵</button>&nbsp&nbsp
 						<button class="form-control col-sm-1"  href="#" onclick="cate_ajax_submit('기타');">기타</button>
 						</div>
 						</div>
@@ -210,10 +201,10 @@ body::-webkit-scrollbar-track {
 								<option value="여행">여행</option>
 								<option value="기타">기타</option>
 
-							</select> <span class="col-sm-5"></span>
+							</select> <span class="col-sm-5"></span>style="background-color: #FFC81E;  color:black;"
 						</div> -->
 					
-							<button class="form-control col-sm-1" id="qw" style="position: fixed; top: 170px; right: 100px;" type="submit">글 작성</button>
+							<button class="form-control col-sm-1" id="qw" style="position: fixed; background-color: #FFC81E;  color:black; top: 170px; right: 100px;" type="submit">글 작성</button>
 					
 							</form>
 	
@@ -241,12 +232,14 @@ body::-webkit-scrollbar-track {
 									
 										</div><br>
 											<!-- 게시글 정보 -->
-											<span class="pdate pd" style="font-size: 15px; color: gray;"><fmt:formatDate value="${list.boardVO.pdate}" pattern="yyyy.MM.dd" /></span>
-											<span style="font-size: 15px; color: gray;">&nbsp&nbsp조회수${list.boardVO.hit}</span>
-											<span style="font-size: 15px; color: gray;">&nbsp&nbsp좋아요${list.boardVO.plike}</span>
-											<span style="font-size: 15px; color: gray;">&nbsp&nbsp${list.boardVO.hashtag}</span>
+											<div class="row col-lg-12">
+											<p class="pdate pd" style="font-size: 15px; color: gray;"><fmt:formatDate value="${list.boardVO.pdate}" pattern="yyyy.MM.dd" /></p>
+											<p style="font-size: 15px; color: gray;">&nbsp&nbsp좋아요${list.boardVO.plike}</p>
+											<p style="font-size: 15px; color: gray;">&nbsp&nbsp${list.boardVO.hashtag}</p>
+											<p style="font-size: 15px; color: gray;">&nbsp&nbsp조회수${list.boardVO.hit}</p>
+											</div>
 											<br>	
-											<br>							
+																
 											<!-- 게시글 이미지 썸네일 -->			
 										
 											<a href="/map/board/${list.boardVO.board_id}?location=${location}">
@@ -263,7 +256,7 @@ body::-webkit-scrollbar-track {
 					  		<c:if test="${listTotal > 5}">
 	            			<div class="btn col-lg-12 text-center">  
 	          	    		<input type="hidden" class="listTotal" value="${listTotal}" />
-	            				<button type="button" class="btn btn-warning" onClick="btnClick()" style="margin-right: 350px;">더보기</button>
+	            				<button type="button" class="btn btn-warning" onClick="btnClick()" style="margin-right: 350px; background-color: #FFC81E;  color:black;">더보기</button>
 		        				</div>
 		       					</c:if>
 		     
@@ -366,7 +359,7 @@ body::-webkit-scrollbar-track {
     	           
 	   	        	if(list.length == 5){
 		        		html += "<div class='btn col-lg-12 text-center'>"  
-		            		 + "<button type='button' class='btn btn-warning' style='margin-right: 350px;' onClick='btnClick()'>더보기</button> </div>";			      
+		            		 + "<button type='button' class='btn btn-warning' style='margin-right: 350px; background-color: #FFC81E; color:black;'  onClick='btnClick()'>더보기</button> </div>";			      
 		        	}
      
     	           	$('.btn').remove();
