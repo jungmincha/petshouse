@@ -341,11 +341,12 @@
 
  	<!-- 상품게시글 삭제 -->
 	  
-	<delete id="boardDelete">
+		  
+	<delete id="boardDelete" >
 	
 	   <![CDATA[
 	   		BEGIN
-	  	    delete from image where goods_id = #{goods_id};
+	  	    delete from image where goods_id = #{boardVO.goods_id};
 	   		delete from board where goods_id = #{goods_id};
 	     	END;
 	   ]]>

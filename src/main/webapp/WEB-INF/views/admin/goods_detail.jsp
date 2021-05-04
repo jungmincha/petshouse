@@ -250,7 +250,7 @@ h2 {
 			<input type="hidden" name="goods_id" value="${goods.goodsVO.goods_id}"> 				 
 			<div style="float: right">
 			<sec:authorize access="hasAnyRole('ROLE_ADMIN')">  
-			<button type="button" id="delete_button" class="btn btn-warning" onclick="button_event();">삭제</button>
+			<button type="button" id="delete_button" class="btn" style="background-color: #FFC81E;  color:black;" onclick="button_event();">삭제</button>
 		    </sec:authorize>  
 			</div>
 						
