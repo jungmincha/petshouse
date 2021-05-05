@@ -59,8 +59,7 @@
   			<!-- 관리자에게만 작성버튼 띄우기 -->
 			<sec:authorize access="hasAnyRole('ROLE_ADMIN')">
 				<div class="col-lg-12">
-					<button class="btn" style="background-color:#FFC81E;" id="nw"
-						style="margin-left: 65px; float:right;  margin-bottom:20px;"
+					<button class="btn" style="background-color:#FFC81E;margin-left: 65px; float:right;  margin-bottom:20px;" id="nw"
 						onclick="location.href='${pageContext.request.contextPath}notice/write'">공지 작성</button>
 			 	</div> 
 			</sec:authorize>

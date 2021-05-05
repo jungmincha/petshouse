@@ -119,15 +119,15 @@
 				</div>
 
 				<hr>
-
-				<section style="margin-top: 60px; min-height:300px; margin-bottom: 20px;">${notice_view.content}</section>
-
-				<c:forEach items="${img}" var="notice">
-					<div class="mySlides">
+<c:forEach items="${img}" var="notice">
+					<div style="margin-top:50px;">
 						<img src="/resources/img/admin/notice/${notice.imgname}"
 							style="width: 100%; height: 600px;">
 					</div>
-				</c:forEach> <span style="font-size: 13px; color: gray;"> <fmt:formatDate
+				</c:forEach>
+				<div style=" min-height:300px; margin-bottom: 20px;">${notice_view.content}</div>
+
+				 <span style="font-size: 13px; color: gray;"> <fmt:formatDate
 						value="${notice_view.pdate}" pattern="yyyy.MM.dd" /></span> <span
 				style="font-size: 13px; color: gray">조회수 ${notice_view.hit}</span>
 			</td>
