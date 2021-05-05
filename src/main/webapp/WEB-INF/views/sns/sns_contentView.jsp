@@ -112,10 +112,10 @@ body {
 	border-radius: 3px 0 0 3px;
 }
 
-/* On hover, add a black background color with a little bit see-through */
+/* /* On hover, add a black background color with a little bit see-through */
 .prev:hover, .next:hover {
 	background-color: rgba(0, 0, 0, 0.8);
-}
+} */
 
 .row:after {
 	content: "";
@@ -437,12 +437,11 @@ body {
 								<div class="likelist modal-body row">
 									<c:forEach items="${likelist}" var="likelist">
 										<div class="profile_box" style="margin-left: 15px;">
-											<a href="/myPage/${likelist.memberVO.nickname}"> <img
-												src="/resources/img/member/profile/${likelist.memberVO.thumbnail}"
+											<img src="/resources/img/member/profile/${likelist.memberVO.thumbnail}"
 												name="profile" class="profile" />
 										</div>
-										<div style="padding-top: 10px;">${likelist.memberVO.nickname}</div>
-										</a>
+											<p><a href="/myPage/${likelist.memberVO.nickname}">${likelist.memberVO.nickname}</a></p>       
+										
 									</c:forEach>
 								</div>
 
@@ -459,14 +458,11 @@ body {
 					<!-- like list Modal end -->
 
 					<div class="row user_info"></div>
-					<div style="float: right;">
-
-						<span style="color: gray"> 조회수 ${sns.hit}</span>
-					</div>
+					
 
 
 					<div
-						style="padding-top: 30px; padding-left: 20px; min-height: 95px; font-size: 17px;">
+						style="padding-top: 30px; padding-left: 20px; min-height: 170px; font-size: 17px;">
 						${sns.content}</div>
 
 					<form action="${pageContext.request.contextPath}/commu/sns/hashtag"
@@ -484,6 +480,10 @@ body {
 
 								</c:if>
 							</c:forEach>
+							<div style="float: right;">
+
+						<span style="color: gray"> 조회수 ${sns.hit}</span>
+					</div>
 						</ul>
 					</form>
 
@@ -555,10 +555,10 @@ body {
 								<c:if test="${buttonhidden.nickname eq sns.memberVO.nickname}">
 
 									<button id="modify_button" type="button"
-										class="btn btn-warning" onclick="modify_event();">수정</button>
+										class="btn" style="background-color: #FFC81E;  color:black;" onclick="modify_event();">수정</button>
 
 									<button id="delete_button" type="button"
-										class="btn btn-warning" onclick="button_event();">삭제</button>
+										class="btn" style="background-color: #FFC81E;  color:black;" onclick="button_event();">삭제</button>
 								</c:if>
 							</sec:authorize>
 
@@ -601,8 +601,8 @@ body {
 								<textarea style="resize: none; margin: 15px;"
 									class="form-control col-8" id="content"
 									placeholder="댓글을 입력하세요 (최대 200자)"></textarea>
-								<button id="cw" class=" col-1 btn btn-outline-secondary"
-									style="height: 60px; margin-top: 15px;" onClick="getComment()">등록</button>
+							<button style="height: 60px; width: 80px; margin-bottom: -70px;"
+							id="cw" class="btn btn-outline-secondary" onClick="getComment()">등록</button>
 							</div>
 
 						</div>
@@ -698,7 +698,7 @@ body {
 								$("#comment").append(html);
 								console.log(data.commentTotal);
 								if (data.comment.length < data.commentTotal) {
-									html2 = "<button type='button' class='btn btn-warning' onClick='getListComment()'>더보기</button>"
+									html2 = "<button type='button' class='btn btn-disabled' onClick='getListComment()'>더보기 <i class='fa fa-caret-down' aria-hidden='true'></i></button>"
 
 									$("#page").append(html2);
 

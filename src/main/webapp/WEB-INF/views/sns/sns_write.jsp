@@ -95,8 +95,8 @@ label {
 				</div>
 
 				<div class="form-group row">
-					<input type="submit" class="btn btn-outline-secondary col-sm-1"
-						style="position: fixed; top: 170px; right: 250px;" value="sns등록">
+					<input type="submit" class="btn col-sm-1"
+						style="position: fixed; top: 170px; right: 250px; background-color: #FFC81E;  color:black;" value="sns등록">
 				</div>
 
 				<div class="form-1">
