@@ -459,10 +459,7 @@ body {
 					<!-- like list Modal end -->
 
 					<div class="row user_info"></div>
-					<div style="float: right;">
-
-						<span style="color: gray"> 조회수 ${sns.hit}</span>
-					</div>
+					
 
 
 					<div
@@ -483,7 +480,10 @@ body {
 									</span>
 
 								</c:if>
-							</c:forEach>
+							</c:forEach><div style="float: right;">
+
+						<span style="color: gray"> 조회수 ${sns.hit}</span>
+					</div>
 						</ul>
 					</form>
 

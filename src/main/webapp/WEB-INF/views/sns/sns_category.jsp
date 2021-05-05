@@ -108,7 +108,7 @@
  
 </head>
 <body style="padding-top: 170px; min-height: 1500px;">
-<a class="btn col-sm-1 float-right"  id = "login"  style="background-color: #FFC81E;  color:black; position: fixed; top: 170px; right: 200px;" onclick="location.href='${pageContext.request.contextPath}sns/write_view'">게시글등록</a>
+<a class="btn col-sm-1 float-right"  id = "login"  style="background-color: #FFC81E;  color:black; position: fixed; top: 170px; " onclick="location.href='${pageContext.request.contextPath}sns/write_view'">게시글등록</a>
    
    <div class="container" style="min-height: 1500px;">
 
