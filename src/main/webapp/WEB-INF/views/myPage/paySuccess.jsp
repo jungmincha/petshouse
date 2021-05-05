@@ -42,8 +42,8 @@
 }
 
 .login-btn {
-	background-color: #FFC81E;
-	color: black;
+	background-color: #e7ab3c;
+	color: white;
 	border: 1px solid white;
 	padding: 10px;
 	border-radius: 5%;
@@ -70,7 +70,9 @@
 						<span style="color: #e7ab3c; line-height: 30px;">결제가
 							완료되었습니다.</span>
 					</h2>
-					<br> <br> <br>
+					<br>
+					<br>
+					<br>
 					<h2 class="text-left"
 						style="padding-bottom: 10px; font-size: 30px;">결제내역</h2>
 					<table class="table">
@@ -110,8 +112,7 @@
 						</tbody>
 					</table>
 					<br>
-					<h2 class="text-left"
-						style="padding-bottom: 10px; font-size: 30px;">배송지 정보</h2>
+					<h2 class="text-left" style="padding-bottom: 10px; font-size: 30px;">배송지 정보</h2>
 					<table class="table">
 						<thead>
 							<tr>
@@ -130,7 +131,7 @@
 						</tbody>
 					</table>
 					<br>
-					<button class="login-btn" style="font-size: 20px;">홈으로</button>
+					<button class="login-btn" style="font-size: 30px;">홈으로</button>
 				</div>
 
 			</div>

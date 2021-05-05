@@ -208,7 +208,7 @@
 	<!-- 포인트 점수 저장 -->
 	<insert id="point">
 		<![CDATA[
-	       insert into point values(point_seq.nextval, #{pscore}, CURRENT_timestamp , 6, #{memberVO.member_id})
+	       insert into point values(point_seq.nextval, #{pscore}, sysdate, 6, #{memberVO.member_id})
 	   ]]>
 	</insert>
 	

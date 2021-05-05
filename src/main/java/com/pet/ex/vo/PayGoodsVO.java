@@ -17,7 +17,6 @@ public class PayGoodsVO {
 	private int amount;
 	private String pcolor;
 	private String psize;
-	private int review;
 
 	// 외래키
 	private int pay_id;
