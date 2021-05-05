@@ -288,7 +288,7 @@ a>span {
 <body style="padding-top: 180px;">
 
 	<!-- 본문 -->
-	<div class="container" id="orderList" style="height:1000px">
+	<div class="container" id="orderList" style="min-height:1000px">
 		<input type="hidden" id="memberName"
 			value="<sec:authentication property="principal.name"/>">
 		<div class="section-title">
