@@ -164,7 +164,7 @@
                </div>
             </div>
          </div>
-           <div class="row">
+           <div class="row col-12">
             <div class="col-lg-2 col-md-2 col-sm-2">
              <a href="/store/commu/category/101?categoryName=고양이 / 사료">    
                     <img src="/resources/img/category/cat.jpg"></a>
