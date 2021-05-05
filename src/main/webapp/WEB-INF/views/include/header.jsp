@@ -280,7 +280,7 @@
                   </sec:authorize>
 
                   <sec:authorize access="hasAnyRole('ROLE_ADMIN')">
-                     <li><a href="/admin/goods">관리자페이지</a>
+                     <li><a href="/admin/goods">관리자홈</a>
                        <!-- <!--  <ul class="dropdown">
 
                            <li><a href="/admin/goods">상품관리</a></li>

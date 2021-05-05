@@ -267,10 +267,9 @@ a>span {
 }
 
 .pBtn {
-	color: #34495e;
-	border: 2px groove #A9D0F5;
-	background: white;
-	padding: 10px;
+	 
+	border: 2px groove #FFC81E;
+	 background-color: #FFC81E;  color:black; 
 	border-radius: 5%;
 }
 
@@ -540,7 +539,7 @@ a>span {
 													+ "</span>"
 													switch (data.pay[i-1].paystateVO.paystate_id){
 														case 1 :
-															html += "</div> <div class='col-lg-3'  style='text-align: right;'><span style='font-size: 15px'><br>상품준비중<br><span style='font-size: 15px'><button class='pBtn' style='margin-top:10px;' onclick='payCancel(\""+data.pay[i-1].receipt_id+"\")'>결제취소</button></span></div> </div>"
+															html += "</div> <div class='col-lg-3'  style='text-align: right;'><span style='font-size: 15px; padding-left:50px;'><br>상품준비중<br><span style='font-size: 15px'><button class='pBtn' style='margin-top:10px;  background-color: #FFC81E;  color:black;' onclick='payCancel(\""+data.pay[i-1].receipt_id+"\")'>결제취소</button></span></div> </div>"
 																break;
 														case 2 :
 															html += "</div> <div class='col-lg-3'  style='text-align: right;'><span style='font-size: 15px'><br>배송준비중</span></div> </div>"
@@ -653,7 +652,7 @@ a>span {
 		var _left = Math.ceil(( window.screen.width - 570 )/2);
 		var _top = Math.ceil(( window.screen.height - 420 )/2);
 		var pop = window.open("/popup/deliveryPopup.jsp", "pop",
-					"width=570,height=420, scrollbars=yes, resizable=yes, left="+_left+", top="+_top);
+					"width=570,height=670, scrollbars=yes, resizable=yes, left="+_left+", top="+_top);
 	}
 	
 	// 시간 포맷 함수

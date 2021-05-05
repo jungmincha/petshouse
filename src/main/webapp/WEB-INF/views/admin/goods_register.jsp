@@ -17,7 +17,7 @@
 
 .table_center {
 	display: table;
-	margin: 50px auto;
+	margin: 50px 50px;
 	width: 1000px;
 	font-size: 15px;
 	font-stretch: extra-condensed;

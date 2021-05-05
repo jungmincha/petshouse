@@ -601,8 +601,8 @@ body {
 								<textarea style="resize: none; margin: 15px;"
 									class="form-control col-8" id="content"
 									placeholder="댓글을 입력하세요 (최대 200자)"></textarea>
-								<button id="cw" class=" col-1 btn"
-									style="height: 60px; margin-top: 15px; background-color: #FFC81E;  color:black;" onClick="getComment()">등록</button>
+								<button id="cw" class="btn btn-outline-secondary col-1 btn"
+									style="height: 60px; margin-top: 15px;" onClick="getComment()">등록</button>
 							</div>
 
 						</div>
