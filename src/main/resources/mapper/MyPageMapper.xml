@@ -140,7 +140,7 @@
 		<result column="amount" property="amount" />
 		<result column="pcolor" property="pcolor" />
 		<result column="psize" property="psize" />
-
+		<result column="review" property="review" />
 		<collection property="boardVO" resultMap="boardvo" />
 	</resultMap>
 
@@ -348,12 +348,7 @@
 		]]>
 	</update>
 
-	<!-- 포인트 리스트 -->
-	<select id="getPointList" resultMap="pointvo">
-		<![CDATA[
-		select * from point p, pointtype t where member_id=#{member_id} and p.pointtype_id=t.pointtype_id order by pdate desc
-		]]>
-	</select>
+	
 
 	<!-- 포인트 리스트(날짜) -->
 	<select id="getPointListByDate" resultMap="pointvo">
@@ -371,6 +366,7 @@
 		<![CDATA[
 		BEGIN
 		delete from plike where member_id=#{member_id};
+		delete from plike where board_id in (select board_id from board where member_id='eril1024@gmail.com');
 		delete from paygoods where pay_id in (select pay_id from pay where member_id=#{member_id});
 		delete from pay where member_id=#{member_id};
 		delete from image where board_id in (select board_id from board where member_id=#{member_id});
@@ -396,6 +392,12 @@
 		update pay set paystate_id=5 where pay_id=#{pay_id};
 		insert into point( point_id,pscore,pointtype_id, member_id) values(point_seq.nextval,(select earningpoint from pay where pay_id=#{pay_id}),7,(select member_id from pay where pay_id=#{pay_id}));
 		END;
+		]]>
+	</update>
+
+	<update id="updatePayGoodsReview">
+		<![CDATA[
+		update payGoods set review=1 where paygoods_id=#{paygoods_id}
 		]]>
 	</update>
 

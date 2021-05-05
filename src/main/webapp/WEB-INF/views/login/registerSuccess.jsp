@@ -40,8 +40,8 @@
 }
 
 .login-btn {
-	background-color: #e7ab3c;
-	color: white;
+	background-color: #FFC81E;
+	color: black;
 	border: 1px solid white;
 	padding: 10px;
 	border-radius: 5%;
@@ -70,10 +70,11 @@
 					</h2>
 					<br>
 					<h5 style="line-height: 30px;">
-						가입하신 이메일로 인증 메일을 보냈습니다. <br>이메일 인증이 완료되어야 로그인이 가능합니다.<span style="font-weight: bold;"> (소셜 회원가입 시 인증 X)</span>
+						가입하신 이메일로 인증 메일을 보냈습니다. <br>이메일 인증이 완료되어야 로그인이 가능합니다.<span
+							style="font-weight: bold;"> (소셜 회원가입 시 인증 X)</span>
 					</h5>
 					<br>
-					<button class="login-btn" style="font-size: 30px;">로그인으로</button>
+					<button class="login-btn" style="font-size: 20px;">로그인으로</button>
 				</div>
 
 			</div>

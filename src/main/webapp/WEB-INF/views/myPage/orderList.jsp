@@ -288,7 +288,7 @@ a>span {
 <body style="padding-top: 180px;">
 
 	<!-- 본문 -->
-	<div class="container" id="orderList">
+	<div class="container" id="orderList" style="height:1000px">
 		<input type="hidden" id="memberName"
 			value="<sec:authentication property="principal.name"/>">
 		<div class="section-title">
@@ -305,38 +305,38 @@ a>span {
 					<div class="row ">
 						<div class="col-lg-2 text-center pay"
 							onclick="allOrder(1,10,this,1)">
-							<a class="paystate" style="font-size: 22px">결제완료<br> <br>
-								<span style="font-size: 22px;">${payCounts[1]}</span></a> <span
+							<a class="paystate" style="font-size: 23px">결제완료<br> <br>
+								<span style="font-size: 26px;">${payCounts[1]}</span></a> <span
 								class="float-right next">></span>
 						</div>
 						<div class="col-lg-2 text-center pay"
 							onclick="allOrder(1,10,this,2)">
-							<a class="paystate" style="font-size: 22px">배송준비<br> <br>
-								<span style="font-size: 22px">${payCounts[2]}</span></a> <span
+							<a class="paystate" style="font-size: 23px">배송준비<br> <br>
+								<span style="font-size: 26px">${payCounts[2]}</span></a> <span
 								class="float-right next">></span>
 						</div>
 						<div class="col-lg-2 text-center pay"
 							onclick="allOrder(1,10,this,3)">
-							<a class="paystate" style="font-size: 22px">배송중<br> <br>
-								<span style="font-size: 22px">${payCounts[3]}</span></a> <span
+							<a class="paystate" style="font-size: 23px">배송중<br> <br>
+								<span style="font-size: 26px">${payCounts[3]}</span></a> <span
 								class="float-right next">></span>
 						</div>
 						<div class="col-lg-2 text-center pay"
 							onclick="allOrder(1,10,this,4)">
-							<a class="paystate" style="font-size: 22px">배송완료<br> <br>
-								<span style="font-size: 22px">${payCounts[4]}</span></a> <span
+							<a class="paystate" style="font-size: 23px">배송완료<br> <br>
+								<span style="font-size: 26px">${payCounts[4]}</span></a> <span
 								class="float-right next">></span>
 						</div>
 						<div class="col-lg-2 text-center pay"
 							onclick="allOrder(1,10,this,5)">
-							<a class="paystate" style="font-size: 22px">구매확정<br> <br>
-								<span style="font-size: 22px">${payCounts[5]}</span></a> <span
+							<a class="paystate" style="font-size: 23px">구매확정<br> <br>
+								<span style="font-size: 26px">${payCounts[5]}</span></a> <span
 								class="float-right next">></span>
 						</div>
 						<div class="col-lg-2 text-center pay"
 							onclick="allOrder(1,10,this,6)">
-							<a class="paystate" style="font-size: 22px">교환/환불/취소<br>
-								<br> <span style="font-size: 22px">${payCounts[6] + payCounts[7] + payCounts[8]}</span></a>
+							<a class="paystate" style="font-size: 23px">교환/환불/취소<br>
+								<br> <span style="font-size: 26px">${payCounts[6] + payCounts[7] + payCounts[8]}</span></a>
 
 						</div>
 					</div>
@@ -384,7 +384,8 @@ a>span {
 			<form class=" needs-validation"
 				action="/myPage/orderList/review/insert" method="Post" name="review"
 				enctype="multipart/form-data">
-				<input type="hidden" name="goodsVO.goods_id" id="goods_id" value="">
+				<input type="hidden" name="paygoods_id" id="paygoods_id"> <input
+					type="hidden" name="goodsVO.goods_id" id="goods_id" value="">
 				<input type="hidden" name="paystate_id" id="paystate_id" value="">
 				<div class="rbox">포토 리뷰 500P, 일반 리뷰 100P</div>
 
@@ -538,39 +539,43 @@ a>span {
 													+ data.pay[i - 1].payGoodsVO[0].amount
 													+ "</span>"
 													switch (data.pay[i-1].paystateVO.paystate_id){
-													case 1 :
-														html += "</div> <div class='col-lg-3'  style='text-align: right;'><span style='font-size: 20px'>상품준비중<br><span style='font-size: 20px'><button class='btn-light' style='margin-top:10px;' onclick='payCancel(\""+data.pay[i-1].receipt_id+"\")'>결제취소</button></span></div> </div>"
-															break;
+														case 1 :
+															html += "</div> <div class='col-lg-3'  style='text-align: right;'><span style='font-size: 15px'><br>상품준비중<br><span style='font-size: 15px'><button class='pBtn' style='margin-top:10px;' onclick='payCancel(\""+data.pay[i-1].receipt_id+"\")'>결제취소</button></span></div> </div>"
+																break;
 														case 2 :
-														html += "</div> <div class='col-lg-3'  style='text-align: right;'><span style='font-size: 20px'><br>배송준비중</span></div> </div>"
-															break;
+															html += "</div> <div class='col-lg-3'  style='text-align: right;'><span style='font-size: 15px'><br>배송준비중</span></div> </div>"
+																break;
 														case 3 :
-															html += "</div> <div class='col-lg-3' style='text-align: right;'><span style='font-size: 20px'><br><button class='pBtn' onclick='delivery("+data.pay[i-1].t_code+","+data.pay[i-1].t_invoice+")'>배송조회</button></span>"
+															html += "</div> <div class='col-lg-3' style='text-align: right;'><span style='font-size: 15px'><br><button class='pBtn' onclick='delivery("+data.pay[i-1].t_code+","+data.pay[i-1].t_invoice+")'>배송조회</button></span>"
 																+ "</div> </div>" 
 																break;
 														case 4 :
-															html += "</div> <div class='col-lg-3' style='text-align: right;'> <span style='font-size: 20px'><button class='pBtn' onclick='delivery("+data.pay[i-1].t_code+","+data.pay[i-1].t_invoice+")'>배송조회</button><br>"
+															html += "</div> <div class='col-lg-3' style='text-align: right;'> <span style='font-size: 15px'><button class='pBtn' onclick='delivery("+data.pay[i-1].t_code+","+data.pay[i-1].t_invoice+")'>배송조회</button><br>"
 																+ "<button class='pBtn' style='margin-top:10px;' onclick='orderCheck("+data.pay[i-1].pay_id+")')>구매확정</button></span>"
 																+ "</div> </div>"
 																break;
 														case 5 :
 															html += "</div> <div class='col-lg-3' style='text-align: right;'>"
-																+ "<span style='font-size: 20px'><br><button class='pBtn' id='myBtn' onclick='modals("+data.pay[i - 1].payGoodsVO[0].boardVO.goodsVO.goods_id+" ,\""+data.pay[i - 1].payGoodsVO[0].boardVO.goodsVO.thumbnail+"\",\""+data.pay[i-1].payGoodsVO[0].boardVO.goodsVO.goodsname+"\", "+data.pay[i-1].paystateVO.paystate_id+" , \""+option+"\")'>리뷰 작성</button></span>"
-																+ "</div> </div>" 
-																break;
+															if(data.pay[i-1].payGoodsVO[0].review==0){
+																
+																html += "<span style='font-size: 15px'><br><button class='pBtn' id='myBtn' onclick='modals("+data.pay[i - 1].payGoodsVO[0].boardVO.goodsVO.goods_id+" ,\""+data.pay[i - 1].payGoodsVO[0].boardVO.goodsVO.thumbnail+"\",\""+data.pay[i-1].payGoodsVO[0].boardVO.goodsVO.goodsname+"\", "+data.pay[i-1].paystateVO.paystate_id+" , \""+option+"\", "+data.pay[i-1].payGoodsVO[0].paygoods_id+")'>리뷰 작성</button></span>"
+														
+															}
+															html += "</div> </div>" 
+															break;
 														case 6 :
 															html += "</div> <div class='col-lg-3' style='text-align: right;'>"
-																+ "<span style='font-size: 20px'><br>취소된 결제</span>"
+																+ "<span style='font-size: 15px'><br><br>취소된 결제</span>"
 																+ "</div> </div>" 
 																break;
 														case 7 :
 															html += "</div> <div class='col-lg-3' style='text-align: right;'>"
-																+ "<span style='font-size: 20px'>교환처리<br><button class='pBtn' onclick='delivery("+data.pay[i-1].t_code+","+data.pay[i-1].t_invoice+")'>배송조회</button></span> "
+																+ "<span style='font-size: 15px'>교환처리<br><button class='pBtn' onclick='delivery("+data.pay[i-1].t_code+","+data.pay[i-1].t_invoice+")'>배송조회</button></span> "
 																+ "</div> </div>" 
 																break;
 														case 8 :
 															html += "</div> <div class='col-lg-3' style='text-align: right;'>"
-																+ "<span style='font-size: 20px'><br>환불처리</span>"
+																+ "<span style='font-size: 15px'><br>환불처리</span>"
 																+ "</div> </div>" 
 																break;
 														default :
@@ -603,8 +608,8 @@ a>span {
 																	+ "</span>"
 																	+ "</div> <div class='col-lg-3'  style='text-align: right;'> <br>"
 																	
-																	if(data.pay[i-1].paystateVO.paystate_id==5){
-																		html += "<span style='font-size: 20px'><button class='pBtn' id='myBtn' onclick='modals("+data.pay[i - 1].payGoodsVO[j].boardVO.goodsVO.goods_id+" ,\""+data.pay[i - 1].payGoodsVO[j].boardVO.goodsVO.thumbnail+"\",\""+data.pay[i-1].payGoodsVO[j].boardVO.goodsVO.goodsname+"\", "+data.pay[i-1].paystateVO.paystate_id+" , \""+option+"\")'>리뷰 작성</button></span>"
+																	if(data.pay[i-1].paystateVO.paystate_id==5 && data.pay[i-1].payGoodsVO[j].review==0){
+																		html += "<span style='font-size: 15px'><button class='pBtn' id='myBtn' onclick='modals("+data.pay[i - 1].payGoodsVO[j].boardVO.goodsVO.goods_id+" ,\""+data.pay[i - 1].payGoodsVO[j].boardVO.goodsVO.thumbnail+"\",\""+data.pay[i-1].payGoodsVO[j].boardVO.goodsVO.goodsname+"\", "+data.pay[i-1].paystateVO.paystate_id+" , \""+option+"\","+data.pay[i-1].payGoodsVO[j].paygoods_id+")'>리뷰 작성</button></span>"
 																	}
 																	html +="</div>"	
 																
@@ -887,12 +892,13 @@ var modal = document.getElementById('myModal');
 
 var span = document.getElementsByClassName("close")[0];                                          
 
-function modals(goods_id , thumbnail, title, paystate_id, option){
+function modals(goods_id , thumbnail, title, paystate_id, option, paygoods_id){
 	modal.style.display = "block";
 	$("#goods_id").val(goods_id);
 	$("#pimg").attr("src", "/resources/img/admin/goods/"+thumbnail);
 	$("#goodsName").text("상품명 : "+title);
 	$("#paystate_id").val(paystate_id);
+	$('#paygoods_id').val(paygoods_id);
 	$("#goodsoption").text(option);
 }
 

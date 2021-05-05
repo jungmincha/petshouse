@@ -179,7 +179,7 @@ public class MyPageController {
 	// 리뷰 작성
 	@PostMapping("/orderList/review/insert")
 	public ModelAndView insertReview(MultipartHttpServletRequest multi, Authentication authentication, ModelAndView mav,
-			BoardVO boardVO, String paystate_id) throws IllegalStateException, IOException {
+			BoardVO boardVO, String paystate_id, String paygoods_id) throws IllegalStateException, IOException {
 		log.info("myPage/orderList/review/insert");
 		String member_id = authentication.getPrincipal().toString();
 
@@ -212,7 +212,7 @@ public class MyPageController {
 			myPageService.insertReview(boardVO);
 			myPageService.insertPoint(500, 5, member_id);
 		}
-
+		myPageService.updatePayGoodsReview(paygoods_id);
 		mav.addObject("paystate", paystate_id);
 
 		// orderList페이지
