@@ -65,7 +65,7 @@
 	<!-- header -->
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
 
-	<div class="container" style="width: 800px;">
+	<div class="container" style="width: 800px; padding-bottom:150px;">
 
 			<!-- 위치 다시 선정하기 -->
 					<i class="fas fa-paw"></i><span style= "font-size: 18px;"> ${location}</span>
@@ -121,11 +121,10 @@
 						</div>
 					</div>	
 
-			<input style="margin-bottom: 20px; width: 300px;" placeholder="전송"
-				class="form-control" type="submit" value="작성 완료"> <a
-				style="margin-bottom: 20px; width: 300px; text-align: center;"
-				class="form-control"
-				href="/map/board?location=${location}&nickname=${nickname}">목록으로</a>
+			<input class="form-control col-sm-1" style="position:fixed; background-color: #FFC81E; 
+			 color:black; top: 170px; right: 130px;" type="submit" value="작성 완료">
+				
+				
 
 
 

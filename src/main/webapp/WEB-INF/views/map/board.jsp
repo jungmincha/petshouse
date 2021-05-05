@@ -130,6 +130,8 @@ body::-webkit-scrollbar-track {
 	object-fit: cover;
 }
 
+
+
 </style>
 
 </head>
@@ -144,7 +146,7 @@ body::-webkit-scrollbar-track {
 
 	<!-- Contact Section Begin -->
 	<section class="contact-section spad">
-		<div class="container">
+		<div class="container" style="padding-bottom:200px;">
 		
 		
 			<div class="row">
@@ -181,30 +183,11 @@ body::-webkit-scrollbar-track {
 
 		
 
-					<!-- 글작성 폼 -->
-					<form action="/map/write_view" method="get">
+						<!-- 글작성 폼 -->
+						<form action="/map/write_view" method="get">
 						<!-- 전달할 값들 -->
 						<input id="location" type="hidden" name="location" value="${location}" /> 
-				
-					
-						
-						<!-- 커뮤니티 카테고리별 분류 셀렉트 BOX -->
-					<!-- 	<div class=" row" style="padding-bottom: 30px;">
-							<select name="hashtag" id="hashtag" class="form-control col-sm-1"
-								style="margin-left: 15px; text-align-last: center; font-size: 18px;">
-								<option value="전체">전체</option>
-								<option value="우리동네질문">우리동네질문</option>
-								<option value="분실/실종센터">분실/실종센터</option>
-								<option value="일상">일상</option>
-								<option value="맛집">맛집</option>
-								<option value="취미생활">취미생활</option>
-								<option value="여행">여행</option>
-								<option value="기타">기타</option>
-
-							</select> <span class="col-sm-5"></span>style="background-color: #FFC81E;  color:black;"
-						</div> -->
-					
-							<button class="form-control col-sm-1" id="qw" style="position: fixed; background-color: #FFC81E;  color:black; top: 170px; right: 100px;" type="submit">글 작성</button>
+						<button class="form-control col-sm-1" id="qw" style="position: fixed; background-color: #FFC81E;  color:black; top: 170px; right: 100px;" type="submit">글 작성</button>
 					
 							</form>
 	
@@ -233,7 +216,7 @@ body::-webkit-scrollbar-track {
 										</div><br>
 											<!-- 게시글 정보 -->
 											<div class="row col-lg-12">
-											<p class="pdate" style="font-size: 15px; color: gray;">${list.boardVO.pdate}</p>
+											<p class ="pdate pd" style= "font-size: 15px; color: gray;"><fmt:formatDate value="${list.boardVO.pdate}" pattern="yyyy.MM.dd" /></p>
 											<p style="font-size: 15px; color: gray;">&nbsp&nbsp좋아요${list.boardVO.plike}</p>
 											<p style="font-size: 15px; color: gray;">&nbsp&nbsp${list.boardVO.hashtag}</p>
 											<p style="font-size: 15px; color: gray;">&nbsp&nbsp조회수${list.boardVO.hit}</p>

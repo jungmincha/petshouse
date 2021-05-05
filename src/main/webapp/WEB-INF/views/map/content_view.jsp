@@ -82,89 +82,7 @@ background-color:#dddddd;
 
 
  <script type="text/javascript">
-		// 댓글 작성 및 ajax로 댓글 불러오기
-	/* 	function getComment() {
-			
-			var member_id = $("#member_id").val();
-			console.log(member_id);
-			var pgroup = $("#pgroup").val();
-			console.log(pgroup);
-			var content = $("#content").val();
-			
-			$.ajax({
-				url : "/map/map_view/insert",
-				type : "post",
-				
-				data : {
-					member_id : member_id,
-					pgroup : pgroup,
-					content : content
-				},
-				success : function(data) {
-
-					html = 
-						
-						
-						
-						"<a class='a-del' style='float:right;' href='/map/map_view/delete/"+data.board_id+"'><b>삭제</b></a>"
-						+
-						"<div class='user-Info row' style='margin: 20px auto 0px 5px'>"
-						+
-						"<div class='profile_box'>"
-						+
-						"<img src='/resources/img/member/profile/"+data.memberVO.thumbnail+"' name='profile' alt='' class='profile' />"
-						+
-						"</div>"
-						+
-						"<div style='padding:7px'>"+ data.memberVO.nickname
-						+
-						"</div>"
-						+
-						"</div>"		
-							+ 
-							
-							"<div>" + data.content + "</div>" 
-							+ 
-							"<div>" + data.pdate + "</div>"
-							+
-							"<hr>"
-							
-
-					
-					 $("#comment").prepend(html); 
-					document.getElementById("content").value='';
-					
-					
-					// 댓글 삭제
-					$(".a-del").click(function(event) { //id는 한번만 calss는 여러번 선택 가능
-						event.preventDefault(); 
-					   	console.log("삭제버튼 클릭")
-						var tr = $(this).parent();
-
-						$.ajax({
-							type : 'DELETE', //method
-							url : $(this).attr("href"), 
-							cache : false,
-
-							success : function(result) {
-								console.log("result: " + result);
-							if (result == "SUCCESS") {
-					            $(tr).remove();
-					            alert("삭제되었습니다.");
-					         }
-					      },
-					      errer : function(e) {
-					         console.log(e);
-					      }
-					   }); //end of ajax
-					 }); // 삭제 종료	
-				}, 
-			})
-
-		}
-		 */
-		
-
+	
 		function button_event() {
 			
 			
@@ -201,13 +119,16 @@ background-color:#dddddd;
     <!-- Map Section Begin -->
 
     <!-- Contact Section Begin -->
-	<section class="contact-section spad">
+	<section class="contact-section spad" style="padding-bottom:150px;">
  		<div class="container">
 			<div class="row">
    				<div class="col-lg-12">
               
-					<h4>${location}</h4	>
-					<br>				
+				<!-- 위치 다시 선정하기 -->
+					<i class="fas fa-paw"></i><span style= "font-size: 20px;"> ${location}</span>
+					<br> <br>
+					<i class="fas fa-paw"></i><a href="/map/home"><span style= "font-size: 18px;"> 위치 다시 설정하기</span></a>
+					<br> <br>			
  					
 
     
@@ -357,49 +278,53 @@ background-color:#dddddd;
 						<input type="hidden" id="nickname" name="nickname" value="<sec:authentication property="principal.nickname"/>"> 
 						
 						<div class="container" style="margin-bottom: 40px">
-						
-							
-							<div style="float: right">
-							<hr>
-								<sec:authentication property="principal" var="buttonhidden" />
-								<sec:authorize access="isAuthenticated()">	
-								<!-- 현재 접속된 닉네임과 댓글보드에 저장된 닉네임을 비교해서 일치 하면 보이게 함 -->
-								<c:if test="${buttonhidden.nickname eq content_view.memberVO.nickname}">
-									<button id="modify_button" type="button" class="btn btn-warning" onclick="modify_event();">수정</button>
-									<button id="delete_button" type="button" class="btn btn-warning" onclick="button_event();">삭제</button>
-								</c:if>
-								</sec:authorize>
-								
-								<a href ="/map/board?location=${location}&nickname=${nickname}&member_id=${member_id}">목록으로</a>
-								
-							</div>
-				
-							<table>
+						<table>
 								<tr>
 								<td>
-							
+								<hr>
 									<!-- 작성자 이름과 프로필 사진 -->
-									<div class="user-Info row" style="margin: 20px auto 0px 5px">
+									<div class="col-lg-12">
+									<div class="user-Info row">
 									<div class="profile_box ">
 
 									<img src="/resources/img/member/profile/${content_view.memberVO.thumbnail}" name="profile" alt="" class="profile" />
 									</div>
-									<div style="padding:7px"> ${content_view.memberVO.nickname} </div>	
-									</div>
+									<div style="padding:12px"> ${content_view.memberVO.nickname} </div>	
 									
+									<div style="margin-left:750px;">
+									
+								<!-- 현재 접속된 닉네임과 댓글보드에 저장된 닉네임을 비교해서 일치 하면 보이게 함 -->
+								<sec:authentication property="principal" var="buttonhidden" />
+								<sec:authorize access="isAuthenticated()">	
+								<!-- 수정 삭제 버튼 -->
+								<c:if test="${buttonhidden.nickname eq content_view.memberVO.nickname}">
+									<button  style="background-color: #FFC81E;  color:black; "  id="modify_button" type="button" class="btn btn-warning" onclick="modify_event();">수정</button>
+									<button style="background-color: #FFC81E;  color:black; " id="delete_button" type="button" class="btn btn-warning" onclick="button_event();">삭제</button>
+								
+								</c:if>
+								
+								</sec:authorize>
+								<button style="background-color: #FFC81E;  color:black; " id="delete_button" type="button" class="btn btn-warning" onclick="reloc_event();">목록으로</button> 
+								
+								</div>
+									
+								
+									</div>
+									</div><br>
 									
 									
 									
 										<!--게시글 사진 -->
+								<div class="col-lg-12">		
+								<div class="row">	
 								<c:forEach var="photo" items="${photo}">							
 								<img src="/resources/img/location/${photo.imgname}"
 								style="width: 780px; height: 450px; object-fit: cover; border-radius: 10px;">
 								<br>
 								<br>
 								</c:forEach>
-									
-								
-									
+								</div>
+								</div>	
 									
 									<section style="margin-top: 60px; margin-bottom: 20px;">
 										${content_view.content}
@@ -416,15 +341,15 @@ background-color:#dddddd;
 					 <!-- 댓글 start -->
 					<div class="container">
 
-		<input type="hidden" id="pgroup" value="${content_view.board_id}">
-		<div>
-			<div>
+				<input type="hidden" id="pgroup" value="${content_view.board_id}">
+				<div>
+				<div>
 				<strong id="count"> 댓글 ${qcount}</strong> <br> <br>
-			</div>
-			<div class="table" style="margin-bottom: 50px;">
+				</div>
+				<div class="table" style="margin-bottom: 50px;">
 				<div class="row">
 					<div class="col-11">
-						<textarea style="resize: none;" class="form-control" id="content"
+					<textarea style="resize: none;" class="form-control" id="content"
 							placeholder="댓글을 입력하세요 (최대 200자)"></textarea>
 					</div>
 					<div class="col-1">
@@ -619,68 +544,6 @@ background-color:#dddddd;
 		
 		</script>
 		
-    
-    
-				<%-- 	<!-- 댓글  start -->   	
-					<div class="container">
-						
-						<!-- 댓글작성 -->
-						<input type="hidden" id="pgroup" value="${content_view.board_id}">
-						<sec:authorize access="hasAnyRole('ROLE_USER','ROLE_ADMIN')">
-						<input type="hidden" id="member_id" value="<sec:authentication property="principal.member_id"/>">
-						</sec:authorize>
-						<div>
-							<div>
-								<span><strong>댓글 </strong></span>
-							</div>
-							<div>
-							<table class="table" style="margin-bottom: 50px;">
-								<tr>
-								<td class="row">
-									<textarea style="resize: none;" class="form-control col-11" id="content" placeholder="댓글을 입력하세요(최대 200자)"></textarea>
-									<button id="cw" class="col-1 btn btn-outline-secondary" onClick="getComment()">등록</button>
-								</td>
-								</tr>
-							</table>
-							</div>
-						</div>
-						</div>
-						<!-- 댓글작성 -->
-						
-						<!-- 댓글 리스트  -->
-						<div class="container" style="margin-bottom: 10px; " >
-							<c:forEach items="${comment}" var="dto">
-								<div id="comment">
-								
-									<!-- 여기서부터 시큐리티 권한을준다 -->
-									<sec:authentication property="principal" var="pinfo" />
-									<sec:authorize access="isAuthenticated()">	
-							
-									<!-- 현재 접속된 닉네임과 댓글보드에 저장된 닉네임을 비교해서 일치 하면 보이게 함 -->
-									<c:if test="${pinfo.nickname eq dto.memberVO.nickname}">
-										<a class="a-del" style="float: right;" href="${pageContext.request.contextPath}/map/map_view/delete/${dto.board_id}" ><b>삭제</b></a>
-									</c:if>
-									</sec:authorize>
-									
-									<div class="user-Info row" style="margin: 20px auto 0px 5px">
-									<div class="profile_box ">
-							
-									<img src="/resources/img/member/profile/${dto.memberVO.thumbnail}" name="profile" alt="" class="profile" />
-									</div>
-									<div style="padding:7px"> ${dto.memberVO.nickname} </div>	
-									</div>
-					
-								
-									<div>${dto.content}</div>
-									<div>${dto.pdate}</div>
-									<hr>
-								</div>
-								
-							</c:forEach>
-						
-					</div>
-					<!-- 댓글  end --> --%>
-      
 				</div>           
 			</div>
 			</div>
@@ -723,36 +586,20 @@ background-color:#dddddd;
 			dots[slideIndex - 1].className += " active";
 			captionText.innerHTML = dots[slideIndex - 1].alt;
 		}
+		
+		
+		function reloc_event(){
+			
+			location.href="/map/board?location=${location}&nickname=${nickname}&member_id=${member_id}";
+		}
+		
+		
+
+		
 	</script>
    
    
-  <!--  <script type="text/javascript">
-	// 댓글 삭제
-	$(".a-del").click(function(event) { //id는 한번만 calss는 여러번 선택 가능
-		event.preventDefault(); 
-	   	console.log("삭제버튼 클릭")
-		var tr = $(this).parent();
-
-		$.ajax({
-			type : 'DELETE', //method
-			url : $(this).attr("href"), 
-			cache : false,
-
-			success : function(result) {
-				console.log("result: " + result);
-			if (result == "SUCCESS") {
-	            $(tr).remove();
-	            alert("삭제되었습니다.");
-	         }
-	      },
-	      errer : function(e) {
-	         console.log(e);
-	      }
-	   }); //end of ajax
-	 }); // 삭제 종료
-   
-   </script> -->
-   
+  
 	<script src="/resources/js/jquery-3.3.1.min.js"></script>
 	<script src="/resources/js/bootstrap.min.js"></script>
 	<script src="/resources/js/jquery-ui.min.js"></script>

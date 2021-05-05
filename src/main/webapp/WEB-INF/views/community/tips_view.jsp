@@ -237,7 +237,7 @@ min-height:120px;
 <hr>
 
 
-				<section class="content">${tips_view.content}</section>
+				<section class="content" style="min-height:400px;">${tips_view.content}</section>
 			
 				<div class="bottom">
 				

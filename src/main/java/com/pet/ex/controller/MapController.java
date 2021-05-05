@@ -70,11 +70,43 @@ public class MapController {
 	}
 	
 	
+	@GetMapping("/test")
+	public ModelAndView test(ModelAndView mav) {
+
+		mav.setViewName("map/serchmap");
+
+		return mav;
+	}
+	
+	@PostMapping("/searchmap")
+	public ResponseEntity<String>searchmap(String searchmap) {
+
+		ResponseEntity<String> entity = null; log.info("searchmap");
+		 
+		  try {
+			  
+		  
+		 System.out.println(searchmap);
+		  
+		  entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK); } catch
+		  (Exception e) { e.printStackTrace();
+		  
+		  entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		  }
+		  
+		  return entity;
+		  
+		  }
+		 
+	
+	
+	
+	
 
 	
 	
-	  @PostMapping("/insert_location") public ResponseEntity<String>
-	  insert_location(MemberVO memberVO ,BoardVO boardVO) {
+	  @PostMapping("/insert_location")
+	  public ResponseEntity<String>insert_location(MemberVO memberVO ,BoardVO boardVO) {
 	  
 	  ResponseEntity<String> entity = null; log.info("insert_location");
 	 

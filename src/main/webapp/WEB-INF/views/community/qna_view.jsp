@@ -305,9 +305,9 @@ min-height:150px;
 										+ "<a href='/myPage/"+comments[i].memberVO.nickname+"'>"
 										+ comments[i].memberVO.nickname
 										+ "</a></b></div></div>"
-										+ "<div style='padding-left:60px;'>"
+										+ "<div style='padding-left:50px;'>"
 										+ comments[i].content + "</div>"
-										+ "<div style='padding-left:60px;'>"
+										+ "<div style='padding-left:50px;'>"
 										+ transferTime(comments[i].pdate)
 										+ "</div><hr></div>"
 
