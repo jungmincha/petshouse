@@ -134,14 +134,16 @@ th {
 				 <div class="goods">
 					<h2>상품 관리</h2>
 				 </div>
-				<div class="col-lg-8">
-									<a class="btn btn-outline-secondary col-sm-1 "
-										style="position: fixed; top: 80px; right: 150px;"
-										href="/admin/board/registerView">상품게시글등록</a> <a
-										class="btn btn-outline-secondary col-sm-1 "
-										style="position: fixed; top: 120px; right: 150px;"
-										href="/admin/goods/registerView">상품등록</a>
-								</div>
+			
+									<div class="col-lg-8">
+						<a class="btn  col-sm-1 "
+							style="background-color: #FFC81E;  font-size : 13px; color:black; position: fixed; top: 130px; right: 30px;"
+							href="/admin/board/registerView">상품게시글등록</a> <a
+							class="btn  col-sm-1 "
+							style="background-color: #FFC81E;  color:black; position: fixed; top: 90px; right: 30px;"
+							href="/admin/goods/registerView">상품등록</a>
+					</div>
+								
 				 
 					<table class="table table-hover">
 					<thead>
