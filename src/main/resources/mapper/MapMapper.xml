@@ -261,7 +261,7 @@
 	
 	
 	
-	<!-- 질문과 답변 댓글쓰기 -->
+	<!-- 댓글쓰기 -->
 		<insert id="insertComment">
 		<![CDATA[
 		insert into board(board_id,content, pgroup, pstep,member_id, boardtype_id )

@@ -187,7 +187,7 @@ body::-webkit-scrollbar-track {
 						<form action="/map/write_view" method="get">
 						<!-- 전달할 값들 -->
 						<input id="location" type="hidden" name="location" value="${location}" /> 
-						<button class="form-control col-sm-1" id="qw" style="position: fixed; background-color: #FFC81E;  color:black; top: 170px; right: 100px;" type="submit">글 작성</button>
+						<button class="btn col-sm-1" style="position: fixed; background-color: #FFC81E;  color:black; top: 170px; right: 100px;" type="submit">글 작성</button>
 					
 							</form>
 	
@@ -235,11 +235,11 @@ body::-webkit-scrollbar-track {
 									</c:forEach>
 
 									</div> 
-					
+									
 					  		<c:if test="${listTotal > 5}">
 	            			<div class="btn col-lg-12 text-center">  
 	          	    		<input type="hidden" class="listTotal" value="${listTotal}" />
-	            				<button type="button" class="btn btn-warning" onClick="btnClick()" style="margin-right: 350px; background-color: #FFC81E;  color:black;">더보기</button>
+	            				<button type="button" id="btn" class="btn btn-disabled" onClick="btnClick()" style="margin-right: 350px;">더보기 <i class="fa fa-caret-down" aria-hidden="true"></i></button>
 		        				</div>
 		       					</c:if>
 		     
@@ -342,10 +342,10 @@ body::-webkit-scrollbar-track {
     	           
 	   	        	if(list.length == 5){
 		        		html += "<div class='btn col-lg-12 text-center'>"  
-		            		 + "<button type='button' class='btn btn-warning' style='margin-right: 350px; background-color: #FFC81E; color:black;'  onClick='btnClick()'>더보기</button> </div>";			      
+		            		 + "<button type='button' id='btn' class='btn btn-disabled' style='margin-right: 350px;'  onClick='btnClick()'>더보기 <i class='fa fa-caret-down' aria-hidden='true'></i></button> </div>";			      
 		        	}
      
-    	           	$('.btn').remove();
+    	           	$('#btn').remove();
     	            $('#table').append(html); 
     	          
     	        }, //success end       

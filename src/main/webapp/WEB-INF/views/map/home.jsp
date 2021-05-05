@@ -278,8 +278,8 @@
 									<input type="hidden" name="location" class = "location" value="<sec:authentication property='principal.location'/>">
 								 	
 											</sec:authorize>
-										<button type="submit" class="site-btn"style="font-size: 20px;" >계속 하기</button>
-										<!-- <button type="button" onclick="test()" class="site-btn"style="font-size: 20px;" >위치 입력</button> -->
+										<button type="submit" class="btn"  style="font-size: 20px; background-color: #FFC81E;  color:black;" >계속 하기</button>
+										
 									</div>
 								</div>
 							</form>
