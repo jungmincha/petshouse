@@ -45,8 +45,8 @@
 	<!-- Header -->
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
 
-	<div class="container" style="width: 800px;">
-	
+	<div class="container" style="width: 800px; min-height:550px;">
+	<h3 style="margin-bottom:50px; margin-top:50px;">노하우 수정하기</h3>
 		<form action="${pageContext.request.contextPath}/commu/tmodify" method="post" enctype="multipart/form-data">
 
 			<input type="hidden" name="board_id" value="${tips_view.board_id}" />
@@ -67,7 +67,7 @@
 
 			
 
- 			<textarea id="editor4" name="content" >${tips_view.content}</textarea>
+ 			<textarea id="editor4" name="content">${tips_view.content}</textarea>
 			<script>
 					CKEDITOR.replace('editor4');			
 			</script>  

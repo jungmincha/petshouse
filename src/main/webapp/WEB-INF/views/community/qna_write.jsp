@@ -47,6 +47,17 @@
 #navbars>li:nth-child(2) {
    background-color: #e7ab3c;
 }
+#file {
+	display: none;
+}
+
+#preview {
+	width: 660px;
+	min-height: 180px;
+	padding: 10px;
+	background-color: #f5f5f5;
+	border-radius: 10px;
+}
 </style>
 </head>
 
@@ -75,10 +86,10 @@
 					<option value="6">기타</option>
 				</select> 
 				<input type="text" class="form-control" name="title"
-					placeholder="제목" style="margin-bottom: 20px; width: 628px;">
+					placeholder="제목" style="margin-bottom: 20px; width: 628px;" required>
 			</div>
 			<textarea class="form-control col" name="content" placeholder="내용"
-				style="width: 770px; height: 400px; margin-bottom: 20px; resize: none;"></textarea>
+				style="width: 770px; height: 400px; margin-bottom: 20px; resize: none;"required></textarea>
 
 
 			<div class="form-group row">
@@ -103,6 +114,14 @@
 							</div>
 						</div>
 						
+						<div class="form-group row">
+						<div class="input-group col-lg-8 ">
+							 
+								<div id="preview"
+									data-placeholder='사진을 첨부해주세요'></div>
+							 
+						</div>
+					</div>
 						
 					
 						

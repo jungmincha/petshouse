@@ -146,7 +146,7 @@ color:#FFBF00
 							&nbsp&nbsp&nbsp&nbsp
 
 							<a href="/commu/sns/${ms.boardVO.board_id}"></a>
-							<i class="far fa-comment"  style="font-size : 25px;"></i>
+							<i class="far fa-comment"  style="font-size : 25px;"></i>&nbsp
 							<c:forEach items="${ccount}" var="count">  
 							<c:if test="${count.pgroup eq ms.boardVO.board_id}">
 							${count.count}</c:if></c:forEach></div>
