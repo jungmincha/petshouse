@@ -163,8 +163,8 @@
 	<!-- Category Section Begin -->
 	<div id="input">
 
-		<a class="btn btn-outline-secondary col-sm-1 " id="login"
-			style="position: fixed; top: 170px; right: 200px;"
+		<a class="btn col-sm-1 " id="login"
+			style="position: fixed; top: 200px; right: 50px; background-color: #FFC81E;  color:black;"
 			onclick="location.href='${pageContext.request.contextPath}sns/write_view'">게시글등록</a>
 		<div class="container" style="min-height: 1500px;">
 
@@ -265,7 +265,9 @@
 			<div class="col-lg-12 text-center">
 			 	<c:if test="${snsTotal > 12}">
 			 	<input type="hidden" class="snsTotal" value="${snsTotal}" />
-				<button type="button" class="btn btn-warning"  onClick="btnClick()">더보기</button>
+				<div class="later col-lg-12 text-center">
+	            	<button type="button" id="morebtn" class="btn btn-disabled" onClick="btnClick()">더보기 <i class="fa fa-caret-down" aria-hidden="true"></i></button>
+		        </div>
 				 </c:if> 
 			</div>
 		</div>

@@ -108,7 +108,7 @@
  
 </head>
 <body style="padding-top: 170px; min-height: 1500px;">
-<a class="btn btn-outline-secondary col-sm-1 float-right"  id = "login"  style="position: fixed; top: 170px; right: 200px;" onclick="location.href='${pageContext.request.contextPath}sns/write_view'">게시글등록</a>
+<a class="btn col-sm-1 float-right"  id = "login"  style="background-color: #FFC81E;  color:black; position: fixed; top: 170px; right: 200px;" onclick="location.href='${pageContext.request.contextPath}sns/write_view'">게시글등록</a>
    
    <div class="container" style="min-height: 1500px;">
 
@@ -175,7 +175,7 @@
                   <div style="padding-top: 13px; padding-left :7px;">${sns.boardVO.memberVO.nickname} </div>
                    
                   <a href="/myPage/${sns.boardVO.memberVO.nickname}"
-                     style="padding: 13px; color:#e7ab3c;"> · <b>팔로우</b></a>
+                     style="padding: 13px; color:#e7ab3c;"> · 팔로우</a>
 
 
                </div>
@@ -212,7 +212,9 @@
           <c:if test="${fn:length(snsTotal) > 12}">
                 <div class="col-lg-12 text-center">
                     <input type="hidden" class="snsTotal" value="${fn:length(snsTotal)}" />
-                     <button type="button" class="btn btn-warning" onClick="btnClick()">더보기</button>
+                    <div class="later col-lg-12 text-center">
+	            	<button type="button" id="morebtn" class="btn btn-disabled" onClick="btnClick()">더보기 <i class="fa fa-caret-down" aria-hidden="true"></i></button>
+		        </div>
                </div>   
            </c:if> 
    </div>
