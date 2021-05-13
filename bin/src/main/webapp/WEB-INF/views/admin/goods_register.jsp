@@ -10,11 +10,14 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <title>register</title>
-
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+ <link href="/resources/admin/css/sb-admin-2.min.css" rel="stylesheet">
 <style>
+
 .table_center {
 	display: table;
-	margin: 50px auto;
+	margin: 50px 50px;
 	width: 1000px;
 	font-size: 15px;
 	font-stretch: extra-condensed;
@@ -43,41 +46,38 @@ select {
 </style>
 
 </head>
-<body>
+<body  >
 
 
 
-	<!-- header -->
+	 
 
-	<%@ include file="/WEB-INF/views/include/header.jsp"%>
+	<%@ include file="/WEB-INF/views/include/sidebar.jsp"%>
 
 
 	<!-- Page Content -->
 
 
-
-
-
-
-	<div class="col-lg-30">
-		<form id="goods"
-			action="${pageContext.request.contextPath}/admin/goods" method="Post">
+	<div class="col-lg-12">
+		<form id="goods" name="goods" class="needs-validation" enctype="multipart/form-data"
+			action="${pageContext.request.contextPath}/admin/goods/register"
+			method="post">
 			<fieldset>
 				<table class="table_center" cellpadding="20">
 					<td colspan="20">
 						<h2>상품 등록</h2>
 					</td>
 					<tr>
-						<td><img style="width: 400px;" id="preview-image"
+						<td><img style="width: 400px;" id="preview-image" name="preview-image"
 							src="https://dummyimage.com/600x500/ffffff&text=+privew"></td>
-						<%-- <%=request.getRealPath("/")%> 저장경로 --%>
+						<%-- 	<%=request.getRealPath("/")%> 저장경로 --%>
 						<td>
 							<div class="form-group row">
 								<label class="col-sm-3" for="thumbnail">썸네일</label>
 								<div class="input-group col-sm-9">
 									<div class="custom-file">
 										<input type="file" class="custom-file-input" id="thumbnail"
-											name="thumbnail" style="display: block;"> <label
+											name="file" multiple="multiple" style="display: block;"> <label
 											class="custom-file-label" for="inputGroupFile02">Choose
 											file</label>
 									</div>
@@ -90,36 +90,43 @@ select {
 								<label class="col-sm-3">상품명</label>
 								<div class="col-sm-9">
 									<input type="text" class="form-control" name="goodsname"
-										placeholder="상품명을 등록하세요">
+										id="goodsname" placeholder="상품명을 등록하세요" required>
+								 
 								</div>
 							</div>
+
 							<div class="form-group row">
 								<label class="col-sm-3">가격</label>
 								<div class="col-sm-9">
 									<input type="text" name="price" class="form-control"
-										placeholder="상품가격을 등록하세요" aria-describedby="priceHelp">
+										placeholder="상품가격을 등록하세요" aria-describedby="priceHelp"
+										required>
+									 
 									<small id="priceHelp" class="form-text text-muted">예)
 										15000 </small>
 								</div>
 							</div>
 
 							<div class="form-group row">
-								<label class="col-sm-3">사이즈</label>
+								<label class="col-sm-3">옵션 1</label>
 								<div class="col-sm-9">
 									<input type="text" name="psize" class="form-control"
 										placeholder="사이즈를 입력하세요" aria-describedby="sizeHelp">
+									<div class="invalid-feedback">없으면 공백 추가!</div>
 									<small id="sizeHelp" class="form-text text-muted">예)
 										S,M,L</small>
 								</div>
 							</div>
 
 							<div class="form-group row">
-								<label class="col-sm-3">색상</label>
+								<label class="col-sm-3">옵션 2</label>
 								<div class="col-sm-9">
 									<input type="text" name="pcolor" class="form-control"
-										id="color" placeholder="색상을 입력하세요"
-										aria-describedby="colorHelp"> <small id="colorHelp"
-										class="form-text text-muted">예) 빨간색, 노란색</small>
+										id="pcolor" placeholder="색상을 입력하세요"
+										aria-describedby="colorHelp">
+									<div class="invalid-feedback">없으면 공백 추가!</div>
+									<small id="colorHelp" class="form-text text-muted">예)
+										빨간색, 노란색 </small>
 								</div>
 							</div>
 
@@ -132,9 +139,11 @@ select {
 										<option value="">동물</option>
 									</select> <label>2차 분류</label> <select class="category2"
 										name="categoryVO.category_id" class="form-control"
-										style="vertical-align: middle; text-align-last: center">
+										style="vertical-align: middle; text-align-last: center"
+										required>
 										<option value="">상품</option>
 									</select>
+									<div class="invalid-feedback"> 카테고리를 선택하세요! </div>
 								</div>
 							</div>
 
@@ -143,12 +152,14 @@ select {
 								<label class="col-sm-3">재고상태</label>
 								<div class="col-sm-9">
 									<select name="stockVO.stock_id"
-										style="vertical-align: middle; text-align-last: center">
+										style="vertical-align: middle; text-align-last: center"
+										required>
 										<c:forEach items="${stock}" var="stock">
 											<option value="${stock.stock_id}">${stock.stockname}
 											</option>
 										</c:forEach>
 									</select>
+									<div class="invalid-feedback">재고상태를 선택하세요!</div> 
 								</div>
 							</div>
 
@@ -157,19 +168,25 @@ select {
 								<label class="col-sm-3">상품소개</label>
 								<div class="col-sm-9">
 									<textarea name="description" cols="30" rows="5"
-										class="form-control"></textarea>
+										class="form-control" required></textarea>
 								</div>
 							</div>
 
 
 							<div class="form-group row">
 								<div class="col-sm-offset-2 col-sm-6">
-									<input type="submit" class="btn btn-block"
-										style="background-color: #e7ab3c" value="상품등록">
+									<button type="submit" class="btn btn-block" id="check"
+										style="background-color: #FFC81E;  color:black;">상품등록</button>
+									<%-- 	data-toggle="modal"
+										data-target="#Modal"  --%>
 								</div>
+
+
+
+
 								<div class="col-sm-offset-2 col-sm-6">
 									<input type="button" class="btn btn-block"
-										style="background-color: #e7ab3c" value="상품목록"
+										style="background-color: #FFC81E;  color:black;" value="상품목록"
 										onClick="location.href='${pageContext.request.contextPath}/admin/goods'">
 								</div>
 							</div>
@@ -184,6 +201,29 @@ select {
 
 
 	<script>
+	
+	(function () {
+		  'use strict'
+
+		  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+		  var forms = document.querySelectorAll('.needs-validation')
+
+		  // Loop over them and prevent submission
+		  Array.prototype.slice.call(forms)
+		    .forEach(function (form) {
+		      form.addEventListener('submit', function (event) {
+		        if (!form.checkValidity()) {
+		          event.preventDefault()
+		          event.stopPropagation()
+		        }
+
+		        form.classList.add('was-validated')
+		      }, false)
+		    })
+		})();
+		
+		
+		//
 		  	function readImage(input) {
 			    // 인풋 태그에 파일이 있는 경우
 			    if(input.files && input.files[0]) {
@@ -229,7 +269,7 @@ select {
 					cate1Obj.categoryname = jsonData[i].categoryname;
 					cate1Arr.push(cate1Obj);
 				}
-			}
+			} 
 
 			// 1차 분류 셀렉트 박스에 데이터 삽입
 			var cate1Select = $("select.category1")
@@ -286,9 +326,8 @@ select {
 												});
 
 							});
-	</script>
-	<!-- Footer -->
-	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
-
+			
+			</script>
+ 
 </body>
 </html>

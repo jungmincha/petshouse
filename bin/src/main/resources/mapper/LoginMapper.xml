@@ -3,24 +3,22 @@
 
 <mapper namespace="com.pet.ex.mapper.LoginMapper">
 
-	<resultMap type="RoleVO" id="roleVO">
+	<resultMap type="RoleVO" id="rolevo">
 		<result column="role_id" property="role_id" />
 		<result column="rolename" property="rolename" />
 	</resultMap>
 
-	<resultMap type="LoginTypeVO" id="logintypeVO">
+	<resultMap type="LoginTypeVO" id="logintypevo">
 		<result column="logintype_id" property="logintype_id" />
 		<result column="logintypename" property="logintypename" />
-
 	</resultMap>
 
-	<resultMap type="CategoryVO" id="categoryVO">
+	<resultMap type="CategoryVO" id="categoryvo">
 		<result column="category_id" property="category_id" />
 		<result column="categoryname" property="categoryname" />
-
 	</resultMap>
 
-	<resultMap type="MemberVO" id="memberVO">
+	<resultMap type="MemberVO" id="membervo">
 
 		<result column="member_id" property="member_id" />
 		<result column="password" property="password" />
@@ -32,15 +30,17 @@
 		<result column="enable" property="enable" />
 		<result column="username" property="username" />
 		<result column="certify" property="certify" />
+		<result column="thumbnail" property="thumbnail" />
+		<result column="location" property="location" />
 
-		<collection property="roleVO" resultMap="roleVO"></collection>
-		<collection property="logintypeVO" resultMap="logintypeVO"></collection>
-		<collection property="categoryVO" resultMap="categoryVO"></collection>
+		<collection property="roleVO" resultMap="rolevo"></collection>
+		<collection property="logintypeVO" resultMap="logintypevo"></collection>
+		<collection property="categoryVO" resultMap="categoryvo"></collection>
 	</resultMap>
 
 	<!-- 회원정보조회 -->
 	<select id="getMember" parameterType="String"
-		resultMap="memberVO">
+		resultMap="membervo">
 		<![CDATA[
 		SELECT
 		member_id
@@ -50,6 +50,7 @@
 		, nickname
 		, tel
 		, address
+		, thumbnail
 		, trycount
 		, enable
 		,m.role_id
@@ -59,6 +60,7 @@
 		,m.category_id
 		, categoryname
 		,certify
+		,location
 		FROM
 		MEMBER
 		m, role r , logintype
@@ -85,17 +87,20 @@
 	<!-- 로그인 성공시 비밀번호 틀린횟수 초기화 -->
 	<update id="updateResetTryCount" parameterType="String">
 		<![CDATA[
+		
 		UPDATE member
 		SET
 		trycount = 0
 		WHERE
 		member_id = #{member_id}
-			]]>
+		
+		]]>
 	</update>
 
 	<!-- 회원가입 insert -->
 	<insert id="insertMember" parameterType="MemberVO">
-			<![CDATA[
+		<![CDATA[
+		
 		insert into member
 		(
 		member_id
@@ -108,6 +113,7 @@
 		,logintype_id
 		,category_id
 		,certify
+		,thumbnail
 		)
 		VALUES
 		(
@@ -121,6 +127,7 @@
 		,#{logintypeVO.logintype_id}
 		,#{categoryVO.category_id}
 		,#{certify}
+		,#{thumbnail}
 		)
 			]]>
 	</insert>
@@ -152,4 +159,84 @@
 			  ]]>
 	</update>
 
+	<!-- 회원정보조회 (닉네임) -->
+	<select id="getMemberByNickname" parameterType="String"
+		resultMap="membervo">
+		<![CDATA[
+		SELECT
+		member_id
+		, member_id as username
+		, password
+		, name
+		, nickname
+		, tel
+		, address
+		, thumbnail
+		, trycount
+		, enable
+		,m.role_id
+		, rolename
+		,m.logintype_id
+		, logintypename
+		,m.category_id
+		, categoryname
+		,certify
+		,location
+		FROM
+		MEMBER
+		m, role r , logintype
+		l ,category c
+		WHERE m.nickname = #{nickname} and
+		m.role_id=r.role_id and
+		m.logintype_id=l.logintype_id and
+		m.category_id=c.category_id
+		]]>
+	</select>
+
+	<!-- 회원정보조회 (전화번호) -->
+	<select id="getMemberByTel" parameterType="int"
+		resultMap="membervo">
+		<![CDATA[
+		SELECT
+		member_id
+		, member_id as username
+		, password
+		, name
+		, nickname
+		, tel
+		, address
+		, thumbnail
+		, trycount
+		, enable
+		,m.role_id
+		, rolename
+		,m.logintype_id
+		, logintypename
+		,m.category_id
+		, categoryname
+		,certify
+		,location
+		FROM
+		MEMBER
+		m, role r , logintype
+		l ,category c
+		WHERE m.tel = #{tel} and
+		m.role_id=r.role_id and
+		m.logintype_id=l.logintype_id and
+		m.category_id=c.category_id
+		]]>
+	</select>
+
+	<insert id="insertRegisterPoint">
+		<![CDATA[
+		insert into point (point_id,pscore,pointtype_id,member_id)
+		values(point_seq.nextval,5000,1,#{member_id})
+		]]>
+	</insert>
+
+	<update id="updatePassword">
+		<![CDATA[
+		update member set password=#{password} where member_id=#{member_id}
+		]]>
+	</update>
 </mapper>

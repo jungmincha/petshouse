@@ -5,8 +5,6 @@
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 
-
-
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -16,11 +14,15 @@
 <meta name="keywords" content="Fashi, unica, creative, html">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>펫츠하우스</title>
+<title>로그인</title>
 
 <style>
 #social ul li {
 	display: inline;
+}
+#login-btn:hover{
+	color:white;
+	background-color: orange;
 }
 </style>
 <!-- Google Font -->
@@ -49,7 +51,7 @@
 
 </head>
 
-<body>
+<body style="padding-top: 128px">
 	<!-- header -->
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
 
@@ -78,13 +80,11 @@
 							</div>
 							<div class="group-input gi-check">
 								<div class="gi-more">
-									<label for="save-id"> 아이디 기억하기 <input type="checkbox"
-										id="save-id" name="remember-me"> <span
-										class="checkmark"></span>
-									</label> <a href="#" class="forget-pass">Forget your Password</a>
+									<a href="" class="forget-pass" onClick="goPopup();">비밀번호
+										재발급</a>
 								</div>
 							</div>
-							<button type="submit" class="site-btn login-btn">로그인</button>
+							<button id="login-btn" type="submit" class="site-btn login-btn">로그인</button>
 						</form>
 						<div class="switch-login">
 							<a href="/login/register" class="or-login">회원가입</a>
@@ -102,10 +102,11 @@
 									<li class="col-sm"><a href="/oauth2/authorization/google"><img
 											src="/resources/logo/google.png" width="48px" height="48px"></a></li>
 
-									<li class="col-sm"><a href="#"><img
-											src="/resources/logo/kakao.png" width="48px" height="48px"></a></li>
-									<li class="col-sm"><a href="#"><img
+									<li class="col-sm"><a href="/oauth2/authorization/naver"><img
 											src="/resources/logo/naver.png" width="48px" height="48px"></a></li>
+									<li class="col-sm"><a
+										href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=1d0c7970b0388434a0312ff3fba25d52&scope=account_email&state=Lf_Z7buQNi87ryfmqOMtJ497_9hziNqpqRR5M3QxZjA%3D&redirect_uri=http://localhost:8383/login/oauth2/code/kakao"><img
+											src="/resources/logo/kakao.png" width="48px" height="48px"></a></li>
 								</ul>
 							</div>
 
@@ -132,6 +133,13 @@
 		alert("${msg}");
 		</c:if>
 	});
+	function goPopup() {
+		event.preventDefault();
+		var _left = Math.ceil(( window.screen.width - 500 )/2);
+		var _top = Math.ceil(( window.screen.height - 350 )/2);
+		window.open("/popup/pwfindPopup.jsp", "pop",
+					"width=500,height=350, scrollbars=yes, resizable=yes, left="+_left+", top="+_top);
+	}
 </script>
 <!-- Js Plugins -->
 <script src="/resources/js/jquery-3.3.1.min.js"></script>
