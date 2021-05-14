@@ -18,7 +18,7 @@ import com.pet.ex.vo.PlikeVO;
 public interface MapService {
 
 	//위치기반 홈 리스트
-	public List<ImageVO> getList(Criteria cri);
+	public List<ImageVO> getList(Criteria cri , String presentLocation);
 	//게시판 전체 숫자
 	public int getTotal(Criteria cri);
 	//글작성
@@ -93,8 +93,8 @@ public interface MapService {
 	public int qcount(int board_id);
 	//현재 장소
 	public String getPresetnLocation(String member_id);
-
-	public int getListTotal(BoardVO boardVO);
+	//현재 게시글 개수
+	public int getListTotal(BoardVO boardVO ,String presentLocation);
 	//컨텐트뷰 좋아요 삭제
 	public void delete_content_plike(int board_id);
 	//글 삭제시 좋아요 삭제

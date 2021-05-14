@@ -50,6 +50,7 @@
 <sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
 	<input type="hidden" id="location_security" name="location_security"
 		value="<sec:authentication property="principal.location"/>">
+		
 	<input type="hidden" id="member_id" name="member_id"
 		value="<sec:authentication property="principal.member_id"/>">
 </sec:authorize>
@@ -388,7 +389,7 @@
 			console.log(location_security);
 			console.log(member_id);
 			
-			location.href="/map/board/?location="+location_security+"&member_id=" + member_id;
+			location.href="/map/board/?&member_id=" + member_id;
 			
 			
 		/* 	document.write('<form action="/map/board" id="post_test" method="post"><input type="hidden" id="location" name="location" value="'+ location_security +'"><input type="hidden" id="member_id" name="member_id" value="'+ member_id +'"></form>');

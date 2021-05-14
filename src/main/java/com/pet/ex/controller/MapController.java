@@ -1,52 +1,40 @@
 package com.pet.ex.controller;
 
 //jungmin3 브랜치 등록
-import java.io.File; 
-import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.Stack;
-import java.util.UUID;
 
-import javax.servlet.http.HttpSession;
 
-import org.apache.commons.io.FilenameUtils;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.stereotype.Controller;
+
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
+
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.multipart.MultipartFile;
+
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.pet.ex.page.Criteria;
 import com.pet.ex.page.PageVO;
-import com.pet.ex.security.handlers.MyAuthentication;
-import com.pet.ex.service.CommunityService;
 import com.pet.ex.service.MapService;
 import com.pet.ex.vo.BoardVO;
-import com.pet.ex.vo.FollowVO;
-import com.pet.ex.vo.GoodsVO;
 import com.pet.ex.vo.ImageVO;
 import com.pet.ex.vo.MemberVO;
 import com.pet.ex.vo.PlikeVO;
-
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.sf.json.JSONArray;
@@ -64,8 +52,9 @@ public class MapController {
 		@GetMapping("/home")
 		public ModelAndView map(ModelAndView mav) {
 			
-			log.info("map/home");
-			mav.setViewName("map/home");
+			log.info("map/map_home");
+			
+			mav.setViewName("map/map_home");
 	
 			return mav;
 		}
@@ -89,13 +78,13 @@ public class MapController {
 			ResponseEntity<String> entity = null; log.info("searchmap");
 			 
 			  try {
-				  
 			  
-			 System.out.println(searchmap);
+			  entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK); 
 			  
-			  entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK); } catch
-			  (Exception e) { e.printStackTrace();
+			  } catch(Exception e) {
+			  e.printStackTrace();
 			  entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+			  
 			  }
 			  
 			  return entity;
@@ -115,64 +104,68 @@ public class MapController {
 					 
 					  try {
 					  
-					  service.insertLoc(memberVO); // 홍제 2동 삽입된
-					  System.out.println(memberVO.getLocation());
+					  service.insertLoc(memberVO);
+				  
+					  entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 					  
-					  entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK); } catch
-					  (Exception e) { e.printStackTrace();
-					  
+					  } catch(Exception e) {
+						  
+					  e.printStackTrace();
 					  entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+					  
 					  }
 					  
 					  return entity;
 					  
 					  }
 	 
-	
-	
-	
 
 		// 펫츠타운 메인페이지
 		@RequestMapping("/board")
-		public ModelAndView board( String location, ModelAndView mav, Criteria cri, MemberVO memberVO, 
+		public ModelAndView board(ModelAndView mav, Criteria cri, MemberVO memberVO, 
 									BoardVO boardVO, ImageVO imageVO, PlikeVO plikeVO,  Authentication authentication ) {
 			
-			log.info("board");
+				log.info("board");
+				
+				String member_id = authentication.getPrincipal().toString();//authentication로 현재 접속된 아이디 구함
+				String presentLocation = service.getPresetnLocation(member_id);
+				memberVO.setLocation(presentLocation);//home에서 입력된 현재 위치를 set 해준다.
+				//System.out.println("1. 현재 당신의 위치는?" + location);
+				System.out.println("2. 현재 당신의 위치는?" + presentLocation);
+				boardVO.setMemberVO(memberVO);
+	
+				service.insertLoc(memberVO);
+				
+				mav.addObject("list", service.getList(cri , presentLocation));
+				int total = service.getTotal(cri);
+				mav.addObject("pageMaker", new PageVO(cri, total));//페이징 처리
+				mav.addObject("location", presentLocation);//현재 위치 화면에 출력
+				mav.addObject("member_id", member_id);//현재 접속 아이디 
+				mav.addObject("listTotal", service.getListTotal(boardVO , presentLocation));	
+				mav.addObject("like_print", service.getLikeprint());// board테이블의 plike 현황 알려줌	
+				mav.addObject("jsonList", JSONArray.fromObject(service.getList(cri , presentLocation)));//json형태로 list 정보 전달
+				
+				
+				mav.setViewName("map/map_board");
+				
+				return mav;
+			}
 			
-			String member_id = authentication.getPrincipal().toString();//authentication로 현재 접속된 아이디 구함
-		
-			memberVO.setLocation(location);//home에서 입력된 현재 위치를 set 해준다.
-			System.out.println("현재 당신의 위치는?" + location);
-			boardVO.setMemberVO(memberVO);
-
-			service.insertLoc(memberVO);
-			
-			mav.addObject("list", service.getList(cri));
-			int total = service.getTotal(cri);
-			mav.addObject("pageMaker", new PageVO(cri, total));//페이징 처리
-			mav.addObject("location", location);//현재 위치 화면에 출력
-			mav.addObject("member_id", member_id);//현재 접속 아이디 
-			mav.addObject("listTotal", service.getListTotal(boardVO));	
-			mav.addObject("like_print", service.getLikeprint());// board테이블의 plike 현황 알려줌	
-			mav.addObject("jsonList", JSONArray.fromObject(service.getList(cri)));//json형태로 list 정보 전달
-			
-			
-			mav.setViewName("map/board");
-			
-			return mav;
-		}
-		
 		
 		//게시글 더보기 
 		@PostMapping("/morelist")
-		public Map<String, Object> morelocation(Criteria cri , BoardVO boardVO) {
+		public Map<String, Object> morelocation(Criteria cri , BoardVO boardVO ,  Authentication authentication) {
+			
 			log.info("morelist");
 			
+			String member_id = authentication.getPrincipal().toString();//authentication로 현재 접속된 아이디 구함
+			String presentLocation = service.getPresetnLocation(member_id);
+			
 			Map<String, Object> hashList = new HashMap<>();//hashList라는 해시맵 객체를 생성해준다. key값은 String, value값은 Object이다.
-			List<ImageVO> morelist = service.getList(cri);//게시글 list 정보를 morelist라는 List<ImageVO> 객체에 담는다.
+			List<ImageVO> morelist = service.getList(cri , presentLocation);//게시글 list 정보를 morelist라는 List<ImageVO> 객체에 담는다.
 		
-			hashList.put("list", morelist);//hashList에 key 값으로 list value값으로 morelist을 put 해준다
-			hashList.put("listTotal", service.getListTotal(boardVO));//hashList에 key 값으로 listTotal value값으로 서비스 getListTotal을 put 해준다
+			hashList.put("list", morelist);//hashList에 key 값으로 "list" value값으로 morelist을 put 해준다
+			hashList.put("listTotal", service.getListTotal(boardVO , presentLocation));//hashList에 key 값으로 "listTotal" value값으로 서비스 getListTotal을 put 해준다
 
 			
 			/*
@@ -197,7 +190,7 @@ public class MapController {
 					List<ImageVO> cate_morelist = service.getcateList(cri);
 				
 					hashList.put("list",cate_morelist);
-					hashList.put("listTotal", service.getListTotal(boardVO));
+					//hashList.put("listTotal", service.getListTotal(boardVO));
 
 					return hashList;
 		
@@ -215,7 +208,7 @@ public class MapController {
 				mav.addObject("location", location);
 				mav.addObject("member_id", member_id);
 		
-				mav.setViewName("map/write_view");
+				mav.setViewName("map/map_write_view");
 		
 				return mav;
 			}
@@ -257,7 +250,7 @@ public class MapController {
 				
 				mav.addObject("photo", service.getPhoto(board_id));//각 게시글에 입력된 사진 이름 출력
 				
-				mav.setViewName("map/content_view");
+				mav.setViewName("map/map_content_view");
 				
 				return mav;
 		
@@ -276,32 +269,34 @@ public class MapController {
 				mav.addObject("content_view", service.content_view(boardVO.getBoard_id()));
 			
 		
-				mav.setViewName("map/modify_view");
+				mav.setViewName("map/map_modify_view");
 		
 				return mav;
 			}
 
 			// 메인페이지에서 게시글 작성
 			@RequestMapping("/write") // 글작성 폼에서 정보입력(즉, insert)
-			public ModelAndView write(String location, String member_id, ModelAndView mav, ImageVO imageVO, BoardVO boardVO,
-									  MemberVO memberVO, Criteria cri, MultipartHttpServletRequest multi) throws Exception {
+			public ModelAndView write( ModelAndView mav, ImageVO imageVO, BoardVO boardVO,
+									  MemberVO memberVO, Criteria cri, MultipartHttpServletRequest multi ,  Authentication authentication) throws Exception {
 				
 				log.info("write");
+				
+				String member_id = authentication.getPrincipal().toString();//authentication로 현재 접속된 아이디 구함
+				String presentLocation = service.getPresetnLocation(member_id);
 	
 				MemberVO member = new MemberVO();
 				boardVO.setMemberVO(member);
-				boardVO.getMemberVO().setLocation(location);
+				boardVO.getMemberVO().setLocation(presentLocation);
 				boardVO.getMemberVO().setMember_id(member_id);
 	
 				service.write(boardVO);
 	
-				mav.addObject("list", service.getList(cri));
-				int total = service.getTotal(cri);
-				mav.addObject("pageMaker", new PageVO(cri, total));
-				memberVO.setLocation(location);
-				service.insertLoc(memberVO);
-				mav.addObject("location", location);
-				mav.addObject("member_id", member_id);
+				
+				  mav.addObject("list", service.getList(cri , presentLocation));
+				  int total = service.getTotal(cri); mav.addObject("pageMaker", new PageVO(cri, total));
+				  memberVO.setLocation(presentLocation); service.insertLoc(memberVO);
+				  mav.addObject("location", presentLocation); mav.addObject("member_id",member_id);
+				 
 	
 				
 				//사진 업로드 -start
@@ -318,22 +313,25 @@ public class MapController {
 
 			// 게시글 수정
 			@RequestMapping("/modify") // 글작성 폼에서 정보수정(즉, update)
-			public ModelAndView modify(String location, String member_id, ModelAndView mav, ImageVO imageVO,BoardVO boardVO, MemberVO memberVO, Criteria cri){
+			public ModelAndView modify(ModelAndView mav, ImageVO imageVO,BoardVO boardVO, MemberVO memberVO, Criteria cri ,  Authentication authentication){
 				
 				log.info("modify");
+				
+				String member_id = authentication.getPrincipal().toString();//authentication로 현재 접속된 아이디 구함
+				String presentLocation = service.getPresetnLocation(member_id);
 		
-				mav.addObject("list", service.getList(cri));
+				mav.addObject("list", service.getList(cri , presentLocation));
 				int total = service.getTotal(cri);
 				mav.addObject("pageMaker", new PageVO(cri, total));
-				memberVO.setLocation(location);
+				memberVO.setLocation(presentLocation);
 		
 				service.insertLoc(memberVO);
 		
-				mav.addObject("location", location);
+				mav.addObject("location", presentLocation);
 				mav.addObject("member_id", member_id);
 				service.modify(boardVO);
 		
-				mav.setViewName("redirect:board");
+				mav.setViewName("redirect:map_board");
 				
 				return mav;
 		
@@ -369,15 +367,13 @@ public class MapController {
 				log.info("delete");
 		
 				ResponseEntity<String> entity = null;
-		
+				
 				try {
-		
-					service.deleteComment(boardVO);
-		
+					
+					service.deleteComment(boardVO);//댓글삭제
 					entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 					
-				} catch (Exception e) {
-					
+				}catch (Exception e) {
 					e.printStackTrace();
 					entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 				}
@@ -387,66 +383,73 @@ public class MapController {
 			}
 			
 			
-			// 댓글 더보기
+				// 댓글 더보기
 				@PostMapping("/cmorelist")
 				public Map<String, Object> comments(@RequestParam("board_id") int board_id, Criteria cri) {
+					
 					log.info("commentsmorelist");
-					Map<String, Object> list = new HashMap<>();
-					List<BoardVO> comments = service.getcommentsList(cri, board_id);
-					list.put("comments", comments);
-					list.put("commentTotal", service.qcount(board_id));
-					return list;
+					
+					Map<String, Object> hashList = new HashMap<>();//hashList라는 해시맵 객체 생성
+					List<BoardVO> comments = service.getcommentsList(cri, board_id);//댓글리스트 서비스를 List<BoardVO>형식에 담는다.
+					hashList.put("comments", comments);//key 값 "comments" value값 comments를 hashList에 put 해준다.
+					hashList.put("commentTotal", service.qcount(board_id)); //key 값 "commentTotal" value 값 댓글수 구하는 서비스를  hashList에 put 해준다.
+					
+					return hashList;//결과를 return해준다(비동기처리)
+					
 				}
 		
 			// content_view 에서 게시글 삭제
 			@RequestMapping("/delete")
-			public ModelAndView delete(int board_id, String location, String member_id, ModelAndView mav, BoardVO boardVO,
-					MemberVO memberVO) throws Exception {
+			public ModelAndView delete(int board_id, String location, String member_id, ModelAndView mav, BoardVO boardVO, MemberVO memberVO){
 		
 				log.info("delete");
 				
-				service.depeteimage(board_id);
-				service.delete_content_plike(board_id);
-				service.delete_pgroup(board_id);
-				service.inputDelete(board_id);
+				service.depeteimage(board_id);//이미지 삭제
+				service.delete_content_plike(board_id);//좋아요 삭제
+				service.delete_pgroup(board_id);//댓글삭제
+				service.inputDelete(board_id);//글삭제, 위의 것들을 다 삭제해줘야지 무결성제약조건에 위배되지 않는다.
 				
 				memberVO.setLocation(location);
 		
 				service.insertLoc(memberVO);
 		
 				mav.addObject("location", location);
-		
 				mav.addObject("member_id", member_id);
-		
 		
 				mav.setViewName("redirect:board");
 		
 				return mav;
 			}
 		
-			// 해시태그 (수정중)
+			// 해시태그 별로 게시글 조회
 			@GetMapping("/location/tag")
-			public List<ImageVO> tag(String hashtag, String location, Criteria cri, BoardVO boardVO , ImageVO imageVO , Model model) throws Exception {
+			public List<ImageVO> tag(String hashtag, Criteria cri, BoardVO boardVO , ImageVO imageVO , Model model , Authentication authentication) {
 		
+				log.info("hashtag");
+				
+				String member_id = authentication.getPrincipal().toString();//authentication로 현재 접속된 아이디 구함
+				String presentLocation = service.getPresetnLocation(member_id);
+				
 				List<ImageVO> list = new ArrayList<ImageVO>();
 		
-				if (hashtag == null) {
+				if (hashtag == null) {//만약 hashtag가 null이면 그냥 일반 list를 출력한다.
 		
-					list = service.getList(cri);
-				}else{
+					list = service.getList(cri , presentLocation);
+					
+				}else{//그렇지 않으면 hashtag, location 파라미터 값이 포함된 list를 출력한다.
+					
 					MemberVO member = new MemberVO();
 					imageVO.getBoardVO().setMemberVO(member);
 					imageVO.getBoardVO().setMemberVO(member);
-					imageVO.getBoardVO().getMemberVO().setLocation(location);
+					imageVO.getBoardVO().getMemberVO().setLocation(presentLocation);
 					imageVO.getBoardVO().setHashtag(hashtag);
 				
-					
 					list = service.getHashtag(boardVO);
 				}
 		
-				System.out.println("===확인====" + hashtag);
-				System.out.println("===확인====" + location);
-				log.info("hashtag...");
+				System.out.println("hashtag : " + hashtag);
+				System.out.println("location : " + presentLocation);
+				
 				return list;
 			}
 		
@@ -454,18 +457,13 @@ public class MapController {
 		
 			// 좋아요 입력
 			@PostMapping("/like/{board_id}")
-			public Map<String, Object> like(PlikeVO plikeVO, BoardVO boardVO, MemberVO memberVO,
-					Authentication authentication) {
-				log.info("LIKE");
+			public Map<String, Object> like(PlikeVO plikeVO, BoardVO boardVO, MemberVO memberVO, Authentication authentication) {
+				
+				log.info("like");
 		
 				String member_id = authentication.getPrincipal().toString();
-				System.out.println(member_id);
 				String present_nickname = service.getPresetnNickname(member_id);//현재 닉네임
-				
-				System.out.println("---------------===========================--------------888888888888888888888888888");
-				System.out.println(present_nickname);
-		
-				// resultmap에 vo 담아주는 거
+			
 				MemberVO member = new MemberVO();
 				plikeVO.setMemberVO(member);
 				plikeVO.getMemberVO().setMember_id(member_id);
@@ -475,41 +473,37 @@ public class MapController {
 				plikeVO.setBoardVO(board);
 				plikeVO.getBoardVO().setBoard_id(boardVO.getBoard_id());
 		
-				// plikeVO.setMember_id(member_id);
-		
-				Map<String, Object> map = new HashMap<>();
+				
+				Map<String, Object> likeMap = new HashMap<>();//likeMap이라는 해시맵 객체 생성
 				try {
-					service.like(plikeVO);
-					map.put("SUCCESS", HttpStatus.OK);
-					map.put("like_amount", service.getLiketotal(plikeVO.getBoardVO().getBoard_id()));
+					service.like(plikeVO);//plikeVO에 회원의 nickname insert
+					
+					likeMap.put("SUCCESS", HttpStatus.OK);
+					likeMap.put("like_amount", service.getLiketotal(plikeVO.getBoardVO().getBoard_id()));//key 값 "like_amount" , value 값 좋아요수를 구하는 서비스를 likeMap에 put
 		
 					List<PlikeVO> likelist = service.getLikelist(plikeVO);
-					map.put("likelist", likelist);
+					likeMap.put("likelist", likelist);//key 값으로 "likelist" vlaue값으로 좋아요를 누른 사람의 정보가 담긴 List<PlikeVO>타입의 likelist 객체를 likeMap에 put해준다.
 		
-					// BOARD테이블의 plike 숫자 증가
-					service.insertplike(boardVO);
-		
-					System.out
-							.println("=====================ssss==============================================================");
+					service.insertplike(boardVO);	// board테이블의 plike 숫자 증가
 		
 				} catch (Exception e) {
+					
 					e.printStackTrace();
-					map.put("SUCCESS", HttpStatus.BAD_REQUEST);
+					likeMap.put("SUCCESS", HttpStatus.BAD_REQUEST);
 				}
-				return map;
+				return likeMap;//해시맵 결과를 화면에 출력(비동기 처리)
 			}
 		
 			// 좋아요 취소
 			@DeleteMapping("/likecancel/{board_id}")
-			public Map<String, Object> likecancel(PlikeVO plikeVO, BoardVO boardVO, MemberVO memberVO,
-					Authentication authentication) {
+			public Map<String, Object> likecancel(PlikeVO plikeVO, BoardVO boardVO, MemberVO memberVO, Authentication authentication) {
+				
 				log.info("likecancel");
 				
 				String member_id = authentication.getPrincipal().toString();
-				System.out.println(member_id);
 				String present_nickname = service.getPresetnNickname(member_id);//현재 닉네임
 		
-				// resultmap에 vo 담아주는 거
+			
 				MemberVO member = new MemberVO();
 				plikeVO.setMemberVO(member);
 				plikeVO.getMemberVO().setMember_id(member_id);
@@ -519,23 +513,23 @@ public class MapController {
 				plikeVO.setBoardVO(board);
 				plikeVO.getBoardVO().setBoard_id(boardVO.getBoard_id());
 		
-				// plikeVO.setMember_id(member_id);
 		
-				Map<String, Object> map = new HashMap<>();
+				Map<String, Object> likeCancelMap = new HashMap<>();
 				try {
-					service.likecancel(plikeVO);
-					map.put("SUCCESS", HttpStatus.OK);
-					map.put("like_amount", service.getLiketotal(plikeVO.getBoardVO().getBoard_id()));
+					service.likecancel(plikeVO);//plikeVO에 회원 delete
+					likeCancelMap.put("SUCCESS", HttpStatus.OK);
+					likeCancelMap.put("like_amount", service.getLiketotal(plikeVO.getBoardVO().getBoard_id()));
 		
 					List<PlikeVO> likelist = service.getLikelist(plikeVO);
-					map.put("likelist", likelist);
-					// BOARD테이블의 plike 숫자 감소
-					service.deleteplike(boardVO);
+					likeCancelMap.put("likelist", likelist);
+		
+					service.deleteplike(boardVO);// board테이블의 plike 숫자 감소
+					
 				} catch (Exception e) {
 					e.printStackTrace();
-					map.put("SUCCESS", HttpStatus.BAD_REQUEST);
+					likeCancelMap.put("SUCCESS", HttpStatus.BAD_REQUEST);
 				}
-				return map;
+				return likeCancelMap;
 			}
 		
 			// 좋아요 기능 -END-

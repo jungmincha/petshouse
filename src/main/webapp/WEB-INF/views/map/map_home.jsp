@@ -257,14 +257,15 @@
 							<p>
 							회원님의 위치가 
 							<span id="address" style="font-weight: bold; font-size: 20px;"></span>
-							이 맞으면 '계속 하기'을 눌러주세요.
+							이 맞으면 '인증 하기' 를 눌러 위치를 입력해주세요.
 							</p>
+							<p>그리고 '계속 하기' 를 눌러서 펫츠타운에 접속해주세요.</p>
 							</div>
 							</div>
 							</div>
 							</div>
 							
-							<input type="hidden" name="location2" class = "location2" value="">  
+							<input type="hidden" name="location" class = "location" value="">  
 							
 							<form action="/map/board" method="get">
 									<div class="row">
@@ -275,10 +276,15 @@
 										<%-- <input type="hidden" name="location" value="<sec:authentication property="principal.location"/>"> --%>
 									<input type="hidden" name="member_id" class = "member_id" value="<sec:authentication property="principal.member_id"/>">
 								 	<%-- <input type="hidden" name="nickname" value="<sec:authentication property="principal.nickname"/>">  --%>
-									<input type="hidden" name="location" class = "location" value="<sec:authentication property='principal.location'/>">
+									<%-- 	<input type="hidden" name="location" class = "location" value="<sec:authentication property='principal.location'/>"> --%>
 								 	
 											</sec:authorize>
+											
+										<button type="button" onclick="test()" class="btn" style="font-size: 20px; background-color: #FFC81E;  color:black;" >인증 하기</button>
+												
 										<button type="submit" class="btn"  style="font-size: 20px; background-color: #FFC81E;  color:black;" >계속 하기</button>
+										
+										
 										
 									</div>
 								</div>
@@ -296,7 +302,7 @@
 function test(){
 	
 
-	var location = $('.location2').val();
+	var location = $('.location').val();
 	console.log(location);
 	alert(location + "이 입력되었습니다");
 	var member_id = $('.member_id').val();
@@ -324,7 +330,7 @@ function test(){
 	
 }
 
-recent_location
+
 
 </script>
 

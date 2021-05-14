@@ -29,10 +29,11 @@ public class MapServiceImpl implements MapService {
 	private MapMapper mapper;
 	
 	@Override
-	public List<ImageVO>getList(Criteria cri) {
+	public List<ImageVO>getList(Criteria cri , String presentLocation) {
 	log.info("getList...");
+	System.out.println("presentLocation : " + presentLocation);
 	cri.setAmount(5);
-		return mapper.getList(cri);
+		return mapper.getList(cri , presentLocation);
 	}
 
 	
@@ -354,9 +355,10 @@ public class MapServiceImpl implements MapService {
 
 //리스트 객체 수 구하기
 	@Override
-	public int getListTotal(BoardVO boardVO) {
+	public int getListTotal(BoardVO boardVO ,String presentLocation) {
 		log.info("getListTotal...");
-		return mapper.getListTotal(boardVO);
+		System.out.println("presentLocation  : " + presentLocation);
+		return mapper.getListTotal(boardVO , presentLocation);
 	}
 
 
