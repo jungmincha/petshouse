@@ -94,7 +94,7 @@ public class MapController {
 	
 	
 	
-		//home에서 위치정보 입력(수정중)
+		//map_home에서 위치정보 입력
 		@PostMapping("/insert_location")
 		public ResponseEntity<String>insert_location(MemberVO memberVO ,BoardVO boardVO) {
 					
@@ -128,13 +128,13 @@ public class MapController {
 				log.info("board");
 				
 				String member_id = authentication.getPrincipal().toString();//authentication로 현재 접속된 아이디 구함
-				String presentLocation = service.getPresetnLocation(member_id);
+				String presentLocation = service.getPresetnLocation(member_id);//접속된 member_id를 통해 현재 위치를 구한다
 				memberVO.setLocation(presentLocation);//home에서 입력된 현재 위치를 set 해준다.
 				//System.out.println("1. 현재 당신의 위치는?" + location);
 				System.out.println("2. 현재 당신의 위치는?" + presentLocation);
 				boardVO.setMemberVO(memberVO);
 	
-				service.insertLoc(memberVO);
+				//service.insertLoc(memberVO);
 				
 				mav.addObject("list", service.getList(cri , presentLocation));
 				int total = service.getTotal(cri);

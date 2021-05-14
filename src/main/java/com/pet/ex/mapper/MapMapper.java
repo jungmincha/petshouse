@@ -15,50 +15,46 @@ import com.pet.ex.vo.PlikeVO;
 
 @Mapper
 public interface MapMapper {
-
+	//위치기반 홈 리스트
 	public List<ImageVO> getList(Criteria cri , String presentLocation);
-
+	//게시판 전체 숫자
 	public int getTotal(Criteria cri);
-
+	//글작성
 	public void write(BoardVO boardVO);
-
+	//글내용
 	public BoardVO content_view(int board_id);
-
+	//글삭제(board_id)
 	public void inputDelete(int board_id);
-
+	//펫츠타운 현재 위치 memberVO에 입력
 	public void insertLoc(MemberVO memberVO);
-
+	//회원조회
 	public List<MemberVO> getMemberList(String getMember_id);
-
+	//검색
 	public List<BoardVO> getSerchList(Criteria cri);
-
+	//댓글리스트
 	public List<BoardVO> listComment(int board_id);
-
+	//댓글작성
 	public void insertComment(BoardVO boardVO);
 
 	public BoardVO getComment(int board_id);
-
+	//해시태그별로 게시판 뿌리기
 	public List<ImageVO> getHashtag(BoardVO boardVO );
 
-	public void fileUpload(String imgname);
-
+	//이미지 업로드
 	public void detailInput(ImageVO imageVO );
-
+	//글 수정
 	public void modify(BoardVO boardVO);
-
+	//댓글 삭제
 	public void deleteComment(BoardVO boardVO);
-
+	//조회수
 	public void hit(int board_id);
-
+	//좋아요 board 테이블에 추가
 	public void insertplike(BoardVO boardVO);
-
+	//좋아요 board 테이블에 삭제
 	public void deleteplike(BoardVO boardVO);
-
-	
-	
-
+	//다중이미지 (list)처리
 	public List<ImageVO> imageupload(ImageVO imageVO);
-	
+
 	//좋야요 수
 	public int getLiketotal(int board_id);
 	//좋아요 유무

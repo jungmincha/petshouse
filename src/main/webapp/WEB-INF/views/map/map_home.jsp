@@ -49,34 +49,40 @@
 
 
 <script src="http://code.jquery.com/jquery-1.11.0.js"></script>
-<script type="text/javascript"
-	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b62a0e8c19705dc2950e1a83c5590311&libraries=services"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b62a0e8c19705dc2950e1a83c5590311&libraries=services"></script>
+
 <script>
 	window.onload = function() {
 		
 		
 		$("#latitude").hide();//화면에 표시된 위도 경도 숨김처리
 		$("#longitude").hide();
+		
 		// Geolocation API에 액세스할 수 있는지를 확인
+		// Geolocation 현재 위치 좌표와 위도로 변환해주는 API이다
 		if (navigator.geolocation) {
 			//위치 정보를 얻기
 			navigator.geolocation
+			
 					.getCurrentPosition(function(pos) {
+						
 						$('#latitude').html(pos.coords.latitude); // 위도
 						$('#longitude').html(pos.coords.longitude); // 경도
 						$('#centerAddr').html(pos.coords.centerAddr); //주소
 
 						var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 						mapOption = {
-							center : new kakao.maps.LatLng($('#latitude')
-									.html(), $('#longitude').html()), // 지도의 중심좌표
+							center : new kakao.maps.LatLng($('#latitude').html(), $('#longitude').html()), // 지도의 중심좌표
 							level : 4
 						// 지도의 확대 레벨을 설정해준다. 
 						};
 
-						// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
+						// 지도를 표시할 div와  지도 옵션으로  지도를 생성한다
 						var map = new kakao.maps.Map(mapContainer, mapOption);
-						// 주소-좌표 변환 객체를 생성합니다
+						
+						
+						
+						// 주소-좌표 변환 객체를 생성
 						var geocoder = new kakao.maps.services.Geocoder();
 
 						var marker = new kakao.maps.Marker(), // 클릭한 위치를 표시할 마커입니다
@@ -85,8 +91,7 @@
 						}); // 클릭한 위치에 대한 주소를 표시할 인포윈도우입니다
 
 						// 마커가 표시될 위치입니다 
-						var markerPosition = new kakao.maps.LatLng($(
-								'#latitude').html(), $('#longitude').html());
+						var markerPosition = new kakao.maps.LatLng($('#latitude').html(), $('#longitude').html());
 
 						// 마커를 생성합니다
 						var marker = new kakao.maps.Marker({
@@ -124,16 +129,13 @@
 																	+ '</div>';
 
 															// 마커를 클릭한 위치에 표시합니다 
-															marker
-																	.setPosition(mouseEvent.latLng);
+															marker.setPosition(mouseEvent.latLng);
 															marker.setMap(map);
 
 															// 인포윈도우에 클릭한 위치에 대한 법정동 상세 주소정보를 표시합니다
-															infowindow
-																	.setContent(content);
-															infowindow
-																	.open(map,
-																			marker);
+															infowindow.setContent(content);
+															infowindow.open(map,marker);
+															
 														}
 													});
 										});
@@ -163,8 +165,9 @@
 						function displayCenterInfo(result, status) {
 							if (status === kakao.maps.services.Status.OK) {
 
-								var infoDiv = document
-										.getElementById('centerAddr');
+								var infoDiv = document.getElementById('centerAddr');
+								
+								
 
 								for (var i = 0; i < result.length; i++) {
 									// 행정동의 region_type 값은 'H' 이므로
@@ -266,7 +269,7 @@
 							</div>
 							
 							<input type="hidden" name="location" class = "location" value="">  
-							
+						
 							<form action="/map/board" method="get">
 									<div class="row">
 									<div class="col-lg-12">
@@ -280,9 +283,9 @@
 								 	
 											</sec:authorize>
 											
-										<button type="button" onclick="test()" class="btn" style="font-size: 20px; background-color: #FFC81E;  color:black;" >인증 하기</button>
+										<button type="button" onclick="auth_location()" class="btn" style="font-size: 20px; background-color: #FFC81E;  color:black;" >인증 하기</button>
 												
-										<button type="submit" class="btn"  style="font-size: 20px; background-color: #FFC81E;  color:black;" >계속 하기</button>
+										<button type="submit" class="btn" style="font-size: 20px; background-color: #FFC81E;  color:black; float:right;">계속 하기</button>
 										
 										
 										
@@ -299,7 +302,8 @@
 
 <script>
 
-function test(){
+
+function auth_location(){
 	
 
 	var location = $('.location').val();
@@ -309,6 +313,7 @@ function test(){
 	console.log(member_id);
 	url ="/map/insert_location"
 	
+	//현재 위치 ajax로 컨트롤러로 값 넘겨준다.
 	$.ajax({
 		type : 'post', //method
 		url : url, 
@@ -325,7 +330,7 @@ function test(){
       errer : function(e) {
          console.log(e);
       }
-   }); //end of ajax
+   }); 
 	
 	
 }
