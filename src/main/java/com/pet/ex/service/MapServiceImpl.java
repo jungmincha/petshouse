@@ -1,10 +1,14 @@
 package com.pet.ex.service;
 
+import java.io.File;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.stereotype.Service;
-
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.pet.ex.mapper.MapMapper;
 import com.pet.ex.page.Criteria;
@@ -135,9 +139,40 @@ public class MapServiceImpl implements MapService {
 
 
 	@Override
-	public void detailInput(ImageVO imageVO) {
-		mapper.detailInput(imageVO);
+	public void detailInput(ImageVO imageVO , MultipartHttpServletRequest multi) throws Exception {
 		
+		
+		// 사진 업로드
+				String path = multi.getSession().getServletContext().getRealPath("/static/img/location");
+
+				path = path.replace("webapp", "resources");
+
+				File dir = new File(path);
+				if (!dir.isDirectory()) {
+					dir.mkdir();
+				}
+
+				List<MultipartFile> mf = multi.getFiles("btnAtt");
+
+				for (int i = 0; i < mf.size(); i++) { // 파일명 중복 검사
+
+					UUID uuid = UUID.randomUUID(); // 파일명 랜덤으로 변경
+
+					String originalfileName = mf.get(i).getOriginalFilename();
+					String ext = FilenameUtils.getExtension(originalfileName); // 저장 될 파일명
+					String imgname = uuid + "." + ext;
+
+					String savePath = path + "\\" + imgname; // 저장 될 파일 경로
+
+					mf.get(i).transferTo(new File(savePath)); // 파일 저장
+					imageVO.setImgname(imgname);
+					
+					mapper.detailInput(imageVO);
+					
+
+				}
+		
+	
 	}
 
 

@@ -3,6 +3,8 @@ package com.pet.ex.service;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
 import com.pet.ex.page.Criteria;
 
 import com.pet.ex.vo.BoardVO;
@@ -42,7 +44,7 @@ public interface MapService {
 	//파일업로드
 	public void fileUpload(String imgname);
 	//이미지 업로드
-	public void detailInput(ImageVO imageVO);
+	public void detailInput(ImageVO imageVO , MultipartHttpServletRequest multi)throws Exception;
 	//글 수정
 	public void modify(BoardVO boardVO);
 	//댓글 삭제

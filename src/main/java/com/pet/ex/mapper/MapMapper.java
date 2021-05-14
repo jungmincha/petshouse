@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.pet.ex.page.Criteria;
 import com.pet.ex.page.PageVO;
@@ -41,7 +42,7 @@ public interface MapMapper {
 
 	public void fileUpload(String imgname);
 
-	public void detailInput(ImageVO imageVO);
+	public void detailInput(ImageVO imageVO );
 
 	public void modify(BoardVO boardVO);
 
@@ -96,6 +97,8 @@ public interface MapMapper {
 	public void delete_pgroup(int pgroup);
 	//카테고리별로 더보기
 	public List<ImageVO> getcateList(Criteria cri);
+
+	
 
 
 
