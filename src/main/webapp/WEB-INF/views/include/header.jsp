@@ -389,7 +389,8 @@
 			console.log(location_security);
 			console.log(member_id);
 			
-			location.href="/map/board/?&member_id=" + member_id;
+			//location.href="/map/board/?&member_id=" + member_id;
+			location.href="/map/board";
 			
 			
 		/* 	document.write('<form action="/map/board" id="post_test" method="post"><input type="hidden" id="location" name="location" value="'+ location_security +'"><input type="hidden" id="member_id" name="member_id" value="'+ member_id +'"></form>');

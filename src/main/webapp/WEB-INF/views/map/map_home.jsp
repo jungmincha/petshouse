@@ -270,13 +270,13 @@
 							
 							<input type="hidden" name="location" class = "location" value="">  
 						
-							<form action="/map/board" method="get">
+							<form action="/map/board" method="post">
 									<div class="row">
 									<div class="col-lg-12">
 									
 									 
 									<sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
-										<%-- <input type="hidden" name="location" value="<sec:authentication property="principal.location"/>"> --%>
+									<%-- <input type="hidden" name="location" value="<sec:authentication property="principal.location"/>"> --%>
 									<input type="hidden" name="member_id" class = "member_id" value="<sec:authentication property="principal.member_id"/>">
 								 	<%-- <input type="hidden" name="nickname" value="<sec:authentication property="principal.nickname"/>">  --%>
 									<%-- 	<input type="hidden" name="location" class = "location" value="<sec:authentication property='principal.location'/>"> --%>

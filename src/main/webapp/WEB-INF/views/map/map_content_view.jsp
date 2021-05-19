@@ -13,7 +13,7 @@
 <meta name="keywords" content="Fashi, unica, creative, html">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>펫츠타운<</title>
+<title>펫츠타운</title>
 
 <link
 	href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap"
@@ -487,15 +487,20 @@ background-color:#dddddd;
 			//하나의 id는 한 문서에서 한 번만 사용이 가능(가장 마지막 혹은 처음게 선택). 하나의 class는 
 
 			event.preventDefault();
+			
+			if (confirm("정말 삭제하시겠습니까?") == true) { //확인
+				
 
 			$.ajax({
 				type : 'DELETE', //method
 				url : $(this).attr("href"), //주소를 받아오는 것이 두 번째 포인트.
 				cache : false,
 				success : function(result) {
+					
 					console.log("result: " + result);
-					if (result == "SUCCESS") {
-						alert("삭제되었습니다.");
+						
+					if (result == "SUCCESS") {						
+					
 						getListComment(2);
 					}
 				},
@@ -503,6 +508,10 @@ background-color:#dddddd;
 					console.log(e)
 				}
 			}); //end of ajax
+			
+			} else { //취소
+				return;
+			}
 		}); // 삭제 종료	
 		</script>
 		
