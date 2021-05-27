@@ -52,8 +52,13 @@
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b62a0e8c19705dc2950e1a83c5590311&libraries=services"></script>
 
 <script>
+
+
+
+
 	window.onload = function() {
-		
+	
+
 		
 		$("#latitude").hide();//화면에 표시된 위도 경도 숨김처리
 		$("#longitude").hide();
@@ -81,9 +86,9 @@
 						var map = new kakao.maps.Map(mapContainer, mapOption);
 						
 						
-						
 						// 주소-좌표 변환 객체를 생성
 						var geocoder = new kakao.maps.services.Geocoder();
+						
 
 						var marker = new kakao.maps.Marker(), // 클릭한 위치를 표시할 마커입니다
 						infowindow = new kakao.maps.InfoWindow({
@@ -187,6 +192,63 @@
 							}
 						}
 						
+					
+						// 장소 검색 객체를 생성합니다
+						var ps = new kakao.maps.services.Places(); 
+						
+						//view에서 searchLocation 버튼을 클릭하면 이벤트 발생
+						$('#searchLocation').click(function(){
+							
+							var searchLoc = $('#searchLoc').val();//입력된 input 값을 받아온다.
+							
+							console.log("당신이 검색한 지역 : " + searchLoc);
+							
+						
+						
+						ps.keywordSearch(searchLoc , placesSearchCB); //검색한 지역과 키워드 검색 완료시 호출되는 콜백 함수로 장소 검색 개체를 생성 
+						
+						});
+						
+						
+						// 키워드 검색 완료 시 호출되는 콜백함수 입니다
+						function placesSearchCB (data, status, pagination) {
+						    if (status === kakao.maps.services.Status.OK) {
+
+						        // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
+						        // LatLngBounds 객체에 좌표를 추가합니다
+						        var bounds = new kakao.maps.LatLngBounds();
+
+						        for (var i=0; i<data.length; i++) {
+						            displayMarker(data[i]);    
+						            bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
+						        }       
+
+						        // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
+						        map.setBounds(bounds);
+						    } 
+						}
+						
+						
+				
+
+						
+						// 지도에 마커를 표시하는 함수입니다
+						function displayMarker(place) {
+						    
+						    // 마커를 생성하고 지도에 표시합니다
+						    var marker = new kakao.maps.Marker({
+						        map: map,
+						        position: new kakao.maps.LatLng(place.y, place.x) 
+						    });
+
+						    // 마커에 클릭이벤트를 등록합니다
+						    kakao.maps.event.addListener(marker, 'click', function() {
+						        // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
+						        infowindow.setContent('<div style="padding:5px;font-size:12px;">' + place.place_name + '</div>');
+						        infowindow.open(map, marker);
+						    });
+						}
+						
 							
 
 					});
@@ -195,8 +257,6 @@
 		}
 
 	};
-	
-	
 	
 	
 	
@@ -218,7 +278,7 @@
 	<!-- Map Section Begin -->
 
 	<!-- Contact Section Begin -->
-	<section class="contact-section spad">
+	<section class="contact-section spad" style="padding-bottom:150px;">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12">
@@ -233,8 +293,7 @@
 							<!-- 위도 경도 -->
 							<span id="latitude"></span>
 							<span id="longitude"></span>
-
-						
+							
 					</div>
 				</div>
 					
@@ -242,8 +301,20 @@
 			
 					<div class="row" style="padding-top:500px;">
 					<div class="col-lg-12">
+					<!--지도 검색 form-->
+						<%-- 	<form id="searchLocation" action="/map/searchLocation" method="post"> --%>
+							<div class="row">
+							<div class="col-lg-12">
+							
+							<input type="text"  name="searchLoc" id="searchLoc" value=""/>
+							<button type="button" class="btn"  id="searchLocation"  style="font-size: 20px; background-color: #FFC81E;  color:black;">검색하기</button>
+							</div>
+							</div>
+						<%-- 	</form> --%>
+					<hr>
 					<div class="contact-form">
 						<div class="leave-comment">
+						
 							<h4>펫츠타운 위치기반 이용 약관</h4>
 							<p>제 1 조 (목적) 이 약관은 캣버그 주식회사 (이하 “회사”)가 제공하는 위치정보사업 또는
 								위치기반서비스사업과 관련하여 회사와 개인위치정보주체와의 권리, 의무 및 책임사항, 기타 필요한 사항을 규정함을
@@ -263,6 +334,7 @@
 							이 맞으면 '인증 하기' 를 눌러 위치를 입력해주세요.
 							</p>
 							<p>그리고 '계속 하기' 를 눌러서 펫츠타운에 접속해주세요.</p>
+							<hr>
 							</div>
 							</div>
 							</div>
@@ -292,6 +364,8 @@
 									</div>
 								</div>
 							</form>
+						
+							
 				
 		</div>
 	
@@ -311,7 +385,7 @@ function auth_location(){
 	alert(location + "이 입력되었습니다");
 	var member_id = $('.member_id').val();
 	console.log(member_id);
-	url ="/map/insert_location"
+	url ="/map/insert_location";
 	
 	//현재 위치 ajax로 컨트롤러로 값 넘겨준다.
 	$.ajax({
@@ -335,6 +409,48 @@ function auth_location(){
 	
 }
 
+
+</script>
+
+
+<script>
+//검색한 주소 컨트롤러로 보내는 스크립트
+ /* $("#searchLocation").submit(function(event){
+	
+	event.preventDefault(); 
+	
+
+	
+	var searchLoc = $("#searchLoc").val();
+	
+	console.log(searchLoc);
+	
+	url="/map/searchLocation";
+	
+	$.ajax({
+		type : 'post', //method
+		url : url,
+		cache : false,
+		data : {
+			searchLoc : searchLoc
+		},
+
+		success : function(result) {
+			console.log("result: " + result.searchLoc);
+			
+			
+			
+			
+		
+      },
+      errer : function(e) {
+         console.log(e);
+      }
+   }); 
+	
+	
+)};	
+ */
 
 
 </script>

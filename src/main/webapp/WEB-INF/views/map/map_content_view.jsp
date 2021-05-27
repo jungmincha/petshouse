@@ -86,7 +86,7 @@ background-color:#dddddd;
 		function button_event() {
 			
 			
-			if (confirm("정말 삭제하시겠습니까?") == true) { //확인
+			if (confirm("삭제하시겠습니까?") == true) { //확인
 				location.href = '/map/delete?board_id=${content_view.board_id}&location=${location}&nickname=${nickname}&member_id=${member_id}'
 			} else { //취소
 				return;
@@ -488,7 +488,7 @@ background-color:#dddddd;
 
 			event.preventDefault();
 			
-			if (confirm("정말 삭제하시겠습니까?") == true) { //확인
+			if (confirm("삭제하시겠습니까?") == true) { //확인
 				
 
 			$.ajax({

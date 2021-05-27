@@ -118,6 +118,28 @@ public class MapController {
 					  return entity;
 					  
 					  }
+		
+		
+		//map_home에서 위치 검색
+				@PostMapping("/searchLocation")
+				public Map<String, Object> searchLocation(@RequestParam("searchLoc") String searchLoc , Model model) {
+							
+						  log.info("searchLocation");
+						  
+						  System.out.println(searchLoc);
+						  
+						  Map<String, Object> hashMap = new HashMap<>();
+						  
+						  hashMap.put("searchLoc", searchLoc);
+						  
+						  
+						  model.addAttribute("jsonList", JSONArray.fromObject(hashMap));
+						  
+						  
+							
+						  return hashMap;
+							  
+							  }
 	 
 
 		// 펫츠타운 메인페이지
