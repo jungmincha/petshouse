@@ -4,6 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,8 +13,8 @@
 <meta name="keywords" content="Fashi, unica, creative, html">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
 <title>주문배송내역</title>
+
 <!-- Google Font -->
 <link
 	href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap"
@@ -35,11 +36,11 @@
 <link rel="stylesheet" href="/resources/css/slicknav.min.css"
 	type="text/css">
 <link rel="stylesheet" href="/resources/css/style.css" type="text/css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<link rel="stylesheet"
-	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<!-- jquery cdn -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 <style>
 .pimg {
 	width: 80px;
@@ -53,28 +54,27 @@
 }
 
 .modal {
-	display: none; /* Hidden by default */
-	position: fixed; /* Stay in place */
-	z-index: 1; /* Sit on top */
+	display: none; 
+	position: fixed; 
+	z-index: 1; 
 	left: 0;
 	top: 0;
-	width: 100%; /* Full width */
-	height: 100%; /* Full height */
-	overflow: auto; /* Enable scroll if needed */
-	background-color: rgb(0, 0, 0); /* Fallback color */
-	background-color: rgba(0, 0, 0, 0.8); /* Black w/ opacity */
+	width: 100%; 
+	height: 100%; 
+	overflow: auto;
+	background-color: rgb(0, 0, 0); 
+	background-color: rgba(0, 0, 0, 0.8); 
 }
 
-/* Modal Content/Box */
 .modal-content {
 	overflow: auto;
 	background-color: #fefefe;
-	margin: 2% auto; /* 15% from the top and centered */
+	margin: 2% auto; 
 	padding: 20px;
 	border: 1px solid #888;
-	width: 50%; /* Could be more or less, depending on screen size */
+	width: 50%; 
 }
-/* The Close Button */
+
 .close {
 	color: #aaa;
 	float: right;
@@ -179,7 +179,6 @@
 	background-color: #ffd233;
 }
 
-/* 스크롤바 */
 .modal-content {
 	width: 250px;
 	height: 140px;
@@ -203,7 +202,6 @@
 	box-shadow: inset 0px 0px 5px white;
 }
 
-/* 리뷰창 스크롤바 */
 #review {
 	width: 250px;
 	height: 140px;
@@ -267,9 +265,9 @@ a>span {
 }
 
 .pBtn {
-	 
 	border: 2px groove #FFC81E;
-	 background-color: #FFC81E;  color:black; 
+	background-color: #FFC81E;
+	color: black;
 	border-radius: 5%;
 }
 
@@ -282,84 +280,75 @@ a>span {
 	background-color: #e7ab3c;
 }
 </style>
-<jsp:include page="/WEB-INF/views/include/header.jsp" />
 </head>
+
+<%@ include file="/WEB-INF/views/include/header.jsp"%>
 <body style="padding-top: 180px;">
 
-	<!-- 본문 -->
-	<div class="container" id="orderList" style="min-height:1000px">
-		<input type="hidden" id="memberName"
-			value="<sec:authentication property="principal.name"/>">
+	<div class="container" id="orderList" style="min-height: 1000px">
+		<input type="hidden" id="memberName" value="<sec:authentication property="principal.name"/>">
+	
 		<div class="section-title">
 			<h2 style="margin-bottom: 20px; font-size: 30px;">주문 배송 내역</h2>
 		</div>
+		
 		<div class="row">
 			<div class="col-lg-1"></div>
-			<a class="paystate pay" onclick="allOrder(1,10,this)"
-				style="font-size: 22px; padding-bottom: 10px;">전체 <span
-				style="font-size: 22px">${payCounts[0]}</span></a>
+			<a class="paystate pay" onclick="allOrder(1,10,this)" style="font-size: 22px; padding-bottom: 10px;">
+				전체 <span style="font-size: 22px">${payCounts[0]}</span> </a>
+				
 			<div class="col-lg-12">
-				<div id="orderHead" class="jumbotron"
-					style="padding-top: 40px; padding-bottom: 50px;">
+				<div id="orderHead" class="jumbotron" style="padding-top: 40px; padding-bottom: 50px;">
 					<div class="row ">
-						<div class="col-lg-2 text-center pay"
-							onclick="allOrder(1,10,this,1)">
-							<a class="paystate" style="font-size: 23px">결제완료<br> <br>
-								<span style="font-size: 26px;">${payCounts[1]}</span></a> <span
-								class="float-right next">></span>
+						<div class="col-lg-2 text-center pay" onclick="allOrder(1,10,this,1)">
+							<a class="paystate" style="font-size: 23px">결제완료<br><br>
+								<span style="font-size: 26px;">${payCounts[1]}</span></a> 
+								<span class="float-right next">></span>
 						</div>
-						<div class="col-lg-2 text-center pay"
-							onclick="allOrder(1,10,this,2)">
-							<a class="paystate" style="font-size: 23px">배송준비<br> <br>
-								<span style="font-size: 26px">${payCounts[2]}</span></a> <span
-								class="float-right next">></span>
+						
+						<div class="col-lg-2 text-center pay" onclick="allOrder(1,10,this,2)">
+							<a class="paystate" style="font-size: 23px">배송준비<br><br>
+								<span style="font-size: 26px">${payCounts[2]}</span></a>
+								<span class="float-right next">></span>
 						</div>
-						<div class="col-lg-2 text-center pay"
-							onclick="allOrder(1,10,this,3)">
-							<a class="paystate" style="font-size: 23px">배송중<br> <br>
-								<span style="font-size: 26px">${payCounts[3]}</span></a> <span
-								class="float-right next">></span>
+						
+						<div class="col-lg-2 text-center pay" onclick="allOrder(1,10,this,3)">
+							<a class="paystate" style="font-size: 23px">배송중<br><br>
+								<span style="font-size: 26px">${payCounts[3]}</span></a> 
+								<span class="float-right next">></span>
 						</div>
-						<div class="col-lg-2 text-center pay"
-							onclick="allOrder(1,10,this,4)">
-							<a class="paystate" style="font-size: 23px">배송완료<br> <br>
-								<span style="font-size: 26px">${payCounts[4]}</span></a> <span
-								class="float-right next">></span>
+						
+						<div class="col-lg-2 text-center pay" onclick="allOrder(1,10,this,4)">
+							<a class="paystate" style="font-size: 23px">배송완료<br><br>
+								<span style="font-size: 26px">${payCounts[4]}</span></a> 
+								<span class="float-right next">></span>
 						</div>
-						<div class="col-lg-2 text-center pay"
-							onclick="allOrder(1,10,this,5)">
-							<a class="paystate" style="font-size: 23px">구매확정<br> <br>
-								<span style="font-size: 26px">${payCounts[5]}</span></a> <span
-								class="float-right next">></span>
+						
+						<div class="col-lg-2 text-center pay" onclick="allOrder(1,10,this,5)">
+							<a class="paystate" style="font-size: 23px">구매확정<br><br>
+								<span style="font-size: 26px">${payCounts[5]}</span></a> 
+								<span class="float-right next">></span>
 						</div>
-						<div class="col-lg-2 text-center pay"
-							onclick="allOrder(1,10,this,6)">
-							<a class="paystate" style="font-size: 23px">교환/환불/취소<br>
-								<br> <span style="font-size: 26px">${payCounts[6] + payCounts[7] + payCounts[8]}</span></a>
-
+						
+						<div class="col-lg-2 text-center pay" onclick="allOrder(1,10,this,6)">
+							<a class="paystate" style="font-size: 23px">교환/환불/취소<br><br>
+								<span style="font-size: 26px">${payCounts[6] + payCounts[7] + payCounts[8]}</span></a>
 						</div>
 					</div>
-
 				</div>
 			</div>
 
 			<div class="col-lg-1"></div>
 		</div>
-
 	</div>
-	<!-- 본문 끝 -->
 
 	<!-- 배송조회 -->
-	<input type="hidden" class="form-control" id="t_key" name="t_key"
-		value="b6qZIhyVpYgicymScLeVNQ">
-	<input type="hidden" class="form-control" name="t_code" id="t_code"
-		placeholder="택배사 코드">
-	<input type="hidden" class="form-control" name="t_invoice"
-		id="t_invoice" placeholder="운송장 번호">
-	<!-- 배송조회 end -->
-
+	<input type="hidden" class="form-control" id="t_key" name="t_key" value="fuQjFpqK8mSDsErkBVCaiA">
+	<input type="hidden" class="form-control" name="t_code" id="t_code" placeholder="택배사 코드">
+	<input type="hidden" class="form-control" name="t_invoice" id="t_invoice" placeholder="운송장 번호">
 </body>
-<!-- 모달 시작 -->
+
+<!-- 리뷰 창 -->
 <div id="myModal" class="modal">
 
 	<!-- Modal content -->
@@ -368,21 +357,19 @@ a>span {
 			<div class="col-4">
 				<div class="close" style="font-size: 30px; float: left">&times;</div>
 			</div>
+			
 			<div class="col-4">
 				<div style="text-align: center; font-weight: bold;">
 					<h4>리뷰 쓰기</h4>
 				</div>
 			</div>
+			
 			<div class="col-4"></div>
-
 		</div>
 
 
 		<div class="container">
-
-			<form class=" needs-validation"
-				action="/myPage/orderList/review/insert" method="Post" name="review"
-				enctype="multipart/form-data">
+			<form class=" needs-validation" action="/myPage/orderList/review/insert" method="Post" name="review" enctype="multipart/form-data">
 				<input type="hidden" name="paygoods_id" id="paygoods_id"> <input
 					type="hidden" name="goodsVO.goods_id" id="goods_id" value="">
 				<input type="hidden" name="paystate_id" id="paystate_id" value="">

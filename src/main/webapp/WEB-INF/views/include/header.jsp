@@ -167,7 +167,8 @@
 				<div class="row" style="height: 70px">
 					<div class="col-lg-3 " style="padding-left: 50px">
 						<div class="logo">
-							<a href="/store/home"> <img src="/resources/img/logo.png" alt="">
+							<a href="/store/home"> <img src="/resources/img/logo.png"
+								alt="">
 							</a>
 						</div>
 					</div>
@@ -269,33 +270,32 @@
 								<li><a href="/store/event">이벤트</a></li>
 							</ul></li>
 
-					   <sec:authorize access="hasAnyRole('ROLE_USER')">
-                     <li><a
-                        href="/myPage/<sec:authentication property="principal.nickname"/>">마이페이지</a>
-                        <ul class="dropdown">
-                           <li><a href="/myPage/orderList">주문배송내역</a></li>
-                           <li><a href="/myPage/pointList">포인트</a></li>
-                           <li><a href="/myPage/updateMember">회원정보수정</a></li>
-                        </ul></li>
-                  </sec:authorize>
+						<sec:authorize access="hasAnyRole('ROLE_USER')">
+							<li><a
+								href="/myPage/<sec:authentication property="principal.nickname"/>">마이페이지</a>
+								<ul class="dropdown">
+									<li><a href="/myPage/orderList">주문배송내역</a></li>
+									<li><a href="/myPage/pointList">포인트</a></li>
+									<li><a href="/myPage/updateMember">회원정보수정</a></li>
+								</ul></li>
+						</sec:authorize>
 
-                  <sec:authorize access="hasAnyRole('ROLE_ADMIN')">
-                     <li><a href="/admin/goods">관리자홈</a>
-                       <!-- <!--  <ul class="dropdown">
+						<sec:authorize access="hasAnyRole('ROLE_ADMIN')">
+							<li><a href="/admin/goods">관리자홈</a> <!-- <!--  <ul class="dropdown">
 
                            <li><a href="/admin/goods">상품관리</a></li>
                            <li><a href="/admin/member_list">회원관리</a></li>
                            <li><a href="/room">문의채팅방</a></li>
                            <li><a href="/statistics/main/home">통계</a></li>
-                        </ul> --> </li>
-                  </sec:authorize>
+                        </ul> --></li>
+						</sec:authorize>
 
 					</ul>
 				</nav>
 
 			</div>
 		</div>
-		<div id="mobile-header">
+		<!-- <div id="mobile-header">
 			<nav class="w3-sidebar w3-bar-block w3-card" id="mySidebar">
 				<div class="w3-container w3-theme-d2">
 					<span onclick="closeSidebar()"
@@ -325,7 +325,7 @@
 				</div>
 
 			</div>
-		</div>
+		</div> -->
 		<!-- 상단 버튼 -->
 
 	</header>
@@ -387,17 +387,13 @@
 		} else {
 			console.log(location_security);
 			console.log(member_id);
-			
-			location.href="/map/board/?location="+location_security+"&member_id=" + member_id;
-			
-			
-		/* 	document.write('<form action="/map/board" id="post_test" method="post"><input type="hidden" id="location" name="location" value="'+ location_security +'"><input type="hidden" id="member_id" name="member_id" value="'+ member_id +'"></form>');
-			document.getElementById("post_test").submit();
- */
-			
 
-		
-			
+			location.href = "/map/board/?location=" + location_security
+					+ "&member_id=" + member_id;
+
+			/* 	document.write('<form action="/map/board" id="post_test" method="post"><input type="hidden" id="location" name="location" value="'+ location_security +'"><input type="hidden" id="member_id" name="member_id" value="'+ member_id +'"></form>');
+				document.getElementById("post_test").submit();
+			 */
 
 		}
 

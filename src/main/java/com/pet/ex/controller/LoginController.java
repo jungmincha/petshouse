@@ -101,11 +101,11 @@ public class LoginController {
 	}
 
 	// 회원가입 작성 후 INSERT
-	@Transactional
 	@PostMapping("/register/insert")
 	public ModelAndView setInsertMember(MultipartHttpServletRequest multi, MemberVO member, ModelAndView mav,
 			String socialCheck) throws Exception {
 		log.info("/login/register/insert");
+		
 		if (multi.getFile("file").getOriginalFilename().equals("")) {
 			member.setThumbnail("profile.jpg");
 		} else {

@@ -1,8 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
-	
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,6 +38,7 @@
 <link rel="stylesheet" href="/resources/css/slicknav.min.css"
 	type="text/css">
 <link rel="stylesheet" href="/resources/css/style.css" type="text/css">
+<!-- jquery cdn -->
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link rel="stylesheet"
@@ -60,14 +63,16 @@ a:visited {
 }
 </style>
 </head>
-<jsp:include page="/WEB-INF/views/include/header.jsp" />
+<%@ include file="/WEB-INF/views/include/header.jsp"%>
 <body style="padding-top: 100px">
 
 	<!-- 쇼핑카트 섹션 -->
 	<section class="shopping-cart spad">
+
 		<div class="section-title">
 			<h2 style="margin-bottom: 20px; font-size: 30px;">장바구니</h2>
 		</div>
+
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12">
@@ -99,7 +104,6 @@ a:visited {
 									<input type='hidden' name='pcolor' />
 									<input type='hidden' name='thumbnail' />
 								</tbody>
-
 							</table>
 						</form>
 					</div>
@@ -110,7 +114,6 @@ a:visited {
 						<div class="col-lg-12 offset-lg-12">
 							<div class="proceed-checkout text-right">
 								<ul>
-
 									<li class="cart-total" style="font-size: 20px">총 주문금액
 										:&nbsp; <span class="total">0원</span>
 									</li>
@@ -130,30 +133,22 @@ a:visited {
 
 <%@ include file="/WEB-INF/views/include/footer.jsp"%>
 <script>
-	$(document)
-			.ready(
-					//장바구니 목록 불러오기
-					function() {
-
-						//배열 선언
-
+//장바구니 목록 불러오기
+	$(document).ready(function() {
+		
 						var cartList = sessionStorage.getItem("cartList");
 						console.log(cartList);
 						//ajax 호출
-						$
-								.ajax({
-								
+						$.ajax({
 									url : "/myPage/cartList",
 									type : "post",
 									dataType : 'json',
 									contentType : 'application/json; charset=UTF-8',
 									data : cartList,
 									success : function(data) {
-										var cartList = JSON
-												.parse(sessionStorage
-														.getItem("cartList"));
-
+										var cartList = JSON.parse(sessionStorage.getItem("cartList"));
 										var html = "";
+										
 										for (var i = 1; i <= data.length; i++) {
 											var amount;
 											var psize;
@@ -201,22 +196,20 @@ a:visited {
 													+ "(1)'>+</span> </div> </div>"
 													+ "</td> <td class='total-price first-row text-center' style='color:#000000'> "
 											if (pcolor != "" && psize != "") {
-												console.log(pcolor);
 												html += pcolor + " / " + psize
-											} else if (pcolor == ""
-													&& psize != "") {
+												
+											} else if (pcolor == "" && psize != "") {
 												html += psize
 
-											} else if (pcolor != ""
-													&& psize == "") {
+											} else if (pcolor != "" && psize == "") {
 												html += pcolor
 
 											}
 
 											html += "</td><td class='total-price first-row text-center' style='color:#000000'>"
 													+ "<input style='border:none; text-align:right;' type='text' id='sum"
-														+ i
-														+ "' value='' readonly size='7px' name='sum' >원</td>"
+													+ i
+													+ "' value='' readonly size='7px' name='sum' >원</td>"
 													+ "<td class='close-td first-row'><i class='ti-close' onclick='cartDelete("
 													+ i
 													+ ")' > <input type='hidden' name='name' value='"+data[i - 1].goodsVO.goodsname+"' ><input type='hidden' name='psize' value='"+psize+"' ><input type='hidden' name='pcolor' value='"+pcolor+"' > <input type='hidden' name='thumbnail' value='"+data[i-1].goodsVO.thumbnail+"' ></td>"
@@ -244,6 +237,7 @@ a:visited {
 													+ i
 													+ "').value = priceFormat(num3t); break; } }); "
 													+ "</script"+">"
+													
 											// 상품 별 합 계산()		
 											html += "<script DEFER> function total"
 													+ i
@@ -272,20 +266,17 @@ a:visited {
 
 										// tbody에 기록
 										$("#goods").append(html);
-										var cartList = sessionStorage
-												.getItem("cartList");
+										var cartList = sessionStorage.getItem("cartList");
+											
 										if (cartList.length == 2) {
 											alert("카트가 비었습니다.")
 										}
-									}, //ajax 성공 시 end
+									},
 
 									error : function(request, status, error) {
-										//alert("code:" + request.status
-										//+ "\n" + "message:"
-										//+ request.responseText
-										//+ "\n" + "error:" + error);
-										alert("카트가 비었습니다.")
-									} // ajax 에러 시 end
+										alert("카트가 비었습니다.");
+										
+									} 
 
 								});// 장바구니 목록 함수 end
 					});
@@ -299,6 +290,7 @@ a:visited {
 
 		if (!checked)
 			$('input:checkbox').prop('checked', false);
+		
 		summary();
 
 	});
@@ -307,9 +299,11 @@ a:visited {
 	function cartDelete(i) {
 		var tr = '#tr' + i;
 		var trObj = $(tr).remove();
+		
 		cartList = JSON.parse(sessionStorage.getItem('cartList'));
 		cartList.splice(i - 1, 1);
 		sessionStorage.setItem('cartList', JSON.stringify(cartList));
+		
 		summary();
 	}
 
@@ -317,20 +311,23 @@ a:visited {
 	function summary() {
 		var sum = 0;
 		var count = this.form.board_id.length;
+		
 		for (var i = 1; i < count; i++) {
 			if (this.form.board_id[i].checked == true) {
 				sum += parseInt(stringNumberToInt(this.form.sum[i].value));
 				console.log(sum)
 			}
 		}
+		
 		$('.total').html(priceFormat(sum) + '원');
 	}
 
 	// 전체 카트 삭제
 	function allCartDelete() {
-		$('#goods').remove();
 		var cartList = new Array();
+		
 		sessionStorage.setItem('cartList', JSON.stringify(cartList));
+		$('#goods').remove();
 		$('.total').html(0 + '원');
 	}
 
@@ -338,8 +335,8 @@ a:visited {
 	function payPage() {
 		event.preventDefault();
 		var payGoods = new Array();
-
 		var count = this.form.board_id.length;
+		
 		for (var i = 1; i < count; i++) {
 			if (this.form.board_id[i].checked == true) {
 				var goods = new Object();
@@ -353,27 +350,29 @@ a:visited {
 				payGoods.push(goods);
 			}
 		}
+		
 		if (payGoods.length == 0) {
-			alert("결제할 상품을 선택해주세요.")
+			alert("결제할 상품을 선택해주세요.");
 		} else {
-
 			sessionStorage.setItem("payGoods", JSON.stringify(payGoods));
 			window.location.assign("/myPage/payPage");
 		}
 
 	}
+	
 	// 숫자 콤마찍기
 	function priceFormat(n) {
 		var n = n.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
 		return n;
 	}
+	
 	// 콤마 풀기
 	function stringNumberToInt(stringNumber) {
 		return parseInt(stringNumber.replace(/,/g, ''));
 	}
 </script>
-<!-- Js Plugins -->
 
+<!-- Js Plugins -->
 <script src="/resources/js/bootstrap.min.js"></script>
 <script src="/resources/js/jquery.countdown.min.js"></script>
 <script src="/resources/js/jquery.nice-select.min.js"></script>

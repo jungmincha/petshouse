@@ -3,6 +3,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -171,7 +172,7 @@
 </head>
 <body style="padding-top: 200px;">
 	<!-- header -->
-	<%@ include file="/WEB-INF/views/include/header.jsp"%>
+	
 
 	<div class="container" style="min-height: 900px;">
     	<div class="row">
