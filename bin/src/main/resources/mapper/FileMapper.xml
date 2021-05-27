@@ -65,20 +65,11 @@
 	</resultMap>
 
 	<resultMap type="ImageVO" id="imagevo">
-		<result column="image_id" property="image_id" />
-		<result column="imagename" property="imagename" />
-		<result column="imagepath" property="imagepath" />
+		<result column="imgname" property="imgname" />
 		<collection property="boardVO" resultMap="boardvo" />
+		<collection property="goodsVO" resultMap="goodsvo" />
 	</resultMap>
-
-	<resultMap type="ImgtestVO" id="imgtestvo">
-		<result column="imgtest_id" property="imgtest_id" />
-		<result column="oimgname" property="oimgname" />
-		<result column="simgname" property="simgname" />
-		<result column="filesize" property="filesize" />
-		<result column="savepath" property="savepath" />
-		<collection property="boardVO" resultMap="boardvo" />
-	</resultMap>
+ 
 
 	<resultMap type="LogintypeVO" id="logintypevo">
 		<result column="logintype_id" property="logintype_id" />
@@ -156,15 +147,15 @@
 	<!-- 이미지 업로드 -->
 	<insert id="uploadFile">
 	 <![CDATA[
-    INSERT INTO
-       IMGTEST2 VALUES (#{imgname}, 16)
+	    INSERT INTO
+	       IMAGE(imgname, board_id, goods_id) VALUES (#{imgname}, 357, 119)
 	 ]]>
 	</insert>
 
 	<!-- 이미지 조회 -->
-	<select id="getImgtest" resultMap="imgtestvo">
+	<select id="getImgtest" resultMap="imagevo">
 	   <![CDATA[
-	      select * from imgtest2
+	      select * from image where board_id=9
 	   ]]>
 	</select>
 </mapper>

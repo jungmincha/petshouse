@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pet.ex.mapper.MyPageMapper">
+	<resultMap type="BoardtypeVO" id="boardtypevo">
+		<result column="boardtype_id" property="boardtype_id" />
+		<result column="boardtypename" property="boardtypename" />
+	</resultMap>
+
+	<resultMap type="BoardVO" id="boardvo">
+		<result column="board_id" property="board_id" />
+		<result column="title" property="title" />
+		<result column="content" property="content" />
+		<result column="pdate" property="pdate" />
+		<result column="plike" property="plike" />
+		<result column="hit" property="hit" />
+		<result column="hashtag" property="hashtag" />
+		<result column="pgroup" property="pgroup" />
+		<result column="pstep" property="pstep" />
+		<result column="ratescore" property="ratescore" />
+		<result column="avgscore" property="avgscore" />
+		<result column="count" property="count" />
+		<result column="rnum" property="rnum" />
+		<collection property="memberVO" resultMap="membervo" />
+		<collection property="boardtypeVO" resultMap="boardtypevo" />
+		<collection property="goodsVO" resultMap="goodsvo" />
+		<collection property="categoryVO" resultMap="categoryvo" />
+	</resultMap>
+
+	<resultMap type="CategoryVO" id="categoryvo">
+		<result column="category_id" property="category_id" />
+		<result column="categoryname" property="categoryname" />
+		<result column="code" property="code" />
+		<result column="sortname" property="sortname" />
+	</resultMap>
+
+	<resultMap type="FollowVO" id="followvo">
+		<result column="follow_id" property="follow_id" />
+		<result column="follower_id" property="follower_id" />
+		<collection property="memberVO" resultMap="membervo" />
+	</resultMap>
+
+	<resultMap type="GoodsVO" id="goodsvo">
+		<result column="goods_id" property="goods_id" />
+		<result column="goodsname" property="goodsname" />
+		<result column="price" property="price" />
+		<result column="description" property="description" />
+		<result column="psize" property="psize" />
+		<result column="pcolor" property="pcolor" />
+		<result column="thumbnail" property="thumbnail" />
+		<result column="image3d" property="image3d" />
+		<result column="count" property="count" />
+		<collection property="stockVO" resultMap="stockvo" />
+		<collection property="categoryVO" resultMap="categoryvo" />
+	</resultMap>
+
+	<resultMap type="ImageVO" id="imagevo">
+		<result column="imgname" property="imgname" />
+		<collection property="boardVO" resultMap="boardvo" />
+		<collection property="goodsVO" resultMap="goodsvo" />
+	</resultMap>
+
+	<resultMap type="LogintypeVO" id="logintypevo">
+		<result column="logintype_id" property="logintype_id" />
+		<result column="logintypename" property="logintypename" />
+	</resultMap>
+
+	<resultMap type="MemberVO" id="membervo">
+		<result column="member_id" property="member_id" />
+		<result column="password" property="password" />
+		<result column="name" property="name" />
+		<result column="nickname" property="nickname" />
+		<result column="tel" property="tel" />
+		<result column="address" property="address" />
+		<result column="trycount" property="trycount" />
+		<result column="enable" property="enable" />
+		<result column="certify" property="certify" />
+		<collection property="roleVO" resultMap="rolevo" />
+		<collection property="logintypeVO" resultMap="logintypevo" />
+		<collection property="categoryVO" resultMap="categoryvo" />
+	</resultMap>
+
+	<resultMap type="PaystateVO" id="paystatevo">
+		<result column="paystate_id" property="paystate_id" />
+		<result column="paystatename" property="paystatename" />
+	</resultMap>
+
+	<resultMap type="PayVO" id="payvo">
+		<result column="pay_id" property="pay_id" />
+		<result column="payprice" property="payprice" />
+		<result column="usepoint" property="usepoint" />
+		<result column="earningpoint" property="earningpoint" />
+		<result column="paydate" property="paydate" />
+		<result column="deliveryaddress" property="deliveryaddress" />
+		<result column="deliveryname" property="deliveryname" />
+		<result column="deliverytel" property="deliverytel" />
+		<result column="receipt_id" property="receipt_id" />
+		<result column="goodsprice" property="goodsprice" />
+		<result column="t_code" property="t_code" />
+		<result column="t_invoice" property="t_invoice" />
+		<collection property="paystateVO" resultMap="paystatevo" />
+		<collection property="memberVO" resultMap="membervo" />
+	</resultMap>
+
+	<resultMap type="PointtypeVO" id="pointtypevo">
+		<result column="pointtype_id" property="pointtype_id" />
+		<result column="pointtypename" property="pointtypename" />
+	</resultMap>
+
+	<resultMap type="PointVO" id="pointvo">
+		<result column="point_id" property="point_id" />
+		<result column="pscore" property="pscore" />
+		<result column="pdate" property="pdate" />
+		<result column="sum(pscore)" property="sum" />
+		<collection property="pointtypeVO" resultMap="pointtypevo" />
+		<collection property="memberVO" resultMap="membervo" />
+	</resultMap>
+
+	<resultMap type="RoleVO" id="rolevo">
+		<result column="role_id" property="role_id" />
+		<result column="rolename" property="rolename" />
+	</resultMap>
+
+	<resultMap type="StockVO" id="stockvo">
+		<result column="stock_id" property="stock_id" />
+		<result column="stockname" property="stockname" />
+	</resultMap>
+
+	<resultMap type="TagVO" id="tagvo">
+		<result column="tag_id" property="tag_id" />
+		<result column="goodsname" property="goodsname" />
+		<result column="goodspath" property="goodspath" />
+		<collection property="boardVO" resultMap="boardvo" />
+	</resultMap>
+
+	<resultMap type="PayGoodsVO" id="paygoodsvo">
+		<result column="paygoods_id" property="paygoods_id" />
+		<result column="pay_id" property="pay_id" />
+		<result column="amount" property="amount" />
+		<result column="pcolor" property="pcolor" />
+		<result column="psize" property="psize" />
+		<result column="review" property="review" />
+		<collection property="boardVO" resultMap="boardvo" />
+	</resultMap>
+
+	<!-- 장바구니에 담긴 상품목록 가져오기 -->
+	<select id="getBoard" parameterType="String" resultMap="boardvo">
+		<![CDATA[
+		
+		select *
+		from board b, goods g where board_id=#{board_id} and
+		b.goods_id=g.goods_id
+		
+		 ]]>
+	</select>
+
+	<!-- 사용가능한 포인트 가져옴 -->
+	<select id="getPoint" parameterType="String" resultMap="pointvo">
+		<![CDATA[
+		select
+		member_id, sum(pscore) from point where member_id=#{member_id} group
+		by member_id
+		 ]]>
+	</select>
+
+	<!-- 결제 후 결제 정보 저장 -->
+	<insert id="insertPay" parameterType="PayVO">
+		<![CDATA[
+		INSERT INTO pay
+		(pay_id,payprice,usepoint,earningpoint,deliveryaddress,deliveryname,deliverytel,member_id,goodsprice ,receipt_id,paydate)
+		values(pay_seq.nextval,#{payprice}, #{usepoint},
+		#{earningpoint},#{deliveryaddress},#{deliveryname},#{deliverytel},#{memberVO.member_id},#{goodsprice},#{receipt_id},#{paydate})
+		]]>
+	</insert>
+
+	<!-- 최신 결제정보를 가져옴(1개) -->
+	<select id="getPay_id" parameterType="String" resultMap="payvo">
+		<![CDATA[
+		
+		select *
+		from (select * from pay where member_id=#{memberVO.member_id} order by 	paydate desc) where rownum=1
+	
+		]]>
+	</select>
+
+	<!-- 결제 후 payGoods에 정보 저장 -->
+	<insert id="insertPayGoods" parameterType="PayGoodsVO">
+		<![CDATA[
+		INSERT INTO payGoods(paygoods_id,
+		pay_id,
+		board_id,amount,psize,pcolor
+		) VALUES
+		(
+		paygoods_seq.nextval,
+		#{pay_id}
+		,#{boardVO.board_id},#{amount},#{psize},#{pcolor}
+		)
+		]]>
+	</insert>
+
+	<!-- 결제 후 포인트 사용내역 저장 -->
+	<insert id="insertUsePoint" parameterType="PayVO">
+		<![CDATA[
+		insert into point (point_id,pscore, pointtype_id, member_id,pdate)
+		values(point_seq.nextval,#{usepoint},3,#{memberVO.member_id},#{paydate})
+		]]>
+	</insert>
+
+	<!-- 결제 후 포인트 적립내역 저장 -->
+	<insert id="insertEarningPoint" parameterType="PayVO">
+		<![CDATA[
+		insert into point (point_id,pscore, pointtype_id, member_id,pdate)
+		values(point_seq.nextval,#{earningpoint},2,#{memberVO.member_id},#{paydate})
+		]]>
+	</insert>
+
+	<!-- 주문 리스트 불러오기 -->
+	<select id="listOrder" resultMap="payvo">
+		<![CDATA[
+		select * from (
+		select rownum rnum, a.*
+		from (select * from pay order by paydate desc) a where rownum <=
+		#{cri.pageNum} * #{cri.amount} and member_id=#{member_id}
+		) where rnum > (#{cri.pageNum}-1) * #{cri.amount}
+		]]>
+	</select>
+
+	<!-- 총 결제 내역 갯수 가져오기 -->
+	<select id="getPayTotal" resultType="int">
+		<![CDATA[ 
+		
+		select count(*) from pay where member_id = #{member_id}
+		
+		]]>
+	</select>
+
+	<!-- 결제 상태별 갯수 가져오기 -->
+	<select id="getPaystateTotal" resultType="int">
+		<![CDATA[ 
+		
+		select count(*) from pay where member_id = #{member_id} and paystate_id=#{paystate_id} 
+		
+		]]>
+	</select>
+
+	<!-- payGoods리스트 가져오기 -->
+	<select id="listPayGoods" resultMap="paygoodsvo">
+		<![CDATA[ 
+		
+		select * from payGoods p, board b, goods g where p.board_id=b.board_id and pay_id=#{pay_id} and b.goods_id=g.goods_id
+		
+		]]>
+	</select>
+
+	<!-- 결제 상태별 주문 리스트 -->
+	<select id="listPaystateOrder" resultMap="payvo">
+		<![CDATA[
+		
+		select * from (
+		        select rownum rnum, a.*
+		from (select * from pay order by paydate desc) a where rownum <=
+		#{cri.pageNum} * #{cri.amount} and member_id=#{member_id} and
+		paystate_id=#{paystate_id}
+		) where rnum > (#{cri.pageNum}-1) * #{cri.amount}
+		
+		]]>
+	</select>
+
+	<!-- 리뷰 작성 -->
+	<insert id="insertReview">
+
+		insert into board (board_id,
+		<if test="title != null">
+			title,
+		</if>
+		content, ratescore, member_id, boardtype_id,pgroup, goods_id)
+		values(board_seq.nextval,
+		<if test="title != null">
+			#{title},
+		</if>
+		#{content},#{ratescore},#{memberVO.member_id},8,board_seq.currval,#{goodsVO.goods_id}
+		)
+
+	</insert>
+
+	<!-- 리뷰 이미지 저장 -->
+	<insert id="insertImg">
+		<![CDATA[
+		insert into image (img_id, imgname, board_id)
+		values(image_seq.nextval,#{imageVO.imgname},#{board_id})
+		]]>
+	</insert>
+
+	<!-- 리뷰 작성 후 포인트 저장 -->
+	<insert id="insertPoint">
+		<![CDATA[
+		insert into point (point_id, pscore, pointtype_id,member_id)
+		values(point_seq.nextval,#{pscore},#{pointtype_id},#{member_id})
+		]]>
+	</insert>
+
+	<!-- 결제 취소 후 결제상태 변경 -->
+	<update id="updatePayCancel">
+		<![CDATA[
+		update pay set paystate_id = 6 where receipt_id=#{receipt_id}
+		]]>
+	</update>
+
+	<!-- 결제내역 가져오기 -->
+	<select id="getPay" resultMap="payvo">
+		<![CDATA[
+		select * from pay where pay_id=#{pay_id}
+		]]>
+	</select>
+
+	<!-- 가장 최신의 리뷰 게시물 가져오기 -->
+	<select id="getReview" resultMap="boardvo">
+		<![CDATA[
+		select * from (select * from board where boardtype_id = 8 order
+		by pdate desc) where rownum=1
+		]]>
+	</select>
+
+	<!-- 회원 정보 수정 -->
+	<update id="updateMember" parameterType="MemberVO">
+		<![CDATA[
+		update member set password = #{password}
+		,nickname = #{nickname}
+		,tel = #{tel}
+		,address = #{address}
+		,category_id = #{categoryVO.category_id}
+		,thumbnail = #{thumbnail}
+		where member_id = #{member_id}
+		]]>
+	</update>
+
+	<!-- 회원 정보 수정(비번 포함 x) -->
+	<update id="updateMemberNoPw" parameterType="MemberVO">
+		<![CDATA[
+		update member set 
+		nickname = #{nickname}
+		,tel = #{tel}
+		,address = #{address}
+		,category_id = #{categoryVO.category_id}
+		,thumbnail = #{thumbnail}
+		where member_id = #{member_id}
+		]]>
+	</update>
+
+	
+
+	<!-- 포인트 리스트(날짜) -->
+	<select id="getPointListByDate" resultMap="pointvo">
+		<![CDATA[
+		select * from (
+		select rownum rnum, a.*
+		from (select point_id,pscore,pdate,p.pointtype_id , member_id,pointtypename from point p, pointtype t where member_id=#{member_id} and p.pointtype_id=t.pointtype_id and pdate between #{startDate} and TO_DATE(#{endDate}) + 0.99999  order by pdate desc) a where rownum <=
+		#{cri.pageNum} * #{cri.amount}
+		) where rnum > (#{cri.pageNum}-1) * #{cri.amount}
+		]]>
+	</select>
+
+	<!-- 회원 탈퇴 -->
+	<delete id="deleteMember">
+		<![CDATA[
+		BEGIN
+		delete from plike where member_id=#{member_id};
+		delete from plike where board_id in (select board_id from board where member_id='eril1024@gmail.com');
+		delete from paygoods where pay_id in (select pay_id from pay where member_id=#{member_id});
+		delete from pay where member_id=#{member_id};
+		delete from image where board_id in (select board_id from board where member_id=#{member_id});
+		delete from board where member_id=#{member_id};
+		delete from follow where member_id=#{member_id};
+        delete from follow where follower_id in (select nickname from member where member_id=#{member_id});
+		delete from point where member_id=#{member_id};
+		delete from member where member_id=#{member_id};
+		END;
+		]]>
+	</delete>
+
+	<!-- 날짜 별 포인트 내역 총합 계산 -->
+	<select id="getPointTotalByDate" resultType="int">
+		<![CDATA[
+		select count(*) from point p, pointtype t where member_id=#{member_id} and p.pointtype_id=t.pointtype_id and pdate between #{startDate} and TO_DATE(#{endDate}) + 0.99999  
+		]]>
+	</select>
+
+	<update id="updatePaystate_id">
+		<![CDATA[
+		BEGIN
+		update pay set paystate_id=5 where pay_id=#{pay_id};
+		insert into point( point_id,pscore,pointtype_id, member_id) values(point_seq.nextval,(select earningpoint from pay where pay_id=#{pay_id}),7,(select member_id from pay where pay_id=#{pay_id}));
+		END;
+		]]>
+	</update>
+
+	<update id="updatePayGoodsReview">
+		<![CDATA[
+		update payGoods set review=1 where paygoods_id=#{paygoods_id}
+		]]>
+	</update>
+
+</mapper>

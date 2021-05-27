@@ -1,0 +1,510 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pet.ex.mapper.MapMapper">
+
+		<resultMap type="BoardtypeVO" id="boardtypevo">
+		<result column="boardtype_id" property="boardtype_id" />
+		<result column="boardtypename" property="boardtypename" />
+	</resultMap>
+
+	<resultMap type="BoardVO" id="boardvo">
+		<result column="board_id" property="board_id" />
+		<result column="title" property="title" />
+		<result column="content" property="content" />
+		<result column="pdate" property="pdate" />
+		<result column="plike" property="plike" />
+		<result column="hit" property="hit" />
+		<result column="hashtag" property="hashtag" />
+		<result column="pgroup" property="pgroup" />
+		<result column="pstep" property="pstep" />
+		<result column="pindent" property="pindent" />
+		<result column="ratescore" property="ratescore" />
+		<result column="avgscore" property="avgscore" />
+		<result column="count" property="count" />
+		<collection property="memberVO" resultMap="membervo" />
+		<collection property="boardtypeVO" resultMap="boardtypevo" />
+		<collection property="goodsVO" resultMap="goodsvo" />
+		<collection property="categoryVO" resultMap="categoryvo" />
+	</resultMap>
+
+	<resultMap type="CartVO" id="cartvo">
+		<result column="cart_id" property="cart_id" />
+		<result column="orderstate" property="orderstate" />
+		<result column="amount" property="amount" />
+		<collection property="memberVO" resultMap="membervo" />
+		<collection property="goodsVO" resultMap="goodsvo" />
+		<collection property="payVO" resultMap="payvo" />
+	</resultMap>
+
+	<resultMap type="CategoryVO" id="categoryvo">
+		<result column="category_id" property="category_id" />
+		<result column="categoryname" property="categoryname" />
+		<result column="code" property="code" />
+		<result column="sortname" property="sortname" />
+	</resultMap>
+
+	<resultMap type="FollowVO" id="followvo">
+		<result column="follow_id" property="follow_id" />
+		<result column="follower_id" property="follower_id" />
+		<collection property="memberVO" resultMap="membervo" />
+	</resultMap>
+
+	<resultMap type="GoodsVO" id="goodsvo">
+		<result column="goods_id" property="goods_id" />
+		<result column="goodsname" property="goodsname" />
+		<result column="price" property="price" />
+		<result column="description" property="description" />
+		<result column="psize" property="psize" />
+		<result column="pcolor" property="pcolor" />
+		<result column="thumbnail" property="thumbnail" />
+		<result column="image3d" property="image3d" />
+		<result column="count" property="count" />
+		<result column="pcheck" property="pcheck" />
+		<collection property="stockVO" resultMap="stockvo" />
+		<collection property="categoryVO" resultMap="categoryvo" />
+	</resultMap>
+
+	<resultMap type="ImageVO" id="imagevo">
+		<result column="img_id" property="img_id" />
+		<result column="imgname" property="imgname" />
+		<collection property="boardVO" resultMap="boardvo" />
+		<collection property="goodsVO" resultMap="goodsvo" />
+	</resultMap>
+
+	<resultMap type="LogintypeVO" id="logintypevo">
+		<result column="logintype_id" property="logintype_id" />
+		<result column="logintypename" property="logintypename" />
+	</resultMap>
+
+	<resultMap type="MemberVO" id="membervo">
+		<result column="member_id" property="member_id" />
+		<result column="password" property="password" />
+		<result column="name" property="name" />
+		<result column="nickname" property="nickname" />
+		<result column="tel" property="tel" />
+		<result column="address" property="address" />
+		<result column="trycount" property="trycount" />
+		<result column="thumbnail" property="thumbnail" />
+		<result column="enable" property="enable" />
+		<result column="certify" property="certify" />
+		<result column="pdate" property="pdate" />
+		<collection property="roleVO" resultMap="rolevo" />
+		<collection property="logintypeVO" resultMap="logintypevo" />
+		<collection property="categoryVO" resultMap="categoryvo" />
+	</resultMap>
+
+	<resultMap type="PaymentVO" id="paymentvo">
+		<result column="payment_id" property="payment_id" />
+		<result column="paymentname" property="paymentname" />
+	</resultMap>
+
+	<resultMap type="PaystateVO" id="paystatevo">
+		<result column="paystate_id" property="paystate_id" />
+		<result column="paystatename" property="paystatename" />
+	</resultMap>
+
+	<resultMap type="PayVO" id="payvo">
+		<result column="pay_id" property="pay_id" />
+		<result column="paypice" property="payprice" />
+		<result column="usepoint" property="usepoint" />
+		<result column="earningpoint" property="earningpoint" />
+		<result column="paydate" property="paydate" />
+		<result column="deliveryaddress" property="deliveryaddress" />
+		<result column="deliveryname" property="deliveryname" />
+		<result column="deliverytel" property="deliverytel" />
+		<collection property="PaymentVO" resultMap="paymentvo" />
+		<collection property="PaystateVO" resultMap="paystatevo" />
+	</resultMap>
+
+	<resultMap type="PointtypeVO" id="pointtypevo">
+		<result column="pointtype_id" property="pointtype_id" />
+		<result column="pointtypename" property="pointtypename" />
+	</resultMap>
+
+	<resultMap type="PointVO" id="pointvo">
+		<result column="point_id" property="point_id" />
+		<result column="pscore" property="pscore" />
+		<result column="pdate_id" property="point_id" />
+		<collection property="PointtypeVO" resultMap="pointtypevo" />
+		<collection property="MemberVO" resultMap="membervo" />
+	</resultMap>
+
+	<resultMap type="RoleVO" id="rolevo">
+		<result column="role_id" property="role_id" />
+		<result column="rolename" property="rolename" />
+	</resultMap>
+
+	<resultMap type="StockVO" id="stockvo">
+		<result column="stock_id" property="stock_id" />
+		<result column="stockname" property="stockname" />
+	</resultMap>
+
+	<resultMap type="TagVO" id="tagvo">
+		<result column="tag_id" property="tag_id" />
+		<result column="goodsname" property="goodsname" />
+		<result column="goodspath" property="goodspath" />
+		<collection property="boardVO" resultMap="boardvo" />
+	</resultMap>
+
+<!-- 좋아요 resultmap -->
+<resultMap type="PlikeVO" id="plikevo">
+		<result column="plike_id" property="plike_id" />
+		<result column="count" property="count" />
+		<collection property="memberVO" resultMap="membervo" />
+		<collection property="boardVO" resultMap="boardvo" />
+	</resultMap>
+
+	<!-- 이미지 썸네일 수정 리스트-->
+	<select id="getList" resultMap="imagevo"> 
+		<![CDATA[ 
+			
+		 SELECT * FROM (
+			    SELECT ROWNUM AS RNUM, A.* FROM (
+      		      select i.imgname, m.nickname,  m.thumbnail, b.hashtag , b.location, b.pdate, b.hit, b.plike, b.board_id, b.content from image i, board b, member m where m.member_id = b.member_id 
+				 	and i.board_id=b.board_id and b.boardtype_id=7 and b.location = #{location} and pstep=0 and img_id in( 
+ 					select  min(img_id) as img_id from image where board_id is not null group by board_id) order by b.pdate desc
+ 					
+			    ) A WHERE ROWNUM <= #{pageNum}* #{amount}
+			) WHERE RNUM > (#{pageNum}-1) * #{amount}
+		]]>
+	</select>
+
+	<select id="getSerchList" resultMap="boardvo"> 
+		<![CDATA[ 
+			
+		 select * from(select rownum as rnum, a.* from(select * from board where boardtype_id=7 and location LIKE '%명동% order by pgroup desc, pstep asc)
+      a where rownum <= #{pageNum} * #{amount}) where rnum > (#{pageNum}-1) * #{amount}
+		]]>
+	</select>
+
+<!-- 리스트 객체 수 구하기 -->
+<select id="getListTotal" resultType="int"> 
+		<![CDATA[ 
+			
+		select count(*) as count from image i, board b, member m where m.member_id = b.member_id 
+				 	and i.board_id=b.board_id and b.boardtype_id=7 and b.location = #{location} and pstep=0 and img_id in( 
+ 					select  min(img_id) as img_id from image where board_id is not null group by board_id)
+		]]>
+	</select>
+
+
+
+	<select id="getTotal" resultType="int">
+    <![CDATA[	
+		select count(*) from board 
+		where 
+		boardtype_id= 7 and pstep=0
+	]]>
+	</select>
+
+	<insert id="write" parameterType="boardvo">
+   <![CDATA[
+      insert into board (board_id,  pdate, content, hit, hashtag, pgroup, pstep, member_id,  boardtype_id ,location)   
+       values (board_seq.nextval ,sysdate, #{content} ,#{hit},#{hashtag},board_seq.currval,#{pstep},#{memberVO.member_id} ,7 ,#{memberVO.location})
+   ]]>
+	</insert>
+
+	<select id="content_view" resultMap="boardvo">
+   <![CDATA[
+      select * from board b , member m where b.member_id=m.member_id and board_id = #{board_id}
+   ]]>
+	</select>
+	
+	<!-- 게시글 삭제 -->
+
+	<select id="inputDelete">
+   <![CDATA[
+    delete from board where board_id = #{board_id}
+   ]]>
+	</select>
+	
+	
+		<!-- 사진 삭제 -->
+		<select id="depeteimage">
+  	 <![CDATA[
+    	delete from image where board_id=#{board_id}
+
+  		 ]]>
+		</select>
+		
+		<!-- boardTable 좋아요  삭제 -->
+		<select id="delete_content_plike">
+  	 <![CDATA[
+    	delete from plike where board_id=#{board_id}
+
+  		 ]]>
+		</select>
+		
+		
+		
+		
+		
+	
+ <!--   update member set location = #{location} WHERE member_id=#{member_id} -->
+<insert id="insertLoc">
+   <![CDATA[
+ update member set location = #{location} WHERE member_id=#{member_id}
+   ]]>
+	</insert>
+
+
+
+
+<select id="getMemberList" resultType="MemberVO">
+   <![CDATA[
+    select * from member where member_id=#{member_id}
+   ]]>
+	</select>
+	
+	
+	
+	
+	<!-- 댓글쓰기 -->
+		<insert id="insertComment">
+		<![CDATA[
+		insert into board(board_id,content, pgroup, pstep,member_id, boardtype_id )
+		values (board_seq.nextval,#{content}, #{pgroup}, 1, #{memberVO.member_id}, 7)
+	]]>
+	</insert>
+
+
+
+	<!-- 글에 대한 댓글 출력 -->
+	<select id="listComment" resultMap="boardvo">
+   <![CDATA[
+	  select * from board b, member m 
+	  where b.member_id=m.member_id 
+	  and boardtype_id= 7 
+	  and pgroup = (select pgroup from board 
+	  where board_id=#{board_id}) and pstep=1 order by b.pdate desc
+   ]]>
+	</select>
+	
+	
+	
+	
+
+	<!-- 댓글 작성 후 ajax로 출력 -->
+	<select id="getComment" resultMap="boardvo">
+   <![CDATA[
+	 select board_id,nickname, thumbnail, pgroup, content, pdate from (select board_id,m.nickname, m.thumbnail,pgroup, content, b.pdate from board b, member m where b.member_id=m.member_id and boardtype_id= 7 and pgroup = (select pgroup from board where board_id=#{board_id}) and pstep=1 order by b.pdate desc) where rownum=1
+   ]]>
+	</select>
+	
+	
+
+	
+	<select id="getcateList" resultMap="imagevo"> 
+ 		<![CDATA[
+ 		SELECT * FROM (
+			    SELECT ROWNUM AS RNUM, A.* FROM (
+      	select i.imgname, m.nickname,  m.thumbnail, m.location, b.hashtag, b.pdate, b.hit, b.plike, b.board_id, b.content from image i, board b, member m where m.member_id = b.member_id 
+		and i.board_id=b.board_id and b.boardtype_id=7 and b.location = #{location} and b.hashtag = #{hashtag} and pstep=0 and img_id in( 
+ 		select  min(img_id) as img_id from image where board_id is not null group by board_id) order by b.pdate desc
+    ) A WHERE ROWNUM <= #{pageNum}* #{amount}
+			) WHERE RNUM > (#{pageNum}-1) * #{amount}
+	
+		]]>
+	</select>
+	
+	
+	<select id="getHashtag" resultMap="imagevo"> 
+ 	<![CDATA[
+
+      	select i.imgname, m.nickname,  m.thumbnail, m.location, b.hashtag, b.pdate, b.hit, b.plike, b.board_id, b.content from image i, board b, member m where m.member_id = b.member_id 
+		and i.board_id=b.board_id and b.boardtype_id=7 and b.location = #{location} and b.hashtag = #{hashtag} and pstep=0 and img_id in( 
+ 		select  min(img_id) as img_id from image where board_id is not null group by board_id) order by b.pdate desc
+
+	
+		]]>
+	</select>
+	
+	<select id="modify">
+		<![CDATA[
+			update board set content=#{content} where board_id = #{board_id}
+		]]>
+	</select>
+	
+	
+	
+
+
+<!-- 댓글삭제 -->
+
+<select id="deleteComment">
+   <![CDATA[
+    delete from board where board_id = #{board_id}
+   ]]>
+	</select>
+
+<!--조회수-->
+	<select id="hit" resultType="int"> 
+ 	<![CDATA[ 
+ 	update board set hit = hit + 1 where board_id = #{board_id} 	
+ 	]]>
+	</select>
+	
+	
+	<select id="delete_pgroup">
+   <![CDATA[
+    delete from board where pgroup = #{pgroup}
+   ]]>
+	</select>
+
+	<!-- 다중이미지업로드 -->
+	<insert id="detailInput" parameterType="imagevo">
+
+ 		<![CDATA[
+   				 INSERT INTO IMAGE(img_id, imgname, board_id) VALUES (image_seq.nextval, #{imgname}, #{boardVO.board_id})
+	 	]]>
+	</insert>
+	
+	
+	
+	
+	
+	<!-- 좋아요 mapper start -->
+	
+		<!-- 좋아요 수 조회 -->
+	<select id="getLiketotal" resultType="int">
+		<![CDATA[
+	      select count(*) from plike where board_id = #{boardVO.board_id}
+	   ]]>
+	</select>
+	
+	
+	<!-- 좋아요 유무 체크 -->
+	<select id="isLike" resultType="int">
+		<![CDATA[
+	        select count(*) from plike where board_id=#{boardVO.board_id} and member_id=#{memberVO.member_id}
+	   ]]>
+	</select> 
+
+	
+	<!-- 좋아요 리스트 조회 -->
+	<select id="getLikelist" resultMap="plikevo">
+		<![CDATA[
+		 select p.member_id , m.nickname from plike p , member m where p.member_id = m.member_id and board_id = #{boardVO.board_id}
+	        
+	   ]]>
+	</select> 
+	
+	
+	<!-- 좋아요 -->
+	<insert id="like">
+		<![CDATA[
+	        insert into plike values(plike_seq.nextval, #{boardVO.board_id}, #{memberVO.member_id})
+	   ]]>
+	</insert>
+	
+	<!-- 좋아요 취소-->
+	<select id="likecancel">
+		<![CDATA[
+	         delete from plike where board_id=#{boardVO.board_id} and member_id=#{memberVO.member_id}
+	   ]]>
+	</select>  
+	
+	<!-- 전체 좋아요 출력-->
+	<select id="getLikeprint" resultMap="plikevo">
+		<![CDATA[
+	       	select board_id ,count(*) as count from plike group by board_id
+	   ]]>
+	</select>
+	
+<!-- plike board테이블에 입력-->
+<select id="insertplike">
+   <![CDATA[
+      update board set plike = plike+1 WHERE board_id=#{board_id}
+   ]]>
+	</select>
+
+
+<!-- plike board테이블에 삭제-->
+<select id="deleteplike">
+   <![CDATA[
+      update board set plike = plike-1 WHERE board_id=#{board_id}
+   ]]>
+	</select>
+	
+	
+	<!-- 좋아요 mapper end -->
+
+<!-- 회원 정보 조회 -->
+	<select id="getMemberinfo" resultType="MemberVO">
+		<![CDATA[
+	         select * from member where member_id= #{member_id}
+	   ]]>
+	</select>
+	
+	<!-- 현재 닉네임-->
+	<select id="getPresetnNickname" resultType="String">
+   <![CDATA[
+     select nickname from member where member_id=#{member_id}
+   ]]>
+	</select>
+	
+		<!-- 현재 장소-->
+	<select id="getPresetnLocation" resultType="String">
+   <![CDATA[
+     select location from member where member_id=#{member_id}
+   ]]>
+	</select>
+	
+		<!-- 최신글 rownum으로 잡기 (댓글 조회를 막기 위해 hashtag가 null이 아닌것들 중에서 조회한다)-->
+	<select id="getLocationBoard_id" resultType="boardvo">
+
+ <![CDATA[
+  		select * from (select * from board where boardtype_id=7 order by pdate desc) where rownum=1 and hashtag is not null
+	 	]]>
+	</select>
+	
+	
+	
+		<!--content_view 사진 출력-->
+	<select id="getPhoto" resultMap="imagevo">
+
+ 	<![CDATA[
+  		select * from image where board_id=#{boardVO.board_id}
+	 	]]>
+	</select>
+	
+	
+	
+	
+	
+	
+	<!-- 전체 좋아요 리스트 조회 -->
+	<select id="getAllLikelist" resultMap="plikevo">
+		<![CDATA[
+		select member_id from plike where board_id = board_id
+	        
+	   ]]>
+	</select> 
+	
+	<!-- 질답 댓글 게시판 페이징처리용 -->
+	<select id="getcommentsList" resultMap="boardvo">
+	<![CDATA[		
+		SELECT * FROM (
+			     SELECT ROWNUM AS RNUM, A.* FROM (
+			       select b.board_id, b.content, m.member_id,m.thumbnail, m.nickname, b.pdate from board b, member m where b.member_id=m.member_id and boardtype_id= 7 and pgroup = 
+			       (select pgroup from board where board_id=#{board_id}) and pstep=1 order by b.pdate desc
+			    ) A WHERE ROWNUM <= #{cri.amount}
+			) WHERE RNUM > 0
+		]]>
+		
+	</select>
+	
+	<!-- 질문과 답변 댓글 카운트 -->
+	<select id="qcount" resultType="int">
+		<![CDATA[
+	         select count(*) as count  from board where boardtype_id= 7 and pgroup = (select pgroup from board where board_id=#{board_id}) and pstep=1 order by content
+	  	 ]]>
+	</select>
+	
+	
+
+
+
+</mapper>

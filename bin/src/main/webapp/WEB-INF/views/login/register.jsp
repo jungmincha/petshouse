@@ -13,12 +13,8 @@
 <meta name="keywords" content="Fashi, unica, creative, html">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>Fashi | Template</title>
-<script src="https://code.jquery.com/jquery-3.3.1.js"
-	integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
-	crossorigin="anonymous">
-	
-</script>
+<title>회원가입</title>
+
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <!-- 부가적인 테마 -->
@@ -56,26 +52,49 @@
 #myForm .glyphicon {
 	display: none;
 }
+
+.filebox {
+	
+}
+
+.filebox label {
+	display: inline-block;
+	padding: .5em .75em;
+	color: #999;
+	font-size: inherit;
+	line-height: normal;
+	vertical-align: middle;
+	background-color: #fdfdfd;
+	cursor: pointer;
+	border: 1px solid #ebebeb;
+	border-bottom-color: #e2e2e2;
+	border-radius: .25em;
+}
+
+.filebox img {
+	border-radius: 70%;
+}
+
+#address-btn {
+	color: #ffffff;
+}
+
+#address-btn:hover {
+	color: #e7ab3c;
+}
+
+label:hover {
+	color: #e7ab3c;
+}
+
+#register-btn:hover {
+	color: white;
+	background-color: orange;
+}
 </style>
-<script language="javascript">
-	function goPopup() {
-		// 주소검색을 수행할 팝업 페이지를 호출합니다.
-		// 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrLinkUrl.do)를 호출하게 됩니다.
-		var pop = window.open("/popup/jusoPopup.jsp", "pop",
-				"width=570,height=420, scrollbars=yes, resizable=yes");
-
-		// 모바일 웹인 경우, 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrMobileLinkUrl.do)를 호출하게 됩니다.
-		//var pop = window.open("/popup/jusoPopup.jsp","pop","scrollbars=yes, resizable=yes"); 
-	}
-
-	function jusoCallBack(roadFullAddr) {
-		// 팝업페이지에서 주소입력한 정보를 받아서, 현 페이지에 정보를 등록합니다.	
-		$('#address').val(roadFullAddr);
-	}
-</script>
 </head>
 
-<body>
+<body style="padding-top: 128px">
 	<!-- header -->
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
 
@@ -86,10 +105,30 @@
 			<div class="row">
 				<div class="col-lg-6 offset-lg-3">
 					<div class="register-form">
-						<h2>회원가입</h2>
+						<div class="section-title">
+							<h2 style="margin-bottom: 20px; font-size: 30px;">회원가입</h2>
+							<br>
+						</div>
 
-						<form action="/login/register/insert" method="post" id="myForm">
+						<form action="/login/register/insert" method="post" id="myForm" enctype="multipart/form-data">
+							
+							<div class="filebox text-center">
 
+								<img style="width: 200px; height: 200px;" id="preview-image"
+									name="preview-image" class="profile_box"
+									src="/resources/img/member/profile/profile.jpg"> <br>
+								<br> <label for="thumbnail"
+									style="font-size: 17px; text-align: center">업로드</label> <label
+									style="font-size: 17px; text-align: center"
+									onclick="defaultImage()">기본이미지</label>
+
+
+								<div class="custom-file">
+									<input type="file" class="custom-file-input" id="thumbnail"
+										name="file" multiple="multiple" style="display: block;">
+								</div>
+								<input type="hidden" name="thumbnail" id="thumbnail2" value="">
+							</div>
 							<div class="group-input">
 								<label class="control-label" for="member_id">이메일</label> <input
 									class="form-control" type="text" name="member_id"
@@ -120,31 +159,33 @@
 							<div class="group-input">
 								<label class="control-label" for="nickname">닉네임</label> <input
 									class="form-control" type="text" name="nickname" id="nickname"
-									style="font-size: 13pt" />
+									style="font-size: 13pt" /><span id="nicknameError"
+									class="help-block" style="font-size: 10pt">중복된 닉네임 입니다.</span>
 							</div>
 							<div class="group-input">
 								<label class="control-label" for="tel">전화번호</label> <input
 									class="form-control" type="text" name="tel" id="tel"
-									style="font-size: 13pt" />
+									style="font-size: 13pt" /><span id="telError"
+									class="help-block" style="font-size: 10pt">중복된 전화번호 입니다.</span>
 							</div>
 							<div class="group-input">
 								<label class="control-label" for="address">주소</label>
 								<div class="input-group mb-3">
 									<div class="input-group-prepend">
-										<input type="button" class="form-control" onClick="goPopup();"
-											value="주소검색" style="font-size: 10pt; background-color:#000000;color:#ffffff
-											; font-weight: bold" />
+										<input id="address-btn" type="button" class="form-control"
+											onClick="goPopup();" value="주소검색"
+											style="font-size: 10pt; background-color: #000000; font-weight: bold" />
 									</div>
 									<input class="form-control" type="text"
-										style="font-size: 13pt;" id="address" name="address" />
+										style="font-size: 13pt;" id="address" name="address" readonly />
 								</div>
 							</div>
 
 							<div class="group-input">
 								<label class="control-label" for="category">관심사</label> <select
-									class="form-control" id="category" name="categoryVO.category_id">
+									class="form-control" id="category"
+									name="categoryVO.category_id" style="font-size: 16px">
 									<c:forEach items="${category}" var="category">
-
 										<option value="${category.category_id}">${category.categoryname }</option>
 									</c:forEach>
 
@@ -153,8 +194,9 @@
 
 							<input type="hidden" name="logintypeVO.logintype_id" value="1">
 							<input type="hidden" name="roleVO.role_id" value="1">
-							<button type="submit" class="site-btn register-btn"
-								style="font-size: 15pt">가입완료</button>
+							<button id="register-btn" type="submit"
+								class="site-btn register-btn" style="font-size: 15pt"
+								onclick="check()">가입완료</button>
 						</form>
 						<br>
 						<div class="switch-login">
@@ -173,7 +215,6 @@
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 
 </body>
-
 <script>
 	//아이디 입력란에 keyup 이벤트가 일어 났을때 실행할 함수 등록 
 	$("#member_id")
@@ -202,11 +243,9 @@
 											// 성공한 상태로 바꾸는 함수 호출
 											if (reg.test(id)) {//정규표현식을 통과 한다면
 												$("#emailErr").hide();
-
 												successState("#member_id");
 											} else {//정규표현식을 통과하지 못하면
 												$("#emailErr").show();
-
 												errorState("#member_id");
 											}
 
@@ -242,13 +281,96 @@
 		}
 	});
 
+	// 닉네임 체크
+	$("#nickname").keyup(function() {
+		//입력한 문자열을 읽어온다.
+
+		var nickname = $(this).val();
+
+		//ajax 요청을 해서 서버에 전송한다.
+		$.ajax({
+			method : "post",
+			url : "/login/register/nicknameCheck",
+			data : {
+				nickname : nickname
+			},
+			success : function(data) {
+				console.log(data);
+
+				if (data) {
+					$("#nicknameError").hide();
+					successState("#nickname");
+
+				} else {
+					$("#nicknameError").show();
+					errorState("#nickname");
+				}
+			}
+		});
+	});
+
+	// 전화번호 중복 조회
+	$("#tel").keyup(function() {
+		//입력한 문자열을 읽어온다.
+
+		var tel = $(this).val();
+
+		//ajax 요청을 해서 서버에 전송한다.
+		$.ajax({
+			method : "post",
+			url : "/login/register/telCheck",
+			data : {
+				tel : tel
+			},
+			success : function(data) {
+				console.log(data);
+
+				if (data) {
+					$("#telError").hide();
+					successState("#tel");
+
+				} else {
+					$("#telError").show();
+					errorState("#tel");
+				}
+			}
+		});
+	});
+
+	// 공백 체크
+	function check() {
+		event.preventDefault();
+
+		if ($("#member_id").val() == "") {
+			alert("이메일을 입력하세요.");
+		} else if ($("#password").val() == "") {
+			alert("비밀번호를 입력하세요.");
+		} else if ($("#rePwd").val() == "") {
+			alert("비밀번호 재확인을 입력하세요.");
+		} else if ($("#name").val() == "") {
+			alert("이름을 입력하세요.");
+		} else if ($("#nickname").val() == "") {
+			alert("닉네임을 입력하세요.");
+		} else if ($("#tel").val() == "") {
+			alert("전화번호를 입력하세요.");
+		} else if ($("#address").val() == "") {
+			alert("주소를 입력하세요.");
+		} else if ($(".has-error").length > 0) {
+			alert("잘못입력하셨습니다. 수정 필요 : " + $(".has-error").length + "개");
+		} else {
+			$("#myForm").submit();
+			alert("회원가입에 성공했습니다. 로그인해주세요")
+		}
+
+	}
+
 	// 성공 상태로 바꾸는 함수
 	function successState(sel) {
 		$(sel).parent().removeClass("has-error").addClass("has-success").find(
 				".glyphicon").removeClass("glyphicon-remove").addClass(
 				"glyphicon-ok").show();
 
-		$("#myForm button[type=submit]").removeAttr("disabled");
+		//$("#myForm button[type=submit]").removeAttr("disabled");
 	};
 	// 에러 상태로 바꾸는 함수
 	function errorState(sel) {
@@ -256,8 +378,54 @@
 				".glyphicon").removeClass("glyphicon-ok").addClass(
 				"glyphicon-remove").show();
 
-		$("#myForm button[type=submit]").attr("disabled", "disabled");
+		//$("#myForm button[type=submit]").attr("disabled", "disabled");
 	};
+
+	// 도로명 주소 검색
+	function goPopup() {
+		// 주소검색을 수행할 팝업 페이지를 호출합니다.
+		// 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrLinkUrl.do)를 호출하게 됩니다.
+		var pop = window.open("/popup/jusoPopup.jsp", "pop",
+				"width=570,height=420, scrollbars=yes, resizable=yes");
+
+		// 모바일 웹인 경우, 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrMobileLinkUrl.do)를 호출하게 됩니다.
+		//var pop = window.open("/popup/jusoPopup.jsp","pop","scrollbars=yes, resizable=yes"); 
+	}
+
+	function jusoCallBack(roadFullAddr, zipNo) {
+		// 팝업페이지에서 주소입력한 정보를 받아서, 현 페이지에 정보를 등록합니다.	
+		$('#address').val("(" + zipNo + ")" + roadFullAddr);
+	}
+	
+	// 이미지 업로드
+	function readImage(input) {
+	    // 인풋 태그에 파일이 있는 경우
+	    if(input.files && input.files[0]) {
+	        // 이미지 파일인지 검사 (생략)
+	        // FileReader 인스턴스 생성
+	        const reader = new FileReader()
+	        // 이미지가 로드가 된 경우
+	        reader.onload = e => {
+	            const previewImage = document.getElementById("preview-image")
+	            previewImage.src = e.target.result
+	        }
+	        // reader가 이미지 읽도록 하기
+	        reader.readAsDataURL(input.files[0])
+	    }
+	}
+	// input file에 change 이벤트 부여
+	const thumbnail = document.getElementById("thumbnail")
+	thumbnail.addEventListener("change", e => {
+	    readImage(e.target)
+	})
+	
+	function defaultImage(){
+		 const previewImage = document.getElementById("preview-image");
+        previewImage.src = "/resources/img/member/profile/profile.jpg";
+        $("#thumbnail2").val("profile.jpg");
+       $("#thumbnail").val(""); 
+		
+	}
 </script>
 
 <!-- Js Plugins -->

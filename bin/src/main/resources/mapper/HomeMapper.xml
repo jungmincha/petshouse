@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pet.ex.mapper.HomeMapper">
+
+	<resultMap type="BoardtypeVO" id="boardtypevo">
+		<result column="boardtype_id" property="boardtype_id" />
+		<result column="boardtypename" property="boardtypename" />
+	</resultMap>
+
+	<resultMap type="BoardVO" id="boardvo">
+		<result column="board_id" property="board_id" />
+		<result column="title" property="title" />
+		<result column="content" property="content" />
+		<result column="pdate" property="pdate" />
+		<result column="plike" property="plike" />
+		<result column="hit" property="hit" />
+		<result column="hashtag" property="hashtag" />
+		<result column="pgroup" property="pgroup" />
+		<result column="pstep" property="pstep" />
+		<result column="pindent" property="pindent" />
+		<result column="ratescore" property="ratescore" />
+		<result column="avgscore" property="avgscore" />
+		<result column="count" property="count" />
+		<collection property="memberVO" resultMap="membervo" />
+		<collection property="boardtypeVO" resultMap="boardtypevo" />
+		<collection property="goodsVO" resultMap="goodsvo" />
+		<collection property="categoryVO" resultMap="categoryvo" />
+	</resultMap>
+
+	<resultMap type="CartVO" id="cartvo">
+		<result column="cart_id" property="cart_id" />
+		<result column="orderstate" property="orderstate" />
+		<result column="amount" property="amount" />
+		<collection property="memberVO" resultMap="membervo" />
+		<collection property="goodsVO" resultMap="goodsvo" />
+		<collection property="payVO" resultMap="payvo" />
+	</resultMap>
+
+	<resultMap type="CategoryVO" id="categoryvo">
+		<result column="category_id" property="category_id" />
+		<result column="categoryname" property="categoryname" />
+		<result column="code" property="code" />
+		<result column="sortnumber" property="sortnumber" />
+	</resultMap>
+
+	<resultMap type="FollowVO" id="followvo">
+		<result column="follow_id" property="follow_id" />
+		<result column="follower_id" property="follower_id" />
+		<collection property="memberVO" resultMap="membervo" />
+	</resultMap>
+
+	<resultMap type="GoodsVO" id="goodsvo">
+		<result column="goods_id" property="goods_id" />
+		<result column="goodsname" property="goodsname" />
+		<result column="price" property="price" />
+		<result column="description" property="description" />
+		<result column="psize" property="psize" />
+		<result column="pcolor" property="pcolor" />
+		<result column="thumbnail" property="thumbnail" />
+		<result column="image3d" property="image3d" />
+		<result column="count" property="count" />
+		<collection property="stockVO" resultMap="stockvo" />
+		<collection property="categoryVO" resultMap="categoryvo" />
+	</resultMap>
+
+	<resultMap type="ImageVO" id="imagevo">
+		<result column="imgname" property="imgname" />
+		<collection property="boardVO" resultMap="boardvo" />
+		<collection property="goodsVO" resultMap="goodsvo" />
+	</resultMap>
+
+	<resultMap type="LogintypeVO" id="logintypevo">
+		<result column="logintype_id" property="logintype_id" />
+		<result column="logintypename" property="logintypename" />
+	</resultMap>
+
+	<resultMap type="MemberVO" id="membervo">
+		<result column="member_id" property="member_id" />
+		<result column="thumbnail" property="thumbnail" />
+		<result column="password" property="password" />
+		<result column="name" property="name" />
+		<result column="nickname" property="nickname" />
+		<result column="tel" property="tel" />
+		<result column="address" property="address" />
+		<result column="trycount" property="trycount" />
+		<result column="enable" property="enable" />
+		<result column="certify" property="certify" />
+		<collection property="roleVO" resultMap="rolevo" />
+		<collection property="logintypeVO" resultMap="logintypevo" />
+		<collection property="categoryVO" resultMap="categoryvo" />
+	</resultMap>
+
+	<resultMap type="PaymentVO" id="paymentvo">
+		<result column="payment_id" property="payment_id" />
+		<result column="paymentname" property="paymentname" />
+	</resultMap>
+
+	<resultMap type="PaystateVO" id="paystatevo">
+		<result column="paystate_id" property="paystate_id" />
+		<result column="paystatename" property="paystatename" />
+	</resultMap>
+
+	<resultMap type="PayVO" id="payvo">
+		<result column="pay_id" property="pay_id" />
+		<result column="paypice" property="payprice" />
+		<result column="usepoint" property="usepoint" />
+		<result column="earningpoint" property="earningpoint" />
+		<result column="paydate" property="paydate" />
+		<result column="deliveryaddress" property="deliveryaddress" />
+		<result column="deliveryname" property="deliveryname" />
+		<result column="deliverytel" property="deliverytel" />
+		<collection property="PaymentVO" resultMap="paymentvo" />
+		<collection property="PaystateVO" resultMap="paystatevo" />
+	</resultMap>
+
+	<resultMap type="PointtypeVO" id="pointtypevo">
+		<result column="pointtype_id" property="pointtype_id" />
+		<result column="pointtypename" property="pointtypename" />
+	</resultMap>
+
+	<resultMap type="PointVO" id="pointvo">
+		<result column="point_id" property="point_id" />
+		<result column="pscore" property="pscore" />
+		<result column="pdate_id" property="point_id" />
+		<collection property="PointtypeVO" resultMap="pointtypevo" />
+		<collection property="MemberVO" resultMap="membervo" />
+	</resultMap>
+
+	<resultMap type="RoleVO" id="rolevo">
+		<result column="role_id" property="role_id" />
+		<result column="rolename" property="rolename" />
+	</resultMap>
+
+	<resultMap type="StockVO" id="stockvo">
+		<result column="stock_id" property="stock_id" />
+		<result column="stockname" property="stockname" />
+	</resultMap>
+
+	<resultMap type="TagVO" id="tagvo">
+		<result column="tag_id" property="tag_id" />
+		<result column="goodsname" property="goodsname" />
+		<result column="goodspath" property="goodspath" />
+		<collection property="boardVO" resultMap="boardvo" />
+	</resultMap>
+
+
+	<!-- 상품 검색, 더보기 -->
+	<select id="getMoreGoods" resultMap="boardvo">
+	   <![CDATA[
+		   SELECT * FROM (
+					     SELECT ROWNUM AS RNUM, A.* FROM (
+		   		select  g.goods_id, g.goodsname, TO_CHAR(g.price,'99,999') as price, b.board_id, g.thumbnail,b.ratescore from board b, 
+				goods g where b.goods_id=g.goods_id and b.boardtype_id=3 and goodsname like '%'||#{keyword}||'%' order by b.ratescore desc
+		  	    ) A WHERE ROWNUM <= #{cri.pageNum} * 8
+					) WHERE RNUM > (#{cri.pageNum}-1) * 8
+	   ]]>
+	</select>
+
+	<!-- 질문과답변 검색, 더보기 -->
+	<select id="getMoreQna" resultMap="boardvo">
+   <![CDATA[
+    SELECT * FROM (
+			     SELECT ROWNUM AS RNUM, A.* FROM (
+   		select b.board_id, b.title, b.content, b.pdate, b.hit, b.hashtag, m.member_id, m.nickname, b.boardtype_id 
+   		from  board b , member m
+   		where b.member_id = m.member_id
+   		and b.content like '%'||#{keyword}||'%' and b.boardtype_id='4' and pstep='0' 
+   		or b.member_id = m.member_id and b.title like '%'||#{keyword}||'%' and b.boardtype_id='4' 
+   		or b.member_id = m.member_id and b.hashtag like '%'||#{keyword}||'%' and b.boardtype_id='4'
+   		order by pdate desc
+       ) A WHERE ROWNUM <= #{cri.pageNum} * 8
+			) WHERE RNUM > (#{cri.pageNum}-1) *8
+   ]]>
+	</select>
+
+	<!-- 노하우 검색, 더보기 -->
+	<select id="getMoreTips" resultMap="imagevo">
+   <![CDATA[
+    SELECT * FROM (
+			     SELECT ROWNUM AS RNUM, A.* FROM (
+   		select i.imgname, b.board_id, b.title, b.content, b.pdate, b.hit, b.hashtag, m.member_id, m.nickname, b.boardtype_id
+			     	from  board b , member m,  image i
+					where b.member_id = m.member_id
+					and b.board_id=i.board_id
+					and b.hashtag like '%'||#{keyword}||'%' and b.boardtype_id='5' and pstep='0'
+					or b.member_id = m.member_id
+					and b.board_id=i.board_id
+					and b.title like '%'||#{keyword}||'%' and b.boardtype_id='5' and pstep='0'
+					or b.member_id = m.member_id
+					and b.board_id=i.board_id
+					and b.content like '%'||#{keyword}||'%' and b.boardtype_id='5' and pstep='0'order by pdate desc
+      ) A WHERE ROWNUM <= #{cri.pageNum} * 8
+			) WHERE RNUM > (#{cri.pageNum}-1) * 8
+   ]]>
+	</select>
+	
+		<!-- 상품 검색, 더보기 -->
+	<select id="getMoreSns" resultMap="imagevo">
+   <![CDATA[
+     SELECT * FROM (
+			     SELECT ROWNUM AS RNUM, A.* FROM (
+   		select  i.imgname, b.board_id,  b.content, b.plike, b.hit, b.hashtag, m.member_id, m.thumbnail , m.nickname, b.boardtype_id 
+   		from board b, image i, member m
+   		where b.board_id=i.board_id 
+   		and b.member_id=m.member_id
+   		and b.hashtag like '%'||#{keyword}||'%' and b.boardtype_id='2' and img_id in( 
+ 					select  min(img_id) as img_id from image where board_id is not null group by board_id)
+ 		or
+ 		b.board_id=i.board_id 
+   		and b.member_id=m.member_id
+   		and b.content like '%'||#{keyword}||'%' and b.boardtype_id='2' and img_id in( 
+ 		select  min(img_id) as img_id from image where board_id is not null group by board_id)order by b.pdate desc
+   		      ) A WHERE ROWNUM <= #{cri.pageNum} * 8
+			) WHERE RNUM > (#{cri.pageNum}-1) * 8
+
+   ]]>
+	</select>
+	
+ 		<!-- 질문과 답변 검색 카운트 -->
+	<select id="qcount" resultType="int">
+		<![CDATA[
+	         select count(*) as count  	
+	         from  board 
+				where content like '%'||#{keyword}||'%' and pstep='0' and boardtype_id='4' or title like '%'||#{keyword}||'%' and boardtype_id='4' or hashtag like '%'||#{keyword}||'%' and boardtype_id='4'
+	  	 ]]>
+	</select> 
+
+	<!-- 노하우 검색 카운트 -->
+	<select id="tcount" resultType="int">
+		<![CDATA[
+	         select count(*) as count  	
+	         from  board 
+				where hashtag like '%'||#{keyword}||'%' and pstep='0' and boardtype_id='5'
+	  	 ]]>
+	</select> 
+	<!-- 스토어 검색 카운트 -->
+	<select id="gcount" resultType="int">
+		<![CDATA[
+	         select count(*) as count  	
+	         from  board b, goods g 
+				where b.goods_id=g.goods_id
+				 and goodsname like '%'||#{keyword}||'%' and boardtype_id='3'
+	  	 ]]>
+	</select> 
+	
+	<!-- sns 검색 카운트 -->
+	<select id="scount" resultType="int">
+		<![CDATA[
+	         select count(*) as count  	
+	         from  board where hashtag like '%'||#{keyword}||'%' and boardtype_id='2'
+	  	 ]]>
+	</select> 
+	
+	<!-- 상품에 대한 별점 평균/ 페이징 처리 -->
+	<select id="getStorerate" resultMap="boardvo">
+		<![CDATA[
+	       select * from(
+		        select rownum as rnum, A.*from (
+		       		select round(avg(ratescore),1) as avgscore, count(*) as count, g.goods_id from board b, goods g where b.goods_id=g.goods_id and b.boardtype_id=8 group by g.goods_id order by count(*) desc
+		       ) A where rownum <= #{pageNum} * 8
+	       )where rnum > (#{pageNum}-1) * 8
+	   ]]>
+	</select>
+	
+		<!-- SNS 리스트 댓글 카운트 -->
+	<select id="countComment" resultMap="boardvo">
+		<![CDATA[
+	         select pgroup , count(*) as count from board where boardtype_id= 2 and pstep=1 group by pgroup
+	   ]]> 
+	</select>
+	
+		<!-- 상품 더보기용  -->
+	<select id="getGoodsCount" resultType="boardvo">
+		<![CDATA[
+	        select count(*) as count from  board b, goods g 
+			where b.goods_id=g.goods_id
+			and goodsname like '%'||#{keyword}||'%' and boardtype_id='3' group by b.board_id
+	   ]]>
+	</select>
+	
+		
+		<!--sns 더보기용  -->
+	<select id="getSnsCount" resultType="imagevo">
+		<![CDATA[
+	         select count(*) as count from  board b, image i where b.board_id=i.board_id 
+	         and b.hashtag like '%'||#{keyword}||'%' and b.boardtype_id='2' 
+			or b.board_id=i.board_id 
+	         and b.content like '%'||#{keyword}||'%' and b.boardtype_id='2' group by b.board_id
+	   ]]>
+	</select>
+	
+		<!--노하우 더보기용  -->
+	<select id="getTipsCount" resultType="boardvo">
+		<![CDATA[
+	        select count(*) as count  from  board 
+			where title like '%'||#{keyword}||'%' and pstep='0' and boardtype_id='5' group by board_id
+	   ]]>
+	</select>
+	
+		<!--질답 더보기용  -->
+	<select id="getQnaCount" resultType="boardvo">
+		<![CDATA[
+	        select count(*) as count  from  board 
+			where content like '%'||#{keyword}||'%' and pstep='0' and boardtype_id='4' 
+			or title like '%'||#{keyword}||'%' and boardtype_id='4' group by board_id
+	   ]]>
+	</select>
+	
+		<!-- SNS 이미지 카운트 -->
+	 <select id="imgCount" resultMap="imagevo">
+		<![CDATA[
+	        select b.board_id , count(imgname) as count 
+	        from image i, board b 
+	        where i.board_id=b.board_id 
+	        and b.boardtype_id=2 group by b.board_id
+	  	]]>
+	</select>
+	
+	
+</mapper>
