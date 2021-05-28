@@ -1,4 +1,4 @@
-<img src="https://user-images.githubusercontent.com/68797467/119070831-b0eee500-ba23-11eb-93fa-2a6f9088941d.png" width="200px" height="80px" align="left">고양이와 강아지에 한정된 스토어에서 벗어나<br> 다양한 반려동물들에 대한 지식을 공유하는 커뮤니티 및 쇼핑몰
+<img src="https://user-images.githubusercontent.com/68797467/119070831-b0eee500-ba23-11eb-93fa-2a6f9088941d.png" width="200px" height="80px" align="left">고양이와 강아지에 한정된 스토어에서 벗어나<br> 다양한 반려동물들에 대한 지식을 공유하는 커뮤니티 및 쇼핑몰입니다.
 <br clear="left">
 <br>
 ## 목적
