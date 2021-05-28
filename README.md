@@ -48,7 +48,17 @@
 + 방문자 수는 HttpSessionListener를 상속받아 방문자의 세션id를 통해 구현했습니다.
 + 세션의 유효기간 주기를 30분으로 설정했습니다. 
 
-**조원**
+## ERD
+<img src="https://user-images.githubusercontent.com/74960637/119997177-6b757d80-c00a-11eb-9427-7464d1152208.png" width="800px" height="500px">
+
+## 시퀀스다이어그램
+<img src="https://user-images.githubusercontent.com/74960637/119998541-c22f8700-c00b-11eb-9bb1-441dc4aff515.png" width="800px" height="500px">
+
+## 유스케이스다이어그램
+<img src="https://user-images.githubusercontent.com/74960637/119998728-f30fbc00-c00b-11eb-9441-658e1bd0fa85.png" width="800px" height="500px">
+
+
+## 조원
 + [김유진](https://github.com/chiroxxx)
 + [김은희](https://github.com/eeeuniee)
 + [김준성](https://github.com/eril1024)
