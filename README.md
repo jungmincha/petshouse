@@ -26,7 +26,19 @@
 
 
 ## 커뮤니티-펫츠타운
-<img src="https://user-images.githubusercontent.com/74960637/119973712-c7320d80-bfee-11eb-91c9-6ef5f7ffc01b.PNG" width="800px" height="500px">
+<img src="https://user-images.githubusercontent.com/74960637/119982313-a1f6cc80-bff9-11eb-8461-97030086c506.PNG" width="800px" height="500px">
+
++ 펫츠타운은 현재 위치 혹은 원하는 위치의 펫츠하우스 회원들과 반려동물에 대한 다양한 정보를 주고 받는<br> 
+  커뮤니티 페이지입니다.
++ Geolocation api와 Kakao api를 통해 사용자의 현재 위치가 데이터베이스에 저장됩니다.
++ 사용자의 필요에 따라 검색도 가능합니다. 
+
+<img src="https://user-images.githubusercontent.com/74960637/119983084-a7084b80-bffa-11eb-89ab-7f7c3bcef868.PNG" width="800px" height="500px">
+
++ 인증받은 주소를 통해 '계속하기'를 누르면 해당 주소 기반의 게시판 페이지로 이동합니다.
++ 사용자는 CRUD를 할 수 있으며 게시글의 좋아요도 누를 수 있습니다.
++ 동물병원, 산책로등 카테고리별로 게시글 등록, 조회가 가능합니다.
++ 현재 위치가 페이지에 표시되며 위치를 다시 설정할 수 있습니다.
 
 
 **Contributors**
