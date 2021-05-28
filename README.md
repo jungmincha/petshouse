@@ -64,6 +64,9 @@
 
 <br><br>
 
++ [펫츠하우스 테스트](https://github.com/jungmincha/petshouse/blob/master/%ED%8E%AB%EC%B8%A0%ED%95%98%EC%9A%B0%EC%8A%A4%20%ED%85%8C%EC%8A%A4%ED%8A%B8.md)
++ [소프트웨어 설계](https://github.com/jungmincha/petshouse/blob/master/%EC%86%8C%ED%94%84%ED%8A%B8%EC%9B%A8%EC%96%B4%20%EC%84%A4%EA%B3%84.md)
+
 
 ## 조원
 + [김유진](https://github.com/chiroxxx)
