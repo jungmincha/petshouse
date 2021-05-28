@@ -5,40 +5,39 @@
 그리하여 반려동물 시장 규모 확대에 따른 정보 및 의사소통이 원활한 커뮤니티와 다양한 반려동물의 용품을 판매할 수 있는 쇼핑몰을 제작하고자 프로젝트를 시작했습니다.
 ## 기간
 2021.03.02 - 2021.05.06
-## 기술 소개
-**ERD** <br><img src="https://user-images.githubusercontent.com/68797467/119214522-7445eb00-bb02-11eb-882c-3fea200bb299.png">
 ## 사용 언어
 **FrontEnd**
-+ JQuery
-+ BootStrap
-+ AJAX
-+ JSON
-+ CSS
-+ CKEditor 4
-+ JavaScript
-+ HTML
++ JQuery , BootStrap
++ AJAX , JSON
++ CSS , CKEditor 4
++ JavaScript , HTML
 + JSP
 
 **BackEnd**
-+ Spring Boot
-+ Tomcat
++ Spring Boot , Tomcat
 + Java
 
 **DataBase**
-+ oracle
-+ MyBatis
++ oracle , MyBatis
 
 **API**
-+ KakaoMap
-+ 도로명주소api
-+ 부트페이
++ KakaoMap , GeolocationAPI
++ 도로명주소API , 부트페이
 
 **Tool**
-+ Eclipse
-+ Sql Developer
-+ Github
-+ SourceTree
-<img src="https://user-images.githubusercontent.com/74960637/119973712-c7320d80-bfee-11eb-91c9-6ef5f7ffc01b.PNG">
++ Eclipse , Sql Developer
++ Github , SourceTree
+
+**나의 역할**
++ 위치기반 API를 통해 "펫츠타운" 페이지를 기획 및 개발 하였습니다.
++ 펫츠타운 페이지의 CRUD를 구현했습니다.
++ 스토어 상품을 카테고리별로 분류했습니다.
++ 이미지 업로드 및 좋아요 기능을 구현했습니다.
++ 매출액 , 방문자수를 일별 월별 연도별로 조회하는 관리자-통계 페이지를 구현했습니다.
+
+**펫츠 타운**
+
+<img src="https://user-images.githubusercontent.com/74960637/119973712-c7320d80-bfee-11eb-91c9-6ef5f7ffc01b.PNG" width="800px" height="500px">
 
 
 **Contributors**
