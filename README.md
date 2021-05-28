@@ -13,11 +13,9 @@
 <img src="https://user-images.githubusercontent.com/74960637/120010316-f610a980-c017-11eb-9066-c6136b3bb38c.png" width="800px" height="500px">
 <br><br>
 
-
 ## ERD
 <img src="https://user-images.githubusercontent.com/74960637/119997177-6b757d80-c00a-11eb-9427-7464d1152208.png" width="800px" height="500px">
 <br><br>
-
 
 ## 나의 역할
 + 위치기반 API를 통해 "펫츠타운" 페이지를 기획 및 개발 하였습니다.
@@ -25,7 +23,6 @@
 + 스토어 상품을 카테고리별로 분류했습니다.
 + 이미지 업로드 및 좋아요 기능을 구현했습니다.
 + 매출액 , 방문자수를 일별 월별 연도별로 조회하는 관리자-통계 페이지를 구현했습니다.
-
 
 <br><br>
 ## 스토어-카테고리
@@ -60,7 +57,6 @@
 + 방문자 통계는 접속시 발생하는 세션id를 통해 구현했습니다.
 + 세션의 유효기간 주기를 30분으로 설정했습니다. 
 <br><br>
-
 
 ## 링크
 + [테스트 문서](https://github.com/jungmincha/petshouse/blob/master/%ED%8E%AB%EC%B8%A0%ED%95%98%EC%9A%B0%EC%8A%A4%20%ED%85%8C%EC%8A%A4%ED%8A%B8.md)
