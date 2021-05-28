@@ -91,7 +91,7 @@ public interface AdminMapper {
 	public void updateCheck(BoardVO boardVO);
  
 
-	// 조회수 어쩔거임
+	// 조회수
 	public void hit(int board_id);
 	// 글 수정하기
 	public void modify(BoardVO boardVO);
@@ -99,7 +99,7 @@ public interface AdminMapper {
 	// 공지사항 페이징 처리 리스트 출력
 	public List<BoardVO> getNoticeWithPaging(Criteria cri);
 		
-	// 공지사항 페이징 처리용 토탈카운트,,,,
+	// 공지사항 페이징 처리용 토탈카운트
 	public int getNoticeTotalCount(Criteria cri);
 	
 	//공지사항 특정 글 보기
@@ -117,25 +117,29 @@ public interface AdminMapper {
 	//공지사항 글 수정
 	public void nodify(BoardVO boardVO);
 
+	//공지사항 글 사진 
 	public List<ImageVO> getNoticeImg(int board_id);
 	
+	//공지사항 이미지 삽입
 	public void NoticeImgInput(ImageVO imageVO);
 	
+	//공지사항 글 번호 가져오기(사진)
 	public BoardVO getNoticeBoard_id();
 	
-	public BoardVO getboardInfo1(int board_id);
-
-	public BoardVO getBoard1(int board_id);
+	//글 정보
+	public BoardVO getNoticeInfo(int board_id);
+	public BoardVO getNoticeBoard(int board_id);
 	
+	//이미지 삭제,수정
 	public void ImgModify(ImageVO imageVO);
+	public void imgboardDelete(int board_id);
 
+	// 리뷰 리스트
+	public List<BoardVO> getReviewList(BoardVO boardVO, Criteria cri);
+	//리뷰 이미지
+	public ImageVO getReviewImg(int board_id);
+	
 
-	   public ImageVO getReviewImg(int board_id);
-	   
-		// 리뷰 리스트
-		public List<BoardVO> getReviewList(BoardVO boardVO, Criteria cri);
-
-		public void imgboardDelete(int board_id);
 
 	
 

@@ -203,12 +203,14 @@ public class AdminServiceImpl implements AdminService {
 		mapper.memberDelete(member_id);
 	}
 
+	
 	//  조회수
 	@Override
 	public void hit(int board_id) {
 		mapper.hit(board_id);
 	}
-	// 질문과 답변 글 수정하기
+	
+	//글 수정하기
 	@Override
 	public void modify(BoardVO boardVO) {
 		log.info("mapper.modify()호출");
@@ -222,7 +224,6 @@ public class AdminServiceImpl implements AdminService {
 		return mapper.getNoticeWithPaging(cri);
 	}
 	
-
 	// 공지사항 페이징 처리용 토탈카운트
 	@Override
 	public int getNoticeTotal(Criteria cri) {
@@ -230,6 +231,7 @@ public class AdminServiceImpl implements AdminService {
 		return mapper.getNoticeTotalCount(cri);
 	}
 	
+	//공지사항 특정글
 	@Override
 	public BoardVO getNoticeView(int board_id) {
 		log.info("mapper.getNoticeView()");
@@ -240,77 +242,76 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public void writeNotice(BoardVO boardVO) {
 		log.info("mapper.writeNotice()호출");
-		mapper.writeNotice(boardVO);
-		
+		mapper.writeNotice(boardVO);	
 	}
 	
+	//공지사항 삭제
 	@Override
 	public void noticeDelete(int board_id) {
 		mapper.noticeImgDelete(board_id);
 		mapper.noticeDelete(board_id);
 	}
-	
 
-
-
+	//공지사항 수정
 	@Override
 	public void nodify(BoardVO boardVO) {
 		log.info("mapper.modify()호출");
 		mapper.modify(boardVO);
 	}
 
+	//공지사항 이미지 가져오기
 	@Override
 	public List<ImageVO> getNoticeImg(int board_id) {
 		log.info("getNoticeImg");
 		return mapper.getNoticeImg(board_id);
 	}
 
+	//공지사항 이미지 삽입
 	@Override
 	public void NoticeImgInput(ImageVO imageVO) {
 		log.info("NoticeImgInput");
 		mapper.NoticeImgInput(imageVO);
 	}
 	
+	//이미지 때문에 글 번호가져오기
 	@Override
 	public BoardVO getNoticeBoard_id() {
 		log.info("getNoticeBoard_id");
 		return mapper.getNoticeBoard_id();
 	}
 	
+	
 	@Override
-	public BoardVO getBoardInfo1(int board_id) {
-
-		return mapper.getboardInfo1(board_id);
+	public BoardVO getNoticeInfo(int board_id) {
+		log.info("getNoticeInfo");
+		return mapper.getNoticeInfo(board_id);
 	}
 
 	@Override
-	public BoardVO getBoard1(int board_id) {
-
-		return mapper.getBoard1(board_id);
+	public BoardVO getNoticeBoard(int board_id) {
+		log.info("getNoticeBoard");
+		return mapper.getNoticeBoard(board_id);
 	}
 
-
+	//이미지 수정
 	@Override
 	public void ImgModify(ImageVO imageVO) {
-
+		log.info("ImgModify");
 		mapper.ImgModify(imageVO);
 	}
 
-	   // 질문과 답변 댓글 가져오기
-	   @Override
-	   public List<BoardVO> getReviewList(BoardVO boardVO, Criteria cri) {
-	      log.info("getReviewList()");
-	      return mapper.getReviewList(boardVO,cri);
-	   }
+	// 리뷰 가져오기
+	@Override
+	public List<BoardVO> getReviewList(BoardVO boardVO, Criteria cri) {
+		log.info("getReviewList()");
+		return mapper.getReviewList(boardVO, cri);
+	}
 
-	   // 질문과 답변 댓글 가져오기
-	   @Override
-	   public ImageVO getReviewImg(int board_id) {
-	      log.info("getReviewImg()");
-	      return mapper.getReviewImg(board_id);
-	   }
+	// 리뷰 이미지 가져오기
+	@Override
+	public ImageVO getReviewImg(int board_id) {
+		log.info("getReviewImg()");
+		return mapper.getReviewImg(board_id);
+	}
 
-	
-	   
-
-}
+} //end

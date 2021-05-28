@@ -171,54 +171,51 @@
 		]]>
 	</select>
 
-<!-- 카테고리별 리스트  -->
-	
+	<!-- 카테고리별 리스트  -->
 	<select id="getTipsCategory" resultMap="imagevo">
-
-			 <![CDATA[ 
-			 	SELECT * FROM (
-			  		   SELECT ROWNUM AS RNUM, A.* FROM (
+	 <![CDATA[ 
+			SELECT * FROM (
+			  	SELECT ROWNUM AS RNUM, A.* FROM (
 		 		    select i.imgname,b.board_id, b.title, b.content, b.pdate,b.hit, b.pgroup,b.pstep, b.hashtag, m.member_id, m.nickname, b.boardtype_id, c.category_id, c.categoryname 
 		 		    from image i, board b, member m, category c 
 		 		    where b.category_id=c.category_id and c.category_id=#{imageVO.boardVO.categoryVO.category_id} and m.member_id = b.member_id 
 				 	and i.board_id=b.board_id and b.boardtype_id=5 and pstep=0 order by b.pdate desc
  				)A WHERE ROWNUM <= #{cri.pageNum} * 12
-					) WHERE RNUM > (#{cri.pageNum}-1) * 12  
- 			]]>
- 			
+			) WHERE RNUM > (#{cri.pageNum}-1) * 12  
+ 	]]>		
 	</select>
 	
-		<!-- 카테고리별 노하우 총 개수 -->
+	<!-- 카테고리별 노하우 총 개수 -->
 	<select id="getTipsCatetotal" resultType="int">
-			<![CDATA[
-	       			select count(*) as count from board b, category c where boardtype_id=5 and c.category_id = b.category_id and b.category_id=#{boardVO.categoryVO.category_id} group by board_id
-	  		 ]]> 
+	<![CDATA[
+	    select count(*) as count from board b, category c where boardtype_id=5 and c.category_id = b.category_id and b.category_id=#{boardVO.categoryVO.category_id} group by board_id
+	]]> 
 	</select>
 
 	<!-- 노하우 총 개수 -->
 	<select id="getTipsCount" resultType="imagevo">
-		<![CDATA[
-	          select count(*) as count from board b, image i  where b.board_id=i.board_id and b.boardtype_id=5 and b.pstep=0 group by b.board_id
-	   ]]>
+	<![CDATA[
+	    select count(*) as count from board b, image i  where b.board_id=i.board_id and b.boardtype_id=5 and b.pstep=0 group by b.board_id
+	]]>
 	</select>
 	
 	<!-- 노하우 특정글 -->
 	<select id="getboardInfo" resultMap="boardvo">
-		 <![CDATA[ 
-			select * from Board where board_id = #{board_id} and boardtype_id=5
-		]]>
+	<![CDATA[ 
+		select * from Board where board_id = #{board_id} and boardtype_id=5
+	]]>
 	</select>
 
 	<!-- 노하우 특정글 -->
 	<select id="getBoard" resultMap="boardvo">
-		 <![CDATA[ 
-   		 	 select * from board b, member m, category c  where b.category_id = c.category_id and b.member_id = m.member_id and b.board_id = #{board_id}  and b.boardtype_id=5
-		]]>
+	<![CDATA[ 
+   		 select * from board b, member m, category c  where b.category_id = c.category_id and b.member_id = m.member_id and b.board_id = #{board_id}  and b.boardtype_id=5
+	]]>
 	</select>
 
 	<!--노하우 인기 리스트 끌고오는거 -->
 	<select id="getTipsRate" resultMap="imagevo">
-	   <![CDATA[
+	<![CDATA[
 	     select * from(
 		        select rownum as rnum, A.*from (
 				select i.imgname, b.board_id, b.title, substr(b.content, 1, 10) as content,b.plike, b.pdate,b.hit, m.thumbnail,b.pgroup,b.pstep, b.hashtag, m.member_id, m.nickname, b.boardtype_id, c.category_id, c.categoryname 
@@ -228,8 +225,8 @@
 				and b.category_id =  c.category_id
 	    		and b.boardtype_id= 5 and b.pstep=0 order by b.plike desc	 
 	    		  ) A where rownum <= 10
-		      )where rnum > 0 			
-	   ]]>
+		   )where rnum > 0 			
+	]]>
 	</select>
 
 	<!-- 노하우 글쓰기 -->
@@ -262,19 +259,19 @@
 			       (select pgroup from board where board_id=#{board_id}) and pstep=1 order by b.pdate desc
 			    ) A WHERE ROWNUM <= #{cri.amount}
 			) WHERE RNUM > 0
-		]]>
+	]]>
 	</select>
 
 	<!-- 노하우 댓글 작성 후 ajax로 출력 -->
 	<select id="getTipsComment" resultMap="boardvo">
-   <![CDATA[
+    <![CDATA[
 	 select board_id, nickname, pgroup, thumbnail, content, pdate from (select b.board_id, m.nickname, m.thumbnail, b.pgroup, b.content, b.pdate from board b, member m where b.member_id=m.member_id and boardtype_id= 5 and pgroup = (select pgroup from board where board_id=#{board_id}) and pstep=1 order by b.pdate desc) where rownum=1
-   ]]>
+    ]]>
 	</select>
 
 	<!-- 노하우 댓글 작성 -->
 	<insert id="insertTipsComment">
-		<![CDATA[
+	<![CDATA[
 		insert into board(board_id,content, pgroup, pstep,member_id, boardtype_id )
 		values (board_seq.nextval,#{content}, #{pgroup}, 1, #{memberVO.member_id}, 5)
 	]]>
@@ -282,22 +279,22 @@
 
 	<!-- 노하우 댓글 카운트 -->
 	<select id="tcount" resultType="int">
-		<![CDATA[
-	         select count(*) as count  from board where boardtype_id= 5 and pgroup = (select pgroup from board where board_id=#{board_id}) and pstep=1 order by content
-	  	 ]]>
+	<![CDATA[
+	    select count(*) as count  from board where boardtype_id= 5 and pgroup = (select pgroup from board where board_id=#{board_id}) and pstep=1 order by content
+	]]>
 	</select>
 
 	<!--노하우 사진 때문에 -->
 	<select id="getTipsBoard_id" resultType="boardvo">
-		 <![CDATA[
-  			 select * from (select * from board where boardtype_id=5 and pstep=0 order by pdate desc) where rownum=1
-	 	]]>
+	<![CDATA[
+  		select * from (select * from board where boardtype_id=5 and pstep=0 order by pdate desc) where rownum=1
+	]]>
 	</select>
 
 
 	<!-- 질문과답변 메인 페이지 -->
 	<select id="getQnaList" resultMap="boardvo">
-		<![CDATA[		
+	<![CDATA[		
 		SELECT * FROM (
 			     SELECT ROWNUM AS RNUM, A.* FROM (
 			     	select b.board_id, b.title, substr(b.content, 1, 150) as content, b.pdate,b.hit, b.pgroup,b.pstep, b.hashtag, m.member_id, m.nickname, b.boardtype_id, c.category_id, c.categoryname 
@@ -307,89 +304,87 @@
     				and b.boardtype_id= 4 and b.pstep=0 order by board_id desc
 			    ) A WHERE ROWNUM <= #{pageNum} * #{amount}
 			) WHERE RNUM > (#{pageNum}-1) * #{amount}  
-		]]>
+	]]>
 	</select>
 
 	<!-- 질문과 답변 특정 글 -->
 	<select id="getQnaInfo" resultMap="boardvo">
-		 <![CDATA[ 
-			select * from Board where board_id = #{board_id} and boardtype_id=4
-		]]>
-
+	<![CDATA[ 
+		select * from Board where board_id = #{board_id} and boardtype_id=4
+	]]>
 	</select>
 
 	<!-- 질문과 답변 특정 글 -->
 	<select id="getQnaBoard" resultMap="boardvo">
-		 <![CDATA[ 
-   		 	 select * from board b, member m, category c  where b.category_id = c.category_id and b.member_id = m.member_id and b.board_id = #{board_id}  and b.boardtype_id=4
-		]]>
+	<![CDATA[ 
+   		select * from board b, member m, category c  where b.category_id = c.category_id and b.member_id = m.member_id and b.board_id = #{board_id}  and b.boardtype_id=4
+	]]>
 	</select>
 
 	<!-- 질문과 답변 카테고리에 해당하는 글 끌고오기 -->
 	<select id="getPetQna" resultMap="boardvo"> 
- 		<![CDATA[
-			select b.board_id, b.title, b.content, b.pdate,b.hit, b.pgroup, b.pstep, b.category_id,b.hashtag, m.member_id, m.nickname, b.boardtype_id, c.category_id, c.categoryname
+ 	<![CDATA[
+		select b.board_id, b.title, b.content, b.pdate,b.hit, b.pgroup, b.pstep, b.category_id,b.hashtag, m.member_id, m.nickname, b.boardtype_id, c.category_id, c.categoryname
 			from  board b , member m, category c
 			where b.member_id = m.member_id
 			and b.category_id =  c.category_id
     		and b.boardtype_id= 4 and b.pstep=0 and c.category_id=#{category_id} order by board_id desc
 			  
- 		]]>
+ 	]]>
 	</select>
 
 	<!-- 질문과답변 검색 -->
 	<select id="getQnasearch" resultMap="boardvo">
-   		<![CDATA[
-   			select b.board_id, b.title, substr(b.content, 1, 150) as content, b.pdate,b.hit, b.pgroup,b.pstep, b.hashtag, m.member_id, m.nickname, b.boardtype_id 
-   			from board b, member m where b.member_id=m.member_id and b.content like '%'||#{keyword}||'%' and b.boardtype_id='4' and b.pstep='0' or b.member_id=m.member_id and b.title like '%'||#{keyword}||'%' and b.boardtype_id='4' and b.pstep='0' order by b.pdate desc
-   		]]>
+   	<![CDATA[
+   		select b.board_id, b.title, substr(b.content, 1, 150) as content, b.pdate,b.hit, b.pgroup,b.pstep, b.hashtag, m.member_id, m.nickname, b.boardtype_id 
+   		from board b, member m where b.member_id=m.member_id and b.content like '%'||#{keyword}||'%' and b.boardtype_id='4' and b.pstep='0' or b.member_id=m.member_id and b.title like '%'||#{keyword}||'%' and b.boardtype_id='4' and b.pstep='0' order by b.pdate desc
+    ]]>
 	</select>
 	
-		<!-- 질문과 답변 검색 카운트 -->
+	<!-- 질문과 답변 검색 카운트 -->
 	<select id="qscount" resultType="int">
-		<![CDATA[
-	         select count(*) as count  	
-	         from  board 
-			 where content like '%'||#{keyword}||'%' and pstep='0' and boardtype_id='4' or title like '%'||#{keyword}||'%' and boardtype_id='4'
-	  	 ]]>
+	<![CDATA[
+	    select count(*) as count from  board 
+	    where content like '%'||#{keyword}||'%' and pstep='0' and boardtype_id='4' or title like '%'||#{keyword}||'%' and boardtype_id='4'
+	 ]]>
 	</select> 
 
 	<!-- 질문과 답변 글쓰기 (이미지 추가해야함) -->
 	<insert id="writeQna" parameterType="boardvo">
-		<![CDATA[
-			insert into board(board_id, title, content, pdate,hit, pgroup, pstep, hashtag, member_id, boardtype_id , category_id)
-			values (board_seq.nextval, #{title}, #{content}, sysdate, 0, board_seq.currval, 0,  #{hashtag}, #{memberVO.member_id}, 4 , #{categoryVO.category_id})
- 		]]>
+	<![CDATA[
+		insert into board(board_id, title, content, pdate,hit, pgroup, pstep, hashtag, member_id, boardtype_id , category_id)
+		values (board_seq.nextval, #{title}, #{content}, sysdate, 0, board_seq.currval, 0,  #{hashtag}, #{memberVO.member_id}, 4 , #{categoryVO.category_id})
+ 	]]>
 	</insert>
 
 	<!-- 질문과답변 태그 -->
 	<select id="getQnatag" resultMap="boardvo">
-   		<![CDATA[
-  			 select * from board where hashtag like '%'||#{keyword}||'%' and boardtype_id='4' and pstep=0 
-		     or hashtag like '%'||#{keyword}||'%' and boardtype_id='5' and pstep='0' 
-			 or hashtag like '%'||#{keyword}||'%' and boardtype_id='2' and pstep='0' order by pdate desc   
-   		]]>
+   	<![CDATA[
+  	     select * from board where hashtag like '%'||#{keyword}||'%' and boardtype_id='4' and pstep=0 
+		 or hashtag like '%'||#{keyword}||'%' and boardtype_id='5' and pstep='0' 
+		 or hashtag like '%'||#{keyword}||'%' and boardtype_id='2' and pstep='0' order by pdate desc   
+   	]]>
 	</select>
 
 	<!-- 질문과답변 토탈카운트 페이징 처리하려고 데려옴.. -->
 	<select id="getTotalCount" resultType="int">
-		<![CDATA[	
-			select count(*) from board where boardtype_id= 4 and pstep=0
-		]]>
+	<![CDATA[	
+		select count(*) from board where boardtype_id= 4 and pstep=0
+	]]>
 	</select>
 
 
 
 	<!-- 댓글 작성 후 ajax로 출력 -->
 	<select id="getComment" resultMap="boardvo">
-   <![CDATA[
-	 select board_id, nickname, pgroup, content, pdate,thumbnail  from (select b.board_id, m.nickname,m.thumbnail, b.pgroup, b.content, b.pdate from board b, member m where b.member_id=m.member_id and boardtype_id= 4 and pgroup = (select pgroup from board where board_id=#{board_id}) and pstep=1 order by b.pdate desc) where rownum=1
-   ]]>
+    <![CDATA[
+	 	select board_id, nickname, pgroup, content, pdate,thumbnail  from (select b.board_id, m.nickname,m.thumbnail, b.pgroup, b.content, b.pdate from board b, member m where b.member_id=m.member_id and boardtype_id= 4 and pgroup = (select pgroup from board where board_id=#{board_id}) and pstep=1 order by b.pdate desc) where rownum=1
+    ]]>
 	</select>
 
 	<!-- 질문과 답변 댓글 작성 -->
 	<insert id="insertComment">
-		<![CDATA[
+	<![CDATA[
 		insert into board(board_id,content, pgroup, pstep,member_id, boardtype_id )
 		values (board_seq.nextval,#{content}, #{pgroup}, 1, #{memberVO.member_id}, 4)
 	]]>
@@ -403,167 +398,152 @@
 			       select b.board_id, b.content, m.member_id,m.thumbnail, m.nickname, b.pdate from board b, member m where b.member_id=m.member_id and boardtype_id= 4 and pgroup = 
 			       (select pgroup from board where board_id=#{board_id}) and pstep=1 order by b.pdate desc
 			    ) A WHERE ROWNUM <= #{cri.amount}
-			) WHERE RNUM > 0
-		]]>
-		
+		) WHERE RNUM > 0
+	]]>
 	</select>
 
 	<!-- 질문과 답변 댓글 카운트 -->
 	<select id="qcount" resultType="int">
-		<![CDATA[
-	         select count(*) as count  from board where boardtype_id= 4 and pgroup = (select pgroup from board where board_id=#{board_id}) and pstep=1 order by content
-	  	 ]]>
+	<![CDATA[
+	   select count(*) as count  from board where boardtype_id= 4 and pgroup = (select pgroup from board where board_id=#{board_id}) and pstep=1 order by content
+	]]>
 	</select>
 
 	<!-- 질문과 답변 사진 때문에 -->
 	<select id="getQnaBoard_id" resultType="boardvo">
-		 <![CDATA[
-  			 select * from (select * from board where boardtype_id=4 and pstep=0 order by pdate desc) where rownum=1
-	 	]]>
+	<![CDATA[
+  		select * from (select * from board where boardtype_id=4 and pstep=0 order by pdate desc) where rownum=1
+	]]>
 	</select>
 	
-		<!-- 질답 리스트 댓글 카운트 -->
-	
+	<!-- 질답 리스트 댓글 카운트 -->
 	<select id="countComment" resultMap="boardvo">
-	
-			<![CDATA[
-	          		select pgroup , count(*) as count from board where boardtype_id= 4 and pstep=1 group by pgroup
-	  		 ]]>
-	  	 
+	<![CDATA[
+	     select pgroup , count(*) as count from board where boardtype_id= 4 and pstep=1 group by pgroup
+	]]>  	 
 	</select>
-	
-
 
 	<!-- 공통 -->
 
-
-
 	<!--노하우, 질답 글 삭제 -->
 	<delete id="delete">
-		<![CDATA[
-			delete from board where pgroup=#{board_id} 
-		]]>
+	<![CDATA[
+		delete from board where pgroup=#{board_id} 
+	]]>
 	</delete>
 
 	<delete id="ImgDelete">
-		<![CDATA[
-			delete from image where board_id = #{boardVO.board_id} 
-		]]>
+	<![CDATA[
+		delete from image where board_id = #{boardVO.board_id} 
+	]]>
 	</delete>
 
 	<!-- 댓글 삭제 -->
 	<select id="deleteComment">
-  		<![CDATA[
-   		 delete from board where board_id = #{board_id}
-   		]]>
+  	<![CDATA[
+   		delete from board where board_id = #{board_id}
+   	]]>
 	</select>
 
 	<!-- 이미지 가져오기 -->
 	<select id="getImg" resultMap="imagevo">
-		<![CDATA[ 
-      		select * from image where board_id=#{boardVO.board_id}
-		]]>
+	<![CDATA[ 
+      	select * from image where board_id=#{boardVO.board_id}
+	]]>
 	</select>
 
 	<!--노하우, 질문과 답변 글 이미지 삽입 -->
 	<insert id="ImgInput" parameterType="imagevo">
- 		<![CDATA[
-   			INSERT INTO IMAGE(img_id, imgname, board_id) VALUES (image_seq.nextval, #{imgname}, #{boardVO.board_id})
-		 ]]>
+ 	<![CDATA[
+   		INSERT INTO IMAGE(img_id, imgname, board_id) VALUES (image_seq.nextval, #{imgname}, #{boardVO.board_id})
+	]]>
 	</insert>
 
 	<!-- 노하우, 질답 글 수정 -->
 	<select id="modify">
-		<![CDATA[
-			update board set title=#{title},content=#{content},hashtag=#{hashtag}, category_id=#{categoryVO.category_id} where board_id = #{board_id}
-		]]>
+	<![CDATA[
+		update board set title=#{title},content=#{content},hashtag=#{hashtag}, category_id=#{categoryVO.category_id} where board_id = #{board_id}
+	]]>
 	</select>
 
 	<!-- 노하우, 질답 조회수 -->
 	<select id="hit" resultType="int"> 
- 		<![CDATA[ 
- 			update board set hit = hit + 1 where board_id = #{board_id} 	
- 		]]>
+ 	<![CDATA[ 
+ 		update board set hit = hit + 1 where board_id = #{board_id} 	
+ 	]]>
 	</select>
 
 
 	
 	<!-- 현재 닉네임 -->
 	<select id="getPresetnNickname" resultType="String">
-   <![CDATA[
-     select nickname from member where member_id=#{member_id}
-   ]]>
+    <![CDATA[
+        select nickname from member where member_id=#{member_id}
+    ]]>
 	</select>
 	
 	<!-- 좋아요 mapper start -->
 
 	<!-- 좋아요 수 조회 -->
 	<select id="getLiketotal" resultType="int">
-		<![CDATA[
+	<![CDATA[
 	      select count(*) from plike where board_id = #{boardVO.board_id}
-	   ]]>
+	]]>
 	</select>
 
 
 	<!-- 좋아요 유무 체크 -->
 	<select id="isLike" resultType="int">
-		<![CDATA[
-	        select count(*) from plike where board_id=#{boardVO.board_id} and member_id=#{memberVO.member_id}
-	   ]]>
+	<![CDATA[
+	    select count(*) from plike where board_id=#{boardVO.board_id} and member_id=#{memberVO.member_id}
+	]]>
 	</select>
 
 
 	<!-- 좋아요 리스트 조회 -->
 	<select id="getLikelist" resultMap="plikevo">
-		<![CDATA[
-		 select p.member_id , m.nickname from plike p , member m where p.member_id = m.member_id and board_id = #{boardVO.board_id}
-	        
-	   ]]>
+	<![CDATA[
+		select p.member_id , m.nickname from plike p , member m where p.member_id = m.member_id and board_id = #{boardVO.board_id}       
+	]]>
 	</select>
 
 
 	<!-- 좋아요 -->
 	<insert id="like">
-		<![CDATA[
-	        insert into plike values(plike_seq.nextval, #{boardVO.board_id}, #{memberVO.member_id})
-	   ]]>
+	<![CDATA[
+	    insert into plike values(plike_seq.nextval, #{boardVO.board_id}, #{memberVO.member_id})
+	]]>
 	</insert>
 
 	<!-- 좋아요 취소 -->
 	<select id="likecancel">
-		<![CDATA[
-	         delete from plike where board_id=#{boardVO.board_id} and member_id=#{memberVO.member_id}
-	   ]]>
+	<![CDATA[
+	    delete from plike where board_id=#{boardVO.board_id} and member_id=#{memberVO.member_id}
+	]]>
 	</select>
 
 	<!-- 전체 좋아요 출력 -->
 	<select id="getLikeprint" resultMap="plikevo">
-		<![CDATA[
-	       	select board_id ,count(*) as count from plike group by board_id
-	   ]]>
+	<![CDATA[
+	   	select board_id ,count(*) as count from plike group by board_id
+	]]>
 	</select>
 
 	<!-- plike board테이블에 입력 -->
 	<select id="insertplike">
- 	  <![CDATA[
-  	    update board set plike = plike+1 WHERE board_id=#{board_id}
+ 	 <![CDATA[
+  	      update board set plike = plike+1 WHERE board_id=#{board_id}
   	 ]]>
 	</select>
 
 
 	<!-- plike board테이블에 삭제 -->
 	<select id="deleteplike">
-  		 <![CDATA[
-    	  update board set plike = plike-1 WHERE board_id=#{board_id}
-  		 ]]>
+  	<![CDATA[
+    	update board set plike = plike-1 WHERE board_id=#{board_id}
+  	]]>
 	</select>
-
-
+	
 	<!-- 좋아요 mapper end -->
 	
-
-
-
-
-
 </mapper>

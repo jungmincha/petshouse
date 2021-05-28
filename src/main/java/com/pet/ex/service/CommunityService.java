@@ -16,6 +16,7 @@ public interface CommunityService {
 	
 	// 질문과 답변 메인 페이지 리스트
 	public List<BoardVO> getQnaList(Criteria cri);	
+	
 	// 질문과 답변 특정글
 	public BoardVO getQnaInfo(int board_id);
 	public BoardVO getQnaBoard(int board_id);
@@ -41,7 +42,6 @@ public interface CommunityService {
 	// 질문과 답변 태그
 	public List<BoardVO> getQnatag(String keyword);
 	public int qscount(String keyword);
-
 
 	public List<BoardVO> countComment(BoardVO boardVO);
 	
@@ -102,9 +102,6 @@ public interface CommunityService {
 	public void hit(int board_id);
 
 	public void ImgInput(ImageVO imageVO);
-	
-	
-	
 
 	public String getPresetnNickname(String member_id);
 
@@ -129,10 +126,9 @@ public interface CommunityService {
 	//board테이블의 plike 숫자 감소
 	public void deleteplike(BoardVO boardVO);
 
-	
-	  public List<ImageVO> getTipsCategory(ImageVO imageVO, Criteria cri);
-	  
-	  public List<BoardVO> getTipsCatetotal(ImageVO imageVO);
+	public List<ImageVO> getTipsCategory(ImageVO imageVO, Criteria cri);
+
+	public List<BoardVO> getTipsCatetotal(ImageVO imageVO);
 	 
 
 	

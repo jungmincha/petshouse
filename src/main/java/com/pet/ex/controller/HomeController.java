@@ -33,6 +33,7 @@ public class HomeController {
 	@RequestMapping("/home")
 	public ModelAndView home(ModelAndView mav) {
 		log.info("/");
+		
 		mav.setViewName("home/home");
 
 		return mav;
@@ -90,11 +91,13 @@ public class HomeController {
 	@PostMapping("/goodsmorelist")
 	public Map<String, Object> goodslist(@RequestParam("keyword") String keyword, Criteria cri) {
 		log.info("morelist");
+		
 		Map<String, Object> list = new HashMap<>();
 		List<BoardVO> rate = service.getStorerate(cri);
 		List<BoardVO> moregoods = service.getMoreGoods(keyword, cri);
 		list.put("rate", rate);
 		list.put("moregoods", moregoods);
+		
 		return list;
 	}
 	
@@ -102,13 +105,14 @@ public class HomeController {
 	public ModelAndView moresns(@RequestParam("keyword") String keyword, ModelAndView mav, BoardVO boardVO, Criteria cri)
 			throws Exception {
 		log.info("moresns()실행");
+		
 		int scount = service.scount(keyword);
 		mav.addObject("scount", scount);
-		System.out.println(keyword);
 		mav.addObject("snscount", service.getSnsCount(keyword)); 
 		mav.addObject("ccount", service.countComment(boardVO)); //댓글 수
 		mav.addObject("moresns", service.getMoreSns(keyword,cri));
 		mav.setViewName("/home/moresns");
+		
 		return mav;
 	}
 	
@@ -116,12 +120,14 @@ public class HomeController {
 	@PostMapping("/snsmorelist")
 	public Map<String, Object> snslist(@RequestParam("keyword") String keyword, BoardVO boardVO,Criteria cri) {
 		log.info("snslist");
+		
 		Map<String, Object> list = new HashMap<>();
 		List<ImageVO> moresns = service.getMoreSns(keyword, cri);
 		List<BoardVO> ccount = service.countComment(boardVO);
 		list.put("snscount", service.getSnsCount(keyword));
 		list.put("moresns", moresns);
 		list.put("ccount", ccount);
+		
 		return list;
 	}
 
@@ -129,11 +135,12 @@ public class HomeController {
 	public ModelAndView moreqna(@RequestParam("keyword") String keyword, ModelAndView mav, BoardVO boardVO, Criteria cri)
 			throws Exception {
 		log.info("moreqna()실행");
+		
 		int qcount = service.qcount(keyword);
 		mav.addObject("qcount", qcount);
-		System.out.println(keyword);
 		mav.addObject("moreqna", service.getMoreQna(keyword,cri));
 		mav.setViewName("/home/moreqna");
+		
 		return mav;
 	}
 
@@ -142,12 +149,13 @@ public class HomeController {
 	public ModelAndView moretips(@RequestParam("keyword") String keyword, ModelAndView mav,Criteria cri)
 			throws Exception {
 		log.info("moretips()실행");
-		System.out.println(keyword);
+		
 		int tcount = service.tcount(keyword);
 		mav.addObject("tcount", tcount);
 		mav.addObject("tipscount", service.getTipsCount(keyword)); 
 		mav.addObject("moretips", service.getMoreTips(keyword,cri));
 		mav.setViewName("/home/moretips");
+		
 		return mav;
 	}
 	
@@ -155,10 +163,12 @@ public class HomeController {
 	@PostMapping("/tipsmorelist")
 	public Map<String, Object> tipslist(@RequestParam("keyword") String keyword, Criteria cri) {
 		log.info("morelist");
+		
 		Map<String, Object> list = new HashMap<>();
 		List<ImageVO> moretips = service.getMoreTips(keyword, cri);
 		list.put("moretips", moretips);
 		list.put("tipscount", service.getTipsCount(keyword));
+		
 		return list;
 	}
 

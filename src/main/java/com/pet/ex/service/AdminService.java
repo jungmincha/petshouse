@@ -71,7 +71,7 @@ public interface AdminService {
 	public void memberDelete(String member_id);
 	
  
-	// 조회수 어쩔거임
+	// 조회수
 	public void hit(int board_id);
 	
 	// 질문과 답변 글 수정하기
@@ -105,10 +105,10 @@ public interface AdminService {
 	public BoardVO getNoticeBoard_id();
 
 	//공지사항 글
-	public BoardVO getBoard1(int board_id);
+	public BoardVO getNoticeBoard(int board_id);
 	
 	//공지사항 글	
-	public BoardVO getBoardInfo1(int board_id);
+	public BoardVO getNoticeInfo(int board_id);
 	
 	public void ImgModify(ImageVO imageVO);
 

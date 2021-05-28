@@ -399,15 +399,15 @@
 
 	<!-- 공지 글 수정 -->
 	<select id="modify">
-		<![CDATA[
-			update board set title=#{title},content=#{content} where board_id = #{board_id}
-		]]>
+	<![CDATA[
+		update board set title=#{title},content=#{content} where board_id = #{board_id}
+	]]>
 	</select>
 	
 	<!-- 공지 조회수 -->
 	<select id="hit" resultType="int"> 
  	<![CDATA[ 
- 	update board set hit = hit + 1 where board_id = #{board_id} 	
+ 		update board set hit = hit + 1 where board_id = #{board_id} 	
  	]]>
 	</select>
 	
@@ -422,7 +422,7 @@
 		
 	<!-- 공지사항 페이징처리용 -->
 	<select id="getNoticeWithPaging" resultMap="boardvo">
-		<![CDATA[		
+	<![CDATA[		
 		SELECT * FROM (
 			     SELECT ROWNUM AS RNUM, A.* FROM (
 			     	select b.board_id, b.title, b.content, b.pdate,b.hit, b.pgroup,b.pstep, b.hashtag, m.member_id, m.nickname, b.boardtype_id
@@ -431,19 +431,19 @@
     				and b.boardtype_id= 1 order by b.pdate desc
 			    ) A WHERE ROWNUM <= #{pageNum} * #{amount}
 			) WHERE RNUM > (#{pageNum}-1) * #{amount}  
-		]]>
+	]]>
 	</select>
 
-	<!-- 공지사항 토탈카운트 페이징 처리하려고 데려옴.. -->
+	<!-- 공지사항 토탈카운트 페이징 -->
 	<select id="getNoticeTotalCount" resultType="int">
-		<![CDATA[	
+	<![CDATA[	
 		select count(*) from board 
 		where 
 		boardtype_id= 1
-		]]>
+	]]>
 	</select>
 	
-		<!-- 공지사항 글쓰기 (이미지 추가해야함) -->
+	<!-- 공지사항 글쓰기 -->
 	<insert id="writeNotice" parameterType="boardvo">
 	<![CDATA[
 		insert into board(board_id, title, content, pdate,hit, pgroup, member_id, boardtype_id )
@@ -451,26 +451,28 @@
  	]]>
 	</insert>
 	
+	<!-- 공지사항 삭제-->
 	<delete id="noticeDelete" parameterType="boardvo">
-	   <![CDATA[
-	     	delete from board where board_id = #{board_id} 
-	   ]]>
+	<![CDATA[
+	     delete from board where board_id = #{board_id} 
+	]]>
 	</delete>
 	
+	<!-- 공지사항 이미지 삭제-->
 	<delete id="noticeImgDelete" parameterType="boardvo">
-	   <![CDATA[
-	     	delete from image where board_id =#{board_id} 
-	   ]]>
+	<![CDATA[
+	    delete from image where board_id =#{board_id} 
+	]]>
 	</delete>
 	
-		<!--공지사항 특정글 출력 -->
+	<!--공지사항 특정글 출력 -->
 	<select id="getNoticeView" resultMap="boardvo">
-   <![CDATA[
+    <![CDATA[
 		select b.board_id, b.title, b.content, b.pdate,b.hit, b.pgroup,b.pstep ,b.hashtag, m.member_id, m.nickname, b.boardtype_id 
 		from board b, member m
 		where b.member_id= m.member_id
 		and b.board_id=#{board_id}
-   ]]>
+    ]]>
 	</select>
 	
 	<select id="getNoticeImg" resultMap="imagevo"> 
@@ -479,62 +481,55 @@
 	]]>
 	</select>
 	
-		<insert parameterType="imagevo" id="NoticeImgInput">
-
- 		<![CDATA[
-   			INSERT INTO IMAGE(img_id, imgname, board_id) VALUES (image_seq.nextval, #{imgname}, #{boardVO.board_id})
-	 	]]>
+	<insert id="NoticeImgInput" parameterType="imagevo">
+	<![CDATA[
+   		INSERT INTO IMAGE(img_id, imgname, board_id) VALUES (image_seq.nextval, #{imgname}, #{boardVO.board_id})
+	]]>
 	</insert>
 	
-		<select id="getNoticeBoard_id" resultType="boardvo">
-		 <![CDATA[
-  			select * from (select * from board where boardtype_id=1 order by pdate desc) where rownum=1
-	 	]]>
-	</select>
-	
-	
-	<select id="getboardInfo1" resultMap="boardvo">
-
-		 <![CDATA[ 
-			select * from Board where board_id = #{board_id} 
-		]]>
-
+	<select id="getNoticeBoard_id" resultType="boardvo">
+	<![CDATA[
+  		select * from (select * from board where boardtype_id=1 order by pdate desc) where rownum=1
+	]]>
 	</select>
 
-	<select id="getBoard1" resultMap="boardvo">
-
-		 <![CDATA[ 
-   		 	 select * from board b, member m where b.member_id = m.member_id and b.board_id = #{board_id}  and b.boardtype_id=1
-		]]>
+	<select id="getNoticeInfo" resultMap="boardvo">
+	<![CDATA[ 
+		select * from Board where board_id = #{board_id} 
+	]]>
 	</select>
-	
-	
-	<!-- 상품수정 -->
+
+	<select id="getNoticeBoard" resultMap="boardvo">
+	<![CDATA[ 
+   		 select * from board b, member m where b.member_id = m.member_id and b.board_id = #{board_id}  and b.boardtype_id=1
+	]]>
+	</select>
+
+	<!--이미지 수정 -->
 	<update id="ImgModify"  parameterType="imagevo">
-		<![CDATA[
-	    	update  image set imgname = #{imgname} where board_id = #{boardVO.board_id} 
-		]]>
+	<![CDATA[
+	   update  image set imgname = #{imgname} where board_id = #{boardVO.board_id} 
+	]]>
 	</update>
 	
     <!--리뷰 출력 -->
    <select id="getReviewList" resultMap="boardvo">
    <![CDATA[		
-   SELECT * FROM (
-			     SELECT ROWNUM AS RNUM, A.* FROM (
+   		SELECT * FROM (
+			 SELECT ROWNUM AS RNUM, A.* FROM (
                select b.title, b.content,b.ratescore,b.pdate, m.nickname,m.thumbnail, m.member_id,b.goods_id 
-                from  board b, member m where m.member_id=b.member_id  and b.boardtype_id= 8 and b.goods_id = #{boardVO.goodsVO.goods_id}
+               from  board b, member m where m.member_id=b.member_id  and b.boardtype_id= 8 and b.goods_id = #{boardVO.goodsVO.goods_id}
                order by b.pdate desc
                			    ) A WHERE ROWNUM <= #{cri.amount}
-			) WHERE RNUM > 0
-         
+			) WHERE RNUM > 0    
    ]]>
    </select>
    
-   <!--리뷰 이미지   -->
+   <!--리뷰 이미지-->
    <select id="getReviewImg" resultMap="imagevo">
-      <![CDATA[
+   <![CDATA[
       select * from board b, image i  where b.goods_id = i.goods_id and b.board_id=#{boardVO.board_id} and  b.boardtype_id=8
-      ]]>
+   ]]>
    </select>
 
 </mapper>
