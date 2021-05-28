@@ -35,7 +35,15 @@
 + 이미지 업로드 및 좋아요 기능을 구현했습니다.
 + 매출액 , 방문자수를 일별 월별 연도별로 조회하는 관리자-통계 페이지를 구현했습니다.
 
-**펫츠 타운**
+
+
+
+
+## 스토어-카테고리
+<img src="https://user-images.githubusercontent.com/74960637/119977928-f39c5880-bff3-11eb-9ee7-020110de33f2.PNG" width="800px" height="500px">
+
+## 커뮤니티-펫츠타운
+
 
 <img src="https://user-images.githubusercontent.com/74960637/119973712-c7320d80-bfee-11eb-91c9-6ef5f7ffc01b.PNG" width="800px" height="500px">
 
