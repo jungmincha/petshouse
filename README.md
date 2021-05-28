@@ -2,12 +2,25 @@
 <br clear="left">
 <br>
 ## 목적
-1~2인 가구 증가, 저출산 및 고령화로 인한 반려동물 양육 인구가 급증하면서 다양화 된 반려동물의 종류에 비해 관련 정보는 부족하고, 고양이와 강아지에 치우친 펫시장으로 인해 반려동물용품을 구입하기에 어려움이 있었습니다.<br>
+1~2인 가구 증가, 저출산 및 고령화로 인한 반려동물 양육 인구가 급증하면서 다양화 된 반려동물의 종류에 비해 관련 정보는 부족하고,<br> 고양이와 강아지에 치우친 펫시장으로 인해 반려동물용품을 구입하기에 어려움이 있었습니다.<br>
 그리하여 반려동물 시장 규모 확대에 따른 정보 및 의사소통이 원활한 커뮤니티와 다양한 반려동물의 용품을 판매할 수 있는 쇼핑몰을 제작하고자 프로젝트를 시작했습니다.
 <br><br>
 ## 기간
 2021.03.02 - 2021.05.07
 <br><br>
+
+## 개발 환경
+<img src="https://user-images.githubusercontent.com/74960637/120010316-f610a980-c017-11eb-9066-c6136b3bb38c.png" width="800px" height="500px">
+<br><br>
+
+
+
+## ERD
+<img src="https://user-images.githubusercontent.com/74960637/119997177-6b757d80-c00a-11eb-9427-7464d1152208.png" width="800px" height="500px">
+<br><br>
+
+
+
 ## 나의 역할
 + 위치기반 API를 통해 "펫츠타운" 페이지를 기획 및 개발 하였습니다.
 + 펫츠타운 페이지의 CRUD를 구현했습니다.
@@ -51,12 +64,10 @@
 + 방문자 수는 HttpSessionListener를 상속받아 방문자의 세션id를 통해 구현했습니다.
 + 세션의 유효기간 주기를 30분으로 설정했습니다. 
 <br><br>
-## ERD
-<img src="https://user-images.githubusercontent.com/74960637/119997177-6b757d80-c00a-11eb-9427-7464d1152208.png" width="800px" height="500px">
-<br><br>
+
 
 ## 링크
-+ [펫츠하우스 테스트](https://github.com/jungmincha/petshouse/blob/master/%ED%8E%AB%EC%B8%A0%ED%95%98%EC%9A%B0%EC%8A%A4%20%ED%85%8C%EC%8A%A4%ED%8A%B8.md)
++ [테스트 문서](https://github.com/jungmincha/petshouse/blob/master/%ED%8E%AB%EC%B8%A0%ED%95%98%EC%9A%B0%EC%8A%A4%20%ED%85%8C%EC%8A%A4%ED%8A%B8.md)
 + [소프트웨어 설계](https://github.com/jungmincha/petshouse/blob/master/%EC%86%8C%ED%94%84%ED%8A%B8%EC%9B%A8%EC%96%B4%20%EC%84%A4%EA%B3%84.md)
 
 
