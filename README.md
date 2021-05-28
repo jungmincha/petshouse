@@ -55,15 +55,7 @@
 <img src="https://user-images.githubusercontent.com/74960637/119997177-6b757d80-c00a-11eb-9427-7464d1152208.png" width="800px" height="500px">
 <br><br>
 
-## 시퀀스다이어그램
-<img src="https://user-images.githubusercontent.com/74960637/119998541-c22f8700-c00b-11eb-9bb1-441dc4aff515.png" width="800px" height="500px">
-<br><br>
-
-## 유스케이스다이어그램
-<img src="https://user-images.githubusercontent.com/74960637/119998728-f30fbc00-c00b-11eb-9441-658e1bd0fa85.png" width="800px" height="500px">
-
-<br><br>
-
+## 링크
 + [펫츠하우스 테스트](https://github.com/jungmincha/petshouse/blob/master/%ED%8E%AB%EC%B8%A0%ED%95%98%EC%9A%B0%EC%8A%A4%20%ED%85%8C%EC%8A%A4%ED%8A%B8.md)
 + [소프트웨어 설계](https://github.com/jungmincha/petshouse/blob/master/%EC%86%8C%ED%94%84%ED%8A%B8%EC%9B%A8%EC%96%B4%20%EC%84%A4%EA%B3%84.md)
 
