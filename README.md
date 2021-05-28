@@ -4,29 +4,7 @@
 1~2인 가구 증가, 저출산 및 고령화로 인한 반려동물 양육 인구가 급증하면서 다양화 된 반려동물의 종류에 비해 관련 정보는 부족하고, 고양이와 강아지에 치우친 펫시장으로 인해 반려동물용품을 구입하기에 어려움이 있었습니다.<br>
 그리하여 반려동물 시장 규모 확대에 따른 정보 및 의사소통이 원활한 커뮤니티와 다양한 반려동물의 용품을 판매할 수 있는 쇼핑몰을 제작하고자 프로젝트를 시작했습니다.
 ## 기간
-2021.03.02 - 2021.05.06
-## 사용 언어
-**FrontEnd**
-+ JQuery , BootStrap
-+ AJAX , JSON
-+ CSS , CKEditor 4
-+ JavaScript , HTML
-+ JSP
-
-**BackEnd**
-+ Spring Boot , Tomcat
-+ Java
-
-**DataBase**
-+ oracle , MyBatis
-
-**API**
-+ KakaoMap , GeolocationAPI
-+ 도로명주소API , 부트페이
-
-**Tool**
-+ Eclipse , Sql Developer
-+ Github , SourceTree
+2021.03.02 - 2021.05.07
 
 ## 나의 역할
 + 위치기반 API를 통해 "펫츠타운" 페이지를 기획 및 개발 하였습니다.
@@ -42,9 +20,12 @@
 ## 스토어-카테고리
 <img src="https://user-images.githubusercontent.com/74960637/119977928-f39c5880-bff3-11eb-9ee7-020110de33f2.PNG" width="800px" height="500px">
 
++ 반려동물 상품을 카테고리(동물별)로 분류할 수 있으며 가격순, 리뷰순, 별점순으로도 정렬할 수 있습니다.
++ 해당 상품을 클릭하면 상품페이지 창으로 이동하며 결제 할 수 있습니다.  
++ 페이지 전환은 AJAX를 사용해 비동기 처리 하였습니다. 
+
+
 ## 커뮤니티-펫츠타운
-
-
 <img src="https://user-images.githubusercontent.com/74960637/119973712-c7320d80-bfee-11eb-91c9-6ef5f7ffc01b.PNG" width="800px" height="500px">
 
 
